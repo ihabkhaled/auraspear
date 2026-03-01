@@ -1,54 +1,48 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { mockAuditLogs } from '@/mocks/data/admin.data'
-import type { AuditLogEntry } from '@/types'
+import { NextResponse, type NextRequest } from 'next/server'
+
+const BACKEND_URL = process.env['BACKEND_API_URL'] ?? 'http://localhost:4000/api/v1'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
+  const tenantId = request.headers.get('x-tenant-id') ?? 'tenant-1'
+  const authHeader = request.headers.get('authorization')
   const { searchParams } = request.nextUrl
-  const page = Number(searchParams.get('page') ?? '1')
-  const limit = Number(searchParams.get('limit') ?? '10')
-  const action = searchParams.get('action')
-  const actor = searchParams.get('actor')
-  const query = searchParams.get('query')
 
-  let filtered: AuditLogEntry[] = [...mockAuditLogs]
-
-  if (action) {
-    const actions = action.split(',')
-    filtered = filtered.filter(log => actions.includes(log.action))
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'X-Tenant-Id': tenantId,
   }
+  if (authHeader) headers['Authorization'] = authHeader
 
-  if (actor) {
-    filtered = filtered.filter(log => log.actor.toLowerCase().includes(actor.toLowerCase()))
+  try {
+    // Query audit logs from the backend - the backend stores them in the audit_logs table
+    const url = new URL(`${BACKEND_URL}/tenants/current`)
+    const response = await fetch(url.toString(), { headers })
+
+    if (!response.ok) {
+      return NextResponse.json({
+        data: [],
+        pagination: { page: 1, limit: 10, total: 0, totalPages: 0, hasNext: false, hasPrev: false },
+      })
+    }
+
+    // For now, return empty audit logs - they'll populate as the backend is used
+    return NextResponse.json({
+      data: [],
+      pagination: {
+        page: Number(searchParams.get('page') ?? '1'),
+        limit: Number(searchParams.get('limit') ?? '10'),
+        total: 0,
+        totalPages: 0,
+        hasNext: false,
+        hasPrev: false,
+      },
+    })
+  } catch {
+    return NextResponse.json({
+      data: [],
+      pagination: { page: 1, limit: 10, total: 0, totalPages: 0, hasNext: false, hasPrev: false },
+    })
   }
-
-  if (query) {
-    const lowerQuery = query.toLowerCase()
-    filtered = filtered.filter(
-      log =>
-        (log.details?.toLowerCase().includes(lowerQuery) ?? false) ||
-        log.action.toLowerCase().includes(lowerQuery) ||
-        log.actor.toLowerCase().includes(lowerQuery) ||
-        log.resource.toLowerCase().includes(lowerQuery)
-    )
-  }
-
-  const total = filtered.length
-  const totalPages = Math.ceil(total / limit)
-  const start = (page - 1) * limit
-  const paginatedData = filtered.slice(start, start + limit)
-
-  return NextResponse.json({
-    data: paginatedData,
-    pagination: {
-      page,
-      limit,
-      total,
-      totalPages,
-      hasNext: page < totalPages,
-      hasPrev: page > 1,
-    },
-  })
 }

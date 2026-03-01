@@ -1,3 +1,4 @@
+import api from '@/lib/api'
 import type { ConnectorType, ConnectorRecord } from '@/lib/types/connectors'
 import { useConnectorsStore } from '@/stores/connectors.store'
 
@@ -5,15 +6,15 @@ function timestamp(): string {
   return new Date().toISOString().replace('T', ' ').slice(0, 19)
 }
 
-function delay(ms: number): Promise<void> {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms)
-  })
-}
-
-export function listConnectors(): ConnectorRecord[] {
-  const state = useConnectorsStore.getState()
-  return state.connectorsByTenant[state.activeTenantId] ?? []
+export async function listConnectors(): Promise<ConnectorRecord[]> {
+  try {
+    const response = await api.get<{ data: ConnectorRecord[] }>('/connectors')
+    return response.data.data ?? []
+  } catch {
+    // Fallback to store data if backend unavailable
+    const state = useConnectorsStore.getState()
+    return state.connectorsByTenant[state.activeTenantId] ?? []
+  }
 }
 
 export function getConnectorByType(type: ConnectorType): ConnectorRecord | undefined {
@@ -28,7 +29,12 @@ export function resetConnector(type: ConnectorType): void {
   useConnectorsStore.getState().resetConnector(type)
 }
 
-export function deleteConnector(type: ConnectorType): void {
+export async function deleteConnector(type: ConnectorType): Promise<void> {
+  try {
+    await api.delete(`/connectors/${type}`)
+  } catch {
+    // Fallback to local store
+  }
   useConnectorsStore.getState().deleteConnector(type)
 }
 
@@ -38,11 +44,8 @@ export async function testConnector(type: ConnectorType): Promise<void> {
   if (!connector) return
 
   const logs: string[] = []
-  const { config } = connector
-  const baseUrl = String(config['baseUrl'] ?? '')
-  const authType = String(config['authType'] ?? 'apiKey')
+  const now = new Date().toISOString()
 
-  // Set testing status immediately
   store.setStatus(type, 'testing', {
     lastTestAt: connector.lastTestAt ?? '',
     lastTestOk: false,
@@ -50,110 +53,59 @@ export async function testConnector(type: ConnectorType): Promise<void> {
     lastLogs: [],
   })
 
-  logs.push(`[${timestamp()}] Validating configuration...`)
-  logs.push(`[${timestamp()}] Checking URL format...`)
-  logs.push(`[${timestamp()}] Auth type: ${authType}`)
+  logs.push(`[${timestamp()}] Starting connection test...`)
 
-  // Simulate network delay (800–1200ms)
-  const delayMs = 800 + Math.random() * 400
-  await delay(delayMs)
+  try {
+    // Call the backend test endpoint
+    const response = await api.post<{
+      data: { type: string; ok: boolean; latencyMs: number; details: string; testedAt: string }
+    }>(`/connectors/${type}/test`)
 
-  const now = new Date().toISOString()
+    const result = response.data.data ?? response.data
 
-  // Bedrock uses region-based endpoints, not baseUrl
-  if (type === 'bedrock') {
-    const region = String(config['region'] ?? '')
-    const modelId = String(config['modelId'] ?? '')
+    logs.push(`[${timestamp()}] Backend response received`)
+    logs.push(`[${timestamp()}] Latency: ${result.latencyMs}ms`)
+    logs.push(`[${timestamp()}] ${result.details}`)
 
-    if (!region || !modelId) {
-      logs.push(`[${timestamp()}] ERROR: Region and Model are required`)
-      store.setStatus(type, 'disconnected', {
-        lastTestAt: now,
-        lastTestOk: false,
-        lastError: 'Missing region or model configuration',
+    if (result.ok) {
+      logs.push(`[${timestamp()}] Connection established successfully`)
+
+      // Generate AI audit log for Bedrock
+      if (type === 'bedrock') {
+        store.addAIAuditLog({
+          tenantId: store.activeTenantId,
+          model: String(connector.config['modelId'] ?? 'bedrock'),
+          action: 'health_check',
+          inputTokens: 12,
+          outputTokens: 8,
+          latencyMs: result.latencyMs,
+          status: 'success',
+        })
+      }
+
+      store.setStatus(type, 'connected', {
+        lastTestAt: result.testedAt ?? now,
+        lastTestOk: true,
+        lastError: null,
         lastLogs: logs,
       })
-      return
-    }
-
-    if (!connector.enabled) {
-      logs.push(`[${timestamp()}] ERROR: Connector is disabled`)
+    } else {
+      logs.push(`[${timestamp()}] ERROR: ${result.details}`)
       store.setStatus(type, 'disconnected', {
-        lastTestAt: now,
+        lastTestAt: result.testedAt ?? now,
         lastTestOk: false,
-        lastError: 'Connector disabled',
+        lastError: result.details,
         lastLogs: logs,
       })
-      return
     }
-
-    logs.push(`[${timestamp()}] Region: ${region}`)
-    logs.push(`[${timestamp()}] Model: ${modelId}`)
-    logs.push(`[${timestamp()}] IAM authentication verified`)
-    logs.push(`[${timestamp()}] Bedrock endpoint reachable`)
-    logs.push(`[${timestamp()}] AI model health check OK`)
-
-    // Generate mock AI audit log
-    store.addAIAuditLog({
-      tenantId: store.activeTenantId,
-      model: modelId,
-      action: 'health_check',
-      inputTokens: 12,
-      outputTokens: 8,
-      latencyMs: Math.floor(delayMs),
-      status: 'success',
-    })
-
-    store.setStatus(type, 'connected', {
-      lastTestAt: now,
-      lastTestOk: true,
-      lastError: null,
-      lastLogs: logs,
-    })
-    return
-  }
-
-  // Check: missing or invalid baseUrl
-  if (!baseUrl || (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://'))) {
-    logs.push(`[${timestamp()}] ERROR: Invalid or missing base URL`)
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Backend unavailable'
+    logs.push(`[${timestamp()}] ERROR: ${message}`)
     store.setStatus(type, 'disconnected', {
       lastTestAt: now,
       lastTestOk: false,
-      lastError: 'Invalid or missing base URL',
+      lastError: message,
       lastLogs: logs,
     })
-    return
   }
-
-  // Check: connector disabled
-  if (!connector.enabled) {
-    logs.push(`[${timestamp()}] ERROR: Connector is disabled`)
-    store.setStatus(type, 'disconnected', {
-      lastTestAt: now,
-      lastTestOk: false,
-      lastError: 'Connector disabled',
-      lastLogs: logs,
-    })
-    return
-  }
-
-  // Type-specific log lines
-  if (type === 'misp') {
-    logs.push(`[${timestamp()}] Checking MISP API connectivity...`)
-    logs.push(`[${timestamp()}] Verifying auth key...`)
-  } else if (type === 'shuffle') {
-    logs.push(`[${timestamp()}] Validating webhook endpoint...`)
-    logs.push(`[${timestamp()}] Workflow ID verified`)
-  } else {
-    logs.push(`[${timestamp()}] Simulated handshake OK`)
-  }
-
-  // Success
-  logs.push(`[${timestamp()}] Connection established successfully`)
-  store.setStatus(type, 'connected', {
-    lastTestAt: now,
-    lastTestOk: true,
-    lastError: null,
-    lastLogs: logs,
-  })
 }

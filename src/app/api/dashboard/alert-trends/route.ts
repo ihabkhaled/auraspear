@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server'
-import { mockAlertTrends } from '@/mocks/data/dashboard.data'
+import { type NextRequest } from 'next/server'
+import { proxyToBackend } from '@/lib/backend-proxy'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET() {
-  return NextResponse.json({ data: mockAlertTrends })
+export async function GET(request: NextRequest) {
+  return proxyToBackend(request, { path: '/dashboards/alert-trend' })
 }

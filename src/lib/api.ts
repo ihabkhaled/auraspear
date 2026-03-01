@@ -8,11 +8,17 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(config => {
-  const tenantId =
-    typeof window === 'undefined'
-      ? 'tenant-1'
-      : (localStorage.getItem('currentTenantId') ?? 'tenant-1')
-  config.headers['X-Tenant-Id'] = tenantId
+  if (typeof window === 'undefined') {
+    config.headers['X-Tenant-Id'] = 'tenant-1'
+  } else {
+    const tenantId = localStorage.getItem('currentTenantId') ?? 'tenant-1'
+    config.headers['X-Tenant-Id'] = tenantId
+
+    const token = localStorage.getItem('auth-token')
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`
+    }
+  }
   return config
 })
 
