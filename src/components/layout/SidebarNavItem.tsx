@@ -12,6 +12,7 @@ interface SidebarNavItemProps {
   active?: boolean | undefined
   badge?: number | undefined
   collapsed?: boolean | undefined
+  onClick?: (() => void) | undefined
 }
 
 export function SidebarNavItem({
@@ -21,10 +22,12 @@ export function SidebarNavItem({
   active,
   badge,
   collapsed,
+  onClick,
 }: SidebarNavItemProps) {
   const content = (
     <Link
       href={href}
+      {...(onClick ? { onClick } : {})}
       className={cn(
         'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
         active

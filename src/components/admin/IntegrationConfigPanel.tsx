@@ -4,13 +4,8 @@ import { CheckCircle, XCircle, Loader2, Settings } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { IntegrationStatus } from '@/enums'
 import { cn } from '@/lib/utils'
-
-enum IntegrationStatus {
-  CONNECTED = 'connected',
-  DISCONNECTED = 'disconnected',
-  ERROR = 'error',
-}
 
 interface IntegrationConfig {
   id: string

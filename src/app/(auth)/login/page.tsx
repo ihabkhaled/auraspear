@@ -8,22 +8,41 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Toast } from '@/components/common'
+import { getErrorKey } from '@/lib/api-error'
+import { authService } from '@/services/auth.service'
+import { useAuthStore, useTenantStore } from '@/stores'
 
 export default function LoginPage() {
   const t = useTranslations('auth')
+  const tErrors = useTranslations()
   const tApp = useTranslations('app')
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const { setTokens, setUser } = useAuthStore()
+  const { setCurrentTenant } = useTenantStore()
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
     setIsLoading(true)
 
-    // Placeholder: no actual auth, just redirect to dashboard
-    setTimeout(() => {
-      document.cookie = 'auth-token=demo; path=/'
-      router.push('/dashboard')
-    }, 500)
+    authService
+      .login(email, password)
+      .then(data => {
+        setTokens(data.accessToken, data.refreshToken)
+        setUser(data.user)
+        setCurrentTenant(data.user.tenantId)
+        router.push('/dashboard')
+      })
+      .catch((error: unknown) => {
+        const key = getErrorKey(error)
+        Toast.error(tErrors(key))
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
@@ -47,19 +66,23 @@ export default function LoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="analyst@auraspear.io"
+                placeholder="admin@aura-finance.io"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 required
               />
             </div>
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">{t('password')}</Label>
-                <button type="button" className="text-primary text-xs hover:underline">
-                  {t('forgotPassword')}
-                </button>
-              </div>
-              <Input id="password" type="password" autoComplete="current-password" required />
+              <Label htmlFor="password">{t('password')}</Label>
+              <Input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+              />
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? t('signingIn') : t('signInButton')}

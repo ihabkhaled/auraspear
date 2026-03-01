@@ -86,6 +86,7 @@
     "searchPlaceholder": "Entrez une requete KQL... (ex. : severity:critical AND agent.name:web-server-01)",
     "savedSearches": "Recherches enregistrees",
     "submit": "Rechercher",
+    "filters": "Filtres",
     "noAlerts": "Aucune alerte trouvee",
     "emptyDescription": "Aucune alerte de securite ne correspond a vos filtres actuels",
     "rule": "Regle",
@@ -123,6 +124,7 @@
     "eventLog": "Journal des evenements",
     "reasoning": "Etapes de raisonnement",
     "chatTitle": "Chat de chasse aux menaces",
+    "resultsTitle": "R\u00e9sultats",
     "noEvents": "Aucun evenement trouve",
     "emptyTitle": "Demarrer une chasse aux menaces",
     "emptyDescription": "Decrivez un scenario de menace pour commencer la chasse",
@@ -189,7 +191,14 @@
     "fieldDescription": "Description",
     "fieldDescriptionPlaceholder": "Decrivez l'incident...",
     "fieldSeverity": "Severite",
-    "fieldAssignee": "Responsable"
+    "fieldAssignee": "Responsable",
+    "noArtifacts": "Aucun artefact",
+    "source": "Source",
+    "copy": "Copier",
+    "lookup": "Rechercher",
+    "artifactIps": "IP",
+    "artifactHashes": "Hachages",
+    "artifactDomains": "Domaines"
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -352,8 +361,11 @@
     "signingIn": "Connexion en cours..."
   },
   "layout": {
+    "openSidebar": "Ouvrir le panneau lat\u00e9ral",
+    "closeSidebar": "Fermer le panneau lat\u00e9ral",
     "collapseSidebar": "Reduire la barre laterale",
     "expandSidebar": "Developper la barre laterale",
+    "theme": "Th\u00e8me",
     "searchPlaceholder": "Rechercher...",
     "searchShortcut": "Rechercher des commandes",
     "commandPaletteTitle": "Palette de commandes",
@@ -369,7 +381,9 @@
     "systemHealth": "Sante du systeme",
     "eventsPerSecond": "EPS",
     "lag": "Latence",
-    "home": "Accueil"
+    "home": "Accueil",
+    "socPlatform": "Plateforme SOC",
+    "socAnalyst": "Analyste SOC"
   },
   "connectors": {
     "title": "Connecteurs",
@@ -443,7 +457,55 @@
     "region": "Region",
     "selectRegion": "Selectionner la region",
     "accessKeyId": "ID de cle d'acces",
-    "secretAccessKey": "Cle d'acces secrete"
+    "secretAccessKey": "Cle d'acces secrete",
+    "testingConnector": "Test de {name} en cours...",
+    "tested": "Teste",
+    "tagPlaceholder": "tag1, tag2, tag3",
+    "urlPlaceholder": "https://...",
+    "testLogs": "Journaux de test",
+    "noTestLogs": "Aucun journal de test. Lancez un test pour voir les resultats.",
+    "statusNotConfigured": "Non configure",
+    "statusConnected": "Connecte",
+    "statusDisconnected": "Deconnecte",
+    "statusTesting": "Test en cours...",
+    "wazuh": {
+      "indexerUrl": "URL de l'Indexeur",
+      "managerUrl": "URL du Manager (optionnel)",
+      "indexerUsername": "Nom d'utilisateur de l'Indexeur",
+      "indexerPassword": "Mot de passe de l'Indexeur",
+      "tenant": "Locataire (optionnel)"
+    },
+    "graylog": {
+      "apiUrl": "URL de l'API",
+      "streamId": "ID du Stream (optionnel)",
+      "indexSetId": "ID de l'Index Set (optionnel)"
+    },
+    "velociraptor": {
+      "apiUrl": "URL de l'API",
+      "orgId": "ID d'Org (optionnel)",
+      "clientCert": "Certificat client",
+      "clientKey": "Cle client"
+    },
+    "grafana": {
+      "url": "URL de Grafana",
+      "folderId": "ID du dossier (optionnel)",
+      "datasourceUid": "UID du Datasource (optionnel)"
+    },
+    "influxdb": {
+      "organization": "Organisation",
+      "bucket": "Bucket",
+      "tokenNote": "InfluxDB utilise l'authentification par jeton. Definissez le Type d'authentification sur \"Jeton porteur\" ci-dessus et fournissez votre jeton InfluxDB."
+    },
+    "mispConfig": {
+      "url": "URL de MISP",
+      "urlPlaceholder": "https://misp.exemple.com",
+      "authKey": "Cle d'authentification"
+    },
+    "shuffleConfig": {
+      "webhookUrl": "URL du Webhook",
+      "workflowId": "ID du Workflow",
+      "apiKey": "Cle API (optionnel)"
+    }
   },
   "language": {
     "label": "Langue",
@@ -454,13 +516,40 @@
     "ar": "Arabe",
     "de": "Allemand"
   },
+  "validation": {
+    "nameRequired": "Le nom est obligatoire",
+    "minTimeout": "Minimum 1 seconde",
+    "maxTimeout": "Maximum 120 secondes",
+    "urlFormat": "L'URL doit commencer par http:// ou https://",
+    "apiKeyRequired": "La cle API est obligatoire",
+    "usernameRequired": "Le nom d'utilisateur est obligatoire",
+    "passwordRequired": "Le mot de passe est obligatoire",
+    "tokenRequired": "Le jeton est obligatoire",
+    "indexerUrlRequired": "L'URL de l'indexeur est obligatoire",
+    "apiUrlRequired": "L'URL de l'API est obligatoire",
+    "grafanaUrlRequired": "L'URL de Grafana est obligatoire",
+    "organizationRequired": "L'organisation est obligatoire",
+    "bucketRequired": "Le bucket est obligatoire",
+    "mispUrlRequired": "L'URL de MISP est obligatoire",
+    "authKeyRequired": "La cle d'authentification est obligatoire",
+    "webhookUrlRequired": "L'URL du webhook est obligatoire",
+    "workflowIdRequired": "L'ID du workflow est obligatoire",
+    "modelRequired": "Le modele est obligatoire",
+    "regionRequired": "La region est obligatoire"
+  },
   "errors": {
     "common": {
       "unknown": "Une erreur inattendue s'est produite",
       "network": "Erreur reseau. Veuillez verifier votre connexion.",
       "unauthorized": "Session expiree. Veuillez vous reconnecter.",
       "forbidden": "Vous n'avez pas la permission d'effectuer cette action.",
-      "notFound": "Ressource introuvable."
+      "notFound": "Ressource introuvable.",
+      "validation": "Veuillez verifier vos informations et reessayer."
+    },
+    "auth": {
+      "invalidCredentials": "Adresse e-mail ou mot de passe incorrect",
+      "tokenExpired": "Votre session a expire. Veuillez vous reconnecter.",
+      "unauthorized": "Vous n'etes pas authentifie. Veuillez vous connecter."
     }
   }
 }

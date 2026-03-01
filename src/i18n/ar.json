@@ -86,6 +86,7 @@
     "searchPlaceholder": "أدخل استعلام KQL...",
     "savedSearches": "عمليات البحث المحفوظة",
     "submit": "بحث",
+    "filters": "عوامل التصفية",
     "noAlerts": "لم يتم العثور على تنبيهات",
     "emptyDescription": "لا توجد تنبيهات أمنية تطابق الفلاتر الحالية",
     "rule": "القاعدة",
@@ -123,6 +124,7 @@
     "eventLog": "سجل الأحداث",
     "reasoning": "خطوات الاستدلال",
     "chatTitle": "محادثة صيد التهديدات",
+    "resultsTitle": "النتائج",
     "noEvents": "لم يتم العثور على أحداث",
     "emptyTitle": "ابدأ صيد التهديدات",
     "emptyDescription": "صف سيناريو تهديد لبدء البحث",
@@ -189,7 +191,14 @@
     "fieldDescription": "الوصف",
     "fieldDescriptionPlaceholder": "صف الحادث...",
     "fieldSeverity": "الخطورة",
-    "fieldAssignee": "المسؤول"
+    "fieldAssignee": "المسؤول",
+    "noArtifacts": "لا توجد قطع أثرية",
+    "source": "المصدر",
+    "copy": "نسخ",
+    "lookup": "بحث",
+    "artifactIps": "عناوين IP",
+    "artifactHashes": "بصمات",
+    "artifactDomains": "نطاقات"
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -352,8 +361,11 @@
     "signingIn": "جارٍ تسجيل الدخول..."
   },
   "layout": {
+    "openSidebar": "فتح الشريط الجانبي",
+    "closeSidebar": "إغلاق الشريط الجانبي",
     "collapseSidebar": "طي الشريط الجانبي",
     "expandSidebar": "توسيع الشريط الجانبي",
+    "theme": "المظهر",
     "searchPlaceholder": "بحث...",
     "searchShortcut": "أوامر البحث",
     "commandPaletteTitle": "لوحة الأوامر",
@@ -369,7 +381,9 @@
     "systemHealth": "صحة النظام",
     "eventsPerSecond": "أحداث/ثانية",
     "lag": "تأخير",
-    "home": "الرئيسية"
+    "home": "الرئيسية",
+    "socPlatform": "منصة SOC",
+    "socAnalyst": "محلل SOC"
   },
   "connectors": {
     "title": "الموصّلات",
@@ -443,7 +457,55 @@
     "region": "المنطقة",
     "selectRegion": "اختر المنطقة",
     "accessKeyId": "معرف مفتاح الوصول",
-    "secretAccessKey": "مفتاح الوصول السري"
+    "secretAccessKey": "مفتاح الوصول السري",
+    "testingConnector": "جاري اختبار {name}...",
+    "tested": "تم الاختبار",
+    "tagPlaceholder": "علامة1، علامة2، علامة3",
+    "urlPlaceholder": "https://...",
+    "testLogs": "سجلات الاختبار",
+    "noTestLogs": "لا توجد سجلات اختبار بعد. قم بتشغيل اختبار لرؤية النتائج.",
+    "statusNotConfigured": "غير مهيأ",
+    "statusConnected": "متصل",
+    "statusDisconnected": "غير متصل",
+    "statusTesting": "جاري الاختبار...",
+    "wazuh": {
+      "indexerUrl": "عنوان URL للمفهرس",
+      "managerUrl": "عنوان URL للمدير (اختياري)",
+      "indexerUsername": "اسم مستخدم المفهرس",
+      "indexerPassword": "كلمة مرور المفهرس",
+      "tenant": "المستأجر (اختياري)"
+    },
+    "graylog": {
+      "apiUrl": "عنوان URL لواجهة API",
+      "streamId": "معرف التدفق (اختياري)",
+      "indexSetId": "معرف مجموعة الفهرس (اختياري)"
+    },
+    "velociraptor": {
+      "apiUrl": "عنوان URL لواجهة API",
+      "orgId": "معرف المنظمة (اختياري)",
+      "clientCert": "شهادة العميل",
+      "clientKey": "مفتاح العميل"
+    },
+    "grafana": {
+      "url": "عنوان URL لـ Grafana",
+      "folderId": "معرف المجلد (اختياري)",
+      "datasourceUid": "معرف مصدر البيانات (اختياري)"
+    },
+    "influxdb": {
+      "organization": "المنظمة",
+      "bucket": "الحاوية",
+      "tokenNote": "يستخدم InfluxDB مصادقة الرمز. قم بتعيين نوع المصادقة إلى \"رمز Bearer\" أعلاه وقدم رمز InfluxDB الخاص بك."
+    },
+    "mispConfig": {
+      "url": "عنوان URL لـ MISP",
+      "urlPlaceholder": "https://misp.example.com",
+      "authKey": "مفتاح المصادقة"
+    },
+    "shuffleConfig": {
+      "webhookUrl": "عنوان URL للويب هوك",
+      "workflowId": "معرف سير العمل",
+      "apiKey": "مفتاح API (اختياري)"
+    }
   },
   "language": {
     "label": "اللغة",
@@ -454,13 +516,40 @@
     "ar": "العربية",
     "de": "الألمانية"
   },
+  "validation": {
+    "nameRequired": "الاسم مطلوب",
+    "minTimeout": "الحد الأدنى ثانية واحدة",
+    "maxTimeout": "الحد الأقصى 120 ثانية",
+    "urlFormat": "يجب أن يبدأ عنوان URL بـ http:// أو https://",
+    "apiKeyRequired": "مفتاح API مطلوب",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "passwordRequired": "كلمة المرور مطلوبة",
+    "tokenRequired": "الرمز مطلوب",
+    "indexerUrlRequired": "عنوان URL للمفهرس مطلوب",
+    "apiUrlRequired": "عنوان URL لواجهة API مطلوب",
+    "grafanaUrlRequired": "عنوان URL لـ Grafana مطلوب",
+    "organizationRequired": "المنظمة مطلوبة",
+    "bucketRequired": "الحاوية مطلوبة",
+    "mispUrlRequired": "عنوان URL لـ MISP مطلوب",
+    "authKeyRequired": "مفتاح المصادقة مطلوب",
+    "webhookUrlRequired": "عنوان URL للويب هوك مطلوب",
+    "workflowIdRequired": "معرف سير العمل مطلوب",
+    "modelRequired": "النموذج مطلوب",
+    "regionRequired": "المنطقة مطلوبة"
+  },
   "errors": {
     "common": {
       "unknown": "حدث خطأ غير متوقع",
       "network": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
       "unauthorized": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.",
       "forbidden": "ليس لديك صلاحية لتنفيذ هذا الإجراء.",
-      "notFound": "لم يتم العثور على المورد."
+      "notFound": "لم يتم العثور على المورد.",
+      "validation": "يرجى التحقق من البيانات المدخلة والمحاولة مرة أخرى."
+    },
+    "auth": {
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "tokenExpired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+      "unauthorized": "أنت غير مصادق. يرجى تسجيل الدخول."
     }
   }
 }

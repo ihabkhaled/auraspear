@@ -1,6 +1,7 @@
 'use client'
 
 import { Shield, KeyRound, Lock } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { ConnectorType } from '@/lib/types/connectors'
@@ -27,30 +28,19 @@ interface SecurityIndicatorsProps {
 }
 
 export function SecurityIndicators({ type }: SecurityIndicatorsProps) {
+  const t = useTranslations('connectors')
   const posture = SECURITY_POSTURE[type]
 
   const indicators = [
-    {
-      label: 'mTLS',
-      enabled: posture.mTLS,
-      icon: Shield,
-    },
-    {
-      label: 'IAM',
-      enabled: posture.iam,
-      icon: KeyRound,
-    },
-    {
-      label: 'Encryption',
-      enabled: posture.encryption,
-      icon: Lock,
-    },
+    { label: t('mTLS'), enabled: posture.mTLS, icon: Shield },
+    { label: t('iam'), enabled: posture.iam, icon: KeyRound },
+    { label: t('encryption'), enabled: posture.encryption, icon: Lock },
   ]
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">Security Posture</CardTitle>
+        <CardTitle className="text-sm">{t('securityPosture')}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-wrap gap-2">
@@ -67,7 +57,7 @@ export function SecurityIndicators({ type }: SecurityIndicatorsProps) {
                 }
               >
                 <Icon className="mr-1 h-3 w-3" />
-                {ind.label}: {ind.enabled ? 'Active' : 'N/A'}
+                {ind.label}: {ind.enabled ? t('active') : t('notApplicable')}
               </Badge>
             )
           })}

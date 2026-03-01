@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect, useMemo } from 'react'
-import { ShieldAlert } from 'lucide-react'
+import { Filter, ShieldAlert } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   KQLSearchBar,
@@ -11,18 +11,12 @@ import {
   AIInvestigationModal,
 } from '@/components/alerts'
 import { PageHeader, DataTable, Pagination, LoadingSpinner, Toast } from '@/components/common'
-import { AlertSeverity } from '@/enums'
+import { Button } from '@/components/ui/button'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { useAlerts, useInvestigateAlert, usePagination, useDebounce } from '@/hooks'
+import { SEVERITY_ORDER } from '@/lib/alert.utils'
 import { useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams } from '@/types'
-
-const SEVERITY_ORDER = [
-  AlertSeverity.CRITICAL,
-  AlertSeverity.HIGH,
-  AlertSeverity.MEDIUM,
-  AlertSeverity.LOW,
-  AlertSeverity.INFO,
-] as const
 
 export default function AlertsPage() {
   const t = useTranslations('alerts')
@@ -124,7 +118,39 @@ export default function AlertsPage() {
     <div className="space-y-4">
       <PageHeader title={t('title')} description={t('description')} />
 
-      <KQLSearchBar value={kqlQuery} onChange={setKqlQuery} onSubmit={handleSearchSubmit} />
+      <div className="flex items-center gap-3">
+        <div className="flex-1">
+          <KQLSearchBar value={kqlQuery} onChange={setKqlQuery} onSubmit={handleSearchSubmit} />
+        </div>
+
+        {/* Mobile filter button */}
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="outline" size="sm" className="xl:hidden">
+              <Filter className="h-4 w-4" />
+              <span className="hidden sm:inline">{t('filters')}</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-80 overflow-y-auto">
+            <SheetHeader>
+              <SheetTitle>{t('filters')}</SheetTitle>
+            </SheetHeader>
+            <div className="py-4">
+              <AlertFilterSidebar
+                timeRange={timeRange}
+                onTimeRangeChange={setTimeRange}
+                selectedSeverities={selectedSeverities}
+                onSeverityChange={setSeverity}
+                severityCounts={severityCounts}
+                agentFilter={agentFilter}
+                onAgentFilterChange={setAgentFilter}
+                ruleGroup={ruleGroup}
+                onRuleGroupChange={setRuleGroup}
+              />
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
 
       <div className="flex gap-6">
         <div className="hidden xl:block">

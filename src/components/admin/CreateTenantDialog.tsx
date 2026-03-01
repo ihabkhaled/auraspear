@@ -21,12 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-enum TenantEnvironment {
-  PRODUCTION = 'production',
-  STAGING = 'staging',
-  DEVELOPMENT = 'development',
-}
+import { TenantEnvironment } from '@/enums'
 
 const createTenantSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100),

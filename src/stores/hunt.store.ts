@@ -1,6 +1,5 @@
 import { create } from 'zustand'
-import { HuntStatus } from '@/enums'
-import { mockHuntSession } from '@/mocks/data/hunt.data'
+import type { HuntStatus } from '@/enums'
 import type { HuntMessage } from '@/types'
 
 interface HuntState {
@@ -14,9 +13,9 @@ interface HuntState {
 }
 
 export const useHuntStore = create<HuntState>(set => ({
-  messages: mockHuntSession.messages,
-  huntStatus: HuntStatus.COMPLETED,
-  huntId: mockHuntSession.id,
+  messages: [],
+  huntStatus: null,
+  huntId: null,
   addMessage: message => set(state => ({ messages: [...state.messages, message] })),
   setHuntStatus: huntStatus => set({ huntStatus }),
   setHuntId: huntId => set({ huntId }),

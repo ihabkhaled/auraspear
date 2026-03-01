@@ -18,6 +18,7 @@ import {
   Brain,
   type LucideIcon,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import {
   ConnectorForm,
@@ -29,7 +30,7 @@ import {
 } from '@/components/connectors'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { testConnector, resetConnector, deleteConnector } from '@/lib/api/connectors.mock'
+import { testConnector, resetConnector, deleteConnector } from '@/lib/api/connectors.api'
 import { isConnectorType, CONNECTOR_META, canEdit, canDelete } from '@/lib/types/connectors'
 import type { ConnectorType } from '@/lib/types/connectors'
 import { formatTimestamp, copyToClipboard } from '@/lib/utils'
@@ -53,6 +54,7 @@ interface ConnectorDetailPageProps {
 export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps) {
   const { type: rawType } = use(params)
   const router = useRouter()
+  const t = useTranslations('connectors')
   const [testing, setTesting] = useState(false)
 
   const role = useConnectorsStore(s => s.role)
@@ -70,13 +72,11 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
       <div className="space-y-4">
         <Button variant="ghost" size="sm" onClick={() => router.push('/connectors')}>
           <ArrowLeft className="mr-1 h-4 w-4" />
-          Back to Connectors
+          {t('backToConnectors')}
         </Button>
         <div className="py-20 text-center">
-          <h3 className="text-lg font-semibold">Connector not found</h3>
-          <p className="text-muted-foreground mt-1 text-sm">
-            The requested connector type does not exist.
-          </p>
+          <h3 className="text-lg font-semibold">{t('connectorNotFound')}</h3>
+          <p className="text-muted-foreground mt-1 text-sm">{t('connectorNotFoundDescription')}</p>
         </div>
       </div>
     )
@@ -88,7 +88,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
 
   const handleTest = async () => {
     setTesting(true)
-    toast.info(`Testing ${meta.label}...`)
+    toast.info(t('testingConnector', { name: meta.label }))
     addAuditLog({
       tenantId: activeTenantId,
       actor: `${role.toLowerCase()}@aura.io`,
@@ -101,9 +101,9 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
     setTesting(false)
     const updated = useConnectorsStore.getState().getByType(type)
     if (updated?.lastTestOk) {
-      toast.success(`${meta.label} connected successfully`)
+      toast.success(`${meta.label} ${t('connectedSuccessfully')}`)
     } else {
-      toast.error(updated?.lastError ?? 'Connection failed')
+      toast.error(updated?.lastError ?? t('connectionFailed'))
     }
   }
 
@@ -117,7 +117,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
       connectorType: type,
       details: `Reset ${meta.label} configuration`,
     })
-    toast.success(`${meta.label} configuration reset`)
+    toast.success(`${meta.label} ${t('configurationReset')}`)
   }
 
   const handleDelete = () => {
@@ -130,22 +130,21 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
       connectorType: type,
       details: `Deleted ${meta.label}`,
     })
-    toast.success(`${meta.label} deleted`)
+    toast.success(`${meta.label} ${t('deleted')}`)
     router.push('/connectors')
   }
 
   const handleCopyJson = async () => {
     await copyToClipboard(JSON.stringify(connector.config, null, 2))
-    toast.success('JSON copied to clipboard')
+    toast.success(t('jsonCopied'))
   }
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="sm" onClick={() => router.push('/connectors')}>
           <ArrowLeft className="mr-1 h-4 w-4" />
-          Back
+          {t('backToConnectors')}
         </Button>
         <div className="flex items-center gap-3">
           <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-lg">
@@ -159,59 +158,47 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
       </div>
 
       <div className="grid gap-6 lg:grid-cols-3">
-        {/* Form - left column */}
         <div className="space-y-6 lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Configuration</CardTitle>
+              <CardTitle className="text-base">{t('configuration')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ConnectorForm key={connector.updatedAt} type={type} connector={connector} />
             </CardContent>
           </Card>
 
-          {/* AI Governance Panel for Bedrock */}
           {type === 'bedrock' && <AIGovernancePanel />}
-
-          {/* Audit Log */}
           <AuditLogViewer />
         </div>
 
-        {/* Sidebar - right column */}
         <div className="space-y-4">
-          {/* Status */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm">Status</CardTitle>
+              <CardTitle className="text-sm">{t('status')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <StatusBadge status={connector.status} />
               {connector.lastTestAt && (
                 <p className="text-muted-foreground text-xs">
-                  Last tested: {formatTimestamp(connector.lastTestAt)}
+                  {t('lastTested')}: {formatTimestamp(connector.lastTestAt)}
                 </p>
               )}
               {connector.lastTestOk !== null && (
                 <p
-                  className={`text-xs ${
-                    connector.lastTestOk
-                      ? 'text-emerald-600 dark:text-emerald-400'
-                      : 'text-destructive'
-                  }`}
+                  className={`text-xs ${connector.lastTestOk ? 'text-emerald-600 dark:text-emerald-400' : 'text-destructive'}`}
                 >
-                  Result: {connector.lastTestOk ? 'Success' : 'Failed'}
+                  {t('result')}: {connector.lastTestOk ? t('success') : t('failed')}
                 </p>
               )}
             </CardContent>
           </Card>
 
-          {/* Security Indicators */}
           <SecurityIndicators type={type} />
 
-          {/* Actions */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-sm">Actions</CardTitle>
+              <CardTitle className="text-sm">{t('actions')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button
@@ -222,7 +209,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                 disabled={testing}
               >
                 <Play className="mr-2 h-3.5 w-3.5" />
-                Test Connection
+                {t('testConnection')}
               </Button>
               <Button
                 className="w-full justify-start"
@@ -231,7 +218,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                 onClick={handleCopyJson}
               >
                 <Copy className="mr-2 h-3.5 w-3.5" />
-                Copy JSON Config
+                {t('copyJsonConfig')}
               </Button>
               {isEditor && (
                 <Button
@@ -241,7 +228,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   onClick={handleReset}
                 >
                   <RotateCcw className="mr-2 h-3.5 w-3.5" />
-                  Reset Configuration
+                  {t('resetConfiguration')}
                 </Button>
               )}
               {isAdmin && (
@@ -252,13 +239,12 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   onClick={handleDelete}
                 >
                   <Trash2 className="mr-2 h-3.5 w-3.5" />
-                  Delete Connector
+                  {t('deleteConnector')}
                 </Button>
               )}
             </CardContent>
           </Card>
 
-          {/* Test Logs */}
           <TestLogs logs={connector.lastLogs} lastError={connector.lastError} />
         </div>
       </div>

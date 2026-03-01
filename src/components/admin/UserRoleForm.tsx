@@ -47,7 +47,7 @@ export function UserRoleForm({
   } = useForm<UserRoleFormValues>({
     resolver: zodResolver(userRoleSchema),
     defaultValues: {
-      role: defaultValues?.role ?? UserRole.VIEWER,
+      role: defaultValues?.role ?? UserRole.SOC_ANALYST_L1,
       permissions: defaultValues?.permissions ?? [],
     },
   })
@@ -65,10 +65,14 @@ export function UserRoleForm({
                 <SelectValue placeholder={t('roles.selectRole')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={UserRole.ADMIN}>{t('roles.admin')}</SelectItem>
-                <SelectItem value={UserRole.ANALYST}>{t('roles.analyst')}</SelectItem>
-                <SelectItem value={UserRole.MANAGER}>{t('roles.manager')}</SelectItem>
-                <SelectItem value={UserRole.VIEWER}>{t('roles.viewer')}</SelectItem>
+                <SelectItem value={UserRole.GLOBAL_ADMIN}>{t('roles.globalAdmin')}</SelectItem>
+                <SelectItem value={UserRole.TENANT_ADMIN}>{t('roles.tenantAdmin')}</SelectItem>
+                <SelectItem value={UserRole.SOC_ANALYST_L2}>{t('roles.socAnalystL2')}</SelectItem>
+                <SelectItem value={UserRole.SOC_ANALYST_L1}>{t('roles.socAnalystL1')}</SelectItem>
+                <SelectItem value={UserRole.THREAT_HUNTER}>{t('roles.threatHunter')}</SelectItem>
+                <SelectItem value={UserRole.EXECUTIVE_READONLY}>
+                  {t('roles.executiveReadonly')}
+                </SelectItem>
               </SelectContent>
             </Select>
           )}

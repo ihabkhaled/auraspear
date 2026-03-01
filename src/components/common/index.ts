@@ -1,3 +1,4 @@
+export { AuthGuard } from './AuthGuard'
 export { DataTable } from './DataTable'
 export { KPICard } from './KPICard'
 export { SeverityBadge } from './SeverityBadge'

@@ -86,6 +86,7 @@
     "searchPlaceholder": "Enter KQL query... (e.g., severity:critical AND agent.name:web-server-01)",
     "savedSearches": "Saved Searches",
     "submit": "Search",
+    "filters": "Filters",
     "noAlerts": "No alerts found",
     "emptyDescription": "No security alerts match your current filters",
     "rule": "Rule",
@@ -123,6 +124,7 @@
     "eventLog": "Event Log",
     "reasoning": "Reasoning Steps",
     "chatTitle": "Threat Hunt Chat",
+    "resultsTitle": "Results",
     "noEvents": "No events found",
     "emptyTitle": "Start a Threat Hunt",
     "emptyDescription": "Describe a threat scenario to begin hunting",
@@ -189,7 +191,14 @@
     "fieldDescription": "Description",
     "fieldDescriptionPlaceholder": "Describe the incident...",
     "fieldSeverity": "Severity",
-    "fieldAssignee": "Assignee"
+    "fieldAssignee": "Assignee",
+    "noArtifacts": "No artifacts",
+    "source": "Source",
+    "copy": "Copy",
+    "lookup": "Lookup",
+    "artifactIps": "IPs",
+    "artifactHashes": "Hashes",
+    "artifactDomains": "Domains"
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -328,6 +337,24 @@
       "noServicesDescription": "Service health data will appear here",
       "loadError": "Failed to load service health"
     },
+    "roles": {
+      "role": "Role",
+      "selectRole": "Select a role",
+      "globalAdmin": "Global Admin",
+      "tenantAdmin": "Tenant Admin",
+      "socAnalystL2": "SOC Analyst L2",
+      "socAnalystL1": "SOC Analyst L1",
+      "threatHunter": "Threat Hunter",
+      "executiveReadonly": "Executive (Read-Only)",
+      "permissions": "Permissions",
+      "roleRequired": "Role is required",
+      "permissionsRequired": "At least one permission is required"
+    },
+    "common": {
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    },
     "audit": {
       "title": "Audit Logs",
       "timestamp": "Timestamp",
@@ -349,11 +376,15 @@
     "forgotPassword": "Forgot password?",
     "welcomeBack": "Welcome back",
     "signInDescription": "Sign in to your security operations center",
-    "signingIn": "Signing in..."
+    "signingIn": "Signing in...",
+    "loginFailed": "Invalid email or password"
   },
   "layout": {
     "collapseSidebar": "Collapse sidebar",
     "expandSidebar": "Expand sidebar",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar",
+    "theme": "Theme",
     "searchPlaceholder": "Search...",
     "searchShortcut": "Search commands",
     "commandPaletteTitle": "Command Palette",
@@ -369,7 +400,9 @@
     "systemHealth": "System Health",
     "eventsPerSecond": "EPS",
     "lag": "Lag",
-    "home": "Home"
+    "home": "Home",
+    "socPlatform": "SOC Platform",
+    "socAnalyst": "SOC Analyst"
   },
   "connectors": {
     "title": "Connectors",
@@ -391,6 +424,7 @@
     "enabled": "enabled",
     "disabled": "disabled",
     "testing": "Testing",
+    "testingConnector": "Testing {name}...",
     "connectedSuccessfully": "connected successfully",
     "connectionFailed": "Connection failed",
     "jsonCopied": "JSON copied to clipboard",
@@ -401,6 +435,7 @@
     "status": "Status",
     "actions": "Actions",
     "lastTested": "Last tested",
+    "tested": "Tested",
     "result": "Result",
     "success": "Success",
     "failed": "Failed",
@@ -420,13 +455,21 @@
     "verifyTLS": "Verify TLS",
     "timeout": "Timeout (seconds)",
     "tags": "Tags (comma-separated)",
+    "tagPlaceholder": "tag1, tag2, tag3",
     "notes": "Notes",
+    "urlPlaceholder": "https://...",
     "securityPosture": "Security Posture",
     "mTLS": "mTLS",
     "iam": "IAM",
     "encryption": "Encryption",
     "active": "Active",
     "notApplicable": "N/A",
+    "testLogs": "Test Logs",
+    "noTestLogs": "No test logs yet. Run a test to see results.",
+    "statusNotConfigured": "Not Configured",
+    "statusConnected": "Connected",
+    "statusDisconnected": "Disconnected",
+    "statusTesting": "Testing...",
     "auditLog": "Connector Audit Log",
     "noAuditEntries": "No audit entries for this tenant.",
     "aiAuditLog": "AI Audit Log",
@@ -443,7 +486,45 @@
     "region": "Region",
     "selectRegion": "Select region",
     "accessKeyId": "Access Key ID",
-    "secretAccessKey": "Secret Access Key"
+    "secretAccessKey": "Secret Access Key",
+    "wazuh": {
+      "indexerUrl": "Indexer URL",
+      "managerUrl": "Manager URL (optional)",
+      "indexerUsername": "Indexer Username",
+      "indexerPassword": "Indexer Password",
+      "tenant": "Tenant (optional)"
+    },
+    "graylog": {
+      "apiUrl": "API URL",
+      "streamId": "Stream ID (optional)",
+      "indexSetId": "Index Set ID (optional)"
+    },
+    "velociraptor": {
+      "apiUrl": "API URL",
+      "orgId": "Org ID (optional)",
+      "clientCert": "Client Certificate",
+      "clientKey": "Client Key"
+    },
+    "grafana": {
+      "url": "Grafana URL",
+      "folderId": "Folder ID (optional)",
+      "datasourceUid": "Datasource UID (optional)"
+    },
+    "influxdb": {
+      "organization": "Organization",
+      "bucket": "Bucket",
+      "tokenNote": "InfluxDB uses token authentication. Set Auth Type to \"Bearer Token\" above and provide your InfluxDB token."
+    },
+    "mispConfig": {
+      "url": "MISP URL",
+      "urlPlaceholder": "https://misp.example.com",
+      "authKey": "Auth Key"
+    },
+    "shuffleConfig": {
+      "webhookUrl": "Webhook URL",
+      "workflowId": "Workflow ID",
+      "apiKey": "API Key (optional)"
+    }
   },
   "language": {
     "label": "Language",
@@ -454,13 +535,40 @@
     "ar": "Arabic",
     "de": "German"
   },
+  "validation": {
+    "nameRequired": "Name is required",
+    "minTimeout": "Min 1 second",
+    "maxTimeout": "Max 120 seconds",
+    "urlFormat": "URL must start with http:// or https://",
+    "apiKeyRequired": "API key is required",
+    "usernameRequired": "Username is required",
+    "passwordRequired": "Password is required",
+    "tokenRequired": "Token is required",
+    "indexerUrlRequired": "Indexer URL is required",
+    "apiUrlRequired": "API URL is required",
+    "grafanaUrlRequired": "Grafana URL is required",
+    "organizationRequired": "Organization is required",
+    "bucketRequired": "Bucket is required",
+    "mispUrlRequired": "MISP URL is required",
+    "authKeyRequired": "Auth key is required",
+    "webhookUrlRequired": "Webhook URL is required",
+    "workflowIdRequired": "Workflow ID is required",
+    "modelRequired": "Model is required",
+    "regionRequired": "Region is required"
+  },
   "errors": {
     "common": {
       "unknown": "An unexpected error occurred",
       "network": "Network error. Please check your connection.",
       "unauthorized": "Session expired. Please sign in again.",
       "forbidden": "You do not have permission to perform this action.",
-      "notFound": "Resource not found."
+      "notFound": "Resource not found.",
+      "validation": "Please check your input and try again."
+    },
+    "auth": {
+      "invalidCredentials": "Invalid email or password",
+      "tokenExpired": "Your session has expired. Please sign in again.",
+      "unauthorized": "You are not authenticated. Please sign in."
     }
   }
 }

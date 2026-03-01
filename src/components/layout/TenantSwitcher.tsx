@@ -10,15 +10,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { UserRole } from '@/enums'
 import { useTenants } from '@/hooks'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 
 export function TenantSwitcher() {
   const t = useTranslations('layout')
   const queryClient = useQueryClient()
   const { currentTenantId, tenants, setCurrentTenant, setTenants } = useTenantStore()
+  const user = useAuthStore(s => s.user)
 
-  const { data: tenantsData } = useTenants()
+  const isGlobalAdmin = user?.role === UserRole.GLOBAL_ADMIN
+  const { data: tenantsData } = useTenants(isGlobalAdmin)
 
   useEffect(() => {
     if (tenantsData?.data && tenantsData.data.length > 0) {
@@ -31,7 +34,8 @@ export function TenantSwitcher() {
     void queryClient.invalidateQueries()
   }
 
-  if (tenants.length === 0) {
+  // Non-global-admin users only have their own tenant — no switcher needed
+  if (!isGlobalAdmin || tenants.length <= 1) {
     return null
   }
 

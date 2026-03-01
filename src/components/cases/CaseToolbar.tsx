@@ -11,19 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { CaseSeverity } from '@/enums'
+import { CaseSeverity, CaseSortField, CaseViewMode } from '@/enums'
 import { cn } from '@/lib/utils'
-
-enum CaseViewMode {
-  BOARD = 'board',
-  LIST = 'list',
-}
-
-enum CaseSortField {
-  CREATED = 'createdAt',
-  UPDATED = 'updatedAt',
-  SEVERITY = 'severity',
-}
 
 interface CaseToolbarProps {
   viewMode: CaseViewMode
@@ -41,8 +30,6 @@ const severityFilters = [
   CaseSeverity.LOW,
 ] as const
 
-export { CaseViewMode, CaseSortField }
-
 export function CaseToolbar({
   viewMode,
   onViewModeChange,
@@ -54,8 +41,8 @@ export function CaseToolbar({
   const t = useTranslations('cases')
 
   return (
-    <div className="flex items-center justify-between gap-4">
-      <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-wrap items-center gap-2">
         <div className="border-border flex items-center rounded-lg border">
           <Button
             variant={viewMode === CaseViewMode.BOARD ? 'default' : 'ghost'}
@@ -77,9 +64,9 @@ export function CaseToolbar({
           </Button>
         </div>
 
-        <div className="bg-border mx-2 h-6 w-px" />
+        <div className="bg-border mx-2 hidden h-6 w-px sm:block" />
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           {severityFilters.map(severity => (
             <button
               key={severity}

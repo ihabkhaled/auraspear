@@ -1,14 +1,31 @@
 import { cookies } from 'next/headers'
 import { Toaster } from 'sonner'
 import { Providers } from './providers'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 const SUPPORTED_LOCALES = ['en', 'es', 'it', 'fr', 'ar', 'de'] as const
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#135bec',
+}
+
 export const metadata: Metadata = {
   title: 'AuraSpear SOC',
   description: 'Security Operations Center',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'AuraSpear SOC',
+  },
+  icons: {
+    apple: '/icons/apple-touch-icon.png',
+  },
 }
 
 export default async function RootLayout({

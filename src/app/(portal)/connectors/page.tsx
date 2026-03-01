@@ -1,6 +1,7 @@
 'use client'
 
 import { RotateCcw, Plug } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/common'
 import { ConnectorCard, AuditLogViewer } from '@/components/connectors'
@@ -20,6 +21,7 @@ import { useConnectorsStore } from '@/stores/connectors.store'
 const ROLES: RBACRole[] = ['Admin', 'SOC_Analyst', 'Viewer']
 
 export default function ConnectorsPage() {
+  const t = useTranslations('connectors')
   const connectorsByTenant = useConnectorsStore(s => s.connectorsByTenant)
   const activeTenantId = useConnectorsStore(s => s.activeTenantId)
   const role = useConnectorsStore(s => s.role)
@@ -31,14 +33,13 @@ export default function ConnectorsPage() {
 
   const handleSeed = () => {
     seedDefaults()
-    toast.success('Demo data restored')
+    toast.success(t('demoDataRestored'))
   }
 
   return (
     <div className="space-y-6">
-      <PageHeader title="Connectors" description="Manage integrations with security tools">
-        <div className="flex items-center gap-2">
-          {/* Tenant Switcher */}
+      <PageHeader title={t('title')} description={t('description')}>
+        <div className="flex flex-wrap items-center gap-2">
           <Select value={activeTenantId} onValueChange={setActiveTenant}>
             <SelectTrigger size="sm" className="w-[160px]">
               <SelectValue />
@@ -52,7 +53,6 @@ export default function ConnectorsPage() {
             </SelectContent>
           </Select>
 
-          {/* Role Switcher */}
           <Select value={role} onValueChange={(v: RBACRole) => setRole(v)}>
             <SelectTrigger size="sm" className="w-[140px]">
               <SelectValue />
@@ -72,7 +72,7 @@ export default function ConnectorsPage() {
 
           <Button variant="outline" size="sm" onClick={handleSeed}>
             <RotateCcw className="mr-1 h-3.5 w-3.5" />
-            Seed Demo Data
+            {t('seedDemoData')}
           </Button>
         </div>
       </PageHeader>
@@ -80,10 +80,8 @@ export default function ConnectorsPage() {
       {connectors.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <Plug className="text-muted-foreground mb-4 h-12 w-12" />
-          <h3 className="text-lg font-semibold">No connectors</h3>
-          <p className="text-muted-foreground mt-1 text-sm">
-            Click &quot;Seed Demo Data&quot; to restore the default connectors.
-          </p>
+          <h3 className="text-lg font-semibold">{t('noConnectors')}</h3>
+          <p className="text-muted-foreground mt-1 text-sm">{t('noConnectorsDescription')}</p>
         </div>
       ) : (
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -93,7 +91,6 @@ export default function ConnectorsPage() {
         </div>
       )}
 
-      {/* Audit Log */}
       <AuditLogViewer />
     </div>
   )

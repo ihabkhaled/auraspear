@@ -6,6 +6,7 @@ import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { CaseStatus } from '@/enums'
+import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
 import { formatDate } from '@/lib/utils'
 import type { Case } from '@/types'
 
@@ -14,12 +15,6 @@ interface CaseDetailHeaderProps {
   onEdit?: () => void
   onDelete?: () => void
   onEscalate?: () => void
-}
-
-const statusVariantMap: Record<CaseStatus, 'default' | 'secondary' | 'outline'> = {
-  [CaseStatus.OPEN]: 'default',
-  [CaseStatus.IN_PROGRESS]: 'secondary',
-  [CaseStatus.CLOSED]: 'outline',
 }
 
 export function CaseDetailHeader({
@@ -32,11 +27,11 @@ export function CaseDetailHeader({
 
   return (
     <div className="border-border flex flex-col gap-4 border-b pb-4">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground font-mono text-sm">{caseItem.caseNumber}</span>
-            <Badge variant={statusVariantMap[caseItem.status]} className="capitalize">
+            <Badge variant={STATUS_VARIANT_MAP[caseItem.status]} className="capitalize">
               {t(
                 `status${caseItem.status === CaseStatus.OPEN ? 'Open' : caseItem.status === CaseStatus.IN_PROGRESS ? 'InProgress' : 'Closed'}`
               )}
@@ -46,7 +41,7 @@ export function CaseDetailHeader({
           <h1 className="text-xl font-bold">{caseItem.title}</h1>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {onEscalate && caseItem.status !== CaseStatus.CLOSED && (
             <Button variant="outline" size="sm" onClick={onEscalate}>
               <ExternalLink className="h-4 w-4" />
@@ -68,7 +63,7 @@ export function CaseDetailHeader({
         </div>
       </div>
 
-      <div className="text-muted-foreground flex items-center gap-6 text-sm">
+      <div className="text-muted-foreground flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
         <span className="flex items-center gap-1.5">
           <User className="h-3.5 w-3.5" />
           {caseItem.assignee}

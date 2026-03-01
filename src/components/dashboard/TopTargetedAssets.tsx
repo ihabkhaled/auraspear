@@ -4,6 +4,7 @@ import { Monitor } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Badge } from '@/components/ui/badge'
+import { getRiskBadgeClass } from '@/lib/dashboard.utils'
 import { cn } from '@/lib/utils'
 import type { AssetRisk } from '@/types'
 import { DashboardCard } from './DashboardCard'
@@ -11,19 +12,6 @@ import { DashboardCard } from './DashboardCard'
 interface TopTargetedAssetsProps {
   assets: AssetRisk[]
   className?: string
-}
-
-function getRiskBadgeClass(score: number): string {
-  if (score > 80) {
-    return 'bg-status-error text-status-error border-status-error'
-  }
-  if (score > 60) {
-    return 'bg-status-warning text-status-warning border-status-warning'
-  }
-  if (score > 40) {
-    return 'bg-status-info text-status-info border-status-info'
-  }
-  return 'bg-status-neutral text-status-neutral border-status-neutral'
 }
 
 export function TopTargetedAssets({ assets, className }: TopTargetedAssetsProps) {
@@ -45,18 +33,20 @@ export function TopTargetedAssets({ assets, className }: TopTargetedAssetsProps)
   return (
     <DashboardCard title={t('topTargetedAssets')} className={className}>
       <div className="space-y-1">
-        <div className="text-muted-foreground border-border grid grid-cols-3 gap-2 border-b pb-2 text-xs font-bold tracking-wider uppercase">
+        <div className="text-muted-foreground border-border grid grid-cols-2 gap-2 border-b pb-2 text-xs font-bold tracking-wider uppercase sm:grid-cols-3">
           <span>{t('asset')}</span>
-          <span>{t('ip')}</span>
+          <span className="hidden sm:block">{t('ip')}</span>
           <span className="text-end">{t('riskScore')}</span>
         </div>
         {assets.map(asset => (
           <div
             key={asset.id}
-            className="border-border grid grid-cols-3 items-center gap-2 border-b py-2 text-sm last:border-b-0"
+            className="border-border grid grid-cols-2 items-center gap-2 border-b py-2 text-sm last:border-b-0 sm:grid-cols-3"
           >
             <span className="text-foreground truncate font-medium">{asset.name}</span>
-            <span className="text-muted-foreground font-mono text-xs">{asset.ip}</span>
+            <span className="text-muted-foreground hidden font-mono text-xs sm:block">
+              {asset.ip}
+            </span>
             <div className="flex justify-end">
               <Badge
                 variant="outline"

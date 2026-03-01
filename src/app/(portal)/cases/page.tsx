@@ -4,13 +4,8 @@ import { useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, FolderOpen } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import {
-  CaseToolbar,
-  CaseViewMode,
-  CaseSortField,
-  CaseKanbanBoard,
-  CreateCaseDialog,
-} from '@/components/cases'
+import { CaseToolbar, CaseKanbanBoard, CreateCaseDialog } from '@/components/cases'
+import { CaseViewMode, CaseSortField } from '@/enums'
 import type { CreateCaseFormValues } from '@/components/cases'
 import { PageHeader, LoadingSpinner, Toast, EmptyState } from '@/components/common'
 import type { CaseSeverity } from '@/enums'

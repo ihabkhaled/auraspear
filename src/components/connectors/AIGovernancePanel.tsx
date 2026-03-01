@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -7,6 +8,7 @@ import { formatTimestamp } from '@/lib/utils'
 import { useConnectorsStore } from '@/stores/connectors.store'
 
 export function AIGovernancePanel() {
+  const t = useTranslations('connectors')
   const aiAuditLogs = useConnectorsStore(s => s.aiAuditLogs)
   const activeTenantId = useConnectorsStore(s => s.activeTenantId)
 
@@ -15,13 +17,11 @@ export function AIGovernancePanel() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">AI Audit Log</CardTitle>
+        <CardTitle className="text-sm">{t('aiAuditLog')}</CardTitle>
       </CardHeader>
       <CardContent>
         {tenantLogs.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
-            No AI audit entries yet. Test the Bedrock connector to generate logs.
-          </p>
+          <p className="text-muted-foreground text-sm">{t('noAiAuditEntries')}</p>
         ) : (
           <ScrollArea className="h-64">
             <div className="space-y-3">
@@ -47,7 +47,7 @@ export function AIGovernancePanel() {
                         : 'bg-destructive/15 text-destructive'
                     }
                   >
-                    {entry.status}
+                    {entry.status === 'success' ? t('success') : t('failed')}
                   </Badge>
                 </div>
               ))}

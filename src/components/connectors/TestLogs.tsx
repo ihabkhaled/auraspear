@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
@@ -9,10 +10,12 @@ interface TestLogsProps {
 }
 
 export function TestLogs({ logs, lastError }: TestLogsProps) {
+  const t = useTranslations('connectors')
+
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">Test Logs</CardTitle>
+        <CardTitle className="text-sm">{t('testLogs')}</CardTitle>
       </CardHeader>
       <CardContent>
         {lastError && (
@@ -21,9 +24,7 @@ export function TestLogs({ logs, lastError }: TestLogsProps) {
           </div>
         )}
         {logs.length === 0 ? (
-          <p className="text-muted-foreground text-sm">
-            No test logs yet. Run a test to see results.
-          </p>
+          <p className="text-muted-foreground text-sm">{t('noTestLogs')}</p>
         ) : (
           <ScrollArea className="h-48">
             <div className="space-y-1 font-mono text-xs">

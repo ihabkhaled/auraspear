@@ -6,6 +6,7 @@ import { DataTable } from '@/components/common/DataTable'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { UserRole } from '@/enums'
+import { getInitials } from '@/lib/case.utils'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import type { TenantUser, Column } from '@/types'
 
@@ -17,26 +18,21 @@ interface TenantUserTableProps {
 
 function getRoleBadgeClass(role: UserRole): string {
   switch (role) {
-    case UserRole.ADMIN:
+    case UserRole.GLOBAL_ADMIN:
       return 'bg-primary/10 text-primary border-primary/20'
-    case UserRole.ANALYST:
+    case UserRole.TENANT_ADMIN:
+      return 'bg-primary/10 text-primary border-primary/20'
+    case UserRole.SOC_ANALYST_L2:
       return 'bg-[var(--chart-1)]/10 text-[var(--chart-1)] border-[var(--chart-1)]/20'
-    case UserRole.MANAGER:
+    case UserRole.SOC_ANALYST_L1:
+      return 'bg-[var(--chart-1)]/10 text-[var(--chart-1)] border-[var(--chart-1)]/20'
+    case UserRole.THREAT_HUNTER:
       return 'bg-[var(--chart-3)]/10 text-[var(--chart-3)] border-[var(--chart-3)]/20'
-    case UserRole.VIEWER:
+    case UserRole.EXECUTIVE_READONLY:
       return 'bg-muted text-muted-foreground border-border'
     default:
       return 'bg-muted text-muted-foreground border-border'
   }
-}
-
-function getInitials(name: string): string {
-  return name
-    .split(' ')
-    .map(part => part.charAt(0))
-    .slice(0, 2)
-    .join('')
-    .toUpperCase()
 }
 
 export function TenantUserTable({ users, loading = false, onUserClick }: TenantUserTableProps) {

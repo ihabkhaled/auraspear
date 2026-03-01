@@ -10,11 +10,11 @@ interface MISPSearchParams {
 
 export const intelService = {
   getMISPEvents: (params?: MISPSearchParams) =>
-    api.get<ApiResponse<MISPEvent[]>>('/intel/misp/events', { params }).then(r => r.data),
+    api.get<ApiResponse<MISPEvent[]>>('/intel/misp-events', { params }).then(r => r.data),
 
   searchIOC: (query: string, type: string) =>
     api
-      .get<ApiResponse<IOCCorrelation[]>>('/intel/ioc/search', { params: { query, type } })
+      .get<ApiResponse<IOCCorrelation[]>>('/intel/ioc-search', { params: { query, type } })
       .then(r => r.data),
 
   getCorrelations: () =>

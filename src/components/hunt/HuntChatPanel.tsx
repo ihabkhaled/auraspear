@@ -24,7 +24,7 @@ export function HuntChatPanel({ messages, onSend, disabled = false }: HuntChatPa
   }, [messages])
 
   return (
-    <div className="border-border flex w-[450px] shrink-0 flex-col overflow-hidden border-e">
+    <div className="border-border flex w-full shrink-0 flex-col overflow-hidden border-e lg:w-[450px]">
       <div className="border-border flex items-center gap-2 border-b px-4 py-3">
         <div className="from-primary/80 to-primary/40 flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br">
           <Bot className="text-primary-foreground h-3.5 w-3.5" />

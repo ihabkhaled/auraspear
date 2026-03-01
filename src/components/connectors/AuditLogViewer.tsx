@@ -1,5 +1,6 @@
 'use client'
 
+import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -18,6 +19,7 @@ const ACTION_COLORS: Record<string, string> = {
 }
 
 export function AuditLogViewer() {
+  const t = useTranslations('connectors')
   const auditLogs = useConnectorsStore(s => s.auditLogs)
   const activeTenantId = useConnectorsStore(s => s.activeTenantId)
 
@@ -26,11 +28,11 @@ export function AuditLogViewer() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-sm">Connector Audit Log</CardTitle>
+        <CardTitle className="text-sm">{t('auditLog')}</CardTitle>
       </CardHeader>
       <CardContent>
         {tenantLogs.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No audit entries for this tenant.</p>
+          <p className="text-muted-foreground text-sm">{t('noAuditEntries')}</p>
         ) : (
           <ScrollArea className="h-72">
             <div className="space-y-2">

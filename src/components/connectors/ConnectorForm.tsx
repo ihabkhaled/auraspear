@@ -1,6 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -38,35 +39,27 @@ function recordToFormValues(record: ConnectorRecord): ConnectorFormValues {
     timeoutSeconds: Number(c['timeoutSeconds'] ?? 30) || 30,
     tags: Array.isArray(c['tags']) ? (c['tags'] as string[]).join(', ') : '',
     notes: String(c['notes'] ?? ''),
-    // Wazuh
     managerUrl: String(c['managerUrl'] ?? ''),
     indexerUrl: String(c['indexerUrl'] ?? ''),
     indexerUsername: String(c['indexerUsername'] ?? ''),
     indexerPassword: String(c['indexerPassword'] ?? ''),
     tenant: String(c['tenant'] ?? ''),
-    // Graylog + Velociraptor
     apiUrl: String(c['apiUrl'] ?? ''),
     streamId: String(c['streamId'] ?? ''),
     indexSetId: String(c['indexSetId'] ?? ''),
-    // Velociraptor
     orgId: String(c['orgId'] ?? ''),
     clientCert: String(c['clientCert'] ?? ''),
     clientKey: String(c['clientKey'] ?? ''),
-    // Grafana
     grafanaUrl: String(c['grafanaUrl'] ?? ''),
     folderId: String(c['folderId'] ?? ''),
     datasourceUid: String(c['datasourceUid'] ?? ''),
-    // InfluxDB
     org: String(c['org'] ?? ''),
     bucket: String(c['bucket'] ?? ''),
-    // MISP
     mispUrl: String(c['mispUrl'] ?? ''),
     mispAuthKey: String(c['mispAuthKey'] ?? ''),
-    // Shuffle
     webhookUrl: String(c['webhookUrl'] ?? ''),
     workflowId: String(c['workflowId'] ?? ''),
     shuffleApiKey: String(c['shuffleApiKey'] ?? ''),
-    // Bedrock
     modelId: String(c['modelId'] ?? ''),
     region: String(c['region'] ?? ''),
     accessKeyId: String(c['accessKeyId'] ?? ''),
@@ -84,6 +77,7 @@ interface ConnectorFormProps {
 }
 
 export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps) {
+  const t = useTranslations('connectors')
   const upsert = useConnectorsStore(s => s.upsert)
   const role = useConnectorsStore(s => s.role)
   const addAuditLog = useConnectorsStore(s => s.addAuditLog)
@@ -126,7 +120,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
       connectorType: type,
       details: `Updated ${meta.label} configuration`,
     })
-    toast.success(`${meta.label} configuration saved`)
+    toast.success(`${meta.label} ${t('configurationSaved')}`)
   }
 
   function FieldError({ name }: { name: keyof ConnectorFormValues }) {
@@ -137,14 +131,13 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* General */}
       <div className="space-y-4">
         <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-          General
+          {t('general')}
         </h3>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{t('name')}</Label>
             <Input id="name" disabled={disabled} {...register('name')} />
             <FieldError name="name" />
           </div>
@@ -160,26 +153,25 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 />
               )}
             />
-            <Label>Enabled</Label>
+            <Label>{t('enabled')}</Label>
           </div>
         </div>
       </div>
 
       <Separator />
 
-      {/* Connection - hide for Bedrock which uses IAM */}
       {type !== 'bedrock' && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              Connection
+              {t('connection')}
             </h3>
             <div className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="baseUrl">Base URL</Label>
+                <Label htmlFor="baseUrl">{t('baseUrl')}</Label>
                 <Input
                   id="baseUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('baseUrl')}
                 />
@@ -187,7 +179,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
-                  <Label>Auth Type</Label>
+                  <Label>{t('authType')}</Label>
                   <Controller
                     control={control}
                     name="authType"
@@ -201,9 +193,9 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="apiKey">API Key</SelectItem>
-                          <SelectItem value="basic">Basic Auth</SelectItem>
-                          <SelectItem value="bearer">Bearer Token</SelectItem>
+                          <SelectItem value="apiKey">{t('apiKeyAuth')}</SelectItem>
+                          <SelectItem value="basic">{t('basicAuth')}</SelectItem>
+                          <SelectItem value="bearer">{t('bearerToken')}</SelectItem>
                         </SelectContent>
                       </Select>
                     )}
@@ -212,7 +204,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
                 {authType === 'apiKey' && (
                   <div className="space-y-2">
-                    <Label htmlFor="apiKey">API Key</Label>
+                    <Label htmlFor="apiKey">{t('apiKeyAuth')}</Label>
                     <Input
                       id="apiKey"
                       type="password"
@@ -226,12 +218,12 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 {authType === 'basic' && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="username">Username</Label>
+                      <Label htmlFor="username">{t('username')}</Label>
                       <Input id="username" disabled={disabled} {...register('username')} />
                       <FieldError name="username" />
                     </div>
                     <div className="space-y-2 sm:col-span-2">
-                      <Label htmlFor="password">Password</Label>
+                      <Label htmlFor="password">{t('password')}</Label>
                       <Input
                         id="password"
                         type="password"
@@ -245,7 +237,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
                 {authType === 'bearer' && (
                   <div className="space-y-2">
-                    <Label htmlFor="token">Token</Label>
+                    <Label htmlFor="token">{t('token')}</Label>
                     <Input id="token" type="password" disabled={disabled} {...register('token')} />
                     <FieldError name="token" />
                   </div>
@@ -256,10 +248,9 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
           <Separator />
 
-          {/* Advanced */}
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              Advanced
+              {t('advanced')}
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="flex items-center gap-3">
@@ -274,10 +265,10 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                     />
                   )}
                 />
-                <Label>Verify TLS</Label>
+                <Label>{t('verifyTLS')}</Label>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="timeoutSeconds">Timeout (seconds)</Label>
+                <Label htmlFor="timeoutSeconds">{t('timeout')}</Label>
                 <Input
                   id="timeoutSeconds"
                   type="number"
@@ -295,7 +286,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Wazuh fields */}
       {type === 'wazuh' && (
         <>
           <div className="space-y-4">
@@ -304,30 +294,30 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="indexerUrl">Indexer URL</Label>
+                <Label htmlFor="indexerUrl">{t('wazuh.indexerUrl')}</Label>
                 <Input
                   id="indexerUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('indexerUrl')}
                 />
                 <FieldError name="indexerUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="managerUrl">Manager URL (optional)</Label>
+                <Label htmlFor="managerUrl">{t('wazuh.managerUrl')}</Label>
                 <Input
                   id="managerUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('managerUrl')}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="indexerUsername">Indexer Username</Label>
+                <Label htmlFor="indexerUsername">{t('wazuh.indexerUsername')}</Label>
                 <Input id="indexerUsername" disabled={disabled} {...register('indexerUsername')} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="indexerPassword">Indexer Password</Label>
+                <Label htmlFor="indexerPassword">{t('wazuh.indexerPassword')}</Label>
                 <Input
                   id="indexerPassword"
                   type="password"
@@ -336,7 +326,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="tenant">Tenant (optional)</Label>
+                <Label htmlFor="tenant">{t('wazuh.tenant')}</Label>
                 <Input id="tenant" disabled={disabled} {...register('tenant')} />
               </div>
             </div>
@@ -345,7 +335,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Graylog fields */}
       {type === 'graylog' && (
         <>
           <div className="space-y-4">
@@ -354,21 +343,21 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="apiUrl">API URL</Label>
+                <Label htmlFor="apiUrl">{t('graylog.apiUrl')}</Label>
                 <Input
                   id="apiUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('apiUrl')}
                 />
                 <FieldError name="apiUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="streamId">Stream ID (optional)</Label>
+                <Label htmlFor="streamId">{t('graylog.streamId')}</Label>
                 <Input id="streamId" disabled={disabled} {...register('streamId')} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="indexSetId">Index Set ID (optional)</Label>
+                <Label htmlFor="indexSetId">{t('graylog.indexSetId')}</Label>
                 <Input id="indexSetId" disabled={disabled} {...register('indexSetId')} />
               </div>
             </div>
@@ -377,7 +366,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Velociraptor fields */}
       {type === 'velociraptor' && (
         <>
           <div className="space-y-4">
@@ -386,21 +374,21 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="apiUrl">API URL</Label>
+                <Label htmlFor="apiUrl">{t('velociraptor.apiUrl')}</Label>
                 <Input
                   id="apiUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('apiUrl')}
                 />
                 <FieldError name="apiUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="orgId">Org ID (optional)</Label>
+                <Label htmlFor="orgId">{t('velociraptor.orgId')}</Label>
                 <Input id="orgId" disabled={disabled} {...register('orgId')} />
               </div>
               <div className="space-y-2 sm:col-span-2">
-                <Label htmlFor="clientCert">Client Certificate</Label>
+                <Label htmlFor="clientCert">{t('velociraptor.clientCert')}</Label>
                 <Textarea
                   id="clientCert"
                   rows={3}
@@ -409,7 +397,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 />
               </div>
               <div className="space-y-2 sm:col-span-2">
-                <Label htmlFor="clientKey">Client Key</Label>
+                <Label htmlFor="clientKey">{t('velociraptor.clientKey')}</Label>
                 <Textarea id="clientKey" rows={3} disabled={disabled} {...register('clientKey')} />
               </div>
             </div>
@@ -418,7 +406,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Grafana fields */}
       {type === 'grafana' && (
         <>
           <div className="space-y-4">
@@ -427,21 +414,21 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="grafanaUrl">Grafana URL</Label>
+                <Label htmlFor="grafanaUrl">{t('grafana.url')}</Label>
                 <Input
                   id="grafanaUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('grafanaUrl')}
                 />
                 <FieldError name="grafanaUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="folderId">Folder ID (optional)</Label>
+                <Label htmlFor="folderId">{t('grafana.folderId')}</Label>
                 <Input id="folderId" disabled={disabled} {...register('folderId')} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="datasourceUid">Datasource UID (optional)</Label>
+                <Label htmlFor="datasourceUid">{t('grafana.datasourceUid')}</Label>
                 <Input id="datasourceUid" disabled={disabled} {...register('datasourceUid')} />
               </div>
             </div>
@@ -450,7 +437,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* InfluxDB fields */}
       {type === 'influxdb' && (
         <>
           <div className="space-y-4">
@@ -459,26 +445,22 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="org">Organization</Label>
+                <Label htmlFor="org">{t('influxdb.organization')}</Label>
                 <Input id="org" disabled={disabled} {...register('org')} />
                 <FieldError name="org" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="bucket">Bucket</Label>
+                <Label htmlFor="bucket">{t('influxdb.bucket')}</Label>
                 <Input id="bucket" disabled={disabled} {...register('bucket')} />
                 <FieldError name="bucket" />
               </div>
             </div>
-            <p className="text-muted-foreground text-xs">
-              InfluxDB uses token authentication. Set Auth Type to &quot;Bearer Token&quot; above
-              and provide your InfluxDB token.
-            </p>
+            <p className="text-muted-foreground text-xs">{t('influxdb.tokenNote')}</p>
           </div>
           <Separator />
         </>
       )}
 
-      {/* MISP fields */}
       {type === 'misp' && (
         <>
           <div className="space-y-4">
@@ -487,17 +469,17 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="mispUrl">MISP URL</Label>
+                <Label htmlFor="mispUrl">{t('mispConfig.url')}</Label>
                 <Input
                   id="mispUrl"
-                  placeholder="https://misp.example.com"
+                  placeholder={t('mispConfig.urlPlaceholder')}
                   disabled={disabled}
                   {...register('mispUrl')}
                 />
                 <FieldError name="mispUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="mispAuthKey">Auth Key</Label>
+                <Label htmlFor="mispAuthKey">{t('mispConfig.authKey')}</Label>
                 <Input
                   id="mispAuthKey"
                   type="password"
@@ -512,7 +494,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Shuffle SOAR fields */}
       {type === 'shuffle' && (
         <>
           <div className="space-y-4">
@@ -521,22 +502,22 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="webhookUrl">Webhook URL</Label>
+                <Label htmlFor="webhookUrl">{t('shuffleConfig.webhookUrl')}</Label>
                 <Input
                   id="webhookUrl"
-                  placeholder="https://..."
+                  placeholder={t('urlPlaceholder')}
                   disabled={disabled}
                   {...register('webhookUrl')}
                 />
                 <FieldError name="webhookUrl" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="workflowId">Workflow ID</Label>
+                <Label htmlFor="workflowId">{t('shuffleConfig.workflowId')}</Label>
                 <Input id="workflowId" disabled={disabled} {...register('workflowId')} />
                 <FieldError name="workflowId" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="shuffleApiKey">API Key (optional)</Label>
+                <Label htmlFor="shuffleApiKey">{t('shuffleConfig.apiKey')}</Label>
                 <Input
                   id="shuffleApiKey"
                   type="password"
@@ -550,7 +531,6 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* AWS Bedrock AI fields */}
       {type === 'bedrock' && (
         <>
           <div className="space-y-4">
@@ -559,14 +539,14 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
             </h3>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label>Model</Label>
+                <Label>{t('model')}</Label>
                 <Controller
                   control={control}
                   name="modelId"
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange} disabled={disabled}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select model" />
+                        <SelectValue placeholder={t('selectModel')} />
                       </SelectTrigger>
                       <SelectContent>
                         {BEDROCK_MODELS.map(m => (
@@ -581,14 +561,14 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 <FieldError name="modelId" />
               </div>
               <div className="space-y-2">
-                <Label>Region</Label>
+                <Label>{t('region')}</Label>
                 <Controller
                   control={control}
                   name="region"
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange} disabled={disabled}>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select region" />
+                        <SelectValue placeholder={t('selectRegion')} />
                       </SelectTrigger>
                       <SelectContent>
                         {AWS_REGIONS.map(r => (
@@ -603,11 +583,11 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                 <FieldError name="region" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="accessKeyId">Access Key ID</Label>
+                <Label htmlFor="accessKeyId">{t('accessKeyId')}</Label>
                 <Input id="accessKeyId" disabled={disabled} {...register('accessKeyId')} />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="secretAccessKey">Secret Access Key</Label>
+                <Label htmlFor="secretAccessKey">{t('secretAccessKey')}</Label>
                 <Input
                   id="secretAccessKey"
                   type="password"
@@ -620,18 +600,15 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
           <Separator />
 
-          {/* AI Governance Toggles */}
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              AI Governance
+              {t('aiGovernance')}
             </h3>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Natural Language Hunting</Label>
-                  <p className="text-muted-foreground text-xs">
-                    Allow AI-driven threat hunting queries
-                  </p>
+                  <Label>{t('nlHunting')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('nlHuntingDescription')}</p>
                 </div>
                 <Controller
                   control={control}
@@ -647,10 +624,8 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Explainable AI</Label>
-                  <p className="text-muted-foreground text-xs">
-                    Show reasoning steps in AI responses
-                  </p>
+                  <Label>{t('explainableAi')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('explainableAiDescription')}</p>
                 </div>
                 <Controller
                   control={control}
@@ -666,8 +641,8 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <Label>Audit Logging</Label>
-                  <p className="text-muted-foreground text-xs">Log all AI model invocations</p>
+                  <Label>{t('auditLogging')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('auditLoggingDescription')}</p>
                 </div>
                 <Controller
                   control={control}
@@ -688,33 +663,31 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {/* Metadata */}
       <div className="space-y-4">
         <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-          Metadata
+          {t('metadata')}
         </h3>
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="tags">Tags (comma-separated)</Label>
+            <Label htmlFor="tags">{t('tags')}</Label>
             <Input
               id="tags"
-              placeholder="tag1, tag2, tag3"
+              placeholder={t('tagPlaceholder')}
               disabled={disabled}
               {...register('tags')}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="notes">Notes</Label>
+            <Label htmlFor="notes">{t('notes')}</Label>
             <Textarea id="notes" rows={3} disabled={disabled} {...register('notes')} />
           </div>
         </div>
       </div>
 
-      {/* Submit */}
       {!disabled && (
         <div className="flex gap-2 pt-2">
           <Button type="submit" disabled={!isDirty}>
-            Save Configuration
+            {t('saveConfiguration')}
           </Button>
         </div>
       )}

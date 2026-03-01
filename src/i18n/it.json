@@ -86,6 +86,7 @@
     "searchPlaceholder": "Inserisci query KQL... (es. severity:critical AND agent.name:web-server-01)",
     "savedSearches": "Ricerche Salvate",
     "submit": "Cerca",
+    "filters": "Filtri",
     "noAlerts": "Nessun avviso trovato",
     "emptyDescription": "Nessun avviso di sicurezza corrisponde ai filtri attuali",
     "rule": "Regola",
@@ -123,6 +124,7 @@
     "eventLog": "Registro Eventi",
     "reasoning": "Fasi di Ragionamento",
     "chatTitle": "Chat Caccia alle Minacce",
+    "resultsTitle": "Risultati",
     "noEvents": "Nessun evento trovato",
     "emptyTitle": "Avvia una Caccia alle Minacce",
     "emptyDescription": "Descrivi uno scenario di minaccia per iniziare la caccia",
@@ -189,7 +191,14 @@
     "fieldDescription": "Descrizione",
     "fieldDescriptionPlaceholder": "Descrivi l'incidente...",
     "fieldSeverity": "Gravit\u00e0",
-    "fieldAssignee": "Assegnatario"
+    "fieldAssignee": "Assegnatario",
+    "noArtifacts": "Nessun artefatto",
+    "source": "Fonte",
+    "copy": "Copia",
+    "lookup": "Cerca",
+    "artifactIps": "IP",
+    "artifactHashes": "Hash",
+    "artifactDomains": "Domini"
   },
   "intel": {
     "title": "Intelligence sulle Minacce",
@@ -352,8 +361,11 @@
     "signingIn": "Accesso in corso..."
   },
   "layout": {
+    "openSidebar": "Apri barra laterale",
+    "closeSidebar": "Chiudi barra laterale",
     "collapseSidebar": "Comprimi barra laterale",
     "expandSidebar": "Espandi barra laterale",
+    "theme": "Tema",
     "searchPlaceholder": "Cerca...",
     "searchShortcut": "Cerca comandi",
     "commandPaletteTitle": "Tavolozza Comandi",
@@ -369,7 +381,9 @@
     "systemHealth": "Stato del Sistema",
     "eventsPerSecond": "EPS",
     "lag": "Ritardo",
-    "home": "Home"
+    "home": "Home",
+    "socPlatform": "Piattaforma SOC",
+    "socAnalyst": "Analista SOC"
   },
   "connectors": {
     "title": "Connettori",
@@ -443,7 +457,55 @@
     "region": "Regione",
     "selectRegion": "Seleziona regione",
     "accessKeyId": "Access Key ID",
-    "secretAccessKey": "Secret Access Key"
+    "secretAccessKey": "Secret Access Key",
+    "testingConnector": "Test di {name} in corso...",
+    "tested": "Testato",
+    "tagPlaceholder": "tag1, tag2, tag3",
+    "urlPlaceholder": "https://...",
+    "testLogs": "Log dei Test",
+    "noTestLogs": "Nessun log di test ancora. Esegui un test per vedere i risultati.",
+    "statusNotConfigured": "Non Configurato",
+    "statusConnected": "Connesso",
+    "statusDisconnected": "Disconnesso",
+    "statusTesting": "Test in corso...",
+    "wazuh": {
+      "indexerUrl": "URL dell'Indexer",
+      "managerUrl": "URL del Manager (opzionale)",
+      "indexerUsername": "Username dell'Indexer",
+      "indexerPassword": "Password dell'Indexer",
+      "tenant": "Tenant (opzionale)"
+    },
+    "graylog": {
+      "apiUrl": "URL dell'API",
+      "streamId": "Stream ID (opzionale)",
+      "indexSetId": "Index Set ID (opzionale)"
+    },
+    "velociraptor": {
+      "apiUrl": "URL dell'API",
+      "orgId": "Org ID (opzionale)",
+      "clientCert": "Certificato Client",
+      "clientKey": "Chiave Client"
+    },
+    "grafana": {
+      "url": "URL di Grafana",
+      "folderId": "Folder ID (opzionale)",
+      "datasourceUid": "UID del Datasource (opzionale)"
+    },
+    "influxdb": {
+      "organization": "Organizzazione",
+      "bucket": "Bucket",
+      "tokenNote": "InfluxDB usa l'autenticazione tramite token. Imposta il Tipo di Autenticazione su \"Bearer Token\" sopra e fornisci il tuo token InfluxDB."
+    },
+    "mispConfig": {
+      "url": "URL di MISP",
+      "urlPlaceholder": "https://misp.esempio.com",
+      "authKey": "Chiave di Autenticazione"
+    },
+    "shuffleConfig": {
+      "webhookUrl": "URL del Webhook",
+      "workflowId": "ID del Workflow",
+      "apiKey": "Chiave API (opzionale)"
+    }
   },
   "language": {
     "label": "Lingua",
@@ -454,13 +516,40 @@
     "ar": "Arabo",
     "de": "Tedesco"
   },
+  "validation": {
+    "nameRequired": "Il nome è obbligatorio",
+    "minTimeout": "Minimo 1 secondo",
+    "maxTimeout": "Massimo 120 secondi",
+    "urlFormat": "L'URL deve iniziare con http:// o https://",
+    "apiKeyRequired": "La chiave API è obbligatoria",
+    "usernameRequired": "Il nome utente è obbligatorio",
+    "passwordRequired": "La password è obbligatoria",
+    "tokenRequired": "Il token è obbligatorio",
+    "indexerUrlRequired": "L'URL dell'Indexer è obbligatorio",
+    "apiUrlRequired": "L'URL dell'API è obbligatorio",
+    "grafanaUrlRequired": "L'URL di Grafana è obbligatorio",
+    "organizationRequired": "L'organizzazione è obbligatoria",
+    "bucketRequired": "Il bucket è obbligatorio",
+    "mispUrlRequired": "L'URL di MISP è obbligatorio",
+    "authKeyRequired": "La chiave di autenticazione è obbligatoria",
+    "webhookUrlRequired": "L'URL del webhook è obbligatorio",
+    "workflowIdRequired": "L'ID del workflow è obbligatorio",
+    "modelRequired": "Il modello è obbligatorio",
+    "regionRequired": "La regione è obbligatoria"
+  },
   "errors": {
     "common": {
       "unknown": "Si \u00e8 verificato un errore imprevisto",
       "network": "Errore di rete. Controlla la tua connessione.",
       "unauthorized": "Sessione scaduta. Accedi nuovamente.",
       "forbidden": "Non hai i permessi per eseguire questa azione.",
-      "notFound": "Risorsa non trovata."
+      "notFound": "Risorsa non trovata.",
+      "validation": "Controlla i dati inseriti e riprova."
+    },
+    "auth": {
+      "invalidCredentials": "Email o password non validi",
+      "tokenExpired": "La tua sessione \u00e8 scaduta. Accedi nuovamente.",
+      "unauthorized": "Non sei autenticato. Effettua l'accesso."
     }
   }
 }

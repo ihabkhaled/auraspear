@@ -15,11 +15,12 @@ import {
   Trash2,
   type LucideIcon,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
-import { testConnector, deleteConnector } from '@/lib/api/connectors.mock'
+import { testConnector, deleteConnector } from '@/lib/api/connectors.api'
 import type { ConnectorRecord, ConnectorType } from '@/lib/types/connectors'
 import { CONNECTOR_META, canEdit, canDelete } from '@/lib/types/connectors'
 import { formatRelativeTime } from '@/lib/utils'
@@ -43,6 +44,7 @@ interface ConnectorCardProps {
 
 export function ConnectorCard({ connector }: ConnectorCardProps) {
   const router = useRouter()
+  const t = useTranslations('connectors')
   const upsert = useConnectorsStore(s => s.upsert)
   const role = useConnectorsStore(s => s.role)
   const addAuditLog = useConnectorsStore(s => s.addAuditLog)
@@ -63,11 +65,11 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
       connectorType: connector.type,
       details: `${checked ? 'Enabled' : 'Disabled'} ${meta.label}`,
     })
-    toast.success(`${meta.label} ${checked ? 'enabled' : 'disabled'}`)
+    toast.success(`${meta.label} ${checked ? t('enabled') : t('disabled')}`)
   }
 
   const handleTest = async () => {
-    toast.info(`Testing ${meta.label}...`)
+    toast.info(t('testingConnector', { name: meta.label }))
     addAuditLog({
       tenantId: activeTenantId,
       actor: `${role.toLowerCase()}@aura.io`,
@@ -79,9 +81,9 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
     await testConnector(connector.type)
     const updated = useConnectorsStore.getState().getByType(connector.type)
     if (updated?.lastTestOk) {
-      toast.success(`${meta.label} connected successfully`)
+      toast.success(`${meta.label} ${t('connectedSuccessfully')}`)
     } else {
-      toast.error(updated?.lastError ?? 'Connection failed')
+      toast.error(updated?.lastError ?? t('connectionFailed'))
     }
   }
 
@@ -95,7 +97,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
       connectorType: connector.type,
       details: `Deleted ${meta.label}`,
     })
-    toast.success(`${meta.label} deleted`)
+    toast.success(`${meta.label} ${t('deleted')}`)
   }
 
   return (
@@ -119,18 +121,18 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
           <StatusBadge status={connector.status} />
           {connector.lastTestAt && (
             <span className="text-muted-foreground text-xs">
-              Tested {formatRelativeTime(connector.lastTestAt)}
+              {t('tested')} {formatRelativeTime(connector.lastTestAt)}
             </span>
           )}
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button
             variant="outline"
             size="sm"
             onClick={() => router.push(`/connectors/${connector.type}`)}
           >
             <Settings className="mr-1 h-3.5 w-3.5" />
-            Configure
+            {t('configure')}
           </Button>
           <Button
             variant="outline"
@@ -139,7 +141,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
             disabled={connector.status === 'testing'}
           >
             <Play className="mr-1 h-3.5 w-3.5" />
-            Test
+            {t('test')}
           </Button>
           {isAdmin && (
             <Button
@@ -149,7 +151,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
               className="text-destructive hover:text-destructive"
             >
               <Trash2 className="mr-1 h-3.5 w-3.5" />
-              Delete
+              {t('deleteConnector')}
             </Button>
           )}
         </div>

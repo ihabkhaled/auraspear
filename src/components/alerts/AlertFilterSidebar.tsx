@@ -7,6 +7,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { AlertSeverity } from '@/enums'
+import { getSeverityDotClass } from '@/lib/alert.utils'
 import { cn } from '@/lib/utils'
 
 interface SeverityCount {
@@ -27,21 +28,6 @@ interface AlertFilterSidebarProps {
 }
 
 const TIME_RANGES = ['24h', '7d', '30d'] as const
-
-function getSeverityDotClass(severity: AlertSeverity): string {
-  switch (severity) {
-    case AlertSeverity.CRITICAL:
-      return 'bg-status-error'
-    case AlertSeverity.HIGH:
-      return 'bg-status-warning'
-    case AlertSeverity.MEDIUM:
-      return 'bg-status-info'
-    case AlertSeverity.LOW:
-      return 'bg-status-success'
-    case AlertSeverity.INFO:
-      return 'bg-status-neutral'
-  }
-}
 
 export function AlertFilterSidebar({
   timeRange,

@@ -23,12 +23,3 @@ export async function DELETE(
   const { type } = await params
   return proxyToBackend(request, { path: `/connectors/${type}` })
 }
-
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ type: string }> }
-) {
-  const { type } = await params
-  // POST to /connectors/:type/test
-  return proxyToBackend(request, { path: `/connectors/${type}/test` })
-}

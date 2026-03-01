@@ -12,10 +12,16 @@ interface CaseArtifactPanelProps {
   onLookup?: (artifact: CaseArtifact) => void
 }
 
-const typeConfig: Record<string, { icon: typeof Globe; label: string }> = {
-  ip: { icon: Server, label: 'IPs' },
-  hash: { icon: Hash, label: 'Hashes' },
-  domain: { icon: Globe, label: 'Domains' },
+const typeIcons: Record<string, typeof Globe> = {
+  ip: Server,
+  hash: Hash,
+  domain: Globe,
+}
+
+const typeKeys: Record<string, string> = {
+  ip: 'artifactIps',
+  hash: 'artifactHashes',
+  domain: 'artifactDomains',
 }
 
 export function CaseArtifactPanel({ artifacts, onLookup }: CaseArtifactPanelProps) {
@@ -47,9 +53,8 @@ export function CaseArtifactPanel({ artifacts, onLookup }: CaseArtifactPanelProp
   return (
     <div className="flex flex-col gap-6">
       {Object.entries(groupedArtifacts).map(([type, items]) => {
-        const config = typeConfig[type]
-        const Icon = config?.icon ?? Globe
-        const label = config?.label ?? type
+        const Icon = typeIcons[type] ?? Globe
+        const label = typeKeys[type] ? t(typeKeys[type]) : type
 
         return (
           <div key={type} className="flex flex-col gap-2">

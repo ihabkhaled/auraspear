@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { CONNECTOR_TYPES, DEMO_TENANTS } from '@/lib/types/connectors'
 import type {
   ConnectorType,
   ConnectorRecord,
@@ -8,7 +9,6 @@ import type {
   AuditLogEntry,
   AIAuditEntry,
 } from '@/lib/types/connectors'
-import { CONNECTOR_TYPES, CONNECTOR_META, DEMO_TENANTS } from '@/lib/types/connectors'
 
 function defaultConfig(): Record<string, unknown> {
   return {
@@ -22,14 +22,11 @@ function defaultConfig(): Record<string, unknown> {
     timeoutSeconds: 30,
     tags: [],
     notes: '',
-    // MISP
     mispUrl: '',
     mispAuthKey: '',
-    // Shuffle
     webhookUrl: '',
     workflowId: '',
     shuffleApiKey: '',
-    // Bedrock
     modelId: '',
     region: '',
     accessKeyId: '',
@@ -40,75 +37,6 @@ function defaultConfig(): Record<string, unknown> {
   }
 }
 
-function createSeedForTenant(tenantId: string): ConnectorRecord[] {
-  const now = new Date().toISOString()
-  return CONNECTOR_TYPES.map(type => ({
-    id: crypto.randomUUID(),
-    type,
-    name: CONNECTOR_META[type].label,
-    enabled: false,
-    config: defaultConfig(),
-    status: 'not_configured' as ConnectorStatus,
-    lastTestAt: null,
-    lastTestOk: null,
-    lastError: null,
-    lastLogs: [],
-    tenantId,
-    createdAt: now,
-    updatedAt: now,
-  }))
-}
-
-function createSeedConnectors(): Record<string, ConnectorRecord[]> {
-  const result: Record<string, ConnectorRecord[]> = {}
-  for (const t of DEMO_TENANTS) {
-    result[t.id] = createSeedForTenant(t.id)
-  }
-  return result
-}
-
-function createSeedAuditLogs(): AuditLogEntry[] {
-  const now = Date.now()
-  const tenants = DEMO_TENANTS.map(t => t.id)
-  const actions: AuditLogEntry['action'][] = ['create', 'update', 'test', 'enable', 'disable']
-  const actors = ['admin@aura.io', 'analyst@aura.io', 'viewer@aura.io']
-  const roles: RBACRole[] = ['Admin', 'SOC_Analyst', 'Viewer']
-  const types: ConnectorType[] = ['wazuh', 'graylog', 'misp', 'bedrock', 'shuffle']
-
-  return Array.from({ length: 15 }, (_, i) => ({
-    id: crypto.randomUUID(),
-    tenantId: tenants[i % tenants.length] ?? tenants[0] ?? '',
-    timestamp: new Date(now - i * 3600000).toISOString(),
-    actor: actors[i % actors.length] ?? actors[0] ?? '',
-    role: roles[i % roles.length] ?? roles[0] ?? 'Viewer',
-    action: actions[i % actions.length] ?? actions[0] ?? 'update',
-    connectorType: types[i % types.length] ?? types[0] ?? 'wazuh',
-    details: `${actions[i % actions.length] ?? 'update'} connector ${types[i % types.length] ?? 'wazuh'}`,
-  }))
-}
-
-function createSeedAIAuditLogs(): AIAuditEntry[] {
-  const now = Date.now()
-  const models = [
-    'anthropic.claude-3-sonnet',
-    'anthropic.claude-3-haiku',
-    'amazon.titan-text-express',
-  ]
-  const aiActions = ['threat_analysis', 'nl_hunting', 'alert_summary', 'ioc_enrichment']
-
-  return Array.from({ length: 10 }, (_, i) => ({
-    id: crypto.randomUUID(),
-    tenantId: DEMO_TENANTS[i % DEMO_TENANTS.length]?.id ?? DEMO_TENANTS[0]?.id ?? '',
-    timestamp: new Date(now - i * 1800000).toISOString(),
-    model: models[i % models.length] ?? models[0] ?? '',
-    action: aiActions[i % aiActions.length] ?? aiActions[0] ?? 'threat_analysis',
-    inputTokens: 200 + Math.floor(Math.random() * 800),
-    outputTokens: 100 + Math.floor(Math.random() * 400),
-    latencyMs: 300 + Math.floor(Math.random() * 2000),
-    status: i === 3 ? ('error' as const) : ('success' as const),
-  }))
-}
-
 interface ConnectorsState {
   connectorsByTenant: Record<string, ConnectorRecord[]>
   activeTenantId: string
@@ -116,15 +44,12 @@ interface ConnectorsState {
   auditLogs: AuditLogEntry[]
   aiAuditLogs: AIAuditEntry[]
 
-  // Derived accessors
   connectors: ConnectorRecord[]
   getByType: (type: ConnectorType) => ConnectorRecord | undefined
 
-  // Tenant / Role
   setActiveTenant: (id: string) => void
   setRole: (role: RBACRole) => void
 
-  // CRUD
   upsert: (type: ConnectorType, data: Partial<ConnectorRecord>) => void
   setStatus: (
     type: ConnectorType,
@@ -139,22 +64,19 @@ interface ConnectorsState {
   resetConnector: (type: ConnectorType) => void
   deleteConnector: (type: ConnectorType) => void
 
-  // Audit
   addAuditLog: (entry: Omit<AuditLogEntry, 'id' | 'timestamp'>) => void
   addAIAuditLog: (entry: Omit<AIAuditEntry, 'id' | 'timestamp'>) => void
-
-  // Seed
   seedDefaults: () => void
 }
 
 export const useConnectorsStore = create<ConnectorsState>()(
   persist(
     (set, get) => ({
-      connectorsByTenant: createSeedConnectors(),
-      activeTenantId: DEMO_TENANTS[0]?.id ?? 'tenant-1',
+      connectorsByTenant: {},
+      activeTenantId: '',
       role: 'Admin' as RBACRole,
-      auditLogs: createSeedAuditLogs(),
-      aiAuditLogs: createSeedAIAuditLogs(),
+      auditLogs: [],
+      aiAuditLogs: [],
 
       get connectors() {
         const state = get()
@@ -263,10 +185,34 @@ export const useConnectorsStore = create<ConnectorsState>()(
         })),
 
       seedDefaults: () =>
-        set({
-          connectorsByTenant: createSeedConnectors(),
-          auditLogs: createSeedAuditLogs(),
-          aiAuditLogs: createSeedAIAuditLogs(),
+        set(() => {
+          const now = new Date().toISOString()
+          const byTenant: Record<string, ConnectorRecord[]> = {}
+
+          for (const tenant of DEMO_TENANTS) {
+            byTenant[tenant.id] = CONNECTOR_TYPES.map(type => ({
+              id: `${tenant.id}-${type}`,
+              type,
+              name: type,
+              enabled: false,
+              config: defaultConfig(),
+              status: 'not_configured' as ConnectorStatus,
+              lastTestAt: null,
+              lastTestOk: null,
+              lastError: null,
+              lastLogs: [],
+              tenantId: tenant.id,
+              createdAt: now,
+              updatedAt: now,
+            }))
+          }
+
+          return {
+            connectorsByTenant: byTenant,
+            activeTenantId: DEMO_TENANTS[0].id,
+            auditLogs: [],
+            aiAuditLogs: [],
+          }
         }),
     }),
     {

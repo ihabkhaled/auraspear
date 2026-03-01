@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from 'next-themes'
@@ -23,16 +23,6 @@ export function Providers({ children, messages, locale }: ProvidersProps) {
         },
       })
   )
-
-  useEffect(() => {
-    async function initMSW() {
-      if (process.env['NEXT_PUBLIC_ENABLE_MSW'] === 'true') {
-        const { worker } = await import('@/mocks/browser')
-        await worker.start({ onUnhandledRequest: 'bypass' })
-      }
-    }
-    initMSW().catch(console.error)
-  }, [])
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

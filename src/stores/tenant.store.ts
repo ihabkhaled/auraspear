@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import type { Tenant } from '@/types'
 
 interface TenantState {
@@ -8,9 +9,16 @@ interface TenantState {
   setTenants: (tenants: Tenant[]) => void
 }
 
-export const useTenantStore = create<TenantState>(set => ({
-  currentTenantId: 'tenant-001',
-  tenants: [],
-  setCurrentTenant: id => set({ currentTenantId: id }),
-  setTenants: tenants => set({ tenants }),
-}))
+export const useTenantStore = create<TenantState>()(
+  persist(
+    set => ({
+      currentTenantId: '',
+      tenants: [],
+      setCurrentTenant: id => set({ currentTenantId: id }),
+      setTenants: tenants => set({ tenants }),
+    }),
+    {
+      name: 'tenant-storage',
+    }
+  )
+)

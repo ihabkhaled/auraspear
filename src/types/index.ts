@@ -1,4 +1,5 @@
 export type { ApiResponse, PaginationMeta, Column, SelectOption } from './common.types'
+export type { AuthUser, LoginRequest, LoginResponse, RefreshResponse } from './auth.types'
 export type { Alert, AlertSearchParams, AIInvestigation } from './alert.types'
 export type { Case, CaseTask, CaseTimelineEntry, CaseArtifact, CreateCaseInput } from './case.types'
 export type { HuntSession, HuntMessage, HuntEvent, ReasoningStep } from './hunt.types'

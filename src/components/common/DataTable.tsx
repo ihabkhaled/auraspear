@@ -129,61 +129,63 @@ export function DataTable<T>({
   }
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {hasSelection && (
-            <TableHead className="w-10">
-              <Checkbox
-                checked={allSelected}
-                onCheckedChange={handleSelectAll}
-                aria-label={t('all')}
-              />
-            </TableHead>
-          )}
-          {columns.map(col => (
-            <TableHead key={String(col.key)} className={col.className}>
-              {col.label}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((row, rowIndex) => {
-          const rowId = String(
-            keyField ? row[keyField] : ((row as Record<string, unknown>)['id'] ?? rowIndex)
-          )
-          const isSelected = hasSelection && selectedIds.includes(rowId)
+    <div className="overflow-x-auto">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {hasSelection && (
+              <TableHead className="w-10">
+                <Checkbox
+                  checked={allSelected}
+                  onCheckedChange={handleSelectAll}
+                  aria-label={t('all')}
+                />
+              </TableHead>
+            )}
+            {columns.map(col => (
+              <TableHead key={String(col.key)} className={col.className}>
+                {col.label}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {data.map((row, rowIndex) => {
+            const rowId = String(
+              keyField ? row[keyField] : ((row as Record<string, unknown>)['id'] ?? rowIndex)
+            )
+            const isSelected = hasSelection && selectedIds.includes(rowId)
 
-          return (
-            <TableRow
-              key={rowId}
-              data-state={isSelected ? 'selected' : undefined}
-              className={onRowClick ? 'cursor-pointer' : undefined}
-              onClick={() => onRowClick?.(row)}
-            >
-              {hasSelection && (
-                <TableCell>
-                  <Checkbox
-                    checked={isSelected}
-                    onCheckedChange={() => handleSelectRow(rowId)}
-                    onClick={e => e.stopPropagation()}
-                    aria-label={`${t('all')} ${rowId}`}
-                  />
-                </TableCell>
-              )}
-              {columns.map(col => {
-                const value = getNestedValue(row, String(col.key))
-                return (
-                  <TableCell key={`${rowId}-${String(col.key)}`} className={col.className}>
-                    {col.render ? col.render(value, row) : String(value ?? '')}
+            return (
+              <TableRow
+                key={rowId}
+                data-state={isSelected ? 'selected' : undefined}
+                className={onRowClick ? 'cursor-pointer' : undefined}
+                onClick={() => onRowClick?.(row)}
+              >
+                {hasSelection && (
+                  <TableCell>
+                    <Checkbox
+                      checked={isSelected}
+                      onCheckedChange={() => handleSelectRow(rowId)}
+                      onClick={e => e.stopPropagation()}
+                      aria-label={`${t('all')} ${rowId}`}
+                    />
                   </TableCell>
-                )
-              })}
-            </TableRow>
-          )
-        })}
-      </TableBody>
-    </Table>
+                )}
+                {columns.map(col => {
+                  const value = getNestedValue(row, String(col.key))
+                  return (
+                    <TableCell key={`${rowId}-${String(col.key)}`} className={col.className}>
+                      {col.render ? col.render(value, row) : String(value ?? '')}
+                    </TableCell>
+                  )
+                })}
+              </TableRow>
+            )
+          })}
+        </TableBody>
+      </Table>
+    </div>
   )
 }

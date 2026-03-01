@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { CaseStatus, CaseSeverity } from '@/enums'
+import { getInitials } from '@/lib/case.utils'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import type { Case } from '@/types'
 
@@ -18,15 +19,6 @@ const severityBorderColors: Record<CaseSeverity, string> = {
   [CaseSeverity.HIGH]: 'var(--severity-high)',
   [CaseSeverity.MEDIUM]: 'var(--severity-medium)',
   [CaseSeverity.LOW]: 'var(--severity-low)',
-}
-
-function getInitials(name: string): string {
-  return name
-    .split(' ')
-    .map(part => part.charAt(0))
-    .join('')
-    .toUpperCase()
-    .slice(0, 2)
 }
 
 export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {

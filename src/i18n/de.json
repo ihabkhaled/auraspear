@@ -86,6 +86,7 @@
     "searchPlaceholder": "KQL-Abfrage eingeben... (z. B. severity:critical AND agent.name:web-server-01)",
     "savedSearches": "Gespeicherte Suchen",
     "submit": "Suchen",
+    "filters": "Filter",
     "noAlerts": "Keine Alarme gefunden",
     "emptyDescription": "Keine Sicherheitsalarme entsprechen Ihren aktuellen Filtern",
     "rule": "Regel",
@@ -123,6 +124,7 @@
     "eventLog": "Ereignisprotokoll",
     "reasoning": "Analyseschritte",
     "chatTitle": "Bedrohungssuche-Chat",
+    "resultsTitle": "Ergebnisse",
     "noEvents": "Keine Ereignisse gefunden",
     "emptyTitle": "Bedrohungssuche starten",
     "emptyDescription": "Beschreiben Sie ein Bedrohungsszenario, um die Suche zu beginnen",
@@ -189,7 +191,14 @@
     "fieldDescription": "Beschreibung",
     "fieldDescriptionPlaceholder": "Den Vorfall beschreiben...",
     "fieldSeverity": "Schweregrad",
-    "fieldAssignee": "Zuständiger"
+    "fieldAssignee": "Zuständiger",
+    "noArtifacts": "Keine Artefakte",
+    "source": "Quelle",
+    "copy": "Kopieren",
+    "lookup": "Nachschlagen",
+    "artifactIps": "IPs",
+    "artifactHashes": "Hashes",
+    "artifactDomains": "Domains"
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -352,8 +361,11 @@
     "signingIn": "Anmeldung läuft..."
   },
   "layout": {
+    "openSidebar": "Seitenleiste \u00f6ffnen",
+    "closeSidebar": "Seitenleiste schlie\u00dfen",
     "collapseSidebar": "Seitenleiste einklappen",
     "expandSidebar": "Seitenleiste ausklappen",
+    "theme": "Design",
     "searchPlaceholder": "Suchen...",
     "searchShortcut": "Befehle suchen",
     "commandPaletteTitle": "Befehlspalette",
@@ -369,7 +381,9 @@
     "systemHealth": "Systemzustand",
     "eventsPerSecond": "EPS",
     "lag": "Verzögerung",
-    "home": "Startseite"
+    "home": "Startseite",
+    "socPlatform": "SOC-Plattform",
+    "socAnalyst": "SOC-Analyst"
   },
   "connectors": {
     "title": "Konnektoren",
@@ -443,7 +457,55 @@
     "region": "Region",
     "selectRegion": "Region auswählen",
     "accessKeyId": "Access Key ID",
-    "secretAccessKey": "Secret Access Key"
+    "secretAccessKey": "Secret Access Key",
+    "testingConnector": "{name} wird getestet...",
+    "tested": "Getestet",
+    "tagPlaceholder": "Tag1, Tag2, Tag3",
+    "urlPlaceholder": "https://...",
+    "testLogs": "Testprotokolle",
+    "noTestLogs": "Noch keine Testprotokolle. Führen Sie einen Test durch, um Ergebnisse zu sehen.",
+    "statusNotConfigured": "Nicht konfiguriert",
+    "statusConnected": "Verbunden",
+    "statusDisconnected": "Getrennt",
+    "statusTesting": "Wird getestet...",
+    "wazuh": {
+      "indexerUrl": "Indexer-URL",
+      "managerUrl": "Manager-URL (optional)",
+      "indexerUsername": "Indexer-Benutzername",
+      "indexerPassword": "Indexer-Passwort",
+      "tenant": "Mandant (optional)"
+    },
+    "graylog": {
+      "apiUrl": "API-URL",
+      "streamId": "Stream-ID (optional)",
+      "indexSetId": "Index-Set-ID (optional)"
+    },
+    "velociraptor": {
+      "apiUrl": "API-URL",
+      "orgId": "Org-ID (optional)",
+      "clientCert": "Client-Zertifikat",
+      "clientKey": "Client-Schlüssel"
+    },
+    "grafana": {
+      "url": "Grafana-URL",
+      "folderId": "Ordner-ID (optional)",
+      "datasourceUid": "Datasource-UID (optional)"
+    },
+    "influxdb": {
+      "organization": "Organisation",
+      "bucket": "Bucket",
+      "tokenNote": "InfluxDB verwendet Token-Authentifizierung. Setzen Sie den Authentifizierungstyp oben auf \"Bearer Token\" und geben Sie Ihr InfluxDB-Token ein."
+    },
+    "mispConfig": {
+      "url": "MISP-URL",
+      "urlPlaceholder": "https://misp.beispiel.de",
+      "authKey": "Auth-Schlüssel"
+    },
+    "shuffleConfig": {
+      "webhookUrl": "Webhook-URL",
+      "workflowId": "Workflow-ID",
+      "apiKey": "API Key (optional)"
+    }
   },
   "language": {
     "label": "Sprache",
@@ -454,13 +516,40 @@
     "ar": "Arabisch",
     "de": "Deutsch"
   },
+  "validation": {
+    "nameRequired": "Name ist erforderlich",
+    "minTimeout": "Mindestens 1 Sekunde",
+    "maxTimeout": "Maximal 120 Sekunden",
+    "urlFormat": "URL muss mit http:// oder https:// beginnen",
+    "apiKeyRequired": "API Key ist erforderlich",
+    "usernameRequired": "Benutzername ist erforderlich",
+    "passwordRequired": "Passwort ist erforderlich",
+    "tokenRequired": "Token ist erforderlich",
+    "indexerUrlRequired": "Indexer-URL ist erforderlich",
+    "apiUrlRequired": "API-URL ist erforderlich",
+    "grafanaUrlRequired": "Grafana-URL ist erforderlich",
+    "organizationRequired": "Organisation ist erforderlich",
+    "bucketRequired": "Bucket ist erforderlich",
+    "mispUrlRequired": "MISP-URL ist erforderlich",
+    "authKeyRequired": "Auth-Schlüssel ist erforderlich",
+    "webhookUrlRequired": "Webhook-URL ist erforderlich",
+    "workflowIdRequired": "Workflow-ID ist erforderlich",
+    "modelRequired": "Modell ist erforderlich",
+    "regionRequired": "Region ist erforderlich"
+  },
   "errors": {
     "common": {
       "unknown": "Ein unerwarteter Fehler ist aufgetreten",
       "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
       "unauthorized": "Sitzung abgelaufen. Bitte melden Sie sich erneut an.",
       "forbidden": "Sie haben keine Berechtigung, diese Aktion auszuführen.",
-      "notFound": "Ressource nicht gefunden."
+      "notFound": "Ressource nicht gefunden.",
+      "validation": "Bitte überprüfen Sie Ihre Eingaben und versuchen Sie es erneut."
+    },
+    "auth": {
+      "invalidCredentials": "Ungültige E-Mail-Adresse oder Passwort",
+      "tokenExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+      "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an."
     }
   }
 }

@@ -14,6 +14,9 @@
 10. **NEVER use string concatenation** — Use template literals (`prefer-template: warn`).
 11. **NEVER use raw HTML `<select>`, `<input>`, `<textarea>`** — Always use shadcn/ui components from `@/components/ui/`.
 12. **NEVER add `// eslint-disable-next-line`** — This rule is absolute with zero exceptions. If a rule triggers, fix the code.
+13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component files** — Enums → `src/enums/`, Types/Interfaces → `src/types/`, Constants → `src/lib/constants.ts` or `src/lib/<domain>.constants.ts`. Exception: component-local constants (used only in that file) are acceptable inline, but ABOVE the component function.
+14. **NEVER put custom hooks inside component files** — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`).
+15. **NEVER put utility / pure functions inside component files** — All non-React helper functions → `src/lib/utils.ts` or domain-specific `src/lib/<domain>.utils.ts`.
 
 ---
 

@@ -1,6 +1,6 @@
 export { CaseKanbanCard } from './CaseKanbanCard'
 export { CaseKanbanBoard } from './CaseKanbanBoard'
-export { CaseToolbar, CaseViewMode, CaseSortField } from './CaseToolbar'
+export { CaseToolbar } from './CaseToolbar'
 export { CaseDetailHeader } from './CaseDetailHeader'
 export { CaseTimeline } from './CaseTimeline'
 export { CaseTaskList } from './CaseTaskList'

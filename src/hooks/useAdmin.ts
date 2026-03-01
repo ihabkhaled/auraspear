@@ -3,10 +3,11 @@ import { POLLING_INTERVAL } from '@/lib/constants'
 import { adminService } from '@/services'
 import type { CreateTenantInput } from '@/services/admin.service'
 
-export function useTenants() {
+export function useTenants(enabled = true) {
   return useQuery({
     queryKey: ['admin', 'tenants'],
     queryFn: () => adminService.getTenants(),
+    enabled,
   })
 }
 

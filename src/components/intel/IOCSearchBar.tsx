@@ -12,13 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-enum IOCType {
-  IP = 'ip',
-  HASH = 'hash',
-  DOMAIN = 'domain',
-  URL = 'url',
-}
+import { IOCType } from '@/enums'
 
 interface IOCSearchBarProps {
   onSearch: (query: string, type: IOCType) => void
@@ -38,7 +32,7 @@ export function IOCSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-center gap-3">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="relative flex-1">
         <Search className="text-muted-foreground pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
         <Input
