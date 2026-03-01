@@ -107,7 +107,7 @@ export default function HuntPage() {
   const isSending = createSession.isPending || sendMessage.isPending
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] overflow-hidden rounded-lg border border-border bg-card">
+    <div className="-m-6 flex h-[calc(100vh-3.5rem)] overflow-hidden bg-card">
       <HuntChatPanel
         messages={messages}
         onSend={handleSend}

@@ -24,7 +24,7 @@ export function HuntChatPanel({ messages, onSend, disabled = false }: HuntChatPa
   }, [messages])
 
   return (
-    <div className="flex w-[450px] shrink-0 flex-col border-e border-border">
+    <div className="flex w-[450px] shrink-0 flex-col border-e border-border overflow-hidden">
       <div className="flex items-center gap-2 border-b border-border px-4 py-3">
         <div className="flex h-6 w-6 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-primary/40">
           <Bot className="h-3.5 w-3.5 text-primary-foreground" />
@@ -32,8 +32,8 @@ export function HuntChatPanel({ messages, onSend, disabled = false }: HuntChatPa
         <h2 className="text-sm font-semibold">{t('chatTitle')}</h2>
       </div>
 
-      <ScrollArea className="flex-1">
-        <div className="flex flex-col gap-1 py-4">
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="flex flex-col gap-1 py-4 px-1">
           {messages.length === 0 && (
             <EmptyState
               icon={<Crosshair className="h-6 w-6" />}

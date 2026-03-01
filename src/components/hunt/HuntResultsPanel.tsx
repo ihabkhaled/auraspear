@@ -27,15 +27,17 @@ export function HuntResultsPanel({
   loading = false,
 }: HuntResultsPanelProps) {
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col overflow-hidden">
       <HuntStatusBar sessionId={sessionId} status={status} />
-      <ScrollArea className="flex-1">
-        <HuntStatsGrid
-          eventsFound={eventsFound}
-          uniqueIps={uniqueIps}
-          threatScore={threatScore}
-        />
-        <HuntEventTable events={events} loading={loading} />
+      <ScrollArea className="flex-1 min-h-0">
+        <div className="space-y-4 p-4">
+          <HuntStatsGrid
+            eventsFound={eventsFound}
+            uniqueIps={uniqueIps}
+            threatScore={threatScore}
+          />
+          <HuntEventTable events={events} loading={loading} />
+        </div>
       </ScrollArea>
     </div>
   )
