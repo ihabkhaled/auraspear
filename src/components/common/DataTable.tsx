@@ -1,6 +1,8 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { useTranslations } from 'next-intl'
+import { Inbox } from 'lucide-react'
 import {
   Table,
   TableBody,
@@ -11,12 +13,15 @@ import {
 } from '@/components/ui/table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Skeleton } from '@/components/ui/skeleton'
+import { EmptyState } from '@/components/common/EmptyState'
 import type { Column } from '@/types'
 
 interface DataTableProps<T> {
   columns: Column<T>[]
   data: T[]
   emptyMessage?: string
+  emptyIcon?: ReactNode
+  emptyDescription?: string
   loading?: boolean
   onRowClick?: ((row: T) => void) | undefined
   selectedIds?: string[] | undefined
@@ -37,6 +42,8 @@ export function DataTable<T>({
   columns,
   data,
   emptyMessage,
+  emptyIcon,
+  emptyDescription,
   loading = false,
   onRowClick,
   selectedIds,
@@ -111,9 +118,11 @@ export function DataTable<T>({
 
   if (data.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
-        <p className="text-sm">{emptyMessage ?? t('noData')}</p>
-      </div>
+      <EmptyState
+        icon={emptyIcon ?? <Inbox className="h-6 w-6" />}
+        title={emptyMessage ?? t('noData')}
+        description={emptyDescription}
+      />
     )
   }
 

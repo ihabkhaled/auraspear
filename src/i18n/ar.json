@@ -63,13 +63,21 @@
     "mitreTopTechniques": "أهم تقنيات MITRE",
     "topTargetedAssets": "الأصول الأكثر استهدافاً",
     "pipelineHealth": "صحة خط الأنابيب",
+    "emptyTitle": "لا توجد بيانات للوحة المتابعة",
+    "emptyDescription": "ستظهر البيانات بمجرد معالجة التنبيهات",
     "viewAll": "عرض الكل",
     "asset": "الأصل",
     "ip": "عنوان IP",
     "riskScore": "مؤشر الخطورة",
     "systemHealth": "صحة النظام",
     "eps": "أحداث/ثانية",
-    "lag": "تأخير"
+    "lag": "تأخير",
+    "mitreEmptyTitle": "لا توجد تقنيات MITRE",
+    "mitreEmptyDescription": "ستظهر بيانات التقنيات بمجرد ربط التنبيهات",
+    "assetsEmptyTitle": "لا توجد أصول مستهدفة",
+    "assetsEmptyDescription": "ستظهر بيانات مخاطر الأصول بمجرد تحليل التنبيهات",
+    "pipelineEmptyTitle": "لا توجد خدمات",
+    "pipelineEmptyDescription": "ستظهر بيانات صحة خط الأنابيب هنا"
   },
   "alerts": {
     "title": "إدارة التنبيهات",
@@ -77,7 +85,8 @@
     "searchPlaceholder": "أدخل استعلام KQL...",
     "savedSearches": "عمليات البحث المحفوظة",
     "submit": "بحث",
-    "noAlerts": "لا توجد تنبيهات مطابقة",
+    "noAlerts": "لم يتم العثور على تنبيهات",
+    "emptyDescription": "لا توجد تنبيهات أمنية تطابق الفلاتر الحالية",
     "rule": "القاعدة",
     "agent": "الوكيل",
     "sourceIp": "عنوان المصدر",
@@ -140,6 +149,13 @@
     "title": "إدارة القضايا",
     "description": "إدارة قضايا الحوادث الأمنية",
     "noCases": "لم يتم العثور على قضايا",
+    "emptyDescription": "ستظهر قضايا الحوادث الأمنية هنا",
+    "noItems": "لا توجد عناصر",
+    "statusOpen": "مفتوحة",
+    "statusInProgress": "قيد التنفيذ",
+    "statusClosed": "مغلقة",
+    "caseNotFoundTitle": "لم يتم العثور على القضية",
+    "caseNotFoundDescription": "تعذر العثور على القضية المطلوبة",
     "open": "مفتوحة",
     "inProgress": "قيد التنفيذ",
     "closed": "مغلقة",
@@ -195,8 +211,12 @@
     "hitCount": "عدد المطابقات",
     "lastSeen": "آخر ظهور",
     "source": "المصدر",
+    "emptyTitle": "لا توجد استخبارات تهديدات",
+    "emptyDescription": "ستظهر بيانات أحداث MISP هنا",
     "noEvents": "لم يتم العثور على أحداث MISP",
+    "noEventsDescription": "لا توجد أحداث MISP تطابق استعلامك الحالي",
     "noCorrelations": "لم يتم العثور على ارتباطات",
+    "noCorrelationsDescription": "ستظهر بيانات ربط مؤشرات الاختراق هنا عند توفرها",
     "stats": {
       "threatActors": "مصادر التهديد",
       "ipIOCs": "مؤشرات IP",
@@ -213,10 +233,27 @@
       "typeURL": "رابط"
     },
     "misp": {
-      "title": "بيانات MISP"
+      "title": "بيانات MISP",
+      "eventId": "معرف الحدث",
+      "organization": "المنظمة",
+      "info": "المعلومات",
+      "threatLevel": "مستوى التهديد",
+      "tags": "العلامات",
+      "attributes": "السمات",
+      "lastUpdated": "آخر تحديث",
+      "noEvents": "لم يتم العثور على أحداث MISP",
+      "noEventsDescription": "لا توجد أحداث MISP تطابق استعلامك الحالي"
     },
     "correlation": {
-      "title": "ارتباطات Wazuh"
+      "title": "ارتباطات Wazuh",
+      "iocValue": "قيمة مؤشر الاختراق",
+      "type": "النوع",
+      "source": "المصدر",
+      "hitCount": "عدد المطابقات",
+      "lastSeen": "آخر ظهور",
+      "severity": "الخطورة",
+      "noMatches": "لم يتم العثور على ارتباطات",
+      "noMatchesDescription": "ستظهر بيانات ربط مؤشرات الاختراق هنا عند توفرها"
     }
   },
   "admin": {
@@ -263,6 +300,7 @@
       "users": "المستخدمون",
       "alerts": "التنبيهات",
       "noTenants": "لم يتم العثور على مستأجرين",
+      "noTenantsDescription": "ستظهر منظمات المستأجرين هنا",
       "loadError": "فشل في تحميل المستأجرين",
       "cancel": "إلغاء",
       "create": "إنشاء مستأجر",
@@ -279,15 +317,26 @@
       "lastLogin": "آخر دخول",
       "mfa": "المصادقة الثنائية",
       "noUsers": "لم يتم العثور على مستخدمين",
+      "noUsersDescription": "سيظهر مستخدمو المستأجر هنا",
       "never": "لم يسجل الدخول",
       "loadError": "فشل في تحميل المستخدمين"
     },
     "services": {
       "title": "صحة الخدمات",
+      "noServices": "لم يتم العثور على خدمات",
+      "noServicesDescription": "ستظهر بيانات صحة الخدمات هنا",
       "loadError": "فشل في تحميل صحة الخدمات"
     },
     "audit": {
-      "title": "سجلات التدقيق"
+      "title": "سجلات التدقيق",
+      "timestamp": "الوقت",
+      "actor": "المنفذ",
+      "action": "الإجراء",
+      "resource": "المورد",
+      "resourceId": "معرف المورد",
+      "ipAddress": "عنوان IP",
+      "noLogs": "لم يتم العثور على سجلات التدقيق",
+      "noLogsDescription": "ستظهر سجلات تدقيق النظام هنا"
     }
   },
   "auth": {

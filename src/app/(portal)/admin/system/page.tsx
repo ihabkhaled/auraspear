@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { PageHeader, Pagination, LoadingSpinner, ErrorMessage } from '@/components/common'
+import { Server, ScrollText } from 'lucide-react'
+import { PageHeader, Pagination, LoadingSpinner, ErrorMessage, EmptyState } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ServiceHealthGrid, AuditLogTable } from '@/components/admin'
 import { useServiceHealth, useAuditLogs, usePagination } from '@/hooks'
@@ -40,6 +41,12 @@ export default function SystemAdminPage() {
             <LoadingSpinner />
           ) : healthError ? (
             <ErrorMessage message={t('services.loadError')} />
+          ) : (healthData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<Server className="h-6 w-6" />}
+              title={t('services.noServices')}
+              description={t('services.noServicesDescription')}
+            />
           ) : (
             <ServiceHealthGrid services={healthData?.data ?? []} />
           )}
@@ -53,6 +60,12 @@ export default function SystemAdminPage() {
         <CardContent className="space-y-4">
           {auditLoading ? (
             <LoadingSpinner />
+          ) : (auditData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<ScrollText className="h-6 w-6" />}
+              title={t('audit.noLogs')}
+              description={t('audit.noLogsDescription')}
+            />
           ) : (
             <AuditLogTable logs={auditData?.data ?? []} loading={auditLoading} />
           )}

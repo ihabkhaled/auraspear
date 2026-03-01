@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Building2 } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
@@ -90,6 +91,8 @@ export function TenantListTable({ tenants, loading, onTenantClick }: TenantListT
       loading={loading}
       onRowClick={onTenantClick}
       emptyMessage={t('tenants.noTenants')}
+      emptyIcon={<Building2 className="h-6 w-6" />}
+      emptyDescription={t('tenants.noTenantsDescription')}
     />
   )
 }

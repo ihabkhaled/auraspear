@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Globe } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
 import { MISPTagPill } from './MISPTagPill'
@@ -112,6 +113,8 @@ export function MISPEventFeed({ events, loading = false, onEventClick }: MISPEve
       loading={loading}
       onRowClick={onEventClick}
       emptyMessage={t('misp.noEvents')}
+      emptyIcon={<Globe className="h-6 w-6" />}
+      emptyDescription={t('misp.noEventsDescription')}
     />
   )
 }

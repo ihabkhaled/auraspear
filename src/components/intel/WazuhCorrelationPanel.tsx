@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Link2 } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { formatRelativeTime } from '@/lib/utils'
@@ -64,6 +65,8 @@ export function WazuhCorrelationPanel({ correlations, loading = false }: WazuhCo
       data={correlations}
       loading={loading}
       emptyMessage={t('correlation.noMatches')}
+      emptyIcon={<Link2 className="h-6 w-6" />}
+      emptyDescription={t('correlation.noMatchesDescription')}
     />
   )
 }

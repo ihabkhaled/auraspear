@@ -1,8 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Shield, AlertTriangle, Briefcase, Clock } from 'lucide-react'
-import { PageHeader, KPICard, LoadingSpinner } from '@/components/common'
+import { Shield, AlertTriangle, Briefcase, Clock, BarChart3 } from 'lucide-react'
+import { PageHeader, KPICard, LoadingSpinner, EmptyState } from '@/components/common'
 import { DashboardCard, MITRETopTechniques, TopTargetedAssets, PipelineHealthBar } from '@/components/dashboard'
 import { AlertTrendChart } from '@/components/charts'
 import { useKPIs, useAlertTrends, useMITREStats, useAssetRisks, usePipelineHealth } from '@/hooks'
@@ -37,6 +37,14 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {kpisLoading ? (
           <LoadingSpinner />
+        ) : (kpis?.data?.length ?? 0) === 0 ? (
+          <div className="col-span-full">
+            <EmptyState
+              icon={<BarChart3 className="h-6 w-6" />}
+              title={t('emptyTitle')}
+              description={t('emptyDescription')}
+            />
+          </div>
         ) : (
           kpis?.data?.map((kpi, i) => (
             <KPICard

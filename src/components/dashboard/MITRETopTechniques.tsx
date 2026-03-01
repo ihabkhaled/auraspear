@@ -1,7 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Swords } from 'lucide-react'
 import { Progress } from '@/components/ui/progress'
+import { EmptyState } from '@/components/common/EmptyState'
 import { DashboardCard } from './DashboardCard'
 import type { MITRETechnique } from '@/types'
 
@@ -12,6 +14,19 @@ interface MITRETopTechniquesProps {
 
 export function MITRETopTechniques({ techniques, className }: MITRETopTechniquesProps) {
   const t = useTranslations('dashboard')
+
+  if (techniques.length === 0) {
+    return (
+      <DashboardCard title={t('mitreTopTechniques')} className={className}>
+        <EmptyState
+          icon={<Swords className="h-6 w-6" />}
+          title={t('mitreEmptyTitle')}
+          description={t('mitreEmptyDescription')}
+          className="py-6"
+        />
+      </DashboardCard>
+    )
+  }
 
   return (
     <DashboardCard title={t('mitreTopTechniques')} className={className}>

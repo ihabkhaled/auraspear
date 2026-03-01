@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Crosshair } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { formatTimestamp } from '@/lib/utils'
@@ -63,6 +64,7 @@ export function HuntEventTable({ events, loading = false }: HuntEventTableProps)
         data={events}
         loading={loading}
         emptyMessage={t('noEvents')}
+        emptyIcon={<Crosshair className="h-6 w-6" />}
       />
     </div>
   )

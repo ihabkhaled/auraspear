@@ -1,6 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Activity } from 'lucide-react'
+import { EmptyState } from '@/components/common/EmptyState'
 import { DashboardCard } from './DashboardCard'
 import { cn } from '@/lib/utils'
 import type { PipelineService } from '@/types'
@@ -23,6 +25,19 @@ function StatusDot({ healthy }: { healthy: boolean }) {
 
 export function PipelineHealthBar({ services, className }: PipelineHealthBarProps) {
   const t = useTranslations('dashboard')
+
+  if (services.length === 0) {
+    return (
+      <DashboardCard title={t('pipelineHealth')} className={className}>
+        <EmptyState
+          icon={<Activity className="h-6 w-6" />}
+          title={t('pipelineEmptyTitle')}
+          description={t('pipelineEmptyDescription')}
+          className="py-6"
+        />
+      </DashboardCard>
+    )
+  }
 
   return (
     <DashboardCard title={t('pipelineHealth')} className={className}>

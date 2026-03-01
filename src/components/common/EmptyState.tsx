@@ -2,12 +2,12 @@ import type { ReactNode } from 'react'
 import { Inbox } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-interface EmptyStateProps {
-  icon?: ReactNode
+export interface EmptyStateProps {
+  icon?: ReactNode | undefined
   title: string
-  description?: string
-  className?: string
-  children?: ReactNode
+  description?: string | undefined
+  className?: string | undefined
+  children?: ReactNode | undefined
 }
 
 export function EmptyState({ icon, title, description, className, children }: EmptyStateProps) {

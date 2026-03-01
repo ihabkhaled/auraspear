@@ -63,13 +63,21 @@
     "mitreTopTechniques": "MITRE Top Techniques",
     "topTargetedAssets": "Top Targeted Assets",
     "pipelineHealth": "Pipeline Health",
+    "emptyTitle": "No dashboard data",
+    "emptyDescription": "Data will appear once alerts are processed",
     "viewAll": "View All",
     "asset": "Asset",
     "ip": "IP Address",
     "riskScore": "Risk Score",
     "systemHealth": "System Health",
     "eps": "EPS",
-    "lag": "Lag"
+    "lag": "Lag",
+    "mitreEmptyTitle": "No MITRE techniques",
+    "mitreEmptyDescription": "Technique data will appear once alerts are mapped",
+    "assetsEmptyTitle": "No targeted assets",
+    "assetsEmptyDescription": "Asset risk data will appear once alerts are analyzed",
+    "pipelineEmptyTitle": "No pipeline services",
+    "pipelineEmptyDescription": "Pipeline health data will appear here"
   },
   "alerts": {
     "title": "Alerts Management",
@@ -77,7 +85,8 @@
     "searchPlaceholder": "Enter KQL query... (e.g., severity:critical AND agent.name:web-server-01)",
     "savedSearches": "Saved Searches",
     "submit": "Search",
-    "noAlerts": "No alerts match your criteria",
+    "noAlerts": "No alerts found",
+    "emptyDescription": "No security alerts match your current filters",
     "rule": "Rule",
     "agent": "Agent",
     "sourceIp": "Source IP",
@@ -140,6 +149,13 @@
     "title": "Case Management",
     "description": "Manage security incident cases",
     "noCases": "No cases found",
+    "emptyDescription": "Security incident cases will appear here",
+    "noItems": "No items",
+    "statusOpen": "Open",
+    "statusInProgress": "In Progress",
+    "statusClosed": "Closed",
+    "caseNotFoundTitle": "Case not found",
+    "caseNotFoundDescription": "The requested case could not be located",
     "open": "Open",
     "inProgress": "In Progress",
     "closed": "Closed",
@@ -195,8 +211,12 @@
     "hitCount": "Hit Count",
     "lastSeen": "Last Seen",
     "source": "Source",
+    "emptyTitle": "No threat intelligence",
+    "emptyDescription": "MISP event data will appear here",
     "noEvents": "No MISP events found",
+    "noEventsDescription": "No MISP events match your current query",
     "noCorrelations": "No correlations found",
+    "noCorrelationsDescription": "IOC correlation data will appear here when available",
     "stats": {
       "threatActors": "Threat Actors",
       "ipIOCs": "IP IOCs",
@@ -213,10 +233,27 @@
       "typeURL": "URL"
     },
     "misp": {
-      "title": "MISP Event Feed"
+      "title": "MISP Event Feed",
+      "eventId": "Event ID",
+      "organization": "Organization",
+      "info": "Info",
+      "threatLevel": "Threat Level",
+      "tags": "Tags",
+      "attributes": "Attributes",
+      "lastUpdated": "Last Updated",
+      "noEvents": "No MISP events found",
+      "noEventsDescription": "No MISP events match your current query"
     },
     "correlation": {
-      "title": "Wazuh Correlations"
+      "title": "Wazuh Correlations",
+      "iocValue": "IOC Value",
+      "type": "Type",
+      "source": "Source",
+      "hitCount": "Hit Count",
+      "lastSeen": "Last Seen",
+      "severity": "Severity",
+      "noMatches": "No correlations found",
+      "noMatchesDescription": "IOC correlation data will appear here when available"
     }
   },
   "admin": {
@@ -263,6 +300,7 @@
       "users": "Users",
       "alerts": "Alerts",
       "noTenants": "No tenants found",
+      "noTenantsDescription": "Tenant organizations will appear here",
       "loadError": "Failed to load tenants",
       "cancel": "Cancel",
       "create": "Create Tenant",
@@ -279,15 +317,26 @@
       "lastLogin": "Last Login",
       "mfa": "MFA",
       "noUsers": "No users found",
+      "noUsersDescription": "Tenant users will appear here",
       "never": "Never",
       "loadError": "Failed to load users"
     },
     "services": {
       "title": "Service Health",
+      "noServices": "No services found",
+      "noServicesDescription": "Service health data will appear here",
       "loadError": "Failed to load service health"
     },
     "audit": {
-      "title": "Audit Logs"
+      "title": "Audit Logs",
+      "timestamp": "Timestamp",
+      "actor": "Actor",
+      "action": "Action",
+      "resource": "Resource",
+      "resourceId": "Resource ID",
+      "ipAddress": "IP Address",
+      "noLogs": "No audit logs found",
+      "noLogsDescription": "System audit logs will appear here"
     }
   },
   "auth": {

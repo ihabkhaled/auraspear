@@ -1,7 +1,9 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Monitor } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/common/EmptyState'
 import { DashboardCard } from './DashboardCard'
 import { cn } from '@/lib/utils'
 import type { AssetRisk } from '@/types'
@@ -26,6 +28,19 @@ function getRiskBadgeClass(score: number): string {
 
 export function TopTargetedAssets({ assets, className }: TopTargetedAssetsProps) {
   const t = useTranslations('dashboard')
+
+  if (assets.length === 0) {
+    return (
+      <DashboardCard title={t('topTargetedAssets')} className={className}>
+        <EmptyState
+          icon={<Monitor className="h-6 w-6" />}
+          title={t('assetsEmptyTitle')}
+          description={t('assetsEmptyDescription')}
+          className="py-6"
+        />
+      </DashboardCard>
+    )
+  }
 
   return (
     <DashboardCard title={t('topTargetedAssets')} className={className}>

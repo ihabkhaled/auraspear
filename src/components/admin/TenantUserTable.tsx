@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { Shield } from 'lucide-react'
+import { Shield, Users } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -123,6 +123,8 @@ export function TenantUserTable({ users, loading = false, onUserClick }: TenantU
       loading={loading}
       onRowClick={onUserClick}
       emptyMessage={t('users.noUsers')}
+      emptyIcon={<Users className="h-6 w-6" />}
+      emptyDescription={t('users.noUsersDescription')}
     />
   )
 }

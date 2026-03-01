@@ -3,10 +3,10 @@
 import { use } from 'react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, FileQuestion } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { LoadingSpinner, ErrorMessage } from '@/components/common'
+import { LoadingSpinner, EmptyState } from '@/components/common'
 import {
   CaseDetailHeader,
   CaseTimeline,
@@ -42,7 +42,11 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
           <ArrowLeft className="h-4 w-4" />
           {t('backToCases')}
         </Button>
-        <ErrorMessage message={t('caseNotFound')} />
+        <EmptyState
+          icon={<FileQuestion className="h-6 w-6" />}
+          title={t('caseNotFoundTitle')}
+          description={t('caseNotFoundDescription')}
+        />
       </div>
     )
   }

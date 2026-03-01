@@ -2,8 +2,8 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { Plus } from 'lucide-react'
-import { PageHeader, LoadingSpinner, ErrorMessage, Toast } from '@/components/common'
+import { Plus, Building2, Users } from 'lucide-react'
+import { PageHeader, LoadingSpinner, ErrorMessage, Toast, EmptyState } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
   TenantUserTable,
@@ -87,6 +87,12 @@ export default function TenantConfigPage() {
             <LoadingSpinner />
           ) : tenantsError ? (
             <ErrorMessage message={t('tenants.loadError')} />
+          ) : (tenantsData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<Building2 className="h-6 w-6" />}
+              title={t('tenants.noTenants')}
+              description={t('tenants.noTenantsDescription')}
+            />
           ) : (
             <TenantListTable
               tenants={tenantsData?.data ?? []}
@@ -113,6 +119,12 @@ export default function TenantConfigPage() {
             <LoadingSpinner />
           ) : usersError ? (
             <ErrorMessage message={t('users.loadError')} />
+          ) : (usersData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<Users className="h-6 w-6" />}
+              title={t('users.noUsers')}
+              description={t('users.noUsersDescription')}
+            />
           ) : (
             <TenantUserTable
               users={usersData?.data ?? []}

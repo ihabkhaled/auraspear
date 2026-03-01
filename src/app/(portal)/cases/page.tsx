@@ -3,8 +3,8 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
-import { Plus } from 'lucide-react'
-import { PageHeader, LoadingSpinner, Toast } from '@/components/common'
+import { Plus, FolderOpen } from 'lucide-react'
+import { PageHeader, LoadingSpinner, Toast, EmptyState } from '@/components/common'
 import {
   CaseToolbar,
   CaseViewMode,
@@ -100,6 +100,12 @@ export default function CasesPage() {
 
       {isLoading ? (
         <LoadingSpinner />
+      ) : filteredCases.length === 0 ? (
+        <EmptyState
+          icon={<FolderOpen className="h-6 w-6" />}
+          title={t('noCases')}
+          description={t('emptyDescription')}
+        />
       ) : (
         <CaseKanbanBoard
           cases={filteredCases}

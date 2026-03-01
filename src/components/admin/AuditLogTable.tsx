@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { ScrollText } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { formatTimestamp } from '@/lib/utils'
 import type { AuditLogEntry, Column } from '@/types'
@@ -54,6 +55,8 @@ export function AuditLogTable({ logs, loading = false }: AuditLogTableProps) {
       data={logs}
       loading={loading}
       emptyMessage={t('audit.noLogs')}
+      emptyIcon={<ScrollText className="h-6 w-6" />}
+      emptyDescription={t('audit.noLogsDescription')}
     />
   )
 }

@@ -2,7 +2,8 @@
 
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
-import { PageHeader, Pagination, LoadingSpinner } from '@/components/common'
+import { Globe, Link2 } from 'lucide-react'
+import { PageHeader, Pagination, LoadingSpinner, EmptyState } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { IntelStatsGrid, IOCSearchBar, MISPEventFeed, WazuhCorrelationPanel } from '@/components/intel'
 import { useMISPEvents, useIOCSearch, useCorrelations, usePagination } from '@/hooks'
@@ -70,6 +71,12 @@ export default function IntelPage() {
         <CardContent className="space-y-4">
           {mispLoading ? (
             <LoadingSpinner />
+          ) : (mispData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<Globe className="h-6 w-6" />}
+              title={t('noEvents')}
+              description={t('noEventsDescription')}
+            />
           ) : (
             <MISPEventFeed events={mispData?.data ?? []} loading={mispLoading} />
           )}
@@ -89,6 +96,12 @@ export default function IntelPage() {
         <CardContent>
           {correlationsLoading ? (
             <LoadingSpinner />
+          ) : (correlationsData?.data?.length ?? 0) === 0 ? (
+            <EmptyState
+              icon={<Link2 className="h-6 w-6" />}
+              title={t('noCorrelations')}
+              description={t('noCorrelationsDescription')}
+            />
           ) : (
             <WazuhCorrelationPanel correlations={correlationsData?.data ?? []} />
           )}

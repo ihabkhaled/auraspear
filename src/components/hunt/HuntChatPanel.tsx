@@ -2,8 +2,9 @@
 
 import { useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Bot } from 'lucide-react'
+import { Bot, Crosshair } from 'lucide-react'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { EmptyState } from '@/components/common/EmptyState'
 import type { HuntMessage } from '@/types'
 import { ChatMessage } from './ChatMessage'
 import { HuntInputArea } from './HuntInputArea'
@@ -34,15 +35,12 @@ export function HuntChatPanel({ messages, onSend, disabled = false }: HuntChatPa
       <ScrollArea className="flex-1">
         <div className="flex flex-col gap-1 py-4">
           {messages.length === 0 && (
-            <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                <Bot className="h-6 w-6 text-primary" />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-sm font-medium">{t('emptyTitle')}</p>
-                <p className="text-xs text-muted-foreground">{t('emptyDescription')}</p>
-              </div>
-            </div>
+            <EmptyState
+              icon={<Crosshair className="h-6 w-6" />}
+              title={t('emptyTitle')}
+              description={t('emptyDescription')}
+              className="py-16"
+            />
           )}
           {messages.map(message => (
             <ChatMessage key={message.id} message={message} />

@@ -1,6 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { Server } from 'lucide-react'
+import { EmptyState } from '@/components/common/EmptyState'
 import { ServiceHealthCard } from './ServiceHealthCard'
 import type { ServiceHealth } from '@/types'
 
@@ -13,9 +15,11 @@ export function ServiceHealthGrid({ services }: ServiceHealthGridProps) {
 
   if (services.length === 0) {
     return (
-      <div className="flex items-center justify-center py-12 text-muted-foreground">
-        <p className="text-sm">{t('services.noServices')}</p>
-      </div>
+      <EmptyState
+        icon={<Server className="h-6 w-6" />}
+        title={t('services.noServices')}
+        description={t('services.noServicesDescription')}
+      />
     )
   }
 

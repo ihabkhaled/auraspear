@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { ShieldAlert } from 'lucide-react'
 import {
   PageHeader,
   DataTable,
@@ -153,6 +154,8 @@ export default function AlertsPage() {
               data={data?.data ?? []}
               onRowClick={handleRowClick}
               emptyMessage={t('noAlerts')}
+              emptyIcon={<ShieldAlert className="h-6 w-6" />}
+              emptyDescription={t('emptyDescription')}
             />
           )}
 
