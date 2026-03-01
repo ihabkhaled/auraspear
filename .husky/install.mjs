@@ -1,5 +1,11 @@
-// Skip Husky install in production and CI
-if (process.env.NODE_ENV === 'production' || process.env.CI === 'true') {
+// Skip Husky install in production, CI, and Vercel
+if (
+  process.env.NODE_ENV === 'production' ||
+  process.env.CI ||
+  process.env.VERCEL ||
+  process.env.NETLIFY ||
+  process.env.GITHUB_ACTIONS
+) {
   process.exit(0)
 }
 
