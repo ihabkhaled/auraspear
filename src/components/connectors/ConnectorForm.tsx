@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
-import { toast } from 'sonner'
+import { Toast } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,58 +17,15 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import type { ConnectorType, ConnectorRecord } from '@/lib/types/connectors'
-import { CONNECTOR_META, BEDROCK_MODELS, AWS_REGIONS, canEdit } from '@/lib/types/connectors'
+import { ConnectorAuthType, ConnectorType, UserRole } from '@/enums'
+import { useUpdateConnector } from '@/hooks/useConnectors'
+import { getErrorKey } from '@/lib/api-error'
+import { recordToFormValues } from '@/lib/connector-utils'
+import { BEDROCK_MODELS, AWS_REGIONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
+import { hasRole } from '@/lib/roles'
+import type { ConnectorRecord } from '@/lib/types/connectors'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
-import { useConnectorsStore } from '@/stores/connectors.store'
-
-function recordToFormValues(record: ConnectorRecord): ConnectorFormValues {
-  const c = record.config
-  return {
-    name: record.name,
-    enabled: record.enabled,
-    baseUrl: String(c['baseUrl'] ?? ''),
-    authType: (['apiKey', 'basic', 'bearer', 'iam'].includes(String(c['authType'] ?? ''))
-      ? String(c['authType'])
-      : 'apiKey') as 'apiKey' | 'basic' | 'bearer' | 'iam',
-    apiKey: String(c['apiKey'] ?? ''),
-    username: String(c['username'] ?? ''),
-    password: String(c['password'] ?? ''),
-    token: String(c['token'] ?? ''),
-    verifyTLS: c['verifyTLS'] !== false,
-    timeoutSeconds: Number(c['timeoutSeconds'] ?? 30) || 30,
-    tags: Array.isArray(c['tags']) ? (c['tags'] as string[]).join(', ') : '',
-    notes: String(c['notes'] ?? ''),
-    managerUrl: String(c['managerUrl'] ?? ''),
-    indexerUrl: String(c['indexerUrl'] ?? ''),
-    indexerUsername: String(c['indexerUsername'] ?? ''),
-    indexerPassword: String(c['indexerPassword'] ?? ''),
-    tenant: String(c['tenant'] ?? ''),
-    apiUrl: String(c['apiUrl'] ?? ''),
-    streamId: String(c['streamId'] ?? ''),
-    indexSetId: String(c['indexSetId'] ?? ''),
-    orgId: String(c['orgId'] ?? ''),
-    clientCert: String(c['clientCert'] ?? ''),
-    clientKey: String(c['clientKey'] ?? ''),
-    grafanaUrl: String(c['grafanaUrl'] ?? ''),
-    folderId: String(c['folderId'] ?? ''),
-    datasourceUid: String(c['datasourceUid'] ?? ''),
-    org: String(c['org'] ?? ''),
-    bucket: String(c['bucket'] ?? ''),
-    mispUrl: String(c['mispUrl'] ?? ''),
-    mispAuthKey: String(c['mispAuthKey'] ?? ''),
-    webhookUrl: String(c['webhookUrl'] ?? ''),
-    workflowId: String(c['workflowId'] ?? ''),
-    shuffleApiKey: String(c['shuffleApiKey'] ?? ''),
-    modelId: String(c['modelId'] ?? ''),
-    region: String(c['region'] ?? ''),
-    accessKeyId: String(c['accessKeyId'] ?? ''),
-    secretAccessKey: String(c['secretAccessKey'] ?? ''),
-    nlHuntingEnabled: c['nlHuntingEnabled'] === true,
-    explainableAiEnabled: c['explainableAiEnabled'] === true,
-    auditLoggingEnabled: c['auditLoggingEnabled'] === true,
-  }
-}
+import { useAuthStore } from '@/stores'
 
 interface ConnectorFormProps {
   type: ConnectorType
@@ -78,13 +35,13 @@ interface ConnectorFormProps {
 
 export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps) {
   const t = useTranslations('connectors')
-  const upsert = useConnectorsStore(s => s.upsert)
-  const role = useConnectorsStore(s => s.role)
-  const addAuditLog = useConnectorsStore(s => s.addAuditLog)
-  const activeTenantId = useConnectorsStore(s => s.activeTenantId)
+  const tErrors = useTranslations()
+  const { user } = useAuthStore()
+  const userRole = user?.role as UserRole | undefined
   const meta = CONNECTOR_META[type]
+  const updateMutation = useUpdateConnector(type)
 
-  const disabled = readOnly || !canEdit(role)
+  const disabled = readOnly ?? !(userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false)
 
   const {
     register,
@@ -101,26 +58,25 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
   const onSubmit = (values: ConnectorFormValues) => {
     const { name, enabled, tags, ...configFields } = values
-    upsert(type, {
-      name,
-      enabled,
-      config: {
-        ...configFields,
-        tags: tags
-          .split(',')
-          .map(t => t.trim())
-          .filter(Boolean),
-      },
+    const encryptedConfig = JSON.stringify({
+      ...configFields,
+      tags: tags
+        .split(',')
+        .map(tag => tag.trim())
+        .filter(Boolean),
     })
-    addAuditLog({
-      tenantId: activeTenantId,
-      actor: `${role.toLowerCase()}@aura.io`,
-      role,
-      action: 'update',
-      connectorType: type,
-      details: `Updated ${meta.label} configuration`,
-    })
-    toast.success(`${meta.label} ${t('configurationSaved')}`)
+
+    updateMutation.mutate(
+      { name, enabled, encryptedConfig },
+      {
+        onSuccess: () => {
+          Toast.success(`${meta.label} ${t('configurationSaved')}`)
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      }
+    )
   }
 
   function FieldError({ name }: { name: keyof ConnectorFormValues }) {
@@ -160,7 +116,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
       <Separator />
 
-      {type !== 'bedrock' && (
+      {type !== ConnectorType.BEDROCK && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -193,16 +149,20 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="apiKey">{t('apiKeyAuth')}</SelectItem>
-                          <SelectItem value="basic">{t('basicAuth')}</SelectItem>
-                          <SelectItem value="bearer">{t('bearerToken')}</SelectItem>
+                          <SelectItem value={ConnectorAuthType.API_KEY}>
+                            {t('apiKeyAuth')}
+                          </SelectItem>
+                          <SelectItem value={ConnectorAuthType.BASIC}>{t('basicAuth')}</SelectItem>
+                          <SelectItem value={ConnectorAuthType.BEARER}>
+                            {t('bearerToken')}
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                     )}
                   />
                 </div>
 
-                {authType === 'apiKey' && (
+                {authType === ConnectorAuthType.API_KEY && (
                   <div className="space-y-2">
                     <Label htmlFor="apiKey">{t('apiKeyAuth')}</Label>
                     <Input
@@ -215,7 +175,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                   </div>
                 )}
 
-                {authType === 'basic' && (
+                {authType === ConnectorAuthType.BASIC && (
                   <>
                     <div className="space-y-2">
                       <Label htmlFor="username">{t('username')}</Label>
@@ -235,7 +195,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
                   </>
                 )}
 
-                {authType === 'bearer' && (
+                {authType === ConnectorAuthType.BEARER && (
                   <div className="space-y-2">
                     <Label htmlFor="token">{t('token')}</Label>
                     <Input id="token" type="password" disabled={disabled} {...register('token')} />
@@ -286,7 +246,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'wazuh' && (
+      {type === ConnectorType.WAZUH && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -335,7 +295,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'graylog' && (
+      {type === ConnectorType.GRAYLOG && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -366,7 +326,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'velociraptor' && (
+      {type === ConnectorType.VELOCIRAPTOR && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -406,7 +366,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'grafana' && (
+      {type === ConnectorType.GRAFANA && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -437,7 +397,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'influxdb' && (
+      {type === ConnectorType.INFLUXDB && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -461,7 +421,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'misp' && (
+      {type === ConnectorType.MISP && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -494,7 +454,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'shuffle' && (
+      {type === ConnectorType.SHUFFLE && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -531,7 +491,7 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
         </>
       )}
 
-      {type === 'bedrock' && (
+      {type === ConnectorType.BEDROCK && (
         <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
@@ -686,8 +646,8 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
       {!disabled && (
         <div className="flex gap-2 pt-2">
-          <Button type="submit" disabled={!isDirty}>
-            {t('saveConfiguration')}
+          <Button type="submit" disabled={!isDirty || updateMutation.isPending}>
+            {updateMutation.isPending ? t('saving') : t('saveConfiguration')}
           </Button>
         </div>
       )}

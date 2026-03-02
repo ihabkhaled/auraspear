@@ -1,10 +1,9 @@
 import { cookies } from 'next/headers'
 import { Toaster } from 'sonner'
+import { SUPPORTED_LOCALES } from '@/lib/constants/locales'
 import { Providers } from './providers'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
-
-const SUPPORTED_LOCALES = ['en', 'es', 'it', 'fr', 'ar', 'de'] as const
 
 export const viewport: Viewport = {
   width: 'device-width',

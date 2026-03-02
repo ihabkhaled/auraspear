@@ -1,12 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { intelService } from '@/services'
-
-interface MISPSearchParams {
-  page?: number
-  limit?: number
-  query?: string
-  threatLevel?: string
-}
+import type { MISPSearchParams } from '@/types'
 
 export function useMISPEvents(params?: MISPSearchParams) {
   return useQuery({

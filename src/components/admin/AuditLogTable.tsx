@@ -16,7 +16,7 @@ export function AuditLogTable({ logs, loading = false }: AuditLogTableProps) {
 
   const columns: Column<AuditLogEntry>[] = [
     {
-      key: 'timestamp',
+      key: 'createdAt',
       label: t('audit.timestamp'),
       render: value => (
         <span className="font-mono text-xs">{formatTimestamp(String(value ?? ''))}</span>

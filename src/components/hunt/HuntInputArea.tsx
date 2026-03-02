@@ -5,18 +5,12 @@ import { Send } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import { QUICK_PROMPT_KEYS } from '@/lib/constants/hunt'
 
 interface HuntInputAreaProps {
   onSend: (message: string) => void
   disabled?: boolean
 }
-
-const QUICK_PROMPT_KEYS = [
-  'detectBruteForce',
-  'findLateralMovement',
-  'checkDataExfiltration',
-  'suspiciousProcesses',
-] as const
 
 export function HuntInputArea({ onSend, disabled = false }: HuntInputAreaProps) {
   const t = useTranslations('hunt')

@@ -12,8 +12,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useAuthStore } from '@/stores'
+import { useLogout } from '@/hooks/useLogout'
 import { getInitials } from '@/lib/case.utils'
+import { useAuthStore } from '@/stores'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { TenantSwitcher } from './TenantSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'
@@ -21,23 +22,19 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 export function UserMenu() {
   const t = useTranslations('layout')
   const router = useRouter()
-  const { user, logout } = useAuthStore()
+  const { user } = useAuthStore()
+  const handleLogout = useLogout()
 
   const displayName = user?.email?.split('@')[0] ?? t('socAnalyst')
   const displayEmail = user?.email ?? ''
   const initials = displayName ? getInitials(displayName) : 'U'
-
-  function handleLogout() {
-    logout()
-    router.push('/login')
-  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          className="focus-visible:ring-ring flex items-center gap-2 rounded-full outline-none focus-visible:ring-2"
+          className="focus-visible:ring-ring flex cursor-pointer items-center gap-2 rounded-full outline-none focus-visible:ring-2"
         >
           <Avatar size="sm">
             <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
@@ -66,16 +63,16 @@ export function UserMenu() {
         </div>
         <DropdownMenuSeparator className="md:hidden" />
 
-        <DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/profile')}>
           <User className="h-4 w-4" />
           {t('profile')}
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => router.push('/settings')}>
           <Settings className="h-4 w-4" />
           {t('settings')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive" onClick={handleLogout}>
+        <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={handleLogout}>
           <LogOut className="h-4 w-4" />
           {t('signOut')}
         </DropdownMenuItem>

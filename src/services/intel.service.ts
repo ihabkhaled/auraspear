@@ -1,12 +1,5 @@
 import api from '@/lib/api'
-import type { ApiResponse, MISPEvent, IOCCorrelation } from '@/types'
-
-interface MISPSearchParams {
-  page?: number
-  limit?: number
-  query?: string
-  threatLevel?: string
-}
+import type { ApiResponse, IOCCorrelation, MISPEvent, MISPSearchParams } from '@/types'
 
 export const intelService = {
   getMISPEvents: (params?: MISPSearchParams) =>

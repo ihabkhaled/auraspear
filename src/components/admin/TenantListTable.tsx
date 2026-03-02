@@ -1,46 +1,33 @@
 'use client'
 
-import { Building2 } from 'lucide-react'
+import { Building2, Pencil, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+import { Button } from '@/components/ui/button'
+import { UserRole } from '@/enums'
 import type { Tenant, Column } from '@/types'
 
 interface TenantListTableProps {
   tenants: Tenant[]
   loading: boolean
   onTenantClick: ((tenant: Tenant) => void) | undefined
+  onEditTenant?: (tenant: Tenant) => void
+  onDeleteTenant?: (tenant: Tenant) => void
+  userRole?: UserRole
 }
 
-function getStatusClass(status: string): string {
-  switch (status) {
-    case 'active':
-      return 'bg-status-success text-status-success border-status-success'
-    case 'trial':
-      return 'bg-status-warning text-status-warning border-status-warning'
-    case 'inactive':
-      return 'bg-status-neutral text-status-neutral border-status-neutral'
-    default:
-      return ''
-  }
-}
-
-function getEnvironmentClass(env: string): string {
-  switch (env) {
-    case 'production':
-      return 'bg-primary/10 text-primary border-primary/20'
-    case 'staging':
-      return 'bg-status-warning text-status-warning border-status-warning'
-    case 'development':
-      return 'bg-status-info text-status-info border-status-info'
-    default:
-      return ''
-  }
-}
-
-export function TenantListTable({ tenants, loading, onTenantClick }: TenantListTableProps) {
+export function TenantListTable({
+  tenants,
+  loading,
+  onTenantClick,
+  onEditTenant,
+  onDeleteTenant,
+  userRole,
+}: TenantListTableProps) {
   const t = useTranslations('admin')
+  const tCommon = useTranslations('common')
+
+  const isGlobalAdmin = userRole === UserRole.GLOBAL_ADMIN
 
   const columns: Column<Tenant>[] = [
     {
@@ -49,24 +36,10 @@ export function TenantListTable({ tenants, loading, onTenantClick }: TenantListT
       render: value => <span className="font-medium">{String(value ?? '')}</span>,
     },
     {
-      key: 'environment',
-      label: t('tenants.environment'),
+      key: 'slug',
+      label: t('tenants.slug'),
       render: value => (
-        <Badge
-          variant="outline"
-          className={cn('capitalize', getEnvironmentClass(String(value ?? '')))}
-        >
-          {String(value ?? '')}
-        </Badge>
-      ),
-    },
-    {
-      key: 'status',
-      label: t('tenants.status'),
-      render: value => (
-        <Badge variant="outline" className={cn('capitalize', getStatusClass(String(value ?? '')))}>
-          {String(value ?? '')}
-        </Badge>
+        <span className="text-muted-foreground font-mono text-sm">{String(value ?? '')}</span>
       ),
     },
     {
@@ -79,7 +52,45 @@ export function TenantListTable({ tenants, loading, onTenantClick }: TenantListT
       label: t('tenants.alerts'),
       render: value => <span className="text-muted-foreground text-sm">{String(value ?? 0)}</span>,
     },
+    {
+      key: 'caseCount',
+      label: t('tenants.cases'),
+      render: value => <span className="text-muted-foreground text-sm">{String(value ?? 0)}</span>,
+    },
   ]
+
+  if (isGlobalAdmin) {
+    columns.push({
+      key: 'actions',
+      label: tCommon('actions'),
+      render: (_value, row) => (
+        <div className="flex items-center gap-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0"
+            onClick={e => {
+              e.stopPropagation()
+              onEditTenant?.(row)
+            }}
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-destructive hover:text-destructive h-8 w-8 p-0"
+            onClick={e => {
+              e.stopPropagation()
+              onDeleteTenant?.(row)
+            }}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
+      ),
+    })
+  }
 
   return (
     <DataTable

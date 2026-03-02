@@ -5,15 +5,9 @@ import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { IntegrationStatus } from '@/enums'
+import { getStatusBorderClass } from '@/lib/integration-utils'
 import { cn } from '@/lib/utils'
-
-interface IntegrationConfig {
-  id: string
-  name: string
-  description: string
-  status: IntegrationStatus
-  configFields?: Record<string, string>
-}
+import type { IntegrationConfig } from '@/types'
 
 interface IntegrationConfigPanelProps {
   integrations: IntegrationConfig[]
@@ -32,17 +26,6 @@ function getStatusIcon(status: IntegrationStatus) {
       return <XCircle className="text-status-error h-4 w-4" />
     default:
       return <XCircle className="text-status-neutral h-4 w-4" />
-  }
-}
-
-function getStatusBorderClass(status: IntegrationStatus): string {
-  switch (status) {
-    case IntegrationStatus.CONNECTED:
-      return 'border-status-success/30'
-    case IntegrationStatus.ERROR:
-      return 'border-status-error/30'
-    default:
-      return ''
   }
 }
 

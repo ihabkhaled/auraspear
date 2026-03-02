@@ -15,7 +15,7 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AlertSeverity } from '@/enums'
+import { getSeverityClass } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { Alert } from '@/types'
 
@@ -26,21 +26,6 @@ interface AlertDetailDrawerProps {
   onInvestigate?: (alert: Alert) => void
   onCreateCase?: (alert: Alert) => void
   onClose?: (alert: Alert) => void
-}
-
-function getSeverityClass(severity: AlertSeverity): string {
-  switch (severity) {
-    case AlertSeverity.CRITICAL:
-      return 'bg-status-error text-status-error border-status-error'
-    case AlertSeverity.HIGH:
-      return 'bg-status-warning text-status-warning border-status-warning'
-    case AlertSeverity.MEDIUM:
-      return 'bg-status-info text-status-info border-status-info'
-    case AlertSeverity.LOW:
-      return 'bg-status-success text-status-success border-status-success'
-    case AlertSeverity.INFO:
-      return 'bg-status-neutral text-status-neutral border-status-neutral'
-  }
 }
 
 function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {

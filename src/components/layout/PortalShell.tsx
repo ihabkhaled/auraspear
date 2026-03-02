@@ -1,6 +1,8 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { LoadingSpinner } from '@/components/common'
+import { usePreferencesSync } from '@/hooks/usePreferencesSync'
 import { CommandPalette } from './CommandPalette'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
@@ -10,6 +12,16 @@ interface PortalShellProps {
 }
 
 export function PortalShell({ children }: PortalShellProps) {
+  const { syncing } = usePreferencesSync()
+
+  if (syncing) {
+    return (
+      <div className="bg-background flex h-screen items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    )
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />

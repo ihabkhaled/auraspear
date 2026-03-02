@@ -138,6 +138,8 @@
     "columnSourceIp": "عنوان المصدر",
     "columnUser": "المستخدم",
     "columnDescription": "الوصف",
+    "sessionError": "فشل في إنشاء جلسة الصيد",
+    "sendError": "فشل في إرسال الرسالة",
     "quickPrompts": {
       "bruteForce": "كشف هجمات القوة الغاشمة",
       "lateralMovement": "البحث عن الحركة الجانبية",
@@ -161,7 +163,7 @@
     "caseNotFoundDescription": "تعذر العثور على القضية المطلوبة",
     "open": "مفتوحة",
     "inProgress": "قيد التنفيذ",
-    "closed": "مغلقة",
+    "closed": "تاريخ الإغلاق",
     "createCase": "إنشاء قضية",
     "caseNumber": "رقم القضية",
     "timeline": "الجدول الزمني",
@@ -192,13 +194,39 @@
     "fieldDescriptionPlaceholder": "صف الحادث...",
     "fieldSeverity": "الخطورة",
     "fieldAssignee": "المسؤول",
+    "fieldStatus": "الحالة",
     "noArtifacts": "لا توجد قطع أثرية",
     "source": "المصدر",
     "copy": "نسخ",
     "lookup": "بحث",
     "artifactIps": "عناوين IP",
     "artifactHashes": "بصمات",
-    "artifactDomains": "نطاقات"
+    "artifactDomains": "نطاقات",
+    "backToCases": "العودة إلى القضايا",
+    "created": "تاريخ الإنشاء",
+    "updated": "تاريخ التحديث",
+    "escalate": "تصعيد",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "tasksCompleted": "{completed} من {total} مكتملة",
+    "noTasks": "لا توجد مهام بعد",
+    "notes": "ملاحظات",
+    "noNotes": "لا توجد ملاحظات بعد",
+    "addNotePlaceholder": "اكتب ملاحظة...",
+    "changeStatus": "تغيير الحالة",
+    "statusUpdated": "تم تحديث حالة القضية بنجاح",
+    "statusChanged": "تم تحديث حالة القضية",
+    "statusChangeError": "فشل في تحديث حالة القضية",
+    "fieldAssigneePlaceholder": "اختر المسؤول...",
+    "fieldSeverityPlaceholder": "اختر الخطورة...",
+    "statusLabel": "الحالة",
+    "creating": "جاري الإنشاء...",
+    "caseCreated": "تم إنشاء القضية بنجاح",
+    "caseCreateError": "فشل في إنشاء القضية",
+    "validationTitleMin": "يجب أن يتكون العنوان من 5 أحرف على الأقل",
+    "validationDescriptionMin": "يجب أن يتكون الوصف من 10 أحرف على الأقل",
+    "validationSeverity": "يرجى اختيار مستوى الخطورة",
+    "validationAssignee": "يرجى اختيار المسؤول"
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -240,7 +268,8 @@
       "typeIP": "عنوان IP",
       "typeHash": "بصمة ملف",
       "typeDomain": "نطاق",
-      "typeURL": "رابط"
+      "typeURL": "رابط",
+      "searching": "جارٍ البحث..."
     },
     "misp": {
       "title": "بيانات MISP",
@@ -306,9 +335,13 @@
       "envStaging": "اختبار",
       "envDevelopment": "تطوير",
       "name": "الاسم",
+      "slug": "المعرّف",
+      "slugPlaceholder": "my-organization",
+      "slugHelp": "أحرف صغيرة وأرقام وشرطات فقط",
       "status": "الحالة",
       "users": "المستخدمون",
       "alerts": "التنبيهات",
+      "cases": "القضايا",
       "noTenants": "لم يتم العثور على مستأجرين",
       "noTenantsDescription": "ستظهر منظمات المستأجرين هنا",
       "loadError": "فشل في تحميل المستأجرين",
@@ -316,7 +349,15 @@
       "create": "إنشاء مستأجر",
       "creating": "جاري الإنشاء...",
       "tenantCreated": "تم إنشاء المستأجر بنجاح",
-      "tenantCreateError": "فشل في إنشاء المستأجر"
+      "tenantCreateError": "فشل في إنشاء المستأجر",
+      "editTenant": "تعديل المستأجر",
+      "editTenantDescription": "تحديث معلومات المستأجر",
+      "tenantUpdated": "تم تحديث المستأجر بنجاح",
+      "tenantUpdateError": "فشل في تحديث المستأجر",
+      "deleteTenant": "حذف المستأجر",
+      "confirmDeleteTenant": "هل أنت متأكد من حذف هذا المستأجر؟ سيؤدي ذلك إلى إزالة جميع المستخدمين والبيانات المرتبطة.",
+      "tenantDeleted": "تم حذف المستأجر بنجاح",
+      "tenantDeleteError": "فشل في حذف المستأجر"
     },
     "users": {
       "title": "إدارة المستخدمين",
@@ -329,13 +370,73 @@
       "noUsers": "لم يتم العثور على مستخدمين",
       "noUsersDescription": "سيظهر مستخدمو المستأجر هنا",
       "never": "لم يسجل الدخول",
-      "loadError": "فشل في تحميل المستخدمين"
+      "loadError": "فشل في تحميل المستخدمين",
+      "addUser": "إضافة مستخدم",
+      "addUserDescription": "إضافة مستخدم جديد إلى هذا المستأجر",
+      "userName": "الاسم",
+      "userNamePlaceholder": "أدخل اسم المستخدم",
+      "userEmail": "البريد الإلكتروني",
+      "userEmailPlaceholder": "user@example.com",
+      "userPassword": "كلمة المرور",
+      "userPasswordPlaceholder": "8 أحرف كحد أدنى",
+      "userRole": "الدور",
+      "userRolePlaceholder": "اختر دوراً",
+      "userCreated": "تم إنشاء المستخدم بنجاح",
+      "userCreateError": "فشل في إنشاء المستخدم",
+      "creating": "جاري الإنشاء...",
+      "editUser": "تعديل المستخدم",
+      "editUserDescription": "تحديث بيانات المستخدم والدور",
+      "userUpdated": "تم تحديث المستخدم بنجاح",
+      "userUpdateError": "فشل في تحديث المستخدم",
+      "removeUser": "إزالة المستخدم",
+      "confirmRemoveUser": "هل أنت متأكد من إزالة هذا المستخدم من المستأجر؟",
+      "userRemoved": "تمت إزالة المستخدم بنجاح",
+      "userRemoveError": "فشل في إزالة المستخدم",
+      "passwordOptional": "اتركه فارغاً للاحتفاظ بكلمة المرور الحالية",
+      "passwordPlaceholder": "كلمة مرور جديدة (٨ أحرف على الأقل)",
+      "blockUser": "حظر المستخدم",
+      "confirmBlockUser": "هل أنت متأكد من حظر هذا المستخدم؟ لن يتمكن من تسجيل الدخول.",
+      "userBlocked": "تم حظر المستخدم بنجاح",
+      "unblockUser": "إلغاء حظر المستخدم",
+      "confirmUnblockUser": "هل أنت متأكد من إلغاء حظر هذا المستخدم؟ سيتمكن من تسجيل الدخول مرة أخرى.",
+      "userUnblocked": "تم إلغاء حظر المستخدم بنجاح",
+      "restoreUser": "استعادة المستخدم",
+      "confirmRestoreUser": "هل أنت متأكد من استعادة هذا المستخدم؟",
+      "userRestored": "تم استعادة المستخدم بنجاح",
+      "statusBlocked": "محظور",
+      "statusDeleted": "محذوف"
     },
     "services": {
       "title": "صحة الخدمات",
       "noServices": "لم يتم العثور على خدمات",
       "noServicesDescription": "ستظهر بيانات صحة الخدمات هنا",
-      "loadError": "فشل في تحميل صحة الخدمات"
+      "loadError": "فشل في تحميل صحة الخدمات",
+      "status": "الحالة",
+      "type": "النوع",
+      "latency": "زمن الاستجابة",
+      "statusHealthy": "سليم",
+      "statusDegraded": "متدهور",
+      "statusDown": "متوقف",
+      "statusMaintenance": "صيانة",
+      "statusUnknown": "غير معروف"
+    },
+    "roles": {
+      "role": "الدور",
+      "selectRole": "اختر دوراً",
+      "globalAdmin": "مسؤول عام",
+      "tenantAdmin": "مسؤول المستأجر",
+      "socAnalystL2": "محلل SOC المستوى 2",
+      "socAnalystL1": "محلل SOC المستوى 1",
+      "threatHunter": "صائد التهديدات",
+      "executiveReadonly": "تنفيذي (للقراءة فقط)",
+      "permissions": "الصلاحيات",
+      "roleRequired": "الدور مطلوب",
+      "permissionsRequired": "مطلوب صلاحية واحدة على الأقل"
+    },
+    "common": {
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جاري الحفظ..."
     },
     "audit": {
       "title": "سجلات التدقيق",
@@ -538,6 +639,16 @@
     "regionRequired": "المنطقة مطلوبة"
   },
   "errors": {
+    "accessDenied": "ليس لديك صلاحية للوصول إلى هذه الصفحة.",
+    "badRequest": "طلب غير صالح. يرجى التحقق من المدخلات.",
+    "unauthorized": "انتهت الجلسة. يرجى تسجيل الدخول مرة أخرى.",
+    "forbidden": "ليس لديك صلاحية لتنفيذ هذا الإجراء.",
+    "notFound": "لم يتم العثور على المورد.",
+    "conflict": "حدث تعارض. قد يكون المورد موجوداً بالفعل.",
+    "validationFailed": "فشل التحقق. يرجى التحقق من المدخلات.",
+    "tooManyRequests": "طلبات كثيرة جداً. يرجى المحاولة لاحقاً.",
+    "internalError": "حدث خطأ داخلي. يرجى المحاولة مرة أخرى.",
+    "serviceUnavailable": "الخدمة غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.",
     "common": {
       "unknown": "حدث خطأ غير متوقع",
       "network": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
@@ -548,8 +659,248 @@
     },
     "auth": {
       "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+      "invalidAccessToken": "رمز الوصول غير صالح أو منتهي الصلاحية. يرجى تسجيل الدخول مرة أخرى.",
+      "invalidRefreshToken": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+      "userNotFound": "حساب المستخدم لم يعد موجوداً.",
+      "provisionFailed": "تعذر إنشاء حساب المستخدم.",
+      "missingToken": "المصادقة مطلوبة. يرجى تسجيل الدخول.",
+      "expiredToken": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+      "insufficientPermissions": "ليس لديك صلاحيات كافية لتنفيذ هذا الإجراء.",
+      "unknownRole": "دور مستخدم غير معروف.",
+      "tenantRequired": "سياق المستأجر مطلوب.",
       "tokenExpired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
-      "unauthorized": "أنت غير مصادق. يرجى تسجيل الدخول."
+      "unauthorized": "أنت غير مصادق. يرجى تسجيل الدخول.",
+      "accountInactive": "حسابك غير نشط. يرجى التواصل مع المسؤول."
+    },
+    "validation": {
+      "failed": "فشل التحقق. يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
+      "email": {
+        "required": "البريد الإلكتروني مطلوب",
+        "invalidEmail": "يرجى إدخال بريد إلكتروني صالح"
+      },
+      "password": {
+        "required": "كلمة المرور مطلوبة"
+      },
+      "refreshToken": {
+        "required": "رمز التحديث مطلوب"
+      },
+      "currentPassword": {
+        "required": "كلمة المرور الحالية مطلوبة"
+      },
+      "newPassword": {
+        "required": "كلمة المرور الجديدة مطلوبة",
+        "tooShort": "يجب أن تتكون كلمة المرور الجديدة من 8 أحرف على الأقل"
+      },
+      "confirmPassword": {
+        "required": "تأكيد كلمة المرور مطلوب",
+        "passwordMismatch": "كلمات المرور غير متطابقة"
+      },
+      "name": {
+        "required": "الاسم مطلوب",
+        "tooShort": "يجب أن يتكون الاسم من حرفين على الأقل",
+        "tooLong": "يجب ألا يتجاوز الاسم 255 حرفاً"
+      },
+      "title": {
+        "required": "العنوان مطلوب",
+        "tooLong": "يجب ألا يتجاوز العنوان 256 حرفاً"
+      },
+      "description": {
+        "required": "الوصف مطلوب",
+        "tooLong": "يجب ألا يتجاوز الوصف 4096 حرفاً"
+      },
+      "severity": {
+        "required": "مستوى الخطورة مطلوب",
+        "invalidOption": "قيمة خطورة غير صالحة"
+      },
+      "status": {
+        "invalidOption": "قيمة حالة غير صالحة"
+      },
+      "resolution": {
+        "required": "الحل مطلوب",
+        "tooLong": "يجب ألا يتجاوز الحل 4096 حرفاً"
+      },
+      "notes": {
+        "tooLong": "يجب ألا تتجاوز الملاحظات 4096 حرفاً"
+      },
+      "body": {
+        "required": "محتوى الملاحظة مطلوب"
+      },
+      "alertId": {
+        "required": "معرف التنبيه مطلوب"
+      },
+      "indexName": {
+        "required": "اسم الفهرس مطلوب"
+      },
+      "query": {
+        "required": "الاستعلام مطلوب"
+      },
+      "timeRange": {
+        "required": "النطاق الزمني مطلوب"
+      },
+      "type": {
+        "required": "نوع الموصّل مطلوب",
+        "invalidOption": "نوع موصّل غير صالح"
+      },
+      "enabled": {
+        "required": "حقل التفعيل مطلوب"
+      },
+      "authType": {
+        "invalidOption": "نوع مصادقة غير صالح"
+      },
+      "config": {
+        "required": "الإعدادات مطلوبة"
+      },
+      "prompt": {
+        "required": "الأمر مطلوب",
+        "tooLong": "يجب ألا يتجاوز الأمر 4096 حرفاً"
+      },
+      "oidcSub": {
+        "required": "معرف OIDC مطلوب"
+      },
+      "slug": {
+        "required": "المعرّف مطلوب",
+        "tooLong": "يجب ألا يتجاوز المعرّف 100 حرف",
+        "invalidFormat": "يجب أن يحتوي المعرّف على أحرف صغيرة وأرقام وشرطات فقط"
+      },
+      "role": {
+        "required": "الدور مطلوب",
+        "invalidOption": "قيمة دور غير صالحة"
+      },
+      "alertIds": {
+        "required": "معرفات التنبيهات مطلوبة",
+        "tooFew": "مطلوب معرف تنبيه واحد على الأقل"
+      },
+      "ownerUserId": {
+        "invalidUuid": "تنسيق معرف المستخدم غير صالح"
+      },
+      "theme": {
+        "invalidOption": "قيمة سمة غير صالحة"
+      },
+      "language": {
+        "invalidOption": "قيمة لغة غير صالحة"
+      },
+      "sortOrder": {
+        "invalidOption": "ترتيب فرز غير صالح"
+      },
+      "page": {
+        "invalidNumber": "يجب أن تكون الصفحة عدداً صحيحاً موجباً"
+      },
+      "limit": {
+        "invalidNumber": "يجب أن يكون الحد عدداً صحيحاً موجباً",
+        "tooLarge": "يجب ألا يتجاوز الحد 100"
+      }
+    },
+    "ssrf": {
+      "invalidUrl": "تنسيق عنوان URL غير صالح.",
+      "unsupportedProtocol": "يُسمح فقط بعناوين HTTP و HTTPS.",
+      "privateNetwork": "لا يُسمح بعناوين URL التي تشير إلى شبكات خاصة.",
+      "hostNotAllowed": "المضيف المحدد غير مدرج في القائمة المسموح بها."
+    },
+    "tenants": {
+      "notFound": "لم يتم العثور على المستأجر.",
+      "slugConflict": "يوجد مستأجر بهذا المعرف بالفعل.",
+      "userNotFound": "لم يتم العثور على المستخدم في هذا المستأجر.",
+      "emailExists": "يوجد مستخدم بهذا البريد الإلكتروني بالفعل في هذا المستأجر.",
+      "cannotAssignGlobalAdmin": "فقط المسؤول العام يمكنه تعيين دور المسؤول العام.",
+      "cannotModifyGlobalAdmin": "فقط المسؤول العام يمكنه تعديل مستخدمي المسؤول العام.",
+      "cannotDeleteSelf": "لا يمكنك حذف حسابك الخاص.",
+      "cannotBlockSelf": "لا يمكنك حظر حسابك الخاص.",
+      "cannotModifySelf": "لا يمكنك تغيير دورك الخاص.",
+      "userProtected": "هذا المستخدم محمي ولا يمكن تعديله.",
+      "userNotDeleted": "هذا المستخدم ليس محذوفاً.",
+      "userAlreadyBlocked": "هذا المستخدم محظور بالفعل.",
+      "userNotBlocked": "هذا المستخدم ليس محظوراً."
+    },
+    "alerts": {
+      "notFound": "لم يتم العثور على التنبيه.",
+      "alreadyClosed": "هذا التنبيه مغلق بالفعل.",
+      "alreadyClosedOrResolved": "هذا التنبيه مغلق أو تم حله بالفعل.",
+      "connectorNotConfigured": "موصّل التنبيهات غير مهيأ."
+    },
+    "cases": {
+      "notFound": "لم يتم العثور على القضية.",
+      "alreadyClosed": "هذه القضية مغلقة بالفعل.",
+      "duplicateAlert": "هذا التنبيه مرتبط بالفعل بالقضية."
+    },
+    "intel": {
+      "mispNotConfigured": "موصّل MISP غير مهيأ.",
+      "mispConnectionFailed": "فشل الاتصال بخادم MISP.",
+      "syncFailed": "فشلت مزامنة استخبارات التهديدات."
+    },
+    "hunts": {
+      "notFound": "لم يتم العثور على جلسة الصيد.",
+      "connectorNotConfigured": "موصّل البحث غير مهيأ.",
+      "searchConnectorNotConfigured": "موصّل البحث غير مهيأ.",
+      "queryFailed": "فشل تنفيذ استعلام الصيد."
+    },
+    "health": {
+      "serviceUnavailable": "خدمة الصحة غير متاحة.",
+      "connectorDisabled": "هذا الموصّل معطّل."
+    },
+    "ai": {
+      "notEnabled": "وحدة الذكاء الاصطناعي غير مفعّلة.",
+      "invocationFailed": "فشل استدعاء الذكاء الاصطناعي."
+    },
+    "users": {
+      "notFound": "لم يتم العثور على المستخدم.",
+      "incorrectPassword": "كلمة المرور الحالية غير صحيحة.",
+      "emailInUse": "هذا البريد الإلكتروني مستخدم بالفعل.",
+      "passwordTooWeak": "كلمة المرور لا تستوفي متطلبات الأمان."
+    },
+    "connectors": {
+      "notFound": "لم يتم العثور على الموصّل.",
+      "testFailed": "فشل اختبار الموصّل.",
+      "invalidConfig": "إعدادات الموصّل غير صالحة.",
+      "loadError": "فشل في تحميل الموصّلات.",
+      "updateError": "فشل في تحديث الموصّل.",
+      "deleteError": "فشل في حذف الموصّل.",
+      "toggleError": "فشل في تبديل حالة الموصّل."
+    },
+    "auditLogs": {
+      "accessDenied": "ليس لديك صلاحية لعرض سجلات التدقيق."
     }
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "description": "تخصيص تفضيلات التطبيق",
+    "appearance": "المظهر",
+    "theme": "السمة",
+    "themeLight": "فاتح",
+    "themeDark": "داكن",
+    "themeSystem": "النظام",
+    "language": "اللغة",
+    "languageDescription": "اختر لغتك المفضلة",
+    "notifications": "الإشعارات",
+    "emailAlerts": "تنبيهات البريد الإلكتروني",
+    "emailAlertsDescription": "تلقي إشعارات التنبيهات الأمنية عبر البريد الإلكتروني",
+    "browserNotifications": "إشعارات المتصفح",
+    "browserNotificationsDescription": "عرض إشعارات سطح المكتب للتنبيهات الحرجة",
+    "saved": "تم حفظ التفضيلات",
+    "saving": "جاري الحفظ..."
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "description": "إدارة معلومات حسابك",
+    "personalInfo": "المعلومات الشخصية",
+    "email": "البريد الإلكتروني",
+    "role": "الدور",
+    "tenant": "المستأجر",
+    "name": "الاسم",
+    "namePlaceholder": "أدخل اسمك",
+    "updateName": "تحديث الاسم",
+    "updating": "جاري التحديث...",
+    "nameUpdated": "تم تحديث الاسم بنجاح",
+    "confirmPassword": "تأكيد بكلمة المرور",
+    "confirmPasswordPlaceholder": "أدخل كلمة المرور الحالية للتأكيد",
+    "changePassword": "تغيير كلمة المرور",
+    "currentPassword": "كلمة المرور الحالية",
+    "currentPasswordPlaceholder": "أدخل كلمة المرور الحالية",
+    "newPassword": "كلمة المرور الجديدة",
+    "newPasswordPlaceholder": "أدخل كلمة المرور الجديدة",
+    "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+    "confirmNewPasswordPlaceholder": "أكّد كلمة المرور الجديدة",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح",
+    "changingPassword": "جاري التغيير...",
+    "passwordMismatch": "كلمات المرور غير متطابقة"
   }
 }

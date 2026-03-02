@@ -1,35 +1,136 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios'
-import type { RefreshResponse } from '@/types'
+import { AUTH_STORAGE_KEY, TENANT_STORAGE_KEY } from '@/lib/constants/storage'
+import type { AuthStorageState, RefreshResponse, TenantStorageState } from '@/types'
 
-const api = axios.create({
-  baseURL: process.env['NEXT_PUBLIC_API_URL'] ?? '/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
+const API_BASE_URL = process.env['NEXT_PUBLIC_API_URL'] ?? '/api'
+
+interface RetryableRequest extends InternalAxiosRequestConfig {
+  _retry?: boolean
+}
+
+let isRefreshing = false
+let failedQueue: Array<{
+  resolve: (value: InternalAxiosRequestConfig) => void
+  reject: (error: unknown) => void
+  config: InternalAxiosRequestConfig
+}> = []
 
 function getAuthState(): { accessToken: string; refreshToken: string; tenantId: string } {
-  if (typeof window === 'undefined') {
-    return { accessToken: '', refreshToken: '', tenantId: '' }
+  const empty = { accessToken: '', refreshToken: '', tenantId: '' }
+
+  if (typeof window === 'undefined') return empty
+
+  try {
+    const raw = localStorage.getItem(AUTH_STORAGE_KEY)
+    if (!raw) return empty
+
+    const parsed = JSON.parse(raw) as AuthStorageState
+    const accessToken = parsed.state?.accessToken ?? ''
+    const refreshToken = parsed.state?.refreshToken ?? ''
+    const authTenantId = parsed.state?.user?.tenantId ?? ''
+
+    // Check tenant switcher store for overridden tenant ID (used by GLOBAL_ADMIN)
+    let tenantId = authTenantId
+    try {
+      const tenantRaw = localStorage.getItem(TENANT_STORAGE_KEY)
+      if (tenantRaw) {
+        const tenantParsed = JSON.parse(tenantRaw) as TenantStorageState
+        const switchedTenantId = tenantParsed.state?.currentTenantId
+        if (switchedTenantId) {
+          tenantId = switchedTenantId
+        }
+      }
+    } catch {
+      // tenant storage corrupted — use auth tenant
+    }
+
+    return { accessToken, refreshToken, tenantId }
+  } catch {
+    return empty
+  }
+}
+
+function updateStoredTokens(accessToken: string, refreshToken: string): void {
+  if (typeof window === 'undefined') return
+
+  const raw = localStorage.getItem(AUTH_STORAGE_KEY)
+  if (!raw) return
+
+  try {
+    const parsed = JSON.parse(raw) as AuthStorageState
+    if (parsed.state) {
+      parsed.state.accessToken = accessToken
+      parsed.state.refreshToken = refreshToken
+      parsed.state.isAuthenticated = true
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(parsed))
+    }
+  } catch {
+    // storage corrupted — will be cleared on redirect
+  }
+}
+
+function clearAuthAndRedirect(): void {
+  if (typeof window === 'undefined') return
+  localStorage.removeItem(AUTH_STORAGE_KEY)
+  window.location.href = '/login'
+}
+
+function processQueue(error: unknown): void {
+  for (const item of failedQueue) {
+    if (error) {
+      item.reject(error)
+    } else {
+      const { accessToken } = getAuthState()
+      item.config.headers['Authorization'] = `Bearer ${accessToken}`
+      item.resolve(item.config)
+    }
+  }
+  failedQueue = []
+}
+
+function isAuthRoute(url?: string): boolean {
+  if (!url) return false
+  return url.includes('/auth/refresh') || url.includes('/auth/login')
+}
+
+async function attemptTokenRefresh(originalRequest: RetryableRequest): Promise<RetryableRequest> {
+  originalRequest._retry = true
+  isRefreshing = true
+
+  const { refreshToken } = getAuthState()
+
+  if (!refreshToken) {
+    isRefreshing = false
+    clearAuthAndRedirect()
+    throw new Error('No refresh token available')
   }
 
   try {
-    const raw = localStorage.getItem('auth-storage')
-    if (!raw) {
-      return { accessToken: '', refreshToken: '', tenantId: '' }
-    }
-    const parsed = JSON.parse(raw) as {
-      state?: { accessToken?: string; refreshToken?: string; user?: { tenantId?: string } }
-    }
-    return {
-      accessToken: parsed.state?.accessToken ?? '',
-      refreshToken: parsed.state?.refreshToken ?? '',
-      tenantId: parsed.state?.user?.tenantId ?? '',
-    }
-  } catch {
-    return { accessToken: '', refreshToken: '', tenantId: '' }
+    const response = await axios.post<RefreshResponse>(
+      `${API_BASE_URL}/auth/refresh`,
+      { refreshToken },
+      { headers: { 'Content-Type': 'application/json' } }
+    )
+
+    const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
+    updateStoredTokens(newAccessToken, newRefreshToken)
+
+    originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
+    processQueue(null)
+    return originalRequest
+  } catch (refreshError) {
+    processQueue(refreshError)
+    clearAuthAndRedirect()
+    throw refreshError
+  } finally {
+    isRefreshing = false
   }
 }
+
+const api = axios.create({
+  baseURL: API_BASE_URL,
+  headers: { 'Content-Type': 'application/json' },
+})
 
 api.interceptors.request.use(config => {
   if (typeof window !== 'undefined') {
@@ -46,52 +147,21 @@ api.interceptors.request.use(config => {
   return config
 })
 
-let isRefreshing = false
-let failedQueue: Array<{
-  resolve: (value: InternalAxiosRequestConfig) => void
-  reject: (error: unknown) => void
-  config: InternalAxiosRequestConfig
-}> = []
-
-function processQueue(error: unknown): void {
-  for (const item of failedQueue) {
-    if (error) {
-      item.reject(error)
-    } else {
-      const { accessToken } = getAuthState()
-      item.config.headers['Authorization'] = `Bearer ${accessToken}`
-      item.resolve(item.config)
-    }
-  }
-  failedQueue = []
-}
-
-function clearAuthAndRedirect(): void {
-  if (typeof window === 'undefined') {
-    return
-  }
-  localStorage.removeItem('auth-storage')
-  window.location.href = '/login'
-}
-
 api.interceptors.response.use(
   response => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config
+    const originalRequest = error.config as RetryableRequest | undefined
 
     if (!originalRequest || error.response?.status !== 401) {
       throw error
     }
 
-    if ((originalRequest as InternalAxiosRequestConfig & { _retry?: boolean })._retry) {
+    if (originalRequest._retry) {
       clearAuthAndRedirect()
       throw error
     }
 
-    if (
-      originalRequest.url?.includes('/auth/refresh') ||
-      originalRequest.url?.includes('/auth/login')
-    ) {
+    if (isAuthRoute(originalRequest.url)) {
       throw error
     }
 
@@ -101,47 +171,8 @@ api.interceptors.response.use(
       }).then(config => api(config as InternalAxiosRequestConfig))
     }
 
-    isRefreshing = true
-    ;(originalRequest as InternalAxiosRequestConfig & { _retry?: boolean })._retry = true
-
-    const { refreshToken } = getAuthState()
-
-    if (!refreshToken) {
-      isRefreshing = false
-      clearAuthAndRedirect()
-      throw error
-    }
-
-    try {
-      const response = await axios.post<RefreshResponse>(
-        `${api.defaults.baseURL}/auth/refresh`,
-        { refreshToken },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
-
-      const raw = localStorage.getItem('auth-storage')
-      if (raw) {
-        const parsed = JSON.parse(raw) as { state?: Record<string, unknown> }
-        if (parsed.state) {
-          parsed.state['accessToken'] = newAccessToken
-          parsed.state['refreshToken'] = newRefreshToken
-          parsed.state['isAuthenticated'] = true
-          localStorage.setItem('auth-storage', JSON.stringify(parsed))
-        }
-      }
-
-      originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-      processQueue(null)
-      return api(originalRequest)
-    } catch (refreshError) {
-      processQueue(refreshError)
-      clearAuthAndRedirect()
-      throw refreshError
-    } finally {
-      isRefreshing = false
-    }
+    const refreshedConfig = await attemptTokenRefresh(originalRequest)
+    return api(refreshedConfig)
   }
 )
 

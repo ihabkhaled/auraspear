@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { Server, ScrollText } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { ServiceHealthGrid, AuditLogTable } from '@/components/admin'
@@ -12,24 +11,42 @@ import {
   EmptyState,
 } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useServiceHealth, useAuditLogs, usePagination } from '@/hooks'
+import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
 
 export default function SystemAdminPage() {
   const t = useTranslations('admin')
 
-  const { data: healthData, isLoading: healthLoading, isError: healthError } = useServiceHealth()
-  const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
+  const { healthData, healthLoading, healthError, auditData, auditLoading, pagination } =
+    useSystemAdminPage()
 
-  const { data: auditData, isLoading: auditLoading } = useAuditLogs({
-    page: pagination.page,
-    limit: pagination.limit,
-  })
-
-  useEffect(() => {
-    if (auditData?.pagination) {
-      pagination.setTotal(auditData.pagination.total)
+  function renderServices() {
+    if (healthLoading) return <LoadingSpinner />
+    if (healthError) return <ErrorMessage message={t('services.loadError')} />
+    if ((healthData?.data?.length ?? 0) === 0) {
+      return (
+        <EmptyState
+          icon={<Server className="h-6 w-6" />}
+          title={t('services.noServices')}
+          description={t('services.noServicesDescription')}
+        />
+      )
     }
-  }, [auditData?.pagination, pagination])
+    return <ServiceHealthGrid services={healthData?.data ?? []} />
+  }
+
+  function renderAuditLogs() {
+    if (auditLoading) return <LoadingSpinner />
+    if ((auditData?.data?.length ?? 0) === 0) {
+      return (
+        <EmptyState
+          icon={<ScrollText className="h-6 w-6" />}
+          title={t('audit.noLogs')}
+          description={t('audit.noLogsDescription')}
+        />
+      )
+    }
+    return <AuditLogTable logs={auditData?.data ?? []} loading={auditLoading} />
+  }
 
   return (
     <div className="space-y-6">
@@ -39,21 +56,7 @@ export default function SystemAdminPage() {
         <CardHeader>
           <CardTitle className="text-base">{t('services.title')}</CardTitle>
         </CardHeader>
-        <CardContent>
-          {healthLoading ? (
-            <LoadingSpinner />
-          ) : healthError ? (
-            <ErrorMessage message={t('services.loadError')} />
-          ) : (healthData?.data?.length ?? 0) === 0 ? (
-            <EmptyState
-              icon={<Server className="h-6 w-6" />}
-              title={t('services.noServices')}
-              description={t('services.noServicesDescription')}
-            />
-          ) : (
-            <ServiceHealthGrid services={healthData?.data ?? []} />
-          )}
-        </CardContent>
+        <CardContent>{renderServices()}</CardContent>
       </Card>
 
       <Card>
@@ -61,17 +64,7 @@ export default function SystemAdminPage() {
           <CardTitle className="text-base">{t('audit.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {auditLoading ? (
-            <LoadingSpinner />
-          ) : (auditData?.data?.length ?? 0) === 0 ? (
-            <EmptyState
-              icon={<ScrollText className="h-6 w-6" />}
-              title={t('audit.noLogs')}
-              description={t('audit.noLogsDescription')}
-            />
-          ) : (
-            <AuditLogTable logs={auditData?.data ?? []} loading={auditLoading} />
-          )}
+          {renderAuditLogs()}
           <Pagination
             page={pagination.page}
             totalPages={pagination.totalPages}

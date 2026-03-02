@@ -1,76 +1,48 @@
 'use client'
 
-import { useState, useCallback, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
 import { Plus, FolderOpen } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { CaseToolbar, CaseKanbanBoard, CreateCaseDialog } from '@/components/cases'
-import { CaseViewMode, CaseSortField } from '@/enums'
-import type { CreateCaseFormValues } from '@/components/cases'
-import { PageHeader, LoadingSpinner, Toast, EmptyState } from '@/components/common'
-import type { CaseSeverity } from '@/enums'
-import { useCases, useCreateCase } from '@/hooks'
-import type { Case } from '@/types'
-
-const ASSIGNEE_OPTIONS = [
-  { label: 'Ahmed Al-Rashid', value: 'ahmed' },
-  { label: 'Fatima Hassan', value: 'fatima' },
-  { label: 'Omar Khalil', value: 'omar' },
-  { label: 'Sara Nasser', value: 'sara' },
-]
+import { CaseToolbar, CaseKanbanBoard, CaseListTable, CreateCaseDialog } from '@/components/cases'
+import { PageHeader, LoadingSpinner, EmptyState } from '@/components/common'
+import { CaseViewMode } from '@/enums'
+import { useCasesPage } from '@/hooks/useCasesPage'
+import { ASSIGNEE_OPTIONS } from '@/lib/constants/cases'
 
 export default function CasesPage() {
   const t = useTranslations('cases')
-  const router = useRouter()
 
-  const [viewMode, setViewMode] = useState(CaseViewMode.BOARD)
-  const [severityFilter, setSeverityFilter] = useState<CaseSeverity | undefined>()
-  const [sortField, setSortField] = useState(CaseSortField.UPDATED)
-  const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const {
+    viewMode,
+    setViewMode,
+    severityFilter,
+    setSeverityFilter,
+    sortField,
+    setSortField,
+    createDialogOpen,
+    setCreateDialogOpen,
+    isLoading,
+    filteredCases,
+    createCasePending,
+    handleCaseClick,
+    handleCreateCase,
+  } = useCasesPage()
 
-  const { data, isLoading } = useCases(
-    severityFilter === undefined
-      ? { sortBy: sortField }
-      : { severity: severityFilter, sortBy: sortField }
-  )
-
-  const createCase = useCreateCase()
-
-  const filteredCases = useMemo(() => {
-    const cases = data?.data ?? []
-    if (severityFilter === undefined) return cases
-    return cases.filter(c => c.severity === severityFilter)
-  }, [data?.data, severityFilter])
-
-  const handleCaseClick = useCallback(
-    (caseItem: Case) => {
-      router.push(`/cases/${caseItem.id}`)
-    },
-    [router]
-  )
-
-  const handleCreateCase = useCallback(
-    (formData: CreateCaseFormValues) => {
-      createCase.mutate(
-        {
-          title: formData.title,
-          description: formData.description,
-          severity: formData.severity,
-          assignee: formData.assignee,
-        },
-        {
-          onSuccess: () => {
-            setCreateDialogOpen(false)
-            Toast.success(t('caseCreated'))
-          },
-          onError: () => {
-            Toast.error(t('caseCreateError'))
-          },
-        }
+  function renderCaseContent() {
+    if (isLoading) return <LoadingSpinner />
+    if (filteredCases.length === 0) {
+      return (
+        <EmptyState
+          icon={<FolderOpen className="h-6 w-6" />}
+          title={t('noCases')}
+          description={t('emptyDescription')}
+        />
       )
-    },
-    [createCase, t]
-  )
+    }
+    if (viewMode === CaseViewMode.BOARD) {
+      return <CaseKanbanBoard cases={filteredCases} onCaseClick={handleCaseClick} />
+    }
+    return <CaseListTable cases={filteredCases} onCaseClick={handleCaseClick} loading={isLoading} />
+  }
 
   return (
     <div className="space-y-6">
@@ -93,24 +65,14 @@ export default function CasesPage() {
         onSortFieldChange={setSortField}
       />
 
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : filteredCases.length === 0 ? (
-        <EmptyState
-          icon={<FolderOpen className="h-6 w-6" />}
-          title={t('noCases')}
-          description={t('emptyDescription')}
-        />
-      ) : (
-        <CaseKanbanBoard cases={filteredCases} onCaseClick={handleCaseClick} />
-      )}
+      {renderCaseContent()}
 
       <CreateCaseDialog
         open={createDialogOpen}
         onOpenChange={setCreateDialogOpen}
         onSubmit={handleCreateCase}
         assigneeOptions={ASSIGNEE_OPTIONS}
-        loading={createCase.isPending}
+        loading={createCasePending}
       />
     </div>
   )

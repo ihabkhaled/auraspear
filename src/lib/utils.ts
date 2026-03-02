@@ -31,7 +31,10 @@ export function formatNumber(num: number): string {
   return num.toString()
 }
 
-export function formatPercentage(value: number): string {
+export function formatPercentage(value: number | undefined | null): string {
+  if (value === undefined || value === null) {
+    return '-'
+  }
   return `${value.toFixed(1)}%`
 }
 

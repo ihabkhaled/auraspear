@@ -2,46 +2,18 @@
 
 import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { ServiceStatus } from '@/enums'
-import { cn, formatPercentage, formatRelativeTime } from '@/lib/utils'
+import { getStatusDotClass, getStatusBgHint, getStatusLabel } from '@/lib/health-utils'
+import { cn } from '@/lib/utils'
 import type { ServiceHealth } from '@/types'
 
 interface ServiceHealthCardProps {
   service: ServiceHealth
 }
 
-function getStatusDotClass(status: ServiceStatus): string {
-  switch (status) {
-    case ServiceStatus.HEALTHY:
-      return 'bg-status-success'
-    case ServiceStatus.DEGRADED:
-      return 'bg-status-warning'
-    case ServiceStatus.DOWN:
-      return 'bg-status-error'
-    case ServiceStatus.MAINTENANCE:
-      return 'bg-status-info'
-    default:
-      return 'bg-status-neutral'
-  }
-}
-
-function getStatusBgHint(status: ServiceStatus): string {
-  switch (status) {
-    case ServiceStatus.HEALTHY:
-      return 'border-status-success/30'
-    case ServiceStatus.DEGRADED:
-      return 'border-status-warning/30'
-    case ServiceStatus.DOWN:
-      return 'border-status-error/30'
-    case ServiceStatus.MAINTENANCE:
-      return 'border-status-info/30'
-    default:
-      return ''
-  }
-}
-
 export function ServiceHealthCard({ service }: ServiceHealthCardProps) {
   const t = useTranslations('admin')
+
+  const latencyDisplay = service.latencyMs >= 0 ? `${service.latencyMs}ms` : '-'
 
   return (
     <Card className={cn('transition-colors', getStatusBgHint(service.status))}>
@@ -58,28 +30,14 @@ export function ServiceHealthCard({ service }: ServiceHealthCardProps) {
       </CardHeader>
       <CardContent className="space-y-2">
         <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-          <span className="text-muted-foreground">{t('services.uptime')}</span>
-          <span className="font-medium">{formatPercentage(service.uptime)}</span>
+          <span className="text-muted-foreground">{t('services.status')}</span>
+          <span className="font-medium">{getStatusLabel(service.status, t)}</span>
 
-          <span className="text-muted-foreground">{t('services.version')}</span>
-          <span className="font-mono text-xs">{service.version}</span>
+          <span className="text-muted-foreground">{t('services.type')}</span>
+          <span className="font-mono text-xs">{service.type}</span>
 
-          <span className="text-muted-foreground">{t('services.lastCheck')}</span>
-          <span className="text-xs">{formatRelativeTime(service.lastCheck)}</span>
-
-          {service.eps !== undefined && (
-            <>
-              <span className="text-muted-foreground">{t('services.eps')}</span>
-              <span className="font-mono text-xs">{service.eps}</span>
-            </>
-          )}
-
-          {service.lag !== undefined && (
-            <>
-              <span className="text-muted-foreground">{t('services.lag')}</span>
-              <span className="font-mono text-xs">{`${service.lag}ms`}</span>
-            </>
-          )}
+          <span className="text-muted-foreground">{t('services.latency')}</span>
+          <span className="font-mono text-xs">{latencyDisplay}</span>
         </div>
       </CardContent>
     </Card>

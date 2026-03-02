@@ -1,19 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendPipelineResponse } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendPipeline {
-  name: string
-  status: string
-  eps: number
-  lag: string
-}
-
-interface BackendPipelineResponse {
-  tenantId: string
-  pipelines: BackendPipeline[]
-}
 
 export async function GET(request: NextRequest) {
   try {

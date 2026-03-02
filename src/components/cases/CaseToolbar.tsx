@@ -11,7 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { CaseSeverity, CaseSortField, CaseViewMode } from '@/enums'
+import { type CaseSeverity, CaseSortField, CaseViewMode } from '@/enums'
+import { CASE_SEVERITY_FILTERS } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
 
 interface CaseToolbarProps {
@@ -22,13 +23,6 @@ interface CaseToolbarProps {
   sortField: CaseSortField
   onSortFieldChange: (field: CaseSortField) => void
 }
-
-const severityFilters = [
-  CaseSeverity.CRITICAL,
-  CaseSeverity.HIGH,
-  CaseSeverity.MEDIUM,
-  CaseSeverity.LOW,
-] as const
 
 export function CaseToolbar({
   viewMode,
@@ -67,7 +61,7 @@ export function CaseToolbar({
         <div className="bg-border mx-2 hidden h-6 w-px sm:block" />
 
         <div className="flex flex-wrap items-center gap-1.5">
-          {severityFilters.map(severity => (
+          {CASE_SEVERITY_FILTERS.map(severity => (
             <button
               key={severity}
               type="button"

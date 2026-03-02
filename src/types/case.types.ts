@@ -1,4 +1,10 @@
-import type { CaseSeverity, CaseStatus, CaseTaskStatus } from '@/enums'
+import type {
+  CaseArtifactType,
+  CaseSeverity,
+  CaseStatus,
+  CaseTaskStatus,
+  CaseTimelineEntryType,
+} from '@/enums'
 
 export interface CaseTask {
   id: string
@@ -10,7 +16,7 @@ export interface CaseTask {
 export interface CaseTimelineEntry {
   id: string
   timestamp: string
-  type: string
+  type: CaseTimelineEntryType
   actor: string
   description: string
   metadata?: Record<string, unknown>
@@ -18,7 +24,7 @@ export interface CaseTimelineEntry {
 
 export interface CaseArtifact {
   id: string
-  type: string
+  type: CaseArtifactType
   value: string
   source: string
 }
@@ -47,4 +53,23 @@ export interface CreateCaseInput {
   severity: CaseSeverity
   assignee: string
   linkedAlertIds?: string[]
+}
+
+export interface UpdateCaseInput {
+  title?: string
+  description?: string
+  severity?: CaseSeverity
+  assignee?: string
+  status?: CaseStatus
+  linkedAlertIds?: string[]
+}
+
+export interface CaseSearchParams {
+  page?: number
+  limit?: number
+  status?: string
+  severity?: string
+  query?: string
+  sortBy?: string
+  sortOrder?: 'asc' | 'desc'
 }

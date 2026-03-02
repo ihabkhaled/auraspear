@@ -13,3 +13,30 @@ export enum ServiceStatus {
   DOWN = 'down',
   MAINTENANCE = 'maintenance',
 }
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+  SUSPENDED = 'suspended',
+}
+
+export enum TenantStatus {
+  ACTIVE = 'active',
+  TRIAL = 'trial',
+  INACTIVE = 'inactive',
+}
+
+export enum ThemePreference {
+  LIGHT = 'light',
+  DARK = 'dark',
+  SYSTEM = 'system',
+}
+
+export enum SupportedLocale {
+  EN = 'en',
+  ES = 'es',
+  FR = 'fr',
+  AR = 'ar',
+  IT = 'it',
+  DE = 'de',
+}

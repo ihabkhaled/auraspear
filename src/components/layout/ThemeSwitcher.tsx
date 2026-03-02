@@ -5,12 +5,15 @@ import { Sun, Moon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
+import { useUpdatePreferences } from '@/hooks/useSettings'
 
-const emptySubscribe = () => () => {}
+const noop = () => {}
+const emptySubscribe = () => noop
 
 export function ThemeSwitcher() {
   const t = useTranslations('common')
   const { resolvedTheme, setTheme } = useTheme()
+  const updatePreferences = useUpdatePreferences()
   const mounted = useSyncExternalStore(
     emptySubscribe,
     () => true,
@@ -20,7 +23,9 @@ export function ThemeSwitcher() {
   const isDark = resolvedTheme === 'dark'
 
   function handleToggle() {
-    setTheme(isDark ? 'light' : 'dark')
+    const next = isDark ? 'light' : 'dark'
+    setTheme(next)
+    updatePreferences.mutate({ theme: next })
   }
 
   if (!mounted) {

@@ -14,7 +14,7 @@
 10. **NEVER use string concatenation** — Use template literals (`prefer-template: warn`).
 11. **NEVER use raw HTML `<select>`, `<input>`, `<textarea>`** — Always use shadcn/ui components from `@/components/ui/`.
 12. **NEVER add `// eslint-disable-next-line`** — This rule is absolute with zero exceptions. If a rule triggers, fix the code.
-13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component files** — Enums → `src/enums/`, Types/Interfaces → `src/types/`, Constants → `src/lib/constants.ts` or `src/lib/<domain>.constants.ts`. Exception: component-local constants (used only in that file) are acceptable inline, but ABOVE the component function.
+13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component, hook, service, or API route files** — Enums → `src/enums/`, Types/Interfaces → `src/types/<domain>.types.ts`, Constants → `src/lib/constants/<domain>.ts`. Exception: file-local constants (used only in that file, e.g., a small config object) are acceptable inline at the top of the file.
 14. **NEVER put custom hooks inside component files** — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`).
 15. **NEVER put utility / pure functions inside component files** — All non-React helper functions → `src/lib/utils.ts` or domain-specific `src/lib/<domain>.utils.ts`.
 
@@ -442,13 +442,23 @@ export enum AlertSeverity {
 
 ---
 
+## Constants — MANDATORY Conventions
+
+- **All shared/domain constants MUST live in `src/lib/constants/`** — never define inline in component, hook, or service files
+- Organized by domain: `storage.ts`, `connectors.constants.ts`, `roles.ts`, `locales.ts`, `alerts.ts`, `cases.ts`, `hunt.ts`
+- Use descriptive filenames matching the domain
+- Import from `@/lib/constants/<domain>`
+
+---
+
 ## Type Conventions
 
-- **All interfaces and type aliases MUST live in `src/types/`** — never define inline in hooks or page files
-- Organized by domain: `admin.types.ts`, `alert.types.ts`, `case.types.ts`, `common.types.ts`, etc.
-- Barrel export from `src/types/index.ts`
-- Use `import type { Foo } from '@/types'` for type-only imports
+- **All interfaces and type aliases MUST live in `src/types/`** — never define inline in hooks, services, API routes, or page files
+- Organized by domain: `admin.types.ts`, `alert.types.ts`, `case.types.ts`, `common.types.ts`, `auth.types.ts`, `dashboard.types.ts`, `profile.types.ts`, `storage.types.ts`, etc.
+- Barrel export from `src/types/index.ts` — every new type file must be added here
+- Use `import type { Foo } from '@/types'` for type-only imports (via barrel)
 - Use `interface` for object shapes, `type` for unions/intersections
+- **Duplicates are prohibited** — if two files need the same interface, define it once in `src/types/` and import from there
 
 ---
 
@@ -487,6 +497,8 @@ src/
 │   │   ├── dashboard/      # Main dashboard
 │   │   ├── hunt/           # Threat hunting
 │   │   ├── intel/          # Intelligence feed
+│   │   ├── profile/        # User profile page
+│   │   ├── settings/       # User settings/preferences page
 │   │   └── layout.tsx      # Portal shell layout
 │   ├── api/                # Next.js API routes (server-side)
 │   ├── globals.css         # Global CSS + status/severity classes
@@ -508,7 +520,7 @@ src/
 ├── enums/                  # ALL enums (barrel export via index.ts)
 ├── hooks/                  # Custom hooks (useAlerts, useDashboard, etc.)
 ├── i18n/                   # Translation files + next-intl config
-├── lib/                    # Utilities (utils.ts, api.ts, api-error.ts, constants.ts)
+├── lib/                    # Utilities (utils.ts, api.ts, api-error.ts) + constants/
 ├── middleware.ts            # Next.js middleware (route protection)
 ├── mocks/                  # MSW mock handlers + data
 ├── services/               # API service layer (singleton objects + Axios)
@@ -528,10 +540,14 @@ src/
 
 - **Services**: Singleton objects with async methods, call Axios API instance from `@/lib/api`
 - **Hooks**: Custom hooks in `src/hooks/` encapsulate `useQuery`/`useMutation` logic
-- **Stores**: Zustand stores in `src/stores/` for global client state (tenant, filters, UI, notifications)
+- **Stores**: Zustand stores in `src/stores/` for global client state (auth, tenant, filters, UI, notifications, hunt). Auth store (`auth-storage`) holds JWT tokens + user info. Tenant store (`tenant-storage`) holds the switched tenant ID for GLOBAL_ADMIN.
 - **Error handling**: `try/catch` + `Toast.error(t(getErrorKey(error)))` pattern
 - **Loading states**: `<LoadingSpinner>` from `@/components/common`
 - **Empty states**: `<EmptyState>` or custom empty message in DataTable
+- **Tenant switching**: GLOBAL_ADMIN users can switch tenant context via `TenantSwitcher` component. The selected tenant is stored in `useTenantStore` (`tenant-storage` localStorage key). The Axios interceptor reads `currentTenantId` from the tenant store and sends it as `X-Tenant-Id` header. The backend auth guard overrides the JWT's tenantId with this header for GLOBAL_ADMIN users.
+- **Auth validation**: Every API request is validated server-side — the auth guard checks that the user still exists and is active in the database. Blocked/deleted users receive 401 and the frontend forces logout via `clearAuthAndRedirect()`.
+- **Protected users**: Users marked `isProtected: true` (seeded GLOBAL_ADMIN) cannot be deleted, blocked, or have their role changed. The UI hides action buttons for protected users and shows a shield icon.
+- **Soft delete**: User deletion sets `status: 'inactive'` (not hard delete). Users can be restored. Blocked users have `status: 'suspended'`.
 
 ### Search, Filter & Pagination (MANDATORY)
 

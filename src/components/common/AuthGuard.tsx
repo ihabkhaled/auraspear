@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { LoadingSpinner } from '@/components/common'
 import { useAuthStore } from '@/stores'
 
-const emptySubscribe = () => () => {}
+const noop = () => {}
+const emptySubscribe = () => noop
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -34,5 +35,5 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
     return null
   }
 
-  return <>{children}</>
+  return children
 }

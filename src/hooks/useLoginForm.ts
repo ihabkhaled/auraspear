@@ -1,0 +1,54 @@
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useQueryClient } from '@tanstack/react-query'
+import { useTranslations } from 'next-intl'
+import { Toast } from '@/components/common'
+import { getErrorKey } from '@/lib/api-error'
+import { authService } from '@/services/auth.service'
+import { useAuthStore, useTenantStore } from '@/stores'
+
+export function useLoginForm() {
+  const tErrors = useTranslations()
+  const router = useRouter()
+  const queryClient = useQueryClient()
+  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const { setTokens, setUser } = useAuthStore()
+  const { setCurrentTenant } = useTenantStore()
+
+  function handleSubmit(e: { preventDefault: () => void }) {
+    e.preventDefault()
+    setIsLoading(true)
+
+    queryClient.clear()
+
+    authService
+      .login(email, password)
+      .then(data => {
+        setTokens(data.accessToken, data.refreshToken)
+        setUser(data.user)
+        setCurrentTenant(data.user.tenantId)
+        router.push('/dashboard')
+      })
+      .catch((error: unknown) => {
+        const key = getErrorKey(error)
+        Toast.error(tErrors(key))
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
+  }
+
+  return {
+    isLoading,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+    handleSubmit,
+  }
+}

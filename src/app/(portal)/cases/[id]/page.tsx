@@ -1,14 +1,16 @@
 'use client'
 
-import { use } from 'react'
+import { use, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, FileQuestion } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { CaseDetailHeader, CaseTimeline, CaseTaskList, CaseArtifactPanel } from '@/components/cases'
-import { LoadingSpinner, EmptyState } from '@/components/common'
+import { LoadingSpinner, EmptyState, Toast } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useCase } from '@/hooks'
+import type { CaseStatus } from '@/enums'
+import { useCase, useUpdateCase } from '@/hooks'
+import { getErrorKey } from '@/lib/api-error'
 
 interface CaseDetailPageProps {
   params: Promise<{ id: string }>
@@ -20,7 +22,25 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
   const router = useRouter()
 
   const { data, isLoading, isError } = useCase(id)
+  const updateCase = useUpdateCase()
   const caseItem = data?.data
+
+  const handleStatusChange = useCallback(
+    (status: CaseStatus) => {
+      updateCase.mutate(
+        { id, data: { status } },
+        {
+          onSuccess: () => {
+            Toast.success(t('statusUpdated'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(t(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [id, updateCase, t]
+  )
 
   if (isLoading) {
     return (
@@ -53,7 +73,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         {t('backToCases')}
       </Button>
 
-      <CaseDetailHeader caseItem={caseItem} />
+      <CaseDetailHeader caseItem={caseItem} onStatusChange={handleStatusChange} />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Timeline - wider left column */}
@@ -63,7 +83,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
               <CardTitle className="text-base">{t('timeline')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <CaseTimeline entries={caseItem.timeline} />
+              <CaseTimeline entries={caseItem.timeline ?? []} />
             </CardContent>
           </Card>
         </div>
@@ -75,7 +95,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
               <CardTitle className="text-base">{t('tasks')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <CaseTaskList tasks={caseItem.tasks} />
+              <CaseTaskList tasks={caseItem.tasks ?? []} />
             </CardContent>
           </Card>
 
@@ -84,7 +104,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
               <CardTitle className="text-base">{t('artifacts')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <CaseArtifactPanel artifacts={caseItem.artifacts} />
+              <CaseArtifactPanel artifacts={caseItem.artifacts ?? []} />
             </CardContent>
           </Card>
         </div>

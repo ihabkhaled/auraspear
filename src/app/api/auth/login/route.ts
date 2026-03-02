@@ -1,18 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { BackendError, fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendLoginResponse } from '@/types/auth.types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendLoginResponse {
-  accessToken: string
-  refreshToken: string
-  user: {
-    sub: string
-    email: string
-    tenantId: string
-    role: string
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {

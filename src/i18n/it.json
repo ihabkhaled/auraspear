@@ -36,13 +36,13 @@
     "view": "Visualizza",
     "export": "Esporta",
     "refresh": "Aggiorna",
-    "showMore": "Mostra di pi\u00f9",
+    "showMore": "Mostra di più",
     "showLess": "Mostra meno",
     "copyId": "Copia ID",
     "copied": "Copiato negli appunti",
     "all": "Tutti",
     "status": "Stato",
-    "severity": "Gravit\u00e0",
+    "severity": "Gravità",
     "timestamp": "Data e ora",
     "description": "Descrizione",
     "assignee": "Assegnatario",
@@ -50,8 +50,8 @@
     "page": "Pagina",
     "of": "di",
     "rows": "righe",
-    "darkMode": "Modalit\u00e0 scura",
-    "lightMode": "Modalit\u00e0 chiara"
+    "darkMode": "Modalità scura",
+    "lightMode": "Modalità chiara"
   },
   "dashboard": {
     "title": "Dashboard Esecutiva",
@@ -62,7 +62,7 @@
     "alertTrends": "Tendenze Avvisi",
     "last7Days": "Ultimi 7 giorni",
     "mitreTopTechniques": "Principali Tecniche MITRE",
-    "topTargetedAssets": "Asset Pi\u00f9 Presi di Mira",
+    "topTargetedAssets": "Asset Più Presi di Mira",
     "pipelineHealth": "Stato della Pipeline",
     "emptyTitle": "Nessun dato nella dashboard",
     "emptyDescription": "I dati appariranno una volta elaborati gli avvisi",
@@ -106,7 +106,7 @@
     "recommendations": "Raccomandazioni",
     "timeRange": "Intervallo Temporale",
     "ruleGroup": "Gruppo Regole",
-    "filterBySeverity": "Filtra per Gravit\u00e0",
+    "filterBySeverity": "Filtra per Gravità",
     "filterByAgent": "Filtra per Agente"
   },
   "hunt": {
@@ -133,11 +133,13 @@
     "statsUniqueIps": "IP Univoci",
     "statsThreatScore": "Punteggio di Minaccia",
     "columnTimestamp": "Data e Ora",
-    "columnSeverity": "Gravit\u00e0",
+    "columnSeverity": "Gravità",
     "columnEventId": "ID Evento",
     "columnSourceIp": "IP Sorgente",
     "columnUser": "Utente",
     "columnDescription": "Descrizione",
+    "sessionError": "Creazione della sessione di caccia fallita",
+    "sendError": "Invio del messaggio fallito",
     "quickPrompts": {
       "bruteForce": "Rileva attacchi brute force",
       "lateralMovement": "Trova movimenti laterali",
@@ -158,31 +160,31 @@
     "statusInProgress": "In Corso",
     "statusClosed": "Chiuso",
     "caseNotFoundTitle": "Caso non trovato",
-    "caseNotFoundDescription": "Il caso richiesto non \u00e8 stato trovato",
+    "caseNotFoundDescription": "Il caso richiesto non è stato trovato",
     "open": "Aperto",
     "inProgress": "In Corso",
     "closed": "Chiuso",
     "createCase": "Crea Caso",
     "caseNumber": "Caso #",
     "timeline": "Cronologia",
-    "tasks": "Attivit\u00e0",
+    "tasks": "Attività",
     "artifacts": "Artefatti",
     "linkedAlerts": "Avvisi Collegati",
     "addNote": "Aggiungi Nota",
-    "addTask": "Aggiungi Attivit\u00e0",
+    "addTask": "Aggiungi Attività",
     "boardView": "Bacheca",
     "listView": "Lista",
     "progress": "Progresso",
     "timeOpen": "Tempo Aperto",
     "caseTitle": "Titolo Caso",
     "caseDescription": "Descrizione",
-    "selectSeverity": "Seleziona Gravit\u00e0",
+    "selectSeverity": "Seleziona Gravità",
     "selectAssignee": "Seleziona Assegnatario",
     "viewBoard": "Bacheca",
     "viewList": "Lista",
     "sortCreated": "Creato",
     "sortUpdated": "Aggiornato",
-    "sortSeverity": "Gravit\u00e0",
+    "sortSeverity": "Gravità",
     "cancel": "Annulla",
     "submit": "Crea",
     "createCaseDescription": "Crea un nuovo caso di incidente di sicurezza",
@@ -190,15 +192,41 @@
     "fieldTitlePlaceholder": "Inserisci il titolo del caso...",
     "fieldDescription": "Descrizione",
     "fieldDescriptionPlaceholder": "Descrivi l'incidente...",
-    "fieldSeverity": "Gravit\u00e0",
+    "fieldSeverity": "Gravità",
     "fieldAssignee": "Assegnatario",
+    "fieldStatus": "Stato",
     "noArtifacts": "Nessun artefatto",
     "source": "Fonte",
     "copy": "Copia",
     "lookup": "Cerca",
     "artifactIps": "IP",
     "artifactHashes": "Hash",
-    "artifactDomains": "Domini"
+    "artifactDomains": "Domini",
+    "backToCases": "Torna ai Casi",
+    "created": "Creato",
+    "updated": "Aggiornato",
+    "escalate": "Escalare",
+    "edit": "Modifica",
+    "delete": "Elimina",
+    "tasksCompleted": "{completed} di {total} completati",
+    "noTasks": "Nessuna attività ancora",
+    "notes": "Note",
+    "noNotes": "Nessuna nota ancora",
+    "addNotePlaceholder": "Scrivi una nota...",
+    "changeStatus": "Cambia Stato",
+    "statusUpdated": "Stato del caso aggiornato con successo",
+    "statusChanged": "Stato del caso aggiornato",
+    "statusChangeError": "Aggiornamento dello stato del caso fallito",
+    "fieldAssigneePlaceholder": "Seleziona assegnatario...",
+    "fieldSeverityPlaceholder": "Seleziona gravita...",
+    "statusLabel": "Stato",
+    "creating": "Creazione in corso...",
+    "caseCreated": "Caso creato con successo",
+    "caseCreateError": "Creazione del caso fallita",
+    "validationTitleMin": "Il titolo deve contenere almeno 5 caratteri",
+    "validationDescriptionMin": "La descrizione deve contenere almeno 10 caratteri",
+    "validationSeverity": "Seleziona un livello di gravita",
+    "validationAssignee": "Seleziona un assegnatario"
   },
   "intel": {
     "title": "Intelligence sulle Minacce",
@@ -240,7 +268,8 @@
       "typeIP": "Indirizzo IP",
       "typeHash": "Hash del File",
       "typeDomain": "Dominio",
-      "typeURL": "URL"
+      "typeURL": "URL",
+      "searching": "Ricerca..."
     },
     "misp": {
       "title": "Feed Eventi MISP",
@@ -261,7 +290,7 @@
       "source": "Fonte",
       "hitCount": "Conteggio Riscontri",
       "lastSeen": "Ultimo Avvistamento",
-      "severity": "Gravit\u00e0",
+      "severity": "Gravità",
       "noMatches": "Nessuna correlazione trovata",
       "noMatchesDescription": "I dati di correlazione IOC appariranno qui quando disponibili"
     }
@@ -286,7 +315,7 @@
       "description": "Monitora lo stato del sistema e i log di audit",
       "serviceHealth": "Stato dei Servizi",
       "auditLogs": "Log di Audit",
-      "uptime": "Tempo di Attivit\u00e0",
+      "uptime": "Tempo di Attività",
       "version": "Versione",
       "lastCheck": "Ultimo Controllo",
       "actor": "Attore",
@@ -306,9 +335,13 @@
       "envStaging": "Staging",
       "envDevelopment": "Sviluppo",
       "name": "Nome",
+      "slug": "Slug",
+      "slugPlaceholder": "la-mia-organizzazione",
+      "slugHelp": "Solo lettere minuscole, numeri e trattini",
       "status": "Stato",
       "users": "Utenti",
       "alerts": "Avvisi",
+      "cases": "Casi",
       "noTenants": "Nessun tenant trovato",
       "noTenantsDescription": "Le organizzazioni tenant appariranno qui",
       "loadError": "Caricamento tenant fallito",
@@ -316,7 +349,15 @@
       "create": "Crea Tenant",
       "creating": "Creazione in corso...",
       "tenantCreated": "Tenant creato con successo",
-      "tenantCreateError": "Creazione tenant fallita"
+      "tenantCreateError": "Creazione tenant fallita",
+      "editTenant": "Modifica Tenant",
+      "editTenantDescription": "Aggiorna le informazioni del tenant",
+      "tenantUpdated": "Tenant aggiornato con successo",
+      "tenantUpdateError": "Aggiornamento tenant fallito",
+      "deleteTenant": "Elimina Tenant",
+      "confirmDeleteTenant": "Sei sicuro di voler eliminare questo tenant? Questo rimuovera tutti gli utenti e i dati associati.",
+      "tenantDeleted": "Tenant eliminato con successo",
+      "tenantDeleteError": "Eliminazione tenant fallita"
     },
     "users": {
       "title": "Gestione Utenti",
@@ -329,13 +370,73 @@
       "noUsers": "Nessun utente trovato",
       "noUsersDescription": "Gli utenti del tenant appariranno qui",
       "never": "Mai",
-      "loadError": "Caricamento utenti fallito"
+      "loadError": "Caricamento utenti fallito",
+      "addUser": "Aggiungi Utente",
+      "addUserDescription": "Aggiungi un nuovo utente a questo tenant",
+      "userName": "Nome",
+      "userNamePlaceholder": "Inserisci il nome dell'utente",
+      "userEmail": "Email",
+      "userEmailPlaceholder": "utente@esempio.com",
+      "userPassword": "Password",
+      "userPasswordPlaceholder": "Minimo 8 caratteri",
+      "userRole": "Ruolo",
+      "userRolePlaceholder": "Seleziona un ruolo",
+      "userCreated": "Utente creato con successo",
+      "userCreateError": "Creazione utente fallita",
+      "creating": "Creazione in corso...",
+      "editUser": "Modifica Utente",
+      "editUserDescription": "Aggiorna i dati e il ruolo dell'utente",
+      "userUpdated": "Utente aggiornato con successo",
+      "userUpdateError": "Aggiornamento utente fallito",
+      "removeUser": "Rimuovi Utente",
+      "confirmRemoveUser": "Sei sicuro di voler rimuovere questo utente dal tenant?",
+      "userRemoved": "Utente rimosso con successo",
+      "userRemoveError": "Rimozione utente fallita",
+      "passwordOptional": "Lasciare vuoto per mantenere la password attuale",
+      "passwordPlaceholder": "Nuova password (min 8 caratteri)",
+      "blockUser": "Blocca Utente",
+      "confirmBlockUser": "Sei sicuro di voler bloccare questo utente? Non potra accedere.",
+      "userBlocked": "Utente bloccato con successo",
+      "unblockUser": "Sblocca Utente",
+      "confirmUnblockUser": "Sei sicuro di voler sbloccare questo utente? Potra accedere di nuovo.",
+      "userUnblocked": "Utente sbloccato con successo",
+      "restoreUser": "Ripristina Utente",
+      "confirmRestoreUser": "Sei sicuro di voler ripristinare questo utente?",
+      "userRestored": "Utente ripristinato con successo",
+      "statusBlocked": "Bloccato",
+      "statusDeleted": "Eliminato"
     },
     "services": {
       "title": "Stato dei Servizi",
       "noServices": "Nessun servizio trovato",
       "noServicesDescription": "I dati sullo stato dei servizi appariranno qui",
-      "loadError": "Caricamento stato dei servizi fallito"
+      "loadError": "Caricamento stato dei servizi fallito",
+      "status": "Stato",
+      "type": "Tipo",
+      "latency": "Latenza",
+      "statusHealthy": "Operativo",
+      "statusDegraded": "Degradato",
+      "statusDown": "Non disponibile",
+      "statusMaintenance": "Manutenzione",
+      "statusUnknown": "Sconosciuto"
+    },
+    "roles": {
+      "role": "Ruolo",
+      "selectRole": "Seleziona un ruolo",
+      "globalAdmin": "Amministratore Globale",
+      "tenantAdmin": "Amministratore Tenant",
+      "socAnalystL2": "Analista SOC L2",
+      "socAnalystL1": "Analista SOC L1",
+      "threatHunter": "Cacciatore di Minacce",
+      "executiveReadonly": "Esecutivo (Sola Lettura)",
+      "permissions": "Permessi",
+      "roleRequired": "Il ruolo e obbligatorio",
+      "permissionsRequired": "E richiesto almeno un permesso"
+    },
+    "common": {
+      "cancel": "Annulla",
+      "save": "Salva",
+      "saving": "Salvataggio..."
     },
     "audit": {
       "title": "Log di Audit",
@@ -538,8 +639,18 @@
     "regionRequired": "La regione è obbligatoria"
   },
   "errors": {
+    "accessDenied": "Non hai i permessi per accedere a questa pagina.",
+    "badRequest": "Richiesta non valida. Controlla i dati inseriti.",
+    "unauthorized": "Sessione scaduta. Accedi nuovamente.",
+    "forbidden": "Non hai i permessi per eseguire questa azione.",
+    "notFound": "Risorsa non trovata.",
+    "conflict": "Si e verificato un conflitto. La risorsa potrebbe gia esistere.",
+    "validationFailed": "Validazione fallita. Controlla i dati inseriti.",
+    "tooManyRequests": "Troppe richieste. Riprova piu tardi.",
+    "internalError": "Si e verificato un errore interno. Riprova.",
+    "serviceUnavailable": "Servizio temporaneamente non disponibile. Riprova piu tardi.",
     "common": {
-      "unknown": "Si \u00e8 verificato un errore imprevisto",
+      "unknown": "Si è verificato un errore imprevisto",
       "network": "Errore di rete. Controlla la tua connessione.",
       "unauthorized": "Sessione scaduta. Accedi nuovamente.",
       "forbidden": "Non hai i permessi per eseguire questa azione.",
@@ -548,8 +659,248 @@
     },
     "auth": {
       "invalidCredentials": "Email o password non validi",
-      "tokenExpired": "La tua sessione \u00e8 scaduta. Accedi nuovamente.",
-      "unauthorized": "Non sei autenticato. Effettua l'accesso."
+      "invalidAccessToken": "Token di accesso non valido o scaduto. Accedi nuovamente.",
+      "invalidRefreshToken": "La tua sessione e scaduta. Accedi nuovamente.",
+      "userNotFound": "L'account utente non esiste piu.",
+      "provisionFailed": "Impossibile creare l'account utente.",
+      "missingToken": "Autenticazione richiesta. Effettua l'accesso.",
+      "expiredToken": "La tua sessione e scaduta. Accedi nuovamente.",
+      "insufficientPermissions": "Non hai permessi sufficienti per questa azione.",
+      "unknownRole": "Ruolo utente sconosciuto.",
+      "tenantRequired": "Il contesto del tenant e obbligatorio.",
+      "tokenExpired": "La tua sessione è scaduta. Accedi nuovamente.",
+      "unauthorized": "Non sei autenticato. Effettua l'accesso.",
+      "accountInactive": "Il tuo account non e attivo. Contatta il tuo amministratore."
+    },
+    "validation": {
+      "failed": "Validazione fallita. Controlla i dati inseriti e riprova.",
+      "email": {
+        "required": "L'indirizzo e-mail e obbligatorio",
+        "invalidEmail": "Inserisci un indirizzo e-mail valido"
+      },
+      "password": {
+        "required": "La password e obbligatoria"
+      },
+      "refreshToken": {
+        "required": "Il token di aggiornamento e obbligatorio"
+      },
+      "currentPassword": {
+        "required": "La password attuale e obbligatoria"
+      },
+      "newPassword": {
+        "required": "La nuova password e obbligatoria",
+        "tooShort": "La nuova password deve contenere almeno 8 caratteri"
+      },
+      "confirmPassword": {
+        "required": "La conferma della password e obbligatoria",
+        "passwordMismatch": "Le password non corrispondono"
+      },
+      "name": {
+        "required": "Il nome e obbligatorio",
+        "tooShort": "Il nome deve contenere almeno 2 caratteri",
+        "tooLong": "Il nome deve contenere al massimo 255 caratteri"
+      },
+      "title": {
+        "required": "Il titolo e obbligatorio",
+        "tooLong": "Il titolo deve contenere al massimo 256 caratteri"
+      },
+      "description": {
+        "required": "La descrizione e obbligatoria",
+        "tooLong": "La descrizione deve contenere al massimo 4096 caratteri"
+      },
+      "severity": {
+        "required": "La gravita e obbligatoria",
+        "invalidOption": "Valore di gravita non valido"
+      },
+      "status": {
+        "invalidOption": "Valore di stato non valido"
+      },
+      "resolution": {
+        "required": "La risoluzione e obbligatoria",
+        "tooLong": "La risoluzione deve contenere al massimo 4096 caratteri"
+      },
+      "notes": {
+        "tooLong": "Le note devono contenere al massimo 4096 caratteri"
+      },
+      "body": {
+        "required": "Il contenuto della nota e obbligatorio"
+      },
+      "alertId": {
+        "required": "L'ID dell'avviso e obbligatorio"
+      },
+      "indexName": {
+        "required": "Il nome dell'indice e obbligatorio"
+      },
+      "query": {
+        "required": "La query e obbligatoria"
+      },
+      "timeRange": {
+        "required": "L'intervallo temporale e obbligatorio"
+      },
+      "type": {
+        "required": "Il tipo di connettore e obbligatorio",
+        "invalidOption": "Tipo di connettore non valido"
+      },
+      "enabled": {
+        "required": "Il campo di abilitazione e obbligatorio"
+      },
+      "authType": {
+        "invalidOption": "Tipo di autenticazione non valido"
+      },
+      "config": {
+        "required": "La configurazione e obbligatoria"
+      },
+      "prompt": {
+        "required": "Il prompt e obbligatorio",
+        "tooLong": "Il prompt deve contenere al massimo 4096 caratteri"
+      },
+      "oidcSub": {
+        "required": "Il soggetto OIDC e obbligatorio"
+      },
+      "slug": {
+        "required": "Lo slug e obbligatorio",
+        "tooLong": "Lo slug deve contenere al massimo 100 caratteri",
+        "invalidFormat": "Lo slug deve contenere solo lettere minuscole, numeri e trattini"
+      },
+      "role": {
+        "required": "Il ruolo e obbligatorio",
+        "invalidOption": "Valore di ruolo non valido"
+      },
+      "alertIds": {
+        "required": "Gli ID degli avvisi sono obbligatori",
+        "tooFew": "E richiesto almeno un ID di avviso"
+      },
+      "ownerUserId": {
+        "invalidUuid": "Formato ID utente non valido"
+      },
+      "theme": {
+        "invalidOption": "Valore di tema non valido"
+      },
+      "language": {
+        "invalidOption": "Valore di lingua non valido"
+      },
+      "sortOrder": {
+        "invalidOption": "Ordine di ordinamento non valido"
+      },
+      "page": {
+        "invalidNumber": "La pagina deve essere un intero positivo"
+      },
+      "limit": {
+        "invalidNumber": "Il limite deve essere un intero positivo",
+        "tooLarge": "Il limite deve essere al massimo 100"
+      }
+    },
+    "ssrf": {
+      "invalidUrl": "Formato URL non valido.",
+      "unsupportedProtocol": "Sono consentiti solo URL HTTP e HTTPS.",
+      "privateNetwork": "Non sono consentiti URL che puntano a reti private.",
+      "hostNotAllowed": "L'host specificato non e nella lista consentita."
+    },
+    "tenants": {
+      "notFound": "Tenant non trovato.",
+      "slugConflict": "Esiste gia un tenant con questo identificatore.",
+      "userNotFound": "Utente non trovato in questo tenant.",
+      "emailExists": "Un utente con questa email esiste gia in questo tenant.",
+      "cannotAssignGlobalAdmin": "Solo un amministratore globale puo assegnare il ruolo di amministratore globale.",
+      "cannotModifyGlobalAdmin": "Solo un amministratore globale puo modificare gli utenti amministratori globali.",
+      "cannotDeleteSelf": "Non puoi eliminare il tuo stesso account.",
+      "cannotBlockSelf": "Non puoi bloccare il tuo stesso account.",
+      "cannotModifySelf": "Non puoi modificare il tuo stesso ruolo.",
+      "userProtected": "Questo utente e protetto e non puo essere modificato.",
+      "userNotDeleted": "Questo utente non e eliminato.",
+      "userAlreadyBlocked": "Questo utente e gia bloccato.",
+      "userNotBlocked": "Questo utente non e bloccato."
+    },
+    "alerts": {
+      "notFound": "Avviso non trovato.",
+      "alreadyClosed": "Questo avviso è già chiuso.",
+      "alreadyClosedOrResolved": "Questo avviso e gia chiuso o risolto.",
+      "connectorNotConfigured": "Il connettore degli avvisi non è configurato."
+    },
+    "cases": {
+      "notFound": "Caso non trovato.",
+      "alreadyClosed": "Questo caso è già chiuso.",
+      "duplicateAlert": "Questo avviso è già collegato al caso."
+    },
+    "intel": {
+      "mispNotConfigured": "Il connettore MISP non è configurato.",
+      "mispConnectionFailed": "Connessione al server MISP fallita.",
+      "syncFailed": "Sincronizzazione dell'intelligence sulle minacce fallita."
+    },
+    "hunts": {
+      "notFound": "Sessione di caccia non trovata.",
+      "connectorNotConfigured": "Il connettore di ricerca non e configurato.",
+      "searchConnectorNotConfigured": "Il connettore di ricerca non è configurato.",
+      "queryFailed": "Esecuzione della query di caccia fallita."
+    },
+    "health": {
+      "serviceUnavailable": "Il servizio di stato non è disponibile.",
+      "connectorDisabled": "Questo connettore è disabilitato."
+    },
+    "ai": {
+      "notEnabled": "Il modulo AI non è abilitato.",
+      "invocationFailed": "Invocazione dell'AI fallita."
+    },
+    "users": {
+      "notFound": "Utente non trovato.",
+      "incorrectPassword": "La password attuale non è corretta.",
+      "emailInUse": "Questo indirizzo email è già in uso.",
+      "passwordTooWeak": "La password non soddisfa i requisiti di sicurezza."
+    },
+    "connectors": {
+      "notFound": "Connettore non trovato.",
+      "testFailed": "Test del connettore fallito.",
+      "invalidConfig": "Configurazione del connettore non valida.",
+      "loadError": "Caricamento dei connettori fallito.",
+      "updateError": "Aggiornamento del connettore fallito.",
+      "deleteError": "Eliminazione del connettore fallita.",
+      "toggleError": "Cambio stato del connettore fallito."
+    },
+    "auditLogs": {
+      "accessDenied": "Non hai i permessi per visualizzare i log di audit."
     }
+  },
+  "settings": {
+    "title": "Impostazioni",
+    "description": "Personalizza le preferenze dell'applicazione",
+    "appearance": "Aspetto",
+    "theme": "Tema",
+    "themeLight": "Chiaro",
+    "themeDark": "Scuro",
+    "themeSystem": "Sistema",
+    "language": "Lingua",
+    "languageDescription": "Seleziona la tua lingua preferita",
+    "notifications": "Notifiche",
+    "emailAlerts": "Avvisi via e-mail",
+    "emailAlertsDescription": "Ricevi notifiche di avvisi di sicurezza via e-mail",
+    "browserNotifications": "Notifiche del browser",
+    "browserNotificationsDescription": "Mostra notifiche desktop per avvisi critici",
+    "saved": "Preferenze salvate",
+    "saving": "Salvataggio..."
+  },
+  "profile": {
+    "title": "Profilo",
+    "description": "Gestisci le informazioni del tuo account",
+    "personalInfo": "Informazioni Personali",
+    "email": "E-mail",
+    "role": "Ruolo",
+    "tenant": "Tenant",
+    "name": "Nome",
+    "namePlaceholder": "Inserisci il tuo nome",
+    "updateName": "Aggiorna Nome",
+    "updating": "Aggiornamento...",
+    "nameUpdated": "Nome aggiornato con successo",
+    "confirmPassword": "Conferma con Password",
+    "confirmPasswordPlaceholder": "Inserisci la password attuale per confermare",
+    "changePassword": "Cambia Password",
+    "currentPassword": "Password Attuale",
+    "currentPasswordPlaceholder": "Inserisci la password attuale",
+    "newPassword": "Nuova Password",
+    "newPasswordPlaceholder": "Inserisci la nuova password",
+    "confirmNewPassword": "Conferma Nuova Password",
+    "confirmNewPasswordPlaceholder": "Conferma la nuova password",
+    "passwordChanged": "Password cambiata con successo",
+    "changingPassword": "Cambio in corso...",
+    "passwordMismatch": "Le password non corrispondono"
   }
 }

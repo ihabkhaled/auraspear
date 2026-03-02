@@ -124,7 +124,7 @@
     "eventLog": "Journal des evenements",
     "reasoning": "Etapes de raisonnement",
     "chatTitle": "Chat de chasse aux menaces",
-    "resultsTitle": "R\u00e9sultats",
+    "resultsTitle": "Résultats",
     "noEvents": "Aucun evenement trouve",
     "emptyTitle": "Demarrer une chasse aux menaces",
     "emptyDescription": "Decrivez un scenario de menace pour commencer la chasse",
@@ -138,6 +138,8 @@
     "columnSourceIp": "IP source",
     "columnUser": "Utilisateur",
     "columnDescription": "Description",
+    "sessionError": "Echec de la creation de la session de chasse",
+    "sendError": "Echec de l'envoi du message",
     "quickPrompts": {
       "bruteForce": "Detecter les attaques par force brute",
       "lateralMovement": "Rechercher les mouvements lateraux",
@@ -161,9 +163,9 @@
     "caseNotFoundDescription": "Le dossier demande n'a pas pu etre localise",
     "open": "Ouvert",
     "inProgress": "En cours",
-    "closed": "Clos",
+    "closed": "Fermé",
     "createCase": "Creer un dossier",
-    "caseNumber": "Dossier n\u00b0",
+    "caseNumber": "Dossier n°",
     "timeline": "Chronologie",
     "tasks": "Taches",
     "artifacts": "Artefacts",
@@ -192,13 +194,39 @@
     "fieldDescriptionPlaceholder": "Decrivez l'incident...",
     "fieldSeverity": "Severite",
     "fieldAssignee": "Responsable",
+    "fieldStatus": "Statut",
     "noArtifacts": "Aucun artefact",
     "source": "Source",
     "copy": "Copier",
     "lookup": "Rechercher",
     "artifactIps": "IP",
     "artifactHashes": "Hachages",
-    "artifactDomains": "Domaines"
+    "artifactDomains": "Domaines",
+    "backToCases": "Retour aux dossiers",
+    "created": "Créé",
+    "updated": "Mis à jour",
+    "escalate": "Escalader",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "tasksCompleted": "{completed} sur {total} terminées",
+    "noTasks": "Aucune tâche pour le moment",
+    "notes": "Notes",
+    "noNotes": "Aucune note pour le moment",
+    "addNotePlaceholder": "Écrire une note...",
+    "changeStatus": "Changer le statut",
+    "statusUpdated": "Statut du dossier mis à jour avec succès",
+    "statusChanged": "Statut du dossier mis a jour",
+    "statusChangeError": "Echec de la mise a jour du statut du dossier",
+    "fieldAssigneePlaceholder": "Selectionner le responsable...",
+    "fieldSeverityPlaceholder": "Selectionner la severite...",
+    "statusLabel": "Statut",
+    "creating": "Creation en cours...",
+    "caseCreated": "Dossier cree avec succes",
+    "caseCreateError": "Echec de la creation du dossier",
+    "validationTitleMin": "Le titre doit contenir au moins 5 caracteres",
+    "validationDescriptionMin": "La description doit contenir au moins 10 caracteres",
+    "validationSeverity": "Veuillez selectionner un niveau de severite",
+    "validationAssignee": "Veuillez selectionner un responsable"
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -240,7 +268,8 @@
       "typeIP": "Adresse IP",
       "typeHash": "Hachage de fichier",
       "typeDomain": "Domaine",
-      "typeURL": "URL"
+      "typeURL": "URL",
+      "searching": "Recherche..."
     },
     "misp": {
       "title": "Flux d'evenements MISP",
@@ -306,9 +335,13 @@
       "envStaging": "Pre-production",
       "envDevelopment": "Developpement",
       "name": "Nom",
+      "slug": "Slug",
+      "slugPlaceholder": "mon-organisation",
+      "slugHelp": "Lettres minuscules, chiffres et tirets uniquement",
       "status": "Statut",
       "users": "Utilisateurs",
       "alerts": "Alertes",
+      "cases": "Dossiers",
       "noTenants": "Aucun locataire trouve",
       "noTenantsDescription": "Les organisations locataires apparaitront ici",
       "loadError": "Echec du chargement des locataires",
@@ -316,7 +349,15 @@
       "create": "Creer un locataire",
       "creating": "Creation en cours...",
       "tenantCreated": "Locataire cree avec succes",
-      "tenantCreateError": "Echec de la creation du locataire"
+      "tenantCreateError": "Echec de la creation du locataire",
+      "editTenant": "Modifier le locataire",
+      "editTenantDescription": "Mettre a jour les informations du locataire",
+      "tenantUpdated": "Locataire mis a jour avec succes",
+      "tenantUpdateError": "Echec de la mise a jour du locataire",
+      "deleteTenant": "Supprimer le locataire",
+      "confirmDeleteTenant": "Etes-vous sur de vouloir supprimer ce locataire ? Cela supprimera tous les utilisateurs et donnees associes.",
+      "tenantDeleted": "Locataire supprime avec succes",
+      "tenantDeleteError": "Echec de la suppression du locataire"
     },
     "users": {
       "title": "Gestion des utilisateurs",
@@ -329,13 +370,73 @@
       "noUsers": "Aucun utilisateur trouve",
       "noUsersDescription": "Les utilisateurs du locataire apparaitront ici",
       "never": "Jamais",
-      "loadError": "Echec du chargement des utilisateurs"
+      "loadError": "Echec du chargement des utilisateurs",
+      "addUser": "Ajouter un utilisateur",
+      "addUserDescription": "Ajouter un nouvel utilisateur a ce locataire",
+      "userName": "Nom",
+      "userNamePlaceholder": "Entrez le nom de l'utilisateur",
+      "userEmail": "E-mail",
+      "userEmailPlaceholder": "utilisateur@exemple.com",
+      "userPassword": "Mot de passe",
+      "userPasswordPlaceholder": "Minimum 8 caracteres",
+      "userRole": "Role",
+      "userRolePlaceholder": "Selectionner un role",
+      "userCreated": "Utilisateur cree avec succes",
+      "userCreateError": "Echec de la creation de l'utilisateur",
+      "creating": "Creation en cours...",
+      "editUser": "Modifier l'utilisateur",
+      "editUserDescription": "Mettre a jour les informations et le role de l'utilisateur",
+      "userUpdated": "Utilisateur mis a jour avec succes",
+      "userUpdateError": "Echec de la mise a jour de l'utilisateur",
+      "removeUser": "Supprimer l'utilisateur",
+      "confirmRemoveUser": "Etes-vous sur de vouloir supprimer cet utilisateur du locataire ?",
+      "userRemoved": "Utilisateur supprime avec succes",
+      "userRemoveError": "Echec de la suppression de l'utilisateur",
+      "passwordOptional": "Laisser vide pour conserver le mot de passe actuel",
+      "passwordPlaceholder": "Nouveau mot de passe (min 8 caracteres)",
+      "blockUser": "Bloquer l'utilisateur",
+      "confirmBlockUser": "Etes-vous sur de vouloir bloquer cet utilisateur ? Il ne pourra plus se connecter.",
+      "userBlocked": "Utilisateur bloque avec succes",
+      "unblockUser": "Debloquer l'utilisateur",
+      "confirmUnblockUser": "Etes-vous sur de vouloir debloquer cet utilisateur ? Il pourra se connecter a nouveau.",
+      "userUnblocked": "Utilisateur debloque avec succes",
+      "restoreUser": "Restaurer l'utilisateur",
+      "confirmRestoreUser": "Etes-vous sur de vouloir restaurer cet utilisateur ?",
+      "userRestored": "Utilisateur restaure avec succes",
+      "statusBlocked": "Bloque",
+      "statusDeleted": "Supprime"
     },
     "services": {
       "title": "Sante des services",
       "noServices": "Aucun service trouve",
       "noServicesDescription": "Les donnees de sante des services apparaitront ici",
-      "loadError": "Echec du chargement de la sante des services"
+      "loadError": "Echec du chargement de la sante des services",
+      "status": "Statut",
+      "type": "Type",
+      "latency": "Latence",
+      "statusHealthy": "Operationnel",
+      "statusDegraded": "Degrade",
+      "statusDown": "Hors service",
+      "statusMaintenance": "Maintenance",
+      "statusUnknown": "Inconnu"
+    },
+    "roles": {
+      "role": "Role",
+      "selectRole": "Selectionner un role",
+      "globalAdmin": "Administrateur global",
+      "tenantAdmin": "Administrateur du locataire",
+      "socAnalystL2": "Analyste SOC L2",
+      "socAnalystL1": "Analyste SOC L1",
+      "threatHunter": "Chasseur de menaces",
+      "executiveReadonly": "Executif (Lecture seule)",
+      "permissions": "Permissions",
+      "roleRequired": "Le role est obligatoire",
+      "permissionsRequired": "Au moins une permission est requise"
+    },
+    "common": {
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
     },
     "audit": {
       "title": "Journaux d'audit",
@@ -361,11 +462,11 @@
     "signingIn": "Connexion en cours..."
   },
   "layout": {
-    "openSidebar": "Ouvrir le panneau lat\u00e9ral",
-    "closeSidebar": "Fermer le panneau lat\u00e9ral",
+    "openSidebar": "Ouvrir le panneau latéral",
+    "closeSidebar": "Fermer le panneau latéral",
     "collapseSidebar": "Reduire la barre laterale",
     "expandSidebar": "Developper la barre laterale",
-    "theme": "Th\u00e8me",
+    "theme": "Thème",
     "searchPlaceholder": "Rechercher...",
     "searchShortcut": "Rechercher des commandes",
     "commandPaletteTitle": "Palette de commandes",
@@ -538,6 +639,16 @@
     "regionRequired": "La region est obligatoire"
   },
   "errors": {
+    "accessDenied": "Vous n'avez pas la permission d'acceder a cette page.",
+    "badRequest": "Requete non valide. Veuillez verifier votre saisie.",
+    "unauthorized": "Session expiree. Veuillez vous reconnecter.",
+    "forbidden": "Vous n'avez pas la permission d'effectuer cette action.",
+    "notFound": "Ressource introuvable.",
+    "conflict": "Un conflit est survenu. La ressource existe peut-etre deja.",
+    "validationFailed": "La validation a echoue. Veuillez verifier votre saisie.",
+    "tooManyRequests": "Trop de requetes. Veuillez reessayer plus tard.",
+    "internalError": "Une erreur interne est survenue. Veuillez reessayer.",
+    "serviceUnavailable": "Service temporairement indisponible. Veuillez reessayer plus tard.",
     "common": {
       "unknown": "Une erreur inattendue s'est produite",
       "network": "Erreur reseau. Veuillez verifier votre connexion.",
@@ -548,8 +659,248 @@
     },
     "auth": {
       "invalidCredentials": "Adresse e-mail ou mot de passe incorrect",
+      "invalidAccessToken": "Jeton d'acces non valide ou expire. Veuillez vous reconnecter.",
+      "invalidRefreshToken": "Votre session a expire. Veuillez vous reconnecter.",
+      "userNotFound": "Le compte utilisateur n'existe plus.",
+      "provisionFailed": "Impossible de provisionner le compte utilisateur.",
+      "missingToken": "Authentification requise. Veuillez vous connecter.",
+      "expiredToken": "Votre session a expire. Veuillez vous reconnecter.",
+      "insufficientPermissions": "Vous n'avez pas les permissions suffisantes pour cette action.",
+      "unknownRole": "Role utilisateur inconnu.",
+      "tenantRequired": "Le contexte du locataire est requis.",
       "tokenExpired": "Votre session a expire. Veuillez vous reconnecter.",
-      "unauthorized": "Vous n'etes pas authentifie. Veuillez vous connecter."
+      "unauthorized": "Vous n'etes pas authentifie. Veuillez vous connecter.",
+      "accountInactive": "Votre compte n'est pas actif. Veuillez contacter votre administrateur."
+    },
+    "validation": {
+      "failed": "La validation a echoue. Veuillez verifier votre saisie et reessayer.",
+      "email": {
+        "required": "L'adresse e-mail est obligatoire",
+        "invalidEmail": "Veuillez saisir une adresse e-mail valide"
+      },
+      "password": {
+        "required": "Le mot de passe est obligatoire"
+      },
+      "refreshToken": {
+        "required": "Le jeton de rafraichissement est obligatoire"
+      },
+      "currentPassword": {
+        "required": "Le mot de passe actuel est obligatoire"
+      },
+      "newPassword": {
+        "required": "Le nouveau mot de passe est obligatoire",
+        "tooShort": "Le nouveau mot de passe doit contenir au moins 8 caracteres"
+      },
+      "confirmPassword": {
+        "required": "La confirmation du mot de passe est obligatoire",
+        "passwordMismatch": "Les mots de passe ne correspondent pas"
+      },
+      "name": {
+        "required": "Le nom est obligatoire",
+        "tooShort": "Le nom doit contenir au moins 2 caracteres",
+        "tooLong": "Le nom doit contenir au plus 255 caracteres"
+      },
+      "title": {
+        "required": "Le titre est obligatoire",
+        "tooLong": "Le titre doit contenir au plus 256 caracteres"
+      },
+      "description": {
+        "required": "La description est obligatoire",
+        "tooLong": "La description doit contenir au plus 4096 caracteres"
+      },
+      "severity": {
+        "required": "La severite est obligatoire",
+        "invalidOption": "Valeur de severite non valide"
+      },
+      "status": {
+        "invalidOption": "Valeur de statut non valide"
+      },
+      "resolution": {
+        "required": "La resolution est obligatoire",
+        "tooLong": "La resolution doit contenir au plus 4096 caracteres"
+      },
+      "notes": {
+        "tooLong": "Les notes doivent contenir au plus 4096 caracteres"
+      },
+      "body": {
+        "required": "Le contenu de la note est obligatoire"
+      },
+      "alertId": {
+        "required": "L'ID d'alerte est obligatoire"
+      },
+      "indexName": {
+        "required": "Le nom de l'index est obligatoire"
+      },
+      "query": {
+        "required": "La requete est obligatoire"
+      },
+      "timeRange": {
+        "required": "La plage temporelle est obligatoire"
+      },
+      "type": {
+        "required": "Le type de connecteur est obligatoire",
+        "invalidOption": "Type de connecteur non valide"
+      },
+      "enabled": {
+        "required": "Le champ d'activation est obligatoire"
+      },
+      "authType": {
+        "invalidOption": "Type d'authentification non valide"
+      },
+      "config": {
+        "required": "La configuration est obligatoire"
+      },
+      "prompt": {
+        "required": "Le prompt est obligatoire",
+        "tooLong": "Le prompt doit contenir au plus 4096 caracteres"
+      },
+      "oidcSub": {
+        "required": "Le sujet OIDC est obligatoire"
+      },
+      "slug": {
+        "required": "Le slug est obligatoire",
+        "tooLong": "Le slug doit contenir au plus 100 caracteres",
+        "invalidFormat": "Le slug ne doit contenir que des lettres minuscules, des chiffres et des tirets"
+      },
+      "role": {
+        "required": "Le role est obligatoire",
+        "invalidOption": "Valeur de role non valide"
+      },
+      "alertIds": {
+        "required": "Les IDs d'alerte sont obligatoires",
+        "tooFew": "Au moins un ID d'alerte est requis"
+      },
+      "ownerUserId": {
+        "invalidUuid": "Format d'ID utilisateur non valide"
+      },
+      "theme": {
+        "invalidOption": "Valeur de theme non valide"
+      },
+      "language": {
+        "invalidOption": "Valeur de langue non valide"
+      },
+      "sortOrder": {
+        "invalidOption": "Ordre de tri non valide"
+      },
+      "page": {
+        "invalidNumber": "La page doit etre un entier positif"
+      },
+      "limit": {
+        "invalidNumber": "La limite doit etre un entier positif",
+        "tooLarge": "La limite doit etre au plus 100"
+      }
+    },
+    "ssrf": {
+      "invalidUrl": "Format d'URL non valide.",
+      "unsupportedProtocol": "Seules les URLs HTTP et HTTPS sont autorisees.",
+      "privateNetwork": "Les URLs pointant vers des reseaux prives ne sont pas autorisees.",
+      "hostNotAllowed": "L'hote specifie ne figure pas dans la liste autorisee."
+    },
+    "tenants": {
+      "notFound": "Locataire introuvable.",
+      "slugConflict": "Un locataire avec cet identifiant existe deja.",
+      "userNotFound": "Utilisateur introuvable dans ce locataire.",
+      "emailExists": "Un utilisateur avec cet e-mail existe deja dans ce locataire.",
+      "cannotAssignGlobalAdmin": "Seul un administrateur global peut attribuer le role d'administrateur global.",
+      "cannotModifyGlobalAdmin": "Seul un administrateur global peut modifier les utilisateurs administrateurs globaux.",
+      "cannotDeleteSelf": "Vous ne pouvez pas supprimer votre propre compte.",
+      "cannotBlockSelf": "Vous ne pouvez pas bloquer votre propre compte.",
+      "cannotModifySelf": "Vous ne pouvez pas modifier votre propre rôle.",
+      "userProtected": "Cet utilisateur est protege et ne peut pas etre modifie.",
+      "userNotDeleted": "Cet utilisateur n'est pas supprime.",
+      "userAlreadyBlocked": "Cet utilisateur est deja bloque.",
+      "userNotBlocked": "Cet utilisateur n'est pas bloque."
+    },
+    "alerts": {
+      "notFound": "Alerte introuvable.",
+      "alreadyClosed": "Cette alerte est deja fermee.",
+      "alreadyClosedOrResolved": "Cette alerte est deja fermee ou resolue.",
+      "connectorNotConfigured": "Le connecteur d'alertes n'est pas configure."
+    },
+    "cases": {
+      "notFound": "Dossier introuvable.",
+      "alreadyClosed": "Ce dossier est deja clos.",
+      "duplicateAlert": "Cette alerte est deja liee au dossier."
+    },
+    "intel": {
+      "mispNotConfigured": "Le connecteur MISP n'est pas configure.",
+      "mispConnectionFailed": "Echec de la connexion au serveur MISP.",
+      "syncFailed": "La synchronisation des renseignements sur les menaces a echoue."
+    },
+    "hunts": {
+      "notFound": "Session de chasse introuvable.",
+      "connectorNotConfigured": "Le connecteur de recherche n'est pas configure.",
+      "searchConnectorNotConfigured": "Le connecteur de recherche n'est pas configure.",
+      "queryFailed": "L'execution de la requete de chasse a echoue."
+    },
+    "health": {
+      "serviceUnavailable": "Le service de sante est indisponible.",
+      "connectorDisabled": "Ce connecteur est desactive."
+    },
+    "ai": {
+      "notEnabled": "Le module IA n'est pas active.",
+      "invocationFailed": "L'invocation de l'IA a echoue."
+    },
+    "users": {
+      "notFound": "Utilisateur introuvable.",
+      "incorrectPassword": "Le mot de passe actuel est incorrect.",
+      "emailInUse": "Cette adresse e-mail est deja utilisee.",
+      "passwordTooWeak": "Le mot de passe ne repond pas aux exigences de securite."
+    },
+    "connectors": {
+      "notFound": "Connecteur introuvable.",
+      "testFailed": "Le test du connecteur a echoue.",
+      "invalidConfig": "Configuration du connecteur non valide.",
+      "loadError": "Echec du chargement des connecteurs.",
+      "updateError": "Echec de la mise a jour du connecteur.",
+      "deleteError": "Echec de la suppression du connecteur.",
+      "toggleError": "Echec du basculement du connecteur."
+    },
+    "auditLogs": {
+      "accessDenied": "Vous n'avez pas la permission de consulter les journaux d'audit."
     }
+  },
+  "settings": {
+    "title": "Parametres",
+    "description": "Personnalisez vos preferences d'application",
+    "appearance": "Apparence",
+    "theme": "Theme",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Systeme",
+    "language": "Langue",
+    "languageDescription": "Selectionnez votre langue preferee",
+    "notifications": "Notifications",
+    "emailAlerts": "Alertes par e-mail",
+    "emailAlertsDescription": "Recevoir les notifications d'alertes de securite par e-mail",
+    "browserNotifications": "Notifications du navigateur",
+    "browserNotificationsDescription": "Afficher les notifications de bureau pour les alertes critiques",
+    "saved": "Preferences enregistrees",
+    "saving": "Enregistrement..."
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Gerez les informations de votre compte",
+    "personalInfo": "Informations personnelles",
+    "email": "E-mail",
+    "role": "Role",
+    "tenant": "Locataire",
+    "name": "Nom",
+    "namePlaceholder": "Entrez votre nom",
+    "updateName": "Mettre a jour le nom",
+    "updating": "Mise a jour...",
+    "nameUpdated": "Nom mis a jour avec succes",
+    "confirmPassword": "Confirmer avec le mot de passe",
+    "confirmPasswordPlaceholder": "Entrez votre mot de passe actuel pour confirmer",
+    "changePassword": "Changer le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "currentPasswordPlaceholder": "Entrez le mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "newPasswordPlaceholder": "Entrez le nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "confirmNewPasswordPlaceholder": "Confirmez le nouveau mot de passe",
+    "passwordChanged": "Mot de passe change avec succes",
+    "changingPassword": "Changement...",
+    "passwordMismatch": "Les mots de passe ne correspondent pas"
   }
 }

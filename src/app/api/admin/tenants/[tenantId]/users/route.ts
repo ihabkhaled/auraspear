@@ -10,3 +10,11 @@ export async function GET(
   const { tenantId } = await params
   return proxyToBackend(request, { path: `/tenants/${tenantId}/users` })
 }
+
+export async function POST(
+  request: NextRequest,
+  { params }: { params: Promise<{ tenantId: string }> }
+) {
+  const { tenantId } = await params
+  return proxyToBackend(request, { path: `/tenants/${tenantId}/users` })
+}

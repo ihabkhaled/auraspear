@@ -10,29 +10,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-const LOCALES = [
-  { code: 'en', labelKey: 'en' },
-  { code: 'es', labelKey: 'es' },
-  { code: 'it', labelKey: 'it' },
-  { code: 'fr', labelKey: 'fr' },
-  { code: 'ar', labelKey: 'ar' },
-  { code: 'de', labelKey: 'de' },
-] as const
-
-function getCookie(name: string): string {
-  if (typeof document === 'undefined') return ''
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
-  return match ? decodeURIComponent(match[1] ?? '') : ''
-}
+import { useUpdatePreferences } from '@/hooks/useSettings'
+import { LOCALES } from '@/lib/constants/locales'
+import { getCookie } from '@/lib/cookies'
 
 export function LanguageSwitcher() {
   const t = useTranslations('language')
   const router = useRouter()
+  const updatePreferences = useUpdatePreferences()
   const current = getCookie('locale') || 'en'
 
   function handleChange(locale: string) {
     document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
+    updatePreferences.mutate({ language: locale })
     router.refresh()
   }
 

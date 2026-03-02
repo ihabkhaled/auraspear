@@ -1,9 +1,10 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Copy, ExternalLink, Globe, Hash, Server } from 'lucide-react'
+import { Copy, ExternalLink, Globe, Hash, Link2, Server } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { CaseArtifactType } from '@/enums'
 import { copyToClipboard } from '@/lib/utils'
 import type { CaseArtifact } from '@/types'
 
@@ -12,23 +13,25 @@ interface CaseArtifactPanelProps {
   onLookup?: (artifact: CaseArtifact) => void
 }
 
-const typeIcons: Record<string, typeof Globe> = {
-  ip: Server,
-  hash: Hash,
-  domain: Globe,
+const typeIcons: Record<CaseArtifactType, typeof Globe> = {
+  [CaseArtifactType.IP]: Server,
+  [CaseArtifactType.HASH]: Hash,
+  [CaseArtifactType.DOMAIN]: Globe,
+  [CaseArtifactType.URL]: Link2,
 }
 
-const typeKeys: Record<string, string> = {
-  ip: 'artifactIps',
-  hash: 'artifactHashes',
-  domain: 'artifactDomains',
+const typeKeys: Record<CaseArtifactType, string> = {
+  [CaseArtifactType.IP]: 'artifactIps',
+  [CaseArtifactType.HASH]: 'artifactHashes',
+  [CaseArtifactType.DOMAIN]: 'artifactDomains',
+  [CaseArtifactType.URL]: 'artifactUrls',
 }
 
 export function CaseArtifactPanel({ artifacts, onLookup }: CaseArtifactPanelProps) {
   const t = useTranslations('cases')
 
   const groupedArtifacts = useMemo(() => {
-    const groups: Record<string, CaseArtifact[]> = {}
+    const groups: Partial<Record<CaseArtifactType, CaseArtifact[]>> = {}
 
     for (const artifact of artifacts) {
       const existing = groups[artifact.type]
@@ -53,8 +56,12 @@ export function CaseArtifactPanel({ artifacts, onLookup }: CaseArtifactPanelProp
   return (
     <div className="flex flex-col gap-6">
       {Object.entries(groupedArtifacts).map(([type, items]) => {
-        const Icon = typeIcons[type] ?? Globe
-        const label = typeKeys[type] ? t(typeKeys[type]) : type
+        if (!items) {
+          return null
+        }
+        const artifactType = type as CaseArtifactType
+        const Icon = typeIcons[artifactType] ?? Globe
+        const label = typeKeys[artifactType] ? t(typeKeys[artifactType]) : type
 
         return (
           <div key={type} className="flex flex-col gap-2">

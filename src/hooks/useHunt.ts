@@ -5,7 +5,7 @@ export function useCreateHuntSession() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: () => huntService.createSession(),
+    mutationFn: (data: { query: string; timeRange: string }) => huntService.createSession(data),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['hunt'] })
     },

@@ -5,16 +5,41 @@ import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { CaseStatus } from '@/enums'
 import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
 import { formatDate } from '@/lib/utils'
 import type { Case } from '@/types'
+
+const STATUS_LABEL_MAP: Record<CaseStatus, string> = {
+  [CaseStatus.OPEN]: 'statusOpen',
+  [CaseStatus.IN_PROGRESS]: 'statusInProgress',
+  [CaseStatus.CLOSED]: 'statusClosed',
+}
+
+function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
+  switch (status) {
+    case CaseStatus.OPEN:
+      return [CaseStatus.IN_PROGRESS, CaseStatus.CLOSED]
+    case CaseStatus.IN_PROGRESS:
+      return [CaseStatus.CLOSED]
+    case CaseStatus.CLOSED:
+      return []
+  }
+}
 
 interface CaseDetailHeaderProps {
   caseItem: Case
   onEdit?: () => void
   onDelete?: () => void
   onEscalate?: () => void
+  onStatusChange?: (status: CaseStatus) => void
 }
 
 export function CaseDetailHeader({
@@ -22,8 +47,11 @@ export function CaseDetailHeader({
   onEdit,
   onDelete,
   onEscalate,
+  onStatusChange,
 }: CaseDetailHeaderProps) {
   const t = useTranslations('cases')
+
+  const availableTransitions = getAvailableTransitions(caseItem.status)
 
   return (
     <div className="border-border flex flex-col gap-4 border-b pb-4">
@@ -32,9 +60,7 @@ export function CaseDetailHeader({
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground font-mono text-sm">{caseItem.caseNumber}</span>
             <Badge variant={STATUS_VARIANT_MAP[caseItem.status]} className="capitalize">
-              {t(
-                `status${caseItem.status === CaseStatus.OPEN ? 'Open' : caseItem.status === CaseStatus.IN_PROGRESS ? 'InProgress' : 'Closed'}`
-              )}
+              {t(STATUS_LABEL_MAP[caseItem.status])}
             </Badge>
             <SeverityBadge severity={caseItem.severity} />
           </div>
@@ -42,6 +68,20 @@ export function CaseDetailHeader({
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {onStatusChange && availableTransitions.length > 0 && (
+            <Select onValueChange={value => onStatusChange(value as CaseStatus)}>
+              <SelectTrigger size="sm" className="w-auto">
+                <SelectValue placeholder={t('changeStatus')} />
+              </SelectTrigger>
+              <SelectContent>
+                {availableTransitions.map(status => (
+                  <SelectItem key={status} value={status}>
+                    {t(STATUS_LABEL_MAP[status])}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
           {onEscalate && caseItem.status !== CaseStatus.CLOSED && (
             <Button variant="outline" size="sm" onClick={onEscalate}>
               <ExternalLink className="h-4 w-4" />

@@ -1,23 +1,25 @@
+import { ServiceStatus } from '@/enums'
 import { cn } from '@/lib/utils'
 
-type StatusDotStatus = 'healthy' | 'degraded' | 'down'
 type StatusDotSize = 'sm' | 'md'
 
 interface StatusDotProps {
-  status: StatusDotStatus
+  status: ServiceStatus
   size?: StatusDotSize
 }
 
-const STATUS_COLOR_MAP: Record<StatusDotStatus, string> = {
-  healthy: 'bg-status-success',
-  degraded: 'bg-status-warning',
-  down: 'bg-status-error',
+const STATUS_COLOR_MAP: Record<ServiceStatus, string> = {
+  [ServiceStatus.HEALTHY]: 'bg-status-success',
+  [ServiceStatus.DEGRADED]: 'bg-status-warning',
+  [ServiceStatus.DOWN]: 'bg-status-error',
+  [ServiceStatus.MAINTENANCE]: 'bg-status-info',
 }
 
-const PING_COLOR_MAP: Record<StatusDotStatus, string> = {
-  healthy: 'bg-status-success',
-  degraded: 'bg-status-warning',
-  down: 'bg-status-error',
+const PING_COLOR_MAP: Record<ServiceStatus, string> = {
+  [ServiceStatus.HEALTHY]: 'bg-status-success',
+  [ServiceStatus.DEGRADED]: 'bg-status-warning',
+  [ServiceStatus.DOWN]: 'bg-status-error',
+  [ServiceStatus.MAINTENANCE]: 'bg-status-info',
 }
 
 const SIZE_MAP: Record<StatusDotSize, string> = {

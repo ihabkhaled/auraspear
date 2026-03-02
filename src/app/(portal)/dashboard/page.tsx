@@ -34,36 +34,38 @@ export default function DashboardPage() {
   const { data: assets, isLoading: assetsLoading } = useAssetRisks()
   const { data: pipeline, isLoading: pipelineLoading } = usePipelineHealth()
 
+  function renderKPIs() {
+    if (kpisLoading) return <LoadingSpinner />
+    if ((kpis?.data?.length ?? 0) === 0) {
+      return (
+        <div className="col-span-full">
+          <EmptyState
+            icon={<BarChart3 className="h-6 w-6" />}
+            title={t('emptyTitle')}
+            description={t('emptyDescription')}
+          />
+        </div>
+      )
+    }
+    return kpis?.data?.map((kpi, i) => (
+      <KPICard
+        key={kpi.label}
+        label={kpi.label}
+        value={kpi.value}
+        trend={kpi.trend}
+        trendLabel={kpi.trendLabel}
+        icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
+        accentColor={KPI_COLORS[i]}
+      />
+    ))
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader title={t('title')} description={t('description')} />
 
       {/* KPI Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {kpisLoading ? (
-          <LoadingSpinner />
-        ) : (kpis?.data?.length ?? 0) === 0 ? (
-          <div className="col-span-full">
-            <EmptyState
-              icon={<BarChart3 className="h-6 w-6" />}
-              title={t('emptyTitle')}
-              description={t('emptyDescription')}
-            />
-          </div>
-        ) : (
-          kpis?.data?.map((kpi, i) => (
-            <KPICard
-              key={kpi.label}
-              label={kpi.label}
-              value={kpi.value}
-              trend={kpi.trend}
-              trendLabel={kpi.trendLabel}
-              icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
-              accentColor={KPI_COLORS[i]}
-            />
-          ))
-        )}
-      </div>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">{renderKPIs()}</div>
 
       {/* Alert Trend Chart */}
       <DashboardCard

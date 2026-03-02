@@ -1,19 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendAssetsResponse } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendAsset {
-  hostname: string
-  alertCount: number
-  criticalCount: number
-  lastSeen: string
-}
-
-interface BackendAssetsResponse {
-  tenantId: string
-  assets: BackendAsset[]
-}
 
 export async function GET(request: NextRequest) {
   try {

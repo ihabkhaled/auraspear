@@ -16,21 +16,14 @@ import {
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import type { UserRole } from '@/enums'
+import { canAccessRoute } from '@/lib/roles'
 import { cn } from '@/lib/utils'
-import { useUIStore } from '@/stores'
+import { useUIStore, useAuthStore } from '@/stores'
+import type { NavSection } from '@/types'
 import { BrandLogo } from './BrandLogo'
 import { SidebarHealthFooter } from './SidebarHealthFooter'
 import { SidebarNavItem } from './SidebarNavItem'
-
-interface NavSection {
-  label: string
-  items: Array<{
-    icon: typeof LayoutDashboard
-    label: string
-    href: string
-    badge?: number
-  }>
-}
 
 function SidebarContent({
   collapsed,
@@ -42,8 +35,10 @@ function SidebarContent({
   const pathname = usePathname()
   const t = useTranslations()
   const { toggleSidebar } = useUIStore()
+  const { user } = useAuthStore()
+  const userRole = user?.role as UserRole | undefined
 
-  const sections: NavSection[] = [
+  const allSections: NavSection[] = [
     {
       label: t('nav.main'),
       items: [
@@ -66,6 +61,16 @@ function SidebarContent({
       ],
     },
   ]
+
+  // Filter sections and items based on user role
+  const sections = userRole
+    ? allSections
+        .map(section => ({
+          ...section,
+          items: section.items.filter(item => canAccessRoute(userRole, item.href)),
+        }))
+        .filter(section => section.items.length > 0)
+    : allSections
 
   return (
     <>

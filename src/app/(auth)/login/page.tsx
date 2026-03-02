@@ -1,52 +1,96 @@
 'use client'
 
-import { useState } from 'react'
+import { useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
-import { Shield } from 'lucide-react'
+import { Shield, Eye, EyeOff, Sun, Moon, Languages } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
-import { authService } from '@/services/auth.service'
-import { useAuthStore, useTenantStore } from '@/stores'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { useLoginForm } from '@/hooks/useLoginForm'
+import { LOCALES } from '@/lib/constants/locales'
+import { getCookie } from '@/lib/cookies'
+
+const noop = () => {}
+const emptySubscribe = () => noop
 
 export default function LoginPage() {
   const t = useTranslations('auth')
-  const tErrors = useTranslations()
   const tApp = useTranslations('app')
+  const tLang = useTranslations('language')
+  const tCommon = useTranslations('common')
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const { setTokens, setUser } = useAuthStore()
-  const { setCurrentTenant } = useTenantStore()
+  const { resolvedTheme, setTheme } = useTheme()
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  const {
+    isLoading,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    showPassword,
+    setShowPassword,
+    handleSubmit,
+  } = useLoginForm()
 
-  function handleSubmit(e: { preventDefault: () => void }) {
-    e.preventDefault()
-    setIsLoading(true)
+  const isDark = resolvedTheme === 'dark'
+  const currentLocale = getCookie('locale') || 'en'
 
-    authService
-      .login(email, password)
-      .then(data => {
-        setTokens(data.accessToken, data.refreshToken)
-        setUser(data.user)
-        setCurrentTenant(data.user.tenantId)
-        router.push('/dashboard')
-      })
-      .catch((error: unknown) => {
-        const key = getErrorKey(error)
-        Toast.error(tErrors(key))
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
+  function handleThemeToggle() {
+    setTheme(isDark ? 'light' : 'dark')
+  }
+
+  function handleLocaleChange(locale: string) {
+    document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
+    router.refresh()
   }
 
   return (
     <div className="bg-background flex min-h-screen items-center justify-center p-4">
+      <div className="absolute end-4 top-4 flex items-center gap-2">
+        <Select value={currentLocale} onValueChange={handleLocaleChange}>
+          <SelectTrigger size="sm" className="w-[130px] gap-1">
+            <Languages className="text-muted-foreground h-3.5 w-3.5" />
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {LOCALES.map(l => (
+              <SelectItem key={l.code} value={l.code}>
+                {tLang(l.labelKey)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        {mounted && (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={handleThemeToggle}
+            aria-label={isDark ? tCommon('lightMode') : tCommon('darkMode')}
+          >
+            {isDark ? (
+              <Sun className="text-muted-foreground h-4 w-4" />
+            ) : (
+              <Moon className="text-muted-foreground h-4 w-4" />
+            )}
+          </Button>
+        )}
+      </div>
+
       <Card className="w-full max-w-sm">
         <CardHeader className="items-center text-center">
           <div className="bg-primary flex h-12 w-12 items-center justify-center rounded-xl">
@@ -75,14 +119,25 @@ export default function LoginPage() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">{t('password')}</Label>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                required
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                  className="pe-10"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(prev => !prev)}
+                  className="text-muted-foreground hover:text-foreground absolute end-3 top-1/2 -translate-y-1/2"
+                  tabIndex={-1}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? t('signingIn') : t('signInButton')}

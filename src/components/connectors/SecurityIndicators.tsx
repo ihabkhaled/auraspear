@@ -4,24 +4,8 @@ import { Shield, KeyRound, Lock } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { ConnectorType } from '@/lib/types/connectors'
-
-interface SecurityPosture {
-  mTLS: boolean
-  iam: boolean
-  encryption: boolean
-}
-
-const SECURITY_POSTURE: Record<ConnectorType, SecurityPosture> = {
-  wazuh: { mTLS: true, iam: false, encryption: true },
-  graylog: { mTLS: false, iam: false, encryption: true },
-  velociraptor: { mTLS: true, iam: false, encryption: true },
-  grafana: { mTLS: false, iam: false, encryption: true },
-  influxdb: { mTLS: false, iam: false, encryption: true },
-  misp: { mTLS: false, iam: false, encryption: true },
-  shuffle: { mTLS: false, iam: false, encryption: true },
-  bedrock: { mTLS: true, iam: true, encryption: true },
-}
+import type { ConnectorType } from '@/enums'
+import { SECURITY_POSTURE } from '@/lib/constants/connectors.constants'
 
 interface SecurityIndicatorsProps {
   type: ConnectorType

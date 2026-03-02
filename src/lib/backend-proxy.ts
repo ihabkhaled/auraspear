@@ -90,7 +90,10 @@ export async function proxyToBackend(
     return NextResponse.json(wrapped, { status: backendResponse.status })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Backend unavailable'
-    return NextResponse.json({ data: null, error: message }, { status: 502 })
+    return NextResponse.json(
+      { data: null, error: message, messageKey: 'errors.serviceUnavailable' },
+      { status: 502 }
+    )
   }
 }
 
@@ -184,7 +187,10 @@ function mapErrorToKey(status: number, message: string): string {
   return 'errors.common.unknown'
 }
 
-function wrapResponse(data: unknown, ok: boolean): { data: unknown; error?: string } {
+function wrapResponse(
+  data: unknown,
+  ok: boolean
+): { data: unknown; error?: string; messageKey?: string; errors?: string[] } {
   // If the backend already returns a { data } wrapper, pass through
   if (typeof data === 'object' && data !== null && 'data' in (data as Record<string, unknown>)) {
     return data as { data: unknown }
@@ -199,5 +205,7 @@ function wrapResponse(data: unknown, ok: boolean): { data: unknown; error?: stri
   return {
     data: null,
     error: (errorData['message'] as string) ?? 'Request failed',
+    messageKey: (errorData['messageKey'] as string) ?? undefined,
+    errors: (errorData['errors'] as string[]) ?? undefined,
   }
 }

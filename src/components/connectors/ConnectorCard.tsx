@@ -1,42 +1,21 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import {
-  Shield,
-  FileText,
-  Crosshair,
-  BarChart3,
-  Database,
-  Radar,
-  Zap,
-  Brain,
-  Settings,
-  Play,
-  Trash2,
-  type LucideIcon,
-} from 'lucide-react'
+import { Settings, Play, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { toast } from 'sonner'
+import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
-import { testConnector, deleteConnector } from '@/lib/api/connectors.api'
-import type { ConnectorRecord, ConnectorType } from '@/lib/types/connectors'
-import { CONNECTOR_META, canEdit, canDelete } from '@/lib/types/connectors'
+import { ConnectorStatus, UserRole } from '@/enums'
+import { useTestConnector, useToggleConnector, useDeleteConnector } from '@/hooks/useConnectors'
+import { getErrorKey } from '@/lib/api-error'
+import { CONNECTOR_ICONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
+import { hasRole } from '@/lib/roles'
+import type { ConnectorRecord } from '@/lib/types/connectors'
 import { formatRelativeTime } from '@/lib/utils'
-import { useConnectorsStore } from '@/stores/connectors.store'
+import { useAuthStore } from '@/stores'
 import { StatusBadge } from './StatusBadge'
-
-const CONNECTOR_ICONS: Record<ConnectorType, LucideIcon> = {
-  wazuh: Shield,
-  graylog: FileText,
-  velociraptor: Crosshair,
-  grafana: BarChart3,
-  influxdb: Database,
-  misp: Radar,
-  shuffle: Zap,
-  bedrock: Brain,
-}
 
 interface ConnectorCardProps {
   connector: ConnectorRecord
@@ -45,59 +24,72 @@ interface ConnectorCardProps {
 export function ConnectorCard({ connector }: ConnectorCardProps) {
   const router = useRouter()
   const t = useTranslations('connectors')
-  const upsert = useConnectorsStore(s => s.upsert)
-  const role = useConnectorsStore(s => s.role)
-  const addAuditLog = useConnectorsStore(s => s.addAuditLog)
-  const activeTenantId = useConnectorsStore(s => s.activeTenantId)
+  const tErrors = useTranslations()
+
+  const { user } = useAuthStore()
+  const userRole = user?.role as UserRole | undefined
+  const isEditor = userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false
+  const isAdmin = userRole ? hasRole(userRole, UserRole.TENANT_ADMIN) : false
+
   const Icon = CONNECTOR_ICONS[connector.type]
   const meta = CONNECTOR_META[connector.type]
 
-  const isEditor = canEdit(role)
-  const isAdmin = canDelete(role)
+  const testMutation = useTestConnector()
+  const toggleMutation = useToggleConnector()
+  const deleteMutation = useDeleteConnector()
+
+  function deriveStatus(): ConnectorStatus {
+    if (connector.lastTestOk === true) return ConnectorStatus.CONNECTED
+    if (connector.lastTestOk === false) return ConnectorStatus.DISCONNECTED
+    return ConnectorStatus.NOT_CONFIGURED
+  }
+  const connectorStatus = deriveStatus()
 
   const handleToggle = (checked: boolean) => {
-    upsert(connector.type, { enabled: checked })
-    addAuditLog({
-      tenantId: activeTenantId,
-      actor: `${role.toLowerCase()}@aura.io`,
-      role,
-      action: checked ? 'enable' : 'disable',
-      connectorType: connector.type,
-      details: `${checked ? 'Enabled' : 'Disabled'} ${meta.label}`,
-    })
-    toast.success(`${meta.label} ${checked ? t('enabled') : t('disabled')}`)
+    toggleMutation.mutate(
+      { type: connector.type, enabled: checked },
+      {
+        onSuccess: () => {
+          Toast.success(`${meta.label} ${checked ? t('enabled') : t('disabled')}`)
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      }
+    )
   }
 
-  const handleTest = async () => {
-    toast.info(t('testingConnector', { name: meta.label }))
-    addAuditLog({
-      tenantId: activeTenantId,
-      actor: `${role.toLowerCase()}@aura.io`,
-      role,
-      action: 'test',
-      connectorType: connector.type,
-      details: `Tested ${meta.label}`,
+  const handleTest = () => {
+    Toast.info(t('testingConnector', { name: meta.label }))
+    testMutation.mutate(connector.type, {
+      onSuccess: result => {
+        if (result.ok) {
+          Toast.success(`${meta.label} ${t('connectedSuccessfully')}`)
+        } else {
+          Toast.error(result.details ?? t('connectionFailed'))
+        }
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
     })
-    await testConnector(connector.type)
-    const updated = useConnectorsStore.getState().getByType(connector.type)
-    if (updated?.lastTestOk) {
-      toast.success(`${meta.label} ${t('connectedSuccessfully')}`)
-    } else {
-      toast.error(updated?.lastError ?? t('connectionFailed'))
-    }
   }
 
-  const handleDelete = () => {
-    deleteConnector(connector.type)
-    addAuditLog({
-      tenantId: activeTenantId,
-      actor: `${role.toLowerCase()}@aura.io`,
-      role,
-      action: 'delete',
-      connectorType: connector.type,
-      details: `Deleted ${meta.label}`,
+  const handleDelete = async () => {
+    const confirmed = await SweetAlertDialog.show({
+      text: t('confirmDelete'),
+      icon: SweetAlertIcon.QUESTION,
     })
-    toast.success(`${meta.label} ${t('deleted')}`)
+    if (!confirmed) return
+
+    deleteMutation.mutate(connector.type, {
+      onSuccess: () => {
+        Toast.success(`${meta.label} ${t('deleted')}`)
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+    })
   }
 
   return (
@@ -113,12 +105,16 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
               <CardDescription>{meta.description}</CardDescription>
             </div>
           </div>
-          <Switch checked={connector.enabled} onCheckedChange={handleToggle} disabled={!isEditor} />
+          <Switch
+            checked={connector.enabled}
+            onCheckedChange={handleToggle}
+            disabled={!isEditor || toggleMutation.isPending}
+          />
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex items-center gap-2">
-          <StatusBadge status={connector.status} />
+          <StatusBadge status={connectorStatus} />
           {connector.lastTestAt && (
             <span className="text-muted-foreground text-xs">
               {t('tested')} {formatRelativeTime(connector.lastTestAt)}
@@ -134,20 +130,23 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
             <Settings className="mr-1 h-3.5 w-3.5" />
             {t('configure')}
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleTest}
-            disabled={connector.status === 'testing'}
-          >
-            <Play className="mr-1 h-3.5 w-3.5" />
-            {t('test')}
-          </Button>
+          {isEditor && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleTest}
+              disabled={testMutation.isPending}
+            >
+              <Play className="mr-1 h-3.5 w-3.5" />
+              {t('test')}
+            </Button>
+          )}
           {isAdmin && (
             <Button
               variant="outline"
               size="sm"
               onClick={handleDelete}
+              disabled={deleteMutation.isPending}
               className="text-destructive hover:text-destructive"
             >
               <Trash2 className="mr-1 h-3.5 w-3.5" />

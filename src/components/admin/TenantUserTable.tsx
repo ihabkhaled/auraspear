@@ -1,42 +1,41 @@
 'use client'
 
-import { Shield, Users } from 'lucide-react'
+import {
+  Ban,
+  Pencil,
+  RotateCcw,
+  Shield,
+  ShieldAlert,
+  ShieldCheck,
+  Trash2,
+  Users,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { UserRole } from '@/enums'
+import { Button } from '@/components/ui/button'
+import { UserRole, UserStatus } from '@/enums'
+import { getStatusDotClass, getRoleBadgeClass } from '@/lib/admin-utils'
 import { getInitials } from '@/lib/case.utils'
 import { cn, formatRelativeTime } from '@/lib/utils'
-import type { TenantUser, Column } from '@/types'
+import type { TenantUser, TenantUserTableProps, Column } from '@/types'
 
-interface TenantUserTableProps {
-  users: TenantUser[]
-  loading?: boolean
-  onUserClick?: (user: TenantUser) => void
-}
-
-function getRoleBadgeClass(role: UserRole): string {
-  switch (role) {
-    case UserRole.GLOBAL_ADMIN:
-      return 'bg-primary/10 text-primary border-primary/20'
-    case UserRole.TENANT_ADMIN:
-      return 'bg-primary/10 text-primary border-primary/20'
-    case UserRole.SOC_ANALYST_L2:
-      return 'bg-[var(--chart-1)]/10 text-[var(--chart-1)] border-[var(--chart-1)]/20'
-    case UserRole.SOC_ANALYST_L1:
-      return 'bg-[var(--chart-1)]/10 text-[var(--chart-1)] border-[var(--chart-1)]/20'
-    case UserRole.THREAT_HUNTER:
-      return 'bg-[var(--chart-3)]/10 text-[var(--chart-3)] border-[var(--chart-3)]/20'
-    case UserRole.EXECUTIVE_READONLY:
-      return 'bg-muted text-muted-foreground border-border'
-    default:
-      return 'bg-muted text-muted-foreground border-border'
-  }
-}
-
-export function TenantUserTable({ users, loading = false, onUserClick }: TenantUserTableProps) {
+export function TenantUserTable({
+  users,
+  loading = false,
+  onUserClick,
+  onEditUser,
+  onRemoveUser,
+  onBlockUser,
+  onUnblockUser,
+  onRestoreUser,
+  showActions = false,
+  callerRole,
+  currentUserId = '',
+}: TenantUserTableProps) {
   const t = useTranslations('admin')
+  const tCommon = useTranslations('common')
 
   const columns: Column<TenantUser>[] = [
     {
@@ -70,23 +69,42 @@ export function TenantUserTable({ users, loading = false, onUserClick }: TenantU
       key: 'status',
       label: t('users.status'),
       render: value => {
-        const status = String(value ?? '')
-        const isActive = status === 'active'
+        const status = value as UserStatus
+        const isActive = status === UserStatus.ACTIVE
+        const isBlocked = status === UserStatus.SUSPENDED
+        const isDeleted = status === UserStatus.INACTIVE
+
+        let statusLabel: string
+        if (isBlocked) {
+          statusLabel = t('users.statusBlocked')
+        } else if (isDeleted) {
+          statusLabel = t('users.statusDeleted')
+        } else {
+          statusLabel = String(status)
+        }
+
         return (
           <div className="flex items-center gap-2">
             <span
               className={cn(
                 'inline-block h-2 w-2 rounded-full',
-                isActive ? 'bg-status-success' : 'bg-status-neutral'
+                getStatusDotClass(isActive, isBlocked, isDeleted)
               )}
             />
-            <span className="text-sm capitalize">{status}</span>
+            <span
+              className={cn(
+                'text-sm capitalize',
+                isDeleted && 'text-muted-foreground line-through'
+              )}
+            >
+              {statusLabel}
+            </span>
           </div>
         )
       },
     },
     {
-      key: 'lastLogin',
+      key: 'lastLoginAt',
       label: t('users.lastLogin'),
       render: value => (
         <span className="text-muted-foreground text-sm">
@@ -106,6 +124,110 @@ export function TenantUserTable({ users, loading = false, onUserClick }: TenantU
         ),
     },
   ]
+
+  if (showActions) {
+    columns.push({
+      key: 'actions',
+      label: tCommon('actions'),
+      render: (_value, row) => {
+        const isTargetGlobalAdmin = row.role === UserRole.GLOBAL_ADMIN
+        const canManageThisUser = callerRole === UserRole.GLOBAL_ADMIN || !isTargetGlobalAdmin
+        const isSelf = row.id === currentUserId
+        const isDeleted = row.status === UserStatus.INACTIVE
+        const isBlocked = row.status === UserStatus.SUSPENDED
+
+        if (row.isProtected) {
+          return (
+            <div className="flex items-center gap-1">
+              <ShieldAlert className="text-status-warning h-4 w-4" />
+            </div>
+          )
+        }
+
+        if (!canManageThisUser) {
+          return null
+        }
+
+        return (
+          <div className="flex items-center gap-1">
+            {!isDeleted && !isSelf && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 w-8 p-0"
+                onClick={e => {
+                  e.stopPropagation()
+                  onEditUser?.(row)
+                }}
+                title={t('users.editUser')}
+              >
+                <Pencil className="h-4 w-4" />
+              </Button>
+            )}
+
+            {!isSelf &&
+              !isDeleted &&
+              (isBlocked ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-status-success hover:text-status-success h-8 w-8 p-0"
+                  onClick={e => {
+                    e.stopPropagation()
+                    onUnblockUser?.(row)
+                  }}
+                  title={t('users.unblockUser')}
+                >
+                  <ShieldCheck className="h-4 w-4" />
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-status-warning hover:text-status-warning h-8 w-8 p-0"
+                  onClick={e => {
+                    e.stopPropagation()
+                    onBlockUser?.(row)
+                  }}
+                  title={t('users.blockUser')}
+                >
+                  <Ban className="h-4 w-4" />
+                </Button>
+              ))}
+
+            {!isSelf &&
+              (isDeleted ? (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-status-success hover:text-status-success h-8 w-8 p-0"
+                  onClick={e => {
+                    e.stopPropagation()
+                    onRestoreUser?.(row)
+                  }}
+                  title={t('users.restoreUser')}
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </Button>
+              ) : (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-destructive hover:text-destructive h-8 w-8 p-0"
+                  onClick={e => {
+                    e.stopPropagation()
+                    onRemoveUser?.(row)
+                  }}
+                  title={t('users.removeUser')}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              ))}
+          </div>
+        )
+      },
+    })
+  }
 
   return (
     <DataTable

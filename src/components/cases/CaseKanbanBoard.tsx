@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { CaseStatus } from '@/enums'
+import { KANBAN_COLUMN_CONFIG } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
 import type { Case } from '@/types'
 import { CaseKanbanCard } from './CaseKanbanCard'
@@ -13,27 +14,6 @@ interface CaseKanbanBoardProps {
   cases: Case[]
   onCaseClick?: (caseItem: Case) => void
 }
-
-const columnConfig = [
-  {
-    status: CaseStatus.OPEN,
-    labelKey: 'statusOpen',
-    dotClass: 'bg-status-info',
-    animate: false,
-  },
-  {
-    status: CaseStatus.IN_PROGRESS,
-    labelKey: 'statusInProgress',
-    dotClass: 'bg-primary',
-    animate: true,
-  },
-  {
-    status: CaseStatus.CLOSED,
-    labelKey: 'statusClosed',
-    dotClass: 'bg-status-success',
-    animate: false,
-  },
-] as const
 
 export function CaseKanbanBoard({ cases, onCaseClick }: CaseKanbanBoardProps) {
   const t = useTranslations('cases')
@@ -57,7 +37,7 @@ export function CaseKanbanBoard({ cases, onCaseClick }: CaseKanbanBoardProps) {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-      {columnConfig.map(column => {
+      {KANBAN_COLUMN_CONFIG.map(column => {
         const columnCases = groupedCases[column.status] ?? []
 
         return (

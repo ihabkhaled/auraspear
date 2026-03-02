@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { CaseTimelineEntryType } from '@/enums'
 import { cn, formatTimestamp } from '@/lib/utils'
 import type { CaseTimelineEntry } from '@/types'
 
@@ -8,14 +9,14 @@ interface CaseTimelineProps {
   entries: CaseTimelineEntry[]
 }
 
-const typeColors: Record<string, string> = {
-  note: 'var(--status-info)',
-  alert: 'var(--status-warning)',
-  status: 'var(--status-success)',
-  action: 'var(--chart-5, hsl(270 60% 60%))',
+const typeColors: Record<CaseTimelineEntryType, string> = {
+  [CaseTimelineEntryType.NOTE]: 'var(--status-info)',
+  [CaseTimelineEntryType.ALERT]: 'var(--status-warning)',
+  [CaseTimelineEntryType.STATUS]: 'var(--status-success)',
+  [CaseTimelineEntryType.ACTION]: 'var(--chart-5, hsl(270 60% 60%))',
 }
 
-function getTypeColor(type: string): string {
+function getTypeColor(type: CaseTimelineEntryType): string {
   return typeColors[type] ?? 'var(--muted-foreground)'
 }
 

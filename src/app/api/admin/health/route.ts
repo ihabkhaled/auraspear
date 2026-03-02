@@ -4,5 +4,5 @@ import { proxyToBackend } from '@/lib/backend-proxy'
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
-  return proxyToBackend(request, { path: '/health' })
+  return proxyToBackend(request, { path: '/health/services' })
 }

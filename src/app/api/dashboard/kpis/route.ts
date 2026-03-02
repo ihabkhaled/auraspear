@@ -1,17 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendSummary } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendSummary {
-  tenantId: string
-  totalAlerts: number
-  criticalAlerts: number
-  openCases: number
-  meanTimeToRespond: string
-  alertsLast24h: number
-  resolvedLast24h: number
-}
 
 export async function GET(request: NextRequest) {
   try {

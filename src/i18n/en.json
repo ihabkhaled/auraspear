@@ -138,6 +138,8 @@
     "columnSourceIp": "Source IP",
     "columnUser": "User",
     "columnDescription": "Description",
+    "sessionError": "Failed to create hunt session",
+    "sendError": "Failed to send message",
     "quickPrompts": {
       "bruteForce": "Detect brute force attacks",
       "lateralMovement": "Find lateral movement",
@@ -192,13 +194,39 @@
     "fieldDescriptionPlaceholder": "Describe the incident...",
     "fieldSeverity": "Severity",
     "fieldAssignee": "Assignee",
+    "fieldStatus": "Status",
+    "fieldAssigneePlaceholder": "Select assignee...",
     "noArtifacts": "No artifacts",
     "source": "Source",
     "copy": "Copy",
     "lookup": "Lookup",
     "artifactIps": "IPs",
     "artifactHashes": "Hashes",
-    "artifactDomains": "Domains"
+    "artifactDomains": "Domains",
+    "backToCases": "Back to Cases",
+    "created": "Created",
+    "updated": "Updated",
+    "escalate": "Escalate",
+    "edit": "Edit",
+    "delete": "Delete",
+    "tasksCompleted": "{completed} of {total} completed",
+    "noTasks": "No tasks yet",
+    "notes": "Notes",
+    "noNotes": "No notes yet",
+    "addNotePlaceholder": "Write a note...",
+    "changeStatus": "Change Status",
+    "statusUpdated": "Case status updated successfully",
+    "statusChanged": "Case status updated",
+    "statusChangeError": "Failed to update case status",
+    "validationTitleMin": "Title must be at least 5 characters",
+    "validationDescriptionMin": "Description must be at least 10 characters",
+    "validationSeverity": "Please select a severity level",
+    "validationAssignee": "Please select an assignee",
+    "statusLabel": "Status",
+    "fieldSeverityPlaceholder": "Select severity...",
+    "creating": "Creating...",
+    "caseCreated": "Case created successfully",
+    "caseCreateError": "Failed to create case"
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -240,7 +268,8 @@
       "typeIP": "IP Address",
       "typeHash": "File Hash",
       "typeDomain": "Domain",
-      "typeURL": "URL"
+      "typeURL": "URL",
+      "searching": "Searching..."
     },
     "misp": {
       "title": "MISP Event Feed",
@@ -306,9 +335,13 @@
       "envStaging": "Staging",
       "envDevelopment": "Development",
       "name": "Name",
+      "slug": "Slug",
+      "slugPlaceholder": "my-organization",
+      "slugHelp": "Lowercase letters, numbers, and hyphens only",
       "status": "Status",
       "users": "Users",
       "alerts": "Alerts",
+      "cases": "Cases",
       "noTenants": "No tenants found",
       "noTenantsDescription": "Tenant organizations will appear here",
       "loadError": "Failed to load tenants",
@@ -316,7 +349,15 @@
       "create": "Create Tenant",
       "creating": "Creating...",
       "tenantCreated": "Tenant created successfully",
-      "tenantCreateError": "Failed to create tenant"
+      "tenantCreateError": "Failed to create tenant",
+      "editTenant": "Edit Tenant",
+      "editTenantDescription": "Update tenant information",
+      "tenantUpdated": "Tenant updated successfully",
+      "tenantUpdateError": "Failed to update tenant",
+      "deleteTenant": "Delete Tenant",
+      "confirmDeleteTenant": "Are you sure you want to delete this tenant? This will remove all associated users and data.",
+      "tenantDeleted": "Tenant deleted successfully",
+      "tenantDeleteError": "Failed to delete tenant"
     },
     "users": {
       "title": "User Management",
@@ -329,13 +370,55 @@
       "noUsers": "No users found",
       "noUsersDescription": "Tenant users will appear here",
       "never": "Never",
-      "loadError": "Failed to load users"
+      "loadError": "Failed to load users",
+      "addUser": "Add User",
+      "addUserDescription": "Add a new user to this tenant",
+      "userName": "Name",
+      "userNamePlaceholder": "Enter user name",
+      "userEmail": "Email",
+      "userEmailPlaceholder": "user@example.com",
+      "userPassword": "Password",
+      "userPasswordPlaceholder": "Minimum 8 characters",
+      "userRole": "Role",
+      "userRolePlaceholder": "Select a role",
+      "userCreated": "User created successfully",
+      "userCreateError": "Failed to create user",
+      "creating": "Creating...",
+      "editUser": "Edit User",
+      "editUserDescription": "Update user details and role",
+      "userUpdated": "User updated successfully",
+      "userUpdateError": "Failed to update user",
+      "removeUser": "Remove User",
+      "confirmRemoveUser": "Are you sure you want to remove this user from the tenant?",
+      "userRemoved": "User removed successfully",
+      "userRemoveError": "Failed to remove user",
+      "passwordOptional": "Leave empty to keep current password",
+      "passwordPlaceholder": "New password (min 8 chars)",
+      "blockUser": "Block User",
+      "confirmBlockUser": "Are you sure you want to block this user? They will be unable to sign in.",
+      "userBlocked": "User blocked successfully",
+      "unblockUser": "Unblock User",
+      "confirmUnblockUser": "Are you sure you want to unblock this user? They will be able to sign in again.",
+      "userUnblocked": "User unblocked successfully",
+      "restoreUser": "Restore User",
+      "confirmRestoreUser": "Are you sure you want to restore this user?",
+      "userRestored": "User restored successfully",
+      "statusBlocked": "Blocked",
+      "statusDeleted": "Deleted"
     },
     "services": {
       "title": "Service Health",
       "noServices": "No services found",
       "noServicesDescription": "Service health data will appear here",
-      "loadError": "Failed to load service health"
+      "loadError": "Failed to load service health",
+      "status": "Status",
+      "type": "Type",
+      "latency": "Latency",
+      "statusHealthy": "Healthy",
+      "statusDegraded": "Degraded",
+      "statusDown": "Down",
+      "statusMaintenance": "Maintenance",
+      "statusUnknown": "Unknown"
     },
     "roles": {
       "role": "Role",
@@ -408,9 +491,9 @@
     "title": "Connectors",
     "description": "Manage integrations with security tools",
     "noConnectors": "No connectors",
-    "noConnectorsDescription": "Click \"Seed Demo Data\" to restore the default connectors.",
-    "seedDemoData": "Seed Demo Data",
-    "demoDataRestored": "Demo data restored",
+    "noConnectorsDescription": "No connector integrations are configured for your tenant.",
+    "confirmDelete": "Are you sure you want to delete this connector?",
+    "saving": "Saving...",
     "configure": "Configure",
     "test": "Test",
     "testConnection": "Test Connection",
@@ -557,6 +640,16 @@
     "regionRequired": "Region is required"
   },
   "errors": {
+    "accessDenied": "You do not have permission to access this page.",
+    "badRequest": "Invalid request. Please check your input.",
+    "unauthorized": "Session expired. Please sign in again.",
+    "forbidden": "You do not have permission to perform this action.",
+    "notFound": "Resource not found.",
+    "conflict": "A conflict occurred. The resource may already exist.",
+    "validationFailed": "Validation failed. Please check your input.",
+    "tooManyRequests": "Too many requests. Please try again later.",
+    "internalError": "An internal error occurred. Please try again.",
+    "serviceUnavailable": "Service temporarily unavailable. Please try again later.",
     "common": {
       "unknown": "An unexpected error occurred",
       "network": "Network error. Please check your connection.",
@@ -567,8 +660,248 @@
     },
     "auth": {
       "invalidCredentials": "Invalid email or password",
+      "invalidAccessToken": "Invalid or expired access token. Please sign in again.",
+      "invalidRefreshToken": "Your session has expired. Please sign in again.",
+      "userNotFound": "User account no longer exists.",
+      "provisionFailed": "Unable to provision user account.",
+      "missingToken": "Authentication required. Please sign in.",
+      "expiredToken": "Your session has expired. Please sign in again.",
+      "insufficientPermissions": "You do not have sufficient permissions for this action.",
+      "unknownRole": "Unknown user role.",
+      "tenantRequired": "Tenant context is required.",
       "tokenExpired": "Your session has expired. Please sign in again.",
-      "unauthorized": "You are not authenticated. Please sign in."
+      "unauthorized": "You are not authenticated. Please sign in.",
+      "accountInactive": "Your account is not active. Please contact your administrator."
+    },
+    "validation": {
+      "failed": "Validation failed. Please check your input and try again.",
+      "email": {
+        "required": "Email is required",
+        "invalidEmail": "Please enter a valid email address"
+      },
+      "password": {
+        "required": "Password is required"
+      },
+      "refreshToken": {
+        "required": "Refresh token is required"
+      },
+      "currentPassword": {
+        "required": "Current password is required"
+      },
+      "newPassword": {
+        "required": "New password is required",
+        "tooShort": "New password must be at least 8 characters"
+      },
+      "confirmPassword": {
+        "required": "Password confirmation is required",
+        "passwordMismatch": "Passwords do not match"
+      },
+      "name": {
+        "required": "Name is required",
+        "tooShort": "Name must be at least 2 characters",
+        "tooLong": "Name must be at most 255 characters"
+      },
+      "title": {
+        "required": "Title is required",
+        "tooLong": "Title must be at most 256 characters"
+      },
+      "description": {
+        "required": "Description is required",
+        "tooLong": "Description must be at most 4096 characters"
+      },
+      "severity": {
+        "required": "Severity is required",
+        "invalidOption": "Invalid severity value"
+      },
+      "status": {
+        "invalidOption": "Invalid status value"
+      },
+      "resolution": {
+        "required": "Resolution is required",
+        "tooLong": "Resolution must be at most 4096 characters"
+      },
+      "notes": {
+        "tooLong": "Notes must be at most 4096 characters"
+      },
+      "body": {
+        "required": "Note content is required"
+      },
+      "alertId": {
+        "required": "Alert ID is required"
+      },
+      "indexName": {
+        "required": "Index name is required"
+      },
+      "query": {
+        "required": "Query is required"
+      },
+      "timeRange": {
+        "required": "Time range is required"
+      },
+      "type": {
+        "required": "Connector type is required",
+        "invalidOption": "Invalid connector type"
+      },
+      "enabled": {
+        "required": "Enabled field is required"
+      },
+      "authType": {
+        "invalidOption": "Invalid authentication type"
+      },
+      "config": {
+        "required": "Configuration is required"
+      },
+      "prompt": {
+        "required": "Prompt is required",
+        "tooLong": "Prompt must be at most 4096 characters"
+      },
+      "oidcSub": {
+        "required": "OIDC subject is required"
+      },
+      "slug": {
+        "required": "Slug is required",
+        "tooLong": "Slug must be at most 100 characters",
+        "invalidFormat": "Slug must contain only lowercase letters, numbers, and hyphens"
+      },
+      "role": {
+        "required": "Role is required",
+        "invalidOption": "Invalid role value"
+      },
+      "alertIds": {
+        "required": "Alert IDs are required",
+        "tooFew": "At least one alert ID is required"
+      },
+      "ownerUserId": {
+        "invalidUuid": "Invalid user ID format"
+      },
+      "theme": {
+        "invalidOption": "Invalid theme value"
+      },
+      "language": {
+        "invalidOption": "Invalid language value"
+      },
+      "sortOrder": {
+        "invalidOption": "Invalid sort order"
+      },
+      "page": {
+        "invalidNumber": "Page must be a positive integer"
+      },
+      "limit": {
+        "invalidNumber": "Limit must be a positive integer",
+        "tooLarge": "Limit must be at most 100"
+      }
+    },
+    "ssrf": {
+      "invalidUrl": "Invalid URL format.",
+      "unsupportedProtocol": "Only HTTP and HTTPS URLs are allowed.",
+      "privateNetwork": "URLs pointing to private networks are not allowed.",
+      "hostNotAllowed": "The specified host is not in the allowed list."
+    },
+    "tenants": {
+      "notFound": "Tenant not found.",
+      "slugConflict": "A tenant with this slug already exists.",
+      "userNotFound": "User not found in this tenant.",
+      "emailExists": "A user with this email already exists in this tenant.",
+      "cannotAssignGlobalAdmin": "Only a Global Admin can assign the Global Admin role.",
+      "cannotModifyGlobalAdmin": "Only a Global Admin can modify Global Admin users.",
+      "cannotDeleteSelf": "You cannot delete your own account.",
+      "cannotBlockSelf": "You cannot block your own account.",
+      "cannotModifySelf": "You cannot change your own role.",
+      "userProtected": "This user is protected and cannot be modified.",
+      "userNotDeleted": "This user is not deleted.",
+      "userAlreadyBlocked": "This user is already blocked.",
+      "userNotBlocked": "This user is not blocked."
+    },
+    "alerts": {
+      "notFound": "Alert not found.",
+      "alreadyClosed": "This alert is already closed.",
+      "alreadyClosedOrResolved": "This alert is already closed or resolved.",
+      "connectorNotConfigured": "Alert connector is not configured."
+    },
+    "cases": {
+      "notFound": "Case not found.",
+      "alreadyClosed": "This case is already closed.",
+      "duplicateAlert": "This alert is already linked to the case."
+    },
+    "intel": {
+      "mispNotConfigured": "MISP connector is not configured.",
+      "mispConnectionFailed": "Failed to connect to MISP server.",
+      "syncFailed": "Threat intel sync failed."
+    },
+    "hunts": {
+      "notFound": "Hunt session not found.",
+      "connectorNotConfigured": "Search connector is not configured.",
+      "searchConnectorNotConfigured": "Search connector is not configured.",
+      "queryFailed": "Hunt query execution failed."
+    },
+    "health": {
+      "serviceUnavailable": "Health service is unavailable.",
+      "connectorDisabled": "This connector is disabled."
+    },
+    "ai": {
+      "notEnabled": "AI module is not enabled.",
+      "invocationFailed": "AI invocation failed."
+    },
+    "users": {
+      "notFound": "User not found.",
+      "incorrectPassword": "Current password is incorrect.",
+      "emailInUse": "This email is already in use.",
+      "passwordTooWeak": "Password does not meet security requirements."
+    },
+    "connectors": {
+      "notFound": "Connector not found.",
+      "testFailed": "Connector test failed.",
+      "invalidConfig": "Invalid connector configuration.",
+      "loadError": "Failed to load connectors.",
+      "updateError": "Failed to update connector.",
+      "deleteError": "Failed to delete connector.",
+      "toggleError": "Failed to toggle connector."
+    },
+    "auditLogs": {
+      "accessDenied": "You do not have permission to view audit logs."
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "description": "Manage your account information",
+    "personalInfo": "Personal Information",
+    "email": "Email",
+    "role": "Role",
+    "tenant": "Tenant",
+    "name": "Name",
+    "namePlaceholder": "Enter your name",
+    "updateName": "Update Name",
+    "updating": "Updating...",
+    "nameUpdated": "Name updated successfully",
+    "confirmPassword": "Confirm with Password",
+    "confirmPasswordPlaceholder": "Enter your current password to confirm",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "currentPasswordPlaceholder": "Enter current password",
+    "newPassword": "New Password",
+    "newPasswordPlaceholder": "Enter new password",
+    "confirmNewPassword": "Confirm New Password",
+    "confirmNewPasswordPlaceholder": "Confirm new password",
+    "passwordChanged": "Password changed successfully",
+    "changingPassword": "Changing...",
+    "passwordMismatch": "Passwords do not match"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Customize your application preferences",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "language": "Language",
+    "languageDescription": "Select your preferred language",
+    "notifications": "Notifications",
+    "emailAlerts": "Email Alerts",
+    "emailAlertsDescription": "Receive security alert notifications via email",
+    "browserNotifications": "Browser Notifications",
+    "browserNotificationsDescription": "Show desktop notifications for critical alerts",
+    "saved": "Preferences saved",
+    "saving": "Saving..."
   }
 }

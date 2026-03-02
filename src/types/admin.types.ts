@@ -1,12 +1,27 @@
-import type { UserRole, ServiceStatus } from '@/enums'
+import type { IntegrationStatus, UserRole, UserStatus, ServiceStatus } from '@/enums'
+
+export interface TenantUserTableProps {
+  users: TenantUser[]
+  loading?: boolean
+  onUserClick?: (user: TenantUser) => void
+  onEditUser?: (user: TenantUser) => void
+  onRemoveUser?: (user: TenantUser) => void
+  onBlockUser?: (user: TenantUser) => void
+  onUnblockUser?: (user: TenantUser) => void
+  onRestoreUser?: (user: TenantUser) => void
+  showActions?: boolean
+  callerRole?: UserRole | undefined
+  currentUserId?: string | undefined
+}
 
 export interface Tenant {
   id: string
   name: string
-  environment: string
-  alertCount: number
+  slug: string
   userCount: number
-  status: string
+  alertCount: number
+  caseCount: number
+  createdAt: string
 }
 
 export interface TenantUser {
@@ -14,30 +29,54 @@ export interface TenantUser {
   name: string
   email: string
   role: UserRole
-  status: string
-  lastLogin: string
+  status: UserStatus
+  lastLoginAt: string | null
   mfaEnabled: boolean
+  isProtected: boolean
   avatar?: string
 }
 
 export interface ServiceHealth {
-  id: string
   name: string
+  type: string
   status: ServiceStatus
-  uptime: number
-  version: string
-  lastCheck: string
-  eps?: number
-  lag?: number
+  latencyMs: number
 }
 
 export interface AuditLogEntry {
   id: string
-  timestamp: string
+  createdAt: string
   actor: string
   action: string
   resource: string
-  resourceId: string
-  ipAddress: string
-  details?: string
+  resourceId: string | null
+  ipAddress: string | null
+  details?: string | null
+}
+
+export interface IntegrationConfig {
+  id: string
+  name: string
+  description: string
+  status: IntegrationStatus
+  configFields?: Record<string, string>
+}
+
+export interface AuditLogParams {
+  page?: number
+  limit?: number
+  actor?: string
+  action?: string
+}
+
+export interface CreateTenantInput {
+  name: string
+  slug: string
+}
+
+export interface AddUserInput {
+  email: string
+  name: string
+  password: string
+  role: string
 }

@@ -138,6 +138,8 @@
     "columnSourceIp": "Quell-IP",
     "columnUser": "Benutzer",
     "columnDescription": "Beschreibung",
+    "sessionError": "Jagdsitzung konnte nicht erstellt werden",
+    "sendError": "Nachricht konnte nicht gesendet werden",
     "quickPrompts": {
       "bruteForce": "Brute-Force-Angriffe erkennen",
       "lateralMovement": "Laterale Bewegung finden",
@@ -192,13 +194,39 @@
     "fieldDescriptionPlaceholder": "Den Vorfall beschreiben...",
     "fieldSeverity": "Schweregrad",
     "fieldAssignee": "Zuständiger",
+    "fieldStatus": "Status",
     "noArtifacts": "Keine Artefakte",
     "source": "Quelle",
     "copy": "Kopieren",
     "lookup": "Nachschlagen",
     "artifactIps": "IPs",
     "artifactHashes": "Hashes",
-    "artifactDomains": "Domains"
+    "artifactDomains": "Domains",
+    "backToCases": "Zurück zu Vorfällen",
+    "created": "Erstellt",
+    "updated": "Aktualisiert",
+    "escalate": "Eskalieren",
+    "edit": "Bearbeiten",
+    "delete": "Löschen",
+    "tasksCompleted": "{completed} von {total} abgeschlossen",
+    "noTasks": "Noch keine Aufgaben",
+    "notes": "Notizen",
+    "noNotes": "Noch keine Notizen",
+    "addNotePlaceholder": "Notiz schreiben...",
+    "changeStatus": "Status ändern",
+    "statusUpdated": "Fallstatus erfolgreich aktualisiert",
+    "statusChanged": "Vorfallstatus aktualisiert",
+    "statusChangeError": "Fehler beim Aktualisieren des Vorfallstatus",
+    "fieldAssigneePlaceholder": "Zuständigen auswählen...",
+    "fieldSeverityPlaceholder": "Schweregrad auswählen...",
+    "statusLabel": "Status",
+    "creating": "Wird erstellt...",
+    "caseCreated": "Vorfall erfolgreich erstellt",
+    "caseCreateError": "Fehler beim Erstellen des Vorfalls",
+    "validationTitleMin": "Der Titel muss mindestens 5 Zeichen enthalten",
+    "validationDescriptionMin": "Die Beschreibung muss mindestens 10 Zeichen enthalten",
+    "validationSeverity": "Bitte wählen Sie einen Schweregrad",
+    "validationAssignee": "Bitte wählen Sie einen Zuständigen"
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -240,7 +268,8 @@
       "typeIP": "IP-Adresse",
       "typeHash": "Datei-Hash",
       "typeDomain": "Domain",
-      "typeURL": "URL"
+      "typeURL": "URL",
+      "searching": "Suche..."
     },
     "misp": {
       "title": "MISP-Ereignis-Feed",
@@ -306,9 +335,13 @@
       "envStaging": "Staging",
       "envDevelopment": "Entwicklung",
       "name": "Name",
+      "slug": "Slug",
+      "slugPlaceholder": "meine-organisation",
+      "slugHelp": "Nur Kleinbuchstaben, Zahlen und Bindestriche",
       "status": "Status",
       "users": "Benutzer",
       "alerts": "Alarme",
+      "cases": "Vorfaelle",
       "noTenants": "Keine Mandanten gefunden",
       "noTenantsDescription": "Mandantenorganisationen werden hier angezeigt",
       "loadError": "Fehler beim Laden der Mandanten",
@@ -316,7 +349,15 @@
       "create": "Mandant erstellen",
       "creating": "Wird erstellt...",
       "tenantCreated": "Mandant erfolgreich erstellt",
-      "tenantCreateError": "Fehler beim Erstellen des Mandanten"
+      "tenantCreateError": "Fehler beim Erstellen des Mandanten",
+      "editTenant": "Mandant bearbeiten",
+      "editTenantDescription": "Mandanteninformationen aktualisieren",
+      "tenantUpdated": "Mandant erfolgreich aktualisiert",
+      "tenantUpdateError": "Fehler beim Aktualisieren des Mandanten",
+      "deleteTenant": "Mandant loeschen",
+      "confirmDeleteTenant": "Sind Sie sicher, dass Sie diesen Mandanten loeschen moechten? Dies entfernt alle zugehoerigen Benutzer und Daten.",
+      "tenantDeleted": "Mandant erfolgreich geloescht",
+      "tenantDeleteError": "Fehler beim Loeschen des Mandanten"
     },
     "users": {
       "title": "Benutzerverwaltung",
@@ -329,13 +370,73 @@
       "noUsers": "Keine Benutzer gefunden",
       "noUsersDescription": "Mandantenbenutzer werden hier angezeigt",
       "never": "Nie",
-      "loadError": "Fehler beim Laden der Benutzer"
+      "loadError": "Fehler beim Laden der Benutzer",
+      "addUser": "Benutzer hinzufuegen",
+      "addUserDescription": "Neuen Benutzer zu diesem Mandanten hinzufuegen",
+      "userName": "Name",
+      "userNamePlaceholder": "Benutzernamen eingeben",
+      "userEmail": "E-Mail",
+      "userEmailPlaceholder": "benutzer@beispiel.de",
+      "userPassword": "Passwort",
+      "userPasswordPlaceholder": "Mindestens 8 Zeichen",
+      "userRole": "Rolle",
+      "userRolePlaceholder": "Rolle auswaehlen",
+      "userCreated": "Benutzer erfolgreich erstellt",
+      "userCreateError": "Fehler beim Erstellen des Benutzers",
+      "creating": "Wird erstellt...",
+      "editUser": "Benutzer bearbeiten",
+      "editUserDescription": "Benutzerdaten und Rolle aktualisieren",
+      "userUpdated": "Benutzer erfolgreich aktualisiert",
+      "userUpdateError": "Fehler beim Aktualisieren des Benutzers",
+      "removeUser": "Benutzer entfernen",
+      "confirmRemoveUser": "Sind Sie sicher, dass Sie diesen Benutzer vom Mandanten entfernen moechten?",
+      "userRemoved": "Benutzer erfolgreich entfernt",
+      "userRemoveError": "Fehler beim Entfernen des Benutzers",
+      "passwordOptional": "Leer lassen, um das aktuelle Passwort beizubehalten",
+      "passwordPlaceholder": "Neues Passwort (min. 8 Zeichen)",
+      "blockUser": "Benutzer sperren",
+      "confirmBlockUser": "Sind Sie sicher, dass Sie diesen Benutzer sperren moechten? Er kann sich nicht mehr anmelden.",
+      "userBlocked": "Benutzer erfolgreich gesperrt",
+      "unblockUser": "Benutzer entsperren",
+      "confirmUnblockUser": "Sind Sie sicher, dass Sie diesen Benutzer entsperren moechten? Er kann sich wieder anmelden.",
+      "userUnblocked": "Benutzer erfolgreich entsperrt",
+      "restoreUser": "Benutzer wiederherstellen",
+      "confirmRestoreUser": "Sind Sie sicher, dass Sie diesen Benutzer wiederherstellen moechten?",
+      "userRestored": "Benutzer erfolgreich wiederhergestellt",
+      "statusBlocked": "Gesperrt",
+      "statusDeleted": "Geloescht"
     },
     "services": {
       "title": "Dienstzustand",
       "noServices": "Keine Dienste gefunden",
       "noServicesDescription": "Dienstzustandsdaten werden hier angezeigt",
-      "loadError": "Fehler beim Laden des Dienstzustands"
+      "loadError": "Fehler beim Laden des Dienstzustands",
+      "status": "Status",
+      "type": "Typ",
+      "latency": "Latenz",
+      "statusHealthy": "Betriebsbereit",
+      "statusDegraded": "Eingeschraenkt",
+      "statusDown": "Ausgefallen",
+      "statusMaintenance": "Wartung",
+      "statusUnknown": "Unbekannt"
+    },
+    "roles": {
+      "role": "Rolle",
+      "selectRole": "Rolle auswaehlen",
+      "globalAdmin": "Globaler Administrator",
+      "tenantAdmin": "Mandanten-Administrator",
+      "socAnalystL2": "SOC-Analyst L2",
+      "socAnalystL1": "SOC-Analyst L1",
+      "threatHunter": "Bedrohungsjager",
+      "executiveReadonly": "Fuehrungskraft (Nur Lesen)",
+      "permissions": "Berechtigungen",
+      "roleRequired": "Die Rolle ist erforderlich",
+      "permissionsRequired": "Mindestens eine Berechtigung ist erforderlich"
+    },
+    "common": {
+      "cancel": "Abbrechen",
+      "save": "Speichern",
+      "saving": "Speichern..."
     },
     "audit": {
       "title": "Audit-Protokolle",
@@ -361,8 +462,8 @@
     "signingIn": "Anmeldung läuft..."
   },
   "layout": {
-    "openSidebar": "Seitenleiste \u00f6ffnen",
-    "closeSidebar": "Seitenleiste schlie\u00dfen",
+    "openSidebar": "Seitenleiste öffnen",
+    "closeSidebar": "Seitenleiste schließen",
     "collapseSidebar": "Seitenleiste einklappen",
     "expandSidebar": "Seitenleiste ausklappen",
     "theme": "Design",
@@ -538,6 +639,16 @@
     "regionRequired": "Region ist erforderlich"
   },
   "errors": {
+    "accessDenied": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
+    "badRequest": "Ungultige Anfrage. Bitte uberprufen Sie Ihre Eingabe.",
+    "unauthorized": "Sitzung abgelaufen. Bitte melden Sie sich erneut an.",
+    "forbidden": "Sie haben keine Berechtigung, diese Aktion auszufuhren.",
+    "notFound": "Ressource nicht gefunden.",
+    "conflict": "Ein Konflikt ist aufgetreten. Die Ressource existiert moglicherweise bereits.",
+    "validationFailed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe.",
+    "tooManyRequests": "Zu viele Anfragen. Bitte versuchen Sie es spater erneut.",
+    "internalError": "Ein interner Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+    "serviceUnavailable": "Dienst vorubergehend nicht verfugbar. Bitte versuchen Sie es spater erneut.",
     "common": {
       "unknown": "Ein unerwarteter Fehler ist aufgetreten",
       "network": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
@@ -548,8 +659,248 @@
     },
     "auth": {
       "invalidCredentials": "Ungültige E-Mail-Adresse oder Passwort",
+      "invalidAccessToken": "Ungultiges oder abgelaufenes Zugriffstoken. Bitte melden Sie sich erneut an.",
+      "invalidRefreshToken": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+      "userNotFound": "Das Benutzerkonto existiert nicht mehr.",
+      "provisionFailed": "Das Benutzerkonto konnte nicht bereitgestellt werden.",
+      "missingToken": "Authentifizierung erforderlich. Bitte melden Sie sich an.",
+      "expiredToken": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+      "insufficientPermissions": "Sie haben nicht genugend Berechtigungen fur diese Aktion.",
+      "unknownRole": "Unbekannte Benutzerrolle.",
+      "tenantRequired": "Mandantenkontext ist erforderlich.",
       "tokenExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
-      "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an."
+      "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an.",
+      "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator."
+    },
+    "validation": {
+      "failed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe und versuchen Sie es erneut.",
+      "email": {
+        "required": "E-Mail-Adresse ist erforderlich",
+        "invalidEmail": "Bitte geben Sie eine gueltige E-Mail-Adresse ein"
+      },
+      "password": {
+        "required": "Passwort ist erforderlich"
+      },
+      "refreshToken": {
+        "required": "Aktualisierungstoken ist erforderlich"
+      },
+      "currentPassword": {
+        "required": "Aktuelles Passwort ist erforderlich"
+      },
+      "newPassword": {
+        "required": "Neues Passwort ist erforderlich",
+        "tooShort": "Das neue Passwort muss mindestens 8 Zeichen enthalten"
+      },
+      "confirmPassword": {
+        "required": "Passwortbestaetigung ist erforderlich",
+        "passwordMismatch": "Die Passwoerter stimmen nicht ueberein"
+      },
+      "name": {
+        "required": "Name ist erforderlich",
+        "tooShort": "Der Name muss mindestens 2 Zeichen enthalten",
+        "tooLong": "Der Name darf hoechstens 255 Zeichen enthalten"
+      },
+      "title": {
+        "required": "Titel ist erforderlich",
+        "tooLong": "Der Titel darf hoechstens 256 Zeichen enthalten"
+      },
+      "description": {
+        "required": "Beschreibung ist erforderlich",
+        "tooLong": "Die Beschreibung darf hoechstens 4096 Zeichen enthalten"
+      },
+      "severity": {
+        "required": "Schweregrad ist erforderlich",
+        "invalidOption": "Ungueltiger Schweregrad"
+      },
+      "status": {
+        "invalidOption": "Ungueltiger Statuswert"
+      },
+      "resolution": {
+        "required": "Loesung ist erforderlich",
+        "tooLong": "Die Loesung darf hoechstens 4096 Zeichen enthalten"
+      },
+      "notes": {
+        "tooLong": "Notizen duerfen hoechstens 4096 Zeichen enthalten"
+      },
+      "body": {
+        "required": "Notizinhalt ist erforderlich"
+      },
+      "alertId": {
+        "required": "Alarm-ID ist erforderlich"
+      },
+      "indexName": {
+        "required": "Indexname ist erforderlich"
+      },
+      "query": {
+        "required": "Abfrage ist erforderlich"
+      },
+      "timeRange": {
+        "required": "Zeitraum ist erforderlich"
+      },
+      "type": {
+        "required": "Konnektortyp ist erforderlich",
+        "invalidOption": "Ungueltiger Konnektortyp"
+      },
+      "enabled": {
+        "required": "Aktivierungsfeld ist erforderlich"
+      },
+      "authType": {
+        "invalidOption": "Ungueltiger Authentifizierungstyp"
+      },
+      "config": {
+        "required": "Konfiguration ist erforderlich"
+      },
+      "prompt": {
+        "required": "Eingabeaufforderung ist erforderlich",
+        "tooLong": "Die Eingabeaufforderung darf hoechstens 4096 Zeichen enthalten"
+      },
+      "oidcSub": {
+        "required": "OIDC-Subjekt ist erforderlich"
+      },
+      "slug": {
+        "required": "Slug ist erforderlich",
+        "tooLong": "Der Slug darf hoechstens 100 Zeichen enthalten",
+        "invalidFormat": "Der Slug darf nur Kleinbuchstaben, Zahlen und Bindestriche enthalten"
+      },
+      "role": {
+        "required": "Rolle ist erforderlich",
+        "invalidOption": "Ungueltiger Rollenwert"
+      },
+      "alertIds": {
+        "required": "Alarm-IDs sind erforderlich",
+        "tooFew": "Mindestens eine Alarm-ID ist erforderlich"
+      },
+      "ownerUserId": {
+        "invalidUuid": "Ungueltiges Benutzer-ID-Format"
+      },
+      "theme": {
+        "invalidOption": "Ungueltiger Designwert"
+      },
+      "language": {
+        "invalidOption": "Ungueltiger Sprachwert"
+      },
+      "sortOrder": {
+        "invalidOption": "Ungueltige Sortierreihenfolge"
+      },
+      "page": {
+        "invalidNumber": "Die Seite muss eine positive Ganzzahl sein"
+      },
+      "limit": {
+        "invalidNumber": "Das Limit muss eine positive Ganzzahl sein",
+        "tooLarge": "Das Limit darf hoechstens 100 betragen"
+      }
+    },
+    "ssrf": {
+      "invalidUrl": "Ungultiges URL-Format.",
+      "unsupportedProtocol": "Nur HTTP- und HTTPS-URLs sind erlaubt.",
+      "privateNetwork": "URLs, die auf private Netzwerke verweisen, sind nicht erlaubt.",
+      "hostNotAllowed": "Der angegebene Host ist nicht in der Erlaubnisliste."
+    },
+    "tenants": {
+      "notFound": "Mandant nicht gefunden.",
+      "slugConflict": "Ein Mandant mit diesem Bezeichner existiert bereits.",
+      "userNotFound": "Benutzer in diesem Mandanten nicht gefunden.",
+      "emailExists": "Ein Benutzer mit dieser E-Mail existiert bereits in diesem Mandanten.",
+      "cannotAssignGlobalAdmin": "Nur ein globaler Administrator kann die Rolle des globalen Administrators zuweisen.",
+      "cannotModifyGlobalAdmin": "Nur ein globaler Administrator kann globale Administrator-Benutzer aendern.",
+      "cannotDeleteSelf": "Sie koennen Ihr eigenes Konto nicht loeschen.",
+      "cannotBlockSelf": "Sie koennen Ihr eigenes Konto nicht sperren.",
+      "cannotModifySelf": "Sie koennen Ihre eigene Rolle nicht aendern.",
+      "userProtected": "Dieser Benutzer ist geschuetzt und kann nicht geaendert werden.",
+      "userNotDeleted": "Dieser Benutzer ist nicht geloescht.",
+      "userAlreadyBlocked": "Dieser Benutzer ist bereits gesperrt.",
+      "userNotBlocked": "Dieser Benutzer ist nicht gesperrt."
+    },
+    "alerts": {
+      "notFound": "Alarm nicht gefunden.",
+      "alreadyClosed": "Dieser Alarm ist bereits geschlossen.",
+      "alreadyClosedOrResolved": "Dieser Alarm ist bereits geschlossen oder geloest.",
+      "connectorNotConfigured": "Alarm-Konnektor ist nicht konfiguriert."
+    },
+    "cases": {
+      "notFound": "Vorfall nicht gefunden.",
+      "alreadyClosed": "Dieser Vorfall ist bereits geschlossen.",
+      "duplicateAlert": "Dieser Alarm ist bereits mit dem Vorfall verknüpft."
+    },
+    "intel": {
+      "mispNotConfigured": "MISP-Konnektor ist nicht konfiguriert.",
+      "mispConnectionFailed": "Verbindung zum MISP-Server fehlgeschlagen.",
+      "syncFailed": "Synchronisierung der Bedrohungsinformationen fehlgeschlagen."
+    },
+    "hunts": {
+      "notFound": "Jagdsitzung nicht gefunden.",
+      "connectorNotConfigured": "Such-Konnektor ist nicht konfiguriert.",
+      "searchConnectorNotConfigured": "Such-Konnektor ist nicht konfiguriert.",
+      "queryFailed": "Ausführung der Jagdabfrage fehlgeschlagen."
+    },
+    "health": {
+      "serviceUnavailable": "Gesundheitsdienst ist nicht verfügbar.",
+      "connectorDisabled": "Dieser Konnektor ist deaktiviert."
+    },
+    "ai": {
+      "notEnabled": "KI-Modul ist nicht aktiviert.",
+      "invocationFailed": "KI-Aufruf fehlgeschlagen."
+    },
+    "users": {
+      "notFound": "Benutzer nicht gefunden.",
+      "incorrectPassword": "Das aktuelle Passwort ist falsch.",
+      "emailInUse": "Diese E-Mail-Adresse wird bereits verwendet.",
+      "passwordTooWeak": "Das Passwort erfüllt nicht die Sicherheitsanforderungen."
+    },
+    "connectors": {
+      "notFound": "Konnektor nicht gefunden.",
+      "testFailed": "Konnektor-Test fehlgeschlagen.",
+      "invalidConfig": "Ungültige Konnektor-Konfiguration.",
+      "loadError": "Konnektoren konnten nicht geladen werden.",
+      "updateError": "Konnektor konnte nicht aktualisiert werden.",
+      "deleteError": "Konnektor konnte nicht gelöscht werden.",
+      "toggleError": "Konnektor konnte nicht umgeschaltet werden."
+    },
+    "auditLogs": {
+      "accessDenied": "Sie haben keine Berechtigung, Audit-Protokolle einzusehen."
     }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "description": "Passen Sie Ihre Anwendungseinstellungen an",
+    "appearance": "Darstellung",
+    "theme": "Design",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel",
+    "themeSystem": "System",
+    "language": "Sprache",
+    "languageDescription": "Wahlen Sie Ihre bevorzugte Sprache",
+    "notifications": "Benachrichtigungen",
+    "emailAlerts": "E-Mail-Benachrichtigungen",
+    "emailAlertsDescription": "Sicherheitswarnungen per E-Mail erhalten",
+    "browserNotifications": "Browser-Benachrichtigungen",
+    "browserNotificationsDescription": "Desktop-Benachrichtigungen fur kritische Warnungen anzeigen",
+    "saved": "Einstellungen gespeichert",
+    "saving": "Speichern..."
+  },
+  "profile": {
+    "title": "Profil",
+    "description": "Verwalten Sie Ihre Kontoinformationen",
+    "personalInfo": "Persoenliche Informationen",
+    "email": "E-Mail",
+    "role": "Rolle",
+    "tenant": "Mandant",
+    "name": "Name",
+    "namePlaceholder": "Geben Sie Ihren Namen ein",
+    "updateName": "Name aktualisieren",
+    "updating": "Aktualisierung...",
+    "nameUpdated": "Name erfolgreich aktualisiert",
+    "confirmPassword": "Mit Passwort bestaetigen",
+    "confirmPasswordPlaceholder": "Geben Sie Ihr aktuelles Passwort zur Bestaetigung ein",
+    "changePassword": "Passwort aendern",
+    "currentPassword": "Aktuelles Passwort",
+    "currentPasswordPlaceholder": "Aktuelles Passwort eingeben",
+    "newPassword": "Neues Passwort",
+    "newPasswordPlaceholder": "Neues Passwort eingeben",
+    "confirmNewPassword": "Neues Passwort bestaetigen",
+    "confirmNewPasswordPlaceholder": "Neues Passwort bestaetigen",
+    "passwordChanged": "Passwort erfolgreich geaendert",
+    "changingPassword": "Wird geaendert...",
+    "passwordMismatch": "Passwoerter stimmen nicht ueberein"
   }
 }

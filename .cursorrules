@@ -1,0 +1,73 @@
+# AuraSpear SOC Frontend — Cursor Rules
+
+## Tech Stack
+- Next.js 16 + React 19 + TypeScript 5 (App Router)
+- Tailwind CSS v4 + shadcn/ui (new-york style)
+- @tanstack/react-query for server state
+- react-hook-form + zod for forms
+- Zustand for global client state
+- next-intl for i18n (6 locales: en, es, fr, it, ar, de)
+- next-themes for dark/light mode
+- Axios (pre-configured instance with token refresh)
+- lucide-react for icons
+- sonner (Toast) + sweetalert2 (SweetAlertDialog) for notifications
+
+## Absolute Rules — NEVER Violate
+
+1. NEVER use `any` — use `unknown`, generics, or proper types
+2. NEVER disable ESLint rules — no `// eslint-disable`, no `@ts-ignore`, no `@ts-expect-error`
+3. NEVER use static Tailwind color classes for semantic colors — use status/severity class system (text-status-warning, bg-severity-critical, etc.)
+4. NEVER use `<table>` directly — use `<DataTable>` from `@/components/common/DataTable`
+5. NEVER use `==` or `!=` — always `===` and `!==`
+6. NEVER use `var` — use `const` (preferred) or `let`
+7. NEVER use `!` (non-null assertion) — use `if`, `??`, `?.`
+8. NEVER use `console.log` — only `console.warn` and `console.error`
+9. NEVER hardcode user-facing text — always use `t()` from `next-intl`
+10. NEVER use string concatenation — use template literals
+11. NEVER use raw HTML `<select>`, `<input>`, `<textarea>` — use shadcn/ui components
+12. NEVER add `// eslint-disable-next-line` — fix the code instead
+13. NEVER put const/interface/enum/type inside component files — enums → `src/enums/`, types → `src/types/`, constants → `src/lib/constants/`
+14. NEVER put custom hooks inside component files — hooks → `src/hooks/`
+15. NEVER put utility functions inside component files — utils → `src/lib/`
+16. NEVER use `text-red-*`, `text-green-*`, `bg-white`, `bg-gray-*` — use semantic classes (text-destructive, text-status-success, bg-card, bg-muted)
+17. NEVER use `dark:` prefix for colors — CSS variables handle dark mode automatically
+18. NEVER filter/search client-side — all filtering must go through backend API with query params
+19. NEVER use string literal unions — always use enums from `src/enums/`
+
+## File Organization
+- Enums: `src/enums/<domain>.enum.ts` (barrel export via index.ts)
+- Types: `src/types/<domain>.types.ts` (barrel export via index.ts)
+- Constants: `src/lib/constants/<domain>.constants.ts`
+- Hooks: `src/hooks/use<Feature>.ts`
+- Services: `src/services/<feature>.service.ts`
+- Stores: `src/stores/<feature>.store.ts`
+
+## Component Patterns
+- Server Components by default, `'use client'` only when needed
+- Use `PageHeader` from `@/components/common` for page headers
+- Use `Toast` from `@/components/common` for notifications
+- Use `SweetAlertDialog` from `@/components/common` for confirmations
+- Use `Badge` from `@/components/ui/badge` for status indicators
+
+## Error Handling
+- All API errors: `Toast.error(tErrors(getErrorKey(error)))` pattern
+- Import `getErrorKey` from `@/lib/api-error`
+- Backend always returns `messageKey` for i18n
+
+## i18n
+- Client: `const t = useTranslations('namespace')`
+- Server: `const t = await getTranslations('namespace')`
+- Every new feature MUST include translations in ALL 6 locale files
+- Error keys: `errors.<module>.<specificAction>`
+
+## Formatting
+- No semicolons, single quotes, 2-space indent, 100 char width
+- Trailing comma: es5, arrow parens: avoid, end of line: lf
+- Tailwind classes auto-sorted by prettier plugin
+
+## Search/Filter/Pagination
+- Debounce search inputs (400ms)
+- Reset page to 1 on filter change
+- Use `placeholderData: keepPreviousData` in useQuery
+- Pass `isFetching` (not `isLoading`) to DataTable loading prop
+- Query keys must include all filter params

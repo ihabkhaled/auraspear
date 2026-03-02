@@ -1,5 +1,6 @@
 export { CaseKanbanCard } from './CaseKanbanCard'
 export { CaseKanbanBoard } from './CaseKanbanBoard'
+export { CaseListTable } from './CaseListTable'
 export { CaseToolbar } from './CaseToolbar'
 export { CaseDetailHeader } from './CaseDetailHeader'
 export { CaseTimeline } from './CaseTimeline'

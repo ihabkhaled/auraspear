@@ -1,7 +1,8 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
-import { HuntStatus } from '@/enums'
+import { type HuntStatus } from '@/enums'
+import { HUNT_STATUS_CONFIG } from '@/lib/constants/hunt'
 import { cn } from '@/lib/utils'
 
 interface HuntStatusBarProps {
@@ -9,32 +10,9 @@ interface HuntStatusBarProps {
   status: HuntStatus
 }
 
-const statusConfig = {
-  [HuntStatus.IDLE]: {
-    dotClass: 'bg-muted-foreground',
-    labelKey: 'statusIdle',
-    animate: false,
-  },
-  [HuntStatus.RUNNING]: {
-    dotClass: 'bg-status-success',
-    labelKey: 'statusRunning',
-    animate: true,
-  },
-  [HuntStatus.COMPLETED]: {
-    dotClass: 'bg-status-info',
-    labelKey: 'statusCompleted',
-    animate: false,
-  },
-  [HuntStatus.ERROR]: {
-    dotClass: 'bg-status-error',
-    labelKey: 'statusError',
-    animate: false,
-  },
-} as const
-
 export function HuntStatusBar({ sessionId, status }: HuntStatusBarProps) {
   const t = useTranslations('hunt')
-  const config = statusConfig[status]
+  const config = HUNT_STATUS_CONFIG[status]
 
   return (
     <div className="border-border bg-card/50 flex items-center justify-between border-b px-4 py-2.5">

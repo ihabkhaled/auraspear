@@ -2,46 +2,28 @@
 
 import { CheckCircle2, Loader2, Circle } from 'lucide-react'
 import { ReasoningStepStatus } from '@/enums'
+import { REASONING_STEP_CONFIG_MAP } from '@/lib/constants/hunt'
 import { cn } from '@/lib/utils'
 import type { ReasoningStep } from '@/types'
+import type { LucideIcon } from 'lucide-react'
 
 interface ReasoningStepsProps {
   steps: ReasoningStep[]
 }
 
-const stepConfig = {
-  [ReasoningStepStatus.COMPLETED]: {
-    icon: CheckCircle2,
-    iconClass: 'text-status-success',
-    textClass: 'text-foreground',
-    animate: false,
-  },
-  [ReasoningStepStatus.IN_PROGRESS]: {
-    icon: Loader2,
-    iconClass: 'text-status-info',
-    textClass: 'text-status-info',
-    animate: true,
-  },
-  [ReasoningStepStatus.PENDING]: {
-    icon: Circle,
-    iconClass: 'text-muted-foreground/50',
-    textClass: 'text-muted-foreground',
-    animate: false,
-  },
-  [ReasoningStepStatus.ERROR]: {
-    icon: Circle,
-    iconClass: 'text-status-error',
-    textClass: 'text-status-error',
-    animate: false,
-  },
-} as const
+const STEP_ICONS: Record<ReasoningStepStatus, LucideIcon> = {
+  [ReasoningStepStatus.COMPLETED]: CheckCircle2,
+  [ReasoningStepStatus.IN_PROGRESS]: Loader2,
+  [ReasoningStepStatus.PENDING]: Circle,
+  [ReasoningStepStatus.ERROR]: Circle,
+}
 
 export function ReasoningSteps({ steps }: ReasoningStepsProps) {
   return (
     <div className="flex flex-col gap-1.5">
       {steps.map(step => {
-        const config = stepConfig[step.status]
-        const Icon = config.icon
+        const config = REASONING_STEP_CONFIG_MAP[step.status]
+        const Icon = STEP_ICONS[step.status]
 
         return (
           <div key={step.id} className="flex items-center gap-2">

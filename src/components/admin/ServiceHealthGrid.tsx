@@ -26,7 +26,7 @@ export function ServiceHealthGrid({ services }: ServiceHealthGridProps) {
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {services.map(service => (
-        <ServiceHealthCard key={service.id} service={service} />
+        <ServiceHealthCard key={service.type} service={service} />
       ))}
     </div>
   )

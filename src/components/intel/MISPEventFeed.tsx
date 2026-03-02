@@ -68,13 +68,13 @@ export function MISPEventFeed({ events, loading = false, onEventClick }: MISPEve
       label: t('misp.tags'),
       render: value => {
         const tags = value as MISPTag[] | undefined
-        if (!tags || tags.length === 0) {
+        if (!tags || !Array.isArray(tags) || tags.length === 0) {
           return <span className="text-muted-foreground">-</span>
         }
         return (
           <div className="flex flex-wrap gap-1">
-            {tags.slice(0, 3).map(tag => (
-              <MISPTagPill key={tag.id} name={tag.name} />
+            {tags.slice(0, 3).map((tag, index) => (
+              <MISPTagPill key={tag.id ?? index} name={tag.name ?? ''} />
             ))}
             {tags.length > 3 && (
               <span className="text-muted-foreground text-xs">+{tags.length - 3}</span>

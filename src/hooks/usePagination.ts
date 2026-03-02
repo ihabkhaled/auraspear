@@ -1,23 +1,7 @@
 'use client'
 
 import { useState, useMemo, useCallback } from 'react'
-
-interface UsePaginationOptions {
-  initialPage?: number
-  initialLimit?: number
-}
-
-interface UsePaginationReturn {
-  page: number
-  setPage: (page: number) => void
-  limit: number
-  setLimit: (limit: number) => void
-  total: number
-  setTotal: (total: number) => void
-  totalPages: number
-  hasNext: boolean
-  hasPrev: boolean
-}
+import type { UsePaginationOptions, UsePaginationReturn } from '@/types'
 
 export function usePagination(options?: UsePaginationOptions): UsePaginationReturn {
   const [page, setPage] = useState(options?.initialPage ?? 1)

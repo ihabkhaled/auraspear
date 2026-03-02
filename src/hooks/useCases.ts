@@ -1,16 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { caseService } from '@/services'
-import type { CreateCaseInput } from '@/types'
-
-interface CaseSearchParams {
-  page?: number
-  limit?: number
-  status?: string
-  severity?: string
-  query?: string
-  sortBy?: string
-  sortOrder?: 'asc' | 'desc'
-}
+import type { CaseSearchParams, CreateCaseInput, UpdateCaseInput } from '@/types'
 
 export function useCases(params?: CaseSearchParams) {
   return useQuery({
@@ -42,7 +32,7 @@ export function useUpdateCase() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<CreateCaseInput> }) =>
+    mutationFn: ({ id, data }: { id: string; data: UpdateCaseInput }) =>
       caseService.updateCase(id, data),
     onSuccess: (_data, { id }) => {
       void queryClient.invalidateQueries({ queryKey: ['cases'] })

@@ -1,11 +1,11 @@
 import { z } from 'zod'
-import type { ConnectorType } from '@/lib/types/connectors'
+import { ConnectorAuthType, ConnectorType } from '@/enums'
 
 const connectorBaseSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   enabled: z.boolean(),
   baseUrl: z.string(),
-  authType: z.enum(['apiKey', 'basic', 'bearer', 'iam']),
+  authType: z.nativeEnum(ConnectorAuthType),
   apiKey: z.string(),
   username: z.string(),
   password: z.string(),
@@ -58,7 +58,7 @@ export function getConnectorSchema(type: ConnectorType) {
   return connectorBaseSchema.superRefine((data, ctx) => {
     // baseUrl format (not needed for Bedrock which uses region-based endpoints)
     if (
-      type !== 'bedrock' &&
+      type !== ConnectorType.BEDROCK &&
       data.baseUrl &&
       !data.baseUrl.startsWith('http://') &&
       !data.baseUrl.startsWith('https://')
@@ -71,39 +71,39 @@ export function getConnectorSchema(type: ConnectorType) {
     }
 
     // Auth + per-tool fields only enforced when baseUrl is provided (or always for Bedrock)
-    const shouldValidateFields = type === 'bedrock' || Boolean(data.baseUrl)
+    const shouldValidateFields = type === ConnectorType.BEDROCK || Boolean(data.baseUrl)
 
     if (shouldValidateFields) {
       // Standard auth validation (skip for Bedrock which uses IAM)
-      if (type !== 'bedrock') {
-        if (data.authType === 'apiKey' && !data.apiKey) {
+      if (type !== ConnectorType.BEDROCK) {
+        if (data.authType === ConnectorAuthType.API_KEY && !data.apiKey) {
           ctx.addIssue({ code: 'custom', message: 'API key is required', path: ['apiKey'] })
         }
-        if (data.authType === 'basic' && !data.username) {
+        if (data.authType === ConnectorAuthType.BASIC && !data.username) {
           ctx.addIssue({ code: 'custom', message: 'Username is required', path: ['username'] })
         }
-        if (data.authType === 'basic' && !data.password) {
+        if (data.authType === ConnectorAuthType.BASIC && !data.password) {
           ctx.addIssue({ code: 'custom', message: 'Password is required', path: ['password'] })
         }
-        if (data.authType === 'bearer' && !data.token) {
+        if (data.authType === ConnectorAuthType.BEARER && !data.token) {
           ctx.addIssue({ code: 'custom', message: 'Token is required', path: ['token'] })
         }
       }
 
       // Per-tool required fields
-      if (type === 'wazuh' && !data.indexerUrl) {
+      if (type === ConnectorType.WAZUH && !data.indexerUrl) {
         ctx.addIssue({ code: 'custom', message: 'Indexer URL is required', path: ['indexerUrl'] })
       }
-      if (type === 'graylog' && !data.apiUrl) {
+      if (type === ConnectorType.GRAYLOG && !data.apiUrl) {
         ctx.addIssue({ code: 'custom', message: 'API URL is required', path: ['apiUrl'] })
       }
-      if (type === 'velociraptor' && !data.apiUrl) {
+      if (type === ConnectorType.VELOCIRAPTOR && !data.apiUrl) {
         ctx.addIssue({ code: 'custom', message: 'API URL is required', path: ['apiUrl'] })
       }
-      if (type === 'grafana' && !data.grafanaUrl) {
+      if (type === ConnectorType.GRAFANA && !data.grafanaUrl) {
         ctx.addIssue({ code: 'custom', message: 'Grafana URL is required', path: ['grafanaUrl'] })
       }
-      if (type === 'influxdb') {
+      if (type === ConnectorType.INFLUXDB) {
         if (!data.org) {
           ctx.addIssue({ code: 'custom', message: 'Organization is required', path: ['org'] })
         }
@@ -114,7 +114,7 @@ export function getConnectorSchema(type: ConnectorType) {
           ctx.addIssue({ code: 'custom', message: 'Token is required', path: ['token'] })
         }
       }
-      if (type === 'misp') {
+      if (type === ConnectorType.MISP) {
         if (!data.mispUrl) {
           ctx.addIssue({ code: 'custom', message: 'MISP URL is required', path: ['mispUrl'] })
         }
@@ -122,7 +122,7 @@ export function getConnectorSchema(type: ConnectorType) {
           ctx.addIssue({ code: 'custom', message: 'Auth key is required', path: ['mispAuthKey'] })
         }
       }
-      if (type === 'shuffle') {
+      if (type === ConnectorType.SHUFFLE) {
         if (!data.webhookUrl) {
           ctx.addIssue({ code: 'custom', message: 'Webhook URL is required', path: ['webhookUrl'] })
         }
@@ -130,7 +130,7 @@ export function getConnectorSchema(type: ConnectorType) {
           ctx.addIssue({ code: 'custom', message: 'Workflow ID is required', path: ['workflowId'] })
         }
       }
-      if (type === 'bedrock') {
+      if (type === ConnectorType.BEDROCK) {
         if (!data.modelId) {
           ctx.addIssue({ code: 'custom', message: 'Model is required', path: ['modelId'] })
         }

@@ -1,21 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendTrendResponse } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendTrendPoint {
-  date: string
-  critical: number
-  high: number
-  medium: number
-  low: number
-}
-
-interface BackendTrendResponse {
-  tenantId: string
-  days: number
-  trend: BackendTrendPoint[]
-}
 
 export async function GET(request: NextRequest) {
   try {

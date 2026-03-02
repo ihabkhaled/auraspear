@@ -63,10 +63,10 @@ export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
           </div>
 
           <div className="text-muted-foreground flex items-center gap-3 text-xs">
-            {caseItem.linkedAlertIds.length > 0 && (
+            {(caseItem.linkedAlertIds?.length ?? 0) > 0 && (
               <span className="flex items-center gap-1">
                 <Link2 className="h-3 w-3" />
-                {t('linkedAlerts', { count: caseItem.linkedAlertIds.length })}
+                {t('linkedAlerts', { count: caseItem.linkedAlertIds?.length ?? 0 })}
               </span>
             )}
             <span className="flex items-center gap-1">

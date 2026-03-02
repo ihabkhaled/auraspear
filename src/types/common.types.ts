@@ -25,3 +25,26 @@ export interface SelectOption {
   label: string
   value: string
 }
+
+export interface UsePaginationOptions {
+  initialPage?: number
+  initialLimit?: number
+}
+
+export interface UsePaginationReturn {
+  page: number
+  setPage: (page: number) => void
+  limit: number
+  setLimit: (limit: number) => void
+  total: number
+  setTotal: (total: number) => void
+  totalPages: number
+  hasNext: boolean
+  hasPrev: boolean
+}
+
+export interface ApiErrorResponse {
+  messageKey?: string
+  message?: string
+  errors?: string[]
+}

@@ -6,7 +6,8 @@ export const STATUS_VARIANT_MAP: Record<CaseStatus, 'default' | 'secondary' | 'o
   [CaseStatus.CLOSED]: 'outline',
 }
 
-export function getInitials(name: string): string {
+export function getInitials(name?: string | null): string {
+  if (!name) return 'U'
   return name
     .split(' ')
     .map(part => part[0])

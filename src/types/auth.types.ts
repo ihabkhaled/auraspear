@@ -4,6 +4,7 @@ export interface AuthUser {
   sub: string
   email: string
   tenantId: string
+  tenantSlug: string
   role: UserRole
 }
 
@@ -21,4 +22,16 @@ export interface LoginResponse {
 export interface RefreshResponse {
   accessToken: string
   refreshToken: string
+}
+
+export interface BackendLoginResponse {
+  accessToken: string
+  refreshToken: string
+  user: {
+    sub: string
+    email: string
+    tenantId: string
+    tenantSlug: string
+    role: string
+  }
 }

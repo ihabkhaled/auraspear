@@ -6,7 +6,8 @@ interface MISPTagPillProps {
   name: string
 }
 
-function getTagClasses(name: string): string {
+function getTagClasses(name?: string | null): string {
+  if (!name) return 'bg-secondary text-secondary-foreground border-border'
   const upper = name.toUpperCase()
 
   if (upper.startsWith('TLP:RED')) {

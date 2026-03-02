@@ -25,3 +25,21 @@ export interface IOCCorrelation {
   lastSeen: string
   severity: string
 }
+
+export interface IntelStats {
+  threatActors: number
+  ipIOCs: number
+  fileHashes: number
+  activeDomains: number
+  threatActorsTrend?: number
+  ipIOCsTrend?: number
+  fileHashesTrend?: number
+  activeDomainsTrend?: number
+}
+
+export interface MISPSearchParams {
+  page?: number
+  limit?: number
+  query?: string
+  threatLevel?: string
+}

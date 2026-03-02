@@ -6,14 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { AlertSeverity } from '@/enums'
+import { type AlertSeverity } from '@/enums'
 import { getSeverityDotClass } from '@/lib/alert.utils'
+import { ALERT_TIME_RANGES } from '@/lib/constants/alerts'
 import { cn } from '@/lib/utils'
-
-interface SeverityCount {
-  severity: AlertSeverity
-  count: number
-}
+import type { SeverityCount } from '@/types'
 
 interface AlertFilterSidebarProps {
   timeRange: string
@@ -26,8 +23,6 @@ interface AlertFilterSidebarProps {
   ruleGroup: string
   onRuleGroupChange: (value: string) => void
 }
-
-const TIME_RANGES = ['24h', '7d', '30d'] as const
 
 export function AlertFilterSidebar({
   timeRange,
@@ -58,7 +53,7 @@ export function AlertFilterSidebar({
           {t('timeRange')}
         </h3>
         <div className="flex gap-1">
-          {TIME_RANGES.map(range => (
+          {ALERT_TIME_RANGES.map(range => (
             <Button
               key={range}
               variant={timeRange === range ? 'default' : 'outline'}

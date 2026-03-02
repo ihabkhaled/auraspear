@@ -3,17 +3,7 @@
 import { Users, Globe, FileText, Link } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { KPICard } from '@/components/common/KPICard'
-
-interface IntelStats {
-  threatActors: number
-  ipIOCs: number
-  fileHashes: number
-  activeDomains: number
-  threatActorsTrend?: number
-  ipIOCsTrend?: number
-  fileHashesTrend?: number
-  activeDomainsTrend?: number
-}
+import type { IntelStats } from '@/types'
 
 interface IntelStatsGridProps {
   stats: IntelStats

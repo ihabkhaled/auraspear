@@ -1,0 +1,104 @@
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
+import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
+import { ConnectorStatus, type ConnectorType, UserRole } from '@/enums'
+import { getErrorKey } from '@/lib/api-error'
+import {
+  isConnectorType,
+  CONNECTOR_ICONS,
+  CONNECTOR_META,
+} from '@/lib/constants/connectors.constants'
+import { hasRole } from '@/lib/roles'
+import { useAuthStore } from '@/stores'
+import { useConnector, useTestConnector, useDeleteConnector } from './useConnectors'
+
+export function useConnectorDetailPage(rawType: string) {
+  const router = useRouter()
+  const t = useTranslations('connectors')
+  const tErrors = useTranslations()
+  const [testing, setTesting] = useState(false)
+
+  const { user } = useAuthStore()
+  const userRole = user?.role
+  const isEditor = userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false
+  const isAdmin = userRole ? hasRole(userRole, UserRole.TENANT_ADMIN) : false
+
+  const { data: connector, isLoading } = useConnector(rawType)
+  const testMutation = useTestConnector()
+  const deleteMutation = useDeleteConnector()
+
+  const isValidType = isConnectorType(rawType)
+  const validType = isValidType ? (rawType as ConnectorType) : undefined
+  const meta = validType ? CONNECTOR_META[validType] : undefined
+  const Icon = validType ? CONNECTOR_ICONS[validType] : undefined
+
+  const handleTest = () => {
+    if (!isValidType || !meta) return
+    setTesting(true)
+    Toast.info(t('testingConnector', { name: meta.label }))
+    testMutation.mutate(rawType, {
+      onSuccess: result => {
+        if (result.ok) {
+          Toast.success(`${meta.label} ${t('connectedSuccessfully')}`)
+        } else {
+          Toast.error(result.details ?? t('connectionFailed'))
+        }
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+      onSettled: () => {
+        setTesting(false)
+      },
+    })
+  }
+
+  const handleDelete = async () => {
+    if (!isValidType || !meta) return
+    const confirmed = await SweetAlertDialog.show({
+      text: t('confirmDelete'),
+      icon: SweetAlertIcon.QUESTION,
+    })
+    if (!confirmed) return
+
+    deleteMutation.mutate(rawType, {
+      onSuccess: () => {
+        Toast.success(`${meta.label} ${t('deleted')}`)
+        router.push('/connectors')
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+    })
+  }
+
+  let connectorStatus: ConnectorStatus | undefined
+  if (connector) {
+    if (connector.lastTestOk === true) {
+      connectorStatus = ConnectorStatus.CONNECTED
+    } else if (connector.lastTestOk === false) {
+      connectorStatus = ConnectorStatus.DISCONNECTED
+    } else {
+      connectorStatus = ConnectorStatus.NOT_CONFIGURED
+    }
+  }
+
+  return {
+    router,
+    t,
+    isValidType,
+    isLoading,
+    connector,
+    type: validType,
+    meta,
+    Icon,
+    isEditor,
+    isAdmin,
+    testing,
+    deletePending: deleteMutation.isPending,
+    connectorStatus,
+    handleTest,
+    handleDelete,
+  }
+}

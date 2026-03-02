@@ -16,3 +16,17 @@ export enum CaseTaskStatus {
   IN_PROGRESS = 'in_progress',
   COMPLETED = 'completed',
 }
+
+export enum CaseTimelineEntryType {
+  NOTE = 'note',
+  ALERT = 'alert',
+  STATUS = 'status',
+  ACTION = 'action',
+}
+
+export enum CaseArtifactType {
+  IP = 'ip',
+  HASH = 'hash',
+  DOMAIN = 'domain',
+  URL = 'url',
+}

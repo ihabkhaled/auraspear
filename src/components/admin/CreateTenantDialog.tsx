@@ -14,18 +14,14 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { TenantEnvironment } from '@/enums'
 
 const createTenantSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').max(100),
-  environment: z.nativeEnum(TenantEnvironment),
+  name: z.string().min(2).max(255),
+  slug: z
+    .string()
+    .min(1)
+    .max(100)
+    .regex(/^[\da-z-]+$/),
 })
 
 type CreateTenantFormValues = z.infer<typeof createTenantSchema>
@@ -37,6 +33,15 @@ interface CreateTenantDialogProps {
   onOpenChange: (open: boolean) => void
   onSubmit: (values: CreateTenantFormValues) => void
   loading: boolean
+}
+
+function generateSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replaceAll(/[^a-z\d\s-]/g, '')
+    .replaceAll(/\s+/g, '-')
+    .replaceAll(/-+/g, '-')
 }
 
 export function CreateTenantDialog({
@@ -58,11 +63,19 @@ export function CreateTenantDialog({
     resolver: zodResolver(createTenantSchema),
     defaultValues: {
       name: '',
-      environment: TenantEnvironment.PRODUCTION,
+      slug: '',
     },
   })
 
-  const currentEnvironment = watch('environment')
+  const currentSlug = watch('slug')
+
+  function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const nameVal = e.target.value
+    setValue('name', nameVal)
+    if (!currentSlug || currentSlug === generateSlug(watch('name'))) {
+      setValue('slug', generateSlug(nameVal))
+    }
+  }
 
   function handleFormSubmit(values: CreateTenantFormValues) {
     onSubmit(values)
@@ -90,30 +103,22 @@ export function CreateTenantDialog({
             <Input
               id="tenant-name"
               {...register('name')}
+              onChange={handleNameChange}
               placeholder={t('tenants.tenantNamePlaceholder')}
             />
             {errors.name && <p className="text-destructive text-sm">{errors.name.message}</p>}
           </div>
 
           <div className="space-y-2">
-            <Label>{t('tenants.environment')}</Label>
-            <Select
-              value={currentEnvironment}
-              onValueChange={val => setValue('environment', val as TenantEnvironment)}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={TenantEnvironment.PRODUCTION}>
-                  {t('tenants.envProduction')}
-                </SelectItem>
-                <SelectItem value={TenantEnvironment.STAGING}>{t('tenants.envStaging')}</SelectItem>
-                <SelectItem value={TenantEnvironment.DEVELOPMENT}>
-                  {t('tenants.envDevelopment')}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+            <Label htmlFor="tenant-slug">{t('tenants.slug')}</Label>
+            <Input
+              id="tenant-slug"
+              {...register('slug')}
+              placeholder={t('tenants.slugPlaceholder')}
+              className="font-mono"
+            />
+            {errors.slug && <p className="text-destructive text-sm">{errors.slug.message}</p>}
+            <p className="text-muted-foreground text-xs">{t('tenants.slugHelp')}</p>
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-2">

@@ -1,4 +1,5 @@
 import { AuthGuard } from '@/components/common'
+import { RoleGuard } from '@/components/common/RoleGuard'
 import { PortalShell } from '@/components/layout'
 
 export default function PortalLayout({
@@ -8,7 +9,9 @@ export default function PortalLayout({
 }>) {
   return (
     <AuthGuard>
-      <PortalShell>{children}</PortalShell>
+      <PortalShell>
+        <RoleGuard>{children}</RoleGuard>
+      </PortalShell>
     </AuthGuard>
   )
 }

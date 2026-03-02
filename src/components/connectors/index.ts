@@ -1,7 +1,4 @@
 export { StatusBadge } from './StatusBadge'
-export { TestLogs } from './TestLogs'
 export { ConnectorCard } from './ConnectorCard'
 export { ConnectorForm } from './ConnectorForm'
-export { AIGovernancePanel } from './AIGovernancePanel'
-export { AuditLogViewer } from './AuditLogViewer'
 export { SecurityIndicators } from './SecurityIndicators'
