@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:strict": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml}\" \"*.{json,md,mjs,cjs}\"",
+    "format": "prettier --write .",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md,yml,yaml}\" \"*.{json,md,mjs,cjs}\"",
     "typecheck": "tsc --noEmit --pretty",
     "typecheck:watch": "tsc --noEmit --pretty --watch",
