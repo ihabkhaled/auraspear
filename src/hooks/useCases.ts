@@ -1,6 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { caseService } from '@/services'
+import { adminService, caseService } from '@/services'
 import type { CaseSearchParams, CreateCaseInput, UpdateCaseInput } from '@/types'
+
+export function useTenantMembers() {
+  return useQuery({
+    queryKey: ['tenantMembers'],
+    queryFn: () => adminService.getMembers(),
+    staleTime: 5 * 60 * 1000,
+  })
+}
 
 export function useCases(params?: CaseSearchParams) {
   return useQuery({

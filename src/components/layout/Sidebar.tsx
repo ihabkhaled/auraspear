@@ -17,6 +17,7 @@ import {
 import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import type { UserRole } from '@/enums'
+import { useSidebarHealth } from '@/hooks'
 import { canAccessRoute } from '@/lib/roles'
 import { cn } from '@/lib/utils'
 import { useUIStore, useAuthStore } from '@/stores'
@@ -37,6 +38,7 @@ function SidebarContent({
   const { toggleSidebar } = useUIStore()
   const { user } = useAuthStore()
   const userRole = user?.role as UserRole | undefined
+  const { healthPercent, servicesOnline, totalServices, maxLatencyMs } = useSidebarHealth()
 
   const allSections: NavSection[] = [
     {
@@ -148,7 +150,13 @@ function SidebarContent({
         </div>
       </nav>
 
-      <SidebarHealthFooter collapsed={collapsed} />
+      <SidebarHealthFooter
+        collapsed={collapsed}
+        healthPercent={healthPercent}
+        servicesOnline={servicesOnline}
+        totalServices={totalServices}
+        maxLatencyMs={maxLatencyMs}
+      />
     </>
   )
 }

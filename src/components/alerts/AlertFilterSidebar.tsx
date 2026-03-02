@@ -10,19 +10,7 @@ import { type AlertSeverity } from '@/enums'
 import { getSeverityDotClass } from '@/lib/alert.utils'
 import { ALERT_TIME_RANGES } from '@/lib/constants/alerts'
 import { cn } from '@/lib/utils'
-import type { SeverityCount } from '@/types'
-
-interface AlertFilterSidebarProps {
-  timeRange: string
-  onTimeRangeChange: (range: string) => void
-  selectedSeverities: AlertSeverity[]
-  onSeverityChange: (severities: AlertSeverity[]) => void
-  severityCounts: SeverityCount[]
-  agentFilter: string
-  onAgentFilterChange: (value: string) => void
-  ruleGroup: string
-  onRuleGroupChange: (value: string) => void
-}
+import type { AlertFilterSidebarProps } from '@/types'
 
 export function AlertFilterSidebar({
   timeRange,

@@ -7,9 +7,9 @@ export enum AlertSeverity {
 }
 
 export enum AlertStatus {
-  NEW = 'new',
+  NEW_ALERT = 'new_alert',
   ACKNOWLEDGED = 'acknowledged',
-  INVESTIGATING = 'investigating',
+  IN_PROGRESS = 'in_progress',
   RESOLVED = 'resolved',
   CLOSED = 'closed',
   FALSE_POSITIVE = 'false_positive',

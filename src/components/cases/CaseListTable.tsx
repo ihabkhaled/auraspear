@@ -4,25 +4,20 @@ import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
-import { CaseStatus } from '@/enums'
-import type { CaseSeverity } from '@/enums'
+import { type CaseStatus, type CaseSeverity } from '@/enums'
 import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
+import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
 import { formatDate } from '@/lib/utils'
-import type { Case, Column } from '@/types'
+import type { Case, CaseListTableProps, Column } from '@/types'
 
-interface CaseListTableProps {
-  cases: Case[]
-  onCaseClick?: (caseItem: Case) => void
-  loading?: boolean
-}
-
-const STATUS_LABEL_KEYS: Record<CaseStatus, string> = {
-  [CaseStatus.OPEN]: 'statusOpen',
-  [CaseStatus.IN_PROGRESS]: 'statusInProgress',
-  [CaseStatus.CLOSED]: 'statusClosed',
-}
-
-export function CaseListTable({ cases, onCaseClick, loading = false }: CaseListTableProps) {
+export function CaseListTable({
+  cases,
+  onCaseClick,
+  loading = false,
+  sortBy,
+  sortOrder,
+  onSort,
+}: CaseListTableProps) {
   const t = useTranslations('cases')
 
   const columns: Column<Case>[] = [
@@ -38,9 +33,10 @@ export function CaseListTable({ cases, onCaseClick, loading = false }: CaseListT
     {
       key: 'status',
       label: t('fieldStatus'),
+      sortable: true,
       render: value => {
         const status = value as CaseStatus
-        const labelKey = STATUS_LABEL_KEYS[status]
+        const labelKey = CASE_STATUS_LABEL_KEYS[status]
         return (
           <Badge variant={STATUS_VARIANT_MAP[status]} className="capitalize">
             {labelKey ? t(labelKey) : String(value ?? '')}
@@ -51,15 +47,17 @@ export function CaseListTable({ cases, onCaseClick, loading = false }: CaseListT
     {
       key: 'severity',
       label: t('fieldSeverity'),
+      sortable: true,
       render: value => <SeverityBadge severity={value as CaseSeverity} />,
     },
     {
-      key: 'assignee',
+      key: 'createdBy',
       label: t('fieldAssignee'),
     },
     {
       key: 'createdAt',
       label: t('created'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground text-xs">{formatDate(String(value ?? ''))}</span>
       ),
@@ -73,6 +71,9 @@ export function CaseListTable({ cases, onCaseClick, loading = false }: CaseListT
       loading={loading}
       emptyMessage={t('noCases')}
       onRowClick={onCaseClick}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSort={onSort}
     />
   )
 }

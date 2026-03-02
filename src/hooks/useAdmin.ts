@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { POLLING_INTERVAL } from '@/lib/constants'
 import { adminService } from '@/services'
-import type { AddUserInput, AuditLogParams, CreateTenantInput } from '@/types'
+import type { AddUserInput, AuditLogParams, CreateTenantInput, TenantUserListParams } from '@/types'
 
 export function useTenants(enabled = true) {
   return useQuery({
@@ -30,10 +30,10 @@ export function useCreateTenant() {
   })
 }
 
-export function useTenantUsers(tenantId: string) {
+export function useTenantUsers(tenantId: string, params?: TenantUserListParams) {
   return useQuery({
-    queryKey: ['admin', 'tenants', tenantId, 'users'],
-    queryFn: () => adminService.getUsers(tenantId),
+    queryKey: ['admin', 'tenants', tenantId, 'users', params],
+    queryFn: () => adminService.getUsers(tenantId, params),
     enabled: tenantId.length > 0,
   })
 }

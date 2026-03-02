@@ -16,8 +16,17 @@ import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
 export default function SystemAdminPage() {
   const t = useTranslations('admin')
 
-  const { healthData, healthLoading, healthError, auditData, auditLoading, pagination } =
-    useSystemAdminPage()
+  const {
+    healthData,
+    healthLoading,
+    healthError,
+    auditData,
+    auditLoading,
+    pagination,
+    auditSortBy,
+    auditSortOrder,
+    handleAuditSort,
+  } = useSystemAdminPage()
 
   function renderServices() {
     if (healthLoading) return <LoadingSpinner />
@@ -45,7 +54,15 @@ export default function SystemAdminPage() {
         />
       )
     }
-    return <AuditLogTable logs={auditData?.data ?? []} loading={auditLoading} />
+    return (
+      <AuditLogTable
+        logs={auditData?.data ?? []}
+        loading={auditLoading}
+        sortBy={auditSortBy}
+        sortOrder={auditSortOrder}
+        onSort={handleAuditSort}
+      />
+    )
   }
 
   return (

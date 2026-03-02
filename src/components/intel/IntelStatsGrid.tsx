@@ -3,11 +3,7 @@
 import { Users, Globe, FileText, Link } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { KPICard } from '@/components/common/KPICard'
-import type { IntelStats } from '@/types'
-
-interface IntelStatsGridProps {
-  stats: IntelStats
-}
+import type { IntelStatsGridProps } from '@/types'
 
 export function IntelStatsGrid({ stats }: IntelStatsGridProps) {
   const t = useTranslations('intel')

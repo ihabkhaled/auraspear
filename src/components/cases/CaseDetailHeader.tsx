@@ -13,37 +13,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { CaseStatus } from '@/enums'
-import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
+import { getAvailableTransitions, STATUS_VARIANT_MAP } from '@/lib/case.utils'
+import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
 import { formatDate } from '@/lib/utils'
-import type { Case } from '@/types'
-
-const STATUS_LABEL_MAP: Record<CaseStatus, string> = {
-  [CaseStatus.OPEN]: 'statusOpen',
-  [CaseStatus.IN_PROGRESS]: 'statusInProgress',
-  [CaseStatus.CLOSED]: 'statusClosed',
-}
-
-function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
-  switch (status) {
-    case CaseStatus.OPEN:
-      return [CaseStatus.IN_PROGRESS, CaseStatus.CLOSED]
-    case CaseStatus.IN_PROGRESS:
-      return [CaseStatus.CLOSED]
-    case CaseStatus.CLOSED:
-      return []
-  }
-}
-
-interface CaseDetailHeaderProps {
-  caseItem: Case
-  onEdit?: () => void
-  onDelete?: () => void
-  onEscalate?: () => void
-  onStatusChange?: (status: CaseStatus) => void
-}
+import type { CaseDetailHeaderProps } from '@/types'
 
 export function CaseDetailHeader({
   caseItem,
+  ownerName,
   onEdit,
   onDelete,
   onEscalate,
@@ -60,7 +37,7 @@ export function CaseDetailHeader({
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground font-mono text-sm">{caseItem.caseNumber}</span>
             <Badge variant={STATUS_VARIANT_MAP[caseItem.status]} className="capitalize">
-              {t(STATUS_LABEL_MAP[caseItem.status])}
+              {t(CASE_STATUS_LABEL_KEYS[caseItem.status])}
             </Badge>
             <SeverityBadge severity={caseItem.severity} />
           </div>
@@ -76,7 +53,7 @@ export function CaseDetailHeader({
               <SelectContent>
                 {availableTransitions.map(status => (
                   <SelectItem key={status} value={status}>
-                    {t(STATUS_LABEL_MAP[status])}
+                    {t(CASE_STATUS_LABEL_KEYS[status])}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -106,7 +83,7 @@ export function CaseDetailHeader({
       <div className="text-muted-foreground flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
         <span className="flex items-center gap-1.5">
           <User className="h-3.5 w-3.5" />
-          {caseItem.assignee}
+          {ownerName ?? caseItem.createdBy ?? t('unassigned')}
         </span>
         <span className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />

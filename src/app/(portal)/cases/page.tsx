@@ -1,12 +1,13 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Plus, FolderOpen } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { CaseToolbar, CaseKanbanBoard, CaseListTable, CreateCaseDialog } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState } from '@/components/common'
 import { CaseViewMode } from '@/enums'
+import { useTenantMembers } from '@/hooks/useCases'
 import { useCasesPage } from '@/hooks/useCasesPage'
-import { ASSIGNEE_OPTIONS } from '@/lib/constants/cases'
 
 export default function CasesPage() {
   const t = useTranslations('cases')
@@ -18,6 +19,8 @@ export default function CasesPage() {
     setSeverityFilter,
     sortField,
     setSortField,
+    sortOrder,
+    setSortOrder,
     createDialogOpen,
     setCreateDialogOpen,
     isLoading,
@@ -25,7 +28,19 @@ export default function CasesPage() {
     createCasePending,
     handleCaseClick,
     handleCreateCase,
+    handleCaseSort,
   } = useCasesPage()
+
+  const { data: membersData } = useTenantMembers()
+
+  const assigneeOptions = useMemo(
+    () =>
+      (membersData?.data ?? []).map(m => ({
+        label: `${m.name} (${m.email})`,
+        value: m.id,
+      })),
+    [membersData]
+  )
 
   function renderCaseContent() {
     if (isLoading) return <LoadingSpinner />
@@ -41,7 +56,16 @@ export default function CasesPage() {
     if (viewMode === CaseViewMode.BOARD) {
       return <CaseKanbanBoard cases={filteredCases} onCaseClick={handleCaseClick} />
     }
-    return <CaseListTable cases={filteredCases} onCaseClick={handleCaseClick} loading={isLoading} />
+    return (
+      <CaseListTable
+        cases={filteredCases}
+        onCaseClick={handleCaseClick}
+        loading={isLoading}
+        sortBy={sortField}
+        sortOrder={sortOrder}
+        onSort={handleCaseSort}
+      />
+    )
   }
 
   return (
@@ -63,6 +87,8 @@ export default function CasesPage() {
         onSeverityFilterChange={setSeverityFilter}
         sortField={sortField}
         onSortFieldChange={setSortField}
+        sortOrder={sortOrder}
+        onSortOrderChange={setSortOrder}
       />
 
       {renderCaseContent()}
@@ -71,7 +97,7 @@ export default function CasesPage() {
         open={createDialogOpen}
         onOpenChange={setCreateDialogOpen}
         onSubmit={handleCreateCase}
-        assigneeOptions={ASSIGNEE_OPTIONS}
+        assigneeOptions={assigneeOptions}
         loading={createCasePending}
       />
     </div>

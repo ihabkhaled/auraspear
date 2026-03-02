@@ -6,7 +6,7 @@ import type {
   EditTenantFormValues,
 } from '@/components/admin'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { UserRole } from '@/enums'
+import { UserRole, type SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { Tenant, TenantUser } from '@/types'
@@ -42,6 +42,8 @@ export function useTenantConfigPage() {
   const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
   const [editingTenant, setEditingTenant] = useState<Tenant | null>(null)
   const [editingUser, setEditingUser] = useState<TenantUser | null>(null)
+  const [userSortBy, setUserSortBy] = useState<string | undefined>()
+  const [userSortOrder, setUserSortOrder] = useState<SortOrder | undefined>()
 
   // Only Global Admin fetches all tenants
   const {
@@ -72,7 +74,10 @@ export function useTenantConfigPage() {
     data: usersData,
     isLoading: usersLoading,
     isError: usersError,
-  } = useTenantUsers(currentTenantId)
+  } = useTenantUsers(currentTenantId, {
+    ...(userSortBy !== undefined && { sortBy: userSortBy }),
+    ...(userSortOrder !== undefined && { sortOrder: userSortOrder }),
+  })
 
   const createTenant = useCreateTenant()
   const addUser = useAddUser()
@@ -317,6 +322,11 @@ export function useTenantConfigPage() {
     [unblockUser, currentTenantId, t, tErrors]
   )
 
+  const handleUserSort = useCallback((key: string, order: SortOrder) => {
+    setUserSortBy(key)
+    setUserSortOrder(order)
+  }, [])
+
   const handleRestoreUser = useCallback(
     async (tenantUser: TenantUser) => {
       const confirmed = await SweetAlertDialog.show({
@@ -382,5 +392,8 @@ export function useTenantConfigPage() {
     handleBlockUser,
     handleUnblockUser,
     handleRestoreUser,
+    userSortBy,
+    userSortOrder,
+    handleUserSort,
   }
 }

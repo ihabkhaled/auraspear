@@ -12,23 +12,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { IOCType } from '@/enums'
-
-interface IOCSearchBarProps {
-  onSearch: (query: string, type: IOCType) => void
-  loading?: boolean
-}
+import { IOC_SOURCE_OPTIONS, IOC_TYPE_OPTIONS } from '@/lib/constants/intel'
+import type { IOCSearchBarProps } from '@/types'
 
 export function IOCSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
   const t = useTranslations('intel')
   const [query, setQuery] = useState('')
-  const [type, setType] = useState<IOCType>(IOCType.IP)
+  const [type, setType] = useState('all')
+  const [source, setSource] = useState('all')
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (query.trim().length > 0) {
-      onSearch(query.trim(), type)
-    }
+    onSearch(query.trim(), type === 'all' ? '' : type, source === 'all' ? '' : source)
   }
 
   return (
@@ -42,19 +37,34 @@ export function IOCSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
           className="ps-9"
         />
       </div>
-      <Select value={type} onValueChange={val => setType(val as IOCType)}>
-        <SelectTrigger className="w-[140px]">
-          <SelectValue />
+      <Select value={type} onValueChange={setType}>
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder={t('search.allTypes')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={IOCType.IP}>{t('search.typeIP')}</SelectItem>
-          <SelectItem value={IOCType.HASH}>{t('search.typeHash')}</SelectItem>
-          <SelectItem value={IOCType.DOMAIN}>{t('search.typeDomain')}</SelectItem>
-          <SelectItem value={IOCType.URL}>{t('search.typeURL')}</SelectItem>
+          <SelectItem value="all">{t('search.allTypes')}</SelectItem>
+          {IOC_TYPE_OPTIONS.map(opt => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {t(opt.labelKey)}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
-      <Button type="submit" disabled={loading || query.trim().length === 0}>
-        {loading ? t('search.searching') : t('search.lookUp')}
+      <Select value={source} onValueChange={setSource}>
+        <SelectTrigger className="w-[150px]">
+          <SelectValue placeholder={t('search.allSources')} />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">{t('search.allSources')}</SelectItem>
+          {IOC_SOURCE_OPTIONS.map(opt => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {t(opt.labelKey)}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button type="submit" disabled={loading}>
+        {loading ? t('search.searching') : t('search.filter')}
       </Button>
     </form>
   )

@@ -6,16 +6,14 @@ import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import type { AlertSeverity } from '@/enums'
 import { formatRelativeTime } from '@/lib/utils'
-import type { IOCCorrelation, Column } from '@/types'
-
-interface WazuhCorrelationPanelProps {
-  correlations: IOCCorrelation[]
-  loading?: boolean
-}
+import type { IOCCorrelation, WazuhCorrelationPanelProps, Column } from '@/types'
 
 export function WazuhCorrelationPanel({
   correlations,
   loading = false,
+  sortBy,
+  sortOrder,
+  onSort,
 }: WazuhCorrelationPanelProps) {
   const t = useTranslations('intel')
 
@@ -28,6 +26,7 @@ export function WazuhCorrelationPanel({
     {
       key: 'iocType',
       label: t('correlation.type'),
+      sortable: true,
       render: value => (
         <span className="text-sm tracking-wide uppercase">{String(value ?? '')}</span>
       ),
@@ -35,11 +34,13 @@ export function WazuhCorrelationPanel({
     {
       key: 'source',
       label: t('correlation.source'),
+      sortable: true,
     },
     {
       key: 'hitCount',
       label: t('correlation.hitCount'),
       className: 'text-center',
+      sortable: true,
       render: value => (
         <span className="font-mono text-sm font-semibold">{String(value ?? '0')}</span>
       ),
@@ -47,6 +48,7 @@ export function WazuhCorrelationPanel({
     {
       key: 'lastSeen',
       label: t('correlation.lastSeen'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground text-sm">
           {formatRelativeTime(String(value ?? ''))}
@@ -56,6 +58,7 @@ export function WazuhCorrelationPanel({
     {
       key: 'severity',
       label: t('correlation.severity'),
+      sortable: true,
       render: value => <SeverityBadge severity={String(value ?? 'info') as AlertSeverity} />,
     },
   ]
@@ -68,6 +71,9 @@ export function WazuhCorrelationPanel({
       emptyMessage={t('correlation.noMatches')}
       emptyIcon={<Link2 className="h-6 w-6" />}
       emptyDescription={t('correlation.noMatchesDescription')}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSort={onSort}
     />
   )
 }

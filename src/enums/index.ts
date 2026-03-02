@@ -1,4 +1,5 @@
 export { AlertSeverity, AlertStatus } from './alert.enum'
+export { TimeRange } from './alert-filter.enum'
 export {
   CaseStatus,
   CaseSeverity,
@@ -17,6 +18,7 @@ export {
 export { HuntStatus, MessageRole, ReasoningStepStatus } from './hunt.enum'
 export { IntegrationStatus } from './integration-status.enum'
 export { IOCType } from './ioc-type.enum'
+export { IOCSource } from './ioc-source.enum'
 export { TenantEnvironment } from './tenant-environment.enum'
 export {
   UserRole,
@@ -28,3 +30,4 @@ export {
 } from './admin.enum'
 export { NotificationType } from './notification.enum'
 export { ChartType } from './chart.enum'
+export { SortOrder } from './sort-order.enum'

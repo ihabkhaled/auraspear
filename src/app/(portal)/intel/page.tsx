@@ -1,6 +1,6 @@
 'use client'
 
-import { Globe, Link2 } from 'lucide-react'
+import { Globe } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { PageHeader, Pagination, LoadingSpinner, EmptyState } from '@/components/common'
 import {
@@ -18,10 +18,16 @@ export default function IntelPage() {
   const {
     mispData,
     mispLoading,
+    mispPagination,
+    mispSortBy,
+    mispSortOrder,
+    handleMispSort,
+    iocData,
     iocLoading,
-    correlationsData,
-    correlationsLoading,
-    pagination,
+    iocPagination,
+    iocSortBy,
+    iocSortOrder,
+    handleIocSort,
     stats,
     handleIOCSearch,
   } = useIntelPage()
@@ -37,21 +43,15 @@ export default function IntelPage() {
         />
       )
     }
-    return <MISPEventFeed events={mispData?.data ?? []} loading={mispLoading} />
-  }
-
-  function renderCorrelations() {
-    if (correlationsLoading) return <LoadingSpinner />
-    if ((correlationsData?.data?.length ?? 0) === 0) {
-      return (
-        <EmptyState
-          icon={<Link2 className="h-6 w-6" />}
-          title={t('noCorrelations')}
-          description={t('noCorrelationsDescription')}
-        />
-      )
-    }
-    return <WazuhCorrelationPanel correlations={correlationsData?.data ?? []} />
+    return (
+      <MISPEventFeed
+        events={mispData?.data ?? []}
+        loading={mispLoading}
+        sortBy={mispSortBy}
+        sortOrder={mispSortOrder}
+        onSort={handleMispSort}
+      />
+    )
   }
 
   return (
@@ -64,8 +64,23 @@ export default function IntelPage() {
         <CardHeader>
           <CardTitle className="text-base">{t('search.title')}</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="space-y-4">
           <IOCSearchBar onSearch={handleIOCSearch} loading={iocLoading} />
+          <WazuhCorrelationPanel
+            correlations={iocData?.data ?? []}
+            loading={iocLoading}
+            sortBy={iocSortBy}
+            sortOrder={iocSortOrder}
+            onSort={handleIocSort}
+          />
+          {(iocData?.pagination?.totalPages ?? 0) > 1 && (
+            <Pagination
+              page={iocPagination.page}
+              totalPages={iocData?.pagination?.totalPages ?? 1}
+              onPageChange={iocPagination.setPage}
+              total={iocData?.pagination?.total ?? 0}
+            />
+          )}
         </CardContent>
       </Card>
 
@@ -76,19 +91,12 @@ export default function IntelPage() {
         <CardContent className="space-y-4">
           {renderMISPEvents()}
           <Pagination
-            page={pagination.page}
-            totalPages={pagination.totalPages}
-            onPageChange={pagination.setPage}
-            total={pagination.total}
+            page={mispPagination.page}
+            totalPages={mispPagination.totalPages}
+            onPageChange={mispPagination.setPage}
+            total={mispPagination.total}
           />
         </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">{t('correlation.title')}</CardTitle>
-        </CardHeader>
-        <CardContent>{renderCorrelations()}</CardContent>
       </Card>
     </div>
   )

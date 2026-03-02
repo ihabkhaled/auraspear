@@ -5,11 +5,18 @@ export const intelService = {
   getMISPEvents: (params?: MISPSearchParams) =>
     api.get<ApiResponse<MISPEvent[]>>('/intel/misp-events', { params }).then(r => r.data),
 
-  searchIOC: (query: string, type: string) =>
+  searchIOC: (
+    query: string,
+    type: string,
+    page = 1,
+    limit = 10,
+    sortBy?: string,
+    sortOrder?: string,
+    source?: string
+  ) =>
     api
-      .get<ApiResponse<IOCCorrelation[]>>('/intel/ioc-search', { params: { query, type } })
+      .get<ApiResponse<IOCCorrelation[]>>('/intel/ioc-search', {
+        params: { q: query, type, source, page, limit, sortBy, sortOrder },
+      })
       .then(r => r.data),
-
-  getCorrelations: () =>
-    api.get<ApiResponse<IOCCorrelation[]>>('/intel/correlations').then(r => r.data),
 }

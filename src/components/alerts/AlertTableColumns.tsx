@@ -41,6 +41,8 @@ export function getAlertColumns(
     {
       key: 'timestamp',
       label: t.common('timestamp'),
+      sortable: true,
+      defaultSortOrder: 'desc',
       render: value => (
         <span className="text-muted-foreground font-mono text-xs whitespace-nowrap">
           {formatTimestamp(String(value))}
@@ -50,6 +52,7 @@ export function getAlertColumns(
     {
       key: 'severity',
       label: t.common('severity'),
+      sortable: true,
       render: value => <SeverityBadge severity={value as AlertSeverity} />,
     },
     {
@@ -61,11 +64,13 @@ export function getAlertColumns(
     {
       key: 'agentName',
       label: t.alerts('agent'),
+      sortable: true,
       render: value => <span className="text-sm">{String(value)}</span>,
     },
     {
       key: 'sourceIp',
       label: t.alerts('sourceIp'),
+      sortable: true,
       render: value => <span className="font-mono text-xs">{String(value)}</span>,
     },
     {

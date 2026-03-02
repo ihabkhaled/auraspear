@@ -15,18 +15,11 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AlertStatus } from '@/enums'
+import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'
 import { getSeverityClass } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
-import type { Alert } from '@/types'
-
-interface AlertDetailDrawerProps {
-  alert: Alert | null
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onInvestigate?: (alert: Alert) => void
-  onCreateCase?: (alert: Alert) => void
-  onClose?: (alert: Alert) => void
-}
+import type { AlertDetailDrawerProps } from '@/types'
 
 function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -47,6 +40,25 @@ export function AlertDetailDrawer({
 }: AlertDetailDrawerProps) {
   const t = useTranslations('alerts')
   const tCommon = useTranslations('common')
+
+  const getStatusLabel = (status: string): string => {
+    switch (status) {
+      case AlertStatus.NEW_ALERT:
+        return t('statusNewAlert')
+      case AlertStatus.ACKNOWLEDGED:
+        return t('statusAcknowledged')
+      case AlertStatus.IN_PROGRESS:
+        return t('statusInProgress')
+      case AlertStatus.RESOLVED:
+        return t('statusResolved')
+      case AlertStatus.CLOSED:
+        return t('statusClosed')
+      case AlertStatus.FALSE_POSITIVE:
+        return t('statusFalsePositive')
+      default:
+        return status
+    }
+  }
 
   if (!alert) {
     return null
@@ -99,8 +111,15 @@ export function AlertDetailDrawer({
               </DetailRow>
               <Separator />
               <DetailRow label={tCommon('status')}>
-                <Badge variant="outline" className="text-xs capitalize">
-                  {alert.status}
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    'text-xs',
+                    ALERT_STATUS_CLASSES[alert.status as AlertStatus] ??
+                      'border-muted-foreground text-muted-foreground'
+                  )}
+                >
+                  {getStatusLabel(alert.status)}
                 </Badge>
               </DetailRow>
             </TabsContent>

@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { Inbox } from 'lucide-react'
+import { Inbox, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -14,6 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { SortOrder } from '@/enums'
+import { cn } from '@/lib/utils'
 import type { Column } from '@/types'
 
 interface DataTableProps<T> {
@@ -27,6 +29,9 @@ interface DataTableProps<T> {
   selectedIds?: string[] | undefined
   onSelectionChange?: ((ids: string[]) => void) | undefined
   keyField?: keyof T | undefined
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
 }
 
 function getNestedValue<T>(row: T, key: string): unknown {
@@ -36,6 +41,24 @@ function getNestedValue<T>(row: T, key: string): unknown {
     }
     return
   }, row)
+}
+
+function SortIcon({
+  colKey,
+  sortBy,
+  sortOrder,
+}: {
+  colKey: string
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+}) {
+  if (sortBy !== colKey) {
+    return <ChevronsUpDown className="ml-1 inline h-3 w-3 opacity-40" />
+  }
+  if (sortOrder === SortOrder.ASC) {
+    return <ArrowUp className="text-foreground ml-1 inline h-3 w-3" />
+  }
+  return <ArrowDown className="text-foreground ml-1 inline h-3 w-3" />
 }
 
 export function DataTable<T>({
@@ -49,6 +72,9 @@ export function DataTable<T>({
   selectedIds,
   onSelectionChange,
   keyField,
+  sortBy,
+  sortOrder,
+  onSort,
 }: DataTableProps<T>) {
   const t = useTranslations('common')
 
@@ -64,7 +90,6 @@ export function DataTable<T>({
 
   const handleSelectAll = () => {
     if (!onSelectionChange) return
-
     if (allSelected) {
       onSelectionChange([])
     } else {
@@ -77,11 +102,20 @@ export function DataTable<T>({
 
   const handleSelectRow = (id: string) => {
     if (!onSelectionChange || !selectedIds) return
-
     if (selectedIds.includes(id)) {
       onSelectionChange(selectedIds.filter(sid => sid !== id))
     } else {
       onSelectionChange([...selectedIds, id])
+    }
+  }
+
+  const handleSortClick = (colKey: string) => {
+    if (!onSort) return
+    if (sortBy === colKey) {
+      onSort(colKey, sortOrder === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC)
+    } else {
+      const col = columns.find(c => String(c.key) === colKey)
+      onSort(colKey, col?.defaultSortOrder === 'asc' ? SortOrder.ASC : SortOrder.DESC)
     }
   }
 
@@ -142,11 +176,22 @@ export function DataTable<T>({
                 />
               </TableHead>
             )}
-            {columns.map(col => (
-              <TableHead key={String(col.key)} className={col.className}>
-                {col.label}
-              </TableHead>
-            ))}
+            {columns.map(col => {
+              const key = String(col.key)
+              const isSortable = col.sortable === true && Boolean(onSort)
+              return (
+                <TableHead
+                  key={key}
+                  className={cn(col.className, isSortable && 'cursor-pointer select-none')}
+                  onClick={isSortable ? () => handleSortClick(key) : undefined}
+                >
+                  <span className="inline-flex items-center">
+                    {col.label}
+                    {isSortable && <SortIcon colKey={key} sortBy={sortBy} sortOrder={sortOrder} />}
+                  </span>
+                </TableHead>
+              )
+            })}
           </TableRow>
         </TableHeader>
         <TableBody>

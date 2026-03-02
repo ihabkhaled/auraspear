@@ -1,19 +1,28 @@
-export interface MISPTag {
-  id: string
-  name: string
-  color: string
-}
+import type { SortOrder } from '@/enums'
 
 export interface MISPEvent {
   id: string
-  eventId: string
+  mispEventId: string
   organization: string
   threatLevel: string
   info: string
   date: string
-  tags: MISPTag[]
+  tags: string[]
   attributeCount: number
   published: boolean
+}
+
+export interface MISPEventFeedProps {
+  events: MISPEvent[]
+  loading?: boolean
+  onEventClick?: (event: MISPEvent) => void
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
+}
+
+export interface MISPTagPillProps {
+  name: string
 }
 
 export interface IOCCorrelation {
@@ -22,8 +31,27 @@ export interface IOCCorrelation {
   iocType: string
   source: string
   hitCount: number
+  firstSeen?: string
   lastSeen: string
+  tags?: string[]
   severity: string
+}
+
+export interface WazuhCorrelationPanelProps {
+  correlations: IOCCorrelation[]
+  loading?: boolean
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
+}
+
+export interface IOCSearchBarProps {
+  onSearch: (query: string, type: string, source: string) => void
+  loading?: boolean
+}
+
+export interface IntelStatsGridProps {
+  stats: IntelStats
 }
 
 export interface IntelStats {
@@ -42,4 +70,6 @@ export interface MISPSearchParams {
   limit?: number
   query?: string
   threatLevel?: string
+  sortBy?: string
+  sortOrder?: SortOrder
 }

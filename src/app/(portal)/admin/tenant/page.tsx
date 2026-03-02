@@ -56,6 +56,9 @@ export default function TenantConfigPage() {
     handleBlockUser,
     handleUnblockUser,
     handleRestoreUser,
+    userSortBy,
+    userSortOrder,
+    handleUserSort,
   } = useTenantConfigPage()
 
   function renderTenants() {
@@ -106,6 +109,9 @@ export default function TenantConfigPage() {
         showActions={canManageUsers}
         callerRole={userRole}
         currentUserId={currentUserId}
+        sortBy={userSortBy}
+        sortOrder={userSortOrder}
+        onSort={handleUserSort}
       />
     )
   }

@@ -21,6 +21,10 @@ export type {
   SeverityCount,
   AlertColumnTranslations,
   GetAlertColumnsOptions,
+  AlertDetailDrawerProps,
+  AlertFilterSidebarProps,
+  AlertRowActionsProps,
+  AIInvestigationModalProps,
 } from './alert.types'
 export type {
   Case,
@@ -30,12 +34,23 @@ export type {
   CreateCaseInput,
   UpdateCaseInput,
   CaseSearchParams,
+  CaseListTableProps,
+  CreateCaseFormValues,
+  CreateCaseDialogProps,
+  CaseDetailHeaderProps,
+  CaseKanbanCardProps,
+  CaseDetailPageProps,
+  CaseToolbarProps,
 } from './case.types'
 export type { HuntSession, HuntMessage, HuntEvent, ReasoningStep } from './hunt.types'
 export type {
   MISPEvent,
-  MISPTag,
+  MISPEventFeedProps,
+  MISPTagPillProps,
   IOCCorrelation,
+  WazuhCorrelationPanelProps,
+  IOCSearchBarProps,
+  IntelStatsGridProps,
   IntelStats,
   MISPSearchParams,
 } from './intel.types'
@@ -45,10 +60,13 @@ export type {
   TenantUserTableProps,
   ServiceHealth,
   AuditLogEntry,
+  AuditLogTableProps,
   IntegrationConfig,
   AuditLogParams,
+  TenantUserListParams,
   CreateTenantInput,
   AddUserInput,
+  TenantMember,
 } from './admin.types'
 export type {
   DashboardKPI,
@@ -72,6 +90,6 @@ export type {
   ChangePasswordInput,
   PreferencesResponse,
 } from './profile.types'
-export type { NavItem, NavSection } from './layout.types'
+export type { NavItem, NavSection, SidebarHealthFooterProps } from './layout.types'
 export type { SeverityDataPoint } from './chart.types'
 export type { AuthStorageState, TenantStorageState } from './storage.types'

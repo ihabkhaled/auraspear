@@ -7,7 +7,9 @@ import type {
   CreateTenantInput,
   ServiceHealth,
   Tenant,
+  TenantMember,
   TenantUser,
+  TenantUserListParams,
 } from '@/types'
 
 export const adminService = {
@@ -18,8 +20,10 @@ export const adminService = {
   createTenant: (data: CreateTenantInput) =>
     api.post<ApiResponse<Tenant>>('/admin/tenants', data).then(r => r.data),
 
-  getUsers: (tenantId: string) =>
-    api.get<ApiResponse<TenantUser[]>>(`/admin/tenants/${tenantId}/users`).then(r => r.data),
+  getUsers: (tenantId: string, params?: TenantUserListParams) =>
+    api
+      .get<ApiResponse<TenantUser[]>>(`/admin/tenants/${tenantId}/users`, { params })
+      .then(r => r.data),
 
   addUser: (tenantId: string, data: AddUserInput) =>
     api.post<ApiResponse<TenantUser>>(`/admin/tenants/${tenantId}/users`, data).then(r => r.data),
@@ -63,4 +67,6 @@ export const adminService = {
     api
       .post<ApiResponse<TenantUser>>(`/admin/tenants/${tenantId}/users/${userId}/restore`)
       .then(r => r.data),
+
+  getMembers: () => api.get<ApiResponse<TenantMember[]>>('/members').then(r => r.data),
 }

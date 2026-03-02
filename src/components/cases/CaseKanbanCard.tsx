@@ -4,22 +4,11 @@ import { Link2, Clock } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { CaseStatus, CaseSeverity } from '@/enums'
+import { CaseStatus } from '@/enums'
 import { getInitials } from '@/lib/case.utils'
+import { CASE_SEVERITY_BORDER_COLORS } from '@/lib/constants/cases'
 import { cn, formatRelativeTime } from '@/lib/utils'
-import type { Case } from '@/types'
-
-interface CaseKanbanCardProps {
-  caseItem: Case
-  onClick?: ((caseItem: Case) => void) | undefined
-}
-
-const severityBorderColors: Record<CaseSeverity, string> = {
-  [CaseSeverity.CRITICAL]: 'var(--severity-critical)',
-  [CaseSeverity.HIGH]: 'var(--severity-high)',
-  [CaseSeverity.MEDIUM]: 'var(--severity-medium)',
-  [CaseSeverity.LOW]: 'var(--severity-low)',
-}
+import type { CaseKanbanCardProps } from '@/types'
 
 export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
   const t = useTranslations('cases')
@@ -43,7 +32,7 @@ export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
     >
       <div
         className="absolute inset-y-0 start-0 w-1"
-        style={{ backgroundColor: severityBorderColors[caseItem.severity] }}
+        style={{ backgroundColor: CASE_SEVERITY_BORDER_COLORS[caseItem.severity] }}
       />
 
       <div className="flex flex-col gap-2.5 p-3 ps-4">
@@ -57,16 +46,16 @@ export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-2">
             <Avatar size="sm">
-              <AvatarFallback>{getInitials(caseItem.assignee)}</AvatarFallback>
+              <AvatarFallback>{getInitials(caseItem.createdBy ?? '')}</AvatarFallback>
             </Avatar>
-            <span className="text-muted-foreground text-xs">{caseItem.assignee}</span>
+            <span className="text-muted-foreground text-xs">{caseItem.createdBy ?? '—'}</span>
           </div>
 
           <div className="text-muted-foreground flex items-center gap-3 text-xs">
-            {(caseItem.linkedAlertIds?.length ?? 0) > 0 && (
+            {(caseItem.linkedAlerts?.length ?? 0) > 0 && (
               <span className="flex items-center gap-1">
                 <Link2 className="h-3 w-3" />
-                {t('linkedAlerts', { count: caseItem.linkedAlertIds?.length ?? 0 })}
+                {t('linkedAlerts', { count: caseItem.linkedAlerts?.length ?? 0 })}
               </span>
             )}
             <span className="flex items-center gap-1">

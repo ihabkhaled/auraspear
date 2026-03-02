@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -24,26 +23,8 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { CaseSeverity } from '@/enums'
-import type { SelectOption } from '@/types'
-
-interface CreateCaseDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: CreateCaseFormValues) => void
-  assigneeOptions: SelectOption[]
-  loading?: boolean
-}
-
-const createCaseSchema = z.object({
-  title: z.string().min(5),
-  description: z.string().min(10),
-  severity: z.nativeEnum(CaseSeverity),
-  assignee: z.string().min(1),
-})
-
-type CreateCaseFormValues = z.infer<typeof createCaseSchema>
-
-export type { CreateCaseFormValues }
+import { createCaseSchema } from '@/lib/validation/cases.schema'
+import type { CreateCaseDialogProps, CreateCaseFormValues } from '@/types'
 
 export function CreateCaseDialog({
   open,
@@ -66,7 +47,6 @@ export function CreateCaseDialog({
       title: '',
       description: '',
       severity: CaseSeverity.MEDIUM,
-      assignee: '',
     },
   })
 
@@ -84,13 +64,13 @@ export function CreateCaseDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-lg">
+      <DialogContent className="overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('createCase')}</DialogTitle>
           <DialogDescription>{t('createCaseDescription')}</DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="flex min-w-0 flex-col gap-4">
           <div className="flex flex-col gap-2">
             <Label htmlFor="case-title">{t('fieldTitle')}</Label>
             <Input
@@ -109,13 +89,14 @@ export function CreateCaseDialog({
               {...register('description')}
               placeholder={t('fieldDescriptionPlaceholder')}
               aria-invalid={errors.description ? true : undefined}
+              className="resize-none break-words"
             />
             {errors.description && (
               <p className="text-destructive text-xs">{t('validationDescriptionMin')}</p>
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label>{t('fieldSeverity')}</Label>
               <Controller
@@ -147,8 +128,8 @@ export function CreateCaseDialog({
                 name="assignee"
                 control={control}
                 render={({ field }) => (
-                  <Select value={field.value} onValueChange={field.onChange}>
-                    <SelectTrigger>
+                  <Select value={field.value ?? ''} onValueChange={field.onChange}>
+                    <SelectTrigger className="w-full overflow-hidden *:data-[slot=select-value]:!block *:data-[slot=select-value]:truncate">
                       <SelectValue placeholder={t('fieldAssigneePlaceholder')} />
                     </SelectTrigger>
                     <SelectContent>

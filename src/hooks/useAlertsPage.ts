@@ -1,11 +1,15 @@
+'use client'
+
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getAlertColumns } from '@/components/alerts'
 import { Toast } from '@/components/common'
-import { SEVERITY_ORDER } from '@/lib/alert.utils'
+import { SortOrder, type TimeRange, type AlertSeverity } from '@/enums'
+import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
 import { useFilterStore } from '@/stores'
-import type { Alert, AIInvestigation, AlertSearchParams } from '@/types'
+import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
 import { useAlerts, useInvestigateAlert } from './useAlerts'
+import { useCreateCase, useTenantMembers } from './useCases'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 
@@ -24,29 +28,79 @@ export function useAlertsPage() {
 
   const [agentFilter, setAgentFilter] = useState('')
   const [ruleGroup, setRuleGroup] = useState('')
+  const [sortBy, setSortBy] = useState('timestamp')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [selectedAlert, setSelectedAlert] = useState<Alert | null>(null)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [investigation, setInvestigation] = useState<AIInvestigation | null>(null)
   const [investigationOpen, setInvestigationOpen] = useState(false)
+  const [createCaseOpen, setCreateCaseOpen] = useState(false)
+  const [createCaseAlert, setCreateCaseAlert] = useState<Alert | null>(null)
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
   const debouncedQuery = useDebounce(kqlQuery, 400)
+  const debouncedAgentFilter = useDebounce(agentFilter, 400)
+  const debouncedRuleGroup = useDebounce(ruleGroup, 400)
+
+  // Parse KQL query: field:value tokens are extracted and sent as dedicated params
+  const parsed = parseKQLQuery(debouncedQuery)
 
   const searchParams: AlertSearchParams = {
     page: pagination.page,
     limit: pagination.limit,
     timeRange,
+    sortBy,
+    sortOrder,
   }
-  if (selectedSeverities.length > 0) {
-    searchParams.severity = selectedSeverities
+
+  // KQL-parsed severity takes precedence over checkbox selection when present
+  if (parsed.severity) {
+    searchParams.severity = parsed.severity
+  } else if (selectedSeverities.length > 0) {
+    searchParams.severity = selectedSeverities.join(',')
   }
-  if (debouncedQuery.length > 0) {
-    searchParams.query = debouncedQuery
+
+  if (parsed.status) {
+    searchParams.status = parsed.status
+  }
+
+  if (parsed.source) {
+    searchParams.source = parsed.source
+  }
+
+  // KQL-parsed agentName takes precedence over dedicated agent filter
+  if (parsed.agentName) {
+    searchParams.agentName = parsed.agentName
+  } else if (debouncedAgentFilter.length > 0) {
+    searchParams.agentName = debouncedAgentFilter
+  }
+
+  // KQL-parsed ruleGroup takes precedence over dedicated rule group filter
+  if (parsed.ruleGroup) {
+    searchParams.ruleGroup = parsed.ruleGroup
+  } else if (debouncedRuleGroup.length > 0) {
+    searchParams.ruleGroup = debouncedRuleGroup
+  }
+
+  // Only send the free-text portion (non-field tokens) as full-text query
+  if (parsed.query && parsed.query.length > 0) {
+    searchParams.query = parsed.query
   }
 
   const { data, isLoading } = useAlerts(searchParams)
+  const { data: membersData } = useTenantMembers()
+
+  const assigneeOptions = useMemo(
+    () =>
+      (membersData?.data ?? []).map(m => ({
+        label: `${m.name} (${m.email})`,
+        value: m.id,
+      })),
+    [membersData]
+  )
 
   const investigateMutation = useInvestigateAlert()
+  const createCaseMutation = useCreateCase()
 
   useEffect(() => {
     if (data?.pagination) {
@@ -82,6 +136,36 @@ export function useAlertsPage() {
     [investigateMutation, t]
   )
 
+  const handleCreateCase = useCallback((alert: Alert) => {
+    setCreateCaseAlert(alert)
+    setCreateCaseOpen(true)
+  }, [])
+
+  const handleCreateCaseSubmit = useCallback(
+    (formData: CreateCaseFormValues) => {
+      createCaseMutation.mutate(
+        {
+          title: formData.title,
+          description: formData.description,
+          severity: formData.severity,
+          ...(formData.assignee ? { ownerUserId: formData.assignee } : {}),
+          linkedAlertIds: createCaseAlert ? [createCaseAlert.id] : [],
+        },
+        {
+          onSuccess: () => {
+            setCreateCaseOpen(false)
+            setCreateCaseAlert(null)
+            Toast.success(t('createCaseSuccess'))
+          },
+          onError: () => {
+            Toast.error(t('createCaseError'))
+          },
+        }
+      )
+    },
+    [createCaseMutation, createCaseAlert, t]
+  )
+
   const handleCopyId = useCallback(
     (id: string) => {
       void navigator.clipboard.writeText(id)
@@ -90,9 +174,35 @@ export function useAlertsPage() {
     [tCommon]
   )
 
+  // Wrap filter store setters to reset page on every filter change
+  const handleTimeRangeChange = useCallback(
+    (range: TimeRange) => {
+      pagination.setPage(1)
+      setTimeRange(range)
+    },
+    [pagination, setTimeRange]
+  )
+
+  const handleSeverityChange = useCallback(
+    (severities: AlertSeverity[]) => {
+      pagination.setPage(1)
+      setSeverity(severities)
+    },
+    [pagination, setSeverity]
+  )
+
   const handleSearchSubmit = useCallback(() => {
     pagination.setPage(1)
   }, [pagination])
+
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
+    },
+    [pagination]
+  )
 
   const columns = useMemo(() => {
     return getAlertColumns(
@@ -100,16 +210,17 @@ export function useAlertsPage() {
       {
         onView: handleRowClick,
         onInvestigate: handleInvestigate,
+        onCreateCase: handleCreateCase,
         onCopyId: handleCopyId,
       }
     )
-  }, [t, tCommon, handleRowClick, handleInvestigate, handleCopyId])
+  }, [t, tCommon, handleRowClick, handleInvestigate, handleCreateCase, handleCopyId])
 
   return {
     selectedSeverities,
-    setSeverity,
+    setSeverity: handleSeverityChange,
     timeRange,
-    setTimeRange,
+    setTimeRange: handleTimeRangeChange,
     kqlQuery,
     setKqlQuery,
     agentFilter,
@@ -122,6 +233,13 @@ export function useAlertsPage() {
     investigation,
     investigationOpen,
     setInvestigationOpen,
+    createCaseOpen,
+    setCreateCaseOpen,
+    createCasePending: createCaseMutation.isPending,
+    handleCreateCaseSubmit,
+    handleCreateCase,
+    assigneeOptions,
+    createCaseAlert,
     isLoading,
     data,
     pagination,
@@ -130,5 +248,8 @@ export function useAlertsPage() {
     handleRowClick,
     handleInvestigate,
     handleSearchSubmit,
+    sortBy,
+    sortOrder,
+    handleSort,
   }
 }

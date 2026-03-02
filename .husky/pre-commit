@@ -1,2 +1,5 @@
-npm run lint-staged
-npm run build
+echo "HUSKY PRE-COMMIT RUNNING"
+
+npm run lint-staged || exit 1
+npm run typecheck || exit 1
+npm run build || exit 1

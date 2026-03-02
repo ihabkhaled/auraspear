@@ -4,20 +4,22 @@ import { ScrollText } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { formatTimestamp } from '@/lib/utils'
-import type { AuditLogEntry, Column } from '@/types'
+import type { AuditLogEntry, AuditLogTableProps, Column } from '@/types'
 
-interface AuditLogTableProps {
-  logs: AuditLogEntry[]
-  loading?: boolean
-}
-
-export function AuditLogTable({ logs, loading = false }: AuditLogTableProps) {
+export function AuditLogTable({
+  logs,
+  loading = false,
+  sortBy,
+  sortOrder,
+  onSort,
+}: AuditLogTableProps) {
   const t = useTranslations('admin')
 
   const columns: Column<AuditLogEntry>[] = [
     {
       key: 'createdAt',
       label: t('audit.timestamp'),
+      sortable: true,
       render: value => (
         <span className="font-mono text-xs">{formatTimestamp(String(value ?? ''))}</span>
       ),
@@ -55,6 +57,9 @@ export function AuditLogTable({ logs, loading = false }: AuditLogTableProps) {
       emptyMessage={t('audit.noLogs')}
       emptyIcon={<ScrollText className="h-6 w-6" />}
       emptyDescription={t('audit.noLogsDescription')}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSort={onSort}
     />
   )
 }

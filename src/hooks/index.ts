@@ -8,7 +8,7 @@ export {
 export { useAlerts, useAlert, useInvestigateAlert } from './useAlerts'
 export { useCases, useCase, useCreateCase, useUpdateCase } from './useCases'
 export { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'
-export { useMISPEvents, useIOCSearch, useCorrelations } from './useIntel'
+export { useMISPEvents, useIOCSearch } from './useIntel'
 export {
   useTenants,
   useCurrentTenant,
@@ -40,3 +40,4 @@ export { useIntelPage } from './useIntelPage'
 export { useConnectorDetailPage } from './useConnectorDetailPage'
 export { useSystemAdminPage } from './useSystemAdminPage'
 export { useTenantConfigPage } from './useTenantConfigPage'
+export { useSidebarHealth } from './useSidebarHealth'

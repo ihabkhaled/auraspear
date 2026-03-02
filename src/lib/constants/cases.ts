@@ -1,5 +1,18 @@
 import { CaseSeverity, CaseStatus } from '@/enums'
 
+export const CASE_STATUS_LABEL_KEYS: Record<CaseStatus, string> = {
+  [CaseStatus.OPEN]: 'statusOpen',
+  [CaseStatus.IN_PROGRESS]: 'statusInProgress',
+  [CaseStatus.CLOSED]: 'statusClosed',
+}
+
+export const CASE_SEVERITY_BORDER_COLORS: Record<CaseSeverity, string> = {
+  [CaseSeverity.CRITICAL]: 'var(--severity-critical)',
+  [CaseSeverity.HIGH]: 'var(--severity-high)',
+  [CaseSeverity.MEDIUM]: 'var(--severity-medium)',
+  [CaseSeverity.LOW]: 'var(--severity-low)',
+}
+
 export const ASSIGNEE_OPTIONS = [
   { label: 'Ahmed Al-Rashid', value: 'ahmed' },
   { label: 'Fatima Hassan', value: 'fatima' },

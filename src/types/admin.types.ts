@@ -1,4 +1,4 @@
-import type { IntegrationStatus, UserRole, UserStatus, ServiceStatus } from '@/enums'
+import type { IntegrationStatus, UserRole, UserStatus, ServiceStatus, SortOrder } from '@/enums'
 
 export interface TenantUserTableProps {
   users: TenantUser[]
@@ -12,6 +12,9 @@ export interface TenantUserTableProps {
   showActions?: boolean
   callerRole?: UserRole | undefined
   currentUserId?: string | undefined
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
 }
 
 export interface Tenant {
@@ -54,6 +57,14 @@ export interface AuditLogEntry {
   details?: string | null
 }
 
+export interface AuditLogTableProps {
+  logs: AuditLogEntry[]
+  loading?: boolean
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
+}
+
 export interface IntegrationConfig {
   id: string
   name: string
@@ -67,6 +78,15 @@ export interface AuditLogParams {
   limit?: number
   actor?: string
   action?: string
+  sortBy?: string
+  sortOrder?: SortOrder
+}
+
+export interface TenantUserListParams {
+  sortBy?: string
+  sortOrder?: SortOrder
+  role?: string
+  status?: string
 }
 
 export interface CreateTenantInput {
@@ -79,4 +99,11 @@ export interface AddUserInput {
   name: string
   password: string
   role: string
+}
+
+/** Lightweight user info returned by GET /members for assignee pickers. */
+export interface TenantMember {
+  id: string
+  name: string
+  email: string
 }

@@ -1,9 +1,9 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { CreateCaseFormValues } from '@/components/cases'
 import { Toast } from '@/components/common'
-import { CaseViewMode, CaseSortField } from '@/enums'
+import { CaseViewMode, CaseSortField, SortOrder } from '@/enums'
 import type { CaseSeverity } from '@/enums'
 import type { Case } from '@/types'
 import { useCases, useCreateCase } from './useCases'
@@ -15,21 +15,16 @@ export function useCasesPage() {
   const [viewMode, setViewMode] = useState(CaseViewMode.BOARD)
   const [severityFilter, setSeverityFilter] = useState<CaseSeverity | undefined>()
   const [sortField, setSortField] = useState(CaseSortField.UPDATED)
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
 
   const { data, isLoading } = useCases(
     severityFilter === undefined
-      ? { sortBy: sortField }
-      : { severity: severityFilter, sortBy: sortField }
+      ? { sortBy: sortField, sortOrder }
+      : { severity: severityFilter, sortBy: sortField, sortOrder }
   )
 
   const createCase = useCreateCase()
-
-  const filteredCases = useMemo(() => {
-    const cases = data?.data ?? []
-    if (severityFilter === undefined) return cases
-    return cases.filter(c => c.severity === severityFilter)
-  }, [data?.data, severityFilter])
 
   const handleCaseClick = useCallback(
     (caseItem: Case) => {
@@ -45,7 +40,7 @@ export function useCasesPage() {
           title: formData.title,
           description: formData.description,
           severity: formData.severity,
-          assignee: formData.assignee,
+          ...(formData.assignee ? { ownerUserId: formData.assignee } : {}),
         },
         {
           onSuccess: () => {
@@ -61,6 +56,11 @@ export function useCasesPage() {
     [createCase, t]
   )
 
+  const handleCaseSort = useCallback((key: string, order: SortOrder) => {
+    setSortField(key as CaseSortField)
+    setSortOrder(order)
+  }, [])
+
   return {
     viewMode,
     setViewMode,
@@ -68,12 +68,15 @@ export function useCasesPage() {
     setSeverityFilter,
     sortField,
     setSortField,
+    sortOrder,
+    setSortOrder,
     createDialogOpen,
     setCreateDialogOpen,
     isLoading,
-    filteredCases,
+    filteredCases: data?.data ?? [],
     createCasePending: createCase.isPending,
     handleCaseClick,
     handleCreateCase,
+    handleCaseSort,
   }
 }

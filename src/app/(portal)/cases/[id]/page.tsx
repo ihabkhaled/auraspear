@@ -2,19 +2,17 @@
 
 import { use, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, FileQuestion } from 'lucide-react'
+import { ArrowLeft, FileQuestion, Link } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { CaseDetailHeader, CaseTimeline, CaseTaskList, CaseArtifactPanel } from '@/components/cases'
 import { LoadingSpinner, EmptyState, Toast } from '@/components/common'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { CaseStatus } from '@/enums'
 import { useCase, useUpdateCase } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
-
-interface CaseDetailPageProps {
-  params: Promise<{ id: string }>
-}
+import type { CaseDetailPageProps } from '@/types'
 
 export default function CaseDetailPage({ params }: CaseDetailPageProps) {
   const { id } = use(params)
@@ -24,6 +22,8 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
   const { data, isLoading, isError } = useCase(id)
   const updateCase = useUpdateCase()
   const caseItem = data?.data
+
+  const ownerName = caseItem?.ownerName ?? undefined
 
   const handleStatusChange = useCallback(
     (status: CaseStatus) => {
@@ -73,7 +73,11 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         {t('backToCases')}
       </Button>
 
-      <CaseDetailHeader caseItem={caseItem} onStatusChange={handleStatusChange} />
+      <CaseDetailHeader
+        caseItem={caseItem}
+        ownerName={ownerName}
+        onStatusChange={handleStatusChange}
+      />
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Timeline - wider left column */}
@@ -88,8 +92,31 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
           </Card>
         </div>
 
-        {/* Tasks + Artifacts - right column */}
+        {/* Tasks + Artifacts + Linked Alerts - right column */}
         <div className="flex flex-col gap-6">
+          {caseItem.linkedAlerts.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-base">
+                  <Link className="h-4 w-4" />
+                  {t('linkedAlerts')}
+                  <Badge variant="secondary">{caseItem.linkedAlerts.length}</Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2">
+                  {caseItem.linkedAlerts.map(alertId => (
+                    <li key={alertId} className="flex items-center gap-2">
+                      <span className="bg-muted text-muted-foreground rounded px-2 py-0.5 font-mono text-xs">
+                        {alertId}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+
           <Card>
             <CardHeader>
               <CardTitle className="text-base">{t('tasks')}</CardTitle>

@@ -17,6 +17,8 @@ export interface Column<T> {
   key: keyof T | string
   label: string
   sortable?: boolean
+  /** Default sort direction when this column is first clicked. Defaults to ASC. */
+  defaultSortOrder?: 'asc' | 'desc'
   className?: string
   render?: (value: unknown, row: T) => React.ReactNode
 }

@@ -10,15 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import type { Alert } from '@/types'
-
-interface AlertRowActionsProps {
-  alert: Alert
-  onView?: ((alert: Alert) => void) | undefined
-  onInvestigate?: ((alert: Alert) => void) | undefined
-  onCreateCase?: ((alert: Alert) => void) | undefined
-  onCopyId?: ((id: string) => void) | undefined
-}
+import type { AlertRowActionsProps } from '@/types'
 
 export function AlertRowActions({
   alert,
@@ -32,27 +24,27 @@ export function AlertRowActions({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild onClick={e => e.stopPropagation()}>
         <Button variant="ghost" size="icon-xs">
           <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">{tCommon('actions')}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => onView?.(alert)}>
+      <DropdownMenuContent align="end" onClick={e => e.stopPropagation()}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => onView?.(alert)}>
           <Eye className="h-4 w-4" />
           {tCommon('view')}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onInvestigate?.(alert)}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => onInvestigate?.(alert)}>
           <Brain className="h-4 w-4" />
           {t('investigate')}
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onCreateCase?.(alert)}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => onCreateCase?.(alert)}>
           <Briefcase className="h-4 w-4" />
           {t('createCase')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => onCopyId?.(alert.id)}>
+        <DropdownMenuItem className="cursor-pointer" onClick={() => onCopyId?.(alert.id)}>
           <Copy className="h-4 w-4" />
           {tCommon('copyId')}
         </DropdownMenuItem>

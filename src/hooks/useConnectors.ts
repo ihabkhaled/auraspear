@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tansta
 import { connectorService } from '@/services/connector.service'
 
 const CONNECTORS_KEY = ['connectors'] as const
+const HEALTH_KEY = ['admin', 'service-health'] as const
 
 export function useConnectors() {
   return useQuery({
@@ -28,6 +29,7 @@ export function useUpdateConnector(type: string) {
     mutationFn: (data: Record<string, unknown>) => connectorService.update(type, data),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
     },
   })
 }
@@ -39,6 +41,7 @@ export function useDeleteConnector() {
     mutationFn: (type: string) => connectorService.remove(type),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
     },
   })
 }
@@ -50,6 +53,7 @@ export function useTestConnector() {
     mutationFn: (type: string) => connectorService.test(type),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
     },
   })
 }
@@ -62,6 +66,7 @@ export function useToggleConnector() {
       connectorService.toggle(type, enabled),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
     },
   })
 }

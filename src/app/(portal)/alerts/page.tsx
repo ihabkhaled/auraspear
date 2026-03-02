@@ -8,6 +8,7 @@ import {
   AlertDetailDrawer,
   AIInvestigationModal,
 } from '@/components/alerts'
+import { CreateCaseDialog } from '@/components/cases'
 import { PageHeader, DataTable, Pagination, LoadingSpinner } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
@@ -33,6 +34,12 @@ export default function AlertsPage() {
     investigation,
     investigationOpen,
     setInvestigationOpen,
+    createCaseOpen,
+    setCreateCaseOpen,
+    createCasePending,
+    handleCreateCaseSubmit,
+    handleCreateCase,
+    assigneeOptions,
     isLoading,
     data,
     pagination,
@@ -41,6 +48,9 @@ export default function AlertsPage() {
     handleRowClick,
     handleInvestigate,
     handleSearchSubmit,
+    sortBy,
+    sortOrder,
+    handleSort,
   } = useAlertsPage()
 
   return (
@@ -107,6 +117,9 @@ export default function AlertsPage() {
               emptyMessage={t('noAlerts')}
               emptyIcon={<ShieldAlert className="h-6 w-6" />}
               emptyDescription={t('emptyDescription')}
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSort={handleSort}
             />
           )}
 
@@ -124,6 +137,10 @@ export default function AlertsPage() {
         open={drawerOpen}
         onOpenChange={setDrawerOpen}
         onInvestigate={handleInvestigate}
+        onCreateCase={alert => {
+          setDrawerOpen(false)
+          handleCreateCase(alert)
+        }}
         onClose={() => setDrawerOpen(false)}
       />
 
@@ -131,6 +148,14 @@ export default function AlertsPage() {
         investigation={investigation}
         open={investigationOpen}
         onOpenChange={setInvestigationOpen}
+      />
+
+      <CreateCaseDialog
+        open={createCaseOpen}
+        onOpenChange={setCreateCaseOpen}
+        onSubmit={handleCreateCaseSubmit}
+        assigneeOptions={assigneeOptions}
+        loading={createCasePending}
       />
     </div>
   )

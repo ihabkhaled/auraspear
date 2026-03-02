@@ -33,6 +33,9 @@ export function TenantUserTable({
   showActions = false,
   callerRole,
   currentUserId = '',
+  sortBy,
+  sortOrder,
+  onSort,
 }: TenantUserTableProps) {
   const t = useTranslations('admin')
   const tCommon = useTranslations('common')
@@ -41,6 +44,7 @@ export function TenantUserTable({
     {
       key: 'name',
       label: t('users.name'),
+      sortable: true,
       render: (_value, row) => (
         <div className="flex items-center gap-3">
           <Avatar className="h-8 w-8">
@@ -59,6 +63,7 @@ export function TenantUserTable({
     {
       key: 'role',
       label: t('users.role'),
+      sortable: true,
       render: value => (
         <Badge variant="outline" className={cn('capitalize', getRoleBadgeClass(value as UserRole))}>
           {String(value ?? '')}
@@ -68,6 +73,7 @@ export function TenantUserTable({
     {
       key: 'status',
       label: t('users.status'),
+      sortable: true,
       render: value => {
         const status = value as UserStatus
         const isActive = status === UserStatus.ACTIVE
@@ -106,6 +112,7 @@ export function TenantUserTable({
     {
       key: 'lastLoginAt',
       label: t('users.lastLogin'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground text-sm">
           {value ? formatRelativeTime(String(value)) : t('users.never')}
@@ -238,6 +245,9 @@ export function TenantUserTable({
       emptyMessage={t('users.noUsers')}
       emptyIcon={<Users className="h-6 w-6" />}
       emptyDescription={t('users.noUsersDescription')}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSort={onSort}
     />
   )
 }

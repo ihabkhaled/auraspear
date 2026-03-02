@@ -6,6 +6,17 @@ export const STATUS_VARIANT_MAP: Record<CaseStatus, 'default' | 'secondary' | 'o
   [CaseStatus.CLOSED]: 'outline',
 }
 
+export function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
+  switch (status) {
+    case CaseStatus.OPEN:
+      return [CaseStatus.IN_PROGRESS, CaseStatus.CLOSED]
+    case CaseStatus.IN_PROGRESS:
+      return [CaseStatus.CLOSED]
+    case CaseStatus.CLOSED:
+      return []
+  }
+}
+
 export function getInitials(name?: string | null): string {
   if (!name) return 'U'
   return name

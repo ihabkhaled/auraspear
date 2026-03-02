@@ -1,4 +1,4 @@
-import type { AlertSeverity, AlertStatus } from '@/enums'
+import type { AlertSeverity, AlertStatus, SortOrder, TimeRange } from '@/enums'
 
 export interface Alert {
   id: string
@@ -21,23 +21,26 @@ export interface Alert {
 export interface AlertSearchParams {
   page?: number
   limit?: number
-  severity?: AlertSeverity[]
-  status?: AlertStatus[]
+  severity?: string
+  status?: string
   query?: string
-  timeRange?: string
-  agentId?: string
+  timeRange?: TimeRange
+  agentName?: string
+  ruleGroup?: string
+  source?: string
   sortBy?: string
-  sortOrder?: 'asc' | 'desc'
+  sortOrder?: SortOrder
 }
 
 export interface AIInvestigation {
-  alertId: string
-  verdict: string
+  result: string
+  reasoning: string[]
   confidence: number
-  reasoning: string
-  recommendations: string[]
-  relatedAlerts: string[]
-  mitreTechniques: string[]
+  model: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
 }
 
 export interface SeverityCount {
@@ -55,4 +58,39 @@ export interface GetAlertColumnsOptions {
   onInvestigate?: (alert: Alert) => void
   onCreateCase?: (alert: Alert) => void
   onCopyId?: (id: string) => void
+}
+
+export interface AlertDetailDrawerProps {
+  alert: Alert | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onInvestigate?: (alert: Alert) => void
+  onCreateCase?: (alert: Alert) => void
+  onClose?: (alert: Alert) => void
+}
+
+export interface AlertFilterSidebarProps {
+  timeRange: TimeRange
+  onTimeRangeChange: (range: TimeRange) => void
+  selectedSeverities: AlertSeverity[]
+  onSeverityChange: (severities: AlertSeverity[]) => void
+  severityCounts: SeverityCount[]
+  agentFilter: string
+  onAgentFilterChange: (value: string) => void
+  ruleGroup: string
+  onRuleGroupChange: (value: string) => void
+}
+
+export interface AlertRowActionsProps {
+  alert: Alert
+  onView?: ((alert: Alert) => void) | undefined
+  onInvestigate?: ((alert: Alert) => void) | undefined
+  onCreateCase?: ((alert: Alert) => void) | undefined
+  onCopyId?: ((id: string) => void) | undefined
+}
+
+export interface AIInvestigationModalProps {
+  investigation: AIInvestigation | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
 }

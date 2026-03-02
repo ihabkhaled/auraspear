@@ -1,6 +1,6 @@
 'use client'
 
-import { LayoutGrid, List, ArrowUpDown } from 'lucide-react'
+import { LayoutGrid, List, ArrowUp, ArrowDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -11,18 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { type CaseSeverity, CaseSortField, CaseViewMode } from '@/enums'
+import { CaseSortField, CaseViewMode, SortOrder } from '@/enums'
 import { CASE_SEVERITY_FILTERS } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
-
-interface CaseToolbarProps {
-  viewMode: CaseViewMode
-  onViewModeChange: (mode: CaseViewMode) => void
-  activeSeverityFilter: CaseSeverity | undefined
-  onSeverityFilterChange: (severity: CaseSeverity | undefined) => void
-  sortField: CaseSortField
-  onSortFieldChange: (field: CaseSortField) => void
-}
+import type { CaseToolbarProps } from '@/types'
 
 export function CaseToolbar({
   viewMode,
@@ -31,8 +23,14 @@ export function CaseToolbar({
   onSeverityFilterChange,
   sortField,
   onSortFieldChange,
+  sortOrder,
+  onSortOrderChange,
 }: CaseToolbarProps) {
   const t = useTranslations('cases')
+
+  const toggleSortOrder = (): void => {
+    onSortOrderChange(sortOrder === SortOrder.DESC ? SortOrder.ASC : SortOrder.DESC)
+  }
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -84,7 +82,19 @@ export function CaseToolbar({
       </div>
 
       <div className="flex items-center gap-2">
-        <ArrowUpDown className="text-muted-foreground h-4 w-4" />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleSortOrder}
+          title={sortOrder === SortOrder.DESC ? t('sortAsc') : t('sortDesc')}
+          className="px-2"
+        >
+          {sortOrder === SortOrder.DESC ? (
+            <ArrowDown className="h-4 w-4" />
+          ) : (
+            <ArrowUp className="h-4 w-4" />
+          )}
+        </Button>
         <Select value={sortField} onValueChange={v => onSortFieldChange(v as CaseSortField)}>
           <SelectTrigger className="w-[140px]" size="sm">
             <SelectValue />
