@@ -79,6 +79,19 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         onStatusChange={handleStatusChange}
       />
 
+      {caseItem.description && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base">{t('fieldDescription')}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-muted-foreground text-sm break-all whitespace-pre-wrap">
+              {caseItem.description}
+            </p>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Timeline - wider left column */}
         <div className="lg:col-span-2">
