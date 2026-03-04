@@ -1,8 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { BackendError, fetchBackendJson } from '@/lib/backend-proxy'
-import type { BackendLoginResponse } from '@/types/auth.types'
+import type { BackendLoginResponse, TenantMembershipInfo } from '@/types/auth.types'
 
 export const dynamic = 'force-dynamic'
+
+interface BackendLoginWithTenants extends BackendLoginResponse {
+  tenants: TenantMembershipInfo[]
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,12 +14,13 @@ export async function POST(request: NextRequest) {
     const data = (await fetchBackendJson(request, '/auth/login', {
       method: 'POST',
       body,
-    })) as BackendLoginResponse
+    })) as BackendLoginWithTenants
 
     return NextResponse.json({
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
       user: data.user,
+      tenants: data.tenants,
     })
   } catch (error) {
     if (error instanceof BackendError) {

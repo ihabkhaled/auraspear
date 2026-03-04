@@ -13,10 +13,18 @@ export interface LoginRequest {
   password: string
 }
 
+export interface TenantMembershipInfo {
+  id: string
+  name: string
+  slug: string
+  role: string
+}
+
 export interface LoginResponse {
   accessToken: string
   refreshToken: string
   user: AuthUser
+  tenants: TenantMembershipInfo[]
 }
 
 export interface RefreshResponse {

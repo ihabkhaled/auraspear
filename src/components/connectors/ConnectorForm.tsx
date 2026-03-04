@@ -29,11 +29,19 @@ import { useAuthStore } from '@/stores'
 
 interface ConnectorFormProps {
   type: ConnectorType
-  connector: ConnectorRecord
+  connector: ConnectorRecord | undefined
   readOnly?: boolean
+  onCreateSubmit?: (data: ConnectorFormValues) => void
+  createPending?: boolean
 }
 
-export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps) {
+export function ConnectorForm({
+  type,
+  connector,
+  readOnly,
+  onCreateSubmit,
+  createPending,
+}: ConnectorFormProps) {
   const t = useTranslations('connectors')
   const tErrors = useTranslations()
   const { user } = useAuthStore()
@@ -51,12 +59,25 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
     formState: { errors, isDirty },
   } = useForm<ConnectorFormValues>({
     resolver: zodResolver(getConnectorSchema(type)),
-    defaultValues: recordToFormValues(connector),
+    defaultValues: connector
+      ? recordToFormValues(connector)
+      : {
+          name: meta.label,
+          enabled: false,
+          authType: ConnectorAuthType.BASIC,
+          tags: '',
+          notes: '',
+        },
   })
 
   const authType = watch('authType')
 
   const onSubmit = (values: ConnectorFormValues) => {
+    if (onCreateSubmit) {
+      onCreateSubmit(values)
+      return
+    }
+
     const { name, enabled, tags, ...configFields } = values
     const encryptedConfig = JSON.stringify({
       ...configFields,
@@ -646,8 +667,19 @@ export function ConnectorForm({ type, connector, readOnly }: ConnectorFormProps)
 
       {!disabled && (
         <div className="flex gap-2 pt-2">
-          <Button type="submit" disabled={!isDirty || updateMutation.isPending}>
-            {updateMutation.isPending ? t('saving') : t('saveConfiguration')}
+          <Button
+            type="submit"
+            disabled={
+              onCreateSubmit ? createPending === true : !isDirty || updateMutation.isPending
+            }
+          >
+            {onCreateSubmit
+              ? createPending
+                ? t('saving')
+                : t('createConnector')
+              : updateMutation.isPending
+                ? t('saving')
+                : t('saveConfiguration')}
           </Button>
         </div>
       )}

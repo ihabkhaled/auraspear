@@ -16,7 +16,7 @@ export function useLoginForm() {
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const { setTokens, setUser } = useAuthStore()
-  const { setCurrentTenant } = useTenantStore()
+  const { setCurrentTenant, setUserTenants } = useTenantStore()
 
   function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
@@ -30,6 +30,7 @@ export function useLoginForm() {
         setTokens(data.accessToken, data.refreshToken)
         setUser(data.user)
         setCurrentTenant(data.user.tenantId)
+        setUserTenants(data.tenants)
         router.push('/dashboard')
       })
       .catch((error: unknown) => {

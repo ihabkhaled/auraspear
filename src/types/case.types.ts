@@ -87,6 +87,8 @@ export interface CaseListTableProps {
   sortBy?: string | undefined
   sortOrder?: SortOrder | undefined
   onSort?: ((key: string, order: SortOrder) => void) | undefined
+  currentUserId?: string | undefined
+  isAdmin?: boolean | undefined
 }
 
 export interface CreateCaseFormValues {
@@ -116,6 +118,8 @@ export interface CaseDetailHeaderProps {
 export interface CaseKanbanCardProps {
   caseItem: Case
   onClick?: ((caseItem: Case) => void) | undefined
+  currentUserId?: string | undefined
+  isAdmin?: boolean | undefined
 }
 
 export interface CaseDetailPageProps {

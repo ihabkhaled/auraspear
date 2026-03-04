@@ -525,6 +525,10 @@
     "description": "Gerer les integrations avec les outils de securite",
     "noConnectors": "Aucun connecteur",
     "noConnectorsDescription": "Cliquez sur \"Restaurer les donnees de demo\" pour restaurer les connecteurs par defaut.",
+    "addConnector": "Ajouter",
+    "availableConnectors": "Connecteurs disponibles",
+    "createConnector": "Créer un connecteur",
+    "connectorCreated": "Connecteur créé avec succès",
     "seedDemoData": "Restaurer les donnees de demo",
     "demoDataRestored": "Donnees de demo restaurees",
     "configure": "Configurer",
@@ -699,6 +703,7 @@
       "provisionFailed": "Impossible de provisionner le compte utilisateur.",
       "missingToken": "Authentification requise. Veuillez vous connecter.",
       "expiredToken": "Votre session a expire. Veuillez vous reconnecter.",
+      "noTenantAccess": "Vous n'avez pas accès à ce locataire.",
       "insufficientPermissions": "Vous n'avez pas les permissions suffisantes pour cette action.",
       "unknownRole": "Role utilisateur inconnu.",
       "tenantRequired": "Le contexte du locataire est requis.",
@@ -854,7 +859,8 @@
     "cases": {
       "notFound": "Dossier introuvable.",
       "alreadyClosed": "Ce dossier est deja clos.",
-      "duplicateAlert": "Cette alerte est deja liee au dossier."
+      "duplicateAlert": "Cette alerte est deja liee au dossier.",
+      "statusChangeNotAllowed": "Seul le propriétaire du cas ou un administrateur peut modifier le statut du cas."
     },
     "intel": {
       "mispNotConfigured": "Le connecteur MISP n'est pas configure.",

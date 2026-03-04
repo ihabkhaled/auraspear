@@ -1,4 +1,5 @@
 export { StatusBadge } from './StatusBadge'
 export { ConnectorCard } from './ConnectorCard'
+export { AddConnectorCard } from './AddConnectorCard'
 export { ConnectorForm } from './ConnectorForm'
 export { SecurityIndicators } from './SecurityIndicators'

@@ -1,5 +1,6 @@
 'use client'
 
+import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
@@ -17,6 +18,8 @@ export function CaseListTable({
   sortBy,
   sortOrder,
   onSort,
+  currentUserId,
+  isAdmin,
 }: CaseListTableProps) {
   const t = useTranslations('cases')
 
@@ -64,6 +67,19 @@ export function CaseListTable({
     },
   ]
 
+  const getRowClassName = useCallback(
+    (row: Case): string => {
+      if (currentUserId === undefined || isAdmin === true) {
+        return ''
+      }
+      if (row.ownerUserId !== currentUserId) {
+        return 'opacity-50'
+      }
+      return ''
+    },
+    [currentUserId, isAdmin]
+  )
+
   return (
     <DataTable
       columns={columns}
@@ -74,6 +90,7 @@ export function CaseListTable({
       sortBy={sortBy}
       sortOrder={sortOrder}
       onSort={onSort}
+      rowClassName={getRowClassName}
     />
   )
 }

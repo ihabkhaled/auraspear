@@ -525,6 +525,10 @@
     "description": "Gestisci le integrazioni con gli strumenti di sicurezza",
     "noConnectors": "Nessun connettore",
     "noConnectorsDescription": "Clicca \"Carica Dati Demo\" per ripristinare i connettori predefiniti.",
+    "addConnector": "Aggiungi",
+    "availableConnectors": "Connettori disponibili",
+    "createConnector": "Crea connettore",
+    "connectorCreated": "Connettore creato con successo",
     "seedDemoData": "Carica Dati Demo",
     "demoDataRestored": "Dati demo ripristinati",
     "configure": "Configura",
@@ -699,6 +703,7 @@
       "provisionFailed": "Impossibile creare l'account utente.",
       "missingToken": "Autenticazione richiesta. Effettua l'accesso.",
       "expiredToken": "La tua sessione e scaduta. Accedi nuovamente.",
+      "noTenantAccess": "Non hai accesso a questo tenant.",
       "insufficientPermissions": "Non hai permessi sufficienti per questa azione.",
       "unknownRole": "Ruolo utente sconosciuto.",
       "tenantRequired": "Il contesto del tenant e obbligatorio.",
@@ -854,7 +859,8 @@
     "cases": {
       "notFound": "Caso non trovato.",
       "alreadyClosed": "Questo caso è già chiuso.",
-      "duplicateAlert": "Questo avviso è già collegato al caso."
+      "duplicateAlert": "Questo avviso è già collegato al caso.",
+      "statusChangeNotAllowed": "Solo il proprietario del caso o un amministratore può modificare lo stato del caso."
     },
     "intel": {
       "mispNotConfigured": "Il connettore MISP non è configurato.",

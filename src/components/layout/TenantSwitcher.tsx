@@ -17,10 +17,12 @@ import { useAuthStore, useTenantStore } from '@/stores'
 export function TenantSwitcher() {
   const t = useTranslations('layout')
   const queryClient = useQueryClient()
-  const { currentTenantId, tenants, setCurrentTenant, setTenants } = useTenantStore()
+  const { currentTenantId, tenants, userTenants, setCurrentTenant, setTenants } = useTenantStore()
   const user = useAuthStore(s => s.user)
 
   const isGlobalAdmin = user?.role === UserRole.GLOBAL_ADMIN
+
+  // GLOBAL_ADMIN: fetch all tenants from admin API
   const { data: tenantsData } = useTenants(isGlobalAdmin)
 
   useEffect(() => {
@@ -34,8 +36,30 @@ export function TenantSwitcher() {
     void queryClient.invalidateQueries()
   }
 
-  // Non-global-admin users only have their own tenant — no switcher needed
-  if (!isGlobalAdmin || tenants.length <= 1) {
+  // GLOBAL_ADMIN uses the full tenants list, others use their own memberships
+  if (isGlobalAdmin) {
+    if (tenants.length <= 1) {
+      return null
+    }
+
+    return (
+      <Select value={currentTenantId} onValueChange={handleTenantChange}>
+        <SelectTrigger size="sm" className="w-[160px]">
+          <SelectValue placeholder={t('selectTenant')} />
+        </SelectTrigger>
+        <SelectContent>
+          {tenants.map(tenant => (
+            <SelectItem key={tenant.id} value={tenant.id}>
+              {tenant.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    )
+  }
+
+  // Non-admin: show switcher only if user has multiple tenant memberships
+  if (userTenants.length <= 1) {
     return null
   }
 
@@ -45,9 +69,9 @@ export function TenantSwitcher() {
         <SelectValue placeholder={t('selectTenant')} />
       </SelectTrigger>
       <SelectContent>
-        {tenants.map(tenant => (
-          <SelectItem key={tenant.id} value={tenant.id}>
-            {tenant.name}
+        {userTenants.map(membership => (
+          <SelectItem key={membership.id} value={membership.id}>
+            {membership.name}
           </SelectItem>
         ))}
       </SelectContent>

@@ -525,6 +525,10 @@
     "description": "إدارة التكاملات مع أدوات الأمان",
     "noConnectors": "لا توجد موصّلات",
     "noConnectorsDescription": "انقر على \"تحميل البيانات التجريبية\" لاستعادة الموصّلات الافتراضية.",
+    "addConnector": "إضافة",
+    "availableConnectors": "الموصلات المتاحة",
+    "createConnector": "إنشاء موصل",
+    "connectorCreated": "تم إنشاء الموصل بنجاح",
     "seedDemoData": "تحميل البيانات التجريبية",
     "demoDataRestored": "تم استعادة البيانات التجريبية",
     "configure": "تهيئة",
@@ -699,6 +703,7 @@
       "provisionFailed": "تعذر إنشاء حساب المستخدم.",
       "missingToken": "المصادقة مطلوبة. يرجى تسجيل الدخول.",
       "expiredToken": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+      "noTenantAccess": "ليس لديك صلاحية الوصول إلى هذا المستأجر.",
       "insufficientPermissions": "ليس لديك صلاحيات كافية لتنفيذ هذا الإجراء.",
       "unknownRole": "دور مستخدم غير معروف.",
       "tenantRequired": "سياق المستأجر مطلوب.",
@@ -854,7 +859,8 @@
     "cases": {
       "notFound": "لم يتم العثور على القضية.",
       "alreadyClosed": "هذه القضية مغلقة بالفعل.",
-      "duplicateAlert": "هذا التنبيه مرتبط بالفعل بالقضية."
+      "duplicateAlert": "هذا التنبيه مرتبط بالفعل بالقضية.",
+      "statusChangeNotAllowed": "يمكن فقط لمالك القضية أو المسؤول تغيير حالة القضية."
     },
     "intel": {
       "mispNotConfigured": "موصّل MISP غير مهيأ.",

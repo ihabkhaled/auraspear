@@ -29,6 +29,8 @@ export default function CasesPage() {
     handleCaseClick,
     handleCreateCase,
     handleCaseSort,
+    currentUserId,
+    isAdmin,
   } = useCasesPage()
 
   const { data: membersData } = useTenantMembers()
@@ -54,7 +56,14 @@ export default function CasesPage() {
       )
     }
     if (viewMode === CaseViewMode.BOARD) {
-      return <CaseKanbanBoard cases={filteredCases} onCaseClick={handleCaseClick} />
+      return (
+        <CaseKanbanBoard
+          cases={filteredCases}
+          onCaseClick={handleCaseClick}
+          currentUserId={currentUserId}
+          isAdmin={isAdmin}
+        />
+      )
     }
     return (
       <CaseListTable
@@ -64,6 +73,8 @@ export default function CasesPage() {
         sortBy={sortField}
         sortOrder={sortOrder}
         onSort={handleCaseSort}
+        currentUserId={currentUserId}
+        isAdmin={isAdmin}
       />
     )
   }

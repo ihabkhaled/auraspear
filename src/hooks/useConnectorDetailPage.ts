@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { ConnectorStatus, type ConnectorType, UserRole } from '@/enums'
@@ -11,13 +11,21 @@ import {
 } from '@/lib/constants/connectors.constants'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
-import { useConnector, useTestConnector, useDeleteConnector } from './useConnectors'
+import {
+  useConnector,
+  useTestConnector,
+  useDeleteConnector,
+  useCreateConnector,
+} from './useConnectors'
 
 export function useConnectorDetailPage(rawType: string) {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const t = useTranslations('connectors')
   const tErrors = useTranslations()
   const [testing, setTesting] = useState(false)
+
+  const isCreateMode = searchParams.get('create') === 'true'
 
   const { user } = useAuthStore()
   const userRole = user?.role
@@ -27,6 +35,7 @@ export function useConnectorDetailPage(rawType: string) {
   const { data: connector, isLoading } = useConnector(rawType)
   const testMutation = useTestConnector()
   const deleteMutation = useDeleteConnector()
+  const createMutation = useCreateConnector()
 
   const isValidType = isConnectorType(rawType)
   const validType = isValidType ? (rawType as ConnectorType) : undefined
@@ -73,6 +82,23 @@ export function useConnectorDetailPage(rawType: string) {
     })
   }
 
+  const handleCreate = (data: {
+    type: string
+    name: string
+    authType: string
+    encryptedConfig: string
+  }) => {
+    createMutation.mutate(data, {
+      onSuccess: () => {
+        Toast.success(t('connectorCreated'))
+        router.push('/connectors')
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+    })
+  }
+
   let connectorStatus: ConnectorStatus | undefined
   if (connector) {
     if (connector.lastTestOk === true) {
@@ -88,7 +114,7 @@ export function useConnectorDetailPage(rawType: string) {
     router,
     t,
     isValidType,
-    isLoading,
+    isLoading: isCreateMode ? false : isLoading,
     connector,
     type: validType,
     meta,
@@ -97,8 +123,11 @@ export function useConnectorDetailPage(rawType: string) {
     isAdmin,
     testing,
     deletePending: deleteMutation.isPending,
+    createPending: createMutation.isPending,
     connectorStatus,
+    isCreateMode,
     handleTest,
     handleDelete,
+    handleCreate,
   }
 }

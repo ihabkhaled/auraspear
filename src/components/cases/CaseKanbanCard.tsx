@@ -10,9 +10,11 @@ import { CASE_SEVERITY_BORDER_COLORS } from '@/lib/constants/cases'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import type { CaseKanbanCardProps } from '@/types'
 
-export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
+export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: CaseKanbanCardProps) {
   const t = useTranslations('cases')
   const isClosed = caseItem.status === CaseStatus.CLOSED
+  const isDimmed =
+    currentUserId !== undefined && isAdmin === false && caseItem.ownerUserId !== currentUserId
 
   return (
     <div
@@ -27,7 +29,8 @@ export function CaseKanbanCard({ caseItem, onClick }: CaseKanbanCardProps) {
       }}
       className={cn(
         'group border-border bg-card hover:border-primary/50 relative cursor-pointer overflow-hidden rounded-lg border transition-all hover:-translate-y-0.5 hover:shadow-md',
-        isClosed && 'opacity-60 grayscale'
+        isClosed && 'opacity-60 grayscale',
+        isDimmed && !isClosed && 'opacity-50'
       )}
     >
       <div

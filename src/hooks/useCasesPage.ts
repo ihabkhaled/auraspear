@@ -3,14 +3,21 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { CreateCaseFormValues } from '@/components/cases'
 import { Toast } from '@/components/common'
-import { CaseViewMode, CaseSortField, SortOrder } from '@/enums'
+import { CaseViewMode, CaseSortField, SortOrder, UserRole } from '@/enums'
 import type { CaseSeverity } from '@/enums'
+import { hasRole } from '@/lib/roles'
+import { useAuthStore } from '@/stores'
 import type { Case } from '@/types'
 import { useCases, useCreateCase } from './useCases'
 
 export function useCasesPage() {
   const t = useTranslations('cases')
   const router = useRouter()
+  const user = useAuthStore(s => s.user)
+
+  const currentUserId = user?.sub ?? ''
+  const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
+  const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
 
   const [viewMode, setViewMode] = useState(CaseViewMode.BOARD)
   const [severityFilter, setSeverityFilter] = useState<CaseSeverity | undefined>()
@@ -78,5 +85,7 @@ export function useCasesPage() {
     handleCaseClick,
     handleCreateCase,
     handleCaseSort,
+    currentUserId,
+    isAdmin,
   }
 }

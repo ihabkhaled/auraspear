@@ -32,6 +32,7 @@ interface DataTableProps<T> {
   sortBy?: string | undefined
   sortOrder?: SortOrder | undefined
   onSort?: ((key: string, order: SortOrder) => void) | undefined
+  rowClassName?: ((row: T) => string) | undefined
 }
 
 function getNestedValue<T>(row: T, key: string): unknown {
@@ -75,6 +76,7 @@ export function DataTable<T>({
   sortBy,
   sortOrder,
   onSort,
+  rowClassName,
 }: DataTableProps<T>) {
   const t = useTranslations('common')
 
@@ -205,7 +207,7 @@ export function DataTable<T>({
               <TableRow
                 key={rowId}
                 data-state={isSelected ? 'selected' : undefined}
-                className={onRowClick ? 'cursor-pointer' : undefined}
+                className={cn(onRowClick ? 'cursor-pointer' : undefined, rowClassName?.(row))}
                 onClick={() => onRowClick?.(row)}
               >
                 {hasSelection && (

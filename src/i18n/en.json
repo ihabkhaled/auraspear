@@ -526,6 +526,10 @@
     "description": "Manage integrations with security tools",
     "noConnectors": "No connectors",
     "noConnectorsDescription": "No connector integrations are configured for your tenant.",
+    "addConnector": "Add",
+    "availableConnectors": "Available Connectors",
+    "createConnector": "Create Connector",
+    "connectorCreated": "Connector created successfully",
     "confirmDelete": "Are you sure you want to delete this connector?",
     "saving": "Saving...",
     "configure": "Configure",
@@ -700,6 +704,7 @@
       "provisionFailed": "Unable to provision user account.",
       "missingToken": "Authentication required. Please sign in.",
       "expiredToken": "Your session has expired. Please sign in again.",
+      "noTenantAccess": "You do not have access to this tenant.",
       "insufficientPermissions": "You do not have sufficient permissions for this action.",
       "unknownRole": "Unknown user role.",
       "tenantRequired": "Tenant context is required.",
@@ -855,7 +860,8 @@
     "cases": {
       "notFound": "Case not found.",
       "alreadyClosed": "This case is already closed.",
-      "duplicateAlert": "This alert is already linked to the case."
+      "duplicateAlert": "This alert is already linked to the case.",
+      "statusChangeNotAllowed": "Only the case owner or an admin can change the case status."
     },
     "intel": {
       "mispNotConfigured": "MISP connector is not configured.",

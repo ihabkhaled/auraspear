@@ -525,6 +525,10 @@
     "description": "Integrationen mit Sicherheitstools verwalten",
     "noConnectors": "Keine Konnektoren",
     "noConnectorsDescription": "Klicken Sie auf \"Demodaten laden\", um die Standardkonnektoren wiederherzustellen.",
+    "addConnector": "Hinzufügen",
+    "availableConnectors": "Verfügbare Konnektoren",
+    "createConnector": "Konnektor erstellen",
+    "connectorCreated": "Konnektor erfolgreich erstellt",
     "seedDemoData": "Demodaten laden",
     "demoDataRestored": "Demodaten wiederhergestellt",
     "configure": "Konfigurieren",
@@ -699,6 +703,7 @@
       "provisionFailed": "Das Benutzerkonto konnte nicht bereitgestellt werden.",
       "missingToken": "Authentifizierung erforderlich. Bitte melden Sie sich an.",
       "expiredToken": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
+      "noTenantAccess": "Sie haben keinen Zugriff auf diesen Mandanten.",
       "insufficientPermissions": "Sie haben nicht genugend Berechtigungen fur diese Aktion.",
       "unknownRole": "Unbekannte Benutzerrolle.",
       "tenantRequired": "Mandantenkontext ist erforderlich.",
@@ -854,7 +859,8 @@
     "cases": {
       "notFound": "Vorfall nicht gefunden.",
       "alreadyClosed": "Dieser Vorfall ist bereits geschlossen.",
-      "duplicateAlert": "Dieser Alarm ist bereits mit dem Vorfall verknüpft."
+      "duplicateAlert": "Dieser Alarm ist bereits mit dem Vorfall verknüpft.",
+      "statusChangeNotAllowed": "Nur der Fallinhaber oder ein Administrator kann den Fallstatus ändern."
     },
     "intel": {
       "mispNotConfigured": "MISP-Konnektor ist nicht konfiguriert.",

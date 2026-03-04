@@ -13,9 +13,16 @@ import { CaseKanbanCard } from './CaseKanbanCard'
 interface CaseKanbanBoardProps {
   cases: Case[]
   onCaseClick?: (caseItem: Case) => void
+  currentUserId?: string | undefined
+  isAdmin?: boolean | undefined
 }
 
-export function CaseKanbanBoard({ cases, onCaseClick }: CaseKanbanBoardProps) {
+export function CaseKanbanBoard({
+  cases,
+  onCaseClick,
+  currentUserId,
+  isAdmin,
+}: CaseKanbanBoardProps) {
   const t = useTranslations('cases')
 
   const groupedCases = useMemo(() => {
@@ -68,7 +75,13 @@ export function CaseKanbanBoard({ cases, onCaseClick }: CaseKanbanBoardProps) {
                   <p className="text-muted-foreground py-8 text-center text-xs">{t('noItems')}</p>
                 )}
                 {columnCases.map(caseItem => (
-                  <CaseKanbanCard key={caseItem.id} caseItem={caseItem} onClick={onCaseClick} />
+                  <CaseKanbanCard
+                    key={caseItem.id}
+                    caseItem={caseItem}
+                    onClick={onCaseClick}
+                    currentUserId={currentUserId}
+                    isAdmin={isAdmin}
+                  />
                 ))}
               </div>
             </ScrollArea>

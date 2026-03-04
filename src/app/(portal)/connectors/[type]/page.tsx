@@ -30,9 +30,12 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
     isAdmin,
     testing,
     deletePending,
+    createPending,
     connectorStatus,
+    isCreateMode,
     handleTest,
     handleDelete,
+    handleCreate,
   } = useConnectorDetailPage(rawType)
 
   if (!isValidType) {
@@ -54,6 +57,62 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <LoadingSpinner />
+      </div>
+    )
+  }
+
+  // Create mode: show form without existing connector data
+  if (isCreateMode && type && meta && Icon) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="sm" onClick={() => router.push('/connectors')}>
+            <ArrowLeft className="mr-1 h-4 w-4" />
+            {t('backToConnectors')}
+          </Button>
+          <div className="flex items-center gap-3">
+            <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-lg">
+              <Icon className="text-muted-foreground h-5 w-5" />
+            </div>
+            <div>
+              <h1 className="text-xl font-bold">
+                {t('createConnector')}: {meta.label}
+              </h1>
+              <p className="text-muted-foreground text-sm">{meta.description}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-3">
+          <div className="space-y-6 lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-base">{t('configuration')}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ConnectorForm
+                  type={type}
+                  connector={undefined}
+                  readOnly={false}
+                  onCreateSubmit={data => {
+                    handleCreate({
+                      type,
+                      name: ((data as Record<string, unknown>)['name'] as string) ?? meta.label,
+                      authType:
+                        ((data as Record<string, unknown>)['authType'] as string) ?? 'basic',
+                      encryptedConfig: JSON.stringify(data),
+                    })
+                  }}
+                  createPending={createPending}
+                />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="space-y-4">
+            <SecurityIndicators type={type} />
+          </div>
+        </div>
       </div>
     )
   }

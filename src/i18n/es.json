@@ -525,6 +525,10 @@
     "description": "Gestionar integraciones con herramientas de seguridad",
     "noConnectors": "Sin conectores",
     "noConnectorsDescription": "Haga clic en \"Cargar Datos de Demostración\" para restaurar los conectores predeterminados.",
+    "addConnector": "Añadir",
+    "availableConnectors": "Conectores disponibles",
+    "createConnector": "Crear conector",
+    "connectorCreated": "Conector creado exitosamente",
     "seedDemoData": "Cargar Datos de Demostración",
     "demoDataRestored": "Datos de demostración restaurados",
     "configure": "Configurar",
@@ -699,6 +703,7 @@
       "provisionFailed": "No se pudo aprovisionar la cuenta de usuario.",
       "missingToken": "Se requiere autenticación. Por favor, inicie sesión.",
       "expiredToken": "Su sesión ha expirado. Por favor, inicie sesión nuevamente.",
+      "noTenantAccess": "No tiene acceso a este inquilino.",
       "insufficientPermissions": "No tiene permisos suficientes para esta acción.",
       "unknownRole": "Rol de usuario desconocido.",
       "tenantRequired": "Se requiere contexto de inquilino.",
@@ -854,7 +859,8 @@
     "cases": {
       "notFound": "Caso no encontrado.",
       "alreadyClosed": "Este caso ya está cerrado.",
-      "duplicateAlert": "Esta alerta ya está vinculada al caso."
+      "duplicateAlert": "Esta alerta ya está vinculada al caso.",
+      "statusChangeNotAllowed": "Solo el propietario del caso o un administrador puede cambiar el estado del caso."
     },
     "intel": {
       "mispNotConfigured": "El conector MISP no está configurado.",

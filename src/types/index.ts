@@ -9,6 +9,7 @@ export type {
 } from './common.types'
 export type {
   AuthUser,
+  TenantMembershipInfo,
   LoginRequest,
   LoginResponse,
   RefreshResponse,

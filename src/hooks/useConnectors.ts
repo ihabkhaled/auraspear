@@ -58,6 +58,19 @@ export function useTestConnector() {
   })
 }
 
+export function useCreateConnector() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (data: { type: string; name: string; authType: string; encryptedConfig: string }) =>
+      connectorService.create(data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+    },
+  })
+}
+
 export function useToggleConnector() {
   const queryClient = useQueryClient()
 
