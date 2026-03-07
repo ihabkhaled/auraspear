@@ -46,6 +46,8 @@ export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: Ca
 
         <p className="line-clamp-2 text-sm leading-snug font-medium">{caseItem.title}</p>
 
+        <span className="text-muted-foreground text-xs">{caseItem.tenantName}</span>
+
         <div className="flex items-center justify-between pt-1">
           <div className="flex items-center gap-2">
             <Avatar size="sm">

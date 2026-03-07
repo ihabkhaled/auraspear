@@ -32,7 +32,7 @@ export function useConnectorDetailPage(rawType: string) {
   const isEditor = userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false
   const isAdmin = userRole ? hasRole(userRole, UserRole.TENANT_ADMIN) : false
 
-  const { data: connector, isLoading } = useConnector(rawType)
+  const { data: connector, isLoading } = useConnector(rawType, !isCreateMode)
   const testMutation = useTestConnector()
   const deleteMutation = useDeleteConnector()
   const createMutation = useCreateConnector()
@@ -85,8 +85,9 @@ export function useConnectorDetailPage(rawType: string) {
   const handleCreate = (data: {
     type: string
     name: string
+    enabled: boolean
     authType: string
-    encryptedConfig: string
+    config: Record<string, unknown>
   }) => {
     createMutation.mutate(data, {
       onSuccess: () => {

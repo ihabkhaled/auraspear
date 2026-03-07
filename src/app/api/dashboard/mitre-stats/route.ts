@@ -1,8 +1,12 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
-import type { BackendMitreResponse } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
+
+interface BackendMitreResponse {
+  tenantId: string
+  techniques: Array<{ id: string; count: number }>
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -16,7 +20,7 @@ export async function GET(request: NextRequest) {
 
     const data = techniques.map(t => ({
       id: t.id,
-      name: t.name,
+      name: t.id,
       count: t.count,
       percentage: Math.round((t.count / maxCount) * 100),
     }))

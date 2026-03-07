@@ -7,8 +7,13 @@ export const connectorService = {
   getByType: (type: string) =>
     api.get<{ data: ConnectorRecord }>(`/connectors/${type}`).then(r => r.data.data),
 
-  create: (data: { type: string; name: string; authType: string; encryptedConfig: string }) =>
-    api.post<{ data: ConnectorRecord }>('/connectors', data).then(r => r.data.data),
+  create: (data: {
+    type: string
+    name: string
+    enabled: boolean
+    authType: string
+    config: Record<string, unknown>
+  }) => api.post<{ data: ConnectorRecord }>('/connectors', data).then(r => r.data.data),
 
   update: (type: string, data: Record<string, unknown>) =>
     api.patch<{ data: ConnectorRecord }>(`/connectors/${type}`, data).then(r => r.data.data),

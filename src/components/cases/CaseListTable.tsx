@@ -54,6 +54,10 @@ export function CaseListTable({
       render: value => <SeverityBadge severity={value as CaseSeverity} />,
     },
     {
+      key: 'tenantName',
+      label: t('tenant'),
+    },
+    {
       key: 'createdBy',
       label: t('fieldAssignee'),
     },

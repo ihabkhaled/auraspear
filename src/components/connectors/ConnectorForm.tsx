@@ -51,6 +51,8 @@ export function ConnectorForm({
 
   const disabled = readOnly ?? !(userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false)
 
+  const tValidation = useTranslations('validation')
+
   const {
     register,
     handleSubmit,
@@ -65,8 +67,43 @@ export function ConnectorForm({
           name: meta.label,
           enabled: false,
           authType: ConnectorAuthType.BASIC,
+          baseUrl: '',
+          apiKey: '',
+          username: '',
+          password: '',
+          token: '',
+          verifyTLS: false,
+          timeoutSeconds: 30,
           tags: '',
           notes: '',
+          managerUrl: '',
+          indexerUrl: '',
+          indexerUsername: '',
+          indexerPassword: '',
+          tenant: '',
+          apiUrl: '',
+          streamId: '',
+          indexSetId: '',
+          orgId: '',
+          clientCert: '',
+          clientKey: '',
+          grafanaUrl: '',
+          folderId: '',
+          datasourceUid: '',
+          org: '',
+          bucket: '',
+          mispUrl: '',
+          mispAuthKey: '',
+          webhookUrl: '',
+          workflowId: '',
+          shuffleApiKey: '',
+          modelId: '',
+          region: '',
+          accessKeyId: '',
+          secretAccessKey: '',
+          nlHuntingEnabled: false,
+          explainableAiEnabled: false,
+          auditLoggingEnabled: false,
         },
   })
 
@@ -100,14 +137,20 @@ export function ConnectorForm({
     )
   }
 
+  const onInvalid = () => {
+    Toast.error(tErrors('errors.common.validation'))
+  }
+
   function FieldError({ name }: { name: keyof ConnectorFormValues }) {
     const error = errors[name]
     if (!error?.message) return null
-    return <p className="text-destructive text-sm">{String(error.message)}</p>
+    const msg = String(error.message)
+    const translated = tValidation.has(msg) ? tValidation(msg) : msg
+    return <p className="text-destructive text-sm">{translated}</p>
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="space-y-6">
       <div className="space-y-4">
         <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
           {t('general')}
@@ -673,13 +716,8 @@ export function ConnectorForm({
               onCreateSubmit ? createPending === true : !isDirty || updateMutation.isPending
             }
           >
-            {onCreateSubmit
-              ? createPending
-                ? t('saving')
-                : t('createConnector')
-              : updateMutation.isPending
-                ? t('saving')
-                : t('saveConfiguration')}
+            {onCreateSubmit && (createPending ? t('saving') : t('createConnector'))}
+            {!onCreateSubmit && (updateMutation.isPending ? t('saving') : t('saveConfiguration'))}
           </Button>
         </div>
       )}

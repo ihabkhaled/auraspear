@@ -52,6 +52,7 @@ export interface Case {
   tasks: CaseTask[]
   artifacts: CaseArtifact[]
   tenantId: string
+  tenantName: string
 }
 
 export interface CreateCaseInput {

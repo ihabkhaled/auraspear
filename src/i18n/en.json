@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "Executive Dashboard",
     "description": "Security operations overview",
-    "totalAlerts": "Total Alerts",
-    "criticalAlerts": "Critical Alerts",
+    "totalAlerts": "Alerts This Week",
+    "criticalAlerts": "Critical This Week",
     "openCases": "Open Cases",
     "alertTrends": "Alert Trends",
     "last7Days": "Last 7 days",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "No targeted assets",
     "assetsEmptyDescription": "Asset risk data will appear once alerts are analyzed",
     "pipelineEmptyTitle": "No pipeline services",
-    "pipelineEmptyDescription": "Pipeline health data will appear here"
+    "pipelineEmptyDescription": "Pipeline health data will appear here",
+    "meanResponseTime": "Mean Response Time",
+    "vsLastWeek": "vs last week",
+    "minutesVsLastWeek": "minutes vs last week"
   },
   "alerts": {
     "title": "Alerts Management",
@@ -238,7 +241,8 @@
     "fieldSeverityPlaceholder": "Select severity...",
     "creating": "Creating...",
     "caseCreated": "Case created successfully",
-    "caseCreateError": "Failed to create case"
+    "caseCreateError": "Failed to create case",
+    "tenant": "Tenant"
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -890,9 +894,11 @@
     },
     "connectors": {
       "notFound": "Connector not found.",
+      "alreadyExists": "A connector of this type already exists.",
       "testFailed": "Connector test failed.",
       "invalidConfig": "Invalid connector configuration.",
       "loadError": "Failed to load connectors.",
+      "createError": "Failed to create connector.",
       "updateError": "Failed to update connector.",
       "deleteError": "Failed to delete connector.",
       "toggleError": "Failed to toggle connector."

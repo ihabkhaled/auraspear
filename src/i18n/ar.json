@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "لوحة المتابعة التنفيذية",
     "description": "نظرة عامة على العمليات الأمنية",
-    "totalAlerts": "إجمالي التنبيهات",
-    "criticalAlerts": "تنبيهات حرجة",
+    "totalAlerts": "تنبيهات هذا الأسبوع",
+    "criticalAlerts": "حرجة هذا الأسبوع",
     "openCases": "قضايا مفتوحة",
     "alertTrends": "اتجاهات التنبيهات",
     "last7Days": "آخر 7 أيام",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "لا توجد أصول مستهدفة",
     "assetsEmptyDescription": "ستظهر بيانات مخاطر الأصول بمجرد تحليل التنبيهات",
     "pipelineEmptyTitle": "لا توجد خدمات",
-    "pipelineEmptyDescription": "ستظهر بيانات صحة خط الأنابيب هنا"
+    "pipelineEmptyDescription": "ستظهر بيانات صحة خط الأنابيب هنا",
+    "meanResponseTime": "متوسط وقت الاستجابة",
+    "vsLastWeek": "مقابل الأسبوع الماضي",
+    "minutesVsLastWeek": "دقائق مقابل الأسبوع الماضي"
   },
   "alerts": {
     "title": "إدارة التنبيهات",
@@ -238,7 +241,8 @@
     "validationTitleMin": "يجب أن يتكون العنوان من 5 أحرف على الأقل",
     "validationDescriptionMin": "يجب أن يتكون الوصف من 10 أحرف على الأقل",
     "validationSeverity": "يرجى اختيار مستوى الخطورة",
-    "validationAssignee": "يرجى اختيار المسؤول"
+    "validationAssignee": "يرجى اختيار المسؤول",
+    "tenant": "المستأجر"
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -889,9 +893,11 @@
     },
     "connectors": {
       "notFound": "لم يتم العثور على الموصّل.",
+      "alreadyExists": "يوجد موصّل من هذا النوع بالفعل.",
       "testFailed": "فشل اختبار الموصّل.",
       "invalidConfig": "إعدادات الموصّل غير صالحة.",
       "loadError": "فشل في تحميل الموصّلات.",
+      "createError": "فشل في إنشاء الموصّل.",
       "updateError": "فشل في تحديث الموصّل.",
       "deleteError": "فشل في حذف الموصّل.",
       "toggleError": "فشل في تبديل حالة الموصّل."

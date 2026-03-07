@@ -5,6 +5,7 @@ import { connectorService } from '@/services/connector.service'
 
 const CONNECTORS_KEY = ['connectors'] as const
 const HEALTH_KEY = ['admin', 'service-health'] as const
+const DASHBOARD_KEY = ['dashboard'] as const
 
 export function useConnectors() {
   return useQuery({
@@ -14,11 +15,11 @@ export function useConnectors() {
   })
 }
 
-export function useConnector(type: string) {
+export function useConnector(type: string, enabled = true) {
   return useQuery({
     queryKey: [...CONNECTORS_KEY, type],
     queryFn: () => connectorService.getByType(type),
-    enabled: Boolean(type),
+    enabled: Boolean(type) && enabled,
   })
 }
 
@@ -30,6 +31,7 @@ export function useUpdateConnector(type: string) {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
       void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
     },
   })
 }
@@ -42,6 +44,7 @@ export function useDeleteConnector() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
       void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
     },
   })
 }
@@ -54,6 +57,7 @@ export function useTestConnector() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
       void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
     },
   })
 }
@@ -62,11 +66,17 @@ export function useCreateConnector() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: (data: { type: string; name: string; authType: string; encryptedConfig: string }) =>
-      connectorService.create(data),
+    mutationFn: (data: {
+      type: string
+      name: string
+      enabled: boolean
+      authType: string
+      config: Record<string, unknown>
+    }) => connectorService.create(data),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
       void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
     },
   })
 }
@@ -80,6 +90,7 @@ export function useToggleConnector() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
       void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
     },
   })
 }

@@ -50,10 +50,10 @@ export default function DashboardPage() {
     return kpis?.data?.map((kpi, i) => (
       <KPICard
         key={kpi.label}
-        label={kpi.label}
+        label={t(kpi.label)}
         value={kpi.value}
         trend={kpi.trend}
-        trendLabel={kpi.trendLabel}
+        trendLabel={t(kpi.trendLabel)}
         icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
         accentColor={KPI_COLORS[i]}
       />

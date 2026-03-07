@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const data = assets.map((asset, index) => ({
       id: `asset-${String(index + 1)}`,
       name: asset.hostname,
-      ip: `10.0.${String(Math.floor(index / 5) + 1)}.${String(index * 5 + 1)}`,
+      ip: 'N/A',
       riskScore: Math.min(
         100,
         Math.round((asset.criticalCount / Math.max(asset.alertCount, 1)) * 100 + asset.alertCount)

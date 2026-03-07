@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "Management-Dashboard",
     "description": "Übersicht der Sicherheitsoperationen",
-    "totalAlerts": "Alarme gesamt",
-    "criticalAlerts": "Kritische Alarme",
+    "totalAlerts": "Alarme diese Woche",
+    "criticalAlerts": "Kritische diese Woche",
     "openCases": "Offene Vorfälle",
     "alertTrends": "Alarmtrends",
     "last7Days": "Letzte 7 Tage",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "Keine betroffenen Assets",
     "assetsEmptyDescription": "Asset-Risikodaten werden angezeigt, sobald Alarme analysiert werden",
     "pipelineEmptyTitle": "Keine Pipeline-Dienste",
-    "pipelineEmptyDescription": "Pipeline-Zustandsdaten werden hier angezeigt"
+    "pipelineEmptyDescription": "Pipeline-Zustandsdaten werden hier angezeigt",
+    "meanResponseTime": "Mittlere Reaktionszeit",
+    "vsLastWeek": "ggü. letzter Woche",
+    "minutesVsLastWeek": "Minuten ggü. letzter Woche"
   },
   "alerts": {
     "title": "Alarmverwaltung",
@@ -238,7 +241,8 @@
     "validationTitleMin": "Der Titel muss mindestens 5 Zeichen enthalten",
     "validationDescriptionMin": "Die Beschreibung muss mindestens 10 Zeichen enthalten",
     "validationSeverity": "Bitte wählen Sie einen Schweregrad",
-    "validationAssignee": "Bitte wählen Sie einen Zuständigen"
+    "validationAssignee": "Bitte wählen Sie einen Zuständigen",
+    "tenant": "Mandant"
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -889,9 +893,11 @@
     },
     "connectors": {
       "notFound": "Konnektor nicht gefunden.",
+      "alreadyExists": "Ein Konnektor dieses Typs existiert bereits.",
       "testFailed": "Konnektor-Test fehlgeschlagen.",
       "invalidConfig": "Ungültige Konnektor-Konfiguration.",
       "loadError": "Konnektoren konnten nicht geladen werden.",
+      "createError": "Konnektor konnte nicht erstellt werden.",
       "updateError": "Konnektor konnte nicht aktualisiert werden.",
       "deleteError": "Konnektor konnte nicht gelöscht werden.",
       "toggleError": "Konnektor konnte nicht umgeschaltet werden."

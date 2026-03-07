@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "Tableau de bord executif",
     "description": "Vue d'ensemble des operations de securite",
-    "totalAlerts": "Total des alertes",
-    "criticalAlerts": "Alertes critiques",
+    "totalAlerts": "Alertes cette semaine",
+    "criticalAlerts": "Critiques cette semaine",
     "openCases": "Dossiers ouverts",
     "alertTrends": "Tendances des alertes",
     "last7Days": "7 derniers jours",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "Aucun actif cible",
     "assetsEmptyDescription": "Les donnees de risque des actifs apparaitront une fois les alertes analysees",
     "pipelineEmptyTitle": "Aucun service de pipeline",
-    "pipelineEmptyDescription": "Les donnees de sante du pipeline apparaitront ici"
+    "pipelineEmptyDescription": "Les donnees de sante du pipeline apparaitront ici",
+    "meanResponseTime": "Temps de réponse moyen",
+    "vsLastWeek": "vs semaine dernière",
+    "minutesVsLastWeek": "minutes vs semaine dernière"
   },
   "alerts": {
     "title": "Gestion des alertes",
@@ -238,7 +241,8 @@
     "validationTitleMin": "Le titre doit contenir au moins 5 caracteres",
     "validationDescriptionMin": "La description doit contenir au moins 10 caracteres",
     "validationSeverity": "Veuillez selectionner un niveau de severite",
-    "validationAssignee": "Veuillez selectionner un responsable"
+    "validationAssignee": "Veuillez selectionner un responsable",
+    "tenant": "Locataire"
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -889,9 +893,11 @@
     },
     "connectors": {
       "notFound": "Connecteur introuvable.",
+      "alreadyExists": "Un connecteur de ce type existe déjà.",
       "testFailed": "Le test du connecteur a echoue.",
       "invalidConfig": "Configuration du connecteur non valide.",
       "loadError": "Echec du chargement des connecteurs.",
+      "createError": "Echec de la création du connecteur.",
       "updateError": "Echec de la mise a jour du connecteur.",
       "deleteError": "Echec de la suppression du connecteur.",
       "toggleError": "Echec du basculement du connecteur."

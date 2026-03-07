@@ -95,12 +95,24 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   connector={undefined}
                   readOnly={false}
                   onCreateSubmit={data => {
+                    const { name, enabled, authType, tags, notes, ...configFields } =
+                      data as Record<string, unknown>
                     handleCreate({
                       type,
-                      name: ((data as Record<string, unknown>)['name'] as string) ?? meta.label,
-                      authType:
-                        ((data as Record<string, unknown>)['authType'] as string) ?? 'basic',
-                      encryptedConfig: JSON.stringify(data),
+                      name: (name as string) ?? meta.label,
+                      enabled: Boolean(enabled),
+                      authType: (authType as string) ?? 'basic',
+                      config: {
+                        ...configFields,
+                        tags:
+                          typeof tags === 'string'
+                            ? tags
+                                .split(',')
+                                .map(tag => tag.trim())
+                                .filter(Boolean)
+                            : [],
+                        notes: notes ?? '',
+                      },
                     })
                   }}
                   createPending={createPending}

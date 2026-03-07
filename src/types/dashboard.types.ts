@@ -40,9 +40,14 @@ export interface BackendSummary {
   totalAlerts: number
   criticalAlerts: number
   openCases: number
-  meanTimeToRespond: string
   alertsLast24h: number
   resolvedLast24h: number
+  meanTimeToRespond: string
+  connectedSources: number
+  totalAlertsTrend: number
+  criticalAlertsTrend: number
+  openCasesTrend: number
+  mttrTrend: number
 }
 
 export interface BackendTrendPoint {
@@ -85,9 +90,10 @@ export interface BackendAssetsResponse {
 
 export interface BackendPipeline {
   name: string
+  type: string
   status: string
-  eps: number
-  lag: string
+  lastChecked: string | null
+  lastError: string | null
 }
 
 export interface BackendPipelineResponse {

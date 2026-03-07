@@ -8,33 +8,35 @@ export async function GET(request: NextRequest) {
   try {
     const raw = (await fetchBackendJson(request, '/dashboards/summary')) as BackendSummary
 
+    const mttrValue = Number.parseInt(raw.meanTimeToRespond, 10) || 0
+
     const data = [
       {
-        label: 'Total Alerts',
+        label: 'totalAlerts',
         value: raw.totalAlerts,
-        trend: 12.5,
-        trendLabel: 'vs last week',
+        trend: raw.totalAlertsTrend,
+        trendLabel: 'vsLastWeek',
         icon: 'shield',
       },
       {
-        label: 'Critical Alerts',
+        label: 'criticalAlerts',
         value: raw.criticalAlerts,
-        trend: -8.3,
-        trendLabel: 'vs last week',
+        trend: raw.criticalAlertsTrend,
+        trendLabel: 'vsLastWeek',
         icon: 'alert-triangle',
       },
       {
-        label: 'Open Cases',
+        label: 'openCases',
         value: raw.openCases,
-        trend: 3.2,
-        trendLabel: 'vs last week',
+        trend: raw.openCasesTrend,
+        trendLabel: 'vsLastWeek',
         icon: 'briefcase',
       },
       {
-        label: 'Mean Response Time',
-        value: Number.parseInt(raw.meanTimeToRespond, 10) || 14,
-        trend: -5.1,
-        trendLabel: 'minutes vs last week',
+        label: 'meanResponseTime',
+        value: mttrValue,
+        trend: raw.mttrTrend,
+        trendLabel: 'minutesVsLastWeek',
         icon: 'clock',
       },
     ]

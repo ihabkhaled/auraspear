@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "Panel Ejecutivo",
     "description": "Resumen de operaciones de seguridad",
-    "totalAlerts": "Total de Alertas",
-    "criticalAlerts": "Alertas Críticas",
+    "totalAlerts": "Alertas esta semana",
+    "criticalAlerts": "Críticas esta semana",
     "openCases": "Casos Abiertos",
     "alertTrends": "Tendencias de Alertas",
     "last7Days": "Últimos 7 días",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "Sin activos atacados",
     "assetsEmptyDescription": "Los datos de riesgo de activos aparecerán una vez que se analicen las alertas",
     "pipelineEmptyTitle": "Sin servicios de pipeline",
-    "pipelineEmptyDescription": "Los datos de estado del pipeline aparecerán aquí"
+    "pipelineEmptyDescription": "Los datos de estado del pipeline aparecerán aquí",
+    "meanResponseTime": "Tiempo medio de respuesta",
+    "vsLastWeek": "vs semana pasada",
+    "minutesVsLastWeek": "minutos vs semana pasada"
   },
   "alerts": {
     "title": "Gestión de Alertas",
@@ -238,7 +241,8 @@
     "validationTitleMin": "El título debe tener al menos 5 caracteres",
     "validationDescriptionMin": "La descripción debe tener al menos 10 caracteres",
     "validationSeverity": "Seleccione un nivel de severidad",
-    "validationAssignee": "Seleccione un asignado"
+    "validationAssignee": "Seleccione un asignado",
+    "tenant": "Inquilino"
   },
   "intel": {
     "title": "Inteligencia de Amenazas",
@@ -889,9 +893,11 @@
     },
     "connectors": {
       "notFound": "Conector no encontrado.",
+      "alreadyExists": "Ya existe un conector de este tipo.",
       "testFailed": "La prueba del conector falló.",
       "invalidConfig": "Configuración de conector no válida.",
       "loadError": "Error al cargar los conectores.",
+      "createError": "Error al crear el conector.",
       "updateError": "Error al actualizar el conector.",
       "deleteError": "Error al eliminar el conector.",
       "toggleError": "Error al cambiar el estado del conector."

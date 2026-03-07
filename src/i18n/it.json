@@ -56,8 +56,8 @@
   "dashboard": {
     "title": "Dashboard Esecutiva",
     "description": "Panoramica delle operazioni di sicurezza",
-    "totalAlerts": "Avvisi Totali",
-    "criticalAlerts": "Avvisi Critici",
+    "totalAlerts": "Avvisi questa settimana",
+    "criticalAlerts": "Critici questa settimana",
     "openCases": "Casi Aperti",
     "alertTrends": "Tendenze Avvisi",
     "last7Days": "Ultimi 7 giorni",
@@ -78,7 +78,10 @@
     "assetsEmptyTitle": "Nessun asset preso di mira",
     "assetsEmptyDescription": "I dati di rischio degli asset appariranno una volta analizzati gli avvisi",
     "pipelineEmptyTitle": "Nessun servizio nella pipeline",
-    "pipelineEmptyDescription": "I dati sullo stato della pipeline appariranno qui"
+    "pipelineEmptyDescription": "I dati sullo stato della pipeline appariranno qui",
+    "meanResponseTime": "Tempo medio di risposta",
+    "vsLastWeek": "vs settimana scorsa",
+    "minutesVsLastWeek": "minuti vs settimana scorsa"
   },
   "alerts": {
     "title": "Gestione Avvisi",
@@ -238,7 +241,8 @@
     "validationTitleMin": "Il titolo deve contenere almeno 5 caratteri",
     "validationDescriptionMin": "La descrizione deve contenere almeno 10 caratteri",
     "validationSeverity": "Seleziona un livello di gravita",
-    "validationAssignee": "Seleziona un assegnatario"
+    "validationAssignee": "Seleziona un assegnatario",
+    "tenant": "Tenant"
   },
   "intel": {
     "title": "Intelligence sulle Minacce",
@@ -889,9 +893,11 @@
     },
     "connectors": {
       "notFound": "Connettore non trovato.",
+      "alreadyExists": "Un connettore di questo tipo esiste già.",
       "testFailed": "Test del connettore fallito.",
       "invalidConfig": "Configurazione del connettore non valida.",
       "loadError": "Caricamento dei connettori fallito.",
+      "createError": "Creazione del connettore fallita.",
       "updateError": "Aggiornamento del connettore fallito.",
       "deleteError": "Eliminazione del connettore fallita.",
       "toggleError": "Cambio stato del connettore fallito."
