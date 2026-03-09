@@ -102,7 +102,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
             </div>
             <div>
               <CardTitle className="text-base">{connector.name}</CardTitle>
-              <CardDescription>{meta.description}</CardDescription>
+              <CardDescription>{t(meta.descriptionKey)}</CardDescription>
             </div>
           </div>
           <Switch

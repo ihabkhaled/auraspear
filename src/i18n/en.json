@@ -528,6 +528,17 @@
   "connectors": {
     "title": "Connectors",
     "description": "Manage integrations with security tools",
+    "connectorDesc": {
+      "wazuh": "Security monitoring & SIEM",
+      "graylog": "Log management & analysis",
+      "logstash": "Log processing & ingestion pipeline",
+      "velociraptor": "Endpoint visibility & response",
+      "grafana": "Observability & dashboards",
+      "influxdb": "Time series database",
+      "misp": "Threat intelligence platform",
+      "shuffle": "Security orchestration & automation",
+      "bedrock": "AI-powered security analysis"
+    },
     "noConnectors": "No connectors",
     "noConnectorsDescription": "No connector integrations are configured for your tenant.",
     "addConnector": "Add",
@@ -719,7 +730,8 @@
       "tokenExpired": "Your session has expired. Please sign in again.",
       "unauthorized": "You are not authenticated. Please sign in.",
       "accountInactive": "Your account is not active. Please contact your administrator.",
-      "membershipInactive": "Your membership in this tenant is not active."
+      "membershipInactive": "Your membership in this tenant is not active.",
+      "tokenRevoked": "This token has been revoked. Please sign in again."
     },
     "validation": {
       "failed": "Validation failed. Please check your input and try again.",
@@ -860,7 +872,8 @@
       "userProtected": "This user is protected and cannot be modified.",
       "userNotDeleted": "This user is not deleted.",
       "userAlreadyBlocked": "This user is already blocked.",
-      "userNotBlocked": "This user is not blocked."
+      "userNotBlocked": "This user is not blocked.",
+      "crossTenantAccessDenied": "You do not have permission to access another tenant's resources."
     },
     "alerts": {
       "notFound": "Alert not found.",
@@ -885,7 +898,9 @@
       "notFound": "Hunt session not found.",
       "connectorNotConfigured": "Search connector is not configured.",
       "searchConnectorNotConfigured": "Search connector is not configured.",
-      "queryFailed": "Hunt query execution failed."
+      "queryFailed": "Hunt query execution failed.",
+      "invalidTransition": "Invalid hunt session status transition.",
+      "invalidQuery": "Invalid or empty hunt query."
     },
     "health": {
       "serviceUnavailable": "Health service is unavailable.",

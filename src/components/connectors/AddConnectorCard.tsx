@@ -28,7 +28,7 @@ export function AddConnectorCard({ connectorType }: AddConnectorCardProps) {
           </div>
           <div>
             <CardTitle className="text-base">{meta.label}</CardTitle>
-            <CardDescription>{meta.description}</CardDescription>
+            <CardDescription>{t(meta.descriptionKey)}</CardDescription>
           </div>
         </div>
       </CardHeader>

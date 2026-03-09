@@ -527,6 +527,17 @@
   "connectors": {
     "title": "Connecteurs",
     "description": "Gerer les integrations avec les outils de securite",
+    "connectorDesc": {
+      "wazuh": "Surveillance de la sécurité et SIEM",
+      "graylog": "Gestion et analyse des journaux",
+      "logstash": "Traitement et ingestion des journaux",
+      "velociraptor": "Visibilité et réponse des endpoints",
+      "grafana": "Observabilité et tableaux de bord",
+      "influxdb": "Base de données de séries temporelles",
+      "misp": "Plateforme de renseignement sur les menaces",
+      "shuffle": "Orchestration et automatisation de la sécurité",
+      "bedrock": "Analyse de sécurité alimentée par l'IA"
+    },
     "noConnectors": "Aucun connecteur",
     "noConnectorsDescription": "Cliquez sur \"Restaurer les donnees de demo\" pour restaurer les connecteurs par defaut.",
     "addConnector": "Ajouter",
@@ -718,7 +729,8 @@
       "tokenExpired": "Votre session a expire. Veuillez vous reconnecter.",
       "unauthorized": "Vous n'etes pas authentifie. Veuillez vous connecter.",
       "accountInactive": "Votre compte n'est pas actif. Veuillez contacter votre administrateur.",
-      "membershipInactive": "Votre adhesion a ce locataire n'est pas active."
+      "membershipInactive": "Votre adhesion a ce locataire n'est pas active.",
+      "tokenRevoked": "Ce jeton a ete revoque. Veuillez vous reconnecter."
     },
     "validation": {
       "failed": "La validation a echoue. Veuillez verifier votre saisie et reessayer.",
@@ -859,7 +871,8 @@
       "userProtected": "Cet utilisateur est protege et ne peut pas etre modifie.",
       "userNotDeleted": "Cet utilisateur n'est pas supprime.",
       "userAlreadyBlocked": "Cet utilisateur est deja bloque.",
-      "userNotBlocked": "Cet utilisateur n'est pas bloque."
+      "userNotBlocked": "Cet utilisateur n'est pas bloque.",
+      "crossTenantAccessDenied": "Vous n'avez pas la permission d'acceder aux ressources d'un autre locataire."
     },
     "alerts": {
       "notFound": "Alerte introuvable.",
@@ -884,7 +897,9 @@
       "notFound": "Session de chasse introuvable.",
       "connectorNotConfigured": "Le connecteur de recherche n'est pas configure.",
       "searchConnectorNotConfigured": "Le connecteur de recherche n'est pas configure.",
-      "queryFailed": "L'execution de la requete de chasse a echoue."
+      "queryFailed": "L'execution de la requete de chasse a echoue.",
+      "invalidTransition": "Transition de statut de session de chasse non valide.",
+      "invalidQuery": "Requete de chasse non valide ou vide."
     },
     "health": {
       "serviceUnavailable": "Le service de sante est indisponible.",

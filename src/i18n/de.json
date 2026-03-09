@@ -527,6 +527,17 @@
   "connectors": {
     "title": "Konnektoren",
     "description": "Integrationen mit Sicherheitstools verwalten",
+    "connectorDesc": {
+      "wazuh": "Sicherheitsüberwachung & SIEM",
+      "graylog": "Protokollverwaltung & Analyse",
+      "logstash": "Protokollverarbeitung & Aufnahme-Pipeline",
+      "velociraptor": "Endpoint-Sichtbarkeit & Reaktion",
+      "grafana": "Observability & Dashboards",
+      "influxdb": "Zeitreihendatenbank",
+      "misp": "Plattform für Bedrohungsinformationen",
+      "shuffle": "Sicherheitsorchestrierung & Automatisierung",
+      "bedrock": "KI-gestützte Sicherheitsanalyse"
+    },
     "noConnectors": "Keine Konnektoren",
     "noConnectorsDescription": "Klicken Sie auf \"Demodaten laden\", um die Standardkonnektoren wiederherzustellen.",
     "addConnector": "Hinzufügen",
@@ -718,7 +729,8 @@
       "tokenExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
       "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an.",
       "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator.",
-      "membershipInactive": "Ihre Mitgliedschaft in diesem Mandanten ist nicht aktiv."
+      "membershipInactive": "Ihre Mitgliedschaft in diesem Mandanten ist nicht aktiv.",
+      "tokenRevoked": "Dieses Token wurde widerrufen. Bitte melden Sie sich erneut an."
     },
     "validation": {
       "failed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe und versuchen Sie es erneut.",
@@ -859,7 +871,8 @@
       "userProtected": "Dieser Benutzer ist geschuetzt und kann nicht geaendert werden.",
       "userNotDeleted": "Dieser Benutzer ist nicht geloescht.",
       "userAlreadyBlocked": "Dieser Benutzer ist bereits gesperrt.",
-      "userNotBlocked": "Dieser Benutzer ist nicht gesperrt."
+      "userNotBlocked": "Dieser Benutzer ist nicht gesperrt.",
+      "crossTenantAccessDenied": "Sie haben keine Berechtigung, auf Ressourcen eines anderen Mandanten zuzugreifen."
     },
     "alerts": {
       "notFound": "Alarm nicht gefunden.",
@@ -884,7 +897,9 @@
       "notFound": "Jagdsitzung nicht gefunden.",
       "connectorNotConfigured": "Such-Konnektor ist nicht konfiguriert.",
       "searchConnectorNotConfigured": "Such-Konnektor ist nicht konfiguriert.",
-      "queryFailed": "Ausführung der Jagdabfrage fehlgeschlagen."
+      "queryFailed": "Ausführung der Jagdabfrage fehlgeschlagen.",
+      "invalidTransition": "Ungueltiger Statusuebergang der Jagdsitzung.",
+      "invalidQuery": "Ungueltige oder leere Jagdabfrage."
     },
     "health": {
       "serviceUnavailable": "Gesundheitsdienst ist nicht verfügbar.",

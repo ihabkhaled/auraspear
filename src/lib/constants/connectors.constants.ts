@@ -40,47 +40,47 @@ export const CONNECTOR_ICONS: Record<ConnectorType, LucideIcon> = {
 export const CONNECTOR_META: Record<ConnectorType, ConnectorMeta> = {
   [ConnectorType.WAZUH]: {
     label: 'Wazuh',
-    description: 'Security monitoring & SIEM',
+    descriptionKey: 'connectorDesc.wazuh',
     category: ConnectorCategory.SIEM,
   },
   [ConnectorType.GRAYLOG]: {
     label: 'Graylog',
-    description: 'Log management & analysis',
+    descriptionKey: 'connectorDesc.graylog',
     category: ConnectorCategory.SIEM,
   },
   [ConnectorType.LOGSTASH]: {
     label: 'Logstash',
-    description: 'Log processing & ingestion pipeline',
+    descriptionKey: 'connectorDesc.logstash',
     category: ConnectorCategory.SIEM,
   },
   [ConnectorType.VELOCIRAPTOR]: {
     label: 'Velociraptor',
-    description: 'Endpoint visibility & response',
+    descriptionKey: 'connectorDesc.velociraptor',
     category: ConnectorCategory.EDR,
   },
   [ConnectorType.GRAFANA]: {
     label: 'Grafana',
-    description: 'Observability & dashboards',
+    descriptionKey: 'connectorDesc.grafana',
     category: ConnectorCategory.OBSERVABILITY,
   },
   [ConnectorType.INFLUXDB]: {
     label: 'InfluxDB',
-    description: 'Time series database',
+    descriptionKey: 'connectorDesc.influxdb',
     category: ConnectorCategory.OBSERVABILITY,
   },
   [ConnectorType.MISP]: {
     label: 'MISP',
-    description: 'Threat intelligence platform',
+    descriptionKey: 'connectorDesc.misp',
     category: ConnectorCategory.THREAT_INTEL,
   },
   [ConnectorType.SHUFFLE]: {
     label: 'Shuffle SOAR',
-    description: 'Security orchestration & automation',
+    descriptionKey: 'connectorDesc.shuffle',
     category: ConnectorCategory.SOAR,
   },
   [ConnectorType.BEDROCK]: {
     label: 'AWS Bedrock AI',
-    description: 'AI-powered security analysis',
+    descriptionKey: 'connectorDesc.bedrock',
     category: ConnectorCategory.AI,
   },
 }

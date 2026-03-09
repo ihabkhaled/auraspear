@@ -527,6 +527,17 @@
   "connectors": {
     "title": "Connettori",
     "description": "Gestisci le integrazioni con gli strumenti di sicurezza",
+    "connectorDesc": {
+      "wazuh": "Monitoraggio della sicurezza e SIEM",
+      "graylog": "Gestione e analisi dei log",
+      "logstash": "Elaborazione e acquisizione dei log",
+      "velociraptor": "Visibilità e risposta degli endpoint",
+      "grafana": "Osservabilità e dashboard",
+      "influxdb": "Database di serie temporali",
+      "misp": "Piattaforma di intelligence sulle minacce",
+      "shuffle": "Orchestrazione e automazione della sicurezza",
+      "bedrock": "Analisi di sicurezza basata sull'IA"
+    },
     "noConnectors": "Nessun connettore",
     "noConnectorsDescription": "Clicca \"Carica Dati Demo\" per ripristinare i connettori predefiniti.",
     "addConnector": "Aggiungi",
@@ -718,7 +729,8 @@
       "tokenExpired": "La tua sessione è scaduta. Accedi nuovamente.",
       "unauthorized": "Non sei autenticato. Effettua l'accesso.",
       "accountInactive": "Il tuo account non e attivo. Contatta il tuo amministratore.",
-      "membershipInactive": "La tua appartenenza a questo tenant non è attiva."
+      "membershipInactive": "La tua appartenenza a questo tenant non è attiva.",
+      "tokenRevoked": "Questo token e stato revocato. Effettua nuovamente l'accesso."
     },
     "validation": {
       "failed": "Validazione fallita. Controlla i dati inseriti e riprova.",
@@ -859,7 +871,8 @@
       "userProtected": "Questo utente e protetto e non puo essere modificato.",
       "userNotDeleted": "Questo utente non e eliminato.",
       "userAlreadyBlocked": "Questo utente e gia bloccato.",
-      "userNotBlocked": "Questo utente non e bloccato."
+      "userNotBlocked": "Questo utente non e bloccato.",
+      "crossTenantAccessDenied": "Non hai i permessi per accedere alle risorse di un altro tenant."
     },
     "alerts": {
       "notFound": "Avviso non trovato.",
@@ -884,7 +897,9 @@
       "notFound": "Sessione di caccia non trovata.",
       "connectorNotConfigured": "Il connettore di ricerca non e configurato.",
       "searchConnectorNotConfigured": "Il connettore di ricerca non è configurato.",
-      "queryFailed": "Esecuzione della query di caccia fallita."
+      "queryFailed": "Esecuzione della query di caccia fallita.",
+      "invalidTransition": "Transizione di stato della sessione di caccia non valida.",
+      "invalidQuery": "Query di caccia non valida o vuota."
     },
     "health": {
       "serviceUnavailable": "Il servizio di stato non è disponibile.",

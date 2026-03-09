@@ -27,7 +27,7 @@ export interface ConnectorTestResult {
 
 export interface ConnectorMeta {
   label: string
-  description: string
+  descriptionKey: string
   category: ConnectorCategory
 }
 

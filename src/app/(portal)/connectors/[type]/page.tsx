@@ -78,7 +78,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
               <h1 className="text-xl font-bold">
                 {t('createConnector')}: {meta.label}
               </h1>
-              <p className="text-muted-foreground text-sm">{meta.description}</p>
+              <p className="text-muted-foreground text-sm">{t(meta.descriptionKey)}</p>
             </div>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
           </div>
           <div>
             <h1 className="text-xl font-bold">{connector.name}</h1>
-            <p className="text-muted-foreground text-sm">{meta.description}</p>
+            <p className="text-muted-foreground text-sm">{t(meta.descriptionKey)}</p>
           </div>
         </div>
       </div>
