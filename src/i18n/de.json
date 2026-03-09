@@ -713,7 +713,8 @@
       "tenantRequired": "Mandantenkontext ist erforderlich.",
       "tokenExpired": "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.",
       "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an.",
-      "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator."
+      "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator.",
+      "membershipInactive": "Ihre Mitgliedschaft in diesem Mandanten ist nicht aktiv."
     },
     "validation": {
       "failed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe und versuchen Sie es erneut.",
@@ -732,7 +733,9 @@
       },
       "newPassword": {
         "required": "Neues Passwort ist erforderlich",
-        "tooShort": "Das neue Passwort muss mindestens 8 Zeichen enthalten"
+        "tooShort": "Das neue Passwort muss mindestens 8 Zeichen enthalten",
+        "sameAsOld": "Das neue Passwort muss sich vom aktuellen Passwort unterscheiden",
+        "weak": "Das Passwort muss Grossbuchstaben, Kleinbuchstaben, eine Ziffer und ein Sonderzeichen enthalten"
       },
       "confirmPassword": {
         "required": "Passwortbestaetigung ist erforderlich",
@@ -864,7 +867,9 @@
       "notFound": "Vorfall nicht gefunden.",
       "alreadyClosed": "Dieser Vorfall ist bereits geschlossen.",
       "duplicateAlert": "Dieser Alarm ist bereits mit dem Vorfall verknüpft.",
-      "statusChangeNotAllowed": "Nur der Fallinhaber oder ein Administrator kann den Fallstatus ändern."
+      "statusChangeNotAllowed": "Nur der Fallinhaber oder ein Administrator kann den Fallstatus ändern.",
+      "invalidOwner": "Der zugewiesene Inhaber ist kein aktives Mitglied dieses Mandanten.",
+      "invalidLinkedAlerts": "Ein oder mehrere verknuepfte Alarme gehoeren nicht zu diesem Mandanten."
     },
     "intel": {
       "mispNotConfigured": "MISP-Konnektor ist nicht konfiguriert.",
@@ -883,7 +888,8 @@
     },
     "ai": {
       "notEnabled": "KI-Modul ist nicht aktiviert.",
-      "invocationFailed": "KI-Aufruf fehlgeschlagen."
+      "invocationFailed": "KI-Aufruf fehlgeschlagen.",
+      "serviceUnavailable": "Der KI-Dienst ist voruebergehend nicht verfuegbar. Bitte versuchen Sie es spaeter erneut."
     },
     "users": {
       "notFound": "Benutzer nicht gefunden.",

@@ -713,7 +713,8 @@
       "tenantRequired": "Il contesto del tenant e obbligatorio.",
       "tokenExpired": "La tua sessione è scaduta. Accedi nuovamente.",
       "unauthorized": "Non sei autenticato. Effettua l'accesso.",
-      "accountInactive": "Il tuo account non e attivo. Contatta il tuo amministratore."
+      "accountInactive": "Il tuo account non e attivo. Contatta il tuo amministratore.",
+      "membershipInactive": "La tua appartenenza a questo tenant non è attiva."
     },
     "validation": {
       "failed": "Validazione fallita. Controlla i dati inseriti e riprova.",
@@ -732,7 +733,9 @@
       },
       "newPassword": {
         "required": "La nuova password e obbligatoria",
-        "tooShort": "La nuova password deve contenere almeno 8 caratteri"
+        "tooShort": "La nuova password deve contenere almeno 8 caratteri",
+        "sameAsOld": "La nuova password deve essere diversa dalla password attuale",
+        "weak": "La password deve contenere maiuscole, minuscole, un numero e un carattere speciale"
       },
       "confirmPassword": {
         "required": "La conferma della password e obbligatoria",
@@ -864,7 +867,9 @@
       "notFound": "Caso non trovato.",
       "alreadyClosed": "Questo caso è già chiuso.",
       "duplicateAlert": "Questo avviso è già collegato al caso.",
-      "statusChangeNotAllowed": "Solo il proprietario del caso o un amministratore può modificare lo stato del caso."
+      "statusChangeNotAllowed": "Solo il proprietario del caso o un amministratore può modificare lo stato del caso.",
+      "invalidOwner": "Il proprietario assegnato non è un membro attivo di questo tenant.",
+      "invalidLinkedAlerts": "Uno o più avvisi collegati non appartengono a questo tenant."
     },
     "intel": {
       "mispNotConfigured": "Il connettore MISP non è configurato.",
@@ -883,7 +888,8 @@
     },
     "ai": {
       "notEnabled": "Il modulo AI non è abilitato.",
-      "invocationFailed": "Invocazione dell'AI fallita."
+      "invocationFailed": "Invocazione dell'AI fallita.",
+      "serviceUnavailable": "Il servizio AI è temporaneamente non disponibile. Riprova più tardi."
     },
     "users": {
       "notFound": "Utente non trovato.",

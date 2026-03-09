@@ -714,7 +714,8 @@
       "tenantRequired": "Tenant context is required.",
       "tokenExpired": "Your session has expired. Please sign in again.",
       "unauthorized": "You are not authenticated. Please sign in.",
-      "accountInactive": "Your account is not active. Please contact your administrator."
+      "accountInactive": "Your account is not active. Please contact your administrator.",
+      "membershipInactive": "Your membership in this tenant is not active."
     },
     "validation": {
       "failed": "Validation failed. Please check your input and try again.",
@@ -733,7 +734,9 @@
       },
       "newPassword": {
         "required": "New password is required",
-        "tooShort": "New password must be at least 8 characters"
+        "tooShort": "New password must be at least 8 characters",
+        "sameAsOld": "New password must be different from current password",
+        "weak": "Password must contain uppercase, lowercase, digit, and special character"
       },
       "confirmPassword": {
         "required": "Password confirmation is required",
@@ -865,7 +868,9 @@
       "notFound": "Case not found.",
       "alreadyClosed": "This case is already closed.",
       "duplicateAlert": "This alert is already linked to the case.",
-      "statusChangeNotAllowed": "Only the case owner or an admin can change the case status."
+      "statusChangeNotAllowed": "Only the case owner or an admin can change the case status.",
+      "invalidOwner": "The assigned owner is not an active member of this tenant.",
+      "invalidLinkedAlerts": "One or more linked alerts do not belong to this tenant."
     },
     "intel": {
       "mispNotConfigured": "MISP connector is not configured.",
@@ -884,7 +889,8 @@
     },
     "ai": {
       "notEnabled": "AI module is not enabled.",
-      "invocationFailed": "AI invocation failed."
+      "invocationFailed": "AI invocation failed.",
+      "serviceUnavailable": "AI service is temporarily unavailable. Please try again later."
     },
     "users": {
       "notFound": "User not found.",
