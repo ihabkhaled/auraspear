@@ -72,6 +72,7 @@ function updateStoredTokens(accessToken: string, refreshToken: string): void {
 function clearAuthAndRedirect(): void {
   if (typeof window === 'undefined') return
   localStorage.removeItem(AUTH_STORAGE_KEY)
+  localStorage.removeItem(TENANT_STORAGE_KEY)
   window.location.href = '/login'
 }
 

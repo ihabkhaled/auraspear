@@ -693,7 +693,8 @@
     "webhookUrlRequired": "La URL del webhook es obligatoria",
     "workflowIdRequired": "El ID del flujo de trabajo es obligatorio",
     "modelRequired": "El modelo es obligatorio",
-    "regionRequired": "La región es obligatoria"
+    "regionRequired": "La región es obligatoria",
+    "urlPrivateNetwork": "No se permiten URLs que apunten a redes privadas o internas"
   },
   "errors": {
     "accessDenied": "No tiene permiso para acceder a esta página.",
@@ -730,7 +731,8 @@
       "unauthorized": "No está autenticado. Por favor, inicie sesión.",
       "accountInactive": "Su cuenta no está activa. Por favor, contacte a su administrador.",
       "membershipInactive": "Su membresía en este inquilino no está activa.",
-      "tokenRevoked": "Este token ha sido revocado. Por favor, inicie sesión nuevamente."
+      "tokenRevoked": "Este token ha sido revocado. Por favor, inicie sesión nuevamente.",
+      "tokenMismatch": "El token de actualización no pertenece a este usuario."
     },
     "validation": {
       "failed": "La validación falló. Por favor, verifique su entrada e inténtelo de nuevo.",
@@ -872,6 +874,7 @@
       "userNotDeleted": "Este usuario no está eliminado.",
       "userAlreadyBlocked": "Este usuario ya está bloqueado.",
       "userNotBlocked": "Este usuario no está bloqueado.",
+      "userAlreadyExists": "Este usuario ya existe. La contrasena proporcionada no fue aplicada. Por favor use la pagina de gestion de usuarios para cambiar contrasenas.",
       "crossTenantAccessDenied": "No tiene permiso para acceder a los recursos de otro inquilino."
     },
     "alerts": {

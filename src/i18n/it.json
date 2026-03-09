@@ -693,7 +693,8 @@
     "webhookUrlRequired": "L'URL del webhook è obbligatorio",
     "workflowIdRequired": "L'ID del workflow è obbligatorio",
     "modelRequired": "Il modello è obbligatorio",
-    "regionRequired": "La regione è obbligatoria"
+    "regionRequired": "La regione è obbligatoria",
+    "urlPrivateNetwork": "Non sono consentiti URL che puntano a reti private o interne"
   },
   "errors": {
     "accessDenied": "Non hai i permessi per accedere a questa pagina.",
@@ -730,7 +731,8 @@
       "unauthorized": "Non sei autenticato. Effettua l'accesso.",
       "accountInactive": "Il tuo account non e attivo. Contatta il tuo amministratore.",
       "membershipInactive": "La tua appartenenza a questo tenant non è attiva.",
-      "tokenRevoked": "Questo token e stato revocato. Effettua nuovamente l'accesso."
+      "tokenRevoked": "Questo token e stato revocato. Effettua nuovamente l'accesso.",
+      "tokenMismatch": "Il token di aggiornamento non appartiene a questo utente."
     },
     "validation": {
       "failed": "Validazione fallita. Controlla i dati inseriti e riprova.",
@@ -872,6 +874,7 @@
       "userNotDeleted": "Questo utente non e eliminato.",
       "userAlreadyBlocked": "Questo utente e gia bloccato.",
       "userNotBlocked": "Questo utente non e bloccato.",
+      "userAlreadyExists": "Questo utente esiste gia. La password fornita non e stata applicata. Utilizzare la pagina di gestione utenti per modificare le password.",
       "crossTenantAccessDenied": "Non hai i permessi per accedere alle risorse di un altro tenant."
     },
     "alerts": {

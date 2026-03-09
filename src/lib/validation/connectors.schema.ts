@@ -1,6 +1,55 @@
 import { z } from 'zod'
 import { ConnectorAuthType, ConnectorType } from '@/enums'
 
+const BLOCKED_HOSTNAME_SUFFIXES = ['.local', '.internal', '.localhost'] as const
+
+const PRIVATE_IP_PATTERNS = [
+  /^127\.\d{1,3}\.\d{1,3}\.\d{1,3}$/, // 127.x.x.x loopback
+  /^0\.0\.0\.0$/, // unspecified
+  /^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/, // Class A private
+  /^172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}$/, // Class B private (172.16-31.x.x)
+  /^192\.168\.\d{1,3}\.\d{1,3}$/, // Class C private
+  /^169\.254\.\d{1,3}\.\d{1,3}$/, // link-local
+] as const
+
+const isPrivateUrl = (url: string): boolean => {
+  let parsed: URL
+  try {
+    parsed = new URL(url)
+  } catch {
+    return false
+  }
+
+  const { hostname } = parsed
+  const lowerHostname = hostname.toLowerCase()
+
+  if (lowerHostname === 'localhost') {
+    return true
+  }
+
+  if (lowerHostname === '::1' || lowerHostname === '[::1]') {
+    return true
+  }
+
+  if (lowerHostname.startsWith('fe80:') || lowerHostname.startsWith('[fe80:')) {
+    return true
+  }
+
+  for (const suffix of BLOCKED_HOSTNAME_SUFFIXES) {
+    if (lowerHostname.endsWith(suffix)) {
+      return true
+    }
+  }
+
+  for (const pattern of PRIVATE_IP_PATTERNS) {
+    if (pattern.test(lowerHostname)) {
+      return true
+    }
+  }
+
+  return false
+}
+
 const connectorBaseSchema = z.object({
   name: z.string(),
   enabled: z.boolean(),
@@ -69,6 +118,10 @@ export function getConnectorSchema(type: ConnectorType) {
       !data.baseUrl.startsWith('https://')
     ) {
       ctx.addIssue({ code: 'custom', message: 'urlFormat', path: ['baseUrl'] })
+    }
+
+    if (type !== ConnectorType.BEDROCK && data.baseUrl && isPrivateUrl(data.baseUrl)) {
+      ctx.addIssue({ code: 'custom', message: 'urlPrivateNetwork', path: ['baseUrl'] })
     }
 
     if (data.timeoutSeconds < 1) {

@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({ data })
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Backend unavailable'
-    return NextResponse.json({ data: null, error: message }, { status: 502 })
+    console.error('[dashboard/kpis]', error)
+    return NextResponse.json({ data: null, error: 'Internal server error' }, { status: 502 })
   }
 }

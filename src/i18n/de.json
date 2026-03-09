@@ -693,7 +693,8 @@
     "webhookUrlRequired": "Webhook-URL ist erforderlich",
     "workflowIdRequired": "Workflow-ID ist erforderlich",
     "modelRequired": "Modell ist erforderlich",
-    "regionRequired": "Region ist erforderlich"
+    "regionRequired": "Region ist erforderlich",
+    "urlPrivateNetwork": "URLs, die auf private oder interne Netzwerke verweisen, sind nicht erlaubt"
   },
   "errors": {
     "accessDenied": "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.",
@@ -730,7 +731,8 @@
       "unauthorized": "Sie sind nicht authentifiziert. Bitte melden Sie sich an.",
       "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator.",
       "membershipInactive": "Ihre Mitgliedschaft in diesem Mandanten ist nicht aktiv.",
-      "tokenRevoked": "Dieses Token wurde widerrufen. Bitte melden Sie sich erneut an."
+      "tokenRevoked": "Dieses Token wurde widerrufen. Bitte melden Sie sich erneut an.",
+      "tokenMismatch": "Das Aktualisierungstoken gehort nicht zu diesem Benutzer."
     },
     "validation": {
       "failed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe und versuchen Sie es erneut.",
@@ -872,6 +874,7 @@
       "userNotDeleted": "Dieser Benutzer ist nicht geloescht.",
       "userAlreadyBlocked": "Dieser Benutzer ist bereits gesperrt.",
       "userNotBlocked": "Dieser Benutzer ist nicht gesperrt.",
+      "userAlreadyExists": "Dieser Benutzer existiert bereits. Das angegebene Passwort wurde nicht angewendet. Bitte verwenden Sie die Benutzerverwaltungsseite, um Passwoerter zu aendern.",
       "crossTenantAccessDenied": "Sie haben keine Berechtigung, auf Ressourcen eines anderen Mandanten zuzugreifen."
     },
     "alerts": {

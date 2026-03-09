@@ -694,7 +694,8 @@
     "webhookUrlRequired": "Webhook URL is required",
     "workflowIdRequired": "Workflow ID is required",
     "modelRequired": "Model is required",
-    "regionRequired": "Region is required"
+    "regionRequired": "Region is required",
+    "urlPrivateNetwork": "URLs pointing to private or internal networks are not allowed"
   },
   "errors": {
     "accessDenied": "You do not have permission to access this page.",
@@ -731,7 +732,8 @@
       "unauthorized": "You are not authenticated. Please sign in.",
       "accountInactive": "Your account is not active. Please contact your administrator.",
       "membershipInactive": "Your membership in this tenant is not active.",
-      "tokenRevoked": "This token has been revoked. Please sign in again."
+      "tokenRevoked": "This token has been revoked. Please sign in again.",
+      "tokenMismatch": "Refresh token does not belong to this user."
     },
     "validation": {
       "failed": "Validation failed. Please check your input and try again.",
@@ -873,6 +875,7 @@
       "userNotDeleted": "This user is not deleted.",
       "userAlreadyBlocked": "This user is already blocked.",
       "userNotBlocked": "This user is not blocked.",
+      "userAlreadyExists": "This user already exists. The provided password was not applied. Please use the user management page to change passwords.",
       "crossTenantAccessDenied": "You do not have permission to access another tenant's resources."
     },
     "alerts": {

@@ -32,6 +32,10 @@ export function TenantSwitcher() {
   }, [tenantsData?.data, setTenants])
 
   function handleTenantChange(value: string) {
+    const allowedList = isGlobalAdmin ? tenants : userTenants
+    const isValid = allowedList.some(item => item.id === value)
+    if (!isValid) return
+
     setCurrentTenant(value)
     void queryClient.invalidateQueries()
   }

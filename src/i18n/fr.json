@@ -693,7 +693,8 @@
     "webhookUrlRequired": "L'URL du webhook est obligatoire",
     "workflowIdRequired": "L'ID du workflow est obligatoire",
     "modelRequired": "Le modele est obligatoire",
-    "regionRequired": "La region est obligatoire"
+    "regionRequired": "La region est obligatoire",
+    "urlPrivateNetwork": "Les URL pointant vers des réseaux privés ou internes ne sont pas autorisées"
   },
   "errors": {
     "accessDenied": "Vous n'avez pas la permission d'acceder a cette page.",
@@ -730,7 +731,8 @@
       "unauthorized": "Vous n'etes pas authentifie. Veuillez vous connecter.",
       "accountInactive": "Votre compte n'est pas actif. Veuillez contacter votre administrateur.",
       "membershipInactive": "Votre adhesion a ce locataire n'est pas active.",
-      "tokenRevoked": "Ce jeton a ete revoque. Veuillez vous reconnecter."
+      "tokenRevoked": "Ce jeton a ete revoque. Veuillez vous reconnecter.",
+      "tokenMismatch": "Le jeton de rafraichissement n'appartient pas a cet utilisateur."
     },
     "validation": {
       "failed": "La validation a echoue. Veuillez verifier votre saisie et reessayer.",
@@ -872,6 +874,7 @@
       "userNotDeleted": "Cet utilisateur n'est pas supprime.",
       "userAlreadyBlocked": "Cet utilisateur est deja bloque.",
       "userNotBlocked": "Cet utilisateur n'est pas bloque.",
+      "userAlreadyExists": "Cet utilisateur existe deja. Le mot de passe fourni n'a pas ete applique. Veuillez utiliser la page de gestion des utilisateurs pour changer les mots de passe.",
       "crossTenantAccessDenied": "Vous n'avez pas la permission d'acceder aux ressources d'un autre locataire."
     },
     "alerts": {
