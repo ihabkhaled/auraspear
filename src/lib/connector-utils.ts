@@ -44,6 +44,7 @@ export function recordToFormValues(record: ConnectorRecord): ConnectorFormValues
     apiUrl: String(config['apiUrl'] ?? ''),
     streamId: String(config['streamId'] ?? ''),
     indexSetId: String(config['indexSetId'] ?? ''),
+    pipelineId: String(config['pipelineId'] ?? ''),
     orgId: String(config['orgId'] ?? ''),
     clientCert: String(config['clientCert'] ?? ''),
     clientKey: String(config['clientKey'] ?? ''),

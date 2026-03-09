@@ -7,6 +7,7 @@ import {
   Radar,
   Zap,
   Brain,
+  Workflow,
   type LucideIcon,
 } from 'lucide-react'
 import { ConnectorAuthType, ConnectorCategory, ConnectorStatus, ConnectorType } from '@/enums'
@@ -15,6 +16,7 @@ import type { ConnectorMeta, SecurityPosture } from '@/lib/types/connectors'
 export const CONNECTOR_TYPES: ConnectorType[] = [
   ConnectorType.WAZUH,
   ConnectorType.GRAYLOG,
+  ConnectorType.LOGSTASH,
   ConnectorType.VELOCIRAPTOR,
   ConnectorType.GRAFANA,
   ConnectorType.INFLUXDB,
@@ -26,6 +28,7 @@ export const CONNECTOR_TYPES: ConnectorType[] = [
 export const CONNECTOR_ICONS: Record<ConnectorType, LucideIcon> = {
   [ConnectorType.WAZUH]: Shield,
   [ConnectorType.GRAYLOG]: FileText,
+  [ConnectorType.LOGSTASH]: Workflow,
   [ConnectorType.VELOCIRAPTOR]: Crosshair,
   [ConnectorType.GRAFANA]: BarChart3,
   [ConnectorType.INFLUXDB]: Database,
@@ -43,6 +46,11 @@ export const CONNECTOR_META: Record<ConnectorType, ConnectorMeta> = {
   [ConnectorType.GRAYLOG]: {
     label: 'Graylog',
     description: 'Log management & analysis',
+    category: ConnectorCategory.SIEM,
+  },
+  [ConnectorType.LOGSTASH]: {
+    label: 'Logstash',
+    description: 'Log processing & ingestion pipeline',
     category: ConnectorCategory.SIEM,
   },
   [ConnectorType.VELOCIRAPTOR]: {
@@ -87,6 +95,7 @@ export const CONNECTOR_AUTH_TYPES: ConnectorAuthType[] = [
 export const SECURITY_POSTURE: Record<ConnectorType, SecurityPosture> = {
   [ConnectorType.WAZUH]: { mTLS: true, iam: false, encryption: true },
   [ConnectorType.GRAYLOG]: { mTLS: false, iam: false, encryption: true },
+  [ConnectorType.LOGSTASH]: { mTLS: false, iam: false, encryption: true },
   [ConnectorType.VELOCIRAPTOR]: { mTLS: true, iam: false, encryption: true },
   [ConnectorType.GRAFANA]: { mTLS: false, iam: false, encryption: true },
   [ConnectorType.INFLUXDB]: { mTLS: false, iam: false, encryption: true },

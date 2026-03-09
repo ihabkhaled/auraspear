@@ -84,6 +84,7 @@ export function ConnectorForm({
           apiUrl: '',
           streamId: '',
           indexSetId: '',
+          pipelineId: '',
           orgId: '',
           clientCert: '',
           clientKey: '',
@@ -385,6 +386,24 @@ export function ConnectorForm({
                 <Input id="indexSetId" disabled={disabled} {...register('indexSetId')} />
               </div>
             </div>
+          </div>
+          <Separator />
+        </>
+      )}
+
+      {type === ConnectorType.LOGSTASH && (
+        <>
+          <div className="space-y-4">
+            <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
+              Logstash
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="pipelineId">{t('logstash.pipelineId')}</Label>
+                <Input id="pipelineId" disabled={disabled} {...register('pipelineId')} />
+              </div>
+            </div>
+            <p className="text-muted-foreground text-xs">{t('logstash.apiNote')}</p>
           </div>
           <Separator />
         </>

@@ -623,6 +623,10 @@
       "streamId": "Stream-ID (optional)",
       "indexSetId": "Index-Set-ID (optional)"
     },
+    "logstash": {
+      "pipelineId": "Pipeline-ID (optional)",
+      "apiNote": "Die Logstash Monitoring-API läuft standardmäßig auf Port 9600. Verwenden Sie das Basis-URL-Feld oben für den API-Endpunkt (z.B. http://localhost:9600). Authentifizierung ist optional."
+    },
     "velociraptor": {
       "apiUrl": "API-URL",
       "orgId": "Org-ID (optional)",

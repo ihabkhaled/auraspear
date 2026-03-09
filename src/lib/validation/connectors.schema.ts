@@ -24,6 +24,8 @@ const connectorBaseSchema = z.object({
   apiUrl: z.string(),
   streamId: z.string(),
   indexSetId: z.string(),
+  // Logstash
+  pipelineId: z.string(),
   // Velociraptor
   orgId: z.string(),
   clientCert: z.string(),
