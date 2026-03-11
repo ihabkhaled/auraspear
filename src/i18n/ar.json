@@ -455,7 +455,8 @@
       "statusDegraded": "متدهور",
       "statusDown": "متوقف",
       "statusMaintenance": "صيانة",
-      "statusUnknown": "غير معروف"
+      "statusUnknown": "غير معروف",
+      "online": "متصل"
     },
     "roles": {
       "role": "الدور",
@@ -663,6 +664,30 @@
       "webhookUrl": "عنوان URL للويب هوك",
       "workflowId": "معرف سير العمل",
       "apiKey": "مفتاح API (اختياري)"
+    },
+    "openWorkspace": "فتح مساحة العمل",
+    "workspace": {
+      "tabOverview": "نظرة عامة",
+      "tabData": "البيانات",
+      "tabSearch": "البحث",
+      "tabActions": "الإجراءات",
+      "tabConfig": "الإعدادات",
+      "recentActivity": "النشاط الأخير",
+      "noRecentActivity": "لا يوجد نشاط حديث",
+      "entities": "الكيانات",
+      "entityName": "الاسم",
+      "entityType": "النوع",
+      "entityStatus": "الحالة",
+      "lastSeen": "آخر ظهور",
+      "noEntities": "لم يتم العثور على كيانات",
+      "quickActions": "إجراءات سريعة",
+      "noActions": "لا توجد إجراءات متاحة",
+      "search": "بحث",
+      "searchPlaceholder": "البحث في هذا الموصّل...",
+      "searchButton": "بحث",
+      "searchResults": "نتائج البحث",
+      "noSearchResults": "لم يتم العثور على نتائج",
+      "enableConnector": "قم بتفعيل هذا الموصّل لعرض بيانات مساحة العمل"
     }
   },
   "language": {

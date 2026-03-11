@@ -455,7 +455,8 @@
       "statusDegraded": "Eingeschraenkt",
       "statusDown": "Ausgefallen",
       "statusMaintenance": "Wartung",
-      "statusUnknown": "Unbekannt"
+      "statusUnknown": "Unbekannt",
+      "online": "Online"
     },
     "roles": {
       "role": "Rolle",
@@ -663,6 +664,30 @@
       "webhookUrl": "Webhook-URL",
       "workflowId": "Workflow-ID",
       "apiKey": "API Key (optional)"
+    },
+    "openWorkspace": "Arbeitsbereich öffnen",
+    "workspace": {
+      "tabOverview": "Übersicht",
+      "tabData": "Daten",
+      "tabSearch": "Suche",
+      "tabActions": "Aktionen",
+      "tabConfig": "Konfiguration",
+      "recentActivity": "Letzte Aktivität",
+      "noRecentActivity": "Keine aktuelle Aktivität",
+      "entities": "Entitäten",
+      "entityName": "Name",
+      "entityType": "Typ",
+      "entityStatus": "Status",
+      "lastSeen": "Zuletzt gesehen",
+      "noEntities": "Keine Entitäten gefunden",
+      "quickActions": "Schnellaktionen",
+      "noActions": "Keine Aktionen verfügbar",
+      "search": "Suchen",
+      "searchPlaceholder": "Diesen Konnektor durchsuchen...",
+      "searchButton": "Suchen",
+      "searchResults": "Suchergebnisse",
+      "noSearchResults": "Keine Ergebnisse gefunden",
+      "enableConnector": "Aktivieren Sie diesen Konnektor, um Arbeitsbereichsdaten anzuzeigen"
     }
   },
   "language": {

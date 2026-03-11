@@ -1,7 +1,7 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { type AlertSeverity } from '@/enums'
+import { type AlertSeverity, SortOrder } from '@/enums'
 import { getSeverityVariant } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { Column, Alert, AlertColumnTranslations, GetAlertColumnsOptions } from '@/types'
@@ -42,7 +42,7 @@ export function getAlertColumns(
       key: 'timestamp',
       label: t.common('timestamp'),
       sortable: true,
-      defaultSortOrder: 'desc',
+      defaultSortOrder: SortOrder.DESC,
       render: value => (
         <span className="text-muted-foreground font-mono text-xs whitespace-nowrap">
           {formatTimestamp(String(value))}

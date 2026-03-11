@@ -1,7 +1,5 @@
-import { ServiceStatus } from '@/enums'
+import { ServiceStatus, StatusDotSize } from '@/enums'
 import { cn } from '@/lib/utils'
-
-type StatusDotSize = 'sm' | 'md'
 
 interface StatusDotProps {
   status: ServiceStatus
@@ -23,11 +21,11 @@ const PING_COLOR_MAP: Record<ServiceStatus, string> = {
 }
 
 const SIZE_MAP: Record<StatusDotSize, string> = {
-  sm: 'h-2 w-2',
-  md: 'h-3 w-3',
+  [StatusDotSize.SM]: 'h-2 w-2',
+  [StatusDotSize.MD]: 'h-3 w-3',
 }
 
-export function StatusDot({ status, size = 'sm' }: StatusDotProps) {
+export function StatusDot({ status, size = StatusDotSize.SM }: StatusDotProps) {
   return (
     <span className="relative inline-flex">
       <span

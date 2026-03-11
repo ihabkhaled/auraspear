@@ -1,13 +1,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Settings, Play, Trash2 } from 'lucide-react'
+import { Settings, Play, Trash2, ExternalLink } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Switch } from '@/components/ui/switch'
-import { ConnectorStatus, UserRole } from '@/enums'
+import { ConnectorStatus, UserRole, WorkspaceTab } from '@/enums'
 import { useTestConnector, useToggleConnector, useDeleteConnector } from '@/hooks/useConnectors'
 import { getErrorKey } from '@/lib/api-error'
 import { CONNECTOR_ICONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
@@ -122,12 +122,22 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
           )}
         </div>
         <div className="flex flex-wrap gap-2">
+          {connector.enabled && (
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => router.push(`/connectors/${connector.type}`)}
+            >
+              <ExternalLink className="me-1 h-3.5 w-3.5" />
+              {t('openWorkspace')}
+            </Button>
+          )}
           <Button
             variant="outline"
             size="sm"
-            onClick={() => router.push(`/connectors/${connector.type}`)}
+            onClick={() => router.push(`/connectors/${connector.type}?tab=${WorkspaceTab.CONFIG}`)}
           >
-            <Settings className="mr-1 h-3.5 w-3.5" />
+            <Settings className="me-1 h-3.5 w-3.5" />
             {t('configure')}
           </Button>
           {isEditor && (
@@ -137,7 +147,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
               onClick={handleTest}
               disabled={testMutation.isPending}
             >
-              <Play className="mr-1 h-3.5 w-3.5" />
+              <Play className="me-1 h-3.5 w-3.5" />
               {t('test')}
             </Button>
           )}
@@ -149,7 +159,7 @@ export function ConnectorCard({ connector }: ConnectorCardProps) {
               disabled={deleteMutation.isPending}
               className="text-destructive hover:text-destructive"
             >
-              <Trash2 className="mr-1 h-3.5 w-3.5" />
+              <Trash2 className="me-1 h-3.5 w-3.5" />
               {t('deleteConnector')}
             </Button>
           )}

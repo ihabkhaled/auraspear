@@ -11,7 +11,38 @@ import {
   EmptyState,
 } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Progress } from '@/components/ui/progress'
+import { ServiceStatus } from '@/enums'
 import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
+import { computeHealthPercent, getHealthStatusClass, getHealthBgClass } from '@/lib/health-utils'
+import { cn } from '@/lib/utils'
+import type { ServiceHealth } from '@/types'
+
+function HealthSummary({
+  services,
+  t,
+}: {
+  services: ServiceHealth[]
+  t: ReturnType<typeof useTranslations<'admin'>>
+}) {
+  const percent = computeHealthPercent(services)
+  const online = services.filter(s => s.status === ServiceStatus.HEALTHY).length
+
+  return (
+    <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
+        <span className={cn('h-2 w-2 rounded-full', getHealthBgClass(percent))} />
+        <span className="text-muted-foreground text-xs">
+          {t('services.online')}: {online}/{services.length}
+        </span>
+      </div>
+      <div className="flex items-center gap-2">
+        <Progress value={percent} className="h-1.5 w-24" />
+        <span className={cn('text-xs font-bold', getHealthStatusClass(percent))}>{percent}%</span>
+      </div>
+    </div>
+  )
+}
 
 export default function SystemAdminPage() {
   const t = useTranslations('admin')
@@ -71,7 +102,12 @@ export default function SystemAdminPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{t('services.title')}</CardTitle>
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-base">{t('services.title')}</CardTitle>
+            {!healthLoading && (healthData?.data?.length ?? 0) > 0 && (
+              <HealthSummary services={healthData?.data ?? []} t={t} />
+            )}
+          </div>
         </CardHeader>
         <CardContent>{renderServices()}</CardContent>
       </Card>

@@ -1,0 +1,115 @@
+'use client'
+
+import { useState, useCallback } from 'react'
+import { Search } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { LoadingSpinner } from '@/components/common'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { AlertSeverity } from '@/enums'
+import { cn, formatTimestamp } from '@/lib/utils'
+import type { WorkspaceSearchRequest, WorkspaceSearchResponse, WorkspaceRecentItem } from '@/types'
+
+const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
+  [AlertSeverity.CRITICAL]: 'bg-severity-critical text-white',
+  [AlertSeverity.HIGH]: 'bg-severity-high text-white',
+  [AlertSeverity.MEDIUM]: 'bg-severity-medium text-white',
+  [AlertSeverity.LOW]: 'bg-severity-low',
+  [AlertSeverity.INFO]: 'bg-severity-info',
+}
+
+interface WorkspaceSearchPanelProps {
+  onSearch: (request: WorkspaceSearchRequest) => void
+  results: WorkspaceSearchResponse | undefined
+  loading: boolean
+}
+
+export function WorkspaceSearchPanel({ onSearch, results, loading }: WorkspaceSearchPanelProps) {
+  const t = useTranslations('connectors.workspace')
+  const [query, setQuery] = useState('')
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault()
+      if (!query.trim()) return
+      onSearch({ query: query.trim(), page: 1, pageSize: 20 })
+    },
+    [query, onSearch]
+  )
+
+  return (
+    <div className="space-y-4">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-sm">{t('search')}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="flex gap-2">
+            <div className="relative flex-1">
+              <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+              <Input
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder={t('searchPlaceholder')}
+                className="ps-9"
+              />
+            </div>
+            <Button type="submit" disabled={loading || !query.trim()}>
+              {loading ? <LoadingSpinner /> : t('searchButton')}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
+      {results && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-sm">
+              {t('searchResults')} ({results.total})
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            {results.results.length === 0 ? (
+              <p className="text-muted-foreground py-8 text-center text-sm">
+                {t('noSearchResults')}
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {results.results.map((item: WorkspaceRecentItem) => (
+                  <div
+                    key={item.id}
+                    className="border-border flex items-start gap-3 rounded-lg border p-3"
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-center gap-2">
+                        <p className="truncate text-sm font-medium">{item.title}</p>
+                        {item.severity && (
+                          <Badge
+                            variant="outline"
+                            className={cn('text-[10px]', SEVERITY_CLASSES[item.severity])}
+                          >
+                            {item.severity}
+                          </Badge>
+                        )}
+                      </div>
+                      {item.description && (
+                        <p className="text-muted-foreground mt-0.5 text-xs">{item.description}</p>
+                      )}
+                      {item.timestamp && (
+                        <p className="text-muted-foreground mt-1 text-[10px]">
+                          {formatTimestamp(item.timestamp)}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  )
+}

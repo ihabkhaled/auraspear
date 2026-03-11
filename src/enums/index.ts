@@ -31,3 +31,5 @@ export {
 export { NotificationType } from './notification.enum'
 export { ChartType } from './chart.enum'
 export { SortOrder } from './sort-order.enum'
+export { WorkspaceTab, CardVariant } from './workspace.enum'
+export { StatusDotSize } from './component-size.enum'

@@ -38,6 +38,14 @@ export { useCasesPage } from './useCasesPage'
 export { useHuntPage } from './useHuntPage'
 export { useIntelPage } from './useIntelPage'
 export { useConnectorDetailPage } from './useConnectorDetailPage'
+export {
+  useWorkspaceOverview,
+  useWorkspaceRecentActivity,
+  useWorkspaceEntities,
+  useWorkspaceSearch,
+  useWorkspaceAction,
+} from './useConnectorWorkspace'
+export { useConnectorWorkspacePage } from './useConnectorWorkspacePage'
 export { useSystemAdminPage } from './useSystemAdminPage'
 export { useTenantConfigPage } from './useTenantConfigPage'
 export { useSidebarHealth } from './useSidebarHealth'

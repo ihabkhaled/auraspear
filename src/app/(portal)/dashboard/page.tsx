@@ -10,7 +10,8 @@ import {
   TopTargetedAssets,
   PipelineHealthBar,
 } from '@/components/dashboard'
-import { useKPIs, useAlertTrends, useMITREStats, useAssetRisks, usePipelineHealth } from '@/hooks'
+import { useKPIs, useAlertTrends, useMITREStats, useAssetRisks, useServiceHealth } from '@/hooks'
+import { computeHealthPercent } from '@/lib/health-utils'
 
 const KPI_ICONS = [
   <Shield key="shield" className="h-5 w-5" />,
@@ -32,7 +33,9 @@ export default function DashboardPage() {
   const { data: trends, isLoading: trendsLoading } = useAlertTrends()
   const { data: mitre, isLoading: mitreLoading } = useMITREStats()
   const { data: assets, isLoading: assetsLoading } = useAssetRisks()
-  const { data: pipeline, isLoading: pipelineLoading } = usePipelineHealth()
+  const { data: health, isLoading: healthLoading } = useServiceHealth()
+  const healthServices = health?.data ?? []
+  const healthPercent = computeHealthPercent(healthServices)
 
   function renderKPIs() {
     if (kpisLoading) return <LoadingSpinner />
@@ -90,12 +93,15 @@ export default function DashboardPage() {
       </div>
 
       {/* Pipeline Health */}
-      <DashboardCard title={t('pipelineHealth')}>
-        {pipelineLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <PipelineHealthBar services={pipeline?.data ?? []} />
-        )}
+      <DashboardCard
+        title={t('pipelineHealth')}
+        action={
+          <span className="text-muted-foreground text-xs">
+            {t('systemHealth')}: {healthPercent}%
+          </span>
+        }
+      >
+        {healthLoading ? <LoadingSpinner /> : <PipelineHealthBar services={healthServices} />}
       </DashboardCard>
     </div>
   )

@@ -94,3 +94,16 @@ export type {
 export type { NavItem, NavSection, SidebarHealthFooterProps } from './layout.types'
 export type { SeverityDataPoint } from './chart.types'
 export type { AuthStorageState, TenantStorageState } from './storage.types'
+export type {
+  WorkspaceSummaryCard,
+  WorkspaceRecentItem,
+  WorkspaceEntity,
+  WorkspaceQuickAction,
+  ConnectorWorkspaceOverview,
+  WorkspaceRecentActivityResponse,
+  WorkspaceEntitiesResponse,
+  WorkspaceSearchRequest,
+  WorkspaceSearchResponse,
+  WorkspaceActionRequest,
+  WorkspaceActionResponse,
+} from './connector-workspace.types'

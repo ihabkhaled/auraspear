@@ -1,3 +1,5 @@
+import type { SortOrder } from '@/enums'
+
 export interface PaginationMeta {
   page: number
   limit: number
@@ -18,7 +20,7 @@ export interface Column<T> {
   label: string
   sortable?: boolean
   /** Default sort direction when this column is first clicked. Defaults to ASC. */
-  defaultSortOrder?: 'asc' | 'desc'
+  defaultSortOrder?: SortOrder
   className?: string
   render?: (value: unknown, row: T) => React.ReactNode
 }
