@@ -3,6 +3,13 @@ import type { SortOrder } from '@/enums'
 import { intelService } from '@/services'
 import type { MISPSearchParams } from '@/types'
 
+export function useIntelStats() {
+  return useQuery({
+    queryKey: ['intel', 'stats'],
+    queryFn: () => intelService.getStats(),
+  })
+}
+
 export function useMISPEvents(params?: MISPSearchParams) {
   return useQuery({
     queryKey: ['intel', 'misp', params],

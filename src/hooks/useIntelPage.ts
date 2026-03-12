@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import type { SortOrder } from '@/enums'
-import { useMISPEvents, useIOCSearch } from './useIntel'
+import { useIntelStats, useMISPEvents, useIOCSearch } from './useIntel'
 import { usePagination } from './usePagination'
 
 export function useIntelPage() {
@@ -22,6 +22,8 @@ export function useIntelPage() {
     ...(mispSortBy !== undefined && { sortBy: mispSortBy }),
     ...(mispSortOrder !== undefined && { sortOrder: mispSortOrder }),
   })
+
+  const { data: statsData, isLoading: statsLoading } = useIntelStats()
 
   const { data: iocData, isLoading: iocLoading } = useIOCSearch(
     iocQuery,
@@ -45,21 +47,12 @@ export function useIntelPage() {
     }
   }, [iocData?.pagination, iocPagination])
 
-  const stats = useMemo(() => {
-    const iocs = iocData?.data ?? []
-    const ipIOCs = iocs.filter(c => c.iocType.includes('ip'))
-    const hashIOCs = iocs.filter(
-      c => c.iocType.includes('sha') || c.iocType.includes('hash') || c.iocType.includes('md5')
-    )
-    const domainIOCs = iocs.filter(c => c.iocType.includes('domain'))
-
-    return {
-      threatActors: 12,
-      ipIOCs: ipIOCs.length > 0 ? ipIOCs.length : 847,
-      fileHashes: hashIOCs.length > 0 ? hashIOCs.length : 1243,
-      activeDomains: domainIOCs.length > 0 ? domainIOCs.length : 156,
-    }
-  }, [iocData?.data])
+  const stats = {
+    threatActors: statsData?.threatActors ?? 0,
+    ipIOCs: statsData?.ipIOCs ?? 0,
+    fileHashes: statsData?.fileHashes ?? 0,
+    activeDomains: statsData?.activeDomains ?? 0,
+  }
 
   const handleIOCSearch = useCallback(
     (query: string, type: string, source: string) => {
@@ -103,6 +96,7 @@ export function useIntelPage() {
     iocSortOrder,
     handleIocSort,
     stats,
+    statsLoading,
     handleIOCSearch,
   }
 }
