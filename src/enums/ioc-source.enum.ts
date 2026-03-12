@@ -5,4 +5,5 @@ export enum IOCSource {
   THREATFOX = 'threatfox',
   OTX = 'otx',
   VIRUSTOTAL = 'virustotal',
+  LOGSTASH = 'logstash',
 }

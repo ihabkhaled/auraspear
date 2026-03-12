@@ -315,7 +315,8 @@
       "sourceManual": "Manuel",
       "sourceThreatfox": "ThreatFox",
       "sourceOtx": "OTX",
-      "sourceVirustotal": "VirusTotal"
+      "sourceVirustotal": "VirusTotal",
+      "sourceLogstash": "Logstash"
     },
     "misp": {
       "title": "Flux d'evenements MISP",

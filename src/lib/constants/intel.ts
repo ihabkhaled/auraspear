@@ -24,4 +24,5 @@ export const IOC_SOURCE_OPTIONS: { value: IOCSource; labelKey: string }[] = [
   { value: IOCSource.THREATFOX, labelKey: 'search.sourceThreatfox' },
   { value: IOCSource.OTX, labelKey: 'search.sourceOtx' },
   { value: IOCSource.VIRUSTOTAL, labelKey: 'search.sourceVirustotal' },
+  { value: IOCSource.LOGSTASH, labelKey: 'search.sourceLogstash' },
 ]
