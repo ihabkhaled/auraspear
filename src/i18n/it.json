@@ -119,7 +119,16 @@
     "statusInProgress": "In Corso",
     "statusResolved": "Risolto",
     "statusClosed": "Chiuso",
-    "statusFalsePositive": "Falso Positivo"
+    "statusFalsePositive": "Falso Positivo",
+    "acknowledgedBy": "Confermato da",
+    "acknowledgedAt": "Confermato il",
+    "closedBy": "Chiuso da",
+    "closedAt": "Chiuso il",
+    "resolution": "Risoluzione",
+    "noRawEvent": "Nessun dato evento grezzo disponibile",
+    "source": "Sorgente",
+    "createdAt": "Creato il",
+    "updatedAt": "Aggiornato il"
   },
   "hunt": {
     "title": "Caccia alle Minacce con AI",

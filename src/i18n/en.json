@@ -119,7 +119,16 @@
     "statusInProgress": "In Progress",
     "statusResolved": "Resolved",
     "statusClosed": "Closed",
-    "statusFalsePositive": "False Positive"
+    "statusFalsePositive": "False Positive",
+    "acknowledgedBy": "Acknowledged By",
+    "acknowledgedAt": "Acknowledged At",
+    "closedBy": "Closed By",
+    "closedAt": "Closed At",
+    "resolution": "Resolution",
+    "noRawEvent": "No raw event data available",
+    "source": "Source",
+    "createdAt": "Created At",
+    "updatedAt": "Updated At"
   },
   "hunt": {
     "title": "AI Threat Hunting",

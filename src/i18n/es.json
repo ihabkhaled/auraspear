@@ -119,7 +119,16 @@
     "statusInProgress": "En Progreso",
     "statusResolved": "Resuelta",
     "statusClosed": "Cerrada",
-    "statusFalsePositive": "Falso Positivo"
+    "statusFalsePositive": "Falso Positivo",
+    "acknowledgedBy": "Reconocido por",
+    "acknowledgedAt": "Reconocido el",
+    "closedBy": "Cerrado por",
+    "closedAt": "Cerrado el",
+    "resolution": "Resolución",
+    "noRawEvent": "No hay datos de evento sin procesar disponibles",
+    "source": "Origen",
+    "createdAt": "Creado el",
+    "updatedAt": "Actualizado el"
   },
   "hunt": {
     "title": "Caza de Amenazas con IA",

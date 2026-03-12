@@ -110,6 +110,10 @@ export function AlertDetailDrawer({
                 <span>{alert.ruleName}</span>
               </DetailRow>
               <Separator />
+              <DetailRow label={t('source')}>
+                <span className="text-xs capitalize">{alert.source}</span>
+              </DetailRow>
+              <Separator />
               <DetailRow label={tCommon('status')}>
                 <Badge
                   variant="outline"
@@ -121,6 +125,54 @@ export function AlertDetailDrawer({
                 >
                   {getStatusLabel(alert.status)}
                 </Badge>
+              </DetailRow>
+              {alert.acknowledgedBy && (
+                <>
+                  <Separator />
+                  <DetailRow label={t('acknowledgedBy')}>
+                    <span className="text-xs">{alert.acknowledgedBy}</span>
+                  </DetailRow>
+                </>
+              )}
+              {alert.acknowledgedAt && (
+                <>
+                  <Separator />
+                  <DetailRow label={t('acknowledgedAt')}>
+                    <span className="text-xs">{formatTimestamp(alert.acknowledgedAt)}</span>
+                  </DetailRow>
+                </>
+              )}
+              {alert.closedBy && (
+                <>
+                  <Separator />
+                  <DetailRow label={t('closedBy')}>
+                    <span className="text-xs">{alert.closedBy}</span>
+                  </DetailRow>
+                </>
+              )}
+              {alert.closedAt && (
+                <>
+                  <Separator />
+                  <DetailRow label={t('closedAt')}>
+                    <span className="text-xs">{formatTimestamp(alert.closedAt)}</span>
+                  </DetailRow>
+                </>
+              )}
+              {alert.resolution && (
+                <>
+                  <Separator />
+                  <DetailRow label={t('resolution')}>
+                    <span className="text-xs">{alert.resolution}</span>
+                  </DetailRow>
+                </>
+              )}
+              <Separator />
+              <DetailRow label={t('createdAt')}>
+                <span className="text-xs">{formatTimestamp(alert.createdAt)}</span>
+              </DetailRow>
+              <Separator />
+              <DetailRow label={t('updatedAt')}>
+                <span className="text-xs">{formatTimestamp(alert.updatedAt)}</span>
               </DetailRow>
             </TabsContent>
 
@@ -157,9 +209,13 @@ export function AlertDetailDrawer({
             </TabsContent>
 
             <TabsContent value="raw" className="pt-4">
-              <pre className="bg-muted max-h-96 overflow-auto rounded-lg p-4 font-mono text-xs">
-                {JSON.stringify(alert.rawEvent, null, 2)}
-              </pre>
+              {alert.rawEvent ? (
+                <pre className="bg-muted max-h-96 overflow-auto rounded-lg p-4 font-mono text-xs">
+                  {JSON.stringify(alert.rawEvent, null, 2)}
+                </pre>
+              ) : (
+                <p className="text-muted-foreground text-sm">{t('noRawEvent')}</p>
+              )}
             </TabsContent>
           </Tabs>
         </ScrollArea>

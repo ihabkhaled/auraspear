@@ -2,9 +2,12 @@ import type { AlertSeverity, AlertStatus, SortOrder, TimeRange } from '@/enums'
 
 export interface Alert {
   id: string
+  externalId: string | null
+  title: string
   timestamp: string
   severity: AlertSeverity
   status: AlertStatus
+  source: string
   ruleName: string
   ruleId: string
   description: string
@@ -14,7 +17,14 @@ export interface Alert {
   destinationIp: string
   mitreTactics: string[]
   mitreTechniques: string[]
-  rawEvent: Record<string, unknown>
+  rawEvent: Record<string, unknown> | null
+  acknowledgedBy: string | null
+  acknowledgedAt: string | null
+  resolution: string | null
+  closedBy: string | null
+  closedAt: string | null
+  createdAt: string
+  updatedAt: string
   tenantId: string
 }
 

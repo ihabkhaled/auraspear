@@ -119,7 +119,16 @@
     "statusInProgress": "En cours",
     "statusResolved": "Resolue",
     "statusClosed": "Fermee",
-    "statusFalsePositive": "Faux positif"
+    "statusFalsePositive": "Faux positif",
+    "acknowledgedBy": "Reconnu par",
+    "acknowledgedAt": "Reconnu le",
+    "closedBy": "Fermé par",
+    "closedAt": "Fermé le",
+    "resolution": "Résolution",
+    "noRawEvent": "Aucune donnée d'événement brut disponible",
+    "source": "Source",
+    "createdAt": "Créé le",
+    "updatedAt": "Mis à jour le"
   },
   "hunt": {
     "title": "Chasse aux menaces IA",

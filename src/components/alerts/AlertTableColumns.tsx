@@ -1,7 +1,8 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { type AlertSeverity, SortOrder } from '@/enums'
+import { type AlertSeverity, AlertStatus, SortOrder } from '@/enums'
+import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'
 import { getSeverityVariant } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { Column, Alert, AlertColumnTranslations, GetAlertColumnsOptions } from '@/types'
@@ -11,6 +12,20 @@ function SeverityBadge({ severity }: { severity: AlertSeverity }) {
   return (
     <Badge variant="outline" className={cn('text-xs capitalize', getSeverityVariant(severity))}>
       {severity}
+    </Badge>
+  )
+}
+
+function StatusBadge({ status, label }: { status: AlertStatus; label: string }) {
+  return (
+    <Badge
+      variant="outline"
+      className={cn(
+        'text-xs',
+        ALERT_STATUS_CLASSES[status] ?? 'border-muted-foreground text-muted-foreground'
+      )}
+    >
+      {label}
     </Badge>
   )
 }
@@ -31,6 +46,15 @@ function MITREBadge({ techniques }: { techniques: string[] }) {
       )}
     </div>
   )
+}
+
+const STATUS_LABEL_KEYS: Record<AlertStatus, string> = {
+  [AlertStatus.NEW_ALERT]: 'statusNewAlert',
+  [AlertStatus.ACKNOWLEDGED]: 'statusAcknowledged',
+  [AlertStatus.IN_PROGRESS]: 'statusInProgress',
+  [AlertStatus.RESOLVED]: 'statusResolved',
+  [AlertStatus.CLOSED]: 'statusClosed',
+  [AlertStatus.FALSE_POSITIVE]: 'statusFalsePositive',
 }
 
 export function getAlertColumns(
@@ -56,10 +80,25 @@ export function getAlertColumns(
       render: value => <SeverityBadge severity={value as AlertSeverity} />,
     },
     {
+      key: 'status',
+      label: t.common('status'),
+      sortable: true,
+      render: (_value, row) => {
+        const labelKey = STATUS_LABEL_KEYS[row.status] ?? row.status
+        return <StatusBadge status={row.status} label={t.alerts(labelKey)} />
+      },
+    },
+    {
       key: 'description',
       label: t.alerts('rule'),
       className: 'max-w-xs',
       render: value => <span className="block truncate text-sm">{String(value)}</span>,
+    },
+    {
+      key: 'source',
+      label: t.alerts('source'),
+      sortable: true,
+      render: value => <span className="text-xs capitalize">{String(value)}</span>,
     },
     {
       key: 'agentName',
@@ -77,6 +116,16 @@ export function getAlertColumns(
       key: 'mitreTechniques',
       label: t.alerts('mitre'),
       render: value => <MITREBadge techniques={value as string[]} />,
+    },
+    {
+      key: 'createdAt',
+      label: t.alerts('createdAt'),
+      sortable: true,
+      render: value => (
+        <span className="text-muted-foreground font-mono text-xs whitespace-nowrap">
+          {formatTimestamp(String(value))}
+        </span>
+      ),
     },
     {
       key: 'actions',

@@ -119,7 +119,16 @@
     "statusInProgress": "In Bearbeitung",
     "statusResolved": "Gelöst",
     "statusClosed": "Geschlossen",
-    "statusFalsePositive": "Falsch-Positiv"
+    "statusFalsePositive": "Falsch-Positiv",
+    "acknowledgedBy": "Bestätigt von",
+    "acknowledgedAt": "Bestätigt am",
+    "closedBy": "Geschlossen von",
+    "closedAt": "Geschlossen am",
+    "resolution": "Lösung",
+    "noRawEvent": "Keine Rohereignisdaten verfügbar",
+    "source": "Quelle",
+    "createdAt": "Erstellt am",
+    "updatedAt": "Aktualisiert am"
   },
   "hunt": {
     "title": "KI-Bedrohungssuche",

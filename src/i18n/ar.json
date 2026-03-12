@@ -119,7 +119,16 @@
     "statusInProgress": "قيد التقدم",
     "statusResolved": "تم الحل",
     "statusClosed": "مغلق",
-    "statusFalsePositive": "إيجابية كاذبة"
+    "statusFalsePositive": "إيجابية كاذبة",
+    "acknowledgedBy": "تم الإقرار بواسطة",
+    "acknowledgedAt": "تم الإقرار في",
+    "closedBy": "تم الإغلاق بواسطة",
+    "closedAt": "تم الإغلاق في",
+    "resolution": "الحل",
+    "noRawEvent": "لا تتوفر بيانات الحدث الأولي",
+    "source": "المصدر",
+    "createdAt": "تاريخ الإنشاء",
+    "updatedAt": "تاريخ التحديث"
   },
   "hunt": {
     "title": "صيد التهديدات بالذكاء الاصطناعي",
