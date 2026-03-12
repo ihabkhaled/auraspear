@@ -13,13 +13,6 @@ export const CASE_SEVERITY_BORDER_COLORS: Record<CaseSeverity, string> = {
   [CaseSeverity.LOW]: 'var(--severity-low)',
 }
 
-export const ASSIGNEE_OPTIONS = [
-  { label: 'Ahmed Al-Rashid', value: 'ahmed' },
-  { label: 'Fatima Hassan', value: 'fatima' },
-  { label: 'Omar Khalil', value: 'omar' },
-  { label: 'Sara Nasser', value: 'sara' },
-]
-
 export const KANBAN_COLUMN_CONFIG = [
   {
     status: CaseStatus.OPEN,
