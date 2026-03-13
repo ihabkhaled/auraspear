@@ -300,7 +300,9 @@
       "noCasesInCycle": "Keine Vorfälle diesem Zyklus zugewiesen",
       "notFound": "Vorfallzyklus nicht gefunden",
       "noCycle": "Kein Zyklus",
-      "cycle": "Zyklus"
+      "cycle": "Zyklus",
+      "orphanedCases": "Verwaiste Vorfälle (Kein Zyklus)",
+      "orphanedCasesDescription": "{total} Vorfälle keinem Zyklus zugeordnet ({open} offen, {closed} geschlossen)"
     }
   },
   "intel": {

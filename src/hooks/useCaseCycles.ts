@@ -25,6 +25,13 @@ export function useCaseCycle(id: string) {
   })
 }
 
+export function useOrphanedCaseStats() {
+  return useQuery({
+    queryKey: ['caseCycles', 'orphaned-stats'],
+    queryFn: () => caseCycleService.getOrphanedStats(),
+  })
+}
+
 export function useCreateCaseCycle() {
   const queryClient = useQueryClient()
 

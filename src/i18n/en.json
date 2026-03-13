@@ -300,7 +300,9 @@
       "noCasesInCycle": "No cases assigned to this cycle",
       "notFound": "Case cycle not found",
       "noCycle": "No cycle",
-      "cycle": "Cycle"
+      "cycle": "Cycle",
+      "orphanedCases": "Orphaned Cases (No Cycle)",
+      "orphanedCasesDescription": "{total} cases not assigned to any cycle ({open} open, {closed} closed)"
     }
   },
   "intel": {

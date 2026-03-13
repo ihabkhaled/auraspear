@@ -300,7 +300,9 @@
       "noCasesInCycle": "لا توجد قضايا مُسندة إلى هذه الدورة",
       "notFound": "لم يتم العثور على دورة القضايا",
       "noCycle": "بدون دورة",
-      "cycle": "الدورة"
+      "cycle": "الدورة",
+      "orphanedCases": "قضايا بدون دورة",
+      "orphanedCasesDescription": "{total} قضايا غير مرتبطة بأي دورة ({open} مفتوحة، {closed} مغلقة)"
     }
   },
   "intel": {

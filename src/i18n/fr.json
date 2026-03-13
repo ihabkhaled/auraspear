@@ -300,7 +300,9 @@
       "noCasesInCycle": "Aucun dossier affecte a ce cycle",
       "notFound": "Cycle de dossiers introuvable",
       "noCycle": "Aucun cycle",
-      "cycle": "Cycle"
+      "cycle": "Cycle",
+      "orphanedCases": "Dossiers orphelins (Aucun cycle)",
+      "orphanedCasesDescription": "{total} dossiers non assignés à un cycle ({open} ouverts, {closed} fermés)"
     }
   },
   "intel": {

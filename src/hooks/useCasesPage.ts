@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { CreateCaseFormValues } from '@/components/cases'
 import { Toast } from '@/components/common'
@@ -14,18 +14,21 @@ import { useCases, useCreateCase } from './useCases'
 export function useCasesPage() {
   const t = useTranslations('cases')
   const router = useRouter()
+  const searchParams = useSearchParams()
   const user = useAuthStore(s => s.user)
 
   const currentUserId = user?.sub ?? ''
   const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
   const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
 
+  const initialCycleId = searchParams.get('cycleId') ?? undefined
+
   const [viewMode, setViewMode] = useState(CaseViewMode.BOARD)
   const [severityFilter, setSeverityFilter] = useState<CaseSeverity | undefined>()
   const [sortField, setSortField] = useState(CaseSortField.UPDATED)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
-  const [selectedCycleId, setSelectedCycleId] = useState<string | undefined>()
+  const [selectedCycleId, setSelectedCycleId] = useState<string | undefined>(initialCycleId)
   const [ownerFilter, setOwnerFilter] = useState<string | undefined>()
 
   // Fetch active cycle for default selection
@@ -39,9 +42,10 @@ export function useCasesPage() {
     sortOrder: SortOrder.DESC,
   })
 
-  const { data, isLoading } = useCases({
+  const { data, isLoading, isFetching } = useCases({
     sortBy: sortField,
     sortOrder,
+    limit: 500,
     ...(severityFilter === undefined ? {} : { severity: severityFilter }),
     ...(selectedCycleId ? { cycleId: selectedCycleId } : {}),
     ...(ownerFilter ? { ownerUserId: ownerFilter } : {}),
@@ -96,6 +100,7 @@ export function useCasesPage() {
     createDialogOpen,
     setCreateDialogOpen,
     isLoading,
+    isFetching,
     filteredCases: data?.data ?? [],
     createCasePending: createCase.isPending,
     handleCaseClick,

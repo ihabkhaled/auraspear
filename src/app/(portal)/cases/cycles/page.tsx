@@ -1,13 +1,16 @@
 'use client'
 
-import { Plus, History } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Plus, History, AlertTriangle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { CycleHistoryTable, CreateCycleDialog } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination } from '@/components/common'
+import { useOrphanedCaseStats } from '@/hooks'
 import { useCycleHistoryPage } from '@/hooks/useCycleHistoryPage'
 
 export default function CycleHistoryPage() {
   const t = useTranslations('cases.cycles')
+  const router = useRouter()
 
   const {
     isAdmin,
@@ -25,6 +28,9 @@ export default function CycleHistoryPage() {
     pagination,
   } = useCycleHistoryPage()
 
+  const { data: orphanedData } = useOrphanedCaseStats()
+  const orphanedStats = orphanedData?.data
+
   return (
     <div className="space-y-6">
       <PageHeader
@@ -40,6 +46,31 @@ export default function CycleHistoryPage() {
             }
           : {})}
       />
+
+      {orphanedStats && orphanedStats.caseCount > 0 && (
+        <button
+          type="button"
+          onClick={() => router.push('/cases?cycleId=none')}
+          className="bg-status-warning border-status-warning flex w-full cursor-pointer items-center gap-3 rounded-lg border p-4 text-start transition-opacity hover:opacity-80"
+        >
+          <AlertTriangle className="text-status-warning h-5 w-5 shrink-0" />
+          <div className="flex-1">
+            <p className="text-status-warning text-sm font-semibold">{t('orphanedCases')}</p>
+            <p className="text-status-warning text-xs">
+              {t('orphanedCasesDescription', {
+                total: orphanedStats.caseCount,
+                open: orphanedStats.openCount,
+                closed: orphanedStats.closedCount,
+              })}
+            </p>
+          </div>
+          <div className="text-status-warning flex items-center gap-4 text-sm font-medium">
+            <span>
+              {orphanedStats.caseCount} {t('caseCount')}
+            </span>
+          </div>
+        </button>
+      )}
 
       {isLoading ? (
         <LoadingSpinner />

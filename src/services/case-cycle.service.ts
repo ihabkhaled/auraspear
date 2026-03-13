@@ -23,4 +23,11 @@ export const caseCycleService = {
 
   closeCycle: (id: string, data: CloseCaseCycleInput) =>
     api.patch<{ data: CaseCycle }>(`/case-cycles/${id}/close`, data).then(r => r.data),
+
+  getOrphanedStats: () =>
+    api
+      .get<{
+        data: { caseCount: number; openCount: number; closedCount: number }
+      }>('/case-cycles/orphaned-stats')
+      .then(r => r.data),
 }

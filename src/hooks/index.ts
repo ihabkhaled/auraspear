@@ -13,6 +13,7 @@ export {
   useCaseCycle,
   useCreateCaseCycle,
   useCloseCaseCycle,
+  useOrphanedCaseStats,
 } from './useCaseCycles'
 export { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'
 export { useMISPEvents, useIOCSearch } from './useIntel'
