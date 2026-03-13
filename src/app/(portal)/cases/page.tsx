@@ -1,16 +1,26 @@
 'use client'
 
 import { useMemo } from 'react'
-import { Plus, FolderOpen } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Plus, FolderOpen, History } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { CaseToolbar, CaseKanbanBoard, CaseListTable, CreateCaseDialog } from '@/components/cases'
+import {
+  CaseToolbar,
+  CaseKanbanBoard,
+  CaseListTable,
+  CreateCaseDialog,
+  CycleSelector,
+  CaseOwnerFilter,
+} from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState } from '@/components/common'
+import { Button } from '@/components/ui/button'
 import { CaseViewMode } from '@/enums'
 import { useTenantMembers } from '@/hooks/useCases'
 import { useCasesPage } from '@/hooks/useCasesPage'
 
 export default function CasesPage() {
   const t = useTranslations('cases')
+  const router = useRouter()
 
   const {
     viewMode,
@@ -31,6 +41,13 @@ export default function CasesPage() {
     handleCaseSort,
     currentUserId,
     isAdmin,
+    selectedCycleId,
+    setSelectedCycleId,
+    activeCycleId,
+    cycles,
+    cyclesFetching,
+    ownerFilter,
+    setOwnerFilter,
   } = useCasesPage()
 
   const { data: membersData } = useTenantMembers()
@@ -90,6 +107,29 @@ export default function CasesPage() {
           onClick: () => setCreateDialogOpen(true),
         }}
       />
+
+      <div className="flex flex-wrap items-center gap-3">
+        <CycleSelector
+          cycles={cycles}
+          activeCycleId={activeCycleId}
+          selectedCycleId={selectedCycleId}
+          onCycleChange={setSelectedCycleId}
+          loading={cyclesFetching}
+        />
+        <div className="border-border h-6 border-s" />
+        <CaseOwnerFilter
+          members={membersData?.data ?? []}
+          selectedUserId={ownerFilter}
+          onUserSelect={setOwnerFilter}
+          currentUserId={currentUserId}
+        />
+        <div className="ms-auto">
+          <Button variant="outline" size="sm" onClick={() => router.push('/cases/cycles')}>
+            <History className="me-2 h-4 w-4" />
+            {t('cycleHistory')}
+          </Button>
+        </div>
+      </div>
 
       <CaseToolbar
         viewMode={viewMode}

@@ -48,12 +48,25 @@ export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: Ca
 
         <span className="text-muted-foreground text-xs">{caseItem.tenantName}</span>
 
-        <div className="flex items-center justify-between pt-1">
+        <div className="flex flex-col gap-1.5 pt-1">
           <div className="flex items-center gap-2">
             <Avatar size="sm">
-              <AvatarFallback>{getInitials(caseItem.createdBy ?? '')}</AvatarFallback>
+              <AvatarFallback>
+                {getInitials(caseItem.ownerName ?? caseItem.createdBy ?? '')}
+              </AvatarFallback>
             </Avatar>
-            <span className="text-muted-foreground text-xs">{caseItem.createdBy ?? '—'}</span>
+            <div className="flex flex-col">
+              <span className="text-muted-foreground text-[10px]">{t('assignee')}:</span>
+              <span className="text-xs">{caseItem.ownerName ?? t('unassigned')}</span>
+            </div>
+            <div className="border-border ms-2 border-s ps-2">
+              <div className="flex flex-col">
+                <span className="text-muted-foreground text-[10px]">{t('createdBy')}:</span>
+                <span className="text-muted-foreground text-xs">
+                  {caseItem.createdByName ?? caseItem.createdBy ?? '—'}
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className="text-muted-foreground flex items-center gap-3 text-xs">

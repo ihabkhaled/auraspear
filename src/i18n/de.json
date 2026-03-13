@@ -239,6 +239,7 @@
     "addNotePlaceholder": "Notiz schreiben...",
     "changeStatus": "Status ändern",
     "statusUpdated": "Fallstatus erfolgreich aktualisiert",
+    "assigneeUpdated": "Fallverantwortlicher erfolgreich aktualisiert",
     "statusChanged": "Vorfallstatus aktualisiert",
     "statusChangeError": "Fehler beim Aktualisieren des Vorfallstatus",
     "fieldAssigneePlaceholder": "Zuständigen auswählen...",
@@ -251,7 +252,56 @@
     "validationDescriptionMin": "Die Beschreibung muss mindestens 10 Zeichen enthalten",
     "validationSeverity": "Bitte wählen Sie einen Schweregrad",
     "validationAssignee": "Bitte wählen Sie einen Zuständigen",
-    "tenant": "Mandant"
+    "tenant": "Mandant",
+    "myCases": "Meine Vorfälle",
+    "cycleHistory": "Zyklusverlauf",
+    "severity": "Schweregrad",
+    "status": "Status",
+    "assignee": "Zuständiger",
+    "createdAt": "Erstellt",
+    "filterByOwner": "Nach Besitzer filtern",
+    "you": "Du",
+    "clearFilter": "Filter löschen",
+    "createdBy": "Erstellt von",
+    "cycleUpdated": "Zyklus aktualisiert",
+    "reopened": "Wiedereröffnet",
+    "cycles": {
+      "historyTitle": "Vorfallzyklus-Verlauf",
+      "historyDescription": "Operative Vorfallzyklen anzeigen und verwalten",
+      "createCycle": "Zyklus erstellen",
+      "createCycleDescription": "Einen neuen operativen Vorfallzyklus erstellen. Es ist nur ein aktiver Zyklus gleichzeitig erlaubt.",
+      "closeCycle": "Zyklus schließen",
+      "confirmCloseCycle": "Sind Sie sicher, dass Sie diesen Zyklus schließen möchten? Vorfälle werden nicht mehr automatisch zugewiesen.",
+      "cycleCreated": "Vorfallzyklus erfolgreich erstellt",
+      "cycleClosed": "Vorfallzyklus erfolgreich geschlossen",
+      "name": "Name",
+      "namePlaceholder": "z. B. Zyklus 4 — April-Operationen",
+      "description": "Beschreibung",
+      "descriptionPlaceholder": "Beschreiben Sie die Zyklusziele...",
+      "startDate": "Startdatum",
+      "endDate": "Enddatum",
+      "caseCount": "Vorfälle gesamt",
+      "openCount": "Offene Vorfälle",
+      "closedCount": "Geschlossene Vorfälle",
+      "createdAt": "Erstellt",
+      "status": "Status",
+      "statusActive": "Aktiv",
+      "statusClosed": "Geschlossen",
+      "noCycles": "Keine Zyklen gefunden",
+      "noCyclesDescription": "Vorfallzyklen helfen dabei, Vorfälle in operative Runden zu gruppieren",
+      "selectCycle": "Nach Zyklus filtern",
+      "allCycles": "Alle Zyklen",
+      "active": "Aktiv",
+      "cancel": "Abbrechen",
+      "create": "Erstellen",
+      "creating": "Wird erstellt...",
+      "backToHistory": "Zurück zu Zyklen",
+      "cycleCases": "Vorfälle in diesem Zyklus",
+      "noCasesInCycle": "Keine Vorfälle diesem Zyklus zugewiesen",
+      "notFound": "Vorfallzyklus nicht gefunden",
+      "noCycle": "Kein Zyklus",
+      "cycle": "Zyklus"
+    }
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -404,7 +454,9 @@
       "deleteTenant": "Mandant loeschen",
       "confirmDeleteTenant": "Sind Sie sicher, dass Sie diesen Mandanten loeschen moechten? Dies entfernt alle zugehoerigen Benutzer und Daten.",
       "tenantDeleted": "Mandant erfolgreich geloescht",
-      "tenantDeleteError": "Fehler beim Loeschen des Mandanten"
+      "tenantDeleteError": "Fehler beim Loeschen des Mandanten",
+      "searchPlaceholder": "Organisationen suchen...",
+      "createdAt": "Erstellt am"
     },
     "users": {
       "title": "Benutzerverwaltung",
@@ -451,7 +503,16 @@
       "confirmRestoreUser": "Sind Sie sicher, dass Sie diesen Benutzer wiederherstellen moechten?",
       "userRestored": "Benutzer erfolgreich wiederhergestellt",
       "statusBlocked": "Gesperrt",
-      "statusDeleted": "Geloescht"
+      "statusDeleted": "Geloescht",
+      "searchPlaceholder": "Benutzer suchen...",
+      "assignUser": "Benutzer zuweisen",
+      "assignUserDescription": "Einen bestehenden oder neuen Benutzer dieser Organisation zuweisen",
+      "existingUserFound": "Benutzer gefunden: {name}",
+      "userAlreadyInTenant": "Dieser Benutzer ist bereits Mitglied dieser Organisation",
+      "newUserWillBeCreated": "Kein Benutzer gefunden. Ein neues Konto wird erstellt.",
+      "assigning": "Zuweisen...",
+      "userAssigned": "Benutzer erfolgreich zugewiesen",
+      "impersonateUser": "Als Benutzer wechseln"
     },
     "services": {
       "title": "Dienstzustand",
@@ -496,6 +557,38 @@
       "ipAddress": "IP-Adresse",
       "noLogs": "Keine Audit-Protokolle gefunden",
       "noLogsDescription": "System-Audit-Protokolle werden hier angezeigt"
+    },
+    "appLogs": {
+      "title": "Anwendungsprotokolle",
+      "noLogs": "Keine Anwendungsprotokolle gefunden",
+      "noLogsDescription": "Anwendungsprotokolle werden hier angezeigt, sobald das System sie generiert",
+      "searchPlaceholder": "Nachrichten suchen...",
+      "allLevels": "Alle Stufen",
+      "allFeatures": "Alle Funktionen",
+      "actorEmailPlaceholder": "Nach E-Mail filtern...",
+      "clearFilters": "Filter zurücksetzen",
+      "timestamp": "Zeitstempel",
+      "level": "Stufe",
+      "message": "Nachricht",
+      "feature": "Funktion",
+      "action": "Aktion",
+      "functionName": "Funktion",
+      "className": "Klasse",
+      "actorEmail": "Akteur-E-Mail",
+      "actorUserId": "Akteur-Benutzer-ID",
+      "tenantId": "Mandanten-ID",
+      "requestId": "Anfrage-ID",
+      "targetResource": "Zielressource",
+      "targetResourceId": "Zielressourcen-ID",
+      "outcome": "Ergebnis",
+      "sourceType": "Quelle",
+      "ipAddress": "IP-Adresse",
+      "httpMethod": "HTTP-Methode",
+      "httpRoute": "HTTP-Route",
+      "httpStatusCode": "Statuscode",
+      "metadata": "Metadaten",
+      "stackTrace": "Fehler-Stacktrace",
+      "logDetail": "Protokolldetails"
     }
   },
   "auth": {
@@ -910,7 +1003,8 @@
       "userAlreadyBlocked": "Dieser Benutzer ist bereits gesperrt.",
       "userNotBlocked": "Dieser Benutzer ist nicht gesperrt.",
       "userAlreadyExists": "Dieser Benutzer existiert bereits. Das angegebene Passwort wurde nicht angewendet. Bitte verwenden Sie die Benutzerverwaltungsseite, um Passwoerter zu aendern.",
-      "crossTenantAccessDenied": "Sie haben keine Berechtigung, auf Ressourcen eines anderen Mandanten zuzugreifen."
+      "crossTenantAccessDenied": "Sie haben keine Berechtigung, auf Ressourcen eines anderen Mandanten zuzugreifen.",
+      "userAlreadyInTenant": "Dieser Benutzer ist bereits Mitglied dieser Organisation."
     },
     "alerts": {
       "notFound": "Alarm nicht gefunden.",
@@ -967,6 +1061,18 @@
     },
     "auditLogs": {
       "accessDenied": "Sie haben keine Berechtigung, Audit-Protokolle einzusehen."
+    },
+    "appLogs": {
+      "notFound": "Anwendungsprotokoll-Eintrag nicht gefunden."
+    },
+    "impersonation": {
+      "nestedNotAllowed": "Identitätswechsel während einer aktiven Sitzung nicht möglich.",
+      "cannotImpersonateSelf": "Sie können sich nicht selbst verkörpern.",
+      "userNotFound": "Der Zielbenutzer wurde nicht gefunden.",
+      "protectedUser": "Geschützte Benutzer können nicht verkörpert werden.",
+      "userNotActive": "Der Zielbenutzer ist in diesem Mandanten nicht aktiv.",
+      "insufficientPrivilege": "Sie haben nicht genügend Berechtigungen, um diesen Benutzer zu verkörpern.",
+      "notImpersonating": "Sie befinden sich derzeit nicht in einer Identitätswechsel-Sitzung."
     }
   },
   "settings": {
@@ -1011,5 +1117,13 @@
     "passwordChanged": "Passwort erfolgreich geaendert",
     "changingPassword": "Wird geaendert...",
     "passwordMismatch": "Passwoerter stimmen nicht ueberein"
+  },
+  "impersonation": {
+    "banner": "Sie sehen als {user} (gewechselt von {admin})",
+    "endSession": "Identitätswechsel beenden",
+    "ended": "Identitätswechsel-Sitzung beendet",
+    "started": "Jetzt angezeigt als {user}",
+    "confirmTitle": "Als Benutzer wechseln",
+    "confirmText": "Sie werden die Plattform als {user} sehen. Ihre Admin-Sitzung bleibt erhalten und Sie können jederzeit zurückkehren."
   }
 }

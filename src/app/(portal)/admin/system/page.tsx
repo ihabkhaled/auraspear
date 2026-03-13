@@ -1,8 +1,14 @@
 'use client'
 
-import { Server, ScrollText } from 'lucide-react'
+import { useState, useCallback } from 'react'
+import { FileText, ScrollText, Server } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { ServiceHealthGrid, AuditLogTable } from '@/components/admin'
+import {
+  AppLogDetailDialog,
+  AppLogTable,
+  AuditLogTable,
+  ServiceHealthGrid,
+} from '@/components/admin'
 import {
   PageHeader,
   Pagination,
@@ -10,13 +16,23 @@ import {
   ErrorMessage,
   EmptyState,
 } from '@/components/common'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
-import { ServiceStatus } from '@/enums'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AppLogLevel, AppLogFeature, ServiceStatus } from '@/enums'
 import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
 import { computeHealthPercent, getHealthStatusClass, getHealthBgClass } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'
-import type { ServiceHealth } from '@/types'
+import type { ApplicationLogEntry, ServiceHealth } from '@/types'
 
 function HealthSummary({
   services,
@@ -44,10 +60,15 @@ function HealthSummary({
   )
 }
 
+const ALL_LEVELS = 'all'
+const ALL_FEATURES = 'all'
+
 export default function SystemAdminPage() {
   const t = useTranslations('admin')
 
   const {
+    activeTab,
+    setActiveTab,
     healthData,
     healthLoading,
     healthError,
@@ -57,7 +78,35 @@ export default function SystemAdminPage() {
     auditSortBy,
     auditSortOrder,
     handleAuditSort,
+    appLogData,
+    appLogFetching,
+    appLogPagination,
+    appLogSortBy,
+    appLogSortOrder,
+    handleAppLogSort,
+    appLogSearch,
+    setAppLogSearch,
+    appLogLevel,
+    setAppLogLevel,
+    appLogFeature,
+    setAppLogFeature,
+    appLogActorEmail,
+    setAppLogActorEmail,
+    resetAppLogFilters,
   } = useSystemAdminPage()
+
+  const [selectedLog, setSelectedLog] = useState<ApplicationLogEntry | null>(null)
+  const [detailOpen, setDetailOpen] = useState(false)
+
+  const handleLogClick = useCallback((log: ApplicationLogEntry) => {
+    setSelectedLog(log)
+    setDetailOpen(true)
+  }, [])
+
+  const handleDetailClose = useCallback(() => {
+    setDetailOpen(false)
+    setSelectedLog(null)
+  }, [])
 
   function renderServices() {
     if (healthLoading) return <LoadingSpinner />
@@ -96,6 +145,30 @@ export default function SystemAdminPage() {
     )
   }
 
+  function renderAppLogs() {
+    if ((appLogData?.data?.length ?? 0) === 0 && !appLogFetching) {
+      return (
+        <EmptyState
+          icon={<FileText className="h-6 w-6" />}
+          title={t('appLogs.noLogs')}
+          description={t('appLogs.noLogsDescription')}
+        />
+      )
+    }
+    return (
+      <AppLogTable
+        logs={appLogData?.data ?? []}
+        loading={appLogFetching}
+        sortBy={appLogSortBy}
+        sortOrder={appLogSortOrder}
+        onSort={handleAppLogSort}
+        onRowClick={handleLogClick}
+      />
+    )
+  }
+
+  const hasActiveFilters = Boolean(appLogSearch || appLogLevel || appLogFeature || appLogActorEmail)
+
   return (
     <div className="space-y-6">
       <PageHeader title={t('system.title')} description={t('system.description')} />
@@ -113,19 +186,97 @@ export default function SystemAdminPage() {
       </Card>
 
       <Card>
-        <CardHeader>
-          <CardTitle className="text-base">{t('audit.title')}</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {renderAuditLogs()}
-          <Pagination
-            page={pagination.page}
-            totalPages={pagination.totalPages}
-            onPageChange={pagination.setPage}
-            total={pagination.total}
-          />
+        <CardContent className="pt-6">
+          <Tabs value={activeTab} onValueChange={v => setActiveTab(v as 'audit' | 'appLogs')}>
+            <TabsList>
+              <TabsTrigger value="audit" className="gap-1.5">
+                <ScrollText className="h-4 w-4" />
+                {t('audit.title')}
+              </TabsTrigger>
+              <TabsTrigger value="appLogs" className="gap-1.5">
+                <FileText className="h-4 w-4" />
+                {t('appLogs.title')}
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="audit" className="space-y-4">
+              {renderAuditLogs()}
+              <Pagination
+                page={pagination.page}
+                totalPages={pagination.totalPages}
+                onPageChange={pagination.setPage}
+                total={pagination.total}
+              />
+            </TabsContent>
+
+            <TabsContent value="appLogs" className="space-y-4">
+              {/* Filters */}
+              <div className="flex flex-wrap items-center gap-2">
+                <Input
+                  placeholder={t('appLogs.searchPlaceholder')}
+                  value={appLogSearch}
+                  onChange={e => setAppLogSearch(e.target.value)}
+                  className="w-64"
+                />
+                <Select
+                  value={appLogLevel || ALL_LEVELS}
+                  onValueChange={v => setAppLogLevel(v === ALL_LEVELS ? '' : v)}
+                >
+                  <SelectTrigger className="w-32">
+                    <SelectValue placeholder={t('appLogs.level')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL_LEVELS}>{t('appLogs.allLevels')}</SelectItem>
+                    {Object.values(AppLogLevel).map(level => (
+                      <SelectItem key={level} value={level}>
+                        {level.toUpperCase()}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Select
+                  value={appLogFeature || ALL_FEATURES}
+                  onValueChange={v => setAppLogFeature(v === ALL_FEATURES ? '' : v)}
+                >
+                  <SelectTrigger className="w-44">
+                    <SelectValue placeholder={t('appLogs.feature')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL_FEATURES}>{t('appLogs.allFeatures')}</SelectItem>
+                    {Object.values(AppLogFeature).map(feature => (
+                      <SelectItem key={feature} value={feature}>
+                        {feature}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <Input
+                  placeholder={t('appLogs.actorEmailPlaceholder')}
+                  value={appLogActorEmail}
+                  onChange={e => setAppLogActorEmail(e.target.value)}
+                  className="w-56"
+                />
+                {hasActiveFilters && (
+                  <Button variant="ghost" size="sm" onClick={resetAppLogFilters}>
+                    {t('appLogs.clearFilters')}
+                  </Button>
+                )}
+              </div>
+
+              {renderAppLogs()}
+
+              <Pagination
+                page={appLogPagination.page}
+                totalPages={appLogPagination.totalPages}
+                onPageChange={appLogPagination.setPage}
+                total={appLogPagination.total}
+              />
+            </TabsContent>
+          </Tabs>
         </CardContent>
       </Card>
+
+      <AppLogDetailDialog log={selectedLog} open={detailOpen} onClose={handleDetailClose} />
     </div>
   )
 }

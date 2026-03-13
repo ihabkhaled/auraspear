@@ -1,6 +1,7 @@
 export { dashboardService } from './dashboard.service'
 export { alertService } from './alert.service'
 export { caseService } from './case.service'
+export { caseCycleService } from './case-cycle.service'
 export { huntService } from './hunt.service'
 export { intelService } from './intel.service'
 export { adminService } from './admin.service'

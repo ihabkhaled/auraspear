@@ -4,7 +4,8 @@ import { Building2, Pencil, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Button } from '@/components/ui/button'
-import { UserRole } from '@/enums'
+import { UserRole, type SortOrder } from '@/enums'
+import { formatRelativeTime } from '@/lib/utils'
 import type { Tenant, Column } from '@/types'
 
 interface TenantListTableProps {
@@ -14,6 +15,9 @@ interface TenantListTableProps {
   onEditTenant?: (tenant: Tenant) => void
   onDeleteTenant?: (tenant: Tenant) => void
   userRole?: UserRole
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
 }
 
 export function TenantListTable({
@@ -23,6 +27,9 @@ export function TenantListTable({
   onEditTenant,
   onDeleteTenant,
   userRole,
+  sortBy,
+  sortOrder,
+  onSort,
 }: TenantListTableProps) {
   const t = useTranslations('admin')
   const tCommon = useTranslations('common')
@@ -33,11 +40,13 @@ export function TenantListTable({
     {
       key: 'name',
       label: t('tenants.name'),
+      sortable: true,
       render: value => <span className="font-medium">{String(value ?? '')}</span>,
     },
     {
       key: 'slug',
       label: t('tenants.slug'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground font-mono text-sm">{String(value ?? '')}</span>
       ),
@@ -45,17 +54,30 @@ export function TenantListTable({
     {
       key: 'userCount',
       label: t('tenants.users'),
+      sortable: true,
       render: value => <span className="text-muted-foreground text-sm">{String(value ?? 0)}</span>,
     },
     {
       key: 'alertCount',
       label: t('tenants.alerts'),
+      sortable: true,
       render: value => <span className="text-muted-foreground text-sm">{String(value ?? 0)}</span>,
     },
     {
       key: 'caseCount',
       label: t('tenants.cases'),
+      sortable: true,
       render: value => <span className="text-muted-foreground text-sm">{String(value ?? 0)}</span>,
+    },
+    {
+      key: 'createdAt',
+      label: t('tenants.createdAt'),
+      sortable: true,
+      render: value => (
+        <span className="text-muted-foreground text-sm">
+          {value ? formatRelativeTime(String(value)) : '-'}
+        </span>
+      ),
     },
   ]
 
@@ -101,6 +123,9 @@ export function TenantListTable({
       emptyMessage={t('tenants.noTenants')}
       emptyIcon={<Building2 className="h-6 w-6" />}
       emptyDescription={t('tenants.noTenantsDescription')}
+      sortBy={sortBy}
+      sortOrder={sortOrder}
+      onSort={onSort}
     />
   )
 }

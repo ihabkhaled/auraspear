@@ -14,6 +14,9 @@ export type {
   LoginResponse,
   RefreshResponse,
   BackendLoginResponse,
+  ImpersonationInfo,
+  ImpersonateResponse,
+  EndImpersonationResponse,
 } from './auth.types'
 export type {
   Alert,
@@ -43,6 +46,13 @@ export type {
   CaseDetailPageProps,
   CaseToolbarProps,
 } from './case.types'
+export type {
+  CaseCycle,
+  CaseCycleDetail,
+  CreateCaseCycleInput,
+  CloseCaseCycleInput,
+  CaseCycleSearchParams,
+} from './case-cycle.types'
 export type { HuntSession, HuntMessage, HuntEvent, ReasoningStep } from './hunt.types'
 export type {
   MISPEvent,
@@ -67,6 +77,9 @@ export type {
   TenantUserListParams,
   CreateTenantInput,
   AddUserInput,
+  AssignUserInput,
+  CheckEmailResult,
+  TenantListParams,
   TenantMember,
 } from './admin.types'
 export type {
@@ -107,3 +120,9 @@ export type {
   WorkspaceActionRequest,
   WorkspaceActionResponse,
 } from './connector-workspace.types'
+export type {
+  ApplicationLogEntry,
+  AppLogSearchParams,
+  AppLogTableProps,
+  AppLogDetailDialogProps,
+} from './app-log.types'

@@ -43,3 +43,36 @@ export interface BackendLoginResponse {
     role: string
   }
 }
+
+export interface ImpersonationInfo {
+  sub: string
+  email: string
+  role: string
+  tenantId: string
+  tenantSlug: string
+}
+
+export interface ImpersonateResponse {
+  accessToken: string
+  refreshToken: string
+  user: {
+    sub: string
+    email: string
+    tenantId: string
+    tenantSlug: string
+    role: string
+  }
+  impersonator: ImpersonationInfo
+}
+
+export interface EndImpersonationResponse {
+  accessToken: string
+  refreshToken: string
+  user: {
+    sub: string
+    email: string
+    tenantId: string
+    tenantSlug: string
+    role: string
+  }
+}

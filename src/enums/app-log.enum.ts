@@ -1,0 +1,25 @@
+export enum AppLogLevel {
+  INFO = 'info',
+  WARN = 'warn',
+  ERROR = 'error',
+  DEBUG = 'debug',
+}
+
+export enum AppLogFeature {
+  AUTH = 'Auth',
+  USERS = 'Users',
+  TENANTS = 'Tenants',
+  TENANT_MEMBERS = 'TenantMembers',
+  CASES = 'Cases',
+  CASE_CYCLES = 'CaseCycles',
+  ALERTS = 'Alerts',
+  CONNECTORS = 'Connectors',
+  CONNECTOR_WORKSPACES = 'ConnectorWorkspaces',
+  HUNTS = 'Hunts',
+  INTEL = 'Intel',
+  AI = 'AI',
+  DASHBOARD = 'Dashboard',
+  SYSTEM = 'System',
+  IMPERSONATION = 'Impersonation',
+  VALIDATION = 'Validation',
+}

@@ -2,18 +2,25 @@ import api from '@/lib/api'
 import type {
   AddUserInput,
   ApiResponse,
+  ApplicationLogEntry,
+  AppLogSearchParams,
+  AssignUserInput,
   AuditLogEntry,
   AuditLogParams,
+  CheckEmailResult,
   CreateTenantInput,
+  ImpersonateResponse,
   ServiceHealth,
   Tenant,
+  TenantListParams,
   TenantMember,
   TenantUser,
   TenantUserListParams,
 } from '@/types'
 
 export const adminService = {
-  getTenants: () => api.get<ApiResponse<Tenant[]>>('/admin/tenants').then(r => r.data),
+  getTenants: (params?: TenantListParams) =>
+    api.get<ApiResponse<Tenant[]>>('/admin/tenants', { params }).then(r => r.data),
 
   getCurrentTenant: () => api.get<ApiResponse<Tenant>>('/admin/tenants/current').then(r => r.data),
 
@@ -27,6 +34,18 @@ export const adminService = {
 
   addUser: (tenantId: string, data: AddUserInput) =>
     api.post<ApiResponse<TenantUser>>(`/admin/tenants/${tenantId}/users`, data).then(r => r.data),
+
+  checkEmail: (tenantId: string, email: string) =>
+    api
+      .get<ApiResponse<CheckEmailResult>>(`/admin/tenants/${tenantId}/users/check-email`, {
+        params: { email },
+      })
+      .then(r => r.data),
+
+  assignUser: (tenantId: string, data: AssignUserInput) =>
+    api
+      .post<ApiResponse<TenantUser>>(`/admin/tenants/${tenantId}/users/assign`, data)
+      .then(r => r.data),
 
   getServiceHealth: () => api.get<ApiResponse<ServiceHealth[]>>('/admin/health').then(r => r.data),
 
@@ -68,5 +87,18 @@ export const adminService = {
       .post<ApiResponse<TenantUser>>(`/admin/tenants/${tenantId}/users/${userId}/restore`)
       .then(r => r.data),
 
+  impersonateUser: (tenantId: string, userId: string) =>
+    api
+      .post<
+        ApiResponse<ImpersonateResponse>
+      >(`/admin/tenants/${tenantId}/users/${userId}/impersonate`, {})
+      .then(r => r.data),
+
   getMembers: () => api.get<ApiResponse<TenantMember[]>>('/members').then(r => r.data),
+
+  getAppLogs: (params?: AppLogSearchParams) =>
+    api.get<ApiResponse<ApplicationLogEntry[]>>('/admin/app-logs', { params }).then(r => r.data),
+
+  getAppLogById: (id: string) =>
+    api.get<ApiResponse<ApplicationLogEntry>>(`/admin/app-logs/${id}`).then(r => r.data),
 }

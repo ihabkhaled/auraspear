@@ -8,6 +8,7 @@ import type { CaseSeverity } from '@/enums'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
 import type { Case } from '@/types'
+import { useActiveCycle, useCaseCycles } from './useCaseCycles'
 import { useCases, useCreateCase } from './useCases'
 
 export function useCasesPage() {
@@ -24,12 +25,27 @@ export function useCasesPage() {
   const [sortField, setSortField] = useState(CaseSortField.UPDATED)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [selectedCycleId, setSelectedCycleId] = useState<string | undefined>()
+  const [ownerFilter, setOwnerFilter] = useState<string | undefined>()
 
-  const { data, isLoading } = useCases(
-    severityFilter === undefined
-      ? { sortBy: sortField, sortOrder }
-      : { severity: severityFilter, sortBy: sortField, sortOrder }
-  )
+  // Fetch active cycle for default selection
+  const { data: activeCycleData } = useActiveCycle()
+  const activeCycleId = activeCycleData?.data?.id
+
+  // Fetch all cycles for the selector dropdown
+  const { data: cyclesData, isFetching: cyclesFetching } = useCaseCycles({
+    limit: 100,
+    sortBy: 'createdAt',
+    sortOrder: SortOrder.DESC,
+  })
+
+  const { data, isLoading } = useCases({
+    sortBy: sortField,
+    sortOrder,
+    ...(severityFilter === undefined ? {} : { severity: severityFilter }),
+    ...(selectedCycleId ? { cycleId: selectedCycleId } : {}),
+    ...(ownerFilter ? { ownerUserId: ownerFilter } : {}),
+  })
 
   const createCase = useCreateCase()
 
@@ -87,5 +103,14 @@ export function useCasesPage() {
     handleCaseSort,
     currentUserId,
     isAdmin,
+    // Cycle-related
+    selectedCycleId,
+    setSelectedCycleId,
+    activeCycleId,
+    cycles: cyclesData?.data ?? [],
+    cyclesFetching,
+    // Owner filter
+    ownerFilter,
+    setOwnerFilter,
   }
 }

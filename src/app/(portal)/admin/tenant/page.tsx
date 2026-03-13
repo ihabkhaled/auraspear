@@ -1,18 +1,26 @@
 'use client'
 
-import { Plus, Building2, Users, UserPlus } from 'lucide-react'
+import { Plus, Building2, Users, UserPlus, UserCheck, Search } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   TenantUserTable,
   TenantListTable,
   CreateTenantDialog,
   AddUserDialog,
+  AssignUserDialog,
   EditTenantDialog,
   EditUserDialog,
 } from '@/components/admin'
-import { PageHeader, LoadingSpinner, ErrorMessage, EmptyState } from '@/components/common'
+import {
+  PageHeader,
+  LoadingSpinner,
+  ErrorMessage,
+  EmptyState,
+  Pagination,
+} from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { useTenantConfigPage } from '@/hooks/useTenantConfigPage'
 
 export default function TenantConfigPage() {
@@ -27,6 +35,8 @@ export default function TenantConfigPage() {
     setCreateDialogOpen,
     addUserDialogOpen,
     setAddUserDialogOpen,
+    assignUserDialogOpen,
+    setAssignUserDialogOpen,
     editTenantDialogOpen,
     setEditTenantDialogOpen,
     editUserDialogOpen,
@@ -35,16 +45,20 @@ export default function TenantConfigPage() {
     editingUser,
     tenantsData,
     tenantsLoading,
+    tenantsFetching,
     tenantsError,
     usersData,
     usersLoading,
+    usersFetching,
     usersError,
     createTenantPending,
     addUserPending,
+    assignUserPending,
     updateTenantPending,
     updateUserPending,
     handleCreateTenant,
     handleAddUser,
+    handleAssignUser,
     handleTenantClick,
     handleEditTenant,
     handleEditTenantSubmit,
@@ -56,9 +70,19 @@ export default function TenantConfigPage() {
     handleBlockUser,
     handleUnblockUser,
     handleRestoreUser,
+    handleImpersonateUser,
     userSortBy,
     userSortOrder,
     handleUserSort,
+    userSearch,
+    setUserSearch,
+    userPagination,
+    tenantSortBy,
+    tenantSortOrder,
+    handleTenantSort,
+    tenantSearch,
+    setTenantSearch,
+    tenantPagination,
   } = useTenantConfigPage()
 
   function renderTenants() {
@@ -74,14 +98,29 @@ export default function TenantConfigPage() {
       )
     }
     return (
-      <TenantListTable
-        tenants={tenantsData?.data ?? []}
-        loading={tenantsLoading}
-        onTenantClick={handleTenantClick}
-        onEditTenant={handleEditTenant}
-        onDeleteTenant={handleDeleteTenant}
-        {...(userRole ? { userRole } : {})}
-      />
+      <>
+        <TenantListTable
+          tenants={tenantsData?.data ?? []}
+          loading={tenantsFetching}
+          onTenantClick={handleTenantClick}
+          onEditTenant={handleEditTenant}
+          onDeleteTenant={handleDeleteTenant}
+          {...(userRole ? { userRole } : {})}
+          sortBy={tenantSortBy}
+          sortOrder={tenantSortOrder}
+          onSort={handleTenantSort}
+        />
+        {tenantPagination.totalPages > 1 && (
+          <div className="pt-4">
+            <Pagination
+              page={tenantPagination.page}
+              totalPages={tenantPagination.totalPages}
+              onPageChange={tenantPagination.setPage}
+              total={tenantPagination.total}
+            />
+          </div>
+        )}
+      </>
     )
   }
 
@@ -98,21 +137,34 @@ export default function TenantConfigPage() {
       )
     }
     return (
-      <TenantUserTable
-        users={usersData?.data ?? []}
-        loading={usersLoading}
-        onEditUser={handleEditUser}
-        onRemoveUser={handleRemoveUser}
-        onBlockUser={handleBlockUser}
-        onUnblockUser={handleUnblockUser}
-        onRestoreUser={handleRestoreUser}
-        showActions={canManageUsers}
-        callerRole={userRole}
-        currentUserId={currentUserId}
-        sortBy={userSortBy}
-        sortOrder={userSortOrder}
-        onSort={handleUserSort}
-      />
+      <>
+        <TenantUserTable
+          users={usersData?.data ?? []}
+          loading={usersFetching}
+          onEditUser={handleEditUser}
+          onRemoveUser={handleRemoveUser}
+          onBlockUser={handleBlockUser}
+          onUnblockUser={handleUnblockUser}
+          onRestoreUser={handleRestoreUser}
+          onImpersonateUser={handleImpersonateUser}
+          showActions={canManageUsers}
+          callerRole={userRole}
+          currentUserId={currentUserId}
+          sortBy={userSortBy}
+          sortOrder={userSortOrder}
+          onSort={handleUserSort}
+        />
+        {userPagination.totalPages > 1 && (
+          <div className="pt-4">
+            <Pagination
+              page={userPagination.page}
+              totalPages={userPagination.totalPages}
+              onPageChange={userPagination.setPage}
+              total={userPagination.total}
+            />
+          </div>
+        )}
+      </>
     )
   }
 
@@ -133,8 +185,19 @@ export default function TenantConfigPage() {
       />
 
       <Card>
-        <CardHeader>
+        <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle className="text-base">{t('tenants.title')}</CardTitle>
+          {isGlobalAdmin && (
+            <div className="relative w-64">
+              <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+              <Input
+                value={tenantSearch}
+                onChange={e => setTenantSearch(e.target.value)}
+                placeholder={t('tenants.searchPlaceholder')}
+                className="ps-9"
+              />
+            </div>
+          )}
         </CardHeader>
         <CardContent>{renderTenants()}</CardContent>
       </Card>
@@ -152,12 +215,31 @@ export default function TenantConfigPage() {
               </span>
             )}
           </CardTitle>
-          {currentTenantId.length > 0 && canManageUsers && (
-            <Button size="sm" onClick={() => setAddUserDialogOpen(true)}>
-              <UserPlus className="me-2 h-4 w-4" />
-              {t('users.addUser')}
-            </Button>
-          )}
+          <div className="flex items-center gap-2">
+            {currentTenantId.length > 0 && (
+              <div className="relative w-64">
+                <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+                <Input
+                  value={userSearch}
+                  onChange={e => setUserSearch(e.target.value)}
+                  placeholder={t('users.searchPlaceholder')}
+                  className="ps-9"
+                />
+              </div>
+            )}
+            {currentTenantId.length > 0 && canManageUsers && (
+              <>
+                <Button size="sm" variant="outline" onClick={() => setAssignUserDialogOpen(true)}>
+                  <UserCheck className="me-2 h-4 w-4" />
+                  {t('users.assignUser')}
+                </Button>
+                <Button size="sm" onClick={() => setAddUserDialogOpen(true)}>
+                  <UserPlus className="me-2 h-4 w-4" />
+                  {t('users.addUser')}
+                </Button>
+              </>
+            )}
+          </div>
         </CardHeader>
         <CardContent>{renderUsers()}</CardContent>
       </Card>
@@ -174,6 +256,15 @@ export default function TenantConfigPage() {
         onOpenChange={setAddUserDialogOpen}
         onSubmit={handleAddUser}
         loading={addUserPending}
+        callerRole={userRole}
+      />
+
+      <AssignUserDialog
+        open={assignUserDialogOpen}
+        onOpenChange={setAssignUserDialogOpen}
+        onSubmit={handleAssignUser}
+        loading={assignUserPending}
+        tenantId={currentTenantId}
         callerRole={userRole}
       />
 

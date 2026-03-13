@@ -13,7 +13,7 @@ export function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
     case CaseStatus.IN_PROGRESS:
       return [CaseStatus.CLOSED]
     case CaseStatus.CLOSED:
-      return []
+      return [CaseStatus.OPEN]
   }
 }
 

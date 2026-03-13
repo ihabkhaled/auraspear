@@ -240,6 +240,7 @@
     "addNotePlaceholder": "Write a note...",
     "changeStatus": "Change Status",
     "statusUpdated": "Case status updated successfully",
+    "assigneeUpdated": "Case assignee updated successfully",
     "statusChanged": "Case status updated",
     "statusChangeError": "Failed to update case status",
     "validationTitleMin": "Title must be at least 5 characters",
@@ -251,7 +252,56 @@
     "creating": "Creating...",
     "caseCreated": "Case created successfully",
     "caseCreateError": "Failed to create case",
-    "tenant": "Tenant"
+    "tenant": "Tenant",
+    "myCases": "My Cases",
+    "cycleHistory": "Cycle History",
+    "severity": "Severity",
+    "status": "Status",
+    "assignee": "Assignee",
+    "createdAt": "Created",
+    "filterByOwner": "Filter by owner",
+    "you": "You",
+    "clearFilter": "Clear filter",
+    "createdBy": "Created by",
+    "cycleUpdated": "Cycle updated",
+    "reopened": "Re-opened",
+    "cycles": {
+      "historyTitle": "Case Cycle History",
+      "historyDescription": "View and manage operational case cycles",
+      "createCycle": "Create Cycle",
+      "createCycleDescription": "Create a new operational case cycle. Only one active cycle is allowed at a time.",
+      "closeCycle": "Close Cycle",
+      "confirmCloseCycle": "Are you sure you want to close this cycle? Cases will no longer be auto-assigned to it.",
+      "cycleCreated": "Case cycle created successfully",
+      "cycleClosed": "Case cycle closed successfully",
+      "name": "Name",
+      "namePlaceholder": "e.g. Cycle 4 — April Ops",
+      "description": "Description",
+      "descriptionPlaceholder": "Describe the cycle objectives...",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "caseCount": "Total Cases",
+      "openCount": "Open Cases",
+      "closedCount": "Closed Cases",
+      "createdAt": "Created",
+      "status": "Status",
+      "statusActive": "Active",
+      "statusClosed": "Closed",
+      "noCycles": "No cycles found",
+      "noCyclesDescription": "Case cycles help group cases into operational rounds",
+      "selectCycle": "Filter by cycle",
+      "allCycles": "All Cycles",
+      "active": "Active",
+      "cancel": "Cancel",
+      "create": "Create",
+      "creating": "Creating...",
+      "backToHistory": "Back to Cycles",
+      "cycleCases": "Cases in this Cycle",
+      "noCasesInCycle": "No cases assigned to this cycle",
+      "notFound": "Case cycle not found",
+      "noCycle": "No cycle",
+      "cycle": "Cycle"
+    }
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -404,7 +454,9 @@
       "deleteTenant": "Delete Tenant",
       "confirmDeleteTenant": "Are you sure you want to delete this tenant? This will remove all associated users and data.",
       "tenantDeleted": "Tenant deleted successfully",
-      "tenantDeleteError": "Failed to delete tenant"
+      "tenantDeleteError": "Failed to delete tenant",
+      "searchPlaceholder": "Search tenants...",
+      "createdAt": "Created At"
     },
     "users": {
       "title": "User Management",
@@ -451,7 +503,16 @@
       "confirmRestoreUser": "Are you sure you want to restore this user?",
       "userRestored": "User restored successfully",
       "statusBlocked": "Blocked",
-      "statusDeleted": "Deleted"
+      "statusDeleted": "Deleted",
+      "searchPlaceholder": "Search users...",
+      "assignUser": "Assign User",
+      "assignUserDescription": "Assign an existing or new user to this organization",
+      "existingUserFound": "User found: {name}",
+      "userAlreadyInTenant": "This user is already a member of this organization",
+      "newUserWillBeCreated": "No user found. A new account will be created.",
+      "assigning": "Assigning...",
+      "userAssigned": "User assigned successfully",
+      "impersonateUser": "Switch to User"
     },
     "services": {
       "title": "Service Health",
@@ -496,6 +557,38 @@
       "ipAddress": "IP Address",
       "noLogs": "No audit logs found",
       "noLogsDescription": "System audit logs will appear here"
+    },
+    "appLogs": {
+      "title": "Application Logs",
+      "noLogs": "No application logs found",
+      "noLogsDescription": "Application logs will appear here as the system generates them",
+      "searchPlaceholder": "Search messages...",
+      "allLevels": "All Levels",
+      "allFeatures": "All Features",
+      "actorEmailPlaceholder": "Filter by email...",
+      "clearFilters": "Clear Filters",
+      "timestamp": "Timestamp",
+      "level": "Level",
+      "message": "Message",
+      "feature": "Feature",
+      "action": "Action",
+      "functionName": "Function",
+      "className": "Class",
+      "actorEmail": "Actor Email",
+      "actorUserId": "Actor User ID",
+      "tenantId": "Tenant ID",
+      "requestId": "Request ID",
+      "targetResource": "Target Resource",
+      "targetResourceId": "Target Resource ID",
+      "outcome": "Outcome",
+      "sourceType": "Source",
+      "ipAddress": "IP Address",
+      "httpMethod": "HTTP Method",
+      "httpRoute": "HTTP Route",
+      "httpStatusCode": "Status Code",
+      "metadata": "Metadata",
+      "stackTrace": "Stack Trace",
+      "logDetail": "Log Details"
     }
   },
   "auth": {
@@ -911,7 +1004,17 @@
       "userAlreadyBlocked": "This user is already blocked.",
       "userNotBlocked": "This user is not blocked.",
       "userAlreadyExists": "This user already exists. The provided password was not applied. Please use the user management page to change passwords.",
-      "crossTenantAccessDenied": "You do not have permission to access another tenant's resources."
+      "crossTenantAccessDenied": "You do not have permission to access another tenant's resources.",
+      "userAlreadyInTenant": "This user is already a member of this organization."
+    },
+    "impersonation": {
+      "nestedNotAllowed": "Cannot impersonate while already in an impersonation session.",
+      "cannotImpersonateSelf": "You cannot impersonate yourself.",
+      "userNotFound": "The target user was not found.",
+      "protectedUser": "Protected users cannot be impersonated.",
+      "userNotActive": "The target user is not active in this tenant.",
+      "insufficientPrivilege": "You do not have sufficient privileges to impersonate this user.",
+      "notImpersonating": "You are not currently in an impersonation session."
     },
     "alerts": {
       "notFound": "Alert not found.",
@@ -968,6 +1071,9 @@
     },
     "auditLogs": {
       "accessDenied": "You do not have permission to view audit logs."
+    },
+    "appLogs": {
+      "notFound": "Application log entry not found."
     }
   },
   "profile": {
@@ -1012,5 +1118,13 @@
     "browserNotificationsDescription": "Show desktop notifications for critical alerts",
     "saved": "Preferences saved",
     "saving": "Saving..."
+  },
+  "impersonation": {
+    "banner": "You are viewing as {user} (impersonated by {admin})",
+    "endSession": "End Impersonation",
+    "ended": "Impersonation session ended",
+    "started": "Now viewing as {user}",
+    "confirmTitle": "Switch to User",
+    "confirmText": "You will view the platform as {user}. Your admin session will be preserved and you can return at any time."
   }
 }

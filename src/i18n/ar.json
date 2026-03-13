@@ -239,6 +239,7 @@
     "addNotePlaceholder": "اكتب ملاحظة...",
     "changeStatus": "تغيير الحالة",
     "statusUpdated": "تم تحديث حالة القضية بنجاح",
+    "assigneeUpdated": "تم تحديث المسؤول عن القضية بنجاح",
     "statusChanged": "تم تحديث حالة القضية",
     "statusChangeError": "فشل في تحديث حالة القضية",
     "fieldAssigneePlaceholder": "اختر المسؤول...",
@@ -251,7 +252,56 @@
     "validationDescriptionMin": "يجب أن يتكون الوصف من 10 أحرف على الأقل",
     "validationSeverity": "يرجى اختيار مستوى الخطورة",
     "validationAssignee": "يرجى اختيار المسؤول",
-    "tenant": "المستأجر"
+    "tenant": "المستأجر",
+    "myCases": "قضاياي",
+    "cycleHistory": "سجل الدورات",
+    "severity": "الخطورة",
+    "status": "الحالة",
+    "assignee": "المسؤول",
+    "createdAt": "تاريخ الإنشاء",
+    "filterByOwner": "تصفية حسب المسؤول",
+    "you": "أنت",
+    "clearFilter": "مسح الفلتر",
+    "createdBy": "أنشأه",
+    "cycleUpdated": "تم تحديث الدورة",
+    "reopened": "أعيد فتحه",
+    "cycles": {
+      "historyTitle": "سجل دورات القضايا",
+      "historyDescription": "عرض وإدارة الدورات التشغيلية للقضايا",
+      "createCycle": "إنشاء دورة",
+      "createCycleDescription": "إنشاء دورة تشغيلية جديدة للقضايا. يُسمح بدورة نشطة واحدة فقط في آنٍ واحد.",
+      "closeCycle": "إغلاق الدورة",
+      "confirmCloseCycle": "هل أنت متأكد من رغبتك في إغلاق هذه الدورة؟ لن يتم تعيين القضايا تلقائياً إليها بعد الآن.",
+      "cycleCreated": "تم إنشاء دورة القضايا بنجاح",
+      "cycleClosed": "تم إغلاق دورة القضايا بنجاح",
+      "name": "الاسم",
+      "namePlaceholder": "مثال: الدورة 4 — عمليات أبريل",
+      "description": "الوصف",
+      "descriptionPlaceholder": "صف أهداف الدورة...",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "caseCount": "إجمالي القضايا",
+      "openCount": "القضايا المفتوحة",
+      "closedCount": "القضايا المغلقة",
+      "createdAt": "تاريخ الإنشاء",
+      "status": "الحالة",
+      "statusActive": "نشطة",
+      "statusClosed": "مغلقة",
+      "noCycles": "لم يتم العثور على دورات",
+      "noCyclesDescription": "تساعد دورات القضايا على تجميع القضايا في جولات تشغيلية",
+      "selectCycle": "تصفية حسب الدورة",
+      "allCycles": "جميع الدورات",
+      "active": "نشطة",
+      "cancel": "إلغاء",
+      "create": "إنشاء",
+      "creating": "جاري الإنشاء...",
+      "backToHistory": "العودة إلى الدورات",
+      "cycleCases": "القضايا في هذه الدورة",
+      "noCasesInCycle": "لا توجد قضايا مُسندة إلى هذه الدورة",
+      "notFound": "لم يتم العثور على دورة القضايا",
+      "noCycle": "بدون دورة",
+      "cycle": "الدورة"
+    }
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -404,7 +454,9 @@
       "deleteTenant": "حذف المستأجر",
       "confirmDeleteTenant": "هل أنت متأكد من حذف هذا المستأجر؟ سيؤدي ذلك إلى إزالة جميع المستخدمين والبيانات المرتبطة.",
       "tenantDeleted": "تم حذف المستأجر بنجاح",
-      "tenantDeleteError": "فشل في حذف المستأجر"
+      "tenantDeleteError": "فشل في حذف المستأجر",
+      "searchPlaceholder": "البحث عن المؤسسات...",
+      "createdAt": "تاريخ الإنشاء"
     },
     "users": {
       "title": "إدارة المستخدمين",
@@ -451,7 +503,16 @@
       "confirmRestoreUser": "هل أنت متأكد من استعادة هذا المستخدم؟",
       "userRestored": "تم استعادة المستخدم بنجاح",
       "statusBlocked": "محظور",
-      "statusDeleted": "محذوف"
+      "statusDeleted": "محذوف",
+      "searchPlaceholder": "البحث عن المستخدمين...",
+      "assignUser": "تعيين مستخدم",
+      "assignUserDescription": "تعيين مستخدم موجود أو جديد لهذه المؤسسة",
+      "existingUserFound": "تم العثور على المستخدم: {name}",
+      "userAlreadyInTenant": "هذا المستخدم عضو بالفعل في هذه المؤسسة",
+      "newUserWillBeCreated": "لم يتم العثور على مستخدم. سيتم إنشاء حساب جديد.",
+      "assigning": "جارٍ التعيين...",
+      "userAssigned": "تم تعيين المستخدم بنجاح",
+      "impersonateUser": "التبديل إلى المستخدم"
     },
     "services": {
       "title": "صحة الخدمات",
@@ -496,6 +557,38 @@
       "ipAddress": "عنوان IP",
       "noLogs": "لم يتم العثور على سجلات التدقيق",
       "noLogsDescription": "ستظهر سجلات تدقيق النظام هنا"
+    },
+    "appLogs": {
+      "title": "سجلات التطبيق",
+      "noLogs": "لم يتم العثور على سجلات تطبيق",
+      "noLogsDescription": "ستظهر سجلات التطبيق هنا عندما يقوم النظام بتوليدها",
+      "searchPlaceholder": "البحث في الرسائل...",
+      "allLevels": "جميع المستويات",
+      "allFeatures": "جميع الميزات",
+      "actorEmailPlaceholder": "تصفية حسب البريد الإلكتروني...",
+      "clearFilters": "مسح الفلاتر",
+      "timestamp": "الطابع الزمني",
+      "level": "المستوى",
+      "message": "الرسالة",
+      "feature": "الميزة",
+      "action": "الإجراء",
+      "functionName": "الوظيفة",
+      "className": "الفئة",
+      "actorEmail": "بريد المستخدم",
+      "actorUserId": "معرف المستخدم",
+      "tenantId": "معرف المستأجر",
+      "requestId": "معرف الطلب",
+      "targetResource": "المورد المستهدف",
+      "targetResourceId": "معرف المورد المستهدف",
+      "outcome": "النتيجة",
+      "sourceType": "المصدر",
+      "ipAddress": "عنوان IP",
+      "httpMethod": "طريقة HTTP",
+      "httpRoute": "مسار HTTP",
+      "httpStatusCode": "رمز الحالة",
+      "metadata": "البيانات الوصفية",
+      "stackTrace": "تتبع الأخطاء",
+      "logDetail": "تفاصيل السجل"
     }
   },
   "auth": {
@@ -910,7 +1003,8 @@
       "userAlreadyBlocked": "هذا المستخدم محظور بالفعل.",
       "userNotBlocked": "هذا المستخدم ليس محظوراً.",
       "userAlreadyExists": "هذا المستخدم موجود بالفعل. لم يتم تطبيق كلمة المرور المقدمة. يرجى استخدام صفحة إدارة المستخدمين لتغيير كلمات المرور.",
-      "crossTenantAccessDenied": "ليس لديك صلاحية للوصول إلى موارد مستأجر آخر."
+      "crossTenantAccessDenied": "ليس لديك صلاحية للوصول إلى موارد مستأجر آخر.",
+      "userAlreadyInTenant": "هذا المستخدم عضو بالفعل في هذه المنظمة."
     },
     "alerts": {
       "notFound": "لم يتم العثور على التنبيه.",
@@ -967,6 +1061,18 @@
     },
     "auditLogs": {
       "accessDenied": "ليس لديك صلاحية لعرض سجلات التدقيق."
+    },
+    "appLogs": {
+      "notFound": "لم يتم العثور على سجل التطبيق."
+    },
+    "impersonation": {
+      "nestedNotAllowed": "لا يمكن انتحال الهوية أثناء جلسة انتحال هوية حالية.",
+      "cannotImpersonateSelf": "لا يمكنك انتحال هويتك الخاصة.",
+      "userNotFound": "لم يتم العثور على المستخدم المستهدف.",
+      "protectedUser": "لا يمكن انتحال هوية المستخدمين المحميين.",
+      "userNotActive": "المستخدم المستهدف غير نشط في هذا المستأجر.",
+      "insufficientPrivilege": "ليس لديك صلاحيات كافية لانتحال هوية هذا المستخدم.",
+      "notImpersonating": "أنت لست حالياً في جلسة انتحال هوية."
     }
   },
   "settings": {
@@ -1011,5 +1117,13 @@
     "passwordChanged": "تم تغيير كلمة المرور بنجاح",
     "changingPassword": "جاري التغيير...",
     "passwordMismatch": "كلمات المرور غير متطابقة"
+  },
+  "impersonation": {
+    "banner": "أنت تشاهد كـ {user} (بانتحال هوية من {admin})",
+    "endSession": "إنهاء الانتحال",
+    "ended": "تم إنهاء جلسة انتحال الهوية",
+    "started": "الآن تشاهد كـ {user}",
+    "confirmTitle": "التبديل إلى المستخدم",
+    "confirmText": "سترى المنصة كـ {user}. ستُحفظ جلسة المسؤول الخاصة بك ويمكنك العودة في أي وقت."
   }
 }

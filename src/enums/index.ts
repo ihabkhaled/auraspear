@@ -7,6 +7,7 @@ export {
   CaseTimelineEntryType,
   CaseArtifactType,
 } from './case.enum'
+export { CaseCycleStatus } from './case-cycle.enum'
 export { CaseSortField } from './case-sort-field.enum'
 export { CaseViewMode } from './case-view-mode.enum'
 export {
@@ -33,3 +34,4 @@ export { ChartType } from './chart.enum'
 export { SortOrder } from './sort-order.enum'
 export { WorkspaceTab, CardVariant } from './workspace.enum'
 export { StatusDotSize } from './component-size.enum'
+export { AppLogLevel, AppLogFeature } from './app-log.enum'

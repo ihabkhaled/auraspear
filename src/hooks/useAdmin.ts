@@ -1,13 +1,21 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { POLLING_INTERVAL } from '@/lib/constants'
 import { adminService } from '@/services'
-import type { AddUserInput, AuditLogParams, CreateTenantInput, TenantUserListParams } from '@/types'
+import type {
+  AddUserInput,
+  AssignUserInput,
+  AuditLogParams,
+  CreateTenantInput,
+  TenantListParams,
+  TenantUserListParams,
+} from '@/types'
 
-export function useTenants(enabled = true) {
+export function useTenants(params?: TenantListParams, enabled = true) {
   return useQuery({
-    queryKey: ['admin', 'tenants'],
-    queryFn: () => adminService.getTenants(),
+    queryKey: ['admin', 'tenants', params],
+    queryFn: () => adminService.getTenants(params),
     enabled,
+    placeholderData: keepPreviousData,
   })
 }
 
@@ -35,6 +43,7 @@ export function useTenantUsers(tenantId: string, params?: TenantUserListParams) 
     queryKey: ['admin', 'tenants', tenantId, 'users', params],
     queryFn: () => adminService.getUsers(tenantId, params),
     enabled: tenantId.length > 0,
+    placeholderData: keepPreviousData,
   })
 }
 
@@ -155,5 +164,33 @@ export function useRestoreUser() {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
     },
+  })
+}
+
+export function useCheckEmail(tenantId: string, email: string) {
+  return useQuery({
+    queryKey: ['admin', 'tenants', tenantId, 'check-email', email],
+    queryFn: () => adminService.checkEmail(tenantId, email),
+    enabled: tenantId.length > 0 && email.length > 0 && email.includes('@'),
+  })
+}
+
+export function useAssignUser() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ tenantId, data }: { tenantId: string; data: AssignUserInput }) =>
+      adminService.assignUser(tenantId, data),
+    onSuccess: (_data, { tenantId }) => {
+      void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
+    },
+  })
+}
+
+export function useImpersonateUser() {
+  return useMutation({
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
+      adminService.impersonateUser(tenantId, userId),
   })
 }

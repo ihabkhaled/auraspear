@@ -8,6 +8,7 @@ import type {
   CaseViewMode,
   SortOrder,
 } from '@/enums'
+import type { TenantMember } from './admin.types'
 import type { SelectOption } from './common.types'
 
 export interface CaseTask {
@@ -44,10 +45,12 @@ export interface Case {
   ownerName: string | null
   ownerEmail: string | null
   createdBy: string | null
+  createdByName: string | null
   createdAt: string
   updatedAt: string
   closedAt: string | null
   linkedAlerts: string[]
+  cycleId: string | null
   timeline: CaseTimelineEntry[]
   tasks: CaseTask[]
   artifacts: CaseArtifact[]
@@ -67,7 +70,8 @@ export interface UpdateCaseInput {
   title?: string
   description?: string
   severity?: CaseSeverity
-  ownerUserId?: string
+  ownerUserId?: string | null
+  cycleId?: string | null
   status?: CaseStatus
 }
 
@@ -79,6 +83,8 @@ export interface CaseSearchParams {
   query?: string
   sortBy?: string
   sortOrder?: SortOrder
+  cycleId?: string
+  ownerUserId?: string
 }
 
 export interface CaseListTableProps {
@@ -110,10 +116,20 @@ export interface CreateCaseDialogProps {
 export interface CaseDetailHeaderProps {
   caseItem: Case
   ownerName?: string | undefined
+  members?: TenantMember[] | undefined
+  cycles?: CaseCycleOption[] | undefined
   onEdit?: () => void
   onDelete?: () => void
   onEscalate?: () => void
   onStatusChange?: (status: CaseStatus) => void
+  onAssigneeChange?: (userId: string | null) => void
+  onCycleChange?: (cycleId: string | null) => void
+}
+
+export interface CaseCycleOption {
+  id: string
+  name: string
+  status: string
 }
 
 export interface CaseKanbanCardProps {

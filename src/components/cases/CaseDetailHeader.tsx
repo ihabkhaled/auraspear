@@ -1,6 +1,6 @@
 'use client'
 
-import { Calendar, User, Edit, Trash2, ExternalLink } from 'lucide-react'
+import { Calendar, User, UserCheck, Edit, Trash2, ExternalLink, FolderClosed } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
@@ -18,13 +18,20 @@ import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
 import { formatDate } from '@/lib/utils'
 import type { CaseDetailHeaderProps } from '@/types'
 
+const UNASSIGNED_VALUE = '__unassigned__'
+const NO_CYCLE_VALUE = '__no_cycle__'
+
 export function CaseDetailHeader({
   caseItem,
   ownerName,
+  members,
+  cycles,
   onEdit,
   onDelete,
   onEscalate,
   onStatusChange,
+  onAssigneeChange,
+  onCycleChange,
 }: CaseDetailHeaderProps) {
   const t = useTranslations('cases')
 
@@ -46,8 +53,11 @@ export function CaseDetailHeader({
 
         <div className="flex flex-wrap items-center gap-2">
           {onStatusChange && availableTransitions.length > 0 && (
-            <Select onValueChange={value => onStatusChange(value as CaseStatus)}>
-              <SelectTrigger size="sm" className="w-auto">
+            <Select
+              key={caseItem.status}
+              onValueChange={value => onStatusChange(value as CaseStatus)}
+            >
+              <SelectTrigger size="sm" className="w-auto cursor-pointer">
                 <SelectValue placeholder={t('changeStatus')} />
               </SelectTrigger>
               <SelectContent>
@@ -82,8 +92,72 @@ export function CaseDetailHeader({
 
       <div className="text-muted-foreground flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
         <span className="flex items-center gap-1.5">
+          <UserCheck className="h-3.5 w-3.5" />
+          {t('assignee')}:
+          {onAssigneeChange && members ? (
+            <Select
+              value={caseItem.ownerUserId ?? UNASSIGNED_VALUE}
+              onValueChange={value => onAssigneeChange(value === UNASSIGNED_VALUE ? null : value)}
+            >
+              <SelectTrigger
+                size="sm"
+                className="h-7 w-auto cursor-pointer gap-1 text-sm font-medium"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={UNASSIGNED_VALUE}>{t('unassigned')}</SelectItem>
+                {members.map(member => (
+                  <SelectItem key={member.id} value={member.id}>
+                    {`${member.name} (${member.email})`}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <span className="text-foreground font-medium">
+              {ownerName
+                ? `${ownerName}${caseItem.ownerEmail ? ` (${caseItem.ownerEmail})` : ''}`
+                : t('unassigned')}
+            </span>
+          )}
+        </span>
+        <span className="flex items-center gap-1.5">
+          <FolderClosed className="h-3.5 w-3.5" />
+          {t('cycles.cycle')}:
+          {onCycleChange && cycles ? (
+            <Select
+              value={caseItem.cycleId ?? NO_CYCLE_VALUE}
+              onValueChange={value => onCycleChange(value === NO_CYCLE_VALUE ? null : value)}
+            >
+              <SelectTrigger
+                size="sm"
+                className="h-7 w-auto cursor-pointer gap-1 text-sm font-medium"
+              >
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={NO_CYCLE_VALUE}>{t('cycles.noCycle')}</SelectItem>
+                {cycles.map(cycle => (
+                  <SelectItem key={cycle.id} value={cycle.id}>
+                    {cycle.name}
+                    {cycle.status === 'active' ? ` (${t('cycles.active')})` : ''}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <span className="text-foreground font-medium">—</span>
+          )}
+        </span>
+        <span className="flex items-center gap-1.5">
           <User className="h-3.5 w-3.5" />
-          {ownerName ?? caseItem.createdBy ?? t('unassigned')}
+          {t('createdBy')}:{' '}
+          <span className="text-foreground font-medium">
+            {caseItem.createdByName
+              ? `${caseItem.createdByName}${caseItem.createdBy ? ` (${caseItem.createdBy})` : ''}`
+              : (caseItem.createdBy ?? '—')}
+          </span>
         </span>
         <span className="flex items-center gap-1.5">
           <Calendar className="h-3.5 w-3.5" />

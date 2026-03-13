@@ -10,7 +10,9 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import type { CaseStatus } from '@/enums'
-import { useCase, useUpdateCase } from '@/hooks'
+import { SortOrder } from '@/enums'
+import { useCase, useTenantMembers, useUpdateCase } from '@/hooks'
+import { useCaseCycles } from '@/hooks/useCaseCycles'
 import { getErrorKey } from '@/lib/api-error'
 import type { CaseDetailPageProps } from '@/types'
 
@@ -21,7 +23,15 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
 
   const { data, isLoading, isError } = useCase(id)
   const updateCase = useUpdateCase()
+  const { data: membersData } = useTenantMembers()
+  const { data: cyclesData } = useCaseCycles({
+    limit: 100,
+    sortBy: 'createdAt',
+    sortOrder: SortOrder.DESC,
+  })
   const caseItem = data?.data
+  const members = membersData?.data ?? []
+  const cycles = (cyclesData?.data ?? []).map(c => ({ id: c.id, name: c.name, status: c.status }))
 
   const ownerName = caseItem?.ownerName ?? undefined
 
@@ -32,6 +42,40 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         {
           onSuccess: () => {
             Toast.success(t('statusUpdated'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(t(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [id, updateCase, t]
+  )
+
+  const handleAssigneeChange = useCallback(
+    (userId: string | null) => {
+      updateCase.mutate(
+        { id, data: { ownerUserId: userId } },
+        {
+          onSuccess: () => {
+            Toast.success(t('assigneeUpdated'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(t(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [id, updateCase, t]
+  )
+
+  const handleCycleChange = useCallback(
+    (cycleId: string | null) => {
+      updateCase.mutate(
+        { id, data: { cycleId } },
+        {
+          onSuccess: () => {
+            Toast.success(t('cycleUpdated'))
           },
           onError: (error: unknown) => {
             Toast.error(t(getErrorKey(error)))
@@ -76,7 +120,11 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
       <CaseDetailHeader
         caseItem={caseItem}
         ownerName={ownerName}
+        members={members}
+        cycles={cycles}
         onStatusChange={handleStatusChange}
+        onAssigneeChange={handleAssigneeChange}
+        onCycleChange={handleCycleChange}
       />
 
       {caseItem.description && (

@@ -239,6 +239,7 @@
     "addNotePlaceholder": "Scrivi una nota...",
     "changeStatus": "Cambia Stato",
     "statusUpdated": "Stato del caso aggiornato con successo",
+    "assigneeUpdated": "Responsabile del caso aggiornato con successo",
     "statusChanged": "Stato del caso aggiornato",
     "statusChangeError": "Aggiornamento dello stato del caso fallito",
     "fieldAssigneePlaceholder": "Seleziona assegnatario...",
@@ -251,7 +252,56 @@
     "validationDescriptionMin": "La descrizione deve contenere almeno 10 caratteri",
     "validationSeverity": "Seleziona un livello di gravita",
     "validationAssignee": "Seleziona un assegnatario",
-    "tenant": "Tenant"
+    "tenant": "Tenant",
+    "myCases": "I Miei Casi",
+    "cycleHistory": "Cronologia dei Cicli",
+    "severity": "Gravità",
+    "status": "Stato",
+    "assignee": "Assegnatario",
+    "createdAt": "Creato",
+    "filterByOwner": "Filtra per responsabile",
+    "you": "Tu",
+    "clearFilter": "Cancella filtro",
+    "createdBy": "Creato da",
+    "cycleUpdated": "Ciclo aggiornato",
+    "reopened": "Riaperto",
+    "cycles": {
+      "historyTitle": "Cronologia dei Cicli dei Casi",
+      "historyDescription": "Visualizza e gestisci i cicli operativi dei casi",
+      "createCycle": "Crea Ciclo",
+      "createCycleDescription": "Crea un nuovo ciclo operativo dei casi. È consentito un solo ciclo attivo alla volta.",
+      "closeCycle": "Chiudi Ciclo",
+      "confirmCloseCycle": "Sei sicuro di voler chiudere questo ciclo? I casi non verranno più assegnati automaticamente.",
+      "cycleCreated": "Ciclo dei casi creato con successo",
+      "cycleClosed": "Ciclo dei casi chiuso con successo",
+      "name": "Nome",
+      "namePlaceholder": "es. Ciclo 4 — Operazioni di Aprile",
+      "description": "Descrizione",
+      "descriptionPlaceholder": "Descrivi gli obiettivi del ciclo...",
+      "startDate": "Data di Inizio",
+      "endDate": "Data di Fine",
+      "caseCount": "Totale Casi",
+      "openCount": "Casi Aperti",
+      "closedCount": "Casi Chiusi",
+      "createdAt": "Creato",
+      "status": "Stato",
+      "statusActive": "Attivo",
+      "statusClosed": "Chiuso",
+      "noCycles": "Nessun ciclo trovato",
+      "noCyclesDescription": "I cicli dei casi aiutano a raggruppare i casi in round operativi",
+      "selectCycle": "Filtra per ciclo",
+      "allCycles": "Tutti i Cicli",
+      "active": "Attivo",
+      "cancel": "Annulla",
+      "create": "Crea",
+      "creating": "Creazione in corso...",
+      "backToHistory": "Torna ai Cicli",
+      "cycleCases": "Casi in questo Ciclo",
+      "noCasesInCycle": "Nessun caso assegnato a questo ciclo",
+      "notFound": "Ciclo dei casi non trovato",
+      "noCycle": "Nessun ciclo",
+      "cycle": "Ciclo"
+    }
   },
   "intel": {
     "title": "Intelligence sulle Minacce",
@@ -404,7 +454,9 @@
       "deleteTenant": "Elimina Tenant",
       "confirmDeleteTenant": "Sei sicuro di voler eliminare questo tenant? Questo rimuovera tutti gli utenti e i dati associati.",
       "tenantDeleted": "Tenant eliminato con successo",
-      "tenantDeleteError": "Eliminazione tenant fallita"
+      "tenantDeleteError": "Eliminazione tenant fallita",
+      "searchPlaceholder": "Cerca organizzazioni...",
+      "createdAt": "Data di creazione"
     },
     "users": {
       "title": "Gestione Utenti",
@@ -451,7 +503,16 @@
       "confirmRestoreUser": "Sei sicuro di voler ripristinare questo utente?",
       "userRestored": "Utente ripristinato con successo",
       "statusBlocked": "Bloccato",
-      "statusDeleted": "Eliminato"
+      "statusDeleted": "Eliminato",
+      "searchPlaceholder": "Cerca utenti...",
+      "assignUser": "Assegna utente",
+      "assignUserDescription": "Assegna un utente esistente o nuovo a questa organizzazione",
+      "existingUserFound": "Utente trovato: {name}",
+      "userAlreadyInTenant": "Questo utente è già membro di questa organizzazione",
+      "newUserWillBeCreated": "Nessun utente trovato. Verrà creato un nuovo account.",
+      "assigning": "Assegnazione...",
+      "userAssigned": "Utente assegnato con successo",
+      "impersonateUser": "Passa all'utente"
     },
     "services": {
       "title": "Stato dei Servizi",
@@ -496,6 +557,38 @@
       "ipAddress": "Indirizzo IP",
       "noLogs": "Nessun log di audit trovato",
       "noLogsDescription": "I log di audit del sistema appariranno qui"
+    },
+    "appLogs": {
+      "title": "Registri dell'Applicazione",
+      "noLogs": "Nessun registro dell'applicazione trovato",
+      "noLogsDescription": "I registri dell'applicazione appariranno qui man mano che il sistema li genera",
+      "searchPlaceholder": "Cerca messaggi...",
+      "allLevels": "Tutti i Livelli",
+      "allFeatures": "Tutte le Funzionalità",
+      "actorEmailPlaceholder": "Filtra per email...",
+      "clearFilters": "Cancella Filtri",
+      "timestamp": "Timestamp",
+      "level": "Livello",
+      "message": "Messaggio",
+      "feature": "Funzionalità",
+      "action": "Azione",
+      "functionName": "Funzione",
+      "className": "Classe",
+      "actorEmail": "Email dell'Attore",
+      "actorUserId": "ID dell'Attore",
+      "tenantId": "ID Tenant",
+      "requestId": "ID Richiesta",
+      "targetResource": "Risorsa Obiettivo",
+      "targetResourceId": "ID della Risorsa Obiettivo",
+      "outcome": "Risultato",
+      "sourceType": "Sorgente",
+      "ipAddress": "Indirizzo IP",
+      "httpMethod": "Metodo HTTP",
+      "httpRoute": "Percorso HTTP",
+      "httpStatusCode": "Codice di Stato",
+      "metadata": "Metadati",
+      "stackTrace": "Traccia dell'Errore",
+      "logDetail": "Dettagli del Registro"
     }
   },
   "auth": {
@@ -910,7 +1003,8 @@
       "userAlreadyBlocked": "Questo utente e gia bloccato.",
       "userNotBlocked": "Questo utente non e bloccato.",
       "userAlreadyExists": "Questo utente esiste gia. La password fornita non e stata applicata. Utilizzare la pagina di gestione utenti per modificare le password.",
-      "crossTenantAccessDenied": "Non hai i permessi per accedere alle risorse di un altro tenant."
+      "crossTenantAccessDenied": "Non hai i permessi per accedere alle risorse di un altro tenant.",
+      "userAlreadyInTenant": "Questo utente è già membro di questa organizzazione."
     },
     "alerts": {
       "notFound": "Avviso non trovato.",
@@ -967,6 +1061,18 @@
     },
     "auditLogs": {
       "accessDenied": "Non hai i permessi per visualizzare i log di audit."
+    },
+    "appLogs": {
+      "notFound": "Voce del registro dell'applicazione non trovata."
+    },
+    "impersonation": {
+      "nestedNotAllowed": "Impossibile impersonare durante una sessione di impersonificazione.",
+      "cannotImpersonateSelf": "Non puoi impersonare te stesso.",
+      "userNotFound": "L'utente di destinazione non è stato trovato.",
+      "protectedUser": "Gli utenti protetti non possono essere impersonati.",
+      "userNotActive": "L'utente di destinazione non è attivo in questo tenant.",
+      "insufficientPrivilege": "Non hai privilegi sufficienti per impersonare questo utente.",
+      "notImpersonating": "Non sei attualmente in una sessione di impersonificazione."
     }
   },
   "settings": {
@@ -1011,5 +1117,13 @@
     "passwordChanged": "Password cambiata con successo",
     "changingPassword": "Cambio in corso...",
     "passwordMismatch": "Le password non corrispondono"
+  },
+  "impersonation": {
+    "banner": "Stai visualizzando come {user} (impersonato da {admin})",
+    "endSession": "Termina impersonificazione",
+    "ended": "Sessione di impersonificazione terminata",
+    "started": "Ora visualizzando come {user}",
+    "confirmTitle": "Passa all'utente",
+    "confirmText": "Vedrai la piattaforma come {user}. La tua sessione amministratore sarà preservata e potrai tornare in qualsiasi momento."
   }
 }

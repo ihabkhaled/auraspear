@@ -239,6 +239,7 @@
     "addNotePlaceholder": "Écrire une note...",
     "changeStatus": "Changer le statut",
     "statusUpdated": "Statut du dossier mis à jour avec succès",
+    "assigneeUpdated": "Responsable du dossier mis à jour avec succès",
     "statusChanged": "Statut du dossier mis a jour",
     "statusChangeError": "Echec de la mise a jour du statut du dossier",
     "fieldAssigneePlaceholder": "Selectionner le responsable...",
@@ -251,7 +252,56 @@
     "validationDescriptionMin": "La description doit contenir au moins 10 caracteres",
     "validationSeverity": "Veuillez selectionner un niveau de severite",
     "validationAssignee": "Veuillez selectionner un responsable",
-    "tenant": "Locataire"
+    "tenant": "Locataire",
+    "myCases": "Mes Dossiers",
+    "cycleHistory": "Historique des Cycles",
+    "severity": "Severite",
+    "status": "Statut",
+    "assignee": "Responsable",
+    "createdAt": "Cree",
+    "filterByOwner": "Filtrer par responsable",
+    "you": "Vous",
+    "clearFilter": "Effacer le filtre",
+    "createdBy": "Créé par",
+    "cycleUpdated": "Cycle mis à jour",
+    "reopened": "Rouvert",
+    "cycles": {
+      "historyTitle": "Historique des Cycles de Dossiers",
+      "historyDescription": "Voir et gerer les cycles operationnels de dossiers",
+      "createCycle": "Creer un Cycle",
+      "createCycleDescription": "Creer un nouveau cycle operationnel de dossiers. Un seul cycle actif est autorise a la fois.",
+      "closeCycle": "Fermer le Cycle",
+      "confirmCloseCycle": "Etes-vous sur de vouloir fermer ce cycle ? Les dossiers ne seront plus affectes automatiquement.",
+      "cycleCreated": "Cycle de dossiers cree avec succes",
+      "cycleClosed": "Cycle de dossiers ferme avec succes",
+      "name": "Nom",
+      "namePlaceholder": "ex. Cycle 4 — Operations d'Avril",
+      "description": "Description",
+      "descriptionPlaceholder": "Decrivez les objectifs du cycle...",
+      "startDate": "Date de Debut",
+      "endDate": "Date de Fin",
+      "caseCount": "Total des Dossiers",
+      "openCount": "Dossiers Ouverts",
+      "closedCount": "Dossiers Fermes",
+      "createdAt": "Cree",
+      "status": "Statut",
+      "statusActive": "Actif",
+      "statusClosed": "Ferme",
+      "noCycles": "Aucun cycle trouve",
+      "noCyclesDescription": "Les cycles de dossiers permettent de regrouper les dossiers par rounds operationnels",
+      "selectCycle": "Filtrer par cycle",
+      "allCycles": "Tous les Cycles",
+      "active": "Actif",
+      "cancel": "Annuler",
+      "create": "Creer",
+      "creating": "Creation en cours...",
+      "backToHistory": "Retour aux Cycles",
+      "cycleCases": "Dossiers dans ce Cycle",
+      "noCasesInCycle": "Aucun dossier affecte a ce cycle",
+      "notFound": "Cycle de dossiers introuvable",
+      "noCycle": "Aucun cycle",
+      "cycle": "Cycle"
+    }
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -404,7 +454,9 @@
       "deleteTenant": "Supprimer le locataire",
       "confirmDeleteTenant": "Etes-vous sur de vouloir supprimer ce locataire ? Cela supprimera tous les utilisateurs et donnees associes.",
       "tenantDeleted": "Locataire supprime avec succes",
-      "tenantDeleteError": "Echec de la suppression du locataire"
+      "tenantDeleteError": "Echec de la suppression du locataire",
+      "searchPlaceholder": "Rechercher des organisations...",
+      "createdAt": "Date de création"
     },
     "users": {
       "title": "Gestion des utilisateurs",
@@ -451,7 +503,16 @@
       "confirmRestoreUser": "Etes-vous sur de vouloir restaurer cet utilisateur ?",
       "userRestored": "Utilisateur restaure avec succes",
       "statusBlocked": "Bloque",
-      "statusDeleted": "Supprime"
+      "statusDeleted": "Supprime",
+      "searchPlaceholder": "Rechercher des utilisateurs...",
+      "assignUser": "Assigner un utilisateur",
+      "assignUserDescription": "Assigner un utilisateur existant ou nouveau à cette organisation",
+      "existingUserFound": "Utilisateur trouvé : {name}",
+      "userAlreadyInTenant": "Cet utilisateur est déjà membre de cette organisation",
+      "newUserWillBeCreated": "Aucun utilisateur trouvé. Un nouveau compte sera créé.",
+      "assigning": "Attribution...",
+      "userAssigned": "Utilisateur assigné avec succès",
+      "impersonateUser": "Basculer vers l'utilisateur"
     },
     "services": {
       "title": "Sante des services",
@@ -496,6 +557,38 @@
       "ipAddress": "Adresse IP",
       "noLogs": "Aucun journal d'audit trouve",
       "noLogsDescription": "Les journaux d'audit systeme apparaitront ici"
+    },
+    "appLogs": {
+      "title": "Journaux d'Application",
+      "noLogs": "Aucun journal d'application trouvé",
+      "noLogsDescription": "Les journaux d'application apparaîtront ici au fur et à mesure que le système les génère",
+      "searchPlaceholder": "Rechercher des messages...",
+      "allLevels": "Tous les Niveaux",
+      "allFeatures": "Toutes les Fonctionnalités",
+      "actorEmailPlaceholder": "Filtrer par e-mail...",
+      "clearFilters": "Effacer les Filtres",
+      "timestamp": "Horodatage",
+      "level": "Niveau",
+      "message": "Message",
+      "feature": "Fonctionnalité",
+      "action": "Action",
+      "functionName": "Fonction",
+      "className": "Classe",
+      "actorEmail": "E-mail de l'Acteur",
+      "actorUserId": "ID de l'Acteur",
+      "tenantId": "ID du Locataire",
+      "requestId": "ID de Requête",
+      "targetResource": "Ressource Cible",
+      "targetResourceId": "ID de la Ressource Cible",
+      "outcome": "Résultat",
+      "sourceType": "Source",
+      "ipAddress": "Adresse IP",
+      "httpMethod": "Méthode HTTP",
+      "httpRoute": "Route HTTP",
+      "httpStatusCode": "Code d'État",
+      "metadata": "Métadonnées",
+      "stackTrace": "Trace d'Erreur",
+      "logDetail": "Détails du Journal"
     }
   },
   "auth": {
@@ -910,7 +1003,8 @@
       "userAlreadyBlocked": "Cet utilisateur est deja bloque.",
       "userNotBlocked": "Cet utilisateur n'est pas bloque.",
       "userAlreadyExists": "Cet utilisateur existe deja. Le mot de passe fourni n'a pas ete applique. Veuillez utiliser la page de gestion des utilisateurs pour changer les mots de passe.",
-      "crossTenantAccessDenied": "Vous n'avez pas la permission d'acceder aux ressources d'un autre locataire."
+      "crossTenantAccessDenied": "Vous n'avez pas la permission d'acceder aux ressources d'un autre locataire.",
+      "userAlreadyInTenant": "Cet utilisateur est déjà membre de cette organisation."
     },
     "alerts": {
       "notFound": "Alerte introuvable.",
@@ -967,6 +1061,18 @@
     },
     "auditLogs": {
       "accessDenied": "Vous n'avez pas la permission de consulter les journaux d'audit."
+    },
+    "appLogs": {
+      "notFound": "Entrée de journal d'application introuvable."
+    },
+    "impersonation": {
+      "nestedNotAllowed": "Impossible d'usurper l'identité pendant une session d'usurpation.",
+      "cannotImpersonateSelf": "Vous ne pouvez pas usurper votre propre identité.",
+      "userNotFound": "L'utilisateur cible n'a pas été trouvé.",
+      "protectedUser": "Les utilisateurs protégés ne peuvent pas être usurpés.",
+      "userNotActive": "L'utilisateur cible n'est pas actif dans ce tenant.",
+      "insufficientPrivilege": "Vous n'avez pas les privilèges suffisants pour usurper cet utilisateur.",
+      "notImpersonating": "Vous n'êtes pas actuellement en session d'usurpation."
     }
   },
   "settings": {
@@ -1011,5 +1117,13 @@
     "passwordChanged": "Mot de passe change avec succes",
     "changingPassword": "Changement...",
     "passwordMismatch": "Les mots de passe ne correspondent pas"
+  },
+  "impersonation": {
+    "banner": "Vous consultez en tant que {user} (usurpé par {admin})",
+    "endSession": "Terminer l'usurpation",
+    "ended": "Session d'usurpation terminée",
+    "started": "Consultation en tant que {user}",
+    "confirmTitle": "Basculer vers l'utilisateur",
+    "confirmText": "Vous verrez la plateforme en tant que {user}. Votre session administrateur sera préservée et vous pourrez revenir à tout moment."
   }
 }

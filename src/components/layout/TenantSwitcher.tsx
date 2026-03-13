@@ -23,7 +23,7 @@ export function TenantSwitcher() {
   const isGlobalAdmin = user?.role === UserRole.GLOBAL_ADMIN
 
   // GLOBAL_ADMIN: fetch all tenants from admin API
-  const { data: tenantsData } = useTenants(isGlobalAdmin)
+  const { data: tenantsData } = useTenants(undefined, isGlobalAdmin)
 
   useEffect(() => {
     if (tenantsData?.data && tenantsData.data.length > 0) {

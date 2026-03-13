@@ -9,6 +9,7 @@ export interface TenantUserTableProps {
   onBlockUser?: (user: TenantUser) => void
   onUnblockUser?: (user: TenantUser) => void
   onRestoreUser?: (user: TenantUser) => void
+  onImpersonateUser?: (user: TenantUser) => void
   showActions?: boolean
   callerRole?: UserRole | undefined
   currentUserId?: string | undefined
@@ -83,6 +84,9 @@ export interface AuditLogParams {
 }
 
 export interface TenantUserListParams {
+  page?: number
+  limit?: number
+  search?: string
   sortBy?: string
   sortOrder?: SortOrder
   role?: string
@@ -99,6 +103,27 @@ export interface AddUserInput {
   name: string
   password: string
   role: string
+}
+
+export interface AssignUserInput {
+  email: string
+  role: string
+  name?: string
+  password?: string
+}
+
+export interface CheckEmailResult {
+  exists: boolean
+  user: { id: string; name: string; email: string } | null
+  alreadyInTenant: boolean
+}
+
+export interface TenantListParams {
+  page?: number
+  limit?: number
+  search?: string
+  sortBy?: string
+  sortOrder?: SortOrder
 }
 
 /** Lightweight user info returned by GET /members for assignee pickers. */

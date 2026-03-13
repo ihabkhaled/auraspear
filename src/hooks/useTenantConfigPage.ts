@@ -1,4 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
+import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import type {
   CreateTenantFormValues,
@@ -9,7 +11,7 @@ import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { UserRole, type SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { Tenant, TenantUser } from '@/types'
+import type { AssignUserInput, Tenant, TenantUser } from '@/types'
 import {
   useTenants,
   useCurrentTenant,
@@ -23,12 +25,19 @@ import {
   useBlockUser,
   useUnblockUser,
   useRestoreUser,
+  useAssignUser,
+  useImpersonateUser,
 } from './useAdmin'
+import { useDebounce } from './useDebounce'
+import { usePagination } from './usePagination'
 
 export function useTenantConfigPage() {
   const t = useTranslations('admin')
   const tErrors = useTranslations()
-  const { user } = useAuthStore()
+  const tImpersonation = useTranslations('impersonation')
+  const router = useRouter()
+  const queryClient = useQueryClient()
+  const { user, setTokens, setUser, startImpersonation } = useAuthStore()
   const { currentTenantId, setCurrentTenant, setTenants } = useTenantStore()
 
   const userRole = user?.role as UserRole | undefined
@@ -36,21 +45,54 @@ export function useTenantConfigPage() {
   const isTenantAdmin = userRole === UserRole.TENANT_ADMIN
   const canManageUsers = isGlobalAdmin || isTenantAdmin
 
+  // Dialog states
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [addUserDialogOpen, setAddUserDialogOpen] = useState(false)
+  const [assignUserDialogOpen, setAssignUserDialogOpen] = useState(false)
   const [editTenantDialogOpen, setEditTenantDialogOpen] = useState(false)
   const [editUserDialogOpen, setEditUserDialogOpen] = useState(false)
   const [editingTenant, setEditingTenant] = useState<Tenant | null>(null)
   const [editingUser, setEditingUser] = useState<TenantUser | null>(null)
+
+  // Tenant table: sorting, search, pagination
+  const [tenantSortBy, setTenantSortBy] = useState<string | undefined>()
+  const [tenantSortOrder, setTenantSortOrder] = useState<SortOrder | undefined>()
+  const [tenantSearch, setTenantSearch] = useState('')
+  const debouncedTenantSearch = useDebounce(tenantSearch, 400)
+  const tenantPagination = usePagination({ initialLimit: 10 })
+
+  // User table: sorting, search, pagination
   const [userSortBy, setUserSortBy] = useState<string | undefined>()
   const [userSortOrder, setUserSortOrder] = useState<SortOrder | undefined>()
+  const [userSearch, setUserSearch] = useState('')
+  const debouncedUserSearch = useDebounce(userSearch, 400)
+  const userPagination = usePagination({ initialLimit: 10 })
+
+  // Reset page on search change
+  useEffect(() => {
+    tenantPagination.setPage(1)
+  }, [debouncedTenantSearch, tenantPagination])
+
+  useEffect(() => {
+    userPagination.setPage(1)
+  }, [debouncedUserSearch, userPagination])
 
   // Only Global Admin fetches all tenants
   const {
     data: allTenantsData,
     isLoading: allTenantsLoading,
+    isFetching: allTenantsFetching,
     isError: allTenantsError,
-  } = useTenants(isGlobalAdmin)
+  } = useTenants(
+    {
+      page: tenantPagination.page,
+      limit: tenantPagination.limit,
+      ...(debouncedTenantSearch.length > 0 ? { search: debouncedTenantSearch } : {}),
+      ...(tenantSortBy ? { sortBy: tenantSortBy } : {}),
+      ...(tenantSortOrder ? { sortOrder: tenantSortOrder } : {}),
+    },
+    isGlobalAdmin
+  )
 
   // Tenant Admin fetches only their own tenant
   const { data: currentTenantData, isLoading: currentTenantLoading } =
@@ -68,19 +110,39 @@ export function useTenantConfigPage() {
   }, [isGlobalAdmin, allTenantsData, currentTenantData])
 
   const tenantsLoading = isGlobalAdmin ? allTenantsLoading : currentTenantLoading
+  const tenantsFetching = isGlobalAdmin ? allTenantsFetching : false
   const tenantsError = isGlobalAdmin ? allTenantsError : false
+
+  // Sync tenant pagination total
+  useEffect(() => {
+    if (allTenantsData?.pagination) {
+      tenantPagination.setTotal(allTenantsData.pagination.total)
+    }
+  }, [allTenantsData?.pagination, tenantPagination])
 
   const {
     data: usersData,
     isLoading: usersLoading,
+    isFetching: usersFetching,
     isError: usersError,
   } = useTenantUsers(currentTenantId, {
-    ...(userSortBy !== undefined && { sortBy: userSortBy }),
-    ...(userSortOrder !== undefined && { sortOrder: userSortOrder }),
+    page: userPagination.page,
+    limit: userPagination.limit,
+    ...(debouncedUserSearch.length > 0 ? { search: debouncedUserSearch } : {}),
+    ...(userSortBy ? { sortBy: userSortBy } : {}),
+    ...(userSortOrder ? { sortOrder: userSortOrder } : {}),
   })
+
+  // Sync user pagination total
+  useEffect(() => {
+    if (usersData?.pagination) {
+      userPagination.setTotal(usersData.pagination.total)
+    }
+  }, [usersData?.pagination, userPagination])
 
   const createTenant = useCreateTenant()
   const addUser = useAddUser()
+  const assignUser = useAssignUser()
   const updateTenant = useUpdateTenant()
   const deleteTenant = useDeleteTenant()
   const updateUser = useUpdateUser()
@@ -88,6 +150,7 @@ export function useTenantConfigPage() {
   const blockUser = useBlockUser()
   const unblockUser = useUnblockUser()
   const restoreUser = useRestoreUser()
+  const impersonateUser = useImpersonateUser()
 
   useEffect(() => {
     if (tenantsData?.data) {
@@ -144,6 +207,24 @@ export function useTenantConfigPage() {
       )
     },
     [addUser, currentTenantId, t, tErrors]
+  )
+
+  const handleAssignUser = useCallback(
+    (data: AssignUserInput) => {
+      assignUser.mutate(
+        { tenantId: currentTenantId, data },
+        {
+          onSuccess: () => {
+            setAssignUserDialogOpen(false)
+            Toast.success(t('users.userAssigned'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [assignUser, currentTenantId, t, tErrors]
   )
 
   const handleTenantClick = useCallback(
@@ -322,10 +403,23 @@ export function useTenantConfigPage() {
     [unblockUser, currentTenantId, t, tErrors]
   )
 
-  const handleUserSort = useCallback((key: string, order: SortOrder) => {
-    setUserSortBy(key)
-    setUserSortOrder(order)
-  }, [])
+  const handleUserSort = useCallback(
+    (key: string, order: SortOrder) => {
+      setUserSortBy(key)
+      setUserSortOrder(order)
+      userPagination.setPage(1)
+    },
+    [userPagination]
+  )
+
+  const handleTenantSort = useCallback(
+    (key: string, order: SortOrder) => {
+      setTenantSortBy(key)
+      setTenantSortOrder(order)
+      tenantPagination.setPage(1)
+    },
+    [tenantPagination]
+  )
 
   const handleRestoreUser = useCallback(
     async (tenantUser: TenantUser) => {
@@ -354,6 +448,60 @@ export function useTenantConfigPage() {
     [restoreUser, currentTenantId, t, tErrors]
   )
 
+  const handleImpersonateUser = useCallback(
+    async (tenantUser: TenantUser) => {
+      const confirmed = await SweetAlertDialog.show({
+        title: tImpersonation('confirmTitle'),
+        text: tImpersonation('confirmText', { user: tenantUser.email }),
+        icon: SweetAlertIcon.WARNING,
+      })
+
+      if (!confirmed) {
+        return
+      }
+
+      impersonateUser.mutate(
+        { tenantId: currentTenantId, userId: tenantUser.id },
+        {
+          onSuccess: response => {
+            const { data } = response
+            if (!data) {
+              return
+            }
+            setTokens(data.accessToken, data.refreshToken)
+            setUser({
+              sub: data.user.sub,
+              email: data.user.email,
+              tenantId: data.user.tenantId,
+              tenantSlug: data.user.tenantSlug,
+              role: data.user.role as UserRole,
+            })
+            startImpersonation(data.impersonator)
+            setCurrentTenant(data.user.tenantId)
+            queryClient.clear()
+            Toast.success(tImpersonation('started', { user: tenantUser.email }))
+            router.push('/dashboard')
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [
+      impersonateUser,
+      currentTenantId,
+      setTokens,
+      setUser,
+      startImpersonation,
+      setCurrentTenant,
+      queryClient,
+      router,
+      tImpersonation,
+      tErrors,
+    ]
+  )
+
   return {
     currentTenantId,
     userRole,
@@ -363,6 +511,8 @@ export function useTenantConfigPage() {
     setCreateDialogOpen,
     addUserDialogOpen,
     setAddUserDialogOpen,
+    assignUserDialogOpen,
+    setAssignUserDialogOpen,
     editTenantDialogOpen,
     setEditTenantDialogOpen,
     editUserDialogOpen,
@@ -371,16 +521,20 @@ export function useTenantConfigPage() {
     editingUser,
     tenantsData,
     tenantsLoading,
+    tenantsFetching,
     tenantsError,
     usersData,
     usersLoading,
+    usersFetching,
     usersError,
     createTenantPending: createTenant.isPending,
     addUserPending: addUser.isPending,
+    assignUserPending: assignUser.isPending,
     updateTenantPending: updateTenant.isPending,
     updateUserPending: updateUser.isPending,
     handleCreateTenant,
     handleAddUser,
+    handleAssignUser,
     handleTenantClick,
     handleEditTenant,
     handleEditTenantSubmit,
@@ -392,8 +546,20 @@ export function useTenantConfigPage() {
     handleBlockUser,
     handleUnblockUser,
     handleRestoreUser,
+    handleImpersonateUser,
+    // User table sorting/search/pagination
     userSortBy,
     userSortOrder,
     handleUserSort,
+    userSearch,
+    setUserSearch,
+    userPagination,
+    // Tenant table sorting/search/pagination
+    tenantSortBy,
+    tenantSortOrder,
+    handleTenantSort,
+    tenantSearch,
+    setTenantSearch,
+    tenantPagination,
   }
 }

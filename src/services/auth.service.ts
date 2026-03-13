@@ -1,5 +1,12 @@
 import api from '@/lib/api'
-import type { AuthUser, LoginResponse, RefreshResponse, TenantMembershipInfo } from '@/types'
+import type {
+  ApiResponse,
+  AuthUser,
+  EndImpersonationResponse,
+  LoginResponse,
+  RefreshResponse,
+  TenantMembershipInfo,
+} from '@/types'
 
 export const authService = {
   login: (email: string, password: string) =>
@@ -13,4 +20,7 @@ export const authService = {
   getUserTenants: () => api.get<TenantMembershipInfo[]>('/auth/tenants').then(r => r.data),
 
   logout: () => api.post('/auth/logout').then(r => r.data),
+
+  endImpersonation: () =>
+    api.post<ApiResponse<EndImpersonationResponse>>('/auth/end-impersonation').then(r => r.data),
 }

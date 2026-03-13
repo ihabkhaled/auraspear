@@ -2,6 +2,7 @@
 
 import {
   Ban,
+  EyeOff,
   Pencil,
   RotateCcw,
   Shield,
@@ -18,6 +19,7 @@ import { Button } from '@/components/ui/button'
 import { UserRole, UserStatus } from '@/enums'
 import { getStatusDotClass, getRoleBadgeClass } from '@/lib/admin-utils'
 import { getInitials } from '@/lib/case.utils'
+import { ROLE_HIERARCHY } from '@/lib/roles'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import type { TenantUser, TenantUserTableProps, Column } from '@/types'
 
@@ -30,6 +32,7 @@ export function TenantUserTable({
   onBlockUser,
   onUnblockUser,
   onRestoreUser,
+  onImpersonateUser,
   showActions = false,
   callerRole,
   currentUserId = '',
@@ -58,6 +61,7 @@ export function TenantUserTable({
     {
       key: 'email',
       label: t('users.email'),
+      sortable: true,
       className: 'text-muted-foreground',
     },
     {
@@ -155,8 +159,34 @@ export function TenantUserTable({
           return null
         }
 
+        const isActive = row.status === UserStatus.ACTIVE
+        const callerIndex = callerRole ? ROLE_HIERARCHY.indexOf(callerRole) : -1
+        const targetIndex = ROLE_HIERARCHY.indexOf(row.role)
+        const canImpersonate =
+          onImpersonateUser &&
+          !isSelf &&
+          isActive &&
+          callerIndex !== -1 &&
+          targetIndex !== -1 &&
+          callerIndex < targetIndex
+
         return (
           <div className="flex items-center gap-1">
+            {canImpersonate && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-status-info hover:text-status-info h-8 w-8 p-0"
+                onClick={e => {
+                  e.stopPropagation()
+                  onImpersonateUser(row)
+                }}
+                title={t('users.impersonateUser')}
+              >
+                <EyeOff className="h-4 w-4" />
+              </Button>
+            )}
+
             {!isDeleted && !isSelf && (
               <Button
                 variant="ghost"
