@@ -189,12 +189,23 @@ function mapErrorToKey(status: number, message: string): string {
   return 'errors.common.unknown'
 }
 
+/** Keys that belong to our standard API response wrapper. */
+const API_WRAPPER_KEYS = new Set(['data', 'pagination', 'error', 'messageKey', 'errors'])
+
+function isAlreadyWrapped(obj: Record<string, unknown>): boolean {
+  return 'data' in obj && Object.keys(obj).every(key => API_WRAPPER_KEYS.has(key))
+}
+
 function wrapResponse(
   data: unknown,
   ok: boolean
 ): { data: unknown; error?: string; messageKey?: string; errors?: string[] } {
-  // If the backend already returns a { data } wrapper, pass through
-  if (typeof data === 'object' && data !== null && 'data' in (data as Record<string, unknown>)) {
+  // If the backend already returns our { data, pagination?, error? } wrapper, pass through
+  if (
+    typeof data === 'object' &&
+    data !== null &&
+    isAlreadyWrapped(data as Record<string, unknown>)
+  ) {
     return data as { data: unknown }
   }
 

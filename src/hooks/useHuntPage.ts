@@ -22,7 +22,10 @@ export function useHuntPage() {
   const sendMessage = useSendHuntMessage()
   const { data: eventsData, isLoading: eventsLoading } = useHuntEvents(huntId ?? '')
 
-  const events = useMemo(() => eventsData?.data ?? [], [eventsData?.data])
+  const events = useMemo(
+    () => (Array.isArray(eventsData?.data) ? eventsData.data : []),
+    [eventsData]
+  )
 
   const uniqueIps = useMemo(() => {
     const ips = new Set<string>()

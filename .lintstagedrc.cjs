@@ -1,13 +1,15 @@
 const path = require('path')
 
+const rel = f => path.relative(process.cwd(), f).replaceAll('\\', '/')
+
 const buildEslintCommand = fileNames =>
-  `eslint ${fileNames.map(f => path.relative(process.cwd(), f)).join(' ')} --fix`
+  `node ./node_modules/eslint/bin/eslint.js ${fileNames.map(f => `"${rel(f)}"`).join(' ')} --fix`
 
 const buildPrettierCommand = fileNames =>
-  `prettier --write ${fileNames.map(f => path.relative(process.cwd(), f)).join(' ')}`
+  `node ./node_modules/prettier/bin/prettier.cjs --write ${fileNames.map(f => `"${rel(f)}"`).join(' ')}`
 
 const buildAddToGitAfterPrettier = fileNames =>
-  `git add ${fileNames.map(f => path.relative(process.cwd(), f)).join(' ')}`
+  `git add ${fileNames.map(f => `"${rel(f)}"`).join(' ')}`
 
 module.exports = {
   '*.{ts,tsx,js,jsx}': files => {

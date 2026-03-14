@@ -19,6 +19,7 @@ import {
   useTestConnector,
   useDeleteConnector,
   useCreateConnector,
+  useSyncConnector,
 } from './useConnectors'
 import {
   useWorkspaceOverview,
@@ -58,6 +59,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   const testMutation = useTestConnector()
   const deleteMutation = useDeleteConnector()
   const createMutation = useCreateConnector()
+  const syncMutation = useSyncConnector()
 
   // Workspace data (only if connector exists & not in create mode)
   const workspaceEnabled = isValidType && !isCreateMode && Boolean(connector?.enabled)
@@ -156,6 +158,23 @@ export function useConnectorWorkspacePage(rawType: string) {
     [searchMutation, tErrors]
   )
 
+  const handleSync = useCallback(() => {
+    if (!isValidType || !meta) return
+    Toast.info(t('syncStarted', { name: meta.label }))
+    syncMutation.mutate(rawType, {
+      onSuccess: result => {
+        if (result.success) {
+          Toast.success(result.message)
+        } else {
+          Toast.error(result.message)
+        }
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+    })
+  }, [isValidType, meta, rawType, syncMutation, t, tErrors])
+
   const handleAction = useCallback(
     (action: string, params?: Record<string, unknown>) => {
       actionMutation.mutate(
@@ -224,6 +243,8 @@ export function useConnectorWorkspacePage(rawType: string) {
     handleTest,
     handleDelete,
     handleCreate,
+    handleSync,
+    syncPending: syncMutation.isPending,
 
     // Workspace enabled
     workspaceEnabled,

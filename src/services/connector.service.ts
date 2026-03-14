@@ -27,4 +27,23 @@ export const connectorService = {
     api
       .post<{ data: ConnectorRecord }>(`/connectors/${type}/toggle`, { enabled })
       .then(r => r.data.data),
+
+  sync: (type: string) =>
+    api
+      .post<{
+        data: { success: boolean; message: string; ingested?: number }
+      }>(`/connector-sync/${type}/sync`)
+      .then(r => r.data.data),
+
+  getSyncStatus: () =>
+    api
+      .get<{
+        data: Array<{
+          type: string
+          lastSyncAt: string | null
+          syncEnabled: boolean
+          enabled: boolean
+        }>
+      }>('/connector-sync/status')
+      .then(r => r.data.data),
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import { use } from 'react'
-import { ArrowLeft, Play, Trash2 } from 'lucide-react'
+import { ArrowLeft, Play, RefreshCw, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { LoadingSpinner } from '@/components/common'
 import { ConnectorForm, SecurityIndicators } from '@/components/connectors'
@@ -60,6 +60,8 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
     handleSearch,
     actionPending,
     handleAction,
+    handleSync,
+    syncPending,
     workspaceEnabled,
   } = useConnectorWorkspacePage(rawType)
 
@@ -284,6 +286,20 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   <Play className="me-2 h-3.5 w-3.5" />
                   {t('testConnection')}
                 </Button>
+                {isEditor && (
+                  <Button
+                    className="w-full justify-start"
+                    variant="default"
+                    size="sm"
+                    onClick={handleSync}
+                    disabled={syncPending}
+                  >
+                    <RefreshCw
+                      className={`me-2 h-3.5 w-3.5 ${syncPending ? 'animate-spin' : ''}`}
+                    />
+                    {t('syncNow')}
+                  </Button>
+                )}
                 {isAdmin && (
                   <Button
                     className="w-full justify-start"

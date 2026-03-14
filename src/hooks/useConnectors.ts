@@ -94,3 +94,30 @@ export function useToggleConnector() {
     },
   })
 }
+
+const SYNC_STATUS_KEY = ['connector-sync-status'] as const
+const ALERTS_KEY = ['alerts'] as const
+
+export function useSyncConnector() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (type: string) => connectorService.sync(type),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
+      void queryClient.invalidateQueries({ queryKey: SYNC_STATUS_KEY })
+      void queryClient.invalidateQueries({ queryKey: ALERTS_KEY })
+      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+    },
+  })
+}
+
+export function useSyncStatus() {
+  return useQuery({
+    queryKey: SYNC_STATUS_KEY,
+    queryFn: () => connectorService.getSyncStatus(),
+    staleTime: 30_000,
+    refetchInterval: 60_000,
+    placeholderData: keepPreviousData,
+  })
+}
