@@ -29,7 +29,7 @@ export default function HuntPage() {
       <div className="border-border flex border-b lg:hidden">
         <Button
           variant={mobileTab === 'chat' ? 'default' : 'ghost'}
-          className="flex-1 rounded-none"
+          className="min-h-[44px] flex-1 gap-2 rounded-none"
           onClick={() => setMobileTab('chat')}
         >
           <MessageSquare className="h-4 w-4" />
@@ -37,7 +37,7 @@ export default function HuntPage() {
         </Button>
         <Button
           variant={mobileTab === 'results' ? 'default' : 'ghost'}
-          className="flex-1 rounded-none"
+          className="min-h-[44px] flex-1 gap-2 rounded-none"
           onClick={() => setMobileTab('results')}
         >
           <BarChart3 className="h-4 w-4" />

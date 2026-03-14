@@ -24,6 +24,15 @@ export const caseCycleService = {
   closeCycle: (id: string, data: CloseCaseCycleInput) =>
     api.patch<{ data: CaseCycle }>(`/case-cycles/${id}/close`, data).then(r => r.data),
 
+  updateCycle: (id: string, data: Partial<CreateCaseCycleInput>) =>
+    api.patch<{ data: CaseCycle }>(`/case-cycles/${id}`, data).then(r => r.data.data),
+
+  activateCycle: (id: string) =>
+    api.patch<{ data: CaseCycle }>(`/case-cycles/${id}/activate`).then(r => r.data.data),
+
+  deleteCycle: (id: string) =>
+    api.delete<{ deleted: boolean }>(`/case-cycles/${id}`).then(r => r.data),
+
   getOrphanedStats: () =>
     api
       .get<{

@@ -103,17 +103,25 @@ export default function CycleDetailPage({ params }: { params: Promise<{ id: stri
         </Button>
       </div>
 
-      <div className="bg-card border-border rounded-lg border p-6">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold">{cycle.name}</h1>
+      <div className="bg-card border-border rounded-lg border p-4 sm:p-6">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div className="min-w-0 space-y-1">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <h1 className="text-xl font-bold sm:text-2xl">{cycle.name}</h1>
               <CycleBadge status={cycle.status as CaseCycleStatus} />
             </div>
-            {cycle.description && <p className="text-muted-foreground">{cycle.description}</p>}
+            {cycle.description && (
+              <p className="text-muted-foreground text-sm">{cycle.description}</p>
+            )}
           </div>
           {isAdmin && cycle.status === CaseCycleStatus.ACTIVE && (
-            <Button variant="outline" onClick={handleCloseCycle} disabled={closeCycle.isPending}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleCloseCycle}
+              disabled={closeCycle.isPending}
+              className="shrink-0 self-start"
+            >
               <Lock className="me-2 h-4 w-4" />
               {t('closeCycle')}
             </Button>

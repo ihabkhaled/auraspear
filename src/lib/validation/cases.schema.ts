@@ -6,4 +6,11 @@ export const createCaseSchema = z.object({
   description: z.string().min(10),
   severity: z.nativeEnum(CaseSeverity),
   assignee: z.string().optional(),
+  cycleId: z.string().uuid().optional(),
+})
+
+export const editCaseSchema = z.object({
+  title: z.string().min(5),
+  description: z.string().min(10),
+  severity: z.nativeEnum(CaseSeverity),
 })

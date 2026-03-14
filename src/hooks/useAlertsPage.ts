@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { getAlertColumns } from '@/components/alerts'
 import { Toast } from '@/components/common'
-import { SortOrder, type TimeRange, type AlertSeverity } from '@/enums'
+import { AlertSeverity, SortOrder, TimeRange } from '@/enums'
 import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
 import { useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
@@ -13,9 +14,14 @@ import { useCreateCase, useTenantMembers } from './useCases'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 
+const VALID_TIME_RANGES = Object.values(TimeRange) as string[]
+const VALID_SEVERITIES = Object.values(AlertSeverity) as string[]
+
 export function useAlertsPage() {
   const t = useTranslations('alerts')
   const tCommon = useTranslations('common')
+  const urlSearchParams = useSearchParams()
+  const urlAppliedRef = useRef(false)
 
   const {
     severity: selectedSeverities,
@@ -25,6 +31,29 @@ export function useAlertsPage() {
     kqlQuery,
     setKqlQuery,
   } = useFilterStore()
+
+  // Apply URL search params to filter store on initial mount
+  useEffect(() => {
+    if (urlAppliedRef.current) {
+      return
+    }
+    urlAppliedRef.current = true
+
+    const urlTimeRange = urlSearchParams.get('timeRange')
+    if (urlTimeRange && VALID_TIME_RANGES.includes(urlTimeRange)) {
+      setTimeRange(urlTimeRange as TimeRange)
+    }
+
+    const urlSeverity = urlSearchParams.get('severity')
+    if (urlSeverity) {
+      const severities = urlSeverity
+        .split(',')
+        .filter(s => VALID_SEVERITIES.includes(s)) as AlertSeverity[]
+      if (severities.length > 0) {
+        setSeverity(severities)
+      }
+    }
+  }, [urlSearchParams, setTimeRange, setSeverity])
 
   const [agentFilter, setAgentFilter] = useState('')
   const [ruleGroup, setRuleGroup] = useState('')

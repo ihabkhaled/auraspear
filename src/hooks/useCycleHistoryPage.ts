@@ -7,8 +7,15 @@ import { SortOrder, UserRole } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
-import type { CaseCycle } from '@/types'
-import { useCaseCycles, useCreateCaseCycle, useCloseCaseCycle } from './useCaseCycles'
+import type { CaseCycle, EditCycleFormValues } from '@/types'
+import {
+  useCaseCycles,
+  useCreateCaseCycle,
+  useCloseCaseCycle,
+  useUpdateCaseCycle,
+  useActivateCaseCycle,
+  useDeleteCaseCycle,
+} from './useCaseCycles'
 import { usePagination } from './usePagination'
 
 export function useCycleHistoryPage() {
@@ -21,6 +28,8 @@ export function useCycleHistoryPage() {
   const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [editingCycle, setEditingCycle] = useState<CaseCycle | null>(null)
   const [sortBy, setSortBy] = useState<string | undefined>('createdAt')
   const [sortOrder, setSortOrder] = useState<SortOrder | undefined>(SortOrder.DESC)
   const pagination = usePagination({ initialLimit: 10 })
@@ -44,6 +53,9 @@ export function useCycleHistoryPage() {
 
   const createCycle = useCreateCaseCycle()
   const closeCycle = useCloseCaseCycle()
+  const updateCycle = useUpdateCaseCycle()
+  const activateCycle = useActivateCaseCycle()
+  const deleteCycle = useDeleteCaseCycle()
 
   const handleSort = useCallback(
     (key: string, order: SortOrder) => {
@@ -111,6 +123,90 @@ export function useCycleHistoryPage() {
     [closeCycle, t, tErrors]
   )
 
+  const handleEditClick = useCallback((cycle: CaseCycle) => {
+    setEditingCycle(cycle)
+    setEditDialogOpen(true)
+  }, [])
+
+  const handleEditCycle = useCallback(
+    (formData: EditCycleFormValues) => {
+      if (!editingCycle) {
+        return
+      }
+
+      updateCycle.mutate(
+        {
+          id: editingCycle.id,
+          data: {
+            name: formData.name,
+            ...(formData.description.length > 0 ? { description: formData.description } : {}),
+            startDate: formData.startDate,
+            ...(formData.endDate.length > 0 ? { endDate: formData.endDate } : {}),
+          },
+        },
+        {
+          onSuccess: () => {
+            setEditDialogOpen(false)
+            setEditingCycle(null)
+            Toast.success(t('cycleUpdated'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [editingCycle, updateCycle, t, tErrors]
+  )
+
+  const handleActivateCycle = useCallback(
+    async (cycle: CaseCycle) => {
+      const confirmed = await SweetAlertDialog.show({
+        title: t('activateCycle'),
+        text: t('confirmActivateCycle'),
+        icon: SweetAlertIcon.QUESTION,
+      })
+
+      if (!confirmed) {
+        return
+      }
+
+      activateCycle.mutate(cycle.id, {
+        onSuccess: () => {
+          Toast.success(t('cycleActivated'))
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      })
+    },
+    [activateCycle, t, tErrors]
+  )
+
+  const handleDeleteCycle = useCallback(
+    async (cycle: CaseCycle) => {
+      const confirmed = await SweetAlertDialog.show({
+        title: t('deleteCycle'),
+        text: t('confirmDeleteCycle'),
+        icon: SweetAlertIcon.WARNING,
+      })
+
+      if (!confirmed) {
+        return
+      }
+
+      deleteCycle.mutate(cycle.id, {
+        onSuccess: () => {
+          Toast.success(t('cycleDeleted'))
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      })
+    },
+    [deleteCycle, t, tErrors]
+  )
+
   return {
     isAdmin,
     cycles: cyclesData?.data ?? [],
@@ -119,12 +215,20 @@ export function useCycleHistoryPage() {
     createDialogOpen,
     setCreateDialogOpen,
     createCyclePending: createCycle.isPending,
+    editDialogOpen,
+    setEditDialogOpen,
+    editingCycle,
+    editCyclePending: updateCycle.isPending,
     sortBy,
     sortOrder,
     handleSort,
     handleCycleClick,
     handleCreateCycle,
     handleCloseCycle,
+    handleEditClick,
+    handleEditCycle,
+    handleActivateCycle,
+    handleDeleteCycle,
     pagination,
   }
 }

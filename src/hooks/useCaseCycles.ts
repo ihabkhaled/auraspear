@@ -54,3 +54,37 @@ export function useCloseCaseCycle() {
     },
   })
 }
+
+export function useUpdateCaseCycle() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<CreateCaseCycleInput> }) =>
+      caseCycleService.updateCycle(id, data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+    },
+  })
+}
+
+export function useActivateCaseCycle() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => caseCycleService.activateCycle(id),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+    },
+  })
+}
+
+export function useDeleteCaseCycle() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: (id: string) => caseCycleService.deleteCycle(id),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+    },
+  })
+}

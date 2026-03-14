@@ -114,13 +114,19 @@ export function getConnectorSchema(type: ConnectorType) {
     if (
       type !== ConnectorType.BEDROCK &&
       data.baseUrl &&
-      !data.baseUrl.startsWith('http://') &&
-      !data.baseUrl.startsWith('https://')
+      !data.baseUrl.toLowerCase().startsWith('http://') &&
+      !data.baseUrl.toLowerCase().startsWith('https://')
     ) {
       ctx.addIssue({ code: 'custom', message: 'urlFormat', path: ['baseUrl'] })
     }
 
-    if (type !== ConnectorType.BEDROCK && data.baseUrl && isPrivateUrl(data.baseUrl)) {
+    const isProduction = process.env['NEXT_PUBLIC_APP_ENV'] === 'production'
+    if (
+      isProduction &&
+      type !== ConnectorType.BEDROCK &&
+      data.baseUrl &&
+      isPrivateUrl(data.baseUrl)
+    ) {
       ctx.addIssue({ code: 'custom', message: 'urlPrivateNetwork', path: ['baseUrl'] })
     }
 
@@ -144,7 +150,7 @@ export function getConnectorSchema(type: ConnectorType) {
         if (data.authType === ConnectorAuthType.BASIC && !data.password) {
           ctx.addIssue({ code: 'custom', message: 'passwordRequired', path: ['password'] })
         }
-        if (data.authType === ConnectorAuthType.BEARER && !data.token) {
+        if (data.authType === ConnectorAuthType.TOKEN && !data.token) {
           ctx.addIssue({ code: 'custom', message: 'tokenRequired', path: ['token'] })
         }
       }

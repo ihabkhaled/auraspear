@@ -69,7 +69,7 @@ export function CaseKanbanBoard({
               </Badge>
             </div>
 
-            <ScrollArea className="h-[calc(100vh-220px)]">
+            <ScrollArea className="h-[calc(100vh-280px)] sm:h-[calc(100vh-220px)]">
               <div className="border-border/60 flex flex-col gap-3 rounded-lg border border-dashed p-3">
                 {columnCases.length === 0 && (
                   <p className="text-muted-foreground py-8 text-center text-xs">{t('noItems')}</p>

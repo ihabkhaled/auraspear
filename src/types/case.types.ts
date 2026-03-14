@@ -64,6 +64,7 @@ export interface CreateCaseInput {
   severity: CaseSeverity
   ownerUserId?: string
   linkedAlertIds?: string[]
+  cycleId?: string
 }
 
 export interface UpdateCaseInput {
@@ -103,6 +104,7 @@ export interface CreateCaseFormValues {
   description: string
   severity: CaseSeverity
   assignee?: string | undefined
+  cycleId?: string | undefined
 }
 
 export interface CreateCaseDialogProps {
@@ -110,6 +112,7 @@ export interface CreateCaseDialogProps {
   onOpenChange: (open: boolean) => void
   onSubmit: (data: CreateCaseFormValues) => void
   assigneeOptions: SelectOption[]
+  cycleOptions?: SelectOption[]
   loading?: boolean
 }
 
@@ -137,6 +140,20 @@ export interface CaseKanbanCardProps {
   onClick?: ((caseItem: Case) => void) | undefined
   currentUserId?: string | undefined
   isAdmin?: boolean | undefined
+}
+
+export interface EditCaseFormValues {
+  title: string
+  description: string
+  severity: CaseSeverity
+}
+
+export interface EditCaseDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCaseFormValues) => void
+  initialValues: EditCaseFormValues
+  loading?: boolean
 }
 
 export interface CaseDetailPageProps {

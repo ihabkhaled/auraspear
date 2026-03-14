@@ -35,9 +35,9 @@ export function Pagination({ page, totalPages, onPageChange, total }: Pagination
   const visiblePages = getVisiblePages()
 
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-2 sm:gap-4">
       {total !== undefined && (
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground hidden text-sm sm:block">
           {total} {t('rows')}
         </p>
       )}
@@ -51,12 +51,17 @@ export function Pagination({ page, totalPages, onPageChange, total }: Pagination
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
+        {/* Mobile: show page X/Y indicator */}
+        <span className="text-muted-foreground px-2 text-xs sm:hidden">
+          {page}/{totalPages}
+        </span>
+        {/* Desktop: show page buttons */}
         {visiblePages.map(p => (
           <Button
             key={p}
             variant={p === page ? 'default' : 'outline'}
             size="sm"
-            className={cn('min-w-8', p === page && 'pointer-events-none')}
+            className={cn('hidden min-w-8 sm:inline-flex', p === page && 'pointer-events-none')}
             onClick={() => onPageChange(p)}
           >
             {p}

@@ -61,6 +61,15 @@ export default function CasesPage() {
     [membersData]
   )
 
+  const cycleOptions = useMemo(
+    () =>
+      cycles.map(c => ({
+        value: c.id,
+        label: `${c.name}${c.status === 'active' ? ` (${t('cycles.active')})` : ''}`,
+      })),
+    [cycles, t]
+  )
+
   function renderCaseContent() {
     if (isLoading) return <LoadingSpinner />
     if (filteredCases.length === 0) {
@@ -116,7 +125,7 @@ export default function CasesPage() {
           onCycleChange={setSelectedCycleId}
           loading={cyclesFetching}
         />
-        <div className="border-border h-6 border-s" />
+        <div className="border-border hidden h-6 border-s sm:block" />
         <CaseOwnerFilter
           members={membersData?.data ?? []}
           selectedUserId={ownerFilter}
@@ -149,6 +158,7 @@ export default function CasesPage() {
         onOpenChange={setCreateDialogOpen}
         onSubmit={handleCreateCase}
         assigneeOptions={assigneeOptions}
+        cycleOptions={cycleOptions}
         loading={createCasePending}
       />
     </div>

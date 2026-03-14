@@ -4,29 +4,20 @@ import type { ConnectorFormValues } from '@/lib/validation/connectors.schema'
 
 /**
  * Converts a backend `ConnectorRecord` into the form values shape
- * expected by `ConnectorForm`.  The encrypted config field is parsed
- * from JSON when possible; if it fails (encrypted or invalid) we
- * fall back to empty defaults.
+ * expected by `ConnectorForm`.  The config field is already an object
+ * returned by the backend.
  */
 export function recordToFormValues(record: ConnectorRecord): ConnectorFormValues {
-  let config: Record<string, unknown> = {}
-  try {
-    const parsed: unknown = JSON.parse(record.encryptedConfig)
-    if (parsed && typeof parsed === 'object') {
-      config = parsed as Record<string, unknown>
-    }
-  } catch {
-    // config is encrypted or invalid JSON — use empty defaults
-  }
+  const config: Record<string, unknown> = record.config ?? {}
 
   return {
     name: record.name,
     enabled: record.enabled,
     baseUrl: String(config['baseUrl'] ?? ''),
     authType: (Object.values(ConnectorAuthType).includes(
-      String(config['authType'] ?? '') as ConnectorAuthType
+      String(config['authType'] ?? record.authType ?? '') as ConnectorAuthType
     )
-      ? String(config['authType'])
+      ? String(config['authType'] ?? record.authType)
       : ConnectorAuthType.API_KEY) as ConnectorAuthType,
     apiKey: String(config['apiKey'] ?? ''),
     username: String(config['username'] ?? ''),

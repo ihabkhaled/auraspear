@@ -1,8 +1,10 @@
 'use client'
 
+import { useState, useCallback } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Eye, EyeOff } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm, Controller, type UseFormRegister, type FieldErrors } from 'react-hook-form'
 import { Toast } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -26,6 +28,70 @@ import { hasRole } from '@/lib/roles'
 import type { ConnectorRecord } from '@/lib/types/connectors'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import { useAuthStore } from '@/stores'
+
+interface SecretFieldProps extends Omit<React.ComponentProps<'input'>, 'id'> {
+  id: keyof ConnectorFormValues
+  fieldDisabled: boolean
+  isVisible: boolean
+  onToggle: () => void
+  isRedacted: boolean
+  secretSavedLabel: string
+  registerFn: UseFormRegister<ConnectorFormValues>
+}
+
+function SecretField({
+  id,
+  fieldDisabled,
+  isVisible,
+  onToggle,
+  isRedacted,
+  secretSavedLabel,
+  registerFn,
+  ...rest
+}: SecretFieldProps) {
+  return (
+    <div>
+      <div className="relative">
+        <Input
+          id={id}
+          type={isVisible ? 'text' : 'password'}
+          disabled={fieldDisabled}
+          {...registerFn(id)}
+          {...rest}
+        />
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="absolute end-0 top-0 h-full px-3 hover:bg-transparent"
+          onClick={onToggle}
+          tabIndex={-1}
+        >
+          {isVisible ? (
+            <EyeOff className="text-muted-foreground h-4 w-4" />
+          ) : (
+            <Eye className="text-muted-foreground h-4 w-4" />
+          )}
+        </Button>
+      </div>
+      {isRedacted && <p className="text-muted-foreground mt-1 text-xs">{secretSavedLabel}</p>}
+    </div>
+  )
+}
+
+interface FieldErrorProps {
+  name: keyof ConnectorFormValues
+  errors: FieldErrors<ConnectorFormValues>
+  tValidation: ReturnType<typeof useTranslations>
+}
+
+function FieldError({ name, errors, tValidation }: FieldErrorProps) {
+  const error = errors[name]
+  if (!error?.message) return null
+  const msg = String(error.message)
+  const translated = tValidation.has(msg) ? tValidation(msg) : msg
+  return <p className="text-destructive text-sm">{translated}</p>
+}
 
 interface ConnectorFormProps {
   type: ConnectorType
@@ -116,17 +182,45 @@ export function ConnectorForm({
       return
     }
 
-    const { name, enabled, tags, ...configFields } = values
-    const encryptedConfig = JSON.stringify({
-      ...configFields,
+    const { name, enabled, authType, tags, ...configFields } = values
+
+    // Normalize URL fields to lowercase (user may type Https:// or HTTP://)
+    const urlKeys = [
+      'baseUrl',
+      'indexerUrl',
+      'managerUrl',
+      'apiUrl',
+      'grafanaUrl',
+      'mispUrl',
+      'webhookUrl',
+    ] as const
+    const normalizedConfig = { ...configFields }
+    for (const key of urlKeys) {
+      const val = normalizedConfig[key]
+      if (val) {
+        normalizedConfig[key] = val.toLowerCase()
+      }
+    }
+
+    // Strip out REDACTED values — backend preserves existing secrets for missing keys
+    const cleanedConfig: Record<string, unknown> = {}
+    for (const [key, val] of Object.entries(normalizedConfig)) {
+      if (val !== '***REDACTED***') {
+        cleanedConfig[key] = val
+      }
+    }
+
+    const config = {
+      ...cleanedConfig,
+      authType,
       tags: tags
         .split(',')
         .map(tag => tag.trim())
         .filter(Boolean),
-    })
+    }
 
     updateMutation.mutate(
-      { name, enabled, encryptedConfig },
+      { name, enabled, authType, config },
       {
         onSuccess: () => {
           Toast.success(`${meta.label} ${t('configurationSaved')}`)
@@ -142,13 +236,29 @@ export function ConnectorForm({
     Toast.error(tErrors('errors.common.validation'))
   }
 
-  function FieldError({ name }: { name: keyof ConnectorFormValues }) {
-    const error = errors[name]
-    if (!error?.message) return null
-    const msg = String(error.message)
-    const translated = tValidation.has(msg) ? tValidation(msg) : msg
-    return <p className="text-destructive text-sm">{translated}</p>
-  }
+  const [visibleSecrets, setVisibleSecrets] = useState<Record<string, boolean>>({})
+
+  const toggleSecret = useCallback((field: string) => {
+    setVisibleSecrets(prev => ({ ...prev, [field]: !prev[field] }))
+  }, [])
+
+  const secretSavedLabel = t('secretSaved')
+
+  const renderSecret = (id: keyof ConnectorFormValues) => (
+    <SecretField
+      id={id}
+      fieldDisabled={disabled}
+      isVisible={visibleSecrets[id] === true}
+      onToggle={() => toggleSecret(id)}
+      isRedacted={watch(id) === '***REDACTED***'}
+      secretSavedLabel={secretSavedLabel}
+      registerFn={register}
+    />
+  )
+
+  const renderError = (name: keyof ConnectorFormValues) => (
+    <FieldError name={name} errors={errors} tValidation={tValidation} />
+  )
 
   return (
     <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="space-y-6">
@@ -160,7 +270,7 @@ export function ConnectorForm({
           <div className="space-y-2">
             <Label htmlFor="name">{t('name')}</Label>
             <Input id="name" disabled={disabled} {...register('name')} />
-            <FieldError name="name" />
+            {renderError('name')}
           </div>
           <div className="flex items-center gap-3 pt-6">
             <Controller
@@ -196,7 +306,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('baseUrl')}
                 />
-                <FieldError name="baseUrl" />
+                {renderError('baseUrl')}
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -218,7 +328,7 @@ export function ConnectorForm({
                             {t('apiKeyAuth')}
                           </SelectItem>
                           <SelectItem value={ConnectorAuthType.BASIC}>{t('basicAuth')}</SelectItem>
-                          <SelectItem value={ConnectorAuthType.BEARER}>
+                          <SelectItem value={ConnectorAuthType.TOKEN}>
                             {t('bearerToken')}
                           </SelectItem>
                         </SelectContent>
@@ -230,13 +340,8 @@ export function ConnectorForm({
                 {authType === ConnectorAuthType.API_KEY && (
                   <div className="space-y-2">
                     <Label htmlFor="apiKey">{t('apiKeyAuth')}</Label>
-                    <Input
-                      id="apiKey"
-                      type="password"
-                      disabled={disabled}
-                      {...register('apiKey')}
-                    />
-                    <FieldError name="apiKey" />
+                    {renderSecret('apiKey')}
+                    {renderError('apiKey')}
                   </div>
                 )}
 
@@ -245,26 +350,21 @@ export function ConnectorForm({
                     <div className="space-y-2">
                       <Label htmlFor="username">{t('username')}</Label>
                       <Input id="username" disabled={disabled} {...register('username')} />
-                      <FieldError name="username" />
+                      {renderError('username')}
                     </div>
                     <div className="space-y-2 sm:col-span-2">
                       <Label htmlFor="password">{t('password')}</Label>
-                      <Input
-                        id="password"
-                        type="password"
-                        disabled={disabled}
-                        {...register('password')}
-                      />
-                      <FieldError name="password" />
+                      {renderSecret('password')}
+                      {renderError('password')}
                     </div>
                   </>
                 )}
 
-                {authType === ConnectorAuthType.BEARER && (
+                {authType === ConnectorAuthType.TOKEN && (
                   <div className="space-y-2">
                     <Label htmlFor="token">{t('token')}</Label>
-                    <Input id="token" type="password" disabled={disabled} {...register('token')} />
-                    <FieldError name="token" />
+                    {renderSecret('token')}
+                    {renderError('token')}
                   </div>
                 )}
               </div>
@@ -302,7 +402,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('timeoutSeconds', { valueAsNumber: true })}
                 />
-                <FieldError name="timeoutSeconds" />
+                {renderError('timeoutSeconds')}
               </div>
             </div>
           </div>
@@ -326,7 +426,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('indexerUrl')}
                 />
-                <FieldError name="indexerUrl" />
+                {renderError('indexerUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="managerUrl">{t('wazuh.managerUrl')}</Label>
@@ -343,12 +443,7 @@ export function ConnectorForm({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="indexerPassword">{t('wazuh.indexerPassword')}</Label>
-                <Input
-                  id="indexerPassword"
-                  type="password"
-                  disabled={disabled}
-                  {...register('indexerPassword')}
-                />
+                {renderSecret('indexerPassword')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="tenant">{t('wazuh.tenant')}</Label>
@@ -375,7 +470,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('apiUrl')}
                 />
-                <FieldError name="apiUrl" />
+                {renderError('apiUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="streamId">{t('graylog.streamId')}</Label>
@@ -424,7 +519,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('apiUrl')}
                 />
-                <FieldError name="apiUrl" />
+                {renderError('apiUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="orgId">{t('velociraptor.orgId')}</Label>
@@ -464,7 +559,7 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('grafanaUrl')}
                 />
-                <FieldError name="grafanaUrl" />
+                {renderError('grafanaUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="folderId">{t('grafana.folderId')}</Label>
@@ -490,12 +585,12 @@ export function ConnectorForm({
               <div className="space-y-2">
                 <Label htmlFor="org">{t('influxdb.organization')}</Label>
                 <Input id="org" disabled={disabled} {...register('org')} />
-                <FieldError name="org" />
+                {renderError('org')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="bucket">{t('influxdb.bucket')}</Label>
                 <Input id="bucket" disabled={disabled} {...register('bucket')} />
-                <FieldError name="bucket" />
+                {renderError('bucket')}
               </div>
             </div>
             <p className="text-muted-foreground text-xs">{t('influxdb.tokenNote')}</p>
@@ -519,17 +614,12 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('mispUrl')}
                 />
-                <FieldError name="mispUrl" />
+                {renderError('mispUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="mispAuthKey">{t('mispConfig.authKey')}</Label>
-                <Input
-                  id="mispAuthKey"
-                  type="password"
-                  disabled={disabled}
-                  {...register('mispAuthKey')}
-                />
-                <FieldError name="mispAuthKey" />
+                {renderSecret('mispAuthKey')}
+                {renderError('mispAuthKey')}
               </div>
             </div>
           </div>
@@ -552,21 +642,16 @@ export function ConnectorForm({
                   disabled={disabled}
                   {...register('webhookUrl')}
                 />
-                <FieldError name="webhookUrl" />
+                {renderError('webhookUrl')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="workflowId">{t('shuffleConfig.workflowId')}</Label>
                 <Input id="workflowId" disabled={disabled} {...register('workflowId')} />
-                <FieldError name="workflowId" />
+                {renderError('workflowId')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="shuffleApiKey">{t('shuffleConfig.apiKey')}</Label>
-                <Input
-                  id="shuffleApiKey"
-                  type="password"
-                  disabled={disabled}
-                  {...register('shuffleApiKey')}
-                />
+                {renderSecret('shuffleApiKey')}
               </div>
             </div>
           </div>
@@ -601,7 +686,7 @@ export function ConnectorForm({
                     </Select>
                   )}
                 />
-                <FieldError name="modelId" />
+                {renderError('modelId')}
               </div>
               <div className="space-y-2">
                 <Label>{t('region')}</Label>
@@ -623,7 +708,7 @@ export function ConnectorForm({
                     </Select>
                   )}
                 />
-                <FieldError name="region" />
+                {renderError('region')}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="accessKeyId">{t('accessKeyId')}</Label>
@@ -631,12 +716,7 @@ export function ConnectorForm({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="secretAccessKey">{t('secretAccessKey')}</Label>
-                <Input
-                  id="secretAccessKey"
-                  type="password"
-                  disabled={disabled}
-                  {...register('secretAccessKey')}
-                />
+                {renderSecret('secretAccessKey')}
               </div>
             </div>
           </div>

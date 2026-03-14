@@ -1,5 +1,7 @@
 'use client'
 
+import { useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import { Shield, AlertTriangle, Briefcase, Clock, BarChart3 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { AlertTrendChart } from '@/components/charts'
@@ -11,6 +13,7 @@ import {
   PipelineHealthBar,
 } from '@/components/dashboard'
 import { useKPIs, useAlertTrends, useMITREStats, useAssetRisks, useServiceHealth } from '@/hooks'
+import { isConnectorType } from '@/lib/constants/connectors.constants'
 import { computeHealthPercent } from '@/lib/health-utils'
 
 const KPI_ICONS = [
@@ -27,8 +30,15 @@ const KPI_COLORS = [
   'var(--status-success)',
 ]
 
+const KPI_ROUTES: Record<string, string> = {
+  totalAlerts: '/alerts?timeRange=7d',
+  criticalAlerts: '/alerts?timeRange=7d&severity=critical',
+  openCases: '/cases?status=open',
+}
+
 export default function DashboardPage() {
   const t = useTranslations('dashboard')
+  const router = useRouter()
   const { data: kpis, isLoading: kpisLoading } = useKPIs()
   const { data: trends, isLoading: trendsLoading } = useAlertTrends()
   const { data: mitre, isLoading: mitreLoading } = useMITREStats()
@@ -36,6 +46,16 @@ export default function DashboardPage() {
   const { data: health, isLoading: healthLoading } = useServiceHealth()
   const healthServices = health?.data ?? []
   const healthPercent = computeHealthPercent(healthServices)
+
+  const handleServiceClick = useCallback(
+    (name: string) => {
+      const type = name.toLowerCase()
+      if (isConnectorType(type)) {
+        router.push(`/connectors/${type}`)
+      }
+    },
+    [router]
+  )
 
   function renderKPIs() {
     if (kpisLoading) return <LoadingSpinner />
@@ -50,17 +70,21 @@ export default function DashboardPage() {
         </div>
       )
     }
-    return kpis?.data?.map((kpi, i) => (
-      <KPICard
-        key={kpi.label}
-        label={t(kpi.label)}
-        value={kpi.value}
-        trend={kpi.trend}
-        trendLabel={t(kpi.trendLabel)}
-        icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
-        accentColor={KPI_COLORS[i]}
-      />
-    ))
+    return kpis?.data?.map((kpi, i) => {
+      const route = KPI_ROUTES[kpi.label]
+      return (
+        <KPICard
+          key={kpi.label}
+          label={t(kpi.label)}
+          value={kpi.value}
+          trend={kpi.trend}
+          trendLabel={t(kpi.trendLabel)}
+          icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
+          accentColor={KPI_COLORS[i]}
+          onClick={route ? () => router.push(route) : undefined}
+        />
+      )
+    })
   }
 
   return (
@@ -101,7 +125,11 @@ export default function DashboardPage() {
           </span>
         }
       >
-        {healthLoading ? <LoadingSpinner /> : <PipelineHealthBar services={healthServices} />}
+        {healthLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <PipelineHealthBar services={healthServices} onServiceClick={handleServiceClick} />
+        )}
       </DashboardCard>
     </div>
   )

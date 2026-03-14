@@ -185,10 +185,10 @@ export default function TenantConfigPage() {
       />
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <CardTitle className="text-base">{t('tenants.title')}</CardTitle>
           {isGlobalAdmin && (
-            <div className="relative w-64">
+            <div className="relative w-full sm:w-64">
               <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
               <Input
                 value={tenantSearch}
@@ -203,32 +203,21 @@ export default function TenantConfigPage() {
       </Card>
 
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-base">
-            {t('users.title')}
-            {tenantsData?.data && (
-              <span className="text-muted-foreground ms-2 text-sm font-normal">
-                (
-                {tenantsData.data.find(tenant => tenant.id === currentTenantId)?.name ??
-                  currentTenantId}
-                )
-              </span>
-            )}
-          </CardTitle>
-          <div className="flex items-center gap-2">
-            {currentTenantId.length > 0 && (
-              <div className="relative w-64">
-                <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
-                <Input
-                  value={userSearch}
-                  onChange={e => setUserSearch(e.target.value)}
-                  placeholder={t('users.searchPlaceholder')}
-                  className="ps-9"
-                />
-              </div>
-            )}
+        <CardHeader className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <CardTitle className="text-base">
+              {t('users.title')}
+              {tenantsData?.data && (
+                <span className="text-muted-foreground ms-2 text-sm font-normal">
+                  (
+                  {tenantsData.data.find(tenant => tenant.id === currentTenantId)?.name ??
+                    currentTenantId}
+                  )
+                </span>
+              )}
+            </CardTitle>
             {currentTenantId.length > 0 && canManageUsers && (
-              <>
+              <div className="flex items-center gap-2">
                 <Button size="sm" variant="outline" onClick={() => setAssignUserDialogOpen(true)}>
                   <UserCheck className="me-2 h-4 w-4" />
                   {t('users.assignUser')}
@@ -237,9 +226,20 @@ export default function TenantConfigPage() {
                   <UserPlus className="me-2 h-4 w-4" />
                   {t('users.addUser')}
                 </Button>
-              </>
+              </div>
             )}
           </div>
+          {currentTenantId.length > 0 && (
+            <div className="relative w-full sm:w-64">
+              <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+              <Input
+                value={userSearch}
+                onChange={e => setUserSearch(e.target.value)}
+                placeholder={t('users.searchPlaceholder')}
+                className="ps-9"
+              />
+            </div>
+          )}
         </CardHeader>
         <CardContent>{renderUsers()}</CardContent>
       </Card>

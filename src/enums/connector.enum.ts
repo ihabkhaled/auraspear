@@ -18,9 +18,9 @@ export enum ConnectorStatus {
 }
 
 export enum ConnectorAuthType {
-  API_KEY = 'apiKey',
+  API_KEY = 'api_key',
   BASIC = 'basic',
-  BEARER = 'bearer',
+  TOKEN = 'token',
   IAM = 'iam',
 }
 

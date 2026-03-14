@@ -40,7 +40,10 @@ export function KQLSearchBar({ value, onChange, onSubmit, onSavedSearches }: KQL
             {t('savedSearches')}
           </Button>
         )}
-        <Button onClick={onSubmit}>{t('submit')}</Button>
+        <Button onClick={onSubmit} size="sm" className="shrink-0">
+          <Search className="h-4 w-4 sm:hidden" />
+          <span className="hidden sm:inline">{t('submit')}</span>
+        </Button>
       </div>
     </Card>
   )

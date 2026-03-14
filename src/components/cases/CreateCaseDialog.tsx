@@ -31,6 +31,7 @@ export function CreateCaseDialog({
   onOpenChange,
   onSubmit,
   assigneeOptions,
+  cycleOptions = [],
   loading = false,
 }: CreateCaseDialogProps) {
   const t = useTranslations('cases')
@@ -52,7 +53,6 @@ export function CreateCaseDialog({
 
   const handleFormSubmit = (data: CreateCaseFormValues) => {
     onSubmit(data)
-    reset()
   }
 
   const handleOpenChange = (nextOpen: boolean) => {
@@ -146,6 +146,35 @@ export function CreateCaseDialog({
                 <p className="text-destructive text-xs">{t('validationAssignee')}</p>
               )}
             </div>
+
+            {cycleOptions.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <Label>{t('cycles.cycle')}</Label>
+                <Controller
+                  name="cycleId"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value ?? ''}
+                      onValueChange={val => {
+                        field.onChange(val || undefined)
+                      }}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder={t('cycles.assignToCycle')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {cycleOptions.map(option => (
+                          <SelectItem key={option.value} value={option.value}>
+                            {option.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              </div>
+            )}
           </div>
 
           <DialogFooter>

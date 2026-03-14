@@ -10,6 +10,7 @@ import type { ServiceHealth } from '@/types'
 
 interface PipelineHealthBarProps {
   services: ServiceHealth[]
+  onServiceClick?: ((serviceName: string) => void) | undefined
 }
 
 function HealthDot({ status }: { status: ServiceStatus }) {
@@ -18,7 +19,7 @@ function HealthDot({ status }: { status: ServiceStatus }) {
   )
 }
 
-export function PipelineHealthBar({ services }: PipelineHealthBarProps) {
+export function PipelineHealthBar({ services, onServiceClick }: PipelineHealthBarProps) {
   const t = useTranslations('dashboard')
 
   if (services.length === 0) {
@@ -35,7 +36,11 @@ export function PipelineHealthBar({ services }: PipelineHealthBarProps) {
   return (
     <div className="flex flex-wrap gap-4">
       {services.map(service => (
-        <div key={service.name} className="flex items-center gap-2">
+        <div
+          key={service.name}
+          className={cn('flex items-center gap-2', onServiceClick && 'cursor-pointer')}
+          onClick={onServiceClick ? () => onServiceClick(service.name) : undefined}
+        >
           <HealthDot status={service.status} />
           <span className="text-foreground text-sm">{service.name}</span>
           {service.latencyMs >= 0 && (

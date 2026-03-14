@@ -79,7 +79,6 @@ export function CreateTenantDialog({
 
   function handleFormSubmit(values: CreateTenantFormValues) {
     onSubmit(values)
-    reset()
   }
 
   function handleOpenChange(value: boolean) {

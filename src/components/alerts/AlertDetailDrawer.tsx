@@ -220,26 +220,21 @@ export function AlertDetailDrawer({
           </Tabs>
         </ScrollArea>
 
-        <SheetFooter className="flex-row gap-2">
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => onInvestigate?.(alert)}
-            className="flex-1"
-          >
+        <SheetFooter className="grid grid-cols-2 gap-2 sm:flex sm:flex-row">
+          <Button variant="default" size="sm" onClick={() => onInvestigate?.(alert)}>
             <Brain className="h-4 w-4" />
             {t('investigate')}
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => onCreateCase?.(alert)}
-            className="flex-1"
-          >
+          <Button variant="outline" size="sm" onClick={() => onCreateCase?.(alert)}>
             <Briefcase className="h-4 w-4" />
             {t('createCase')}
           </Button>
-          <Button variant="ghost" size="sm" onClick={() => onClose?.(alert)}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => onClose?.(alert)}
+            className="col-span-2 sm:col-span-1"
+          >
             <X className="h-4 w-4" />
             {tCommon('close')}
           </Button>

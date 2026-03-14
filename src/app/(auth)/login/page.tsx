@@ -59,10 +59,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="bg-background flex min-h-screen items-center justify-center p-4">
-      <div className="absolute end-4 top-4 flex items-center gap-2">
+    <div className="bg-background flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="absolute end-3 top-3 flex items-center gap-1 sm:end-4 sm:top-4 sm:gap-2">
         <Select value={currentLocale} onValueChange={handleLocaleChange}>
-          <SelectTrigger size="sm" className="w-[130px] gap-1">
+          <SelectTrigger size="sm" className="w-[110px] gap-1 sm:w-[130px]">
             <Languages className="text-muted-foreground h-3.5 w-3.5" />
             <SelectValue />
           </SelectTrigger>

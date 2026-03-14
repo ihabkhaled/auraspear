@@ -175,7 +175,7 @@ export default function SystemAdminPage() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <CardTitle className="text-base">{t('services.title')}</CardTitle>
             {!healthLoading && (healthData?.data?.length ?? 0) > 0 && (
               <HealthSummary services={healthData?.data ?? []} t={t} />
@@ -211,18 +211,18 @@ export default function SystemAdminPage() {
 
             <TabsContent value="appLogs" className="space-y-4">
               {/* Filters */}
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:flex md:flex-wrap md:items-center">
                 <Input
                   placeholder={t('appLogs.searchPlaceholder')}
                   value={appLogSearch}
                   onChange={e => setAppLogSearch(e.target.value)}
-                  className="w-64"
+                  className="w-full md:w-64"
                 />
                 <Select
                   value={appLogLevel || ALL_LEVELS}
                   onValueChange={v => setAppLogLevel(v === ALL_LEVELS ? '' : v)}
                 >
-                  <SelectTrigger className="w-32">
+                  <SelectTrigger className="w-full md:w-32">
                     <SelectValue placeholder={t('appLogs.level')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -238,7 +238,7 @@ export default function SystemAdminPage() {
                   value={appLogFeature || ALL_FEATURES}
                   onValueChange={v => setAppLogFeature(v === ALL_FEATURES ? '' : v)}
                 >
-                  <SelectTrigger className="w-44">
+                  <SelectTrigger className="w-full md:w-44">
                     <SelectValue placeholder={t('appLogs.feature')} />
                   </SelectTrigger>
                   <SelectContent>
@@ -254,10 +254,15 @@ export default function SystemAdminPage() {
                   placeholder={t('appLogs.actorEmailPlaceholder')}
                   value={appLogActorEmail}
                   onChange={e => setAppLogActorEmail(e.target.value)}
-                  className="w-56"
+                  className="w-full md:w-56"
                 />
                 {hasActiveFilters && (
-                  <Button variant="ghost" size="sm" onClick={resetAppLogFilters}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={resetAppLogFilters}
+                    className="w-full md:w-auto"
+                  >
                     {t('appLogs.clearFilters')}
                   </Button>
                 )}

@@ -1,20 +1,16 @@
 import { type ConnectorAuthType, type ConnectorCategory, type ConnectorType } from '@/enums'
 import type { LucideIcon } from 'lucide-react'
 
-/** Backend connector response shape (from ConnectorConfig Prisma model) */
+/** Backend connector response shape */
 export interface ConnectorRecord {
-  id: string
   type: ConnectorType
   name: string
   enabled: boolean
   authType: ConnectorAuthType
-  encryptedConfig: string
+  config: Record<string, unknown>
   lastTestAt: string | null
   lastTestOk: boolean | null
   lastError: string | null
-  tenantId: string
-  createdAt: string
-  updatedAt: string
 }
 
 export interface ConnectorTestResult {

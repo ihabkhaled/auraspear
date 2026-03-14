@@ -3,13 +3,15 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import type { CreateCaseFormValues } from '@/components/cases'
 import { Toast } from '@/components/common'
-import { CaseViewMode, CaseSortField, SortOrder, UserRole } from '@/enums'
+import { CaseStatus, CaseViewMode, CaseSortField, SortOrder, UserRole } from '@/enums'
 import type { CaseSeverity } from '@/enums'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
 import type { Case } from '@/types'
 import { useActiveCycle, useCaseCycles } from './useCaseCycles'
 import { useCases, useCreateCase } from './useCases'
+
+const VALID_CASE_STATUSES = Object.values(CaseStatus) as string[]
 
 export function useCasesPage() {
   const t = useTranslations('cases')
@@ -22,6 +24,8 @@ export function useCasesPage() {
   const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
 
   const initialCycleId = searchParams.get('cycleId') ?? undefined
+  const urlStatus = searchParams.get('status')
+  const initialStatus = urlStatus && VALID_CASE_STATUSES.includes(urlStatus) ? urlStatus : undefined
 
   const [viewMode, setViewMode] = useState(CaseViewMode.BOARD)
   const [severityFilter, setSeverityFilter] = useState<CaseSeverity | undefined>()
@@ -30,6 +34,7 @@ export function useCasesPage() {
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [selectedCycleId, setSelectedCycleId] = useState<string | undefined>(initialCycleId)
   const [ownerFilter, setOwnerFilter] = useState<string | undefined>()
+  const [statusFilter, setStatusFilter] = useState<string | undefined>(initialStatus)
 
   // Fetch active cycle for default selection
   const { data: activeCycleData } = useActiveCycle()
@@ -47,6 +52,7 @@ export function useCasesPage() {
     sortOrder,
     limit: 500,
     ...(severityFilter === undefined ? {} : { severity: severityFilter }),
+    ...(statusFilter ? { status: statusFilter } : {}),
     ...(selectedCycleId ? { cycleId: selectedCycleId } : {}),
     ...(ownerFilter ? { ownerUserId: ownerFilter } : {}),
   })
@@ -68,6 +74,7 @@ export function useCasesPage() {
           description: formData.description,
           severity: formData.severity,
           ...(formData.assignee ? { ownerUserId: formData.assignee } : {}),
+          ...(formData.cycleId ? { cycleId: formData.cycleId } : {}),
         },
         {
           onSuccess: () => {
@@ -114,6 +121,9 @@ export function useCasesPage() {
     activeCycleId,
     cycles: cyclesData?.data ?? [],
     cyclesFetching,
+    // Status filter (from URL)
+    statusFilter,
+    setStatusFilter,
     // Owner filter
     ownerFilter,
     setOwnerFilter,

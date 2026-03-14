@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useCallback } from 'react'
 import {
   ResponsiveContainer,
   BarChart,
@@ -17,9 +18,22 @@ interface MITREBarChartProps {
 }
 
 export function MITREBarChart({ data }: MITREBarChartProps) {
+  const [isNarrow, setIsNarrow] = useState(false)
+
+  const handleResize = useCallback((width: number) => {
+    setIsNarrow(width < 400)
+  }, [])
+
+  const yAxisWidth = isNarrow ? 50 : 75
+  const leftMargin = isNarrow ? 55 : 80
+
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} layout="vertical" margin={{ top: 5, right: 20, left: 80, bottom: 5 }}>
+    <ResponsiveContainer width="100%" height={300} onResize={handleResize}>
+      <BarChart
+        data={data}
+        layout="vertical"
+        margin={{ top: 5, right: 10, left: leftMargin, bottom: 5 }}
+      >
         <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
         <XAxis
           type="number"
@@ -32,10 +46,10 @@ export function MITREBarChart({ data }: MITREBarChartProps) {
           type="category"
           dataKey="name"
           stroke="var(--muted-foreground)"
-          fontSize={11}
+          fontSize={isNarrow ? 9 : 11}
           tickLine={false}
           axisLine={false}
-          width={75}
+          width={yAxisWidth}
         />
         <Tooltip
           contentStyle={{

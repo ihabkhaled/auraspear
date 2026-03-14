@@ -86,7 +86,6 @@ export function AddUserDialog({
 
   function handleFormSubmit(values: AddUserFormValues) {
     onSubmit(values)
-    reset()
   }
 
   function handleOpenChange(value: boolean) {

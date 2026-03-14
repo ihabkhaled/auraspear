@@ -58,11 +58,9 @@ export function CaseListTable({
       label: t('tenant'),
     },
     {
-      key: 'createdByName',
+      key: 'ownerName',
       label: t('fieldAssignee'),
-      render: (value, row) => (
-        <span className="text-sm">{String(value ?? row.createdBy ?? '—')}</span>
-      ),
+      render: value => <span className="text-sm">{String(value ?? '—')}</span>,
     },
     {
       key: 'createdAt',

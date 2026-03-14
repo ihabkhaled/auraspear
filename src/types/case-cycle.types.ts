@@ -44,3 +44,18 @@ export interface CaseCycleSearchParams {
   sortOrder?: string
   status?: string
 }
+
+export interface EditCycleFormValues {
+  name: string
+  description: string
+  startDate: string
+  endDate: string
+}
+
+export interface EditCycleDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCycleFormValues) => void
+  loading?: boolean
+  cycle: CaseCycle | null
+}

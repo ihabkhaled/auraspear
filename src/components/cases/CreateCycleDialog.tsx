@@ -50,11 +50,17 @@ export function CreateCycleDialog({
 
   const handleFormSubmit = (data: CreateCycleFormValues) => {
     onSubmit(data)
-    reset()
+  }
+
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen) {
+      reset()
+    }
+    onOpenChange(nextOpen)
   }
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>{t('createCycle')}</DialogTitle>
@@ -89,7 +95,7 @@ export function CreateCycleDialog({
             </div>
           </div>
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>
+            <Button type="button" variant="outline" onClick={() => handleOpenChange(false)}>
               {t('cancel')}
             </Button>
             <Button type="submit" disabled={loading ?? !formState.isValid}>

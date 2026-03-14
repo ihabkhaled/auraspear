@@ -88,7 +88,7 @@ export const CONNECTOR_META: Record<ConnectorType, ConnectorMeta> = {
 export const CONNECTOR_AUTH_TYPES: ConnectorAuthType[] = [
   ConnectorAuthType.API_KEY,
   ConnectorAuthType.BASIC,
-  ConnectorAuthType.BEARER,
+  ConnectorAuthType.TOKEN,
   ConnectorAuthType.IAM,
 ]
 

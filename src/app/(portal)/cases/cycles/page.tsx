@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { Plus, History, AlertTriangle } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { CycleHistoryTable, CreateCycleDialog } from '@/components/cases'
+import { CycleHistoryTable, CreateCycleDialog, EditCycleDialog } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination } from '@/components/common'
 import { useOrphanedCaseStats } from '@/hooks'
 import { useCycleHistoryPage } from '@/hooks/useCycleHistoryPage'
@@ -20,11 +20,20 @@ export default function CycleHistoryPage() {
     createDialogOpen,
     setCreateDialogOpen,
     createCyclePending,
+    editDialogOpen,
+    setEditDialogOpen,
+    editingCycle,
+    editCyclePending,
     sortBy,
     sortOrder,
     handleSort,
     handleCycleClick,
     handleCreateCycle,
+    handleEditClick,
+    handleEditCycle,
+    handleActivateCycle,
+    handleCloseCycle,
+    handleDeleteCycle,
     pagination,
   } = useCycleHistoryPage()
 
@@ -89,6 +98,11 @@ export default function CycleHistoryPage() {
             sortBy={sortBy}
             sortOrder={sortOrder}
             onSort={handleSort}
+            showActions={isAdmin}
+            onEdit={handleEditClick}
+            onActivate={handleActivateCycle}
+            onClose={handleCloseCycle}
+            onDelete={handleDeleteCycle}
           />
           <Pagination
             page={pagination.page}
@@ -103,6 +117,14 @@ export default function CycleHistoryPage() {
         onOpenChange={setCreateDialogOpen}
         onSubmit={handleCreateCycle}
         loading={createCyclePending}
+      />
+
+      <EditCycleDialog
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onSubmit={handleEditCycle}
+        loading={editCyclePending}
+        cycle={editingCycle}
       />
     </div>
   )

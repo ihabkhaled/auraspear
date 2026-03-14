@@ -7,12 +7,17 @@ export {
 } from './useDashboard'
 export { useAlerts, useAlert, useInvestigateAlert } from './useAlerts'
 export { useCases, useCase, useCreateCase, useUpdateCase, useTenantMembers } from './useCases'
+export { useCreateCaseTask, useUpdateCaseTask, useDeleteCaseTask } from './useCaseTasks'
+export { useCreateCaseArtifact, useDeleteCaseArtifact } from './useCaseArtifacts'
 export {
   useCaseCycles,
   useActiveCycle,
   useCaseCycle,
   useCreateCaseCycle,
   useCloseCaseCycle,
+  useUpdateCaseCycle,
+  useActivateCaseCycle,
+  useDeleteCaseCycle,
   useOrphanedCaseStats,
 } from './useCaseCycles'
 export { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'

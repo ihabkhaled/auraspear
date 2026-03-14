@@ -43,6 +43,8 @@ export type {
   CreateCaseDialogProps,
   CaseDetailHeaderProps,
   CaseKanbanCardProps,
+  EditCaseFormValues,
+  EditCaseDialogProps,
   CaseDetailPageProps,
   CaseToolbarProps,
 } from './case.types'
@@ -52,6 +54,8 @@ export type {
   CreateCaseCycleInput,
   CloseCaseCycleInput,
   CaseCycleSearchParams,
+  EditCycleFormValues,
+  EditCycleDialogProps,
 } from './case-cycle.types'
 export type { HuntSession, HuntMessage, HuntEvent, ReasoningStep } from './hunt.types'
 export type {

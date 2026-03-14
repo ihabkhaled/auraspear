@@ -12,13 +12,28 @@ interface KPICardProps {
   trendLabel?: string | undefined
   icon: ReactNode
   accentColor: string | undefined
+  onClick?: (() => void) | undefined
 }
 
-export function KPICard({ label, value, trend, trendLabel, icon, accentColor }: KPICardProps) {
+export function KPICard({
+  label,
+  value,
+  trend,
+  trendLabel,
+  icon,
+  accentColor,
+  onClick,
+}: KPICardProps) {
   const isTrendPositive = trend !== undefined && trend >= 0
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card
+      className={cn(
+        'relative overflow-hidden',
+        onClick && 'hover:bg-muted/50 cursor-pointer transition-colors'
+      )}
+      onClick={onClick}
+    >
       {accentColor && (
         <div
           className="pointer-events-none absolute inset-0 opacity-5 blur-2xl"

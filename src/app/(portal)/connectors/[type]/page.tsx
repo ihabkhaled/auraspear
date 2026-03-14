@@ -90,20 +90,20 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
   if (isCreateMode && type && meta && Icon) {
     return (
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
+        <div className="space-y-3">
           <Button variant="ghost" size="sm" onClick={() => router.push('/connectors')}>
             <ArrowLeft className="me-1 h-4 w-4" />
             {t('backToConnectors')}
           </Button>
           <div className="flex items-center gap-3">
-            <div className="bg-muted flex h-10 w-10 items-center justify-center rounded-lg">
+            <div className="bg-muted flex h-10 w-10 shrink-0 items-center justify-center rounded-lg">
               <Icon className="text-muted-foreground h-5 w-5" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">
+            <div className="min-w-0">
+              <h1 className="truncate text-lg font-bold sm:text-xl">
                 {t('createConnector')}: {meta.label}
               </h1>
-              <p className="text-muted-foreground text-sm">{t(meta.descriptionKey)}</p>
+              <p className="text-muted-foreground truncate text-sm">{t(meta.descriptionKey)}</p>
             </div>
           </div>
         </div>
@@ -182,13 +182,15 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
       />
 
       <Tabs value={activeTab} onValueChange={val => setActiveTab(val as typeof activeTab)}>
-        <TabsList>
-          <TabsTrigger value={WorkspaceTab.OVERVIEW}>{tWorkspace('tabOverview')}</TabsTrigger>
-          <TabsTrigger value={WorkspaceTab.DATA}>{tWorkspace('tabData')}</TabsTrigger>
-          <TabsTrigger value={WorkspaceTab.SEARCH}>{tWorkspace('tabSearch')}</TabsTrigger>
-          <TabsTrigger value={WorkspaceTab.ACTIONS}>{tWorkspace('tabActions')}</TabsTrigger>
-          <TabsTrigger value={WorkspaceTab.CONFIG}>{tWorkspace('tabConfig')}</TabsTrigger>
-        </TabsList>
+        <div className="-mx-4 overflow-x-auto px-4 md:mx-0 md:px-0">
+          <TabsList className="w-max md:w-auto">
+            <TabsTrigger value={WorkspaceTab.OVERVIEW}>{tWorkspace('tabOverview')}</TabsTrigger>
+            <TabsTrigger value={WorkspaceTab.DATA}>{tWorkspace('tabData')}</TabsTrigger>
+            <TabsTrigger value={WorkspaceTab.SEARCH}>{tWorkspace('tabSearch')}</TabsTrigger>
+            <TabsTrigger value={WorkspaceTab.ACTIONS}>{tWorkspace('tabActions')}</TabsTrigger>
+            <TabsTrigger value={WorkspaceTab.CONFIG}>{tWorkspace('tabConfig')}</TabsTrigger>
+          </TabsList>
+        </div>
 
         {/* Overview Tab */}
         <TabsContent value={WorkspaceTab.OVERVIEW}>
