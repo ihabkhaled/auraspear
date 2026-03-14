@@ -1,121 +1,44 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
 import { Monitor, Search, RefreshCw, AlertCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import {
-  PageHeader,
-  LoadingSpinner,
-  EmptyState,
-  Pagination,
-  DataTable,
-  Toast,
-} from '@/components/common'
+import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { SortOrder } from '@/enums'
-import {
-  useVelociraptorEndpoints,
-  useVelociraptorHunts,
-  useSyncVelociraptor,
-  usePagination,
-  useDebounce,
-} from '@/hooks'
+import { SortOrder, VelociraptorTab } from '@/enums'
+import { useExplorerEndpointsPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
 import { formatDate } from '@/lib/utils'
 import type { Column, VelociraptorEndpoint, VelociraptorHunt } from '@/types'
 
 export default function ExplorerEndpointsPage() {
-  const t = useTranslations('explorer')
-  const tErrors = useTranslations()
-  const [activeTab, setActiveTab] = useState<'endpoints' | 'hunts'>('endpoints')
-
-  // Endpoints state
-  const [endpointSearch, setEndpointSearch] = useState('')
-  const [endpointSortBy, setEndpointSortBy] = useState<string | undefined>()
-  const [endpointSortOrder, setEndpointSortOrder] = useState<SortOrder>(SortOrder.ASC)
-  const debouncedEndpointSearch = useDebounce(endpointSearch, 400)
-  const endpointPagination = usePagination({ initialPage: 1, initialLimit: 20 })
-
-  const endpointResetRef = useRef(endpointPagination.resetPage)
-  useEffect(() => {
-    endpointResetRef.current = endpointPagination.resetPage
-  }, [endpointPagination.resetPage])
-  useEffect(() => {
-    endpointResetRef.current()
-  }, [debouncedEndpointSearch])
-
-  // Hunts state
-  const [huntSearch, setHuntSearch] = useState('')
-  const [huntSortBy, setHuntSortBy] = useState<string | undefined>()
-  const [huntSortOrder, setHuntSortOrder] = useState<SortOrder>(SortOrder.DESC)
-  const debouncedHuntSearch = useDebounce(huntSearch, 400)
-  const huntPagination = usePagination({ initialPage: 1, initialLimit: 20 })
-
-  const huntResetRef = useRef(huntPagination.resetPage)
-  useEffect(() => {
-    huntResetRef.current = huntPagination.resetPage
-  }, [huntPagination.resetPage])
-  useEffect(() => {
-    huntResetRef.current()
-  }, [debouncedHuntSearch])
-
   const {
-    data: endpointsData,
-    isLoading: endpointsLoading,
-    isFetching: endpointsFetching,
-    error: endpointsError,
-  } = useVelociraptorEndpoints({
-    page: endpointPagination.page,
-    limit: endpointPagination.limit,
-    search: debouncedEndpointSearch || undefined,
-    sortBy: endpointSortBy,
-    sortOrder: endpointSortOrder,
-  })
-
-  const {
-    data: huntsData,
-    isLoading: huntsLoading,
-    isFetching: huntsFetching,
-    error: huntsError,
-  } = useVelociraptorHunts({
-    page: huntPagination.page,
-    limit: huntPagination.limit,
-    search: debouncedHuntSearch || undefined,
-    sortBy: huntSortBy,
-    sortOrder: huntSortOrder,
-  })
-
-  useEffect(() => {
-    if (endpointsData?.pagination) {
-      endpointPagination.setTotal(endpointsData.pagination.total)
-    }
-  }, [endpointsData?.pagination, endpointPagination])
-
-  useEffect(() => {
-    if (huntsData?.pagination) {
-      huntPagination.setTotal(huntsData.pagination.total)
-    }
-  }, [huntsData?.pagination, huntPagination])
-
-  const syncMutation = useSyncVelociraptor()
-
-  const handleSync = useCallback(() => {
-    syncMutation.mutate(undefined, {
-      onSuccess: result => {
-        Toast.success(
-          t('endpoints.syncSuccess', {
-            endpoints: result.data?.endpoints ?? 0,
-            hunts: result.data?.hunts ?? 0,
-          })
-        )
-      },
-      onError: err => {
-        Toast.error(tErrors(getErrorKey(err)))
-      },
-    })
-  }, [syncMutation, t, tErrors])
+    t,
+    tErrors,
+    activeTab,
+    setActiveTab,
+    endpointSearch,
+    setEndpointSearch,
+    endpointSortBy,
+    endpointSortOrder,
+    endpointsData,
+    endpointsLoading,
+    endpointsFetching,
+    endpointPagination,
+    handleEndpointSort,
+    huntSearch,
+    setHuntSearch,
+    huntSortBy,
+    huntSortOrder,
+    huntsData,
+    huntsLoading,
+    huntsFetching,
+    huntPagination,
+    handleHuntSort,
+    syncMutation,
+    handleSync,
+    connectorError,
+  } = useExplorerEndpointsPage()
 
   const endpointColumns: Column<VelociraptorEndpoint>[] = [
     { key: 'hostname', label: t('endpoints.hostname'), sortable: true },
@@ -172,7 +95,6 @@ export default function ExplorerEndpointsPage() {
   ]
 
   // Show error banner if either query fails (connector unavailable/not configured)
-  const connectorError = endpointsError ?? huntsError
   if (connectorError) {
     const errorKey = getErrorKey(connectorError)
     return (
@@ -202,18 +124,18 @@ export default function ExplorerEndpointsPage() {
         }}
       />
 
-      <Tabs value={activeTab} onValueChange={v => setActiveTab(v as 'endpoints' | 'hunts')}>
+      <Tabs value={activeTab} onValueChange={v => setActiveTab(v as VelociraptorTab)}>
         <TabsList>
-          <TabsTrigger value="endpoints" className="cursor-pointer gap-1.5">
+          <TabsTrigger value={VelociraptorTab.ENDPOINTS} className="cursor-pointer gap-1.5">
             <Monitor className="h-4 w-4" />
             {t('endpoints.endpointsTab')}
           </TabsTrigger>
-          <TabsTrigger value="hunts" className="cursor-pointer gap-1.5">
+          <TabsTrigger value={VelociraptorTab.HUNTS} className="cursor-pointer gap-1.5">
             {t('endpoints.huntsTab')}
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="endpoints" className="space-y-4">
+        <TabsContent value={VelociraptorTab.ENDPOINTS} className="space-y-4">
           <div className="relative w-full sm:w-64">
             <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
             <Input
@@ -238,11 +160,7 @@ export default function ExplorerEndpointsPage() {
                 loading={endpointsFetching}
                 sortBy={endpointSortBy}
                 sortOrder={endpointSortOrder}
-                onSort={(key, order) => {
-                  endpointPagination.setPage(1)
-                  setEndpointSortBy(key)
-                  setEndpointSortOrder(order)
-                }}
+                onSort={handleEndpointSort}
               />
               <Pagination
                 page={endpointPagination.page}
@@ -254,7 +172,7 @@ export default function ExplorerEndpointsPage() {
           )}
         </TabsContent>
 
-        <TabsContent value="hunts" className="space-y-4">
+        <TabsContent value={VelociraptorTab.HUNTS} className="space-y-4">
           <div className="relative w-full sm:w-64">
             <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
             <Input
@@ -279,11 +197,7 @@ export default function ExplorerEndpointsPage() {
                 loading={huntsFetching}
                 sortBy={huntSortBy}
                 sortOrder={huntSortOrder}
-                onSort={(key, order) => {
-                  huntPagination.setPage(1)
-                  setHuntSortBy(key)
-                  setHuntSortOrder(order)
-                }}
+                onSort={handleHuntSort}
               />
               <Pagination
                 page={huntPagination.page}

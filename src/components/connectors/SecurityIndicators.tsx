@@ -1,18 +1,14 @@
 'use client'
 
 import { Shield, KeyRound, Lock } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { ConnectorType } from '@/enums'
+import { useSecurityIndicators } from '@/hooks/useSecurityIndicators'
 import { SECURITY_POSTURE } from '@/lib/constants/connectors.constants'
-
-interface SecurityIndicatorsProps {
-  type: ConnectorType
-}
+import type { SecurityIndicatorsProps } from '@/types'
 
 export function SecurityIndicators({ type }: SecurityIndicatorsProps) {
-  const t = useTranslations('connectors')
+  const { t } = useSecurityIndicators()
   const posture = SECURITY_POSTURE[type]
 
   const indicators = [

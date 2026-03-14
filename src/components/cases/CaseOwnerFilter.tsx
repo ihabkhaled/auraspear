@@ -1,39 +1,10 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { useCaseOwnerFilter } from '@/hooks'
+import { getAvatarColor, getInitials } from '@/lib/case.utils'
 import { cn } from '@/lib/utils'
-import type { TenantMember } from '@/types'
-
-interface CaseOwnerFilterProps {
-  members: TenantMember[]
-  selectedUserId: string | undefined
-  onUserSelect: (userId?: string) => void
-  currentUserId: string
-}
-
-function getInitials(name: string): string {
-  const parts = name.trim().split(/\s+/)
-  if (parts.length >= 2) {
-    return `${parts[0]?.[0] ?? ''}${parts[1]?.[0] ?? ''}`.toUpperCase()
-  }
-  return (parts[0]?.slice(0, 2) ?? '').toUpperCase()
-}
-
-const AVATAR_COLORS = [
-  'bg-blue-600',
-  'bg-emerald-600',
-  'bg-violet-600',
-  'bg-amber-600',
-  'bg-rose-600',
-  'bg-cyan-600',
-  'bg-indigo-600',
-  'bg-teal-600',
-] as const
-
-function getAvatarColor(index: number): string {
-  return AVATAR_COLORS[index % AVATAR_COLORS.length] ?? AVATAR_COLORS[0]
-}
+import type { CaseOwnerFilterProps } from '@/types'
 
 export function CaseOwnerFilter({
   members,
@@ -41,7 +12,7 @@ export function CaseOwnerFilter({
   onUserSelect,
   currentUserId,
 }: CaseOwnerFilterProps) {
-  const t = useTranslations('cases')
+  const { t } = useCaseOwnerFilter()
 
   const handleClick = (memberId: string) => {
     if (selectedUserId === memberId) {

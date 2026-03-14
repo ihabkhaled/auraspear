@@ -1,9 +1,5 @@
 import { cn } from '@/lib/utils'
-
-interface MonoTextProps {
-  children: React.ReactNode
-  className?: string
-}
+import type { MonoTextProps } from '@/types'
 
 export function MonoText({ children, className }: MonoTextProps) {
   return (

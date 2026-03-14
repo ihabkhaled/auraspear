@@ -3,17 +3,7 @@
 import Link from 'next/link'
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip'
 import { cn } from '@/lib/utils'
-import type { LucideIcon } from 'lucide-react'
-
-interface SidebarNavItemProps {
-  icon: LucideIcon
-  label: string
-  href: string
-  active?: boolean | undefined
-  badge?: number | undefined
-  collapsed?: boolean | undefined
-  onClick?: (() => void) | undefined
-}
+import type { SidebarNavItemProps } from '@/types'
 
 export function SidebarNavItem({
   icon: Icon,

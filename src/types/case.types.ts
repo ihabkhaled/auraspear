@@ -1,5 +1,6 @@
 import type {
   CaseArtifactType,
+  CaseCycleStatus,
   CaseSeverity,
   CaseSortField,
   CaseStatus,
@@ -9,6 +10,7 @@ import type {
   SortOrder,
 } from '@/enums'
 import type { TenantMember } from './admin.types'
+import type { CaseCycle } from './case-cycle.types'
 import type { SelectOption } from './common.types'
 
 export interface CaseTask {
@@ -209,4 +211,101 @@ export interface CaseToolbarProps {
   onSortFieldChange: (field: CaseSortField) => void
   sortOrder: SortOrder
   onSortOrderChange: (order: SortOrder) => void
+}
+
+export interface CaseCommentsProps {
+  caseId: string
+  currentUserId: string
+  isAdmin: boolean
+  isCaseClosed: boolean
+}
+
+export interface CommentItemProps {
+  comment: CaseComment
+  currentUserId: string
+  isAdmin: boolean
+  onEdit?: (commentId: string, body: string) => void
+  onDelete?: (commentId: string) => void
+}
+
+export interface CommentComposerProps {
+  caseId: string
+  currentUserId: string
+  onSubmit: (body: string, mentionedUserIds: string[]) => void
+  loading?: boolean
+  disabled?: boolean
+}
+
+export interface CreateCycleFormValues {
+  name: string
+  description: string
+  startDate: string
+  endDate: string
+}
+
+export interface CreateCycleDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateCycleFormValues) => void
+  loading?: boolean
+}
+
+export interface CaseTimelineProps {
+  entries: CaseTimelineEntry[]
+}
+
+export interface CycleHistoryTableProps {
+  cycles: CaseCycle[]
+  onCycleClick?: (cycle: CaseCycle) => void
+  loading?: boolean
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
+  showActions?: boolean
+  onEdit?: (cycle: CaseCycle) => void
+  onActivate?: (cycle: CaseCycle) => void
+  onClose?: (cycle: CaseCycle) => void
+  onDelete?: (cycle: CaseCycle) => void
+}
+
+export interface CaseArtifactPanelProps {
+  artifacts: CaseArtifact[]
+  onLookup?: (artifact: CaseArtifact) => void
+  onAddArtifact?: (data: { type: string; value: string; source?: string }) => void
+  onDeleteArtifact?: (artifactId: string) => void
+  addingArtifact?: boolean
+}
+
+export interface CaseTaskListProps {
+  tasks: CaseTask[]
+  onToggleTask?: (taskId: string, completed: boolean) => void
+  onAddTask?: (title: string) => void
+  onDeleteTask?: (taskId: string) => void
+  addingTask?: boolean
+}
+
+export interface CaseKanbanBoardProps {
+  cases: Case[]
+  onCaseClick?: (caseItem: Case) => void
+  currentUserId?: string | undefined
+  isAdmin?: boolean | undefined
+}
+
+export interface CaseOwnerFilterProps {
+  members: TenantMember[]
+  selectedUserId: string | undefined
+  onUserSelect: (userId?: string) => void
+  currentUserId: string
+}
+
+export interface CycleSelectorProps {
+  cycles: CaseCycle[]
+  activeCycleId: string | undefined
+  selectedCycleId: string | undefined
+  onCycleChange: (cycleId: string | undefined) => void
+  loading?: boolean
+}
+
+export interface CycleBadgeProps {
+  status: CaseCycleStatus
 }

@@ -1,11 +1,13 @@
 export { AlertSeverity, AlertStatus } from './alert.enum'
 export { TimeRange } from './alert-filter.enum'
+export { BadgeVariant } from './badge.enum'
 export {
   CaseStatus,
   CaseSeverity,
   CaseTaskStatus,
   CaseTimelineEntryType,
   CaseArtifactType,
+  CommentPartType,
 } from './case.enum'
 export { CaseCycleStatus } from './case-cycle.enum'
 export { CaseSortField } from './case-sort-field.enum'
@@ -28,6 +30,7 @@ export {
   TenantStatus,
   ThemePreference,
   SupportedLocale,
+  SystemAdminTab,
 } from './admin.enum'
 export { NotificationType, NotificationEntityType } from './notification.enum'
 export { ChartType } from './chart.enum'
@@ -35,4 +38,5 @@ export { SortOrder } from './sort-order.enum'
 export { WorkspaceTab, CardVariant } from './workspace.enum'
 export { StatusDotSize } from './component-size.enum'
 export { AppLogLevel, AppLogFeature } from './app-log.enum'
-export { SyncJobStatus, ExplorerConnector } from './explorer.enum'
+export { SyncJobStatus, ExplorerConnector, VelociraptorTab } from './explorer.enum'
+export { WorkspaceEntityStatus } from './workspace-entity.enum'

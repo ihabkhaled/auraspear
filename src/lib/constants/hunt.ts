@@ -1,3 +1,4 @@
+import { CheckCircle2, Loader2, Circle, type LucideIcon } from 'lucide-react'
 import { HuntStatus, ReasoningStepStatus } from '@/enums'
 
 export const QUICK_PROMPT_KEYS = [
@@ -52,3 +53,10 @@ export const REASONING_STEP_CONFIG_MAP = {
     animate: false,
   },
 } as const
+
+export const STEP_ICONS: Record<ReasoningStepStatus, LucideIcon> = {
+  [ReasoningStepStatus.COMPLETED]: CheckCircle2,
+  [ReasoningStepStatus.IN_PROGRESS]: Loader2,
+  [ReasoningStepStatus.PENDING]: Circle,
+  [ReasoningStepStatus.ERROR]: Circle,
+}

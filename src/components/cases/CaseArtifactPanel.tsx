@@ -1,8 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { Copy, ExternalLink, Globe, Hash, Link2, Plus, Server, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { Copy, ExternalLink, Globe, Plus, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,30 +11,10 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { CaseArtifactType } from '@/enums'
+import { useCaseArtifactPanel } from '@/hooks'
+import { ARTIFACT_TYPE_ICONS, ARTIFACT_TYPE_KEYS } from '@/lib/constants/cases'
 import { copyToClipboard } from '@/lib/utils'
-import type { CaseArtifact } from '@/types'
-
-interface CaseArtifactPanelProps {
-  artifacts: CaseArtifact[]
-  onLookup?: (artifact: CaseArtifact) => void
-  onAddArtifact?: (data: { type: string; value: string; source?: string }) => void
-  onDeleteArtifact?: (artifactId: string) => void
-  addingArtifact?: boolean
-}
-
-const typeIcons: Record<CaseArtifactType, typeof Globe> = {
-  [CaseArtifactType.IP]: Server,
-  [CaseArtifactType.HASH]: Hash,
-  [CaseArtifactType.DOMAIN]: Globe,
-  [CaseArtifactType.URL]: Link2,
-}
-
-const typeKeys: Record<CaseArtifactType, string> = {
-  [CaseArtifactType.IP]: 'artifactIps',
-  [CaseArtifactType.HASH]: 'artifactHashes',
-  [CaseArtifactType.DOMAIN]: 'artifactDomains',
-  [CaseArtifactType.URL]: 'artifactUrls',
-}
+import type { CaseArtifactPanelProps } from '@/types'
 
 export function CaseArtifactPanel({
   artifacts,
@@ -45,39 +23,17 @@ export function CaseArtifactPanel({
   onDeleteArtifact,
   addingArtifact,
 }: CaseArtifactPanelProps) {
-  const t = useTranslations('cases')
-  const [artifactType, setArtifactType] = useState<CaseArtifactType>(CaseArtifactType.IP)
-  const [artifactValue, setArtifactValue] = useState('')
-  const [artifactSource, setArtifactSource] = useState('')
-
-  const groupedArtifacts = useMemo(() => {
-    const groups: Partial<Record<CaseArtifactType, CaseArtifact[]>> = {}
-
-    for (const artifact of artifacts) {
-      const existing = groups[artifact.type]
-      if (existing) {
-        existing.push(artifact)
-      } else {
-        groups[artifact.type] = [artifact]
-      }
-    }
-
-    return groups
-  }, [artifacts])
-
-  const handleAddArtifact = () => {
-    const trimmedValue = artifactValue.trim()
-    if (trimmedValue && onAddArtifact) {
-      const trimmedSource = artifactSource.trim()
-      onAddArtifact({
-        type: artifactType,
-        value: trimmedValue,
-        source: trimmedSource || 'manual',
-      })
-      setArtifactValue('')
-      setArtifactSource('')
-    }
-  }
+  const {
+    t,
+    artifactType,
+    setArtifactType,
+    artifactValue,
+    setArtifactValue,
+    artifactSource,
+    setArtifactSource,
+    groupedArtifacts,
+    handleAddArtifact,
+  } = useCaseArtifactPanel({ artifacts, onAddArtifact })
 
   return (
     <div className="flex flex-col gap-6">
@@ -132,8 +88,8 @@ export function CaseArtifactPanel({
           return null
         }
         const artType = type as CaseArtifactType
-        const Icon = typeIcons[artType] ?? Globe
-        const label = typeKeys[artType] ? t(typeKeys[artType]) : type
+        const Icon = ARTIFACT_TYPE_ICONS[artType] ?? Globe
+        const label = ARTIFACT_TYPE_KEYS[artType] ? t(ARTIFACT_TYPE_KEYS[artType]) : type
 
         return (
           <div key={type} className="flex flex-col gap-2">

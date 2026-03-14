@@ -1,7 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
 import {
   LayoutDashboard,
   Bell,
@@ -12,7 +10,6 @@ import {
   Server,
   Search,
 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   CommandDialog,
   CommandEmpty,
@@ -22,39 +19,12 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command'
-import { useUIStore } from '@/stores'
+import { useCommandPalette } from '@/hooks'
+
+const PAGE_ICONS = [LayoutDashboard, Bell, Crosshair, Briefcase, Globe, Settings, Server] as const
 
 export function CommandPalette() {
-  const t = useTranslations()
-  const router = useRouter()
-  const { commandPaletteOpen, setCommandPaletteOpen } = useUIStore()
-
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setCommandPaletteOpen(!commandPaletteOpen)
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [commandPaletteOpen, setCommandPaletteOpen])
-
-  function handleSelect(href: string) {
-    setCommandPaletteOpen(false)
-    router.push(href)
-  }
-
-  const pages = [
-    { icon: LayoutDashboard, label: t('nav.dashboard'), href: '/dashboard' },
-    { icon: Bell, label: t('nav.alerts'), href: '/alerts' },
-    { icon: Crosshair, label: t('nav.hunt'), href: '/hunt' },
-    { icon: Briefcase, label: t('nav.cases'), href: '/cases' },
-    { icon: Globe, label: t('nav.intel'), href: '/intel' },
-    { icon: Settings, label: t('nav.tenantConfig'), href: '/admin/tenant' },
-    { icon: Server, label: t('nav.systemAdmin'), href: '/admin/system' },
-  ]
+  const { t, commandPaletteOpen, setCommandPaletteOpen, handleSelect, pages } = useCommandPalette()
 
   return (
     <CommandDialog
@@ -67,12 +37,15 @@ export function CommandPalette() {
       <CommandList>
         <CommandEmpty>{t('layout.noResults')}</CommandEmpty>
         <CommandGroup heading={t('layout.pages')}>
-          {pages.map(page => (
-            <CommandItem key={page.href} onSelect={() => handleSelect(page.href)}>
-              <page.icon className="h-4 w-4" />
-              <span>{page.label}</span>
-            </CommandItem>
-          ))}
+          {pages.map((page, index) => {
+            const Icon = PAGE_ICONS[index]
+            return (
+              <CommandItem key={page.href} onSelect={() => handleSelect(page.href)}>
+                {Icon ? <Icon className="h-4 w-4" /> : null}
+                <span>{page.label}</span>
+              </CommandItem>
+            )
+          })}
         </CommandGroup>
         <CommandSeparator />
         <CommandGroup heading={t('layout.actions')}>

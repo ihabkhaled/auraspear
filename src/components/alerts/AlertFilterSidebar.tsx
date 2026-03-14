@@ -1,12 +1,12 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { type AlertSeverity } from '@/enums'
+import { useAlertFilterSidebar } from '@/hooks'
 import { getSeverityDotClass } from '@/lib/alert.utils'
 import { ALERT_TIME_RANGES } from '@/lib/constants/alerts'
 import { cn } from '@/lib/utils'
@@ -23,8 +23,7 @@ export function AlertFilterSidebar({
   ruleGroup,
   onRuleGroupChange,
 }: AlertFilterSidebarProps) {
-  const t = useTranslations('alerts')
-  const tCommon = useTranslations('common')
+  const { t, tCommon } = useAlertFilterSidebar()
 
   const handleSeverityToggle = (severity: AlertSeverity) => {
     if (selectedSeverities.includes(severity)) {

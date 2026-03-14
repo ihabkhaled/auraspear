@@ -1,8 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
-import { useTranslations } from 'next-intl'
 import {
   Select,
   SelectContent,
@@ -10,35 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { UserRole } from '@/enums'
-import { useTenants } from '@/hooks'
-import { useAuthStore, useTenantStore } from '@/stores'
+import { useTenantSwitcher } from '@/hooks'
 
 export function TenantSwitcher() {
-  const t = useTranslations('layout')
-  const queryClient = useQueryClient()
-  const { currentTenantId, tenants, userTenants, setCurrentTenant, setTenants } = useTenantStore()
-  const user = useAuthStore(s => s.user)
-
-  const isGlobalAdmin = user?.role === UserRole.GLOBAL_ADMIN
-
-  // GLOBAL_ADMIN: fetch all tenants from admin API
-  const { data: tenantsData } = useTenants(undefined, isGlobalAdmin)
-
-  useEffect(() => {
-    if (tenantsData?.data && tenantsData.data.length > 0) {
-      setTenants(tenantsData.data)
-    }
-  }, [tenantsData?.data, setTenants])
-
-  function handleTenantChange(value: string) {
-    const allowedList = isGlobalAdmin ? tenants : userTenants
-    const isValid = allowedList.some(item => item.id === value)
-    if (!isValid) return
-
-    setCurrentTenant(value)
-    void queryClient.invalidateQueries()
-  }
+  const { t, currentTenantId, tenants, userTenants, isGlobalAdmin, handleTenantChange } =
+    useTenantSwitcher()
 
   // GLOBAL_ADMIN uses the full tenants list, others use their own memberships
   if (isGlobalAdmin) {

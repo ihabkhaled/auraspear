@@ -13,3 +13,8 @@ export enum ExplorerConnector {
   SHUFFLE = 'shuffle',
   LOGSTASH = 'logstash',
 }
+
+export enum VelociraptorTab {
+  ENDPOINTS = 'endpoints',
+  HUNTS = 'hunts',
+}

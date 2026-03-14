@@ -1,7 +1,6 @@
 'use client'
 
 import { Filter, ShieldAlert } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   KQLSearchBar,
   AlertFilterSidebar,
@@ -15,9 +14,8 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/co
 import { useAlertsPage } from '@/hooks/useAlertsPage'
 
 export default function AlertsPage() {
-  const t = useTranslations('alerts')
-
   const {
+    t,
     selectedSeverities,
     setSeverity,
     timeRange,

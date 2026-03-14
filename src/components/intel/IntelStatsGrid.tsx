@@ -1,12 +1,12 @@
 'use client'
 
 import { Users, Globe, FileText, Link } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { KPICard } from '@/components/common/KPICard'
+import { useIntelStatsGrid } from '@/hooks'
 import type { IntelStatsGridProps } from '@/types'
 
 export function IntelStatsGrid({ stats }: IntelStatsGridProps) {
-  const t = useTranslations('intel')
+  const { t } = useIntelStatsGrid()
 
   const cards = [
     {

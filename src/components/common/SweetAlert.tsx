@@ -1,4 +1,5 @@
 import Swal from 'sweetalert2'
+import type { InputResult, ShowOptions, ShowWithInputOptions } from '@/types'
 
 export enum SweetAlertIcon {
   SUCCESS = 'success',
@@ -6,27 +7,6 @@ export enum SweetAlertIcon {
   WARNING = 'warning',
   INFO = 'info',
   QUESTION = 'question',
-}
-
-interface ShowOptions {
-  title?: string
-  text: string
-  icon?: SweetAlertIcon
-  confirmButtonText?: string
-  cancelButtonText?: string
-}
-
-interface ShowWithInputOptions {
-  title: string
-  placeholder?: string
-  inputValidator?: (value: string) => string | null
-  confirmButtonText?: string
-  cancelButtonText?: string
-}
-
-interface InputResult {
-  confirmed: boolean
-  value: string
 }
 
 export const SweetAlertDialog = {

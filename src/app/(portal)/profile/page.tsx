@@ -1,7 +1,6 @@
 'use client'
 
 import { User, Lock, Mail, Shield, Building2, Eye, EyeOff } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, LoadingSpinner } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,10 +9,9 @@ import { Label } from '@/components/ui/label'
 import { useProfilePage } from '@/hooks/useProfilePage'
 
 export default function ProfilePage() {
-  const t = useTranslations('profile')
-  const tRoles = useTranslations('admin.roles')
-
   const {
+    t,
+    tRoles,
     isLoading,
     name,
     setName,
@@ -101,7 +99,7 @@ export default function ProfilePage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={e => handleUpdateName(e, t)} className="space-y-4">
+          <form onSubmit={handleUpdateName} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="profile-name">{t('name')}</Label>
               <Input
@@ -150,7 +148,7 @@ export default function ProfilePage() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={e => handleChangePassword(e, t)} className="space-y-4">
+          <form onSubmit={handleChangePassword} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="current-password">{t('currentPassword')}</Label>
               <div className="relative">

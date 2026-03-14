@@ -1,20 +1,14 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-
-interface KQLSearchBarProps {
-  value: string
-  onChange: (value: string) => void
-  onSubmit: () => void
-  onSavedSearches?: () => void
-}
+import { useKQLSearchBar } from '@/hooks'
+import type { KQLSearchBarProps } from '@/types'
 
 export function KQLSearchBar({ value, onChange, onSubmit, onSavedSearches }: KQLSearchBarProps) {
-  const t = useTranslations('alerts')
+  const { t } = useKQLSearchBar()
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

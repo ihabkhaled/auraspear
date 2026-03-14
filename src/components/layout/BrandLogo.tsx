@@ -1,14 +1,11 @@
 'use client'
 
 import { Shield } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-
-interface BrandLogoProps {
-  collapsed?: boolean
-}
+import { useBrandLogo } from '@/hooks/useBrandLogo'
+import type { BrandLogoProps } from '@/types'
 
 export function BrandLogo({ collapsed }: BrandLogoProps) {
-  const t = useTranslations('layout')
+  const { t } = useBrandLogo()
 
   return (
     <div className="flex items-center gap-2.5">

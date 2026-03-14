@@ -1,15 +1,14 @@
 'use client'
 
 import { MessageSquare, BarChart3 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { HuntChatPanel, HuntResultsPanel } from '@/components/hunt'
 import { Button } from '@/components/ui/button'
 import { HuntStatus } from '@/enums'
 import { useHuntPage } from '@/hooks/useHuntPage'
 
 export default function HuntPage() {
-  const t = useTranslations('hunt')
   const {
+    t,
     mobileTab,
     setMobileTab,
     messages,

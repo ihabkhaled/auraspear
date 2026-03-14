@@ -1,7 +1,6 @@
 'use client'
 
 import { Brain, CheckCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   Dialog,
   DialogContent,
@@ -12,6 +11,7 @@ import {
 import { Progress } from '@/components/ui/progress'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
+import { useAIInvestigationModal } from '@/hooks'
 import { getConfidenceColor } from '@/lib/alert.utils'
 import { cn } from '@/lib/utils'
 import type { AIInvestigationModalProps } from '@/types'
@@ -21,7 +21,7 @@ export function AIInvestigationModal({
   open,
   onOpenChange,
 }: AIInvestigationModalProps) {
-  const t = useTranslations('alerts')
+  const { t } = useAIInvestigationModal()
 
   if (!investigation) {
     return null

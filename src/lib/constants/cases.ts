@@ -1,4 +1,5 @@
-import { CaseSeverity, CaseStatus } from '@/enums'
+import { Globe, Hash, Link2, Server } from 'lucide-react'
+import { CaseArtifactType, CaseSeverity, CaseStatus, CaseTimelineEntryType } from '@/enums'
 
 export const CASE_STATUS_LABEL_KEYS: Record<CaseStatus, string> = {
   [CaseStatus.OPEN]: 'statusOpen',
@@ -45,3 +46,38 @@ export const COMMENT_MAX_LENGTH = 10000
 export const COMMENT_COLLAPSE_HEIGHT_PX = 120
 export const COMMENT_MENTIONS_MAX = 20
 export const COMMENTS_PAGE_SIZE = 10
+
+export const AVATAR_COLORS = [
+  'bg-blue-600',
+  'bg-emerald-600',
+  'bg-violet-600',
+  'bg-amber-600',
+  'bg-rose-600',
+  'bg-cyan-600',
+  'bg-indigo-600',
+  'bg-teal-600',
+] as const
+
+export const UNASSIGNED_VALUE = '__unassigned__'
+export const NO_CYCLE_VALUE = '__no_cycle__'
+
+export const TIMELINE_TYPE_COLORS: Record<CaseTimelineEntryType, string> = {
+  [CaseTimelineEntryType.NOTE]: 'var(--status-info)',
+  [CaseTimelineEntryType.ALERT]: 'var(--status-warning)',
+  [CaseTimelineEntryType.STATUS]: 'var(--status-success)',
+  [CaseTimelineEntryType.ACTION]: 'var(--chart-5, hsl(270 60% 60%))',
+}
+
+export const ARTIFACT_TYPE_ICONS: Record<CaseArtifactType, typeof Globe> = {
+  [CaseArtifactType.IP]: Server,
+  [CaseArtifactType.HASH]: Hash,
+  [CaseArtifactType.DOMAIN]: Globe,
+  [CaseArtifactType.URL]: Link2,
+}
+
+export const ARTIFACT_TYPE_KEYS: Record<CaseArtifactType, string> = {
+  [CaseArtifactType.IP]: 'artifactIps',
+  [CaseArtifactType.HASH]: 'artifactHashes',
+  [CaseArtifactType.DOMAIN]: 'artifactDomains',
+  [CaseArtifactType.URL]: 'artifactUrls',
+}

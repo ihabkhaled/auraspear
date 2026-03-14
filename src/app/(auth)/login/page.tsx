@@ -1,10 +1,6 @@
 'use client'
 
-import { useSyncExternalStore } from 'react'
-import { useRouter } from 'next/navigation'
 import { Shield, Eye, EyeOff, Sun, Moon, Languages } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useTheme } from 'next-themes'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -16,26 +12,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useLoginForm } from '@/hooks/useLoginForm'
+import { useLoginPage } from '@/hooks/useLoginPage'
 import { LOCALES } from '@/lib/constants/locales'
-import { getCookie } from '@/lib/cookies'
-
-const noop = () => {}
-const emptySubscribe = () => noop
 
 export default function LoginPage() {
-  const t = useTranslations('auth')
-  const tApp = useTranslations('app')
-  const tLang = useTranslations('language')
-  const tCommon = useTranslations('common')
-  const router = useRouter()
-  const { resolvedTheme, setTheme } = useTheme()
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  )
   const {
+    t,
+    tApp,
+    tLang,
+    tCommon,
+    mounted,
+    isDark,
+    currentLocale,
+    handleThemeToggle,
+    handleLocaleChange,
     isLoading,
     email,
     setEmail,
@@ -44,19 +34,7 @@ export default function LoginPage() {
     showPassword,
     setShowPassword,
     handleSubmit,
-  } = useLoginForm()
-
-  const isDark = resolvedTheme === 'dark'
-  const currentLocale = getCookie('locale') || 'en'
-
-  function handleThemeToggle() {
-    setTheme(isDark ? 'light' : 'dark')
-  }
-
-  function handleLocaleChange(locale: string) {
-    document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
-    router.refresh()
-  }
+  } = useLoginPage()
 
   return (
     <div className="bg-background flex min-h-screen flex-col items-center justify-center p-4">

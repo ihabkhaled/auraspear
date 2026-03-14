@@ -1,8 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,22 +12,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-
-interface CreateCycleFormValues {
-  name: string
-  description: string
-  startDate: string
-  endDate: string
-}
-
-interface CreateCycleDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: CreateCycleFormValues) => void
-  loading?: boolean
-}
-
-export type { CreateCycleFormValues }
+import { useCreateCycleDialog } from '@/hooks/useCreateCycleDialog'
+import type { CreateCycleDialogProps } from '@/types'
 
 export function CreateCycleDialog({
   open,
@@ -38,34 +21,8 @@ export function CreateCycleDialog({
   onSubmit,
   loading,
 }: CreateCycleDialogProps) {
-  const t = useTranslations('cases.cycles')
-
-  const { register, handleSubmit, reset, formState } = useForm<CreateCycleFormValues>({
-    defaultValues: {
-      name: '',
-      description: '',
-      startDate: new Date().toISOString().split('T')[0] ?? '',
-      endDate: '',
-    },
-  })
-
-  // Reset form when dialog closes (covers programmatic close on success)
-  useEffect(() => {
-    if (!open) {
-      reset()
-    }
-  }, [open, reset])
-
-  const handleFormSubmit = (data: CreateCycleFormValues) => {
-    onSubmit(data)
-  }
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      reset()
-    }
-    onOpenChange(nextOpen)
-  }
+  const { t, register, handleSubmit, formState, handleFormSubmit, handleOpenChange } =
+    useCreateCycleDialog({ open, onOpenChange, onSubmit })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

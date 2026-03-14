@@ -1,8 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { Inbox, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -15,34 +13,9 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { SortOrder } from '@/enums'
-import { cn } from '@/lib/utils'
-import type { Column } from '@/types'
-
-interface DataTableProps<T> {
-  columns: Column<T>[]
-  data: T[]
-  emptyMessage?: string
-  emptyIcon?: ReactNode
-  emptyDescription?: string
-  loading?: boolean
-  onRowClick?: ((row: T) => void) | undefined
-  selectedIds?: string[] | undefined
-  onSelectionChange?: ((ids: string[]) => void) | undefined
-  keyField?: keyof T | undefined
-  sortBy?: string | undefined
-  sortOrder?: SortOrder | undefined
-  onSort?: ((key: string, order: SortOrder) => void) | undefined
-  rowClassName?: ((row: T) => string) | undefined
-}
-
-function getNestedValue<T>(row: T, key: string): unknown {
-  return key.split('.').reduce<unknown>((obj, k) => {
-    if (obj !== null && obj !== undefined && typeof obj === 'object') {
-      return (obj as Record<string, unknown>)[k]
-    }
-    return
-  }, row)
-}
+import { useDataTableComponent } from '@/hooks/useDataTableComponent'
+import { cn, getNestedValue } from '@/lib/utils'
+import type { DataTableProps } from '@/types'
 
 function SortIcon({
   colKey,
@@ -78,7 +51,7 @@ export function DataTable<T>({
   onSort,
   rowClassName,
 }: DataTableProps<T>) {
-  const t = useTranslations('common')
+  const { t } = useDataTableComponent()
 
   const hasSelection = selectedIds !== undefined && onSelectionChange !== undefined
 

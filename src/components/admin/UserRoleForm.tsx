@@ -1,9 +1,6 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
@@ -15,21 +12,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { UserRole } from '@/enums'
-
-const userRoleSchema = z.object({
-  role: z.nativeEnum(UserRole),
-  permissions: z.array(z.string()).min(1),
-})
-
-type UserRoleFormValues = z.infer<typeof userRoleSchema>
-
-interface UserRoleFormProps {
-  defaultValues?: Partial<UserRoleFormValues>
-  availablePermissions: string[]
-  onSubmit: (values: UserRoleFormValues) => void
-  onCancel: () => void
-  loading?: boolean
-}
+import { useUserRoleForm } from '@/hooks'
+import type { UserRoleFormProps } from '@/types'
 
 export function UserRoleForm({
   defaultValues,
@@ -38,19 +22,7 @@ export function UserRoleForm({
   onCancel,
   loading = false,
 }: UserRoleFormProps) {
-  const t = useTranslations('admin')
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserRoleFormValues>({
-    resolver: zodResolver(userRoleSchema),
-    defaultValues: {
-      role: defaultValues?.role ?? UserRole.SOC_ANALYST_L1,
-      permissions: defaultValues?.permissions ?? [],
-    },
-  })
+  const { t, control, handleSubmit, errors } = useUserRoleForm({ defaultValues })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

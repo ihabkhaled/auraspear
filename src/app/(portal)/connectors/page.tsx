@@ -1,23 +1,12 @@
 'use client'
 
-import { useMemo } from 'react'
 import { Plug } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, LoadingSpinner } from '@/components/common'
 import { ConnectorCard, AddConnectorCard } from '@/components/connectors'
-import { useConnectors } from '@/hooks/useConnectors'
-import { CONNECTOR_TYPES } from '@/lib/constants/connectors.constants'
+import { useConnectorsPage } from '@/hooks/useConnectorsPage'
 
 export default function ConnectorsPage() {
-  const t = useTranslations('connectors')
-  const { data: connectors, isLoading, isFetching } = useConnectors()
-
-  const list = connectors ?? []
-
-  const unconfiguredTypes = useMemo(() => {
-    const configuredTypes = new Set(list.map(c => c.type))
-    return CONNECTOR_TYPES.filter(ct => !configuredTypes.has(ct))
-  }, [list])
+  const { t, list, isLoading, isFetching, unconfiguredTypes } = useConnectorsPage()
 
   if (isLoading) {
     return (

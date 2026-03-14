@@ -1,28 +1,14 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { AlertSeverity } from '@/enums'
+import { useWorkspaceRecentActivityComponent } from '@/hooks/useWorkspaceRecentActivityComponent'
+import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { WorkspaceRecentItem } from '@/types'
-
-const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
-  [AlertSeverity.CRITICAL]: 'bg-severity-critical text-white',
-  [AlertSeverity.HIGH]: 'bg-severity-high text-white',
-  [AlertSeverity.MEDIUM]: 'bg-severity-medium text-white',
-  [AlertSeverity.LOW]: 'bg-severity-low',
-  [AlertSeverity.INFO]: 'bg-severity-info',
-}
-
-interface WorkspaceRecentActivityProps {
-  items: WorkspaceRecentItem[]
-  loading?: boolean
-  title?: string
-}
+import type { WorkspaceRecentActivityProps } from '@/types'
 
 export function WorkspaceRecentActivity({ items, loading, title }: WorkspaceRecentActivityProps) {
-  const t = useTranslations('connectors.workspace')
+  const { t } = useWorkspaceRecentActivityComponent()
 
   if (loading) {
     return (

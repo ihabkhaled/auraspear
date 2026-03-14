@@ -1,7 +1,6 @@
 'use client'
 
 import { LayoutGrid, List, ArrowUp, ArrowDown } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -12,6 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { CaseSortField, CaseViewMode, SortOrder } from '@/enums'
+import { useCaseToolbar } from '@/hooks'
 import { CASE_SEVERITY_FILTERS } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
 import type { CaseToolbarProps } from '@/types'
@@ -26,7 +26,7 @@ export function CaseToolbar({
   sortOrder,
   onSortOrderChange,
 }: CaseToolbarProps) {
-  const t = useTranslations('cases')
+  const { t } = useCaseToolbar()
 
   const toggleSortOrder = (): void => {
     onSortOrderChange(sortOrder === SortOrder.DESC ? SortOrder.ASC : SortOrder.DESC)

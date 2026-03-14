@@ -1,4 +1,26 @@
-import type { IntegrationStatus, UserRole, UserStatus, ServiceStatus, SortOrder } from '@/enums'
+import type {
+  IntegrationStatus,
+  TenantEnvironment,
+  UserRole,
+  UserStatus,
+  ServiceStatus,
+  SortOrder,
+} from '@/enums'
+
+export interface ServiceHealthGridProps {
+  services: ServiceHealth[]
+}
+
+export interface IntegrationConfigPanelProps {
+  integrations: IntegrationConfig[]
+  onTestConnection: (integrationId: string) => void
+  onConfigure: (integrationId: string) => void
+  testingId?: string
+}
+
+export interface ServiceHealthCardProps {
+  service: ServiceHealth
+}
 
 export interface TenantUserTableProps {
   users: TenantUser[]
@@ -131,4 +153,112 @@ export interface TenantMember {
   id: string
   name: string
   email: string
+}
+
+export interface AddUserFormValues {
+  name: string
+  email: string
+  password: string
+  role: string
+}
+
+export interface AddUserDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (values: AddUserFormValues) => void
+  loading: boolean
+  callerRole?: UserRole | undefined
+}
+
+export interface EditUserDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  user: TenantUser | null
+  onSubmit: (data: { name: string; role: string; password?: string }) => void
+  loading: boolean
+  callerRole?: UserRole | undefined
+}
+
+export interface AssignUserDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: AssignUserInput) => void
+  loading: boolean
+  tenantId: string
+  callerRole?: UserRole | undefined
+}
+
+export interface CreateTenantDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (values: CreateTenantFormValues) => void
+  loading: boolean
+}
+
+export interface CreateTenantFormValues {
+  name: string
+  slug: string
+}
+
+export interface EditTenantDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  tenant: Tenant | null
+  onSubmit: (data: EditTenantFormValues) => void
+  loading: boolean
+}
+
+export interface EditTenantFormValues {
+  name: string
+}
+
+export interface AssignUserFormValues {
+  email: string
+  role: string
+  name: string
+  password: string
+}
+
+export interface EditUserFormValues {
+  name: string
+  role: string
+  password?: string | undefined
+}
+
+export interface UserRoleFormValues {
+  role: UserRole
+  permissions: string[]
+}
+
+export interface UserRoleFormProps {
+  defaultValues?: Partial<UserRoleFormValues>
+  availablePermissions: string[]
+  onSubmit: (values: UserRoleFormValues) => void
+  onCancel: () => void
+  loading?: boolean
+}
+
+export interface TenantProfileFormValues {
+  name: string
+  environment: TenantEnvironment
+  settings?: string | undefined
+}
+
+export interface TenantProfileFormProps {
+  defaultValues?: Partial<TenantProfileFormValues>
+  onSubmit: (values: TenantProfileFormValues) => void
+  onCancel: () => void
+  loading?: boolean
+}
+
+export interface TenantListTableProps {
+  tenants: Tenant[]
+  loading: boolean
+  onTenantClick: ((tenant: Tenant) => void) | undefined
+  onEditTenant?: (tenant: Tenant) => void
+  onDeleteTenant?: (tenant: Tenant) => void
+  userRole?: UserRole
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
 }

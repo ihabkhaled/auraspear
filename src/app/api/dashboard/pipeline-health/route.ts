@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { ServiceStatus } from '@/enums'
 import { fetchBackendJson } from '@/lib/backend-proxy'
 import type { BackendPipelineResponse } from '@/types/dashboard.types'
 
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
     const data = pipelines.map(p => ({
       name: p.name,
       status: p.status,
-      healthy: p.status === 'healthy',
+      healthy: p.status === ServiceStatus.HEALTHY,
     }))
 
     return NextResponse.json({ data })

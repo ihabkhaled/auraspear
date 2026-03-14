@@ -10,3 +10,12 @@ export const ALERT_STATUS_CLASSES: Record<AlertStatus, string> = {
   [AlertStatus.CLOSED]: 'border-muted-foreground text-muted-foreground',
   [AlertStatus.FALSE_POSITIVE]: 'border-muted-foreground text-muted-foreground',
 }
+
+export const ALERT_STATUS_LABEL_KEYS: Record<AlertStatus, string> = {
+  [AlertStatus.NEW_ALERT]: 'statusNewAlert',
+  [AlertStatus.ACKNOWLEDGED]: 'statusAcknowledged',
+  [AlertStatus.IN_PROGRESS]: 'statusInProgress',
+  [AlertStatus.RESOLVED]: 'statusResolved',
+  [AlertStatus.CLOSED]: 'statusClosed',
+  [AlertStatus.FALSE_POSITIVE]: 'statusFalsePositive',
+}

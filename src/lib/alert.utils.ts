@@ -1,13 +1,5 @@
 import { AlertSeverity } from '@/enums'
-
-export interface ParsedKQLQuery {
-  query?: string
-  severity?: string
-  status?: string
-  agentName?: string
-  ruleGroup?: string
-  source?: string
-}
+import type { ParsedKQLQuery } from '@/types'
 
 /**
  * Parses a KQL-style query string into structured alert search parameters.

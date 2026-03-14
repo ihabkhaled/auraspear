@@ -1,70 +1,10 @@
 'use client'
 
-import {
-  Activity,
-  AlertCircle,
-  AlertTriangle,
-  ArrowDown,
-  ArrowUp,
-  Brain,
-  CheckCircle,
-  Database,
-  Folder,
-  GitBranch,
-  Globe,
-  Laptop,
-  LayoutDashboard,
-  List,
-  Monitor,
-  RefreshCw,
-  Shield,
-  ShieldCheck,
-  Tag,
-  Wifi,
-  Workflow,
-} from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { CardVariant } from '@/enums'
+import { WORKSPACE_ICON_MAP, WORKSPACE_VARIANT_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn } from '@/lib/utils'
-import type { WorkspaceSummaryCard } from '@/types'
-import type { LucideIcon } from 'lucide-react'
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  activity: Activity,
-  'alert-circle': AlertCircle,
-  'alert-triangle': AlertTriangle,
-  'arrow-down': ArrowDown,
-  'arrow-up': ArrowUp,
-  brain: Brain,
-  'check-circle': CheckCircle,
-  database: Database,
-  folder: Folder,
-  'git-branch': GitBranch,
-  globe: Globe,
-  laptop: Laptop,
-  'layout-dashboard': LayoutDashboard,
-  list: List,
-  monitor: Monitor,
-  'refresh-cw': RefreshCw,
-  shield: Shield,
-  'shield-check': ShieldCheck,
-  tag: Tag,
-  wifi: Wifi,
-  workflow: Workflow,
-}
-
-const VARIANT_CLASSES: Record<CardVariant, string> = {
-  [CardVariant.DEFAULT]: 'text-foreground',
-  [CardVariant.SUCCESS]: 'text-status-success',
-  [CardVariant.WARNING]: 'text-status-warning',
-  [CardVariant.ERROR]: 'text-status-error',
-  [CardVariant.INFO]: 'text-status-info',
-}
-
-interface WorkspaceSummaryGridProps {
-  cards: WorkspaceSummaryCard[]
-  loading?: boolean
-}
+import type { WorkspaceSummaryGridProps } from '@/types'
 
 export function WorkspaceSummaryGrid({ cards, loading }: WorkspaceSummaryGridProps) {
   if (loading) {
@@ -86,8 +26,8 @@ export function WorkspaceSummaryGrid({ cards, loading }: WorkspaceSummaryGridPro
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map(card => {
-        const IconComponent = card.icon ? ICON_MAP[card.icon] : undefined
-        const variantClass = VARIANT_CLASSES[card.variant ?? CardVariant.DEFAULT]
+        const IconComponent = card.icon ? WORKSPACE_ICON_MAP[card.icon] : undefined
+        const variantClass = WORKSPACE_VARIANT_CLASSES[card.variant ?? CardVariant.DEFAULT]
 
         return (
           <Card key={card.key}>

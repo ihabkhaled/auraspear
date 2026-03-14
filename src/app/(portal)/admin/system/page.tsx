@@ -1,8 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
 import { FileText, ScrollText, Server } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   AppLogDetailDialog,
   AppLogTable,
@@ -28,19 +26,14 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AppLogLevel, AppLogFeature, ServiceStatus } from '@/enums'
+import { AppLogLevel, AppLogFeature, ServiceStatus, SystemAdminTab } from '@/enums'
 import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
+import { ALL_LEVELS, ALL_FEATURES } from '@/lib/constants/admin'
 import { computeHealthPercent, getHealthStatusClass, getHealthBgClass } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'
-import type { ApplicationLogEntry, ServiceHealth } from '@/types'
+import type { ServiceHealth } from '@/types'
 
-function HealthSummary({
-  services,
-  t,
-}: {
-  services: ServiceHealth[]
-  t: ReturnType<typeof useTranslations<'admin'>>
-}) {
+function HealthSummary({ services, t }: { services: ServiceHealth[]; t: (key: string) => string }) {
   const percent = computeHealthPercent(services)
   const online = services.filter(s => s.status === ServiceStatus.HEALTHY).length
 
@@ -60,13 +53,9 @@ function HealthSummary({
   )
 }
 
-const ALL_LEVELS = 'all'
-const ALL_FEATURES = 'all'
-
 export default function SystemAdminPage() {
-  const t = useTranslations('admin')
-
   const {
+    t,
     activeTab,
     setActiveTab,
     healthData,
@@ -93,20 +82,11 @@ export default function SystemAdminPage() {
     appLogActorEmail,
     setAppLogActorEmail,
     resetAppLogFilters,
+    selectedLog,
+    detailOpen,
+    handleLogClick,
+    handleDetailClose,
   } = useSystemAdminPage()
-
-  const [selectedLog, setSelectedLog] = useState<ApplicationLogEntry | null>(null)
-  const [detailOpen, setDetailOpen] = useState(false)
-
-  const handleLogClick = useCallback((log: ApplicationLogEntry) => {
-    setSelectedLog(log)
-    setDetailOpen(true)
-  }, [])
-
-  const handleDetailClose = useCallback(() => {
-    setDetailOpen(false)
-    setSelectedLog(null)
-  }, [])
 
   function renderServices() {
     if (healthLoading) return <LoadingSpinner />
@@ -187,19 +167,19 @@ export default function SystemAdminPage() {
 
       <Card>
         <CardContent className="pt-6">
-          <Tabs value={activeTab} onValueChange={v => setActiveTab(v as 'audit' | 'appLogs')}>
+          <Tabs value={activeTab} onValueChange={v => setActiveTab(v as SystemAdminTab)}>
             <TabsList>
-              <TabsTrigger value="audit" className="cursor-pointer gap-1.5">
+              <TabsTrigger value={SystemAdminTab.AUDIT} className="cursor-pointer gap-1.5">
                 <ScrollText className="h-4 w-4" />
                 {t('audit.title')}
               </TabsTrigger>
-              <TabsTrigger value="appLogs" className="cursor-pointer gap-1.5">
+              <TabsTrigger value={SystemAdminTab.APP_LOGS} className="cursor-pointer gap-1.5">
                 <FileText className="h-4 w-4" />
                 {t('appLogs.title')}
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="audit" className="space-y-4">
+            <TabsContent value={SystemAdminTab.AUDIT} className="space-y-4">
               {renderAuditLogs()}
               <Pagination
                 page={pagination.page}
@@ -209,7 +189,7 @@ export default function SystemAdminPage() {
               />
             </TabsContent>
 
-            <TabsContent value="appLogs" className="space-y-4">
+            <TabsContent value={SystemAdminTab.APP_LOGS} className="space-y-4">
               {/* Filters */}
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:flex md:flex-wrap md:items-center">
                 <Input

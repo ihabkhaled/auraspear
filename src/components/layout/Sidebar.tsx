@@ -1,28 +1,9 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import {
-  LayoutDashboard,
-  Bell,
-  Crosshair,
-  Briefcase,
-  Globe,
-  Settings,
-  Server,
-  Plug,
-  Compass,
-  PanelLeftClose,
-  PanelLeftOpen,
-  X,
-} from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import type { UserRole } from '@/enums'
-import { useSidebarHealth } from '@/hooks'
-import { canAccessRoute } from '@/lib/roles'
+import { useSidebarContent, useSidebarShell } from '@/hooks/useSidebarComponent'
 import { cn } from '@/lib/utils'
-import { useUIStore, useAuthStore } from '@/stores'
-import type { NavSection } from '@/types'
 import { BrandLogo } from './BrandLogo'
 import { SidebarHealthFooter } from './SidebarHealthFooter'
 import { SidebarNavItem } from './SidebarNavItem'
@@ -34,49 +15,16 @@ function SidebarContent({
   collapsed: boolean
   onNavClick?: () => void
 }) {
-  const pathname = usePathname()
-  const t = useTranslations()
-  const { toggleSidebar } = useUIStore()
-  const { user } = useAuthStore()
-  const userRole = user?.role as UserRole | undefined
-  const { healthPercent, servicesOnline, totalServices, maxLatencyMs } = useSidebarHealth()
-
-  const allSections: NavSection[] = [
-    {
-      label: t('nav.main'),
-      items: [
-        { icon: LayoutDashboard, label: t('nav.dashboard'), href: '/dashboard' },
-        { icon: Bell, label: t('nav.alerts'), href: '/alerts' },
-        { icon: Crosshair, label: t('nav.hunt'), href: '/hunt' },
-        { icon: Briefcase, label: t('nav.cases'), href: '/cases' },
-      ],
-    },
-    {
-      label: t('nav.intelligence'),
-      items: [
-        { icon: Globe, label: t('nav.intel'), href: '/intel' },
-        { icon: Compass, label: t('nav.explorer'), href: '/explorer' },
-      ],
-    },
-    {
-      label: t('nav.system'),
-      items: [
-        { icon: Plug, label: t('nav.connectors'), href: '/connectors' },
-        { icon: Settings, label: t('nav.tenantConfig'), href: '/admin/tenant' },
-        { icon: Server, label: t('nav.systemAdmin'), href: '/admin/system' },
-      ],
-    },
-  ]
-
-  // Filter sections and items based on user role
-  const sections = userRole
-    ? allSections
-        .map(section => ({
-          ...section,
-          items: section.items.filter(item => canAccessRoute(userRole, item.href)),
-        }))
-        .filter(section => section.items.length > 0)
-    : allSections
+  const {
+    pathname,
+    t,
+    toggleSidebar,
+    sections,
+    healthPercent,
+    servicesOnline,
+    totalServices,
+    maxLatencyMs,
+  } = useSidebarContent()
 
   return (
     <>
@@ -166,7 +114,7 @@ function SidebarContent({
 }
 
 export function Sidebar() {
-  const { sidebarCollapsed, mobileSidebarOpen, setMobileSidebarOpen } = useUIStore()
+  const { sidebarCollapsed, mobileSidebarOpen, setMobileSidebarOpen } = useSidebarShell()
 
   return (
     <>

@@ -1,25 +1,11 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
+import { useAppLogTable } from '@/hooks'
+import { getLevelClasses } from '@/lib/admin.utils'
 import { formatTimestamp } from '@/lib/utils'
 import type { ApplicationLogEntry, AppLogTableProps, Column } from '@/types'
-
-function getLevelClasses(level: string): string {
-  switch (level) {
-    case 'error':
-      return 'bg-status-error text-white border-status-error'
-    case 'warn':
-      return 'bg-status-warning text-white border-status-warning'
-    case 'info':
-      return 'bg-status-info text-white border-status-info'
-    case 'debug':
-      return 'bg-muted text-muted-foreground border-border'
-    default:
-      return ''
-  }
-}
 
 export function AppLogTable({
   logs,
@@ -29,7 +15,7 @@ export function AppLogTable({
   onSort,
   onRowClick,
 }: AppLogTableProps) {
-  const t = useTranslations('admin')
+  const { t } = useAppLogTable()
 
   const columns: Column<ApplicationLogEntry>[] = [
     {

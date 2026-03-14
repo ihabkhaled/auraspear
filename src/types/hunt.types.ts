@@ -42,3 +42,48 @@ export interface HuntEvent {
   user: string | null
   description: string
 }
+
+export interface HuntEventTableProps {
+  events: HuntEvent[]
+  loading?: boolean
+}
+
+export interface ReasoningStepsProps {
+  steps: ReasoningStep[]
+}
+
+export interface HuntStatusBarProps {
+  sessionId: string
+  status: HuntStatus
+}
+
+export interface HuntStatsGridProps {
+  eventsFound: number
+  uniqueIps: number
+  threatScore: number
+}
+
+export interface ChatMessageProps {
+  message: HuntMessage
+}
+
+export interface HuntResultsPanelProps {
+  sessionId: string
+  status: HuntStatus
+  eventsFound: number
+  uniqueIps: number
+  threatScore: number
+  events: HuntEvent[]
+  loading?: boolean
+}
+
+export interface HuntChatPanelProps {
+  messages: HuntMessage[]
+  onSend: (message: string) => void
+  disabled?: boolean
+}
+
+export interface HuntInputAreaProps {
+  onSend: (message: string) => void
+  disabled?: boolean
+}

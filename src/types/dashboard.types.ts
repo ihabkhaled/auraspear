@@ -1,3 +1,6 @@
+import type { ReactNode } from 'react'
+import type { ServiceHealth } from './admin.types'
+
 export interface DashboardKPI {
   label: string
   value: number
@@ -99,4 +102,24 @@ export interface BackendPipeline {
 export interface BackendPipelineResponse {
   tenantId: string
   pipelines: BackendPipeline[]
+}
+
+export interface DashboardCardProps {
+  title: string
+  action?: ReactNode | undefined
+  children: ReactNode
+  className?: string | undefined
+}
+
+export interface TopTargetedAssetsProps {
+  assets: AssetRisk[]
+}
+
+export interface PipelineHealthBarProps {
+  services: ServiceHealth[]
+  onServiceClick?: ((connectorType: string) => void) | undefined
+}
+
+export interface MITRETopTechniquesProps {
+  techniques: MITRETechnique[]
 }

@@ -1,17 +1,13 @@
 'use client'
 
 import { Server } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
-import type { ServiceHealth } from '@/types'
+import { useServiceHealthGrid } from '@/hooks'
+import type { ServiceHealthGridProps } from '@/types'
 import { ServiceHealthCard } from './ServiceHealthCard'
 
-interface ServiceHealthGridProps {
-  services: ServiceHealth[]
-}
-
 export function ServiceHealthGrid({ services }: ServiceHealthGridProps) {
-  const t = useTranslations('admin')
+  const { t } = useServiceHealthGrid()
 
   if (services.length === 0) {
     return (

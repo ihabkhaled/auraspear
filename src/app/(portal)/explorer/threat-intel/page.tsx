@@ -1,52 +1,27 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
 import { Shield, Search, AlertCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Input } from '@/components/ui/input'
 import { SortOrder } from '@/enums'
-import { useMispExplorerEvents, usePagination, useDebounce } from '@/hooks'
+import { useExplorerThreatIntelPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
 import type { Column, MispEventRow } from '@/types'
 
 export default function ExplorerThreatIntelPage() {
-  const t = useTranslations('explorer')
-  const tErrors = useTranslations()
-
-  const [search, setSearch] = useState('')
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
-  const debouncedSearch = useDebounce(search, 400)
-  const pagination = usePagination({ initialPage: 1, initialLimit: 20 })
-
-  const resetPageRef = useRef(pagination.resetPage)
-  useEffect(() => {
-    resetPageRef.current = pagination.resetPage
-  }, [pagination.resetPage])
-  useEffect(() => {
-    resetPageRef.current()
-  }, [debouncedSearch])
-
-  const { data, isLoading, isFetching, error } = useMispExplorerEvents({
-    page: pagination.page,
-    limit: pagination.limit,
-    value: debouncedSearch || undefined,
+  const {
+    t,
+    tErrors,
+    search,
+    setSearch,
     sortOrder,
-  })
-
-  useEffect(() => {
-    if (data?.pagination) {
-      pagination.setTotal(data.pagination.total)
-    }
-  }, [data?.pagination, pagination])
-
-  const handleSort = useCallback(
-    (_key: string, order: SortOrder) => {
-      pagination.setPage(1)
-      setSortOrder(order)
-    },
-    [pagination]
-  )
+    data,
+    isLoading,
+    isFetching,
+    error,
+    handleSort,
+    pagination,
+  } = useExplorerThreatIntelPage()
 
   const columns: Column<MispEventRow>[] = [
     {

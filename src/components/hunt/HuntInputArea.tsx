@@ -1,45 +1,16 @@
 'use client'
 
-import { useState, useCallback } from 'react'
 import { Send } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
+import { useHuntInputArea } from '@/hooks/useHuntInputArea'
 import { QUICK_PROMPT_KEYS } from '@/lib/constants/hunt'
-
-interface HuntInputAreaProps {
-  onSend: (message: string) => void
-  disabled?: boolean
-}
+import type { HuntInputAreaProps } from '@/types'
 
 export function HuntInputArea({ onSend, disabled = false }: HuntInputAreaProps) {
-  const t = useTranslations('hunt')
-  const [value, setValue] = useState('')
-
-  const handleSend = useCallback(() => {
-    const trimmed = value.trim()
-    if (trimmed.length === 0) return
-    onSend(trimmed)
-    setValue('')
-  }, [value, onSend])
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        handleSend()
-      }
-    },
-    [handleSend]
-  )
-
-  const handleQuickPrompt = useCallback(
-    (key: (typeof QUICK_PROMPT_KEYS)[number]) => {
-      const prompt = t(`quickPrompts.${key}`)
-      onSend(prompt)
-    },
-    [onSend, t]
-  )
+  const { t, value, setValue, handleSend, handleKeyDown, handleQuickPrompt } = useHuntInputArea({
+    onSend,
+  })
 
   return (
     <div className="border-border bg-card/50 flex flex-col gap-3 border-t p-4">

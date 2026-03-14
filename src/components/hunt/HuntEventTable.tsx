@@ -1,20 +1,15 @@
 'use client'
 
 import { Crosshair } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import type { AlertSeverity } from '@/enums'
+import { useHuntEventTable } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'
-import type { Column, HuntEvent } from '@/types'
-
-interface HuntEventTableProps {
-  events: HuntEvent[]
-  loading?: boolean
-}
+import type { Column, HuntEvent, HuntEventTableProps } from '@/types'
 
 export function HuntEventTable({ events, loading = false }: HuntEventTableProps) {
-  const t = useTranslations('hunt')
+  const { t } = useHuntEventTable()
 
   const columns: Column<HuntEvent>[] = [
     {

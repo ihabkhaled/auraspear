@@ -11,6 +11,8 @@ const noop = () => {}
 const emptySubscribe = () => noop
 
 export function useSettingsPage() {
+  const t = useTranslations('settings')
+  const tLang = useTranslations('language')
   const tErrors = useTranslations()
   const router = useRouter()
   const { theme, setTheme } = useTheme()
@@ -40,7 +42,7 @@ export function useSettingsPage() {
     router.refresh()
   }
 
-  function handleNotificationToggle(key: string, checked: boolean, t: (key: string) => string) {
+  function handleNotificationToggle(key: string, checked: boolean) {
     updatePreferences.mutate(
       { [key]: checked },
       {
@@ -55,6 +57,8 @@ export function useSettingsPage() {
   }
 
   return {
+    t,
+    tLang,
     mounted,
     currentLocale,
     currentTheme,

@@ -1,18 +1,13 @@
 'use client'
 
 import { Activity, Globe, ShieldAlert } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Card, CardContent } from '@/components/ui/card'
+import { useHuntStatsGrid } from '@/hooks'
 import { formatNumber } from '@/lib/utils'
-
-interface HuntStatsGridProps {
-  eventsFound: number
-  uniqueIps: number
-  threatScore: number
-}
+import type { HuntStatsGridProps } from '@/types'
 
 export function HuntStatsGrid({ eventsFound, uniqueIps, threatScore }: HuntStatsGridProps) {
-  const t = useTranslations('hunt')
+  const { t } = useHuntStatsGrid()
 
   const stats = [
     {

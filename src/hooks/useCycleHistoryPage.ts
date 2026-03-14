@@ -1,13 +1,12 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import type { CreateCycleFormValues } from '@/components/cases'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { SortOrder, UserRole } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
-import type { CaseCycle, EditCycleFormValues } from '@/types'
+import type { CaseCycle, CreateCycleFormValues, EditCycleFormValues } from '@/types'
 import {
   useCaseCycles,
   useCreateCaseCycle,
@@ -15,6 +14,7 @@ import {
   useUpdateCaseCycle,
   useActivateCaseCycle,
   useDeleteCaseCycle,
+  useOrphanedCaseStats,
 } from './useCaseCycles'
 import { usePagination } from './usePagination'
 
@@ -207,8 +207,14 @@ export function useCycleHistoryPage() {
     [deleteCycle, t, tErrors]
   )
 
+  const { data: orphanedData } = useOrphanedCaseStats()
+  const orphanedStats = orphanedData?.data
+
   return {
+    t,
+    router,
     isAdmin,
+    orphanedStats,
     cycles: cyclesData?.data ?? [],
     isLoading,
     isFetching,

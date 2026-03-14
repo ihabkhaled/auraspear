@@ -1,7 +1,6 @@
 'use client'
 
 import { MoreHorizontal, Eye, Brain, Briefcase, Copy } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -10,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { useAlertRowActions } from '@/hooks'
 import type { AlertRowActionsProps } from '@/types'
 
 export function AlertRowActions({
@@ -19,8 +19,7 @@ export function AlertRowActions({
   onCreateCase,
   onCopyId,
 }: AlertRowActionsProps) {
-  const t = useTranslations('alerts')
-  const tCommon = useTranslations('common')
+  const { t, tCommon } = useAlertRowActions()
 
   return (
     <DropdownMenu>

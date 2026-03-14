@@ -1,16 +1,7 @@
 'use client'
 
-import { useState, useCallback, useMemo } from 'react'
 import { BarChart3, Play, Search, AlertCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import {
-  PageHeader,
-  LoadingSpinner,
-  EmptyState,
-  Pagination,
-  DataTable,
-  Toast,
-} from '@/components/common'
+import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -22,125 +13,59 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { SortOrder } from '@/enums'
-import { useInfluxDBBuckets, useInfluxDBQuery } from '@/hooks'
+import { useExplorerMetricsPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
-import { parseFluxCSV, formatTimestamp } from '@/lib/utils'
+import { METRICS_TIME_RANGES } from '@/lib/constants/explorer'
+import { formatTimestamp } from '@/lib/utils'
 import type { Column } from '@/types'
 
-const TIME_RANGES = [
-  { value: '-15m', label: '15m' },
-  { value: '-1h', label: '1h' },
-  { value: '-6h', label: '6h' },
-  { value: '-24h', label: '24h' },
-  { value: '-7d', label: '7d' },
-]
-
-const ROWS_PER_PAGE = 20
-
 export default function ExplorerMetricsPage() {
-  const t = useTranslations('explorer')
-  const tErrors = useTranslations()
-
-  const [bucket, setBucket] = useState('')
-  const [measurement, setMeasurement] = useState('')
-  const [range, setRange] = useState('-1h')
-  const [limit, setLimit] = useState(1000)
-  const [queryEnabled, setQueryEnabled] = useState(false)
-
-  // Table state
-  const [search, setSearch] = useState('')
-  const [sortBy, setSortBy] = useState<string | undefined>()
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
-  const [currentPage, setCurrentPage] = useState(1)
-
-  const { data: bucketsData, isLoading: bucketsLoading, error: bucketsError } = useInfluxDBBuckets()
   const {
-    data: queryData,
-    isFetching: queryFetching,
-    error: queryError,
-  } = useInfluxDBQuery(
-    { bucket, measurement: measurement || undefined, range, limit },
-    queryEnabled && bucket.length > 0
-  )
-
-  const handleQuery = useCallback(() => {
-    if (!bucket) {
-      Toast.warning(t('metrics.selectBucket'))
-      return
-    }
-    setCurrentPage(1)
-    setSearch('')
-    setSortBy(undefined)
-    setQueryEnabled(true)
-  }, [bucket, t])
-
-  // Parse CSV data into rows/columns
-  const parsed = useMemo(() => {
-    const csvData = queryData?.data?.data
-    if (!csvData || csvData.trim().length === 0) return { columns: [], rows: [] }
-    return parseFluxCSV(csvData)
-  }, [queryData])
-
-  // Filter rows by search
-  const filteredRows = useMemo(() => {
-    if (!search) return parsed.rows
-    const lowerSearch = search.toLowerCase()
-    return parsed.rows.filter(row =>
-      Object.values(row).some(v => v.toLowerCase().includes(lowerSearch))
-    )
-  }, [parsed.rows, search])
-
-  // Sort rows
-  const sortedRows = useMemo(() => {
-    if (!sortBy) return filteredRows
-    const sorted = [...filteredRows]
-    sorted.sort((a, b) => {
-      const aVal = a[sortBy] ?? ''
-      const bVal = b[sortBy] ?? ''
-      // Try numeric comparison first
-      const aNum = Number(aVal)
-      const bNum = Number(bVal)
-      if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
-        return sortOrder === SortOrder.ASC ? aNum - bNum : bNum - aNum
-      }
-      const cmp = aVal.localeCompare(bVal)
-      return sortOrder === SortOrder.ASC ? cmp : -cmp
-    })
-    return sorted
-  }, [filteredRows, sortBy, sortOrder])
-
-  // Paginate
-  const totalPages = Math.max(1, Math.ceil(sortedRows.length / ROWS_PER_PAGE))
-  const paginatedRows = useMemo(() => {
-    const start = (currentPage - 1) * ROWS_PER_PAGE
-    return sortedRows.slice(start, start + ROWS_PER_PAGE)
-  }, [sortedRows, currentPage])
+    t,
+    tErrors,
+    bucket,
+    measurement,
+    range,
+    limit,
+    search,
+    sortBy,
+    sortOrder,
+    currentPage,
+    setCurrentPage,
+    bucketsLoading,
+    bucketsError,
+    queryData,
+    queryFetching,
+    queryError,
+    handleQuery,
+    parsed,
+    filteredRows,
+    sortedRows,
+    totalPages,
+    paginatedRows,
+    handleSort,
+    handleBucketChange,
+    handleMeasurementChange,
+    handleRangeChange,
+    handleLimitChange,
+    handleSearchChange,
+    buckets,
+  } = useExplorerMetricsPage()
 
   // Build dynamic columns from parsed headers
-  const columns: Column<Record<string, string>>[] = useMemo(
-    () =>
-      parsed.columns.map(col => ({
-        key: col,
-        label: col.startsWith('_') ? col.slice(1) : col,
-        sortable: true,
-        render: value => {
-          const strVal = String(value ?? '')
-          // Format timestamps
-          if (col === '_time' || col === '_start' || col === '_stop') {
-            return <span className="text-xs">{formatTimestamp(strVal)}</span>
-          }
-          return <span className="text-xs">{strVal}</span>
-        },
-      })),
-    [parsed.columns]
-  )
-
-  const handleSort = useCallback((key: string, order: SortOrder) => {
-    setSortBy(key)
-    setSortOrder(order)
-    setCurrentPage(1)
-  }, [])
+  const columns: Column<Record<string, string>>[] = parsed.columns.map(col => ({
+    key: col,
+    label: col.startsWith('_') ? col.slice(1) : col,
+    sortable: true,
+    render: value => {
+      const strVal = String(value ?? '')
+      // Format timestamps
+      if (col === '_time' || col === '_start' || col === '_stop') {
+        return <span className="text-xs">{formatTimestamp(strVal)}</span>
+      }
+      return <span className="text-xs">{strVal}</span>
+    },
+  }))
 
   // Error state for buckets (connector not configured / unavailable)
   if (bucketsError) {
@@ -158,8 +83,6 @@ export default function ExplorerMetricsPage() {
 
   if (bucketsLoading) return <LoadingSpinner />
 
-  const buckets = (bucketsData?.data ?? []) as Array<{ name: string }>
-
   return (
     <div className="space-y-6">
       <PageHeader title={t('metrics.title')} description={t('metrics.description')} />
@@ -172,13 +95,7 @@ export default function ExplorerMetricsPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
             <div className="space-y-2">
               <Label>{t('metrics.bucket')}</Label>
-              <Select
-                value={bucket}
-                onValueChange={v => {
-                  setBucket(v)
-                  setQueryEnabled(false)
-                }}
-              >
+              <Select value={bucket} onValueChange={handleBucketChange}>
                 <SelectTrigger>
                   <SelectValue placeholder={t('metrics.selectBucket')} />
                 </SelectTrigger>
@@ -196,28 +113,19 @@ export default function ExplorerMetricsPage() {
               <Label>{t('metrics.measurement')}</Label>
               <Input
                 value={measurement}
-                onChange={e => {
-                  setMeasurement(e.target.value)
-                  setQueryEnabled(false)
-                }}
+                onChange={e => handleMeasurementChange(e.target.value)}
                 placeholder={t('metrics.measurementPlaceholder')}
               />
             </div>
 
             <div className="space-y-2">
               <Label>{t('metrics.timeRange')}</Label>
-              <Select
-                value={range}
-                onValueChange={v => {
-                  setRange(v)
-                  setQueryEnabled(false)
-                }}
-              >
+              <Select value={range} onValueChange={handleRangeChange}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {TIME_RANGES.map(r => (
+                  {METRICS_TIME_RANGES.map(r => (
                     <SelectItem key={r.value} value={r.value}>
                       {r.label}
                     </SelectItem>
@@ -231,10 +139,7 @@ export default function ExplorerMetricsPage() {
               <Input
                 type="number"
                 value={limit}
-                onChange={e => {
-                  setLimit(Number(e.target.value) || 100)
-                  setQueryEnabled(false)
-                }}
+                onChange={e => handleLimitChange(Number(e.target.value))}
                 min={1}
                 max={10000}
               />
@@ -276,10 +181,7 @@ export default function ExplorerMetricsPage() {
                   <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
                   <Input
                     value={search}
-                    onChange={e => {
-                      setSearch(e.target.value)
-                      setCurrentPage(1)
-                    }}
+                    onChange={e => handleSearchChange(e.target.value)}
                     placeholder={t('metrics.searchPlaceholder')}
                     className="ps-9"
                   />

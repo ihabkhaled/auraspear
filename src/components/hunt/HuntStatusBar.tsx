@@ -1,17 +1,12 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
-import { type HuntStatus } from '@/enums'
+import { useHuntStatusBar } from '@/hooks'
 import { HUNT_STATUS_CONFIG } from '@/lib/constants/hunt'
 import { cn } from '@/lib/utils'
-
-interface HuntStatusBarProps {
-  sessionId: string
-  status: HuntStatus
-}
+import type { HuntStatusBarProps } from '@/types'
 
 export function HuntStatusBar({ sessionId, status }: HuntStatusBarProps) {
-  const t = useTranslations('hunt')
+  const { t } = useHuntStatusBar()
   const config = HUNT_STATUS_CONFIG[status]
 
   return (

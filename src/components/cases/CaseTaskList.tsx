@@ -1,22 +1,13 @@
 'use client'
 
-import { useState } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Input } from '@/components/ui/input'
 import { Progress } from '@/components/ui/progress'
 import { CaseTaskStatus } from '@/enums'
-import type { CaseTask } from '@/types'
-
-interface CaseTaskListProps {
-  tasks: CaseTask[]
-  onToggleTask?: (taskId: string, completed: boolean) => void
-  onAddTask?: (title: string) => void
-  onDeleteTask?: (taskId: string) => void
-  addingTask?: boolean
-}
+import { useCaseTaskList } from '@/hooks'
+import type { CaseTaskListProps } from '@/types'
 
 export function CaseTaskList({
   tasks,
@@ -25,26 +16,16 @@ export function CaseTaskList({
   onDeleteTask,
   addingTask,
 }: CaseTaskListProps) {
-  const t = useTranslations('cases')
-  const [newTaskTitle, setNewTaskTitle] = useState('')
-
-  const completedCount = tasks.filter(task => task.status === CaseTaskStatus.COMPLETED).length
-  const totalCount = tasks.length
-  const progressValue = totalCount > 0 ? (completedCount / totalCount) * 100 : 0
-
-  const handleAddTask = () => {
-    const trimmed = newTaskTitle.trim()
-    if (trimmed && onAddTask) {
-      onAddTask(trimmed)
-      setNewTaskTitle('')
-    }
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleAddTask()
-    }
-  }
+  const {
+    t,
+    newTaskTitle,
+    setNewTaskTitle,
+    completedCount,
+    totalCount,
+    progressValue,
+    handleAddTask,
+    handleKeyDown,
+  } = useCaseTaskList({ tasks, onAddTask })
 
   return (
     <div className="flex flex-col gap-4">

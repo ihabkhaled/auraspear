@@ -1,7 +1,6 @@
 'use client'
 
 import { Sun, Moon, Monitor } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader } from '@/components/common'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -18,10 +17,9 @@ import { useSettingsPage } from '@/hooks/useSettingsPage'
 import { LOCALES } from '@/lib/constants/locales'
 
 export default function SettingsPage() {
-  const t = useTranslations('settings')
-  const tLang = useTranslations('language')
-
   const {
+    t,
+    tLang,
     mounted,
     currentLocale,
     currentTheme,
@@ -127,7 +125,7 @@ export default function SettingsPage() {
                 id="email-alerts"
                 checked={emailAlerts}
                 onCheckedChange={(checked: boolean) =>
-                  handleNotificationToggle('notificationsEmail', checked, t)
+                  handleNotificationToggle('notificationsEmail', checked)
                 }
                 disabled={updatePreferencesPending}
               />
@@ -144,7 +142,7 @@ export default function SettingsPage() {
                 id="browser-notifications"
                 checked={browserNotifications}
                 onCheckedChange={(checked: boolean) =>
-                  handleNotificationToggle('notificationsInApp', checked, t)
+                  handleNotificationToggle('notificationsInApp', checked)
                 }
                 disabled={updatePreferencesPending}
               />

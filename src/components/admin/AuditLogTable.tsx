@@ -1,8 +1,8 @@
 'use client'
 
 import { ScrollText } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
+import { useAuditLogTable } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'
 import type { AuditLogEntry, AuditLogTableProps, Column } from '@/types'
 
@@ -13,7 +13,7 @@ export function AuditLogTable({
   sortOrder,
   onSort,
 }: AuditLogTableProps) {
-  const t = useTranslations('admin')
+  const { t } = useAuditLogTable()
 
   const columns: Column<AuditLogEntry>[] = [
     {

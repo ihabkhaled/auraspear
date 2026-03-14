@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import {
   FileText,
   BarChart3,
@@ -15,12 +14,11 @@ import {
   Loader2,
   Settings2,
 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, LoadingSpinner, ErrorMessage } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ConnectorType } from '@/enums'
-import { useExplorerOverview } from '@/hooks'
+import { useExplorerOverviewPage } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { ExplorerConnectorStatus, SyncJobStatusDetail } from '@/types'
 
@@ -76,12 +74,13 @@ function ConnectorCard({
   connector,
   meta,
   onClick,
+  t,
 }: {
   connector: ExplorerConnectorStatus
   meta: (typeof CONNECTOR_EXPLORER_MAP)[string]
   onClick: () => void
+  t: ReturnType<typeof useExplorerOverviewPage>['t']
 }) {
-  const t = useTranslations('explorer')
   const Icon = meta.icon
 
   return (
@@ -125,9 +124,7 @@ function ConnectorCard({
 }
 
 export default function ExplorerOverviewPage() {
-  const t = useTranslations('explorer')
-  const router = useRouter()
-  const { data, isLoading, error } = useExplorerOverview()
+  const { t, router, data, isLoading, error } = useExplorerOverviewPage()
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={t('overview.loadError')} />
@@ -230,6 +227,7 @@ export default function ExplorerOverviewPage() {
                   connector={connector}
                   meta={meta}
                   onClick={() => router.push(meta.href)}
+                  t={t}
                 />
               )
             })}

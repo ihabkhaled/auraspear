@@ -1,4 +1,7 @@
-import type { SortOrder } from '@/enums'
+import type { ReactNode } from 'react'
+import type { SweetAlertIcon } from '@/components/common/SweetAlert'
+import type { AlertSeverity, CaseSeverity, ServiceStatus, SortOrder, StatusDotSize } from '@/enums'
+import type { LucideIcon } from 'lucide-react'
 
 export interface PaginationMeta {
   page: number
@@ -52,4 +55,160 @@ export interface ApiErrorResponse {
   messageKey?: string
   message?: string
   errors?: string[]
+}
+
+export interface PaginationProps {
+  page: number
+  totalPages: number
+  onPageChange: (page: number) => void
+  total?: number
+}
+
+export interface DataTableProps<T> {
+  columns: Column<T>[]
+  data: T[]
+  emptyMessage?: string
+  emptyIcon?: React.ReactNode
+  emptyDescription?: string
+  loading?: boolean
+  onRowClick?: ((row: T) => void) | undefined
+  selectedIds?: string[] | undefined
+  onSelectionChange?: ((ids: string[]) => void) | undefined
+  keyField?: keyof T | undefined
+  sortBy?: string | undefined
+  sortOrder?: SortOrder | undefined
+  onSort?: ((key: string, order: SortOrder) => void) | undefined
+  rowClassName?: ((row: T) => string) | undefined
+}
+
+export interface PortalShellProps {
+  children: React.ReactNode
+}
+
+export interface ProxyOptions {
+  /** Backend path (e.g. '/alerts'). Defaults to the incoming request path minus '/api' prefix. */
+  path?: string
+  /** Override HTTP method */
+  method?: string
+  /** Override request body */
+  body?: unknown
+  /** Additional query params to merge */
+  params?: Record<string, string>
+}
+
+export interface FetchOptions {
+  method?: string
+  body?: string
+}
+
+export interface CopyButtonProps {
+  value: string
+  label?: string
+}
+
+export interface EmptyStateProps {
+  icon?: ReactNode | undefined
+  title: string
+  description?: string | undefined
+  className?: string | undefined
+  children?: ReactNode | undefined
+}
+
+export interface LoadingSpinnerProps {
+  className?: string
+}
+
+export interface KPICardProps {
+  label: string
+  value: string | number
+  trend?: number | undefined
+  trendLabel?: string | undefined
+  icon: ReactNode
+  accentColor: string | undefined
+  onClick?: (() => void) | undefined
+}
+
+export interface ErrorMessageProps {
+  message?: string
+  onRetry?: () => void
+  className?: string
+}
+
+export interface RoleGuardProps {
+  children: React.ReactNode
+}
+
+export interface TimeRangeSelectorProps {
+  value: string
+  onChange: (value: string) => void
+}
+
+export interface PageHeaderProps {
+  title: string
+  description?: string
+  action?: {
+    label: string
+    icon?: ReactNode
+    onClick: () => void
+  }
+  children?: ReactNode
+}
+
+export interface MonoTextProps {
+  children: React.ReactNode
+  className?: string
+}
+
+export interface StatusDotProps {
+  status: ServiceStatus
+  size?: StatusDotSize
+}
+
+export interface MITREBadgeProps {
+  techniqueId: string
+}
+
+export interface SeverityBadgeProps {
+  severity: AlertSeverity | CaseSeverity
+}
+
+export interface ShowOptions {
+  title?: string
+  text: string
+  icon?: SweetAlertIcon
+  confirmButtonText?: string
+  cancelButtonText?: string
+}
+
+export interface ShowWithInputOptions {
+  title: string
+  placeholder?: string
+  inputValidator?: (value: string) => string | null
+  confirmButtonText?: string
+  cancelButtonText?: string
+}
+
+export interface InputResult {
+  confirmed: boolean
+  value: string
+}
+
+export interface SidebarNavItemProps {
+  icon: LucideIcon
+  label: string
+  href: string
+  active?: boolean | undefined
+  badge?: number | undefined
+  collapsed?: boolean | undefined
+  onClick?: (() => void) | undefined
+}
+
+export interface BrandLogoProps {
+  collapsed?: boolean
+}
+
+export interface ProvidersProps {
+  children: ReactNode
+  messages: Record<string, unknown>
+  locale: string
 }

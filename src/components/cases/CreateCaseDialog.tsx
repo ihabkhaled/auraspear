@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -24,8 +21,8 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { CaseSeverity } from '@/enums'
-import { createCaseSchema } from '@/lib/validation/cases.schema'
-import type { CreateCaseDialogProps, CreateCaseFormValues } from '@/types'
+import { useCreateCaseDialog } from '@/hooks/useCreateCaseDialog'
+import type { CreateCaseDialogProps } from '@/types'
 
 export function CreateCaseDialog({
   open,
@@ -35,40 +32,8 @@ export function CreateCaseDialog({
   cycleOptions = [],
   loading = false,
 }: CreateCaseDialogProps) {
-  const t = useTranslations('cases')
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<CreateCaseFormValues>({
-    resolver: zodResolver(createCaseSchema),
-    defaultValues: {
-      title: '',
-      description: '',
-      severity: CaseSeverity.MEDIUM,
-    },
-  })
-
-  // Reset form when dialog closes (covers programmatic close on success)
-  useEffect(() => {
-    if (!open) {
-      reset()
-    }
-  }, [open, reset])
-
-  const handleFormSubmit = (data: CreateCaseFormValues) => {
-    onSubmit(data)
-  }
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      reset()
-    }
-    onOpenChange(nextOpen)
-  }
+  const { t, register, handleSubmit, control, errors, handleFormSubmit, handleOpenChange } =
+    useCreateCaseDialog({ open, onOpenChange, onSubmit })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

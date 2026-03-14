@@ -1,11 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Check, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -23,121 +19,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { UserRole } from '@/enums'
-import { useCheckEmail } from '@/hooks/useAdmin'
-import { useDebounce } from '@/hooks/useDebounce'
-import type { AssignUserInput } from '@/types'
+import { useAssignUserDialog } from '@/hooks/useAssignUserDialog'
+import type { AssignUserDialogProps } from '@/types'
 
-const assignUserSchema = z.object({
-  email: z.string().email(),
-  role: z.string().min(1),
-  name: z.string().max(255),
-  password: z.string().max(128),
-})
-
-type AssignUserFormValues = z.infer<typeof assignUserSchema>
-
-export type { AssignUserFormValues }
-
-interface AssignUserDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: AssignUserInput) => void
-  loading: boolean
-  tenantId: string
-  callerRole?: UserRole | undefined
-}
-
-const ROLE_OPTIONS = [
-  { value: UserRole.GLOBAL_ADMIN, labelKey: 'roles.globalAdmin' },
-  { value: UserRole.TENANT_ADMIN, labelKey: 'roles.tenantAdmin' },
-  { value: UserRole.SOC_ANALYST_L2, labelKey: 'roles.socAnalystL2' },
-  { value: UserRole.SOC_ANALYST_L1, labelKey: 'roles.socAnalystL1' },
-  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
-  { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
-] as const
-
-export function AssignUserDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-  loading,
-  tenantId,
-  callerRole,
-}: AssignUserDialogProps) {
-  const t = useTranslations('admin')
-  const [showPassword, setShowPassword] = useState(false)
-  const [emailInput, setEmailInput] = useState('')
-  const debouncedEmail = useDebounce(emailInput, 400)
-
-  const { data: checkResult, isFetching: isCheckingEmail } = useCheckEmail(tenantId, debouncedEmail)
-
-  const emailCheck = checkResult?.data ?? null
-  const userExists = emailCheck?.exists === true
-  const alreadyInTenant = emailCheck?.alreadyInTenant === true
-  const isNewUser = emailCheck !== null && !userExists
-
-  const availableRoles =
-    callerRole === UserRole.GLOBAL_ADMIN
-      ? ROLE_OPTIONS
-      : ROLE_OPTIONS.filter(option => option.value !== UserRole.GLOBAL_ADMIN)
-
+export function AssignUserDialog(props: AssignUserDialogProps) {
+  const { loading } = props
   const {
+    t,
+    showPassword,
+    setShowPassword,
+    setEmailInput,
+    isCheckingEmail,
+    emailCheck,
+    userExists,
+    alreadyInTenant,
+    isNewUser,
+    availableRoles,
     register,
     handleSubmit,
-    reset,
     control,
-    setValue,
-    formState: { errors },
-  } = useForm<AssignUserFormValues>({
-    resolver: zodResolver(assignUserSchema),
-    defaultValues: {
-      email: '',
-      role: '',
-      name: '',
-      password: '',
-    },
-  })
-
-  // Pre-fill name when existing user is found
-  useEffect(() => {
-    if (userExists && emailCheck?.user) {
-      setValue('name', emailCheck.user.name)
-    } else if (isNewUser) {
-      setValue('name', '')
-    }
-  }, [userExists, isNewUser, emailCheck?.user, setValue])
-
-  function handleFormSubmit(values: AssignUserFormValues) {
-    const data: AssignUserInput = {
-      email: values.email,
-      role: values.role,
-    }
-
-    if (isNewUser && values.name) {
-      data.name = values.name
-    }
-    if (isNewUser && values.password) {
-      data.password = values.password
-    }
-
-    setEmailInput('')
-    setShowPassword(false)
-    reset()
-    onSubmit(data)
-  }
-
-  function handleOpenChange(value: boolean) {
-    if (!value) {
-      reset()
-      setEmailInput('')
-      setShowPassword(false)
-    }
-    onOpenChange(value)
-  }
+    errors,
+    handleFormSubmit,
+    handleOpenChange,
+  } = useAssignUserDialog(props)
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={props.open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('users.assignUser')}</DialogTitle>

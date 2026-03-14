@@ -1,10 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,89 +10,23 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useCreateTenantDialog } from '@/hooks/useCreateTenantDialog'
+import type { CreateTenantDialogProps } from '@/types'
 
-const createTenantSchema = z.object({
-  name: z.string().min(2).max(255),
-  slug: z
-    .string()
-    .min(1)
-    .max(100)
-    .regex(/^[\da-z-]+$/),
-})
-
-type CreateTenantFormValues = z.infer<typeof createTenantSchema>
-
-export type { CreateTenantFormValues }
-
-interface CreateTenantDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (values: CreateTenantFormValues) => void
-  loading: boolean
-}
-
-function generateSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .trim()
-    .replaceAll(/[^a-z\d\s-]/g, '')
-    .replaceAll(/\s+/g, '-')
-    .replaceAll(/-+/g, '-')
-}
-
-export function CreateTenantDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-  loading,
-}: CreateTenantDialogProps) {
-  const t = useTranslations('admin')
-
+export function CreateTenantDialog(props: CreateTenantDialogProps) {
+  const { loading } = props
   const {
+    t,
     register,
     handleSubmit,
-    setValue,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm<CreateTenantFormValues>({
-    resolver: zodResolver(createTenantSchema),
-    defaultValues: {
-      name: '',
-      slug: '',
-    },
-  })
-
-  // Reset form when dialog closes (covers programmatic close on success)
-  useEffect(() => {
-    if (!open) {
-      reset()
-    }
-  }, [open, reset])
-
-  const currentSlug = watch('slug')
-
-  function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const nameVal = e.target.value
-    setValue('name', nameVal)
-    if (!currentSlug || currentSlug === generateSlug(watch('name'))) {
-      setValue('slug', generateSlug(nameVal))
-    }
-  }
-
-  function handleFormSubmit(values: CreateTenantFormValues) {
-    onSubmit(values)
-  }
-
-  function handleOpenChange(value: boolean) {
-    if (!value) {
-      reset()
-    }
-    onOpenChange(value)
-  }
+    errors,
+    handleNameChange,
+    handleFormSubmit,
+    handleOpenChange,
+  } = useCreateTenantDialog(props)
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={props.open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('tenants.addTenant')}</DialogTitle>

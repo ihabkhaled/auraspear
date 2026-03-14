@@ -42,6 +42,15 @@ export function copyToClipboard(text: string): Promise<void> {
   return navigator.clipboard.writeText(text)
 }
 
+export function getNestedValue<T>(row: T, key: string): unknown {
+  return key.split('.').reduce<unknown>((obj, k) => {
+    if (obj !== null && obj !== undefined && typeof obj === 'object') {
+      return (obj as Record<string, unknown>)[k]
+    }
+    return
+  }, row)
+}
+
 /**
  * Parse InfluxDB Flux CSV response into structured rows and columns.
  * Handles the annotated CSV format returned by InfluxDB queries.

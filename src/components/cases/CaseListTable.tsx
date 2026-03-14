@@ -1,11 +1,10 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
 import { type CaseStatus, type CaseSeverity } from '@/enums'
+import { useCaseListTable } from '@/hooks'
 import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
 import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
 import { formatDate } from '@/lib/utils'
@@ -21,7 +20,7 @@ export function CaseListTable({
   currentUserId,
   isAdmin,
 }: CaseListTableProps) {
-  const t = useTranslations('cases')
+  const { t, getRowClassName } = useCaseListTable({ currentUserId, isAdmin })
 
   const columns: Column<Case>[] = [
     {
@@ -71,19 +70,6 @@ export function CaseListTable({
       ),
     },
   ]
-
-  const getRowClassName = useCallback(
-    (row: Case): string => {
-      if (currentUserId === undefined || isAdmin === true) {
-        return ''
-      }
-      if (row.ownerUserId !== currentUserId) {
-        return 'opacity-50'
-      }
-      return ''
-    },
-    [currentUserId, isAdmin]
-  )
 
   return (
     <DataTable

@@ -1,10 +1,6 @@
 import { ServiceStatus, StatusDotSize } from '@/enums'
 import { cn } from '@/lib/utils'
-
-interface StatusDotProps {
-  status: ServiceStatus
-  size?: StatusDotSize
-}
+import type { StatusDotProps } from '@/types'
 
 const STATUS_COLOR_MAP: Record<ServiceStatus, string> = {
   [ServiceStatus.HEALTHY]: 'bg-status-success',

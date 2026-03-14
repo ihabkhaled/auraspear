@@ -1,16 +1,15 @@
 'use client'
 
-import { useState, useCallback } from 'react'
 import { Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { AlertSeverity } from '@/enums'
+import { useWorkspaceSearchPanel } from '@/hooks/useWorkspaceSearchPanel'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { WorkspaceSearchRequest, WorkspaceSearchResponse, WorkspaceRecentItem } from '@/types'
+import type { WorkspaceRecentItem, WorkspaceSearchPanelProps } from '@/types'
 
 const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
   [AlertSeverity.CRITICAL]: 'bg-severity-critical text-white',
@@ -20,24 +19,8 @@ const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
   [AlertSeverity.INFO]: 'bg-severity-info',
 }
 
-interface WorkspaceSearchPanelProps {
-  onSearch: (request: WorkspaceSearchRequest) => void
-  results: WorkspaceSearchResponse | undefined
-  loading: boolean
-}
-
 export function WorkspaceSearchPanel({ onSearch, results, loading }: WorkspaceSearchPanelProps) {
-  const t = useTranslations('connectors.workspace')
-  const [query, setQuery] = useState('')
-
-  const handleSubmit = useCallback(
-    (e: React.FormEvent) => {
-      e.preventDefault()
-      if (!query.trim()) return
-      onSearch({ query: query.trim(), page: 1, pageSize: 20 })
-    },
-    [query, onSearch]
-  )
+  const { t, query, setQuery, handleSubmit } = useWorkspaceSearchPanel({ onSearch })
 
   return (
     <div className="space-y-4">

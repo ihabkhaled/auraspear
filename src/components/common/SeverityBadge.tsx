@@ -1,23 +1,14 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { type AlertSeverity, type CaseSeverity } from '@/enums'
 import {
   SEVERITY_TEXT_CLASSES,
   SEVERITY_BG_CLASSES,
   SEVERITY_BORDER_CLASSES,
 } from '@/lib/constants'
+import { getSeverityKey } from '@/lib/severity-utils'
 import { cn } from '@/lib/utils'
-
-interface SeverityBadgeProps {
-  severity: AlertSeverity | CaseSeverity
-}
-
-function getSeverityKey(
-  severity: AlertSeverity | CaseSeverity
-): keyof typeof SEVERITY_TEXT_CLASSES {
-  return severity as keyof typeof SEVERITY_TEXT_CLASSES
-}
+import type { SeverityBadgeProps } from '@/types'
 
 export function SeverityBadge({ severity }: SeverityBadgeProps) {
   const key = getSeverityKey(severity)

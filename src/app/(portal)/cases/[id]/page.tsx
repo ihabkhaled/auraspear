@@ -1,9 +1,7 @@
 'use client'
 
-import { use, useCallback, useMemo, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { use } from 'react'
 import { ArrowLeft, ChevronDown, ChevronUp, FileQuestion, Link } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   CaseDetailHeader,
   CaseTimeline,
@@ -12,248 +10,48 @@ import {
   EditCaseDialog,
   CaseComments,
 } from '@/components/cases'
-import {
-  LoadingSpinner,
-  EmptyState,
-  Toast,
-  SweetAlertDialog,
-  SweetAlertIcon,
-} from '@/components/common'
+import { LoadingSpinner, EmptyState } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { CaseSeverity, CaseStatus, CaseTaskStatus, SortOrder, UserRole } from '@/enums'
-import {
-  useCase,
-  useTenantMembers,
-  useUpdateCase,
-  useUpdateCaseTask,
-  useCreateCaseTask,
-  useDeleteCaseTask,
-  useCreateCaseArtifact,
-  useDeleteCaseArtifact,
-} from '@/hooks'
-import { useCaseCycles } from '@/hooks/useCaseCycles'
-import { getErrorKey } from '@/lib/api-error'
-import { hasRole } from '@/lib/roles'
+import { CaseStatus } from '@/enums'
+import { useCaseDetailPage } from '@/hooks/useCaseDetailPage'
 import { cn } from '@/lib/utils'
-import { useAuthStore } from '@/stores'
-import type { CaseDetailPageProps, EditCaseFormValues } from '@/types'
+import type { CaseDetailPageProps } from '@/types'
 
 export default function CaseDetailPage({ params }: CaseDetailPageProps) {
   const { id } = use(params)
-  const t = useTranslations('cases')
-  const router = useRouter()
 
-  const { data, isLoading, isError } = useCase(id)
-  const updateCase = useUpdateCase()
-  const updateTask = useUpdateCaseTask(id)
-  const createTask = useCreateCaseTask(id)
-  const deleteTask = useDeleteCaseTask(id)
-  const createArtifact = useCreateCaseArtifact(id)
-  const deleteArtifact = useDeleteCaseArtifact(id)
-  const { data: membersData } = useTenantMembers()
-  const { data: cyclesData } = useCaseCycles({
-    limit: 100,
-    sortBy: 'createdAt',
-    sortOrder: SortOrder.DESC,
-  })
-  const user = useAuthStore(s => s.user)
-  const currentUserId = user?.sub ?? ''
-  const isAdmin = user?.role ? hasRole(user.role, UserRole.TENANT_ADMIN) : false
-
-  const caseItem = data?.data
-  const members = membersData?.data ?? []
-  const cycles = (cyclesData?.data ?? []).map(c => ({ id: c.id, name: c.name, status: c.status }))
-
-  const [editDialogOpen, setEditDialogOpen] = useState(false)
-  const [descriptionExpanded, setDescriptionExpanded] = useState(false)
-
-  const ownerName = caseItem?.ownerName ?? undefined
-
-  const editInitialValues = useMemo(
-    () => ({
-      title: caseItem?.title ?? '',
-      description: caseItem?.description ?? '',
-      severity: caseItem?.severity ?? CaseSeverity.MEDIUM,
-    }),
-    [caseItem?.title, caseItem?.description, caseItem?.severity]
-  )
-
-  const handleStatusChange = useCallback(
-    (status: CaseStatus) => {
-      updateCase.mutate(
-        { id, data: { status } },
-        {
-          onSuccess: () => {
-            Toast.success(t('statusUpdated'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [id, updateCase, t]
-  )
-
-  const handleAssigneeChange = useCallback(
-    (userId: string | null) => {
-      updateCase.mutate(
-        { id, data: { ownerUserId: userId } },
-        {
-          onSuccess: () => {
-            Toast.success(t('assigneeUpdated'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [id, updateCase, t]
-  )
-
-  const handleCycleChange = useCallback(
-    (cycleId: string | null) => {
-      updateCase.mutate(
-        { id, data: { cycleId } },
-        {
-          onSuccess: () => {
-            Toast.success(t('cycleUpdated'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [id, updateCase, t]
-  )
-
-  const handleEditClick = useCallback(() => {
-    setEditDialogOpen(true)
-  }, [])
-
-  const handleEditSubmit = useCallback(
-    (formData: EditCaseFormValues) => {
-      updateCase.mutate(
-        {
-          id,
-          data: {
-            title: formData.title,
-            description: formData.description,
-            severity: formData.severity,
-          },
-        },
-        {
-          onSuccess: () => {
-            setEditDialogOpen(false)
-            Toast.success(t('caseUpdated'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [id, updateCase, t]
-  )
-
-  const handleToggleTask = useCallback(
-    (taskId: string, completed: boolean) => {
-      updateTask.mutate(
-        {
-          taskId,
-          data: {
-            status: completed ? CaseTaskStatus.COMPLETED : CaseTaskStatus.PENDING,
-          },
-        },
-        {
-          onSuccess: () => {
-            Toast.success(t('taskUpdated'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [updateTask, t]
-  )
-
-  const handleAddTask = useCallback(
-    (title: string) => {
-      createTask.mutate(
-        { title },
-        {
-          onSuccess: () => {
-            Toast.success(t('taskAdded'))
-          },
-          onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
-          },
-        }
-      )
-    },
-    [createTask, t]
-  )
-
-  const handleDeleteTask = useCallback(
-    async (taskId: string) => {
-      const confirmed = await SweetAlertDialog.show({
-        text: t('confirmDeleteTask'),
-        icon: SweetAlertIcon.QUESTION,
-      })
-      if (!confirmed) {
-        return
-      }
-      deleteTask.mutate(taskId, {
-        onSuccess: () => {
-          Toast.success(t('taskDeleted'))
-        },
-        onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
-        },
-      })
-    },
-    [deleteTask, t]
-  )
-
-  const handleAddArtifact = useCallback(
-    (artifactData: { type: string; value: string; source?: string }) => {
-      createArtifact.mutate(artifactData, {
-        onSuccess: () => {
-          Toast.success(t('artifactAdded'))
-        },
-        onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
-        },
-      })
-    },
-    [createArtifact, t]
-  )
-
-  const handleDeleteArtifact = useCallback(
-    async (artifactId: string) => {
-      const confirmed = await SweetAlertDialog.show({
-        text: t('confirmDeleteArtifact'),
-        icon: SweetAlertIcon.QUESTION,
-      })
-      if (!confirmed) {
-        return
-      }
-      deleteArtifact.mutate(artifactId, {
-        onSuccess: () => {
-          Toast.success(t('artifactDeleted'))
-        },
-        onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
-        },
-      })
-    },
-    [deleteArtifact, t]
-  )
+  const {
+    t,
+    router,
+    isLoading,
+    isError,
+    caseItem,
+    members,
+    cycles,
+    currentUserId,
+    isAdmin,
+    ownerName,
+    editDialogOpen,
+    setEditDialogOpen,
+    descriptionExpanded,
+    toggleDescription,
+    editInitialValues,
+    updateCasePending,
+    createTaskPending,
+    createArtifactPending,
+    handleStatusChange,
+    handleAssigneeChange,
+    handleCycleChange,
+    handleEditClick,
+    handleEditSubmit,
+    handleToggleTask,
+    handleAddTask,
+    handleDeleteTask,
+    handleAddArtifact,
+    handleDeleteArtifact,
+  } = useCaseDetailPage(id)
 
   if (isLoading) {
     return (
@@ -302,7 +100,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         onOpenChange={setEditDialogOpen}
         onSubmit={handleEditSubmit}
         initialValues={editInitialValues}
-        loading={updateCase.isPending}
+        loading={updateCasePending}
       />
 
       {caseItem.description && (
@@ -322,12 +120,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
               </p>
             </div>
             {caseItem.description.length > 200 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="self-center"
-                onClick={() => setDescriptionExpanded(prev => !prev)}
-              >
+              <Button variant="ghost" size="sm" className="self-center" onClick={toggleDescription}>
                 {descriptionExpanded ? (
                   <>
                     <ChevronUp className="me-1 h-4 w-4" />
@@ -404,7 +197,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 onToggleTask={handleToggleTask}
                 onAddTask={handleAddTask}
                 onDeleteTask={handleDeleteTask}
-                addingTask={createTask.isPending}
+                addingTask={createTaskPending}
               />
             </CardContent>
           </Card>
@@ -418,7 +211,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 artifacts={caseItem.artifacts ?? []}
                 onAddArtifact={handleAddArtifact}
                 onDeleteArtifact={handleDeleteArtifact}
-                addingArtifact={createArtifact.isPending}
+                addingArtifact={createArtifactPending}
               />
             </CardContent>
           </Card>

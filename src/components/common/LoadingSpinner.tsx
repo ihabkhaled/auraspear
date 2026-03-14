@@ -1,13 +1,10 @@
 import { Loader2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLoadingSpinner } from '@/hooks/useLoadingSpinner'
 import { cn } from '@/lib/utils'
-
-interface LoadingSpinnerProps {
-  className?: string
-}
+import type { LoadingSpinnerProps } from '@/types'
 
 export function LoadingSpinner({ className }: LoadingSpinnerProps) {
-  const t = useTranslations('common')
+  const { t } = useLoadingSpinner()
 
   return (
     <div className={cn('flex flex-col items-center justify-center gap-3 py-12', className)}>

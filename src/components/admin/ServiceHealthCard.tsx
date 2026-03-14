@@ -1,17 +1,13 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useServiceHealthCard } from '@/hooks'
 import { getStatusDotClass, getStatusBgHint, getStatusLabel } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'
-import type { ServiceHealth } from '@/types'
-
-interface ServiceHealthCardProps {
-  service: ServiceHealth
-}
+import type { ServiceHealthCardProps } from '@/types'
 
 export function ServiceHealthCard({ service }: ServiceHealthCardProps) {
-  const t = useTranslations('admin')
+  const { t } = useServiceHealthCard()
 
   const latencyDisplay = service.latencyMs >= 0 ? `${service.latencyMs}ms` : '-'
 

@@ -1,7 +1,6 @@
 'use client'
 
 import { Brain, Briefcase, X } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -15,7 +14,8 @@ import {
   SheetFooter,
 } from '@/components/ui/sheet'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AlertStatus } from '@/enums'
+import { type AlertStatus } from '@/enums'
+import { useAlertDetailDrawer } from '@/hooks'
 import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'
 import { getSeverityClass } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
@@ -38,27 +38,7 @@ export function AlertDetailDrawer({
   onCreateCase,
   onClose,
 }: AlertDetailDrawerProps) {
-  const t = useTranslations('alerts')
-  const tCommon = useTranslations('common')
-
-  const getStatusLabel = (status: string): string => {
-    switch (status) {
-      case AlertStatus.NEW_ALERT:
-        return t('statusNewAlert')
-      case AlertStatus.ACKNOWLEDGED:
-        return t('statusAcknowledged')
-      case AlertStatus.IN_PROGRESS:
-        return t('statusInProgress')
-      case AlertStatus.RESOLVED:
-        return t('statusResolved')
-      case AlertStatus.CLOSED:
-        return t('statusClosed')
-      case AlertStatus.FALSE_POSITIVE:
-        return t('statusFalsePositive')
-      default:
-        return status
-    }
-  }
+  const { t, tCommon, getStatusLabel } = useAlertDetailDrawer()
 
   if (!alert) {
     return null

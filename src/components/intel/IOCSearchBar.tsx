@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
 import { Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -12,19 +10,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useIOCSearchBar } from '@/hooks/useIOCSearchBar'
 import { IOC_SOURCE_OPTIONS, IOC_TYPE_OPTIONS } from '@/lib/constants/intel'
 import type { IOCSearchBarProps } from '@/types'
 
 export function IOCSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
-  const t = useTranslations('intel')
-  const [query, setQuery] = useState('')
-  const [type, setType] = useState('all')
-  const [source, setSource] = useState('all')
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSearch(query.trim(), type === 'all' ? '' : type, source === 'all' ? '' : source)
-  }
+  const { t, query, setQuery, type, setType, source, setSource, handleSubmit } = useIOCSearchBar({
+    onSearch,
+  })
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row sm:items-center">

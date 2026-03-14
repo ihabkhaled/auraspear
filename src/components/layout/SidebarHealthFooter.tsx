@@ -1,9 +1,8 @@
 'use client'
 
 import { Activity } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Progress } from '@/components/ui/progress'
-import { getHealthStatusClass, getHealthBgClass } from '@/lib/health-utils'
+import { useSidebarHealthFooter } from '@/hooks/useSidebarHealthFooter'
 import { cn } from '@/lib/utils'
 import type { SidebarHealthFooterProps } from '@/types'
 
@@ -14,9 +13,7 @@ export function SidebarHealthFooter({
   totalServices,
   maxLatencyMs,
 }: SidebarHealthFooterProps) {
-  const t = useTranslations('layout')
-  const statusClass = getHealthStatusClass(healthPercent)
-  const bgClass = getHealthBgClass(healthPercent)
+  const { t, statusClass, bgClass } = useSidebarHealthFooter(healthPercent)
 
   if (collapsed) {
     return (

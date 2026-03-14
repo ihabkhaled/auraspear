@@ -1,5 +1,6 @@
 import { AlertSeverity } from '@/enums'
-import { SEVERITY_COLORS } from '@/lib/constants'
+import type { CaseSeverity } from '@/enums'
+import { SEVERITY_COLORS, type SEVERITY_TEXT_CLASSES } from '@/lib/constants'
 
 /**
  * Returns combined bg + text + border status classes for an alert severity.
@@ -33,4 +34,14 @@ export const getSeverityClass = getSeverityVariant
 export function getSeverityColor(severity: string): string {
   const key = severity as keyof typeof SEVERITY_COLORS
   return SEVERITY_COLORS[key] ?? 'var(--muted-foreground)'
+}
+
+/**
+ * Type-safe severity key mapper for shared severity constants.
+ * Used by SeverityBadge and similar components.
+ */
+export function getSeverityKey(
+  severity: AlertSeverity | CaseSeverity
+): keyof typeof SEVERITY_TEXT_CLASSES {
+  return severity as keyof typeof SEVERITY_TEXT_CLASSES
 }

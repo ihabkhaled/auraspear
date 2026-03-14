@@ -11,12 +11,12 @@ import {
   Trash2,
   Users,
 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { UserRole, UserStatus } from '@/enums'
+import { useTenantUserTable } from '@/hooks'
 import { getStatusDotClass, getRoleBadgeClass } from '@/lib/admin-utils'
 import { getInitials } from '@/lib/case.utils'
 import { ROLE_HIERARCHY } from '@/lib/roles'
@@ -40,8 +40,7 @@ export function TenantUserTable({
   sortOrder,
   onSort,
 }: TenantUserTableProps) {
-  const t = useTranslations('admin')
-  const tCommon = useTranslations('common')
+  const { t, tCommon } = useTenantUserTable()
 
   const columns: Column<TenantUser>[] = [
     {

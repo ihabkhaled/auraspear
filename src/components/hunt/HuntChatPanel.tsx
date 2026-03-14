@@ -1,27 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { Bot, Crosshair } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import type { HuntMessage } from '@/types'
+import { useHuntChatPanel } from '@/hooks'
+import type { HuntChatPanelProps } from '@/types'
 import { ChatMessage } from './ChatMessage'
 import { HuntInputArea } from './HuntInputArea'
 
-interface HuntChatPanelProps {
-  messages: HuntMessage[]
-  onSend: (message: string) => void
-  disabled?: boolean
-}
-
 export function HuntChatPanel({ messages, onSend, disabled = false }: HuntChatPanelProps) {
-  const t = useTranslations('hunt')
-  const bottomRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
+  const { t, bottomRef } = useHuntChatPanel(messages)
 
   return (
     <div className="border-border flex w-full shrink-0 flex-col overflow-hidden border-e lg:w-[450px]">

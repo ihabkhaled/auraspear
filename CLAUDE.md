@@ -17,6 +17,9 @@
 13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component, hook, service, or API route files** — Enums → `src/enums/`, Types/Interfaces → `src/types/<domain>.types.ts`, Constants → `src/lib/constants/<domain>.ts`. Exception: file-local constants (used only in that file, e.g., a small config object) are acceptable inline at the top of the file.
 14. **NEVER put custom hooks inside component files** — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`).
 15. **NEVER put utility / pure functions inside component files** — All non-React helper functions → `src/lib/utils.ts` or domain-specific `src/lib/<domain>.utils.ts`.
+16. **NEVER call ANY hook directly in `.tsx` component files** — This includes `useState`, `useEffect`, `useMemo`, `useCallback`, `useRef`, `useTranslations`, `useRouter`, `usePathname`, `useTheme`, `useSearchParams`, `useSyncExternalStore`, store hooks (`useAuthStore`, etc.), and ALL other hooks. Extract ALL hook calls into custom hooks in `src/hooks/`. TSX files must contain ONLY JSX rendering and component structure — zero hook imports, zero hook calls.
+17. **NEVER use string literal unions** — All string literal types like `'foo' | 'bar'` MUST be enums in `src/enums/`. Use existing enums (e.g., `CaseCycleStatus.ACTIVE`) instead of hardcoded strings like `'active'`.
+18. **NEVER define Zod schemas inside component files** — All validation schemas → `src/lib/validation/<domain>.schema.ts`. Exception: schemas that use `t()` translations for error messages must stay inside the component since they depend on hook context.
 
 ---
 

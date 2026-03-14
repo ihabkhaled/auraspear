@@ -1,11 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -23,33 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { UserRole } from '@/enums'
-
-interface AddUserFormValues {
-  name: string
-  email: string
-  password: string
-  role: string
-}
-
-export type { AddUserFormValues }
-
-interface AddUserDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (values: AddUserFormValues) => void
-  loading: boolean
-  callerRole?: UserRole | undefined
-}
-
-const ROLE_OPTIONS = [
-  { value: UserRole.GLOBAL_ADMIN, labelKey: 'roles.globalAdmin' },
-  { value: UserRole.TENANT_ADMIN, labelKey: 'roles.tenantAdmin' },
-  { value: UserRole.SOC_ANALYST_L2, labelKey: 'roles.socAnalystL2' },
-  { value: UserRole.SOC_ANALYST_L1, labelKey: 'roles.socAnalystL1' },
-  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
-  { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
-] as const
+import { useAddUserDialog } from '@/hooks/useAddUserDialog'
+import type { AddUserDialogProps } from '@/types'
 
 export function AddUserDialog({
   open,
@@ -58,54 +29,18 @@ export function AddUserDialog({
   loading,
   callerRole,
 }: AddUserDialogProps) {
-  const t = useTranslations('admin')
-  const tValidation = useTranslations('errors.validation')
-  const [showPassword, setShowPassword] = useState(false)
-
-  const availableRoles =
-    callerRole === UserRole.GLOBAL_ADMIN
-      ? ROLE_OPTIONS
-      : ROLE_OPTIONS.filter(option => option.value !== UserRole.GLOBAL_ADMIN)
-
-  const schema = z.object({
-    name: z.string().min(1, tValidation('name.required')).max(255),
-    email: z
-      .string()
-      .min(1, tValidation('email.required'))
-      .email(tValidation('email.invalidEmail')),
-    password: z.string().min(8, tValidation('newPassword.tooShort')).max(128),
-    role: z.string().min(1, tValidation('role.required')),
-  })
-
   const {
+    t,
+    showPassword,
+    setShowPassword,
+    availableRoles,
     register,
     handleSubmit,
-    reset,
     control,
-    formState: { errors },
-  } = useForm<AddUserFormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      role: '',
-    },
-  })
-
-  function handleFormSubmit(values: AddUserFormValues) {
-    setShowPassword(false)
-    reset()
-    onSubmit(values)
-  }
-
-  function handleOpenChange(value: boolean) {
-    if (!value) {
-      reset()
-      setShowPassword(false)
-    }
-    onOpenChange(value)
-  }
+    errors,
+    handleFormSubmit,
+    handleOpenChange,
+  } = useAddUserDialog({ onSubmit, onOpenChange, callerRole })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

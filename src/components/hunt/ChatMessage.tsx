@@ -1,19 +1,15 @@
 'use client'
 
 import { Bot, User } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { MessageRole } from '@/enums'
+import { useChatMessage } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'
-import type { HuntMessage } from '@/types'
+import type { ChatMessageProps } from '@/types'
 import { ReasoningSteps } from './ReasoningSteps'
 
-interface ChatMessageProps {
-  message: HuntMessage
-}
-
 export function ChatMessage({ message }: ChatMessageProps) {
-  const t = useTranslations('hunt')
+  const { t } = useChatMessage()
 
   if (message.role === MessageRole.SYSTEM) {
     return (

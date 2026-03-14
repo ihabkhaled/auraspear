@@ -1,24 +1,12 @@
 'use client'
 
 import { Building2, Pencil, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Button } from '@/components/ui/button'
-import { UserRole, type SortOrder } from '@/enums'
+import { UserRole } from '@/enums'
+import { useTenantListTable } from '@/hooks'
 import { formatRelativeTime } from '@/lib/utils'
-import type { Tenant, Column } from '@/types'
-
-interface TenantListTableProps {
-  tenants: Tenant[]
-  loading: boolean
-  onTenantClick: ((tenant: Tenant) => void) | undefined
-  onEditTenant?: (tenant: Tenant) => void
-  onDeleteTenant?: (tenant: Tenant) => void
-  userRole?: UserRole
-  sortBy?: string | undefined
-  sortOrder?: SortOrder | undefined
-  onSort?: ((key: string, order: SortOrder) => void) | undefined
-}
+import type { Tenant, Column, TenantListTableProps } from '@/types'
 
 export function TenantListTable({
   tenants,
@@ -31,8 +19,7 @@ export function TenantListTable({
   sortOrder,
   onSort,
 }: TenantListTableProps) {
-  const t = useTranslations('admin')
-  const tCommon = useTranslations('common')
+  const { t, tCommon } = useTenantListTable()
 
   const isGlobalAdmin = userRole === UserRole.GLOBAL_ADMIN
 

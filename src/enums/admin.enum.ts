@@ -40,3 +40,8 @@ export enum SupportedLocale {
   IT = 'it',
   DE = 'de',
 }
+
+export enum SystemAdminTab {
+  AUDIT = 'audit',
+  APP_LOGS = 'appLogs',
+}

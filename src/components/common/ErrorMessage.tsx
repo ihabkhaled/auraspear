@@ -1,18 +1,13 @@
 'use client'
 
 import { AlertTriangle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { useErrorMessage } from '@/hooks/useErrorMessage'
 import { cn } from '@/lib/utils'
-
-interface ErrorMessageProps {
-  message?: string
-  onRetry?: () => void
-  className?: string
-}
+import type { ErrorMessageProps } from '@/types'
 
 export function ErrorMessage({ message, onRetry, className }: ErrorMessageProps) {
-  const t = useTranslations()
+  const { t } = useErrorMessage()
 
   return (
     <div className={cn('flex flex-col items-center justify-center gap-4 py-12', className)}>

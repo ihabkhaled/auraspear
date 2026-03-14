@@ -76,3 +76,12 @@ export interface EndImpersonationResponse {
     role: string
   }
 }
+
+export interface BackendLoginWithTenants extends BackendLoginResponse {
+  tenants: TenantMembershipInfo[]
+}
+
+export interface BackendRefreshResponse {
+  accessToken: string
+  refreshToken: string
+}

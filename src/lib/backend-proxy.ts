@@ -1,17 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import type { FetchOptions, ProxyOptions } from '@/types'
 
 const BACKEND_URL = process.env['BACKEND_API_URL'] ?? 'http://localhost:4000/api/v1'
-
-interface ProxyOptions {
-  /** Backend path (e.g. '/alerts'). Defaults to the incoming request path minus '/api' prefix. */
-  path?: string
-  /** Override HTTP method */
-  method?: string
-  /** Override request body */
-  body?: unknown
-  /** Additional query params to merge */
-  params?: Record<string, string>
-}
 
 /**
  * Proxies a Next.js API route request to the NestJS backend.
@@ -107,11 +97,6 @@ export class BackendError extends Error {
     this.status = status
     this.messageKey = messageKey
   }
-}
-
-interface FetchOptions {
-  method?: string
-  body?: string
 }
 
 /**

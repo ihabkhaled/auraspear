@@ -1,22 +1,8 @@
 'use client'
 
-import { CheckCircle2, Loader2, Circle } from 'lucide-react'
-import { ReasoningStepStatus } from '@/enums'
-import { REASONING_STEP_CONFIG_MAP } from '@/lib/constants/hunt'
+import { REASONING_STEP_CONFIG_MAP, STEP_ICONS } from '@/lib/constants/hunt'
 import { cn } from '@/lib/utils'
-import type { ReasoningStep } from '@/types'
-import type { LucideIcon } from 'lucide-react'
-
-interface ReasoningStepsProps {
-  steps: ReasoningStep[]
-}
-
-const STEP_ICONS: Record<ReasoningStepStatus, LucideIcon> = {
-  [ReasoningStepStatus.COMPLETED]: CheckCircle2,
-  [ReasoningStepStatus.IN_PROGRESS]: Loader2,
-  [ReasoningStepStatus.PENDING]: Circle,
-  [ReasoningStepStatus.ERROR]: Circle,
-}
+import type { ReasoningStepsProps } from '@/types'
 
 export function ReasoningSteps({ steps }: ReasoningStepsProps) {
   return (

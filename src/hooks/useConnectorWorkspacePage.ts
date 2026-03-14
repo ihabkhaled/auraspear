@@ -33,6 +33,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const t = useTranslations('connectors')
+  const tWorkspace = useTranslations('connectors.workspace')
   const tErrors = useTranslations()
   const [testing, setTesting] = useState(false)
 
@@ -199,6 +200,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   return {
     router,
     t,
+    tWorkspace,
     isValidType,
     isLoading: isCreateMode ? false : connectorLoading,
     connector,

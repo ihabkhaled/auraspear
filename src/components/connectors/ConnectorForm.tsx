@@ -1,11 +1,7 @@
 'use client'
 
-import { useState, useCallback } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller, type UseFormRegister, type FieldErrors } from 'react-hook-form'
-import { Toast } from '@/components/common'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,25 +15,11 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import { ConnectorAuthType, ConnectorType, UserRole } from '@/enums'
-import { useUpdateConnector } from '@/hooks/useConnectors'
-import { getErrorKey } from '@/lib/api-error'
-import { recordToFormValues } from '@/lib/connector-utils'
-import { BEDROCK_MODELS, AWS_REGIONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
-import { hasRole } from '@/lib/roles'
-import type { ConnectorRecord } from '@/lib/types/connectors'
-import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
-import { useAuthStore } from '@/stores'
-
-interface SecretFieldProps extends Omit<React.ComponentProps<'input'>, 'id'> {
-  id: keyof ConnectorFormValues
-  fieldDisabled: boolean
-  isVisible: boolean
-  onToggle: () => void
-  isRedacted: boolean
-  secretSavedLabel: string
-  registerFn: UseFormRegister<ConnectorFormValues>
-}
+import { ConnectorAuthType, ConnectorType } from '@/enums'
+import { useConnectorForm } from '@/hooks/useConnectorForm'
+import { BEDROCK_MODELS, AWS_REGIONS } from '@/lib/constants/connectors.constants'
+import type { ConnectorFormValues } from '@/lib/validation/connectors.schema'
+import type { ConnectorFormProps, FieldErrorProps, SecretFieldProps } from '@/types'
 
 function SecretField({
   id,
@@ -79,26 +61,12 @@ function SecretField({
   )
 }
 
-interface FieldErrorProps {
-  name: keyof ConnectorFormValues
-  errors: FieldErrors<ConnectorFormValues>
-  tValidation: ReturnType<typeof useTranslations>
-}
-
 function FieldError({ name, errors, tValidation }: FieldErrorProps) {
   const error = errors[name]
   if (!error?.message) return null
   const msg = String(error.message)
   const translated = tValidation.has(msg) ? tValidation(msg) : msg
   return <p className="text-destructive text-sm">{translated}</p>
-}
-
-interface ConnectorFormProps {
-  type: ConnectorType
-  connector: ConnectorRecord | undefined
-  readOnly?: boolean
-  onCreateSubmit?: (data: ConnectorFormValues) => void
-  createPending?: boolean
 }
 
 export function ConnectorForm({
@@ -108,142 +76,24 @@ export function ConnectorForm({
   onCreateSubmit,
   createPending,
 }: ConnectorFormProps) {
-  const t = useTranslations('connectors')
-  const tErrors = useTranslations()
-  const { user } = useAuthStore()
-  const userRole = user?.role as UserRole | undefined
-  const meta = CONNECTOR_META[type]
-  const updateMutation = useUpdateConnector(type)
-
-  const disabled = readOnly ?? !(userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false)
-
-  const tValidation = useTranslations('validation')
-
   const {
+    t,
+    tValidation,
+    disabled,
     register,
     handleSubmit,
     control,
     watch,
-    formState: { errors, isDirty },
-  } = useForm<ConnectorFormValues>({
-    resolver: zodResolver(getConnectorSchema(type)),
-    defaultValues: connector
-      ? recordToFormValues(connector)
-      : {
-          name: meta.label,
-          enabled: false,
-          authType: ConnectorAuthType.BASIC,
-          baseUrl: '',
-          apiKey: '',
-          username: '',
-          password: '',
-          token: '',
-          verifyTLS: false,
-          timeoutSeconds: 30,
-          tags: '',
-          notes: '',
-          managerUrl: '',
-          indexerUrl: '',
-          indexerUsername: '',
-          indexerPassword: '',
-          tenant: '',
-          apiUrl: '',
-          streamId: '',
-          indexSetId: '',
-          pipelineId: '',
-          orgId: '',
-          clientCert: '',
-          clientKey: '',
-          grafanaUrl: '',
-          folderId: '',
-          datasourceUid: '',
-          org: '',
-          bucket: '',
-          mispUrl: '',
-          mispAuthKey: '',
-          webhookUrl: '',
-          workflowId: '',
-          shuffleApiKey: '',
-          modelId: '',
-          region: '',
-          accessKeyId: '',
-          secretAccessKey: '',
-          endpoint: '',
-          nlHuntingEnabled: false,
-          explainableAiEnabled: false,
-          auditLoggingEnabled: false,
-        },
-  })
-
-  const authType = watch('authType')
-
-  const onSubmit = (values: ConnectorFormValues) => {
-    if (onCreateSubmit) {
-      onCreateSubmit(values)
-      return
-    }
-
-    const { name, enabled, authType, tags, ...configFields } = values
-
-    // Normalize URL fields to lowercase (user may type Https:// or HTTP://)
-    const urlKeys = [
-      'baseUrl',
-      'indexerUrl',
-      'managerUrl',
-      'apiUrl',
-      'grafanaUrl',
-      'mispUrl',
-      'webhookUrl',
-    ] as const
-    const normalizedConfig = { ...configFields }
-    for (const key of urlKeys) {
-      const val = normalizedConfig[key]
-      if (val) {
-        normalizedConfig[key] = val.toLowerCase()
-      }
-    }
-
-    // Strip out REDACTED values — backend preserves existing secrets for missing keys
-    const cleanedConfig: Record<string, unknown> = {}
-    for (const [key, val] of Object.entries(normalizedConfig)) {
-      if (val !== '***REDACTED***') {
-        cleanedConfig[key] = val
-      }
-    }
-
-    const config = {
-      ...cleanedConfig,
-      authType,
-      tags: tags
-        .split(',')
-        .map(tag => tag.trim())
-        .filter(Boolean),
-    }
-
-    updateMutation.mutate(
-      { name, enabled, authType, config },
-      {
-        onSuccess: () => {
-          Toast.success(`${meta.label} ${t('configurationSaved')}`)
-        },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
-      }
-    )
-  }
-
-  const onInvalid = () => {
-    Toast.error(tErrors('errors.common.validation'))
-  }
-
-  const [visibleSecrets, setVisibleSecrets] = useState<Record<string, boolean>>({})
-
-  const toggleSecret = useCallback((field: string) => {
-    setVisibleSecrets(prev => ({ ...prev, [field]: !prev[field] }))
-  }, [])
-
-  const secretSavedLabel = t('secretSaved')
+    errors,
+    isDirty,
+    authType,
+    onSubmit,
+    onInvalid,
+    visibleSecrets,
+    toggleSecret,
+    secretSavedLabel,
+    updateMutation,
+  } = useConnectorForm({ type, connector, readOnly, onCreateSubmit })
 
   const renderSecret = (id: keyof ConnectorFormValues) => (
     <SecretField

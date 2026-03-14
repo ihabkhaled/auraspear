@@ -1,8 +1,6 @@
 'use client'
 
-import { useState } from 'react'
 import { Plus, Building2, Users, UserPlus, UserCheck, Search, ChevronDown } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   TenantUserTable,
   TenantListTable,
@@ -27,16 +25,16 @@ import { useTenantConfigPage } from '@/hooks/useTenantConfigPage'
 import { cn } from '@/lib/utils'
 
 export default function TenantConfigPage() {
-  const t = useTranslations('admin')
-
-  const [tenantsOpen, setTenantsOpen] = useState(true)
-  const [usersOpen, setUsersOpen] = useState(true)
-
   const {
+    t,
     currentTenantId,
     userRole,
     isGlobalAdmin,
     canManageUsers,
+    tenantsOpen,
+    setTenantsOpen,
+    usersOpen,
+    setUsersOpen,
     createDialogOpen,
     setCreateDialogOpen,
     addUserDialogOpen,

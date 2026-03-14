@@ -246,6 +246,7 @@ export function useAlertsPage() {
   }, [t, tCommon, handleRowClick, handleInvestigate, handleCreateCase, handleCopyId])
 
   return {
+    t,
     selectedSeverities,
     setSeverity: handleSeverityChange,
     timeRange,

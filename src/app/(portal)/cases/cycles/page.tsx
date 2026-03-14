@@ -1,19 +1,16 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Plus, History, AlertTriangle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { CycleHistoryTable, CreateCycleDialog, EditCycleDialog } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination } from '@/components/common'
-import { useOrphanedCaseStats } from '@/hooks'
 import { useCycleHistoryPage } from '@/hooks/useCycleHistoryPage'
 
 export default function CycleHistoryPage() {
-  const t = useTranslations('cases.cycles')
-  const router = useRouter()
-
   const {
+    t,
+    router,
     isAdmin,
+    orphanedStats,
     cycles,
     isLoading,
     isFetching,
@@ -36,9 +33,6 @@ export default function CycleHistoryPage() {
     handleDeleteCycle,
     pagination,
   } = useCycleHistoryPage()
-
-  const { data: orphanedData } = useOrphanedCaseStats()
-  const orphanedStats = orphanedData?.data
 
   return (
     <div className="space-y-6">

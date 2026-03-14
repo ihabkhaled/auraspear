@@ -1,21 +1,12 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { CaseStatus } from '@/enums'
+import { useCaseKanbanBoard } from '@/hooks'
 import { KANBAN_COLUMN_CONFIG } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
-import type { Case } from '@/types'
+import type { CaseKanbanBoardProps } from '@/types'
 import { CaseKanbanCard } from './CaseKanbanCard'
-
-interface CaseKanbanBoardProps {
-  cases: Case[]
-  onCaseClick?: (caseItem: Case) => void
-  currentUserId?: string | undefined
-  isAdmin?: boolean | undefined
-}
 
 export function CaseKanbanBoard({
   cases,
@@ -23,24 +14,7 @@ export function CaseKanbanBoard({
   currentUserId,
   isAdmin,
 }: CaseKanbanBoardProps) {
-  const t = useTranslations('cases')
-
-  const groupedCases = useMemo(() => {
-    const groups: Record<CaseStatus, Case[]> = {
-      [CaseStatus.OPEN]: [],
-      [CaseStatus.IN_PROGRESS]: [],
-      [CaseStatus.CLOSED]: [],
-    }
-
-    for (const c of cases) {
-      const group = groups[c.status]
-      if (group) {
-        group.push(c)
-      }
-    }
-
-    return groups
-  }, [cases])
+  const { t, groupedCases } = useCaseKanbanBoard(cases)
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-3">

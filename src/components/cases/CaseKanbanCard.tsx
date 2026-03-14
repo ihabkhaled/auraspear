@@ -1,17 +1,17 @@
 'use client'
 
 import { Link2, Clock } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { CaseStatus } from '@/enums'
+import { useCaseKanbanCard } from '@/hooks'
 import { getInitials } from '@/lib/case.utils'
 import { CASE_SEVERITY_BORDER_COLORS } from '@/lib/constants/cases'
 import { cn, formatRelativeTime } from '@/lib/utils'
 import type { CaseKanbanCardProps } from '@/types'
 
 export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: CaseKanbanCardProps) {
-  const t = useTranslations('cases')
+  const { t } = useCaseKanbanCard()
   const isClosed = caseItem.status === CaseStatus.CLOSED
   const isDimmed =
     currentUserId !== undefined && isAdmin === false && caseItem.ownerUserId !== currentUserId

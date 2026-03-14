@@ -1,9 +1,9 @@
 'use client'
 
 import { Globe } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
+import { useMISPEventFeed } from '@/hooks'
 import { getThreatLevelVariant, truncateInfo } from '@/lib/intel-utils'
 import { formatRelativeTime } from '@/lib/utils'
 import type { MISPEvent, MISPEventFeedProps, Column } from '@/types'
@@ -17,7 +17,7 @@ export function MISPEventFeed({
   sortOrder,
   onSort,
 }: MISPEventFeedProps) {
-  const t = useTranslations('intel')
+  const { t } = useMISPEventFeed()
 
   const columns: Column<MISPEvent>[] = [
     {

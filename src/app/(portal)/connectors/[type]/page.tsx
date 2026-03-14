@@ -2,7 +2,6 @@
 
 import { use } from 'react'
 import { ArrowLeft, Play, RefreshCw, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { LoadingSpinner } from '@/components/common'
 import { ConnectorForm, SecurityIndicators } from '@/components/connectors'
 import {
@@ -19,17 +18,14 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { WorkspaceTab } from '@/enums'
 import { useConnectorWorkspacePage } from '@/hooks/useConnectorWorkspacePage'
 import { isSyncableConnector } from '@/lib/constants/connectors.constants'
-
-interface ConnectorDetailPageProps {
-  params: Promise<{ type: string }>
-}
+import type { ConnectorDetailPageProps } from '@/types'
 
 export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps) {
   const { type: rawType } = use(params)
-  const t = useTranslations('connectors')
-  const tWorkspace = useTranslations('connectors.workspace')
 
   const {
+    t,
+    tWorkspace,
     router,
     isValidType,
     isLoading,

@@ -1,9 +1,10 @@
-import { CaseStatus } from '@/enums'
+import { BadgeVariant, CaseStatus, type CaseTimelineEntryType } from '@/enums'
+import { AVATAR_COLORS, TIMELINE_TYPE_COLORS } from '@/lib/constants/cases'
 
-export const STATUS_VARIANT_MAP: Record<CaseStatus, 'default' | 'secondary' | 'outline'> = {
-  [CaseStatus.OPEN]: 'default',
-  [CaseStatus.IN_PROGRESS]: 'secondary',
-  [CaseStatus.CLOSED]: 'outline',
+export const STATUS_VARIANT_MAP: Record<CaseStatus, BadgeVariant> = {
+  [CaseStatus.OPEN]: BadgeVariant.DEFAULT,
+  [CaseStatus.IN_PROGRESS]: BadgeVariant.SECONDARY,
+  [CaseStatus.CLOSED]: BadgeVariant.OUTLINE,
 }
 
 export function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
@@ -17,6 +18,20 @@ export function getAvailableTransitions(status: CaseStatus): CaseStatus[] {
   }
 }
 
+export function getCaseRowClassName(
+  row: { ownerUserId?: string | null },
+  currentUserId: string | undefined,
+  isAdmin: boolean | undefined
+): string {
+  if (currentUserId === undefined || isAdmin === true) {
+    return ''
+  }
+  if (row.ownerUserId !== currentUserId) {
+    return 'opacity-50'
+  }
+  return ''
+}
+
 export function getInitials(name?: string | null): string {
   if (!name) return 'U'
   return name
@@ -26,4 +41,12 @@ export function getInitials(name?: string | null): string {
     .slice(0, 2)
     .join('')
     .toUpperCase()
+}
+
+export function getAvatarColor(index: number): string {
+  return AVATAR_COLORS[index % AVATAR_COLORS.length] ?? AVATAR_COLORS[0]
+}
+
+export function getTypeColor(type: CaseTimelineEntryType): string {
+  return TIMELINE_TYPE_COLORS[type] ?? 'var(--muted-foreground)'
 }

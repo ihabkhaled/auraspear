@@ -57,3 +57,15 @@ export function canAccessRoute(userRole: UserRole, pathname: string): boolean {
   }
   return true
 }
+
+/**
+ * Role options for select dropdowns in admin dialogs.
+ */
+export const ROLE_OPTIONS = [
+  { value: UserRole.GLOBAL_ADMIN, labelKey: 'roles.globalAdmin' },
+  { value: UserRole.TENANT_ADMIN, labelKey: 'roles.tenantAdmin' },
+  { value: UserRole.SOC_ANALYST_L2, labelKey: 'roles.socAnalystL2' },
+  { value: UserRole.SOC_ANALYST_L1, labelKey: 'roles.socAnalystL1' },
+  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
+  { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
+] as const

@@ -1,16 +1,12 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { LoadingSpinner } from '@/components/common'
 import { usePreferencesSync } from '@/hooks/usePreferencesSync'
+import type { PortalShellProps } from '@/types'
 import { CommandPalette } from './CommandPalette'
 import { ImpersonationBanner } from './ImpersonationBanner'
 import { Sidebar } from './Sidebar'
 import { Topbar } from './Topbar'
-
-interface PortalShellProps {
-  children: ReactNode
-}
 
 export function PortalShell({ children }: PortalShellProps) {
   const { syncing } = usePreferencesSync()

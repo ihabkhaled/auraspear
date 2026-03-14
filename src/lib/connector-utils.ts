@@ -1,6 +1,6 @@
 import { ConnectorAuthType } from '@/enums'
-import type { ConnectorRecord } from '@/lib/types/connectors'
 import type { ConnectorFormValues } from '@/lib/validation/connectors.schema'
+import type { ConnectorRecord } from '@/types'
 
 /**
  * Converts a backend `ConnectorRecord` into the form values shape

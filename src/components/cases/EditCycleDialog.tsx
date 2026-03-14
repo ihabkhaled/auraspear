@@ -1,8 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,7 +12,8 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import type { EditCycleDialogProps, EditCycleFormValues } from '@/types'
+import { useEditCycleDialog } from '@/hooks/useEditCycleDialog'
+import type { EditCycleDialogProps } from '@/types'
 
 export function EditCycleDialog({
   open,
@@ -24,41 +22,8 @@ export function EditCycleDialog({
   loading,
   cycle,
 }: EditCycleDialogProps) {
-  const t = useTranslations('cases.cycles')
-
-  const { register, handleSubmit, reset, formState } = useForm<EditCycleFormValues>({
-    defaultValues: {
-      name: '',
-      description: '',
-      startDate: '',
-      endDate: '',
-    },
-  })
-
-  // Reset form when dialog opens (populate) or closes (covers programmatic close on success)
-  useEffect(() => {
-    if (cycle && open) {
-      reset({
-        name: cycle.name,
-        description: cycle.description ?? '',
-        startDate: cycle.startDate.split('T')[0] ?? '',
-        endDate: cycle.endDate?.split('T')[0] ?? '',
-      })
-    } else if (!open) {
-      reset()
-    }
-  }, [cycle, open, reset])
-
-  const handleFormSubmit = (data: EditCycleFormValues) => {
-    onSubmit(data)
-  }
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      reset()
-    }
-    onOpenChange(nextOpen)
-  }
+  const { t, register, handleSubmit, formState, handleFormSubmit, handleOpenChange } =
+    useEditCycleDialog({ open, onOpenChange, onSubmit, cycle })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

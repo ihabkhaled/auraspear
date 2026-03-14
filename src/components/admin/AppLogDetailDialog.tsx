@@ -1,9 +1,10 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useAppLogDetailDialog } from '@/hooks'
+import { getLevelClasses } from '@/lib/admin.utils'
 import { formatTimestamp } from '@/lib/utils'
 import type { AppLogDetailDialogProps } from '@/types'
 
@@ -17,23 +18,8 @@ function DetailRow({ label, value }: { label: string; value: string | null | und
   )
 }
 
-function getLevelClasses(level: string): string {
-  switch (level) {
-    case 'error':
-      return 'bg-status-error text-white border-status-error'
-    case 'warn':
-      return 'bg-status-warning text-white border-status-warning'
-    case 'info':
-      return 'bg-status-info text-white border-status-info'
-    case 'debug':
-      return 'bg-muted text-muted-foreground border-border'
-    default:
-      return ''
-  }
-}
-
 export function AppLogDetailDialog({ log, open, onClose }: AppLogDetailDialogProps) {
-  const t = useTranslations('admin')
+  const { t } = useAppLogDetailDialog()
 
   if (!log) return null
 

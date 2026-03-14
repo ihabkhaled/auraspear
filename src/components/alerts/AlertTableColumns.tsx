@@ -1,8 +1,8 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { type AlertSeverity, AlertStatus, SortOrder } from '@/enums'
-import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'
+import { type AlertSeverity, type AlertStatus, SortOrder } from '@/enums'
+import { ALERT_STATUS_CLASSES, ALERT_STATUS_LABEL_KEYS } from '@/lib/constants/alerts'
 import { getSeverityVariant } from '@/lib/severity-utils'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { Column, Alert, AlertColumnTranslations, GetAlertColumnsOptions } from '@/types'
@@ -48,15 +48,6 @@ function MITREBadge({ techniques }: { techniques: string[] }) {
   )
 }
 
-const STATUS_LABEL_KEYS: Record<AlertStatus, string> = {
-  [AlertStatus.NEW_ALERT]: 'statusNewAlert',
-  [AlertStatus.ACKNOWLEDGED]: 'statusAcknowledged',
-  [AlertStatus.IN_PROGRESS]: 'statusInProgress',
-  [AlertStatus.RESOLVED]: 'statusResolved',
-  [AlertStatus.CLOSED]: 'statusClosed',
-  [AlertStatus.FALSE_POSITIVE]: 'statusFalsePositive',
-}
-
 export function getAlertColumns(
   t: AlertColumnTranslations,
   options?: GetAlertColumnsOptions
@@ -84,7 +75,7 @@ export function getAlertColumns(
       label: t.common('status'),
       sortable: true,
       render: (_value, row) => {
-        const labelKey = STATUS_LABEL_KEYS[row.status] ?? row.status
+        const labelKey = ALERT_STATUS_LABEL_KEYS[row.status] ?? row.status
         return <StatusBadge status={row.status} label={t.alerts(labelKey)} />
       },
     },

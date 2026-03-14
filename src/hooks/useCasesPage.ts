@@ -1,15 +1,21 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import type { CreateCaseFormValues } from '@/components/cases'
 import { Toast } from '@/components/common'
-import { CaseStatus, CaseViewMode, CaseSortField, SortOrder, UserRole } from '@/enums'
+import {
+  CaseCycleStatus,
+  CaseStatus,
+  CaseViewMode,
+  CaseSortField,
+  SortOrder,
+  UserRole,
+} from '@/enums'
 import type { CaseSeverity } from '@/enums'
 import { hasRole } from '@/lib/roles'
 import { useAuthStore } from '@/stores'
-import type { Case } from '@/types'
+import type { Case, CreateCaseFormValues } from '@/types'
 import { useActiveCycle, useCaseCycles } from './useCaseCycles'
-import { useCases, useCreateCase } from './useCases'
+import { useCases, useCreateCase, useTenantMembers } from './useCases'
 
 const VALID_CASE_STATUSES = Object.values(CaseStatus) as string[]
 
@@ -95,7 +101,31 @@ export function useCasesPage() {
     setSortOrder(order)
   }, [])
 
+  // Tenant members for assignee options
+  const { data: membersData } = useTenantMembers()
+  const membersList = membersData?.data ?? []
+
+  const assigneeOptions = useMemo(
+    () =>
+      membersList.map(m => ({
+        label: `${m.name} (${m.email})`,
+        value: m.id,
+      })),
+    [membersList]
+  )
+
+  const cycleOptions = useMemo(
+    () =>
+      (cyclesData?.data ?? []).map(c => ({
+        value: c.id,
+        label: `${c.name}${c.status === CaseCycleStatus.ACTIVE ? ` (${t('cycles.active')})` : ''}`,
+      })),
+    [cyclesData?.data, t]
+  )
+
   return {
+    t,
+    router,
     viewMode,
     setViewMode,
     severityFilter,
@@ -127,5 +157,9 @@ export function useCasesPage() {
     // Owner filter
     ownerFilter,
     setOwnerFilter,
+    // Members + computed options
+    membersList,
+    assigneeOptions,
+    cycleOptions,
   }
 }

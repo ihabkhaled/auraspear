@@ -2,11 +2,7 @@
 
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { TIME_RANGES } from '@/lib/constants'
-
-interface TimeRangeSelectorProps {
-  value: string
-  onChange: (value: string) => void
-}
+import type { TimeRangeSelectorProps } from '@/types'
 
 export function TimeRangeSelector({ value, onChange }: TimeRangeSelectorProps) {
   return (

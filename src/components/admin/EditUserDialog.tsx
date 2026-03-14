@@ -1,11 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
-import { z } from 'zod'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -23,98 +19,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { UserRole } from '@/enums'
-import type { TenantUser } from '@/types'
+import { useEditUserDialog } from '@/hooks/useEditUserDialog'
+import type { EditUserDialogProps } from '@/types'
 
-const editUserSchema = z.object({
-  name: z.string().min(1).max(255),
-  role: z.string().min(1),
-  password: z.string().max(128).optional().or(z.literal('')),
-})
-
-type EditUserFormValues = z.infer<typeof editUserSchema>
-
-export type { EditUserFormValues }
-
-const ROLE_OPTIONS = [
-  { value: UserRole.GLOBAL_ADMIN, labelKey: 'roles.globalAdmin' },
-  { value: UserRole.TENANT_ADMIN, labelKey: 'roles.tenantAdmin' },
-  { value: UserRole.SOC_ANALYST_L2, labelKey: 'roles.socAnalystL2' },
-  { value: UserRole.SOC_ANALYST_L1, labelKey: 'roles.socAnalystL1' },
-  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
-  { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
-] as const
-
-interface EditUserDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  user: TenantUser | null
-  onSubmit: (data: { name: string; role: string; password?: string }) => void
-  loading: boolean
-  callerRole?: UserRole | undefined
-}
-
-export function EditUserDialog({
-  open,
-  onOpenChange,
-  user,
-  onSubmit,
-  loading,
-  callerRole,
-}: EditUserDialogProps) {
-  const t = useTranslations('admin')
-  const [showPassword, setShowPassword] = useState(false)
-
-  const availableRoles =
-    callerRole === UserRole.GLOBAL_ADMIN
-      ? ROLE_OPTIONS
-      : ROLE_OPTIONS.filter(option => option.value !== UserRole.GLOBAL_ADMIN)
-
+export function EditUserDialog(props: EditUserDialogProps) {
+  const { loading, user } = props
   const {
+    t,
+    showPassword,
+    setShowPassword,
+    availableRoles,
     register,
     handleSubmit,
-    reset,
     control,
-    formState: { errors },
-  } = useForm<EditUserFormValues>({
-    resolver: zodResolver(editUserSchema),
-    defaultValues: {
-      name: '',
-      role: '',
-      password: '',
-    },
-  })
-
-  // Populate form when dialog opens with user data
-  useEffect(() => {
-    if (open && user) {
-      reset({ name: user.name, role: user.role, password: '' })
-    }
-  }, [open, user, reset])
-
-  function handleFormSubmit(values: EditUserFormValues) {
-    const payload: { name: string; role: string; password?: string } = {
-      name: values.name,
-      role: values.role,
-    }
-    if (values.password && values.password.length > 0) {
-      payload.password = values.password
-    }
-    setShowPassword(false)
-    reset()
-    onSubmit(payload)
-  }
-
-  function handleOpenChange(value: boolean) {
-    if (!value) {
-      reset()
-      setShowPassword(false)
-    }
-    onOpenChange(value)
-  }
+    errors,
+    handleFormSubmit,
+    handleOpenChange,
+  } = useEditUserDialog(props)
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={props.open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('users.editUser')}</DialogTitle>

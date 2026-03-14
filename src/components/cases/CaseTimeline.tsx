@@ -1,31 +1,14 @@
 'use client'
 
-import { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
-import { CaseTimelineEntryType } from '@/enums'
+import { useCaseTimeline } from '@/hooks'
+import { getTypeColor } from '@/lib/case.utils'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { CaseTimelineEntry } from '@/types'
-
-interface CaseTimelineProps {
-  entries: CaseTimelineEntry[]
-}
-
-const typeColors: Record<CaseTimelineEntryType, string> = {
-  [CaseTimelineEntryType.NOTE]: 'var(--status-info)',
-  [CaseTimelineEntryType.ALERT]: 'var(--status-warning)',
-  [CaseTimelineEntryType.STATUS]: 'var(--status-success)',
-  [CaseTimelineEntryType.ACTION]: 'var(--chart-5, hsl(270 60% 60%))',
-}
-
-function getTypeColor(type: CaseTimelineEntryType): string {
-  return typeColors[type] ?? 'var(--muted-foreground)'
-}
+import type { CaseTimelineProps } from '@/types'
 
 export function CaseTimeline({ entries }: CaseTimelineProps) {
-  const t = useTranslations('cases')
-  const [expanded, setExpanded] = useState(false)
+  const { t, expanded, toggleExpanded } = useCaseTimeline()
 
   if (entries.length === 0) {
     return (
@@ -73,12 +56,7 @@ export function CaseTimeline({ entries }: CaseTimelineProps) {
         </div>
       </div>
       {entries.length > 3 && (
-        <Button
-          variant="ghost"
-          size="sm"
-          className="self-center"
-          onClick={() => setExpanded(prev => !prev)}
-        >
+        <Button variant="ghost" size="sm" className="self-center" onClick={toggleExpanded}>
           {expanded ? (
             <>
               <ChevronUp className="me-1 h-4 w-4" />

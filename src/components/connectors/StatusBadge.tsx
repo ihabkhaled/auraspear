@@ -1,19 +1,15 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
-import { type ConnectorStatus } from '@/enums'
+import { useStatusBadge } from '@/hooks/useStatusBadge'
 import {
   CONNECTOR_STATUS_STYLES,
   CONNECTOR_STATUS_KEYS,
 } from '@/lib/constants/connectors.constants'
-
-interface StatusBadgeProps {
-  status: ConnectorStatus
-}
+import type { StatusBadgeProps } from '@/types'
 
 export function StatusBadge({ status }: StatusBadgeProps) {
-  const t = useTranslations('connectors')
+  const { t } = useStatusBadge()
   return (
     <Badge variant="outline" className={CONNECTOR_STATUS_STYLES[status]}>
       {t(CONNECTOR_STATUS_KEYS[status])}

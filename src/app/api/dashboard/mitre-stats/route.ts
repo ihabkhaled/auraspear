@@ -1,12 +1,8 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { fetchBackendJson } from '@/lib/backend-proxy'
+import type { BackendMitreResponse } from '@/types'
 
 export const dynamic = 'force-dynamic'
-
-interface BackendMitreResponse {
-  tenantId: string
-  techniques: Array<{ id: string; count: number }>
-}
 
 export async function GET(request: NextRequest) {
   try {

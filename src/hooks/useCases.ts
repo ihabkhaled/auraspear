@@ -42,13 +42,14 @@ export function useCreateCase() {
 
 export function useUpdateCase() {
   const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: UpdateCaseInput }) =>
       caseService.updateCase(id, data),
     onSuccess: (_data, { id }) => {
       void queryClient.invalidateQueries({ queryKey: ['cases'] })
-      void queryClient.invalidateQueries({ queryKey: ['cases', id] })
+      void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, id] })
     },
   })
 }

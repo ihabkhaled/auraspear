@@ -1,21 +1,10 @@
 'use client'
 
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { type HuntStatus } from '@/enums'
-import type { HuntEvent } from '@/types'
+import type { HuntResultsPanelProps } from '@/types'
 import { HuntEventTable } from './HuntEventTable'
 import { HuntStatsGrid } from './HuntStatsGrid'
 import { HuntStatusBar } from './HuntStatusBar'
-
-interface HuntResultsPanelProps {
-  sessionId: string
-  status: HuntStatus
-  eventsFound: number
-  uniqueIps: number
-  threatScore: number
-  events: HuntEvent[]
-  loading?: boolean
-}
 
 export function HuntResultsPanel({
   sessionId,

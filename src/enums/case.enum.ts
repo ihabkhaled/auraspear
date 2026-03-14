@@ -30,3 +30,8 @@ export enum CaseArtifactType {
   DOMAIN = 'domain',
   URL = 'url',
 }
+
+export enum CommentPartType {
+  TEXT = 'text',
+  MENTION = 'mention',
+}

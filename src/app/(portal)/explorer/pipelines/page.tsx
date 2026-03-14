@@ -1,16 +1,7 @@
 'use client'
 
-import { useState, useCallback, useEffect, useRef } from 'react'
 import { GitBranch, Search, RefreshCw, AlertCircle } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import {
-  PageHeader,
-  LoadingSpinner,
-  EmptyState,
-  Pagination,
-  DataTable,
-  Toast,
-} from '@/components/common'
+import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import {
@@ -20,80 +11,44 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { SortOrder } from '@/enums'
-import { useLogstashLogs, useSyncLogstash, usePagination, useDebounce } from '@/hooks'
+import { BadgeVariant, SortOrder } from '@/enums'
+import { useExplorerPipelinesPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
 import { formatDate } from '@/lib/utils'
 import type { Column, LogstashPipelineLog } from '@/types'
 
+function levelVariant(lvl: string): BadgeVariant {
+  switch (lvl) {
+    case 'error':
+      return BadgeVariant.DESTRUCTIVE
+    case 'warn':
+      return BadgeVariant.OUTLINE
+    case 'debug':
+      return BadgeVariant.SECONDARY
+    default:
+      return BadgeVariant.DEFAULT
+  }
+}
+
 export default function ExplorerPipelinesPage() {
-  const t = useTranslations('explorer')
-  const tErrors = useTranslations()
-
-  const [search, setSearch] = useState('')
-  const [level, setLevel] = useState<string>('')
-  const [sortBy, setSortBy] = useState<string | undefined>()
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
-  const debouncedSearch = useDebounce(search, 400)
-  const pagination = usePagination({ initialPage: 1, initialLimit: 20 })
-
-  const resetPageRef = useRef(pagination.resetPage)
-  useEffect(() => {
-    resetPageRef.current = pagination.resetPage
-  }, [pagination.resetPage])
-  useEffect(() => {
-    resetPageRef.current()
-  }, [debouncedSearch, level])
-
-  const { data, isLoading, isFetching, error } = useLogstashLogs({
-    page: pagination.page,
-    limit: pagination.limit,
-    search: debouncedSearch || undefined,
-    level: level || undefined,
+  const {
+    t,
+    tErrors,
+    search,
+    setSearch,
+    level,
+    setLevel,
     sortBy,
     sortOrder,
-  })
-
-  useEffect(() => {
-    if (data?.pagination) {
-      pagination.setTotal(data.pagination.total)
-    }
-  }, [data?.pagination, pagination])
-
-  const handleSort = useCallback(
-    (key: string, order: SortOrder) => {
-      pagination.setPage(1)
-      setSortBy(key)
-      setSortOrder(order)
-    },
-    [pagination]
-  )
-
-  const syncMutation = useSyncLogstash()
-
-  const handleSync = useCallback(() => {
-    syncMutation.mutate(undefined, {
-      onSuccess: () => {
-        Toast.success(t('pipelines.syncSuccess'))
-      },
-      onError: (err: unknown) => {
-        Toast.error(tErrors(getErrorKey(err)))
-      },
-    })
-  }, [syncMutation, t, tErrors])
-
-  const levelVariant = (lvl: string): 'destructive' | 'outline' | 'secondary' | 'default' => {
-    switch (lvl) {
-      case 'error':
-        return 'destructive'
-      case 'warn':
-        return 'outline'
-      case 'debug':
-        return 'secondary'
-      default:
-        return 'default'
-    }
-  }
+    data,
+    isLoading,
+    isFetching,
+    error,
+    syncMutation,
+    handleSync,
+    handleSort,
+    pagination,
+  } = useExplorerPipelinesPage()
 
   const columns: Column<LogstashPipelineLog>[] = [
     {

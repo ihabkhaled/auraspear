@@ -1,7 +1,6 @@
 'use client'
 
 import { Globe } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, Pagination, LoadingSpinner, EmptyState } from '@/components/common'
 import {
   IntelStatsGrid,
@@ -13,9 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useIntelPage } from '@/hooks/useIntelPage'
 
 export default function IntelPage() {
-  const t = useTranslations('intel')
-
   const {
+    t,
     mispData,
     mispLoading,
     mispPagination,

@@ -1,16 +1,5 @@
-import type { ReactNode } from 'react'
 import { Button } from '@/components/ui/button'
-
-interface PageHeaderProps {
-  title: string
-  description?: string
-  action?: {
-    label: string
-    icon?: ReactNode
-    onClick: () => void
-  }
-  children?: ReactNode
-}
+import type { PageHeaderProps } from '@/types'
 
 export function PageHeader({ title, description, action, children }: PageHeaderProps) {
   return (

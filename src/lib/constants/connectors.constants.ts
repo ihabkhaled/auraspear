@@ -1,17 +1,41 @@
 import {
-  Shield,
-  FileText,
-  Crosshair,
-  BarChart3,
-  Database,
-  Radar,
-  Zap,
+  Activity,
+  AlertCircle,
+  AlertTriangle,
+  ArrowDown,
+  ArrowUp,
   Brain,
+  BarChart3,
+  CheckCircle,
+  Crosshair,
+  Database,
+  FileText,
+  Folder,
+  GitBranch,
+  Globe,
+  Laptop,
+  LayoutDashboard,
+  List,
+  Monitor,
+  Radar,
+  RefreshCw,
+  Shield,
+  ShieldCheck,
+  Tag,
+  Wifi,
   Workflow,
+  Zap,
   type LucideIcon,
 } from 'lucide-react'
-import { ConnectorAuthType, ConnectorCategory, ConnectorStatus, ConnectorType } from '@/enums'
-import type { ConnectorMeta, SecurityPosture } from '@/lib/types/connectors'
+import {
+  AlertSeverity,
+  CardVariant,
+  ConnectorAuthType,
+  ConnectorCategory,
+  ConnectorStatus,
+  ConnectorType,
+} from '@/enums'
+import type { ConnectorMeta, SecurityPosture } from '@/types'
 
 export const CONNECTOR_TYPES: ConnectorType[] = [
   ConnectorType.WAZUH,
@@ -145,4 +169,44 @@ export function isConnectorType(value: string): value is ConnectorType {
 
 export function isSyncableConnector(type: ConnectorType): boolean {
   return SYNCABLE_CONNECTOR_TYPES.has(type)
+}
+
+export const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
+  [AlertSeverity.CRITICAL]: 'bg-severity-critical text-white',
+  [AlertSeverity.HIGH]: 'bg-severity-high text-white',
+  [AlertSeverity.MEDIUM]: 'bg-severity-medium text-white',
+  [AlertSeverity.LOW]: 'bg-severity-low',
+  [AlertSeverity.INFO]: 'bg-severity-info',
+}
+
+export const WORKSPACE_ICON_MAP: Record<string, LucideIcon> = {
+  activity: Activity,
+  'alert-circle': AlertCircle,
+  'alert-triangle': AlertTriangle,
+  'arrow-down': ArrowDown,
+  'arrow-up': ArrowUp,
+  brain: Brain,
+  'check-circle': CheckCircle,
+  database: Database,
+  folder: Folder,
+  'git-branch': GitBranch,
+  globe: Globe,
+  laptop: Laptop,
+  'layout-dashboard': LayoutDashboard,
+  list: List,
+  monitor: Monitor,
+  'refresh-cw': RefreshCw,
+  shield: Shield,
+  'shield-check': ShieldCheck,
+  tag: Tag,
+  wifi: Wifi,
+  workflow: Workflow,
+}
+
+export const WORKSPACE_VARIANT_CLASSES: Record<CardVariant, string> = {
+  [CardVariant.DEFAULT]: 'text-foreground',
+  [CardVariant.SUCCESS]: 'text-status-success',
+  [CardVariant.WARNING]: 'text-status-warning',
+  [CardVariant.ERROR]: 'text-status-error',
+  [CardVariant.INFO]: 'text-status-info',
 }

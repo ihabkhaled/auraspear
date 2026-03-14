@@ -1,17 +1,13 @@
 'use client'
 
 import { Swords } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Progress } from '@/components/ui/progress'
-import type { MITRETechnique } from '@/types'
-
-interface MITRETopTechniquesProps {
-  techniques: MITRETechnique[]
-}
+import { useMITRETopTechniques } from '@/hooks'
+import type { MITRETopTechniquesProps } from '@/types'
 
 export function MITRETopTechniques({ techniques }: MITRETopTechniquesProps) {
-  const t = useTranslations('dashboard')
+  const { t } = useMITRETopTechniques()
 
   if (techniques.length === 0) {
     return (

@@ -1,27 +1,18 @@
 'use client'
 
 import { ArrowLeft } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ConnectorStatus } from '@/enums'
+import { useWorkspaceHeader } from '@/hooks/useWorkspaceHeader'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { LucideIcon } from 'lucide-react'
+import type { WorkspaceHeaderProps } from '@/types'
 
 const STATUS_CLASSES: Record<string, string> = {
   [ConnectorStatus.CONNECTED]: 'bg-status-success text-status-success border-status-success',
   [ConnectorStatus.DISCONNECTED]: 'bg-status-error text-status-error border-status-error',
   [ConnectorStatus.TESTING]: 'bg-status-warning text-status-warning border-status-warning',
   [ConnectorStatus.NOT_CONFIGURED]: '',
-}
-
-interface WorkspaceHeaderProps {
-  name: string
-  description: string
-  status: string
-  lastTestedAt: string | null
-  Icon?: LucideIcon
-  onBack: () => void
 }
 
 export function WorkspaceHeader({
@@ -32,7 +23,7 @@ export function WorkspaceHeader({
   Icon,
   onBack,
 }: WorkspaceHeaderProps) {
-  const t = useTranslations('connectors')
+  const { t } = useWorkspaceHeader()
 
   return (
     <div className="flex items-center gap-4">

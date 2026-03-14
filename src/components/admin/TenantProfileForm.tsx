@@ -1,9 +1,5 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -15,21 +11,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { TenantEnvironment } from '@/enums'
-
-const tenantProfileSchema = z.object({
-  name: z.string().min(2).max(100),
-  environment: z.nativeEnum(TenantEnvironment),
-  settings: z.string().optional(),
-})
-
-type TenantProfileFormValues = z.infer<typeof tenantProfileSchema>
-
-interface TenantProfileFormProps {
-  defaultValues?: Partial<TenantProfileFormValues>
-  onSubmit: (values: TenantProfileFormValues) => void
-  onCancel: () => void
-  loading?: boolean
-}
+import { useTenantProfileForm } from '@/hooks'
+import type { TenantProfileFormProps } from '@/types'
 
 export function TenantProfileForm({
   defaultValues,
@@ -37,24 +20,9 @@ export function TenantProfileForm({
   onCancel,
   loading = false,
 }: TenantProfileFormProps) {
-  const t = useTranslations('admin')
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<TenantProfileFormValues>({
-    resolver: zodResolver(tenantProfileSchema),
-    defaultValues: {
-      name: defaultValues?.name ?? '',
-      environment: defaultValues?.environment ?? TenantEnvironment.PRODUCTION,
-      settings: defaultValues?.settings ?? '',
-    },
+  const { t, register, handleSubmit, setValue, errors, currentEnvironment } = useTenantProfileForm({
+    defaultValues,
   })
-
-  const currentEnvironment = watch('environment')
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">

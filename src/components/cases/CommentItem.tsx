@@ -1,8 +1,6 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -10,17 +8,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { CommentPartType } from '@/enums'
+import { useCommentItem } from '@/hooks'
 import { COMMENT_COLLAPSE_HEIGHT_PX } from '@/lib/constants/cases'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { CaseComment } from '@/types'
-
-interface CommentItemProps {
-  comment: CaseComment
-  currentUserId: string
-  isAdmin: boolean
-  onEdit?: (commentId: string, body: string) => void
-  onDelete?: (commentId: string) => void
-}
+import type { CommentItemProps } from '@/types'
 
 export function CommentItem({
   comment,
@@ -29,69 +21,11 @@ export function CommentItem({
   onEdit,
   onDelete,
 }: CommentItemProps) {
-  const t = useTranslations('cases.comments')
-  const [expanded, setExpanded] = useState(false)
-  const [isOverflowing, setIsOverflowing] = useState(false)
-  const contentRef = useRef<HTMLDivElement>(null)
+  const { t, expanded, isOverflowing, measureOverflow, toggleExpanded, parseMentions } =
+    useCommentItem(comment)
 
   const canModify = comment.author.id === currentUserId || isAdmin
   const showActions = canModify && (onEdit ?? onDelete)
-
-  const measureOverflow = useCallback((node: HTMLDivElement | null) => {
-    if (node) {
-      contentRef.current = node
-      setIsOverflowing(node.scrollHeight > COMMENT_COLLAPSE_HEIGHT_PX)
-    }
-  }, [])
-
-  const renderBody = useCallback(() => {
-    const { body, mentions } = comment
-
-    if (mentions.length === 0) {
-      return <p className="text-foreground text-sm break-words whitespace-pre-wrap">{body}</p>
-    }
-
-    // Build a regex to find all @Name patterns for mentioned users
-    const mentionNames = mentions.map(m => m.name)
-    const escapedNames = mentionNames.map(name => name.replaceAll(/[.*+?^${}()|[\]\\]/g, '\\$&'))
-    const mentionRegex = new RegExp(`@(${escapedNames.join('|')})`, 'g')
-
-    const parts: Array<{ type: 'text' | 'mention'; value: string }> = []
-    let lastIndex = 0
-    let match: RegExpExecArray | null = mentionRegex.exec(body)
-
-    while (match !== null) {
-      if (match.index > lastIndex) {
-        parts.push({ type: 'text', value: body.slice(lastIndex, match.index) })
-      }
-      parts.push({ type: 'mention', value: match[0] ?? '' })
-      lastIndex = match.index + (match[0]?.length ?? 0)
-      match = mentionRegex.exec(body)
-    }
-
-    if (lastIndex < body.length) {
-      parts.push({ type: 'text', value: body.slice(lastIndex) })
-    }
-
-    return (
-      <p className="text-foreground text-sm break-words whitespace-pre-wrap">
-        {parts.map((part, i) => {
-          const key = `${part.type}-${String(i)}`
-          if (part.type === 'mention') {
-            return (
-              <span
-                key={key}
-                className="bg-primary/10 text-primary rounded px-1 py-0.5 font-medium"
-              >
-                {part.value}
-              </span>
-            )
-          }
-          return <span key={key}>{part.value}</span>
-        })}
-      </p>
-    )
-  }, [comment])
 
   return (
     <div id={`comment-${comment.id}`} className="group flex gap-3 py-3">
@@ -150,7 +84,22 @@ export function CommentItem({
           )}
           style={expanded ? undefined : { maxHeight: `${String(COMMENT_COLLAPSE_HEIGHT_PX)}px` }}
         >
-          {renderBody()}
+          <p className="text-foreground text-sm break-words whitespace-pre-wrap">
+            {parseMentions().map((part, i) => {
+              const key = `${part.type}-${String(i)}`
+              if (part.type === CommentPartType.MENTION) {
+                return (
+                  <span
+                    key={key}
+                    className="bg-primary/10 text-primary rounded px-1 py-0.5 font-medium"
+                  >
+                    {part.value}
+                  </span>
+                )
+              }
+              return <span key={key}>{part.value}</span>
+            })}
+          </p>
         </div>
 
         {isOverflowing && (
@@ -158,7 +107,7 @@ export function CommentItem({
             variant="link"
             size="sm"
             className="mt-1 h-auto p-0 text-xs"
-            onClick={() => setExpanded(prev => !prev)}
+            onClick={toggleExpanded}
           >
             {expanded ? t('showLess') : t('showMore')}
           </Button>

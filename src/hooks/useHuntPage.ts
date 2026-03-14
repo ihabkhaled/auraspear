@@ -127,6 +127,7 @@ export function useHuntPage() {
   const isSending = createSession.isPending || sendMessage.isPending
 
   return {
+    t,
     mobileTab,
     setMobileTab,
     messages,

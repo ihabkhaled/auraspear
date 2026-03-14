@@ -1,10 +1,10 @@
 'use client'
 
 import { Play, RefreshCw, Workflow, Zap } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { WorkspaceQuickAction } from '@/types'
+import { useWorkspaceActionsPanel } from '@/hooks/useWorkspaceActionsPanel'
+import type { WorkspaceActionsPanelProps } from '@/types'
 import type { LucideIcon } from 'lucide-react'
 
 const ACTION_ICON_MAP: Record<string, LucideIcon> = {
@@ -14,20 +14,13 @@ const ACTION_ICON_MAP: Record<string, LucideIcon> = {
   zap: Zap,
 }
 
-interface WorkspaceActionsPanelProps {
-  actions: WorkspaceQuickAction[]
-  onExecute: (action: string, params?: Record<string, unknown>) => void
-  loading?: boolean
-  isEditor?: boolean
-}
-
 export function WorkspaceActionsPanel({
   actions,
   onExecute,
   loading,
   isEditor,
 }: WorkspaceActionsPanelProps) {
-  const t = useTranslations('connectors.workspace')
+  const { t } = useWorkspaceActionsPanel()
 
   return (
     <Card>

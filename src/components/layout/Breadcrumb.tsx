@@ -2,8 +2,6 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { useTranslations } from 'next-intl'
 import {
   Breadcrumb as BreadcrumbRoot,
   BreadcrumbList,
@@ -12,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
+import { useBreadcrumb } from '@/hooks/useBreadcrumb'
 
 const pathLabelMap: Record<string, string> = {
   dashboard: 'nav.dashboard',
@@ -25,10 +24,7 @@ const pathLabelMap: Record<string, string> = {
 }
 
 export function LayoutBreadcrumb() {
-  const pathname = usePathname()
-  const t = useTranslations()
-
-  const segments = pathname.split('/').filter(Boolean)
+  const { segments, t } = useBreadcrumb()
 
   if (segments.length === 0) {
     return null

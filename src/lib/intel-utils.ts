@@ -1,19 +1,19 @@
-export function getThreatLevelVariant(
-  level: string
-): 'destructive' | 'default' | 'secondary' | 'outline' {
+import { BadgeVariant } from '@/enums'
+
+export function getThreatLevelVariant(level: string): BadgeVariant {
   switch (level.toLowerCase()) {
     case 'critical':
     case 'high': {
-      return 'destructive'
+      return BadgeVariant.DESTRUCTIVE
     }
     case 'medium': {
-      return 'default'
+      return BadgeVariant.DEFAULT
     }
     case 'low': {
-      return 'secondary'
+      return BadgeVariant.SECONDARY
     }
     default: {
-      return 'outline'
+      return BadgeVariant.OUTLINE
     }
   }
 }

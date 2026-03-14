@@ -1,10 +1,9 @@
 'use client'
 
 import { Menu, PanelLeftOpen, Search } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { useUIStore } from '@/stores'
+import { useTopbar } from '@/hooks/useTopbar'
 import { LayoutBreadcrumb } from './Breadcrumb'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { NotificationBell } from './NotificationBell'
@@ -13,9 +12,8 @@ import { ThemeSwitcher } from './ThemeSwitcher'
 import { UserMenu } from './UserMenu'
 
 export function Topbar() {
-  const t = useTranslations('layout')
-  const { sidebarCollapsed, toggleSidebar, setMobileSidebarOpen, setCommandPaletteOpen } =
-    useUIStore()
+  const { t, sidebarCollapsed, toggleSidebar, setMobileSidebarOpen, setCommandPaletteOpen } =
+    useTopbar()
 
   return (
     <header className="border-border bg-background/90 sticky top-0 z-30 flex h-14 items-center gap-2 border-b px-3 backdrop-blur-md md:gap-4 md:px-4">

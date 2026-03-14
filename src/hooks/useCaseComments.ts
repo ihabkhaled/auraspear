@@ -23,32 +23,35 @@ export function useCaseComments(caseId: string) {
 
 export function useCreateCaseComment(caseId: string) {
   const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
     mutationFn: (data: CreateCaseCommentInput) => caseService.createComment(caseId, data),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
-      void queryClient.invalidateQueries({ queryKey: ['cases', caseId] })
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
+      void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, caseId] })
     },
   })
 }
 
 export function useUpdateCaseComment(caseId: string) {
   const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
     mutationFn: ({ commentId, data }: { commentId: string; data: UpdateCaseCommentInput }) =>
       caseService.updateComment(caseId, commentId, data),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
     },
   })
 }
 
 export function useDeleteCaseComment(caseId: string) {
   const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
     mutationFn: (commentId: string) => caseService.deleteComment(caseId, commentId),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
     },
   })
 }

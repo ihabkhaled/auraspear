@@ -1,31 +1,12 @@
 'use client'
 
-import { useState } from 'react'
 import { Copy, Check } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common/Toast'
 import { Button } from '@/components/ui/button'
-import { copyToClipboard } from '@/lib/utils'
-
-interface CopyButtonProps {
-  value: string
-  label?: string
-}
+import { useCopyButton } from '@/hooks/useCopyButton'
+import type { CopyButtonProps } from '@/types'
 
 export function CopyButton({ value, label }: CopyButtonProps) {
-  const t = useTranslations('common')
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
-    try {
-      await copyToClipboard(value)
-      setCopied(true)
-      Toast.success(t('copied'))
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      Toast.error(t('copyId'))
-    }
-  }
+  const { t, copied, handleCopy } = useCopyButton(value)
 
   return (
     <Button variant="ghost" size="icon-xs" onClick={handleCopy} aria-label={label ?? t('copyId')}>

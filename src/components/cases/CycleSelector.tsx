@@ -1,7 +1,6 @@
 'use client'
 
 import { RefreshCw } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   Select,
   SelectContent,
@@ -10,15 +9,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { CaseCycleStatus } from '@/enums'
-import type { CaseCycle } from '@/types'
-
-interface CycleSelectorProps {
-  cycles: CaseCycle[]
-  activeCycleId: string | undefined
-  selectedCycleId: string | undefined
-  onCycleChange: (cycleId: string | undefined) => void
-  loading?: boolean
-}
+import { useCycleSelector } from '@/hooks'
+import type { CycleSelectorProps } from '@/types'
 
 export function CycleSelector({
   cycles,
@@ -27,7 +19,7 @@ export function CycleSelector({
   onCycleChange,
   loading,
 }: CycleSelectorProps) {
-  const t = useTranslations('cases.cycles')
+  const { t } = useCycleSelector()
 
   return (
     <div className="flex items-center gap-2">

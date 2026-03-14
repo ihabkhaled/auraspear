@@ -1,20 +1,14 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Plus } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import type { ConnectorType } from '@/enums'
+import { useAddConnectorCard } from '@/hooks/useAddConnectorCard'
 import { CONNECTOR_ICONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
-
-interface AddConnectorCardProps {
-  connectorType: ConnectorType
-}
+import type { AddConnectorCardProps } from '@/types'
 
 export function AddConnectorCard({ connectorType }: AddConnectorCardProps) {
-  const router = useRouter()
-  const t = useTranslations('connectors')
+  const { router, t } = useAddConnectorCard()
 
   const Icon = CONNECTOR_ICONS[connectorType]
   const meta = CONNECTOR_META[connectorType]

@@ -1,19 +1,15 @@
 'use client'
 
 import { Monitor } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Badge } from '@/components/ui/badge'
+import { useTopTargetedAssets } from '@/hooks'
 import { getRiskBadgeClass } from '@/lib/dashboard.utils'
 import { cn } from '@/lib/utils'
-import type { AssetRisk } from '@/types'
-
-interface TopTargetedAssetsProps {
-  assets: AssetRisk[]
-}
+import type { TopTargetedAssetsProps } from '@/types'
 
 export function TopTargetedAssets({ assets }: TopTargetedAssetsProps) {
-  const t = useTranslations('dashboard')
+  const { t } = useTopTargetedAssets()
 
   if (assets.length === 0) {
     return (

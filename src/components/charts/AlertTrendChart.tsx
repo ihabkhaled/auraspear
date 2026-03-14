@@ -1,6 +1,5 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import {
   ResponsiveContainer,
   AreaChart,
@@ -11,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts'
+import { useAlertTrendChart } from '@/hooks'
 import { SEVERITY_COLORS } from '@/lib/constants'
 import type { AlertTrendPoint } from '@/types'
 
@@ -19,7 +19,7 @@ interface AlertTrendChartProps {
 }
 
 export function AlertTrendChart({ data }: AlertTrendChartProps) {
-  const t = useTranslations('common')
+  const { t } = useAlertTrendChart()
 
   return (
     <ResponsiveContainer width="100%" height={300}>

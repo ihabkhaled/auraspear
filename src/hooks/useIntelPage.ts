@@ -1,9 +1,11 @@
 import { useState, useCallback, useEffect } from 'react'
+import { useTranslations } from 'next-intl'
 import type { SortOrder } from '@/enums'
 import { useIntelStats, useMISPEvents, useIOCSearch } from './useIntel'
 import { usePagination } from './usePagination'
 
 export function useIntelPage() {
+  const t = useTranslations('intel')
   const [iocQuery, setIocQuery] = useState('')
   const [iocType, setIocType] = useState('')
   const [iocSource, setIocSource] = useState('')
@@ -83,6 +85,7 @@ export function useIntelPage() {
   )
 
   return {
+    t,
     mispData,
     mispLoading,
     mispPagination,

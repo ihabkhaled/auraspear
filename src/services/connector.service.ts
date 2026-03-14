@@ -1,5 +1,5 @@
 import api from '@/lib/api'
-import type { ConnectorRecord, ConnectorTestResult } from '@/lib/types/connectors'
+import type { ConnectorRecord, ConnectorTestResult } from '@/types'
 
 export const connectorService = {
   list: () => api.get<{ data: ConnectorRecord[] }>('/connectors').then(r => r.data.data),

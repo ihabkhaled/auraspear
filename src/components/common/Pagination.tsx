@@ -1,19 +1,13 @@
 'use client'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { usePaginationComponent } from '@/hooks/usePaginationComponent'
 import { cn } from '@/lib/utils'
-
-interface PaginationProps {
-  page: number
-  totalPages: number
-  onPageChange: (page: number) => void
-  total?: number
-}
+import type { PaginationProps } from '@/types'
 
 export function Pagination({ page, totalPages, onPageChange, total }: PaginationProps) {
-  const t = useTranslations('common')
+  const { t } = usePaginationComponent()
 
   const getVisiblePages = (): number[] => {
     const pages: number[] = []

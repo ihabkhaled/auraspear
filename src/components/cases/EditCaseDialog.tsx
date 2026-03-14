@@ -1,9 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useTranslations } from 'next-intl'
-import { useForm, Controller } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -24,8 +21,8 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { CaseSeverity } from '@/enums'
-import { editCaseSchema } from '@/lib/validation/cases.schema'
-import type { EditCaseDialogProps, EditCaseFormValues } from '@/types'
+import { useEditCaseDialog } from '@/hooks/useEditCaseDialog'
+import type { EditCaseDialogProps } from '@/types'
 
 export function EditCaseDialog({
   open,
@@ -34,38 +31,8 @@ export function EditCaseDialog({
   initialValues,
   loading = false,
 }: EditCaseDialogProps) {
-  const t = useTranslations('cases')
-
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm<EditCaseFormValues>({
-    resolver: zodResolver(editCaseSchema),
-    defaultValues: initialValues,
-  })
-
-  // Reset form when dialog opens (populate) or closes (covers programmatic close on success)
-  useEffect(() => {
-    if (open) {
-      reset(initialValues)
-    } else {
-      reset()
-    }
-  }, [open, initialValues, reset])
-
-  const handleFormSubmit = (data: EditCaseFormValues) => {
-    onSubmit(data)
-  }
-
-  const handleOpenChange = (nextOpen: boolean) => {
-    if (!nextOpen) {
-      reset(initialValues)
-    }
-    onOpenChange(nextOpen)
-  }
+  const { t, register, handleSubmit, control, errors, handleFormSubmit, handleOpenChange } =
+    useEditCaseDialog({ open, onOpenChange, onSubmit, initialValues })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>

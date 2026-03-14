@@ -1,12 +1,10 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
 import { Clock } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { SortOrder, SyncJobStatus } from '@/enums'
-import { useSyncJobs, usePagination } from '@/hooks'
+import { useExplorerSyncJobsPage } from '@/hooks'
 import { formatDate } from '@/lib/utils'
 import type { Column, SyncJob } from '@/types'
 
@@ -24,30 +22,8 @@ function statusVariant(status: string) {
 }
 
 export default function ExplorerSyncJobsPage() {
-  const t = useTranslations('explorer')
-
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
-  const pagination = usePagination({ initialPage: 1, initialLimit: 20 })
-
-  const { data, isLoading, isFetching } = useSyncJobs({
-    page: pagination.page,
-    limit: pagination.limit,
-    sortOrder,
-  })
-
-  useEffect(() => {
-    if (data?.pagination) {
-      pagination.setTotal(data.pagination.total)
-    }
-  }, [data?.pagination, pagination])
-
-  const handleSort = useCallback(
-    (_key: string, order: SortOrder) => {
-      pagination.setPage(1)
-      setSortOrder(order)
-    },
-    [pagination]
-  )
+  const { t, sortOrder, data, isLoading, isFetching, handleSort, pagination } =
+    useExplorerSyncJobsPage()
 
   const columns: Column<SyncJob>[] = [
     {

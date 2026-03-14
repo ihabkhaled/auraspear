@@ -2,16 +2,18 @@ import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import type {
-  CreateTenantFormValues,
-  AddUserFormValues,
-  EditTenantFormValues,
-} from '@/components/admin'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { UserRole, type SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { AssignUserInput, Tenant, TenantUser } from '@/types'
+import type {
+  AddUserFormValues,
+  AssignUserInput,
+  CreateTenantFormValues,
+  EditTenantFormValues,
+  Tenant,
+  TenantUser,
+} from '@/types'
 import {
   useTenants,
   useCurrentTenant,
@@ -44,6 +46,10 @@ export function useTenantConfigPage() {
   const isGlobalAdmin = userRole === UserRole.GLOBAL_ADMIN
   const isTenantAdmin = userRole === UserRole.TENANT_ADMIN
   const canManageUsers = isGlobalAdmin || isTenantAdmin
+
+  // Section collapse states
+  const [tenantsOpen, setTenantsOpen] = useState(true)
+  const [usersOpen, setUsersOpen] = useState(true)
 
   // Dialog states
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -514,10 +520,15 @@ export function useTenantConfigPage() {
   )
 
   return {
+    t,
     currentTenantId,
     userRole,
     isGlobalAdmin,
     canManageUsers,
+    tenantsOpen,
+    setTenantsOpen,
+    usersOpen,
+    setUsersOpen,
     createDialogOpen,
     setCreateDialogOpen,
     addUserDialogOpen,

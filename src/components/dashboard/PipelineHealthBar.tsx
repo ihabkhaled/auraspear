@@ -1,17 +1,12 @@
 'use client'
 
 import { Activity } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { EmptyState } from '@/components/common/EmptyState'
 import type { ServiceStatus } from '@/enums'
+import { usePipelineHealthBar } from '@/hooks'
 import { getStatusDotClass } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'
-import type { ServiceHealth } from '@/types'
-
-interface PipelineHealthBarProps {
-  services: ServiceHealth[]
-  onServiceClick?: ((connectorType: string) => void) | undefined
-}
+import type { PipelineHealthBarProps } from '@/types'
 
 function HealthDot({ status }: { status: ServiceStatus }) {
   return (
@@ -20,7 +15,7 @@ function HealthDot({ status }: { status: ServiceStatus }) {
 }
 
 export function PipelineHealthBar({ services, onServiceClick }: PipelineHealthBarProps) {
-  const t = useTranslations('dashboard')
+  const { t } = usePipelineHealthBar()
 
   if (services.length === 0) {
     return (

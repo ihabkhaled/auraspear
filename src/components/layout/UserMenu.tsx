@@ -1,8 +1,6 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { User, Settings, LogOut } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
   DropdownMenu,
@@ -12,22 +10,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useLogout } from '@/hooks/useLogout'
-import { getInitials } from '@/lib/case.utils'
-import { useAuthStore } from '@/stores'
+import { useUserMenu } from '@/hooks/useUserMenu'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { TenantSwitcher } from './TenantSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'
 
 export function UserMenu() {
-  const t = useTranslations('layout')
-  const router = useRouter()
-  const { user } = useAuthStore()
-  const handleLogout = useLogout()
-
-  const displayName = user?.email?.split('@')[0] ?? t('socAnalyst')
-  const displayEmail = user?.email ?? ''
-  const initials = displayName ? getInitials(displayName) : 'U'
+  const { t, router, displayName, displayEmail, initials, handleLogout } = useUserMenu()
 
   return (
     <DropdownMenu>

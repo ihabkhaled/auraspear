@@ -1,9 +1,6 @@
 'use client'
 
-import { useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import { Shield, AlertTriangle, Briefcase, Clock, BarChart3 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { Shield, BarChart3 } from 'lucide-react'
 import { AlertTrendChart } from '@/components/charts'
 import { PageHeader, KPICard, LoadingSpinner, EmptyState } from '@/components/common'
 import {
@@ -12,49 +9,26 @@ import {
   TopTargetedAssets,
   PipelineHealthBar,
 } from '@/components/dashboard'
-import { useKPIs, useAlertTrends, useMITREStats, useAssetRisks, useServiceHealth } from '@/hooks'
-import { isConnectorType } from '@/lib/constants/connectors.constants'
-import { computeHealthPercent } from '@/lib/health-utils'
-
-const KPI_ICONS = [
-  <Shield key="shield" className="h-5 w-5" />,
-  <AlertTriangle key="alert" className="h-5 w-5" />,
-  <Briefcase key="briefcase" className="h-5 w-5" />,
-  <Clock key="clock" className="h-5 w-5" />,
-]
-
-const KPI_COLORS = [
-  'var(--primary)',
-  'var(--severity-critical)',
-  'var(--status-info)',
-  'var(--status-success)',
-]
-
-const KPI_ROUTES: Record<string, string> = {
-  totalAlerts: '/alerts?timeRange=7d',
-  criticalAlerts: '/alerts?timeRange=7d&severity=critical',
-  openCases: '/cases?status=open',
-}
+import { useDashboardPage } from '@/hooks/useDashboardPage'
+import { KPI_ICONS, KPI_COLORS, KPI_ROUTES } from '@/lib/constants/dashboard'
 
 export default function DashboardPage() {
-  const t = useTranslations('dashboard')
-  const router = useRouter()
-  const { data: kpis, isLoading: kpisLoading } = useKPIs()
-  const { data: trends, isLoading: trendsLoading } = useAlertTrends()
-  const { data: mitre, isLoading: mitreLoading } = useMITREStats()
-  const { data: assets, isLoading: assetsLoading } = useAssetRisks()
-  const { data: health, isLoading: healthLoading } = useServiceHealth()
-  const healthServices = health?.data ?? []
-  const healthPercent = computeHealthPercent(healthServices)
-
-  const handleServiceClick = useCallback(
-    (connectorType: string) => {
-      if (isConnectorType(connectorType)) {
-        router.push(`/connectors/${connectorType}`)
-      }
-    },
-    [router]
-  )
+  const {
+    t,
+    kpis,
+    kpisLoading,
+    trends,
+    trendsLoading,
+    mitre,
+    mitreLoading,
+    assets,
+    assetsLoading,
+    healthLoading,
+    healthServices,
+    healthPercent,
+    handleServiceClick,
+    router,
+  } = useDashboardPage()
 
   function renderKPIs() {
     if (kpisLoading) return <LoadingSpinner />

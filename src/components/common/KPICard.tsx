@@ -1,19 +1,9 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { TrendingUp, TrendingDown } from 'lucide-react'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
-
-interface KPICardProps {
-  label: string
-  value: string | number
-  trend?: number | undefined
-  trendLabel?: string | undefined
-  icon: ReactNode
-  accentColor: string | undefined
-  onClick?: (() => void) | undefined
-}
+import type { KPICardProps } from '@/types'
 
 export function KPICard({
   label,

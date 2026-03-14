@@ -7,6 +7,8 @@ import { useAuthStore } from '@/stores'
 import { useProfile, useUpdateProfile, useChangePassword } from './useProfile'
 
 export function useProfilePage() {
+  const t = useTranslations('profile')
+  const tRoles = useTranslations('admin.roles')
   const tErrors = useTranslations()
 
   const { user } = useAuthStore()
@@ -43,7 +45,7 @@ export function useProfilePage() {
   const displayTenant = profile?.tenantSlug ?? user?.tenantSlug ?? ''
   const roleLabelKey = displayRole ? ROLE_LABEL_KEYS[displayRole] : undefined
 
-  function handleUpdateName(e: React.FormEvent, t: (key: string) => string) {
+  function handleUpdateName(e: React.FormEvent) {
     e.preventDefault()
 
     if (!name.trim()) {
@@ -64,7 +66,7 @@ export function useProfilePage() {
     )
   }
 
-  function handleChangePassword(e: React.FormEvent, t: (key: string) => string) {
+  function handleChangePassword(e: React.FormEvent) {
     e.preventDefault()
 
     if (newPassword !== confirmPassword) {
@@ -93,6 +95,8 @@ export function useProfilePage() {
   }
 
   return {
+    t,
+    tRoles,
     isLoading,
     name,
     setName,

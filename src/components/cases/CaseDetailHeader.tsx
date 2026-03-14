@@ -1,7 +1,6 @@
 'use client'
 
 import { Calendar, User, UserCheck, Edit, Trash2, ExternalLink, FolderClosed } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -12,14 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { CaseStatus } from '@/enums'
+import { CaseCycleStatus, CaseStatus } from '@/enums'
+import { useCaseDetailHeader } from '@/hooks'
 import { getAvailableTransitions, STATUS_VARIANT_MAP } from '@/lib/case.utils'
-import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
+import { CASE_STATUS_LABEL_KEYS, NO_CYCLE_VALUE, UNASSIGNED_VALUE } from '@/lib/constants/cases'
 import { formatDate } from '@/lib/utils'
 import type { CaseDetailHeaderProps } from '@/types'
-
-const UNASSIGNED_VALUE = '__unassigned__'
-const NO_CYCLE_VALUE = '__no_cycle__'
 
 export function CaseDetailHeader({
   caseItem,
@@ -33,7 +30,7 @@ export function CaseDetailHeader({
   onAssigneeChange,
   onCycleChange,
 }: CaseDetailHeaderProps) {
-  const t = useTranslations('cases')
+  const { t } = useCaseDetailHeader()
 
   const availableTransitions = getAvailableTransitions(caseItem.status)
 
@@ -141,7 +138,7 @@ export function CaseDetailHeader({
                 {cycles.map(cycle => (
                   <SelectItem key={cycle.id} value={cycle.id}>
                     {cycle.name}
-                    {cycle.status === 'active' ? ` (${t('cycles.active')})` : ''}
+                    {cycle.status === CaseCycleStatus.ACTIVE ? ` (${t('cycles.active')})` : ''}
                   </SelectItem>
                 ))}
               </SelectContent>

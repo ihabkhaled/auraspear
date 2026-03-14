@@ -1,33 +1,12 @@
 'use client'
 
-import { CheckCircle, XCircle, Loader2, Settings } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { Loader2, Settings } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { IntegrationStatus } from '@/enums'
-import { getStatusBorderClass } from '@/lib/integration-utils'
+import { useIntegrationConfigPanel } from '@/hooks'
+import { getStatusBorderClass, getStatusIcon } from '@/lib/integration-utils'
 import { cn } from '@/lib/utils'
-import type { IntegrationConfig } from '@/types'
-
-interface IntegrationConfigPanelProps {
-  integrations: IntegrationConfig[]
-  onTestConnection: (integrationId: string) => void
-  onConfigure: (integrationId: string) => void
-  testingId?: string
-}
-
-function getStatusIcon(status: IntegrationStatus) {
-  switch (status) {
-    case IntegrationStatus.CONNECTED:
-      return <CheckCircle className="text-status-success h-4 w-4" />
-    case IntegrationStatus.DISCONNECTED:
-      return <XCircle className="text-status-neutral h-4 w-4" />
-    case IntegrationStatus.ERROR:
-      return <XCircle className="text-status-error h-4 w-4" />
-    default:
-      return <XCircle className="text-status-neutral h-4 w-4" />
-  }
-}
+import type { IntegrationConfigPanelProps } from '@/types'
 
 export function IntegrationConfigPanel({
   integrations,
@@ -35,7 +14,7 @@ export function IntegrationConfigPanel({
   onConfigure,
   testingId,
 }: IntegrationConfigPanelProps) {
-  const t = useTranslations('admin')
+  const { t } = useIntegrationConfigPanel()
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

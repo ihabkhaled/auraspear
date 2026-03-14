@@ -1,9 +1,6 @@
 import { Shield } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
-
-interface MITREBadgeProps {
-  techniqueId: string
-}
+import type { MITREBadgeProps } from '@/types'
 
 export function MITREBadge({ techniqueId }: MITREBadgeProps) {
   return (

@@ -1,28 +1,13 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from 'next-themes'
-
-interface ProvidersProps {
-  children: ReactNode
-  messages: Record<string, unknown>
-  locale: string
-}
+import { useProviders } from '@/hooks/useProviders'
+import type { ProvidersProps } from '@/types'
 
 export function Providers({ children, messages, locale }: ProvidersProps) {
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: 0,
-            refetchOnWindowFocus: true,
-          },
-        },
-      })
-  )
+  const { queryClient } = useProviders()
 
   return (
     <NextIntlClientProvider messages={messages} locale={locale}>

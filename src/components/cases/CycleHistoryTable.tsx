@@ -1,28 +1,13 @@
 'use client'
 
 import { Pause, Pencil, Play, Trash2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Button } from '@/components/ui/button'
 import { CaseCycleStatus } from '@/enums'
-import type { SortOrder } from '@/enums'
+import { useCycleHistoryTable } from '@/hooks'
 import { formatDate } from '@/lib/utils'
-import type { CaseCycle, Column } from '@/types'
+import type { CaseCycle, Column, CycleHistoryTableProps } from '@/types'
 import { CycleBadge } from './CycleBadge'
-
-interface CycleHistoryTableProps {
-  cycles: CaseCycle[]
-  onCycleClick?: (cycle: CaseCycle) => void
-  loading?: boolean
-  sortBy?: string | undefined
-  sortOrder?: SortOrder | undefined
-  onSort?: ((key: string, order: SortOrder) => void) | undefined
-  showActions?: boolean
-  onEdit?: (cycle: CaseCycle) => void
-  onActivate?: (cycle: CaseCycle) => void
-  onClose?: (cycle: CaseCycle) => void
-  onDelete?: (cycle: CaseCycle) => void
-}
 
 export function CycleHistoryTable({
   cycles,
@@ -37,8 +22,7 @@ export function CycleHistoryTable({
   onClose,
   onDelete,
 }: CycleHistoryTableProps) {
-  const t = useTranslations('cases.cycles')
-  const tCommon = useTranslations('common')
+  const { t, tCommon } = useCycleHistoryTable()
 
   const columns: Column<CaseCycle>[] = [
     {

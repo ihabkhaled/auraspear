@@ -1,9 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
-import { useRouter } from 'next/navigation'
 import { Plus, FolderOpen, History } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import {
   CaseToolbar,
   CaseKanbanBoard,
@@ -15,14 +12,12 @@ import {
 import { PageHeader, LoadingSpinner, EmptyState } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { CaseViewMode } from '@/enums'
-import { useTenantMembers } from '@/hooks/useCases'
 import { useCasesPage } from '@/hooks/useCasesPage'
 
 export default function CasesPage() {
-  const t = useTranslations('cases')
-  const router = useRouter()
-
   const {
+    t,
+    router,
     viewMode,
     setViewMode,
     severityFilter,
@@ -48,27 +43,10 @@ export default function CasesPage() {
     cyclesFetching,
     ownerFilter,
     setOwnerFilter,
+    membersList,
+    assigneeOptions,
+    cycleOptions,
   } = useCasesPage()
-
-  const { data: membersData } = useTenantMembers()
-
-  const assigneeOptions = useMemo(
-    () =>
-      (membersData?.data ?? []).map(m => ({
-        label: `${m.name} (${m.email})`,
-        value: m.id,
-      })),
-    [membersData]
-  )
-
-  const cycleOptions = useMemo(
-    () =>
-      cycles.map(c => ({
-        value: c.id,
-        label: `${c.name}${c.status === 'active' ? ` (${t('cycles.active')})` : ''}`,
-      })),
-    [cycles, t]
-  )
 
   function renderCaseContent() {
     if (isLoading) return <LoadingSpinner />
@@ -127,7 +105,7 @@ export default function CasesPage() {
         />
         <div className="border-border hidden h-6 border-s sm:block" />
         <CaseOwnerFilter
-          members={membersData?.data ?? []}
+          members={membersList}
           selectedUserId={ownerFilter}
           onUserSelect={setOwnerFilter}
           currentUserId={currentUserId}

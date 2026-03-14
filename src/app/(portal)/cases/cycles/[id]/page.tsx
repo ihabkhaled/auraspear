@@ -1,65 +1,31 @@
 'use client'
 
-import { use, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
+import { use } from 'react'
 import { ArrowLeft, Lock } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { CycleBadge } from '@/components/cases'
-import { LoadingSpinner, Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
+import { LoadingSpinner } from '@/components/common'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { CaseCycleStatus, UserRole } from '@/enums'
-import { useCaseCycle, useCloseCaseCycle } from '@/hooks/useCaseCycles'
-import { getErrorKey } from '@/lib/api-error'
-import { hasRole } from '@/lib/roles'
+import { CaseCycleStatus } from '@/enums'
+import { useCycleDetailPage } from '@/hooks/useCycleDetailPage'
 import { formatDate } from '@/lib/utils'
-import { useAuthStore } from '@/stores'
 import type { Case, Column } from '@/types'
 
 export default function CycleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
-  const t = useTranslations('cases.cycles')
-  const tCases = useTranslations('cases')
-  const tErrors = useTranslations()
-  const router = useRouter()
-  const user = useAuthStore(s => s.user)
 
-  const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
-  const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
-
-  const { data: cycleData, isLoading } = useCaseCycle(id)
-  const closeCycle = useCloseCaseCycle()
-
-  const cycle = cycleData?.data
-
-  const handleCloseCycle = useCallback(async () => {
-    if (!cycle) {
-      return
-    }
-    const confirmed = await SweetAlertDialog.show({
-      title: t('closeCycle'),
-      text: t('confirmCloseCycle'),
-      icon: SweetAlertIcon.WARNING,
-    })
-    if (!confirmed) {
-      return
-    }
-    closeCycle.mutate(
-      { id: cycle.id, data: {} },
-      {
-        onSuccess: () => Toast.success(t('cycleClosed')),
-        onError: (error: unknown) => Toast.error(tErrors(getErrorKey(error))),
-      }
-    )
-  }, [cycle, closeCycle, t, tErrors])
-
-  const handleCaseClick = useCallback(
-    (caseItem: Case) => {
-      router.push(`/cases/${caseItem.id}`)
-    },
-    [router]
-  )
+  const {
+    t,
+    tCases,
+    router,
+    isLoading,
+    isAdmin,
+    cycle,
+    closeCyclePending,
+    handleCloseCycle,
+    handleCaseClick,
+  } = useCycleDetailPage(id)
 
   if (isLoading) {
     return <LoadingSpinner />
@@ -119,7 +85,7 @@ export default function CycleDetailPage({ params }: { params: Promise<{ id: stri
               variant="outline"
               size="sm"
               onClick={handleCloseCycle}
-              disabled={closeCycle.isPending}
+              disabled={closeCyclePending}
               className="shrink-0 self-start"
             >
               <Lock className="me-2 h-4 w-4" />

@@ -1,23 +1,12 @@
 'use client'
 
-import { useCallback, useMemo, useRef, useState } from 'react'
 import { Send } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { useMentionableUsers } from '@/hooks'
-import { useDebounce } from '@/hooks/useDebounce'
-import { COMMENT_MAX_LENGTH, COMMENT_MENTIONS_MAX } from '@/lib/constants/cases'
+import { useCommentComposer } from '@/hooks'
+import { COMMENT_MAX_LENGTH } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'
-import type { MentionableUser } from '@/types'
-
-interface CommentComposerProps {
-  caseId: string
-  currentUserId: string
-  onSubmit: (body: string, mentionedUserIds: string[]) => void
-  loading?: boolean
-  disabled?: boolean
-}
+import type { CommentComposerProps } from '@/types'
 
 export function CommentComposer({
   caseId,
@@ -26,109 +15,18 @@ export function CommentComposer({
   loading,
   disabled,
 }: CommentComposerProps) {
-  const t = useTranslations('cases.comments')
-  const [body, setBody] = useState('')
-  const [mentionQuery, setMentionQuery] = useState('')
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const [selectedMentions, setSelectedMentions] = useState<MentionableUser[]>([])
-  const [cursorPosition, setCursorPosition] = useState(0)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-
-  const debouncedMentionQuery = useDebounce(mentionQuery, 300)
-  const { data: rawSuggestions } = useMentionableUsers(caseId, debouncedMentionQuery)
-
-  // Filter out the current user from mention suggestions (cannot mention yourself)
-  const mentionSuggestions = useMemo(
-    () => rawSuggestions?.filter(user => user.id !== currentUserId),
-    [rawSuggestions, currentUserId]
-  )
-
-  const extractMentionQuery = useCallback((text: string, cursor: number): string | null => {
-    const beforeCursor = text.slice(0, cursor)
-    const match = /@(\w*)$/.exec(beforeCursor)
-    if (match) {
-      return match[1] ?? ''
-    }
-    return null
-  }, [])
-
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const newValue = e.target.value
-      if (newValue.length > COMMENT_MAX_LENGTH) return
-      setBody(newValue)
-
-      const cursor = e.target.selectionStart ?? 0
-      setCursorPosition(cursor)
-
-      const query = extractMentionQuery(newValue, cursor)
-      if (query !== null && query.length >= 1) {
-        setMentionQuery(query)
-        setShowSuggestions(true)
-      } else {
-        setShowSuggestions(false)
-        setMentionQuery('')
-      }
-    },
-    [extractMentionQuery]
-  )
-
-  const handleSelectMention = useCallback(
-    (user: MentionableUser) => {
-      const beforeCursor = body.slice(0, cursorPosition)
-      const afterCursor = body.slice(cursorPosition)
-
-      const atIndex = beforeCursor.lastIndexOf('@')
-      if (atIndex === -1) return
-
-      const newBody = `${beforeCursor.slice(0, atIndex)}@${user.name} ${afterCursor}`
-      setBody(newBody)
-      setShowSuggestions(false)
-      setMentionQuery('')
-
-      if (
-        !selectedMentions.some(m => m.id === user.id) &&
-        selectedMentions.length < COMMENT_MENTIONS_MAX
-      ) {
-        setSelectedMentions(prev => [...prev, user])
-      }
-
-      // Refocus textarea
-      setTimeout(() => {
-        const newCursor = atIndex + user.name.length + 2
-        textareaRef.current?.focus()
-        textareaRef.current?.setSelectionRange(newCursor, newCursor)
-      }, 0)
-    },
-    [body, cursorPosition, selectedMentions]
-  )
-
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-      if (e.key === 'Escape' && showSuggestions) {
-        setShowSuggestions(false)
-        e.preventDefault()
-      } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-        e.preventDefault()
-        const trimmed = body.trim()
-        if (trimmed.length > 0 && !loading) {
-          const mentionedUserIds = selectedMentions.map(m => m.id)
-          onSubmit(trimmed, mentionedUserIds)
-        }
-      }
-    },
-    [showSuggestions, body, loading, selectedMentions, onSubmit]
-  )
-
-  const handleSubmit = useCallback(() => {
-    const trimmed = body.trim()
-    if (trimmed.length === 0) return
-
-    const mentionedUserIds = selectedMentions.map(m => m.id)
-    onSubmit(trimmed, mentionedUserIds)
-  }, [body, selectedMentions, onSubmit])
-
-  const isValid = body.trim().length > 0
+  const {
+    t,
+    body,
+    textareaRef,
+    mentionSuggestions,
+    showSuggestions,
+    isValid,
+    handleChange,
+    handleKeyDown,
+    handleSubmit,
+    handleSelectMention,
+  } = useCommentComposer({ caseId, currentUserId, onSubmit, loading })
 
   return (
     <div className="relative flex flex-col gap-2">

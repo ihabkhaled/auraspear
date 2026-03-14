@@ -104,3 +104,19 @@ export interface AIInvestigationModalProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
+
+export interface ParsedKQLQuery {
+  query?: string
+  severity?: string
+  status?: string
+  agentName?: string
+  ruleGroup?: string
+  source?: string
+}
+
+export interface KQLSearchBarProps {
+  value: string
+  onChange: (value: string) => void
+  onSubmit: () => void
+  onSavedSearches?: () => void
+}

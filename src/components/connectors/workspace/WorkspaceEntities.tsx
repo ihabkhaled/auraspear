@@ -1,21 +1,13 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { Pagination } from '@/components/common/Pagination'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { WorkspaceEntityStatus } from '@/enums'
+import { useWorkspaceEntitiesComponent } from '@/hooks/useWorkspaceEntitiesComponent'
 import { cn, formatTimestamp } from '@/lib/utils'
-import type { Column, WorkspaceEntity } from '@/types'
-
-interface WorkspaceEntitiesProps {
-  entities: WorkspaceEntity[]
-  total: number
-  page: number
-  pageSize: number
-  loading?: boolean
-  onPageChange?: (page: number) => void
-}
+import type { Column, WorkspaceEntity, WorkspaceEntitiesProps } from '@/types'
 
 export function WorkspaceEntities({
   entities,
@@ -25,7 +17,7 @@ export function WorkspaceEntities({
   loading,
   onPageChange,
 }: WorkspaceEntitiesProps) {
-  const t = useTranslations('connectors.workspace')
+  const { t } = useWorkspaceEntitiesComponent()
   const totalPages = Math.ceil(total / pageSize)
 
   const columns: Column<WorkspaceEntity>[] = [
@@ -50,12 +42,12 @@ export function WorkspaceEntities({
         const status = value as string | undefined
         if (!status) return null
         const statusClass =
-          status === 'active' ||
-          status === 'seen' ||
-          status === 'available' ||
-          status === 'published'
+          status === WorkspaceEntityStatus.ACTIVE ||
+          status === WorkspaceEntityStatus.SEEN ||
+          status === WorkspaceEntityStatus.AVAILABLE ||
+          status === WorkspaceEntityStatus.PUBLISHED
             ? 'bg-status-success text-white border-status-success'
-            : status === 'inactive' || status === 'draft'
+            : status === WorkspaceEntityStatus.INACTIVE || status === WorkspaceEntityStatus.DRAFT
               ? 'bg-status-warning text-white border-status-warning'
               : ''
         return (

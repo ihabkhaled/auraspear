@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useCallback } from 'react'
 import {
   ResponsiveContainer,
   BarChart,
@@ -11,6 +10,7 @@ import {
   Tooltip,
   Cell,
 } from 'recharts'
+import { useMITREBarChart } from '@/hooks/useMITREBarChart'
 import type { MITRETechnique } from '@/types'
 
 interface MITREBarChartProps {
@@ -18,14 +18,7 @@ interface MITREBarChartProps {
 }
 
 export function MITREBarChart({ data }: MITREBarChartProps) {
-  const [isNarrow, setIsNarrow] = useState(false)
-
-  const handleResize = useCallback((width: number) => {
-    setIsNarrow(width < 400)
-  }, [])
-
-  const yAxisWidth = isNarrow ? 50 : 75
-  const leftMargin = isNarrow ? 55 : 80
+  const { isNarrow, handleResize, yAxisWidth, leftMargin } = useMITREBarChart()
 
   return (
     <ResponsiveContainer width="100%" height={300} onResize={handleResize}>

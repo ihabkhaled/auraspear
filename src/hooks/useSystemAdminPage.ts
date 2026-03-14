@@ -1,15 +1,32 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { SortOrder } from '@/enums'
+import { useTranslations } from 'next-intl'
+import { SortOrder, SystemAdminTab } from '@/enums'
+import type { ApplicationLogEntry } from '@/types'
 import { useServiceHealth, useAuditLogs } from './useAdmin'
 import { useAppLogs } from './useAppLogs'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 
 export function useSystemAdminPage() {
+  const t = useTranslations('admin')
   const { data: healthData, isLoading: healthLoading, isError: healthError } = useServiceHealth()
 
+  // App log detail dialog
+  const [selectedLog, setSelectedLog] = useState<ApplicationLogEntry | null>(null)
+  const [detailOpen, setDetailOpen] = useState(false)
+
+  const handleLogClick = useCallback((log: ApplicationLogEntry) => {
+    setSelectedLog(log)
+    setDetailOpen(true)
+  }, [])
+
+  const handleDetailClose = useCallback(() => {
+    setDetailOpen(false)
+    setSelectedLog(null)
+  }, [])
+
   // Active tab
-  const [activeTab, setActiveTab] = useState<'audit' | 'appLogs'>('audit')
+  const [activeTab, setActiveTab] = useState<SystemAdminTab>(SystemAdminTab.AUDIT)
 
   // ── Audit logs state ──
   const auditPagination = usePagination({ initialPage: 1, initialLimit: 10 })
@@ -95,6 +112,8 @@ export function useSystemAdminPage() {
   }, [appLogPagination])
 
   return {
+    t,
+
     // Tab
     activeTab,
     setActiveTab,
@@ -103,6 +122,12 @@ export function useSystemAdminPage() {
     healthData,
     healthLoading,
     healthError,
+
+    // App log detail dialog
+    selectedLog,
+    detailOpen,
+    handleLogClick,
+    handleDetailClose,
 
     // Audit logs
     auditData,

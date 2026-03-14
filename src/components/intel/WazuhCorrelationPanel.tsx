@@ -1,10 +1,10 @@
 'use client'
 
 import { Link2 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { DataTable } from '@/components/common/DataTable'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import type { AlertSeverity } from '@/enums'
+import { useWazuhCorrelationPanel } from '@/hooks'
 import { formatRelativeTime } from '@/lib/utils'
 import type { IOCCorrelation, WazuhCorrelationPanelProps, Column } from '@/types'
 
@@ -15,7 +15,7 @@ export function WazuhCorrelationPanel({
   sortOrder,
   onSort,
 }: WazuhCorrelationPanelProps) {
-  const t = useTranslations('intel')
+  const { t } = useWazuhCorrelationPanel()
 
   const columns: Column<IOCCorrelation>[] = [
     {

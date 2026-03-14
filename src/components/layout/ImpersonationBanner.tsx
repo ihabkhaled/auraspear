@@ -1,54 +1,11 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { useQueryClient } from '@tanstack/react-query'
 import { EyeOff, LogOut } from 'lucide-react'
-import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Button } from '@/components/ui/button'
-import { type UserRole } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
-import { authService } from '@/services/auth.service'
-import { useAuthStore, useTenantStore } from '@/stores'
+import { useImpersonationBanner } from '@/hooks/useImpersonationBanner'
 
 export function ImpersonationBanner() {
-  const t = useTranslations('impersonation')
-  const tErrors = useTranslations()
-  const router = useRouter()
-  const queryClient = useQueryClient()
-  const { impersonator, user, setTokens, setUser, endImpersonation } = useAuthStore()
-  const { setCurrentTenant } = useTenantStore()
-  const [ending, setEnding] = useState(false)
-
-  const handleEndImpersonation = useCallback(async () => {
-    setEnding(true)
-    try {
-      const { data } = await authService.endImpersonation()
-
-      // Restore admin session
-      setTokens(data.accessToken, data.refreshToken)
-      setUser({
-        sub: data.user.sub,
-        email: data.user.email,
-        tenantId: data.user.tenantId,
-        tenantSlug: data.user.tenantSlug,
-        role: data.user.role as UserRole,
-      })
-      endImpersonation()
-      setCurrentTenant(data.user.tenantId)
-
-      // Clear stale query cache
-      queryClient.clear()
-
-      Toast.success(t('ended'))
-      router.push('/admin/tenant')
-    } catch (error) {
-      Toast.error(tErrors(getErrorKey(error)))
-    } finally {
-      setEnding(false)
-    }
-  }, [setTokens, setUser, endImpersonation, setCurrentTenant, queryClient, router, t, tErrors])
+  const { t, impersonator, user, ending, handleEndImpersonation } = useImpersonationBanner()
 
   if (!impersonator) {
     return null
