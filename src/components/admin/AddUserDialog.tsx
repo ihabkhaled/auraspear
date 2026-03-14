@@ -25,14 +25,12 @@ import {
 } from '@/components/ui/select'
 import { UserRole } from '@/enums'
 
-const addUserSchema = z.object({
-  name: z.string().min(1).max(255),
-  email: z.string().email(),
-  password: z.string().min(8).max(128),
-  role: z.string().min(1),
-})
-
-type AddUserFormValues = z.infer<typeof addUserSchema>
+interface AddUserFormValues {
+  name: string
+  email: string
+  password: string
+  role: string
+}
 
 export type { AddUserFormValues }
 
@@ -61,12 +59,23 @@ export function AddUserDialog({
   callerRole,
 }: AddUserDialogProps) {
   const t = useTranslations('admin')
+  const tValidation = useTranslations('errors.validation')
   const [showPassword, setShowPassword] = useState(false)
 
   const availableRoles =
     callerRole === UserRole.GLOBAL_ADMIN
       ? ROLE_OPTIONS
       : ROLE_OPTIONS.filter(option => option.value !== UserRole.GLOBAL_ADMIN)
+
+  const schema = z.object({
+    name: z.string().min(1, tValidation('name.required')).max(255),
+    email: z
+      .string()
+      .min(1, tValidation('email.required'))
+      .email(tValidation('email.invalidEmail')),
+    password: z.string().min(8, tValidation('newPassword.tooShort')).max(128),
+    role: z.string().min(1, tValidation('role.required')),
+  })
 
   const {
     register,
@@ -75,7 +84,7 @@ export function AddUserDialog({
     control,
     formState: { errors },
   } = useForm<AddUserFormValues>({
-    resolver: zodResolver(addUserSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       name: '',
       email: '',
@@ -85,6 +94,8 @@ export function AddUserDialog({
   })
 
   function handleFormSubmit(values: AddUserFormValues) {
+    setShowPassword(false)
+    reset()
     onSubmit(values)
   }
 

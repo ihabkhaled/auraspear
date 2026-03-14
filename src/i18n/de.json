@@ -14,7 +14,8 @@
     "main": "Hauptmenü",
     "intelligence": "Intelligence",
     "system": "System",
-    "connectors": "Konnektoren"
+    "connectors": "Konnektoren",
+    "explorer": "Explorer"
   },
   "common": {
     "search": "Suche",
@@ -172,7 +173,12 @@
       "detectBruteForce": "Brute-Force-Angriffe erkennen",
       "findLateralMovement": "Laterale Bewegung finden",
       "checkDataExfiltration": "Auf Datenexfiltration prüfen"
-    }
+    },
+    "aiAnalysis": "AI Analysis",
+    "sourcesCovered": "Sources Queried",
+    "executedQuery": "Executed Query",
+    "noAiAnalysis": "No AI analysis available",
+    "followUpPlaceholder": "Ask a follow-up question about this hunt..."
   },
   "cases": {
     "title": "Vorfallverwaltung",
@@ -342,6 +348,25 @@
       "saving": "Speichern...",
       "deleting": "Löschen...",
       "activating": "Aktivieren..."
+    },
+    "comments": {
+      "title": "Kommentare",
+      "placeholder": "Schreiben Sie einen Kommentar... Verwenden Sie @ um jemanden zu erwähnen",
+      "mentionHint": "Verwenden Sie @ um jemanden zu erwähnen",
+      "commentAdded": "Kommentar hinzugefügt",
+      "commentDeleted": "Kommentar gelöscht",
+      "commentUpdated": "Kommentar aktualisiert",
+      "confirmDelete": "Möchten Sie diesen Kommentar wirklich löschen?",
+      "noComments": "Noch keine Kommentare",
+      "loadError": "Kommentare konnten nicht geladen werden",
+      "loadMore": "Weitere Kommentare laden",
+      "endOfComments": "Alle Kommentare geladen",
+      "showMore": "Mehr anzeigen",
+      "showLess": "Weniger anzeigen",
+      "edited": "bearbeitet",
+      "editAction": "Bearbeiten",
+      "deleteAction": "Löschen",
+      "posting": "Wird gepostet..."
     }
   },
   "intel": {
@@ -1068,7 +1093,9 @@
       "invalidLinkedAlerts": "Ein oder mehrere verknuepfte Alarme gehoeren nicht zu diesem Mandanten.",
       "taskNotFound": "Aufgabe nicht gefunden",
       "duplicateArtifact": "Dieses Artefakt existiert bereits in diesem Vorfall",
-      "artifactNotFound": "Artefakt nicht gefunden"
+      "artifactNotFound": "Artefakt nicht gefunden",
+      "invalidMentionedUsers": "Einer oder mehrere erwähnte Benutzer sind keine aktiven Mitglieder dieses Mandanten.",
+      "cannotMentionSelf": "Sie können sich nicht selbst in einem Kommentar erwähnen."
     },
     "caseCycles": {
       "notFound": "Fallzyklus nicht gefunden.",
@@ -1127,6 +1154,11 @@
     },
     "appLogs": {
       "notFound": "Anwendungsprotokoll-Eintrag nicht gefunden."
+    },
+    "explorer": {
+      "connectorNotConfigured": "Dieser Connector ist nicht konfiguriert oder ist deaktiviert.",
+      "connectorUnavailable": "Der externe Dienst ist derzeit nicht erreichbar. Bitte überprüfen Sie, ob der Dienst ausgeführt wird und die Connector-Konfiguration korrekt ist.",
+      "syncFailed": "Verbindung zum externen Dienst fehlgeschlagen. Bitte überprüfen Sie die Connector-Konfiguration und ob der Dienst erreichbar ist."
     },
     "impersonation": {
       "nestedNotAllowed": "Identitätswechsel während einer aktiven Sitzung nicht möglich.",
@@ -1188,5 +1220,178 @@
     "started": "Jetzt angezeigt als {user}",
     "confirmTitle": "Als Benutzer wechseln",
     "confirmText": "Sie werden die Plattform als {user} sehen. Ihre Admin-Sitzung bleibt erhalten und Sie können jederzeit zurückkehren."
+  },
+  "explorer": {
+    "overview": {
+      "title": "Daten-Explorer",
+      "description": "Durchsuchen und erkunden Sie Daten Ihrer verbundenen Sicherheitstools",
+      "loadError": "Fehler beim Laden der Explorer-Übersicht",
+      "connectors": "Konnektoren",
+      "connected": "Verbunden",
+      "configured": "Konfiguriert",
+      "notConfigured": "Nicht konfiguriert",
+      "enabled": "Aktiviert",
+      "disabled": "Deaktiviert",
+      "syncJobs": "Synchronisierungsaufträge",
+      "running": "Laufend",
+      "completed": "Abgeschlossen",
+      "failed": "Fehlgeschlagen"
+    },
+    "logs": {
+      "title": "Log-Explorer",
+      "description": "Durchsuchen und erkunden Sie Logs von Graylog",
+      "searchPlaceholder": "Logs durchsuchen...",
+      "timestamp": "Zeitstempel",
+      "source": "Quelle",
+      "message": "Nachricht",
+      "priority": "Priorität",
+      "noLogs": "Keine Logs gefunden",
+      "noLogsDescription": "Keine Log-Einträge entsprechen Ihren Suchkriterien"
+    },
+    "dashboards": {
+      "title": "Dashboard-Explorer",
+      "description": "Durchsuchen Sie synchronisierte Grafana-Dashboards",
+      "searchPlaceholder": "Dashboards durchsuchen...",
+      "title_column": "Titel",
+      "folder": "Ordner",
+      "tags": "Tags",
+      "link": "Link",
+      "syncedAt": "Synchronisiert",
+      "sync": "Jetzt Synchronisieren",
+      "syncing": "Synchronisierung...",
+      "syncSuccess": "{count} Dashboards synchronisiert",
+      "noDashboards": "Keine Dashboards gefunden",
+      "noDashboardsDescription": "Synchronisieren Sie Grafana-Dashboards, um sie hier zu sehen"
+    },
+    "metrics": {
+      "title": "Metriken-Explorer",
+      "description": "Abfrage von Metriken aus InfluxDB",
+      "queryBuilder": "Abfrage-Builder",
+      "bucket": "Bucket",
+      "selectBucket": "Bucket auswählen",
+      "measurement": "Messung",
+      "measurementPlaceholder": "Optionaler Filter...",
+      "timeRange": "Zeitbereich",
+      "limit": "Limit",
+      "runQuery": "Abfrage Ausführen",
+      "querying": "Abfrage läuft...",
+      "results": "Ergebnisse",
+      "searchPlaceholder": "Ergebnisse suchen...",
+      "noData": "Keine Daten",
+      "noDataDescription": "Die Abfrage hat keine Ergebnisse zurückgegeben",
+      "totalRows": "{count} Zeilen"
+    },
+    "threatIntel": {
+      "title": "Bedrohungsintelligenz-Explorer",
+      "description": "Durchsuchen Sie Bedrohungsintelligenz-Daten von MISP",
+      "searchPlaceholder": "Nach Attributwert suchen...",
+      "eventId": "Ereignis-ID",
+      "info": "Information",
+      "date": "Datum",
+      "threatLevel": "Bedrohungsstufe",
+      "org": "Organisation",
+      "attributes": "Attribute",
+      "noEvents": "Keine Ereignisse gefunden",
+      "noEventsDescription": "Keine MISP-Ereignisse entsprechen Ihren Suchkriterien"
+    },
+    "endpoints": {
+      "title": "Endpoint- & Jagd-Explorer",
+      "description": "Durchsuchen Sie Endpoints und Jagden von Velociraptor",
+      "endpointsTab": "Endpoints",
+      "huntsTab": "Jagden",
+      "searchPlaceholder": "Endpoints durchsuchen...",
+      "huntSearchPlaceholder": "Jagden durchsuchen...",
+      "sync": "Jetzt Synchronisieren",
+      "syncing": "Synchronisierung...",
+      "syncSuccess": "{endpoints} Endpoints und {hunts} Jagden synchronisiert",
+      "hostname": "Hostname",
+      "os": "Betriebssystem",
+      "ip": "IP-Adresse",
+      "labels": "Labels",
+      "lastSeen": "Zuletzt Gesehen",
+      "noEndpoints": "Keine Endpoints gefunden",
+      "noEndpointsDescription": "Synchronisieren Sie Velociraptor, um Endpoints hier zu sehen",
+      "huntId": "Jagd-ID",
+      "huntDescription": "Beschreibung",
+      "state": "Status",
+      "totalClients": "Gesamte Clients",
+      "finishedClients": "Abgeschlossen",
+      "createdAt": "Erstellt",
+      "noHunts": "Keine Jagden gefunden",
+      "noHuntsDescription": "Keine Velociraptor-Jagden gefunden"
+    },
+    "automation": {
+      "title": "Automatisierungs-Explorer",
+      "description": "Durchsuchen Sie Workflows von Shuffle SOAR",
+      "searchPlaceholder": "Workflows durchsuchen...",
+      "name": "Name",
+      "workflowDescription": "Beschreibung",
+      "valid": "Gültig",
+      "triggers": "Auslöser",
+      "tags": "Tags",
+      "syncedAt": "Synchronisiert",
+      "sync": "Jetzt Synchronisieren",
+      "syncing": "Synchronisierung...",
+      "syncSuccess": "{count} Workflows synchronisiert",
+      "noWorkflows": "Keine Workflows gefunden",
+      "noWorkflowsDescription": "Synchronisieren Sie Shuffle, um Workflows hier zu sehen"
+    },
+    "pipelines": {
+      "title": "Pipeline-Explorer",
+      "description": "Logstash-Pipeline-Protokolleinträge durchsuchen und suchen",
+      "searchPlaceholder": "Protokollnachrichten suchen...",
+      "timestamp": "Zeitstempel",
+      "pipeline": "Pipeline",
+      "level": "Stufe",
+      "message": "Nachricht",
+      "source": "Quelle",
+      "eventsIn": "Eingehende Ereignisse",
+      "eventsOut": "Ausgehende Ereignisse",
+      "allLevels": "Alle Stufen",
+      "levelInfo": "Info",
+      "levelWarn": "Warnung",
+      "levelError": "Fehler",
+      "levelDebug": "Debug",
+      "syncNow": "Logstash synchronisieren",
+      "syncing": "Synchronisierung...",
+      "syncSuccess": "Logstash-Pipeline-Protokolle erfolgreich synchronisiert",
+      "noLogs": "Keine Pipeline-Protokolle gefunden",
+      "noLogsDescription": "Synchronisieren Sie Logstash oder führen Sie das Seed-Skript aus, um Pipeline-Protokolle hier zu sehen"
+    },
+    "syncJobs": {
+      "title": "Synchronisierungsaufträge",
+      "description": "Verfolgen Sie Datensynchronisierungsaufträge über Konnektoren hinweg",
+      "connector": "Konnektor",
+      "status": "Status",
+      "synced": "Synchronisiert",
+      "failed": "Fehlgeschlagen",
+      "duration": "Dauer",
+      "initiatedBy": "Initiiert Von",
+      "startedAt": "Gestartet",
+      "error": "Fehler",
+      "noJobs": "Keine Synchronisierungsaufträge",
+      "noJobsDescription": "Es wurden noch keine Synchronisierungsaufträge aufgezeichnet"
+    }
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "empty": "Keine Benachrichtigungen",
+    "markAllRead": "Alle als gelesen markieren",
+    "allMarkedRead": "Alle Benachrichtigungen als gelesen markiert",
+    "mentionedYou": "hat Sie in einem Kommentar erwähnt",
+    "newNotification": "Sie haben eine neue Benachrichtigung",
+    "caseAssigned": "Sie wurden einem Fall zugewiesen",
+    "caseUnassigned": "Sie wurden von einem Fall abgemeldet",
+    "tenantAssigned": "Sie wurden einem neuen Mandanten hinzugefügt",
+    "roleChanged": "Ihre Rolle wurde geändert",
+    "userBlocked": "Ihr Konto wurde gesperrt",
+    "userUnblocked": "Ihr Konto wurde reaktiviert",
+    "userRemoved": "Ihr Konto wurde entfernt",
+    "userRestored": "Ihr Konto wurde wiederhergestellt",
+    "caseCommentAdded": "Ein neuer Kommentar wurde zu Ihrem Fall hinzugefügt",
+    "caseTaskAdded": "Eine neue Aufgabe wurde zu Ihrem Fall hinzugefügt",
+    "caseArtifactAdded": "Ein neues Artefakt wurde zu Ihrem Fall hinzugefügt",
+    "caseStatusChanged": "Der Status Ihres Falls wurde geändert",
+    "caseUpdated": "Ihr Fall wurde aktualisiert"
   }
 }

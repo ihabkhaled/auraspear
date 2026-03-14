@@ -54,11 +54,14 @@ export function EditTenantDialog({
     },
   })
 
+  // Reset form when dialog opens (populate) or closes (covers programmatic close on success)
   useEffect(() => {
-    if (tenant) {
+    if (open && tenant) {
       reset({ name: tenant.name })
+    } else if (!open) {
+      reset()
     }
-  }, [tenant, reset])
+  }, [open, tenant, reset])
 
   function handleFormSubmit(values: EditTenantFormValues) {
     onSubmit(values)

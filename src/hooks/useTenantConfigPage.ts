@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
@@ -59,23 +59,34 @@ export function useTenantConfigPage() {
   const [tenantSortOrder, setTenantSortOrder] = useState<SortOrder | undefined>()
   const [tenantSearch, setTenantSearch] = useState('')
   const debouncedTenantSearch = useDebounce(tenantSearch, 400)
-  const tenantPagination = usePagination({ initialLimit: 10 })
+  const tenantPagination = usePagination({ initialLimit: 5 })
 
   // User table: sorting, search, pagination
   const [userSortBy, setUserSortBy] = useState<string | undefined>()
   const [userSortOrder, setUserSortOrder] = useState<SortOrder | undefined>()
   const [userSearch, setUserSearch] = useState('')
   const debouncedUserSearch = useDebounce(userSearch, 400)
-  const userPagination = usePagination({ initialLimit: 10 })
+  const userPagination = usePagination({ initialLimit: 5 })
 
-  // Reset page on search change
-  useEffect(() => {
-    tenantPagination.setPage(1)
-  }, [debouncedTenantSearch, tenantPagination])
+  // Reset page on search change — use refs to avoid including pagination in deps
+  const tenantResetPageRef = useRef(tenantPagination.resetPage)
+  const userResetPageRef = useRef(userPagination.resetPage)
 
   useEffect(() => {
-    userPagination.setPage(1)
-  }, [debouncedUserSearch, userPagination])
+    tenantResetPageRef.current = tenantPagination.resetPage
+  }, [tenantPagination.resetPage])
+
+  useEffect(() => {
+    userResetPageRef.current = userPagination.resetPage
+  }, [userPagination.resetPage])
+
+  useEffect(() => {
+    tenantResetPageRef.current()
+  }, [debouncedTenantSearch])
+
+  useEffect(() => {
+    userResetPageRef.current()
+  }, [debouncedUserSearch])
 
   // Only Global Admin fetches all tenants
   const {
@@ -407,7 +418,7 @@ export function useTenantConfigPage() {
     (key: string, order: SortOrder) => {
       setUserSortBy(key)
       setUserSortOrder(order)
-      userPagination.setPage(1)
+      userPagination.resetPage()
     },
     [userPagination]
   )
@@ -416,7 +427,7 @@ export function useTenantConfigPage() {
     (key: string, order: SortOrder) => {
       setTenantSortBy(key)
       setTenantSortOrder(order)
-      tenantPagination.setPage(1)
+      tenantPagination.resetPage()
     },
     [tenantPagination]
   )

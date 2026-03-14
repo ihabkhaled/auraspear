@@ -39,11 +39,12 @@ export function HuntEventTable({ events, loading = false }: HuntEventTableProps)
     {
       key: 'sourceIp',
       label: t('columnSourceIp'),
-      render: value => <span className="font-mono text-xs">{value as string}</span>,
+      render: value => <span className="font-mono text-xs">{(value as string | null) ?? '—'}</span>,
     },
     {
       key: 'user',
       label: t('columnUser'),
+      render: value => <span>{(value as string | null) ?? '—'}</span>,
     },
     {
       key: 'description',

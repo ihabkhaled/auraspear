@@ -18,6 +18,7 @@ export default function HuntPage() {
     events,
     uniqueIps,
     threatScore,
+    eventsFound,
     eventsLoading,
     isSending,
     handleSend,
@@ -56,7 +57,7 @@ export default function HuntPage() {
           <HuntResultsPanel
             sessionId={huntId ?? ''}
             status={huntStatus ?? HuntStatus.IDLE}
-            eventsFound={events.length}
+            eventsFound={eventsFound}
             uniqueIps={uniqueIps}
             threatScore={threatScore}
             events={events}

@@ -10,6 +10,7 @@ import {
   Settings,
   Server,
   Plug,
+  Compass,
   PanelLeftClose,
   PanelLeftOpen,
   X,
@@ -52,7 +53,10 @@ function SidebarContent({
     },
     {
       label: t('nav.intelligence'),
-      items: [{ icon: Globe, label: t('nav.intel'), href: '/intel' }],
+      items: [
+        { icon: Globe, label: t('nav.intel'), href: '/intel' },
+        { icon: Compass, label: t('nav.explorer'), href: '/explorer' },
+      ],
     },
     {
       label: t('nav.system'),

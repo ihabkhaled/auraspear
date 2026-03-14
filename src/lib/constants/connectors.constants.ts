@@ -132,6 +132,17 @@ export const AWS_REGIONS = [
   { id: 'ap-southeast-1', label: 'Asia Pacific (Singapore)' },
 ] as const
 
+/** Connectors that support automatic data sync (ingest into AuraSpear DB). */
+export const SYNCABLE_CONNECTOR_TYPES: ReadonlySet<ConnectorType> = new Set([
+  ConnectorType.WAZUH,
+  ConnectorType.GRAYLOG,
+  ConnectorType.MISP,
+])
+
 export function isConnectorType(value: string): value is ConnectorType {
   return CONNECTOR_TYPES.includes(value as ConnectorType)
+}
+
+export function isSyncableConnector(type: ConnectorType): boolean {
+  return SYNCABLE_CONNECTOR_TYPES.has(type)
 }

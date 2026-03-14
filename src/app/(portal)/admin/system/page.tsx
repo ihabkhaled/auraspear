@@ -189,11 +189,11 @@ export default function SystemAdminPage() {
         <CardContent className="pt-6">
           <Tabs value={activeTab} onValueChange={v => setActiveTab(v as 'audit' | 'appLogs')}>
             <TabsList>
-              <TabsTrigger value="audit" className="gap-1.5">
+              <TabsTrigger value="audit" className="cursor-pointer gap-1.5">
                 <ScrollText className="h-4 w-4" />
                 {t('audit.title')}
               </TabsTrigger>
-              <TabsTrigger value="appLogs" className="gap-1.5">
+              <TabsTrigger value="appLogs" className="cursor-pointer gap-1.5">
                 <FileText className="h-4 w-4" />
                 {t('appLogs.title')}
               </TabsTrigger>

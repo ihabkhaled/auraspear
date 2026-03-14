@@ -47,9 +47,12 @@ export function EditCaseDialog({
     defaultValues: initialValues,
   })
 
+  // Reset form when dialog opens (populate) or closes (covers programmatic close on success)
   useEffect(() => {
     if (open) {
       reset(initialValues)
+    } else {
+      reset()
     }
   }, [open, initialValues, reset])
 

@@ -89,10 +89,10 @@ export function getAlertColumns(
       },
     },
     {
-      key: 'description',
+      key: 'title',
       label: t.alerts('rule'),
       className: 'max-w-xs',
-      render: value => <span className="block truncate text-sm">{String(value)}</span>,
+      render: value => <span className="block truncate text-sm">{String(value ?? '-')}</span>,
     },
     {
       key: 'source',

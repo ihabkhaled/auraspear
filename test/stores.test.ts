@@ -247,81 +247,27 @@ describe('useUIStore', () => {
 })
 
 /* ------------------------------------------------------------------ */
-/* Notification Store                                                   */
+/* Notification Store (UI state only — data is in React Query)         */
 /* ------------------------------------------------------------------ */
 
 describe('useNotificationStore', () => {
   beforeEach(() => {
-    useNotificationStore.setState({ items: [], unreadCount: 0 })
+    useNotificationStore.setState({ panelOpen: false })
   })
 
-  test('initial state is empty', () => {
+  test('initial state has panel closed', () => {
     const state = useNotificationStore.getState()
-    expect(state.items).toEqual([])
-    expect(state.unreadCount).toBe(0)
+    expect(state.panelOpen).toBe(false)
   })
 
-  test('addNotification prepends item and increments unread', () => {
-    const n1 = {
-      id: '1',
-      type: 'alert',
-      title: 'Alert',
-      message: 'New alert',
-      timestamp: '2026-01-01',
-      read: false,
-    }
-    const n2 = {
-      id: '2',
-      type: 'case',
-      title: 'Case',
-      message: 'New case',
-      timestamp: '2026-01-02',
-      read: false,
-    }
-
-    useNotificationStore.getState().addNotification(n1 as never)
-    useNotificationStore.getState().addNotification(n2 as never)
-
-    const state = useNotificationStore.getState()
-    expect(state.items).toHaveLength(2)
-    expect(state.items[0]).toEqual(n2) // newest first
-    expect(state.items[1]).toEqual(n1)
-    expect(state.unreadCount).toBe(2)
+  test('setPanelOpen opens the panel', () => {
+    useNotificationStore.getState().setPanelOpen(true)
+    expect(useNotificationStore.getState().panelOpen).toBe(true)
   })
 
-  test('markAsRead sets item read and decrements unread', () => {
-    const n1 = {
-      id: '1',
-      type: 'alert',
-      title: 'A',
-      message: 'B',
-      timestamp: '2026-01-01',
-      read: false,
-    }
-    useNotificationStore.getState().addNotification(n1 as never)
-    useNotificationStore.getState().markAsRead('1')
-
-    const state = useNotificationStore.getState()
-    expect(state.items[0]?.read).toBe(true)
-    expect(state.unreadCount).toBe(0)
-  })
-
-  test('markAsRead with unknown ID does not crash', () => {
-    useNotificationStore.getState().markAsRead('nonexistent')
-    expect(useNotificationStore.getState().unreadCount).toBe(0)
-  })
-
-  test('markAllAsRead sets all items read and resets count', () => {
-    const n1 = { id: '1', type: 'a', title: 'A', message: 'B', timestamp: 't', read: false }
-    const n2 = { id: '2', type: 'a', title: 'C', message: 'D', timestamp: 't', read: false }
-    useNotificationStore.getState().addNotification(n1 as never)
-    useNotificationStore.getState().addNotification(n2 as never)
-    useNotificationStore.getState().markAllAsRead()
-
-    const state = useNotificationStore.getState()
-    expect(state.unreadCount).toBe(0)
-    for (const item of state.items) {
-      expect(item.read).toBe(true)
-    }
+  test('setPanelOpen closes the panel', () => {
+    useNotificationStore.getState().setPanelOpen(true)
+    useNotificationStore.getState().setPanelOpen(false)
+    expect(useNotificationStore.getState().panelOpen).toBe(false)
   })
 })

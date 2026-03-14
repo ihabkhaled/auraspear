@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
@@ -66,6 +67,13 @@ export function CreateTenantDialog({
       slug: '',
     },
   })
+
+  // Reset form when dialog closes (covers programmatic close on success)
+  useEffect(() => {
+    if (!open) {
+      reset()
+    }
+  }, [open, reset])
 
   const currentSlug = watch('slug')
 

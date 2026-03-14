@@ -35,6 +35,7 @@ export function EditCycleDialog({
     },
   })
 
+  // Reset form when dialog opens (populate) or closes (covers programmatic close on success)
   useEffect(() => {
     if (cycle && open) {
       reset({
@@ -43,6 +44,8 @@ export function EditCycleDialog({
         startDate: cycle.startDate.split('T')[0] ?? '',
         endDate: cycle.endDate?.split('T')[0] ?? '',
       })
+    } else if (!open) {
+      reset()
     }
   }, [cycle, open, reset])
 

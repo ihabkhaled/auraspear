@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { POLLING_INTERVAL } from '@/lib/constants'
 import { adminService } from '@/services'
+import { useTenantStore } from '@/stores'
 import type {
   AddUserInput,
   AssignUserInput,
@@ -20,8 +21,10 @@ export function useTenants(params?: TenantListParams, enabled = true) {
 }
 
 export function useCurrentTenant(enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
   return useQuery({
-    queryKey: ['admin', 'current-tenant'],
+    queryKey: ['admin', tenantId, 'current-tenant'],
     queryFn: () => adminService.getCurrentTenant(),
     enabled,
   })
@@ -61,16 +64,20 @@ export function useAddUser() {
 }
 
 export function useServiceHealth() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
   return useQuery({
-    queryKey: ['admin', 'service-health'],
+    queryKey: ['admin', tenantId, 'service-health'],
     queryFn: () => adminService.getServiceHealth(),
     refetchInterval: POLLING_INTERVAL,
   })
 }
 
 export function useAuditLogs(params?: AuditLogParams) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
   return useQuery({
-    queryKey: ['admin', 'audit-logs', params],
+    queryKey: ['admin', tenantId, 'audit-logs', params],
     queryFn: () => adminService.getAuditLogs(params),
   })
 }

@@ -1,33 +1,38 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { caseCycleService } from '@/services'
+import { useTenantStore } from '@/stores'
 import type { CaseCycleSearchParams, CreateCaseCycleInput, CloseCaseCycleInput } from '@/types'
 
 export function useCaseCycles(params?: CaseCycleSearchParams) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: ['caseCycles', params],
+    queryKey: ['caseCycles', tenantId, params],
     queryFn: () => caseCycleService.getCycles(params),
     placeholderData: keepPreviousData,
   })
 }
 
 export function useActiveCycle() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: ['caseCycles', 'active'],
+    queryKey: ['caseCycles', tenantId, 'active'],
     queryFn: () => caseCycleService.getActiveCycle(),
   })
 }
 
 export function useCaseCycle(id: string) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: ['caseCycles', id],
+    queryKey: ['caseCycles', tenantId, id],
     queryFn: () => caseCycleService.getCycle(id),
     enabled: id.length > 0,
   })
 }
 
 export function useOrphanedCaseStats() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: ['caseCycles', 'orphaned-stats'],
+    queryKey: ['caseCycles', tenantId, 'orphaned-stats'],
     queryFn: () => caseCycleService.getOrphanedStats(),
   })
 }

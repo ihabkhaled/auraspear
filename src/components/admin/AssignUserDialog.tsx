@@ -121,6 +121,9 @@ export function AssignUserDialog({
       data.password = values.password
     }
 
+    setEmailInput('')
+    setShowPassword(false)
+    reset()
     onSubmit(data)
   }
 

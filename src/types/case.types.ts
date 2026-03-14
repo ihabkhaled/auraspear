@@ -160,6 +160,46 @@ export interface CaseDetailPageProps {
   params: Promise<{ id: string }>
 }
 
+export interface CommentAuthor {
+  id: string
+  name: string
+  email: string
+}
+
+export interface CommentMentionUser {
+  id: string
+  name: string
+  email: string
+}
+
+export interface CaseComment {
+  id: string
+  caseId: string
+  body: string
+  isEdited: boolean
+  isDeleted: boolean
+  createdAt: string
+  updatedAt: string
+  author: CommentAuthor
+  mentions: CommentMentionUser[]
+}
+
+export interface CreateCaseCommentInput {
+  body: string
+  mentionedUserIds: string[]
+}
+
+export interface UpdateCaseCommentInput {
+  body: string
+  mentionedUserIds: string[]
+}
+
+export interface MentionableUser {
+  id: string
+  name: string
+  email: string
+}
+
 export interface CaseToolbarProps {
   viewMode: CaseViewMode
   onViewModeChange: (mode: CaseViewMode) => void

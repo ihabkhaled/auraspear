@@ -79,7 +79,7 @@ export function AlertDetailDrawer({
               {formatTimestamp(alert.timestamp)}
             </span>
           </div>
-          <SheetTitle className="text-base">{alert.description}</SheetTitle>
+          <SheetTitle className="text-base">{alert.title}</SheetTitle>
           <SheetDescription className="text-muted-foreground font-mono text-xs">
             {alert.ruleId}
           </SheetDescription>

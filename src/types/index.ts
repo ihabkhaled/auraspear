@@ -47,6 +47,12 @@ export type {
   EditCaseDialogProps,
   CaseDetailPageProps,
   CaseToolbarProps,
+  CaseComment,
+  CommentAuthor,
+  CommentMentionUser,
+  CreateCaseCommentInput,
+  UpdateCaseCommentInput,
+  MentionableUser,
 } from './case.types'
 export type {
   CaseCycle,
@@ -126,8 +132,41 @@ export type {
   WorkspaceActionResponse,
 } from './connector-workspace.types'
 export type {
+  NotificationItem,
+  NotificationSearchParams,
+  UnreadCountResponse,
+} from './notification.types'
+export type {
   ApplicationLogEntry,
   AppLogSearchParams,
   AppLogTableProps,
   AppLogDetailDialogProps,
 } from './app-log.types'
+export type {
+  ExplorerOverview,
+  ExplorerConnectorStatus,
+  SyncJobsSummary,
+  SyncJob,
+  SyncJobSearchParams,
+  TriggerSyncInput,
+  GraylogLogEntry,
+  GraylogSearchParams,
+  GraylogEventDefinition,
+  GrafanaDashboard,
+  GrafanaDashboardSearchParams,
+  InfluxDBQueryParams,
+  InfluxDBQueryResult,
+  InfluxDBBucket,
+  MispEventRow,
+  MispExplorerSearchParams,
+  LogstashPipelineLog,
+  LogstashLogSearchParams,
+  VelociraptorEndpoint,
+  VelociraptorEndpointSearchParams,
+  VelociraptorHunt,
+  VelociraptorHuntSearchParams,
+  VelociraptorVQLResult,
+  ShuffleWorkflow,
+  ShuffleWorkflowSearchParams,
+  SyncJobStatusDetail,
+} from './explorer.types'

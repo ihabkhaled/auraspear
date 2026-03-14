@@ -2,67 +2,70 @@
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { connectorService } from '@/services/connector.service'
-
-const CONNECTORS_KEY = ['connectors'] as const
-const HEALTH_KEY = ['admin', 'service-health'] as const
-const DASHBOARD_KEY = ['dashboard'] as const
+import { useTenantStore } from '@/stores'
 
 export function useConnectors() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: CONNECTORS_KEY,
+    queryKey: ['connectors', tenantId],
     queryFn: () => connectorService.list(),
     placeholderData: keepPreviousData,
   })
 }
 
 export function useConnector(type: string, enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: [...CONNECTORS_KEY, type],
+    queryKey: ['connectors', tenantId, type],
     queryFn: () => connectorService.getByType(type),
     enabled: Boolean(type) && enabled,
   })
 }
 
 export function useUpdateConnector(type: string) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (data: Record<string, unknown>) => connectorService.update(type, data),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
 export function useDeleteConnector() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (type: string) => connectorService.remove(type),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
 export function useTestConnector() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (type: string) => connectorService.test(type),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
 export function useCreateConnector() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
@@ -74,47 +77,47 @@ export function useCreateConnector() {
       config: Record<string, unknown>
     }) => connectorService.create(data),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
 export function useToggleConnector() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({ type, enabled }: { type: string; enabled: boolean }) =>
       connectorService.toggle(type, enabled),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: HEALTH_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
-const SYNC_STATUS_KEY = ['connector-sync-status'] as const
-const ALERTS_KEY = ['alerts'] as const
-
 export function useSyncConnector() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: (type: string) => connectorService.sync(type),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: CONNECTORS_KEY })
-      void queryClient.invalidateQueries({ queryKey: SYNC_STATUS_KEY })
-      void queryClient.invalidateQueries({ queryKey: ALERTS_KEY })
-      void queryClient.invalidateQueries({ queryKey: DASHBOARD_KEY })
+      void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['connector-sync-status', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['alerts', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
   })
 }
 
 export function useSyncStatus() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: SYNC_STATUS_KEY,
+    queryKey: ['connector-sync-status', tenantId],
     queryFn: () => connectorService.getSyncStatus(),
     staleTime: 30_000,
     refetchInterval: 60_000,

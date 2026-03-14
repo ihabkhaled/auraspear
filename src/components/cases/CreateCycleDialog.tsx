@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
@@ -47,6 +48,13 @@ export function CreateCycleDialog({
       endDate: '',
     },
   })
+
+  // Reset form when dialog closes (covers programmatic close on success)
+  useEffect(() => {
+    if (!open) {
+      reset()
+    }
+  }, [open, reset])
 
   const handleFormSubmit = (data: CreateCycleFormValues) => {
     onSubmit(data)

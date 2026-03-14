@@ -1,0 +1,64 @@
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
+import { COMMENTS_PAGE_SIZE } from '@/lib/constants/cases'
+import { caseService } from '@/services'
+import { useTenantStore } from '@/stores'
+import type { CreateCaseCommentInput, UpdateCaseCommentInput } from '@/types'
+
+export function useCaseComments(caseId: string) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useInfiniteQuery({
+    queryKey: ['caseComments', tenantId, caseId],
+    queryFn: ({ pageParam }) =>
+      caseService.getComments(caseId, { page: pageParam, limit: COMMENTS_PAGE_SIZE }),
+    initialPageParam: 1,
+    getNextPageParam: lastPage => {
+      if (lastPage.pagination?.hasNext) {
+        return (lastPage.pagination.page ?? 1) + 1
+      }
+      return
+    },
+    enabled: caseId.length > 0,
+  })
+}
+
+export function useCreateCaseComment(caseId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (data: CreateCaseCommentInput) => caseService.createComment(caseId, data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
+      void queryClient.invalidateQueries({ queryKey: ['cases', caseId] })
+    },
+  })
+}
+
+export function useUpdateCaseComment(caseId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({ commentId, data }: { commentId: string; data: UpdateCaseCommentInput }) =>
+      caseService.updateComment(caseId, commentId, data),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
+    },
+  })
+}
+
+export function useDeleteCaseComment(caseId: string) {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (commentId: string) => caseService.deleteComment(caseId, commentId),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['caseComments', caseId] })
+    },
+  })
+}
+
+export function useMentionableUsers(caseId: string, query: string) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['mentionableUsers', tenantId, caseId, query],
+    queryFn: () => caseService.searchMentionableUsers(caseId, query),
+    enabled: caseId.length > 0 && query.length >= 1,
+    staleTime: 30 * 1000,
+  })
+}

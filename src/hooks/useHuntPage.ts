@@ -1,13 +1,15 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { HuntStatus, MessageRole } from '@/enums'
+import { HuntStatus, MessageRole, ReasoningStepStatus } from '@/enums'
 import { useHuntStore } from '@/stores'
+import type { HuntSession } from '@/types'
 import { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'
 
 export function useHuntPage() {
   const t = useTranslations('hunt')
   const [mobileTab, setMobileTab] = useState<'chat' | 'results'>('chat')
+  const [session, setSession] = useState<HuntSession | null>(null)
   const {
     messages,
     huntStatus,
@@ -27,30 +29,31 @@ export function useHuntPage() {
     [eventsData]
   )
 
-  const uniqueIps = useMemo(() => {
-    const ips = new Set<string>()
-    for (const event of events) {
-      ips.add(event.sourceIp)
-    }
-    return ips.size
-  }, [events])
-
-  const threatScore = useMemo(() => {
-    if (events.length === 0) return 0
-    return Math.min(100, Math.round(events.length * 4.2))
-  }, [events])
+  // Use backend-computed metrics from session, NOT client-side calculations
+  const uniqueIps = session?.uniqueIps ?? 0
+  const threatScore = session?.threatScore ?? 0
+  const eventsFound = session?.eventsFound ?? 0
 
   const handleSend = useCallback(
     (content: string) => {
       if (huntId === null) {
+        // First message: create hunt session
         createSession.mutate(
           { query: content, timeRange: '24h' },
           {
             onSuccess: result => {
-              const sessionId = result.data.id
-              setHuntId(sessionId)
-              setHuntStatus(HuntStatus.RUNNING)
+              const sessionData = result.data
+              setSession(sessionData)
+              setHuntId(sessionData.id)
+              setHuntStatus(
+                sessionData.status === HuntStatus.COMPLETED
+                  ? HuntStatus.COMPLETED
+                  : sessionData.status === HuntStatus.ERROR
+                    ? HuntStatus.ERROR
+                    : HuntStatus.RUNNING
+              )
 
+              // Add user message
               addMessage({
                 id: `user-${Date.now()}`,
                 role: MessageRole.USER,
@@ -58,21 +61,33 @@ export function useHuntPage() {
                 timestamp: new Date().toISOString(),
               })
 
-              sendMessage.mutate(
-                { sessionId, content },
-                {
-                  onSuccess: response => {
-                    addMessage(response.data)
-                    if (response.data.actions?.includes('complete')) {
-                      setHuntStatus(HuntStatus.COMPLETED)
-                    }
-                  },
-                  onError: () => {
-                    Toast.error(t('sendError'))
-                    setHuntStatus(HuntStatus.ERROR)
-                  },
+              // Add AI analysis from session as first AI response
+              const hasAnalysis = sessionData.aiAnalysis !== null
+              const hasReasoning =
+                Array.isArray(sessionData.reasoning) && sessionData.reasoning.length > 0
+
+              if (hasAnalysis || hasReasoning) {
+                const reasoningSteps = Array.isArray(sessionData.reasoning)
+                  ? sessionData.reasoning
+                  : []
+
+                addMessage({
+                  id: `ai-${Date.now()}`,
+                  role: MessageRole.AI,
+                  content: sessionData.aiAnalysis ?? reasoningSteps.join('\n'),
+                  timestamp: new Date().toISOString(),
+                  reasoningSteps: reasoningSteps.map((step: string, i: number) => ({
+                    id: `step-${String(i)}`,
+                    label: step,
+                    status: ReasoningStepStatus.COMPLETED,
+                  })),
+                  actions: sessionData.status === HuntStatus.COMPLETED ? ['complete'] : [],
+                })
+
+                if (sessionData.status === HuntStatus.COMPLETED) {
+                  setHuntStatus(HuntStatus.COMPLETED)
                 }
-              )
+              }
             },
             onError: () => {
               Toast.error(t('sessionError'))
@@ -82,6 +97,7 @@ export function useHuntPage() {
         return
       }
 
+      // Follow-up message: send to AI chat
       addMessage({
         id: `user-${Date.now()}`,
         role: MessageRole.USER,
@@ -119,6 +135,7 @@ export function useHuntPage() {
     events,
     uniqueIps,
     threatScore,
+    eventsFound,
     eventsLoading,
     isSending,
     handleSend,

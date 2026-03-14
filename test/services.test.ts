@@ -1193,7 +1193,9 @@ describe('huntService', () => {
 
       const result = await huntService.getEvents('session-1')
 
-      expect(mockGet).toHaveBeenCalledWith('/hunt/sessions/session-1/events')
+      expect(mockGet).toHaveBeenCalledWith('/hunt/sessions/session-1/events', {
+        params: { page: 1, limit: 50 },
+      })
       expect(result).toEqual(events)
     })
   })

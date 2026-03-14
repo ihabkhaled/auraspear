@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { SortOrder } from '@/enums'
 import { useServiceHealth, useAuditLogs } from './useAdmin'
 import { useAppLogs } from './useAppLogs'
@@ -31,7 +31,7 @@ export function useSystemAdminPage() {
 
   const handleAuditSort = useCallback(
     (key: string, order: SortOrder) => {
-      auditPagination.setPage(1)
+      auditPagination.resetPage()
       setAuditSortBy(key)
       setAuditSortOrder(order)
     },
@@ -65,14 +65,21 @@ export function useSystemAdminPage() {
     }
   }, [appLogData?.pagination, appLogPagination])
 
-  // Reset page on filter change
+  // Reset page on filter change — use ref to avoid including pagination in deps
+  // resetPage is a stable useCallback with [] deps, so initializing the ref once is safe
+  const appLogResetPageRef = useRef(appLogPagination.resetPage)
+
   useEffect(() => {
-    appLogPagination.setPage(1)
-  }, [debouncedAppLogSearch, appLogLevel, appLogFeature, appLogActorEmail, appLogPagination])
+    appLogResetPageRef.current = appLogPagination.resetPage
+  }, [appLogPagination.resetPage])
+
+  useEffect(() => {
+    appLogResetPageRef.current()
+  }, [debouncedAppLogSearch, appLogLevel, appLogFeature, appLogActorEmail])
 
   const handleAppLogSort = useCallback(
     (key: string, order: SortOrder) => {
-      appLogPagination.setPage(1)
+      appLogPagination.resetPage()
       setAppLogSortBy(key)
       setAppLogSortOrder(order)
     },
@@ -84,7 +91,7 @@ export function useSystemAdminPage() {
     setAppLogLevel('')
     setAppLogFeature('')
     setAppLogActorEmail('')
-    appLogPagination.setPage(1)
+    appLogPagination.resetPage()
   }, [appLogPagination])
 
   return {

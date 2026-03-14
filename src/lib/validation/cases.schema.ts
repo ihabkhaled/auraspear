@@ -14,3 +14,7 @@ export const editCaseSchema = z.object({
   description: z.string().min(10),
   severity: z.nativeEnum(CaseSeverity),
 })
+
+export const createCommentSchema = z.object({
+  body: z.string().min(1).max(10000),
+})

@@ -38,6 +38,7 @@ export interface UsePaginationOptions {
 export interface UsePaginationReturn {
   page: number
   setPage: (page: number) => void
+  resetPage: () => void
   limit: number
   setLimit: (limit: number) => void
   total: number

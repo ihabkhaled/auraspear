@@ -7,6 +7,9 @@ export const huntService = {
   createSession: (data: { query: string; timeRange: string }) =>
     api.post<ApiResponse<HuntSession>>('/hunt/sessions', data).then(r => r.data),
 
+  getSession: (sessionId: string) =>
+    api.get<ApiResponse<HuntSession>>(`/hunt/sessions/${sessionId}`).then(r => r.data),
+
   sendMessage: async (_sessionId: string, content: string): Promise<ApiResponse<HuntMessage>> => {
     const response = await api.post<ApiResponse<AiResponse>>('/hunt/messages', { query: content })
     const ai = response.data.data
@@ -17,7 +20,7 @@ export const huntService = {
       content: ai?.result ?? '',
       timestamp: new Date().toISOString(),
       reasoningSteps: (ai?.reasoning ?? []).map((step, i) => ({
-        id: `step-${i}`,
+        id: `step-${String(i)}`,
         label: step,
         status: ReasoningStepStatus.COMPLETED,
       })),
@@ -27,6 +30,10 @@ export const huntService = {
     return { data: message }
   },
 
-  getEvents: (sessionId: string) =>
-    api.get<ApiResponse<HuntEvent[]>>(`/hunt/sessions/${sessionId}/events`).then(r => r.data),
+  getEvents: (sessionId: string, page = 1, limit = 50) =>
+    api
+      .get<ApiResponse<HuntEvent[]>>(`/hunt/sessions/${sessionId}/events`, {
+        params: { page, limit },
+      })
+      .then(r => r.data),
 }

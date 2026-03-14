@@ -18,9 +18,14 @@ export function usePagination(options?: UsePaginationOptions): UsePaginationRetu
     setPage(1)
   }, [])
 
+  const resetPage = useCallback(() => {
+    setPage(1)
+  }, [])
+
   return {
     page,
     setPage,
+    resetPage,
     limit,
     setLimit: handleSetLimit,
     total,

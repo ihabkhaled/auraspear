@@ -29,9 +29,10 @@ export {
   ThemePreference,
   SupportedLocale,
 } from './admin.enum'
-export { NotificationType } from './notification.enum'
+export { NotificationType, NotificationEntityType } from './notification.enum'
 export { ChartType } from './chart.enum'
 export { SortOrder } from './sort-order.enum'
 export { WorkspaceTab, CardVariant } from './workspace.enum'
 export { StatusDotSize } from './component-size.enum'
 export { AppLogLevel, AppLogFeature } from './app-log.enum'
+export { SyncJobStatus, ExplorerConnector } from './explorer.enum'

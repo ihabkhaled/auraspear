@@ -40,3 +40,8 @@ export const CASE_SEVERITY_FILTERS = [
   CaseSeverity.MEDIUM,
   CaseSeverity.LOW,
 ] as const
+
+export const COMMENT_MAX_LENGTH = 10000
+export const COMMENT_COLLAPSE_HEIGHT_PX = 120
+export const COMMENT_MENTIONS_MAX = 20
+export const COMMENTS_PAGE_SIZE = 10

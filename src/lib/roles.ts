@@ -38,6 +38,7 @@ export const ROUTE_ROLE_MAP: Record<string, UserRole> = {
   '/cases': UserRole.SOC_ANALYST_L1,
   '/intel': UserRole.SOC_ANALYST_L1,
   '/connectors': UserRole.SOC_ANALYST_L2,
+  '/explorer': UserRole.SOC_ANALYST_L1,
   '/admin/tenant': UserRole.TENANT_ADMIN,
   '/admin/system': UserRole.GLOBAL_ADMIN,
   '/dashboard': UserRole.EXECUTIVE_READONLY,

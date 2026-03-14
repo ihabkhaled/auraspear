@@ -1,6 +1,7 @@
 'use client'
 
-import { Plus, Building2, Users, UserPlus, UserCheck, Search } from 'lucide-react'
+import { useState } from 'react'
+import { Plus, Building2, Users, UserPlus, UserCheck, Search, ChevronDown } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import {
   TenantUserTable,
@@ -20,11 +21,16 @@ import {
 } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Input } from '@/components/ui/input'
 import { useTenantConfigPage } from '@/hooks/useTenantConfigPage'
+import { cn } from '@/lib/utils'
 
 export default function TenantConfigPage() {
   const t = useTranslations('admin')
+
+  const [tenantsOpen, setTenantsOpen] = useState(true)
+  const [usersOpen, setUsersOpen] = useState(true)
 
   const {
     currentTenantId,
@@ -110,16 +116,14 @@ export default function TenantConfigPage() {
           sortOrder={tenantSortOrder}
           onSort={handleTenantSort}
         />
-        {tenantPagination.totalPages > 1 && (
-          <div className="pt-4">
-            <Pagination
-              page={tenantPagination.page}
-              totalPages={tenantPagination.totalPages}
-              onPageChange={tenantPagination.setPage}
-              total={tenantPagination.total}
-            />
-          </div>
-        )}
+        <div className="pt-4">
+          <Pagination
+            page={tenantPagination.page}
+            totalPages={tenantPagination.totalPages}
+            onPageChange={tenantPagination.setPage}
+            total={tenantPagination.total}
+          />
+        </div>
       </>
     )
   }
@@ -154,16 +158,14 @@ export default function TenantConfigPage() {
           sortOrder={userSortOrder}
           onSort={handleUserSort}
         />
-        {userPagination.totalPages > 1 && (
-          <div className="pt-4">
-            <Pagination
-              page={userPagination.page}
-              totalPages={userPagination.totalPages}
-              onPageChange={userPagination.setPage}
-              total={userPagination.total}
-            />
-          </div>
-        )}
+        <div className="pt-4">
+          <Pagination
+            page={userPagination.page}
+            totalPages={userPagination.totalPages}
+            onPageChange={userPagination.setPage}
+            total={userPagination.total}
+          />
+        </div>
       </>
     )
   }
@@ -184,65 +186,100 @@ export default function TenantConfigPage() {
           : {})}
       />
 
-      <Card>
-        <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <CardTitle className="text-base">{t('tenants.title')}</CardTitle>
-          {isGlobalAdmin && (
-            <div className="relative w-full sm:w-64">
-              <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
-              <Input
-                value={tenantSearch}
-                onChange={e => setTenantSearch(e.target.value)}
-                placeholder={t('tenants.searchPlaceholder')}
-                className="ps-9"
-              />
-            </div>
-          )}
-        </CardHeader>
-        <CardContent>{renderTenants()}</CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-col gap-3">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <CardTitle className="text-base">
-              {t('users.title')}
-              {tenantsData?.data && (
-                <span className="text-muted-foreground ms-2 text-sm font-normal">
-                  (
-                  {tenantsData.data.find(tenant => tenant.id === currentTenantId)?.name ??
-                    currentTenantId}
-                  )
-                </span>
-              )}
-            </CardTitle>
-            {currentTenantId.length > 0 && canManageUsers && (
-              <div className="flex items-center gap-2">
-                <Button size="sm" variant="outline" onClick={() => setAssignUserDialogOpen(true)}>
-                  <UserCheck className="me-2 h-4 w-4" />
-                  {t('users.assignUser')}
-                </Button>
-                <Button size="sm" onClick={() => setAddUserDialogOpen(true)}>
-                  <UserPlus className="me-2 h-4 w-4" />
-                  {t('users.addUser')}
-                </Button>
+      <Collapsible open={tenantsOpen} onOpenChange={setTenantsOpen}>
+        <Card>
+          <CardHeader className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <CollapsibleTrigger asChild>
+              <button type="button" className="flex cursor-pointer items-center gap-2 text-start">
+                <ChevronDown
+                  className={cn(
+                    'text-muted-foreground h-4 w-4 shrink-0 transition-transform',
+                    !tenantsOpen && '-rotate-90'
+                  )}
+                />
+                <CardTitle className="text-base">
+                  {t('tenants.title')}
+                  {tenantPagination.total > 0 && (
+                    <span className="text-muted-foreground ms-2 text-sm font-normal">
+                      ({tenantPagination.total})
+                    </span>
+                  )}
+                </CardTitle>
+              </button>
+            </CollapsibleTrigger>
+            {isGlobalAdmin && tenantsOpen && (
+              <div className="relative w-full sm:w-64">
+                <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+                <Input
+                  value={tenantSearch}
+                  onChange={e => setTenantSearch(e.target.value)}
+                  placeholder={t('tenants.searchPlaceholder')}
+                  className="ps-9"
+                />
               </div>
             )}
-          </div>
-          {currentTenantId.length > 0 && (
-            <div className="relative w-full sm:w-64">
-              <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
-              <Input
-                value={userSearch}
-                onChange={e => setUserSearch(e.target.value)}
-                placeholder={t('users.searchPlaceholder')}
-                className="ps-9"
-              />
+          </CardHeader>
+          <CollapsibleContent>
+            <CardContent>{renderTenants()}</CardContent>
+          </CollapsibleContent>
+        </Card>
+      </Collapsible>
+
+      <Collapsible open={usersOpen} onOpenChange={setUsersOpen}>
+        <Card>
+          <CardHeader className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <CollapsibleTrigger asChild>
+                <button type="button" className="flex cursor-pointer items-center gap-2 text-start">
+                  <ChevronDown
+                    className={cn(
+                      'text-muted-foreground h-4 w-4 shrink-0 transition-transform',
+                      !usersOpen && '-rotate-90'
+                    )}
+                  />
+                  <CardTitle className="text-base">
+                    {t('users.title')}
+                    {tenantsData?.data && (
+                      <span className="text-muted-foreground ms-2 text-sm font-normal">
+                        (
+                        {tenantsData.data.find(tenant => tenant.id === currentTenantId)?.name ??
+                          currentTenantId}
+                        )
+                      </span>
+                    )}
+                  </CardTitle>
+                </button>
+              </CollapsibleTrigger>
+              {currentTenantId.length > 0 && canManageUsers && usersOpen && (
+                <div className="flex items-center gap-2">
+                  <Button size="sm" variant="outline" onClick={() => setAssignUserDialogOpen(true)}>
+                    <UserCheck className="me-2 h-4 w-4" />
+                    {t('users.assignUser')}
+                  </Button>
+                  <Button size="sm" onClick={() => setAddUserDialogOpen(true)}>
+                    <UserPlus className="me-2 h-4 w-4" />
+                    {t('users.addUser')}
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
-        </CardHeader>
-        <CardContent>{renderUsers()}</CardContent>
-      </Card>
+            {currentTenantId.length > 0 && usersOpen && (
+              <div className="relative w-full sm:w-64">
+                <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
+                <Input
+                  value={userSearch}
+                  onChange={e => setUserSearch(e.target.value)}
+                  placeholder={t('users.searchPlaceholder')}
+                  className="ps-9"
+                />
+              </div>
+            )}
+          </CardHeader>
+          <CollapsibleContent>
+            <CardContent>{renderUsers()}</CardContent>
+          </CollapsibleContent>
+        </Card>
+      </Collapsible>
 
       <CreateTenantDialog
         open={createDialogOpen}

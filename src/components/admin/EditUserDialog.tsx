@@ -85,11 +85,12 @@ export function EditUserDialog({
     },
   })
 
+  // Populate form when dialog opens with user data
   useEffect(() => {
-    if (user) {
+    if (open && user) {
       reset({ name: user.name, role: user.role, password: '' })
     }
-  }, [user, reset])
+  }, [open, user, reset])
 
   function handleFormSubmit(values: EditUserFormValues) {
     const payload: { name: string; role: string; password?: string } = {
@@ -99,6 +100,8 @@ export function EditUserDialog({
     if (values.password && values.password.length > 0) {
       payload.password = values.password
     }
+    setShowPassword(false)
+    reset()
     onSubmit(payload)
   }
 

@@ -3,9 +3,13 @@ import type {
   ApiResponse,
   Case,
   CaseArtifact,
+  CaseComment,
   CaseSearchParams,
   CaseTask,
+  CreateCaseCommentInput,
   CreateCaseInput,
+  MentionableUser,
+  UpdateCaseCommentInput,
   UpdateCaseInput,
 } from '@/types'
 
@@ -41,4 +45,26 @@ export const caseService = {
 
   deleteArtifact: (caseId: string, artifactId: string) =>
     api.delete<{ deleted: boolean }>(`/cases/${caseId}/artifacts/${artifactId}`).then(r => r.data),
+
+  // Comments
+  getComments: (caseId: string, params?: { page?: number; limit?: number }) =>
+    api.get<ApiResponse<CaseComment[]>>(`/cases/${caseId}/comments`, { params }).then(r => r.data),
+
+  createComment: (caseId: string, data: CreateCaseCommentInput) =>
+    api.post<{ data: CaseComment }>(`/cases/${caseId}/comments`, data).then(r => r.data.data),
+
+  updateComment: (caseId: string, commentId: string, data: UpdateCaseCommentInput) =>
+    api
+      .patch<{ data: CaseComment }>(`/cases/${caseId}/comments/${commentId}`, data)
+      .then(r => r.data.data),
+
+  deleteComment: (caseId: string, commentId: string) =>
+    api.delete<{ deleted: boolean }>(`/cases/${caseId}/comments/${commentId}`).then(r => r.data),
+
+  searchMentionableUsers: (caseId: string, query: string, limit = 10) =>
+    api
+      .get<{ data: MentionableUser[] }>(`/cases/${caseId}/comments/mentionable-users`, {
+        params: { query, limit },
+      })
+      .then(r => r.data.data),
 }

@@ -14,7 +14,8 @@
     "main": "الرئيسية",
     "intelligence": "الاستخبارات",
     "system": "النظام",
-    "connectors": "الموصّلات"
+    "connectors": "الموصّلات",
+    "explorer": "المستكشف"
   },
   "common": {
     "search": "بحث",
@@ -172,7 +173,12 @@
       "detectBruteForce": "كشف هجمات القوة الغاشمة",
       "findLateralMovement": "البحث عن الحركة الجانبية",
       "checkDataExfiltration": "التحقق من تسريب البيانات"
-    }
+    },
+    "aiAnalysis": "AI Analysis",
+    "sourcesCovered": "Sources Queried",
+    "executedQuery": "Executed Query",
+    "noAiAnalysis": "No AI analysis available",
+    "followUpPlaceholder": "Ask a follow-up question about this hunt..."
   },
   "cases": {
     "title": "إدارة القضايا",
@@ -342,6 +348,25 @@
       "saving": "جارٍ الحفظ...",
       "deleting": "جارٍ الحذف...",
       "activating": "جارٍ التفعيل..."
+    },
+    "comments": {
+      "title": "التعليقات",
+      "placeholder": "اكتب تعليقاً... استخدم @ لذكر شخص ما",
+      "mentionHint": "استخدم @ لذكر شخص ما",
+      "commentAdded": "تمت إضافة التعليق",
+      "commentDeleted": "تم حذف التعليق",
+      "commentUpdated": "تم تحديث التعليق",
+      "confirmDelete": "هل أنت متأكد من حذف هذا التعليق؟",
+      "noComments": "لا توجد تعليقات بعد",
+      "loadError": "فشل تحميل التعليقات",
+      "loadMore": "تحميل المزيد من التعليقات",
+      "endOfComments": "تم تحميل جميع التعليقات",
+      "showMore": "عرض المزيد",
+      "showLess": "عرض أقل",
+      "edited": "معدّل",
+      "editAction": "تعديل",
+      "deleteAction": "حذف",
+      "posting": "جارٍ النشر..."
     }
   },
   "intel": {
@@ -1068,7 +1093,9 @@
       "invalidLinkedAlerts": "تنبيه واحد أو أكثر من التنبيهات المرتبطة لا ينتمي إلى هذا المستأجر.",
       "taskNotFound": "لم يتم العثور على المهمة",
       "duplicateArtifact": "هذه القطعة الأثرية موجودة بالفعل في هذه القضية",
-      "artifactNotFound": "لم يتم العثور على القطعة الأثرية"
+      "artifactNotFound": "لم يتم العثور على القطعة الأثرية",
+      "invalidMentionedUsers": "أحد المستخدمين المذكورين أو أكثر ليسوا أعضاء نشطين في هذا المستأجر.",
+      "cannotMentionSelf": "لا يمكنك الإشارة إلى نفسك في تعليق."
     },
     "caseCycles": {
       "notFound": "دورة الحالات غير موجودة.",
@@ -1127,6 +1154,11 @@
     },
     "appLogs": {
       "notFound": "لم يتم العثور على سجل التطبيق."
+    },
+    "explorer": {
+      "connectorNotConfigured": "هذا الموصل غير مُهيأ أو معطّل.",
+      "connectorUnavailable": "الخدمة الخارجية غير متاحة حالياً. يرجى التأكد من أن الخدمة قيد التشغيل وأن إعدادات الموصل صحيحة.",
+      "syncFailed": "فشل الاتصال بالخدمة الخارجية. يرجى التحقق من تهيئة الموصل ومن إمكانية الوصول إلى الخدمة."
     },
     "impersonation": {
       "nestedNotAllowed": "لا يمكن انتحال الهوية أثناء جلسة انتحال هوية حالية.",
@@ -1188,5 +1220,178 @@
     "started": "الآن تشاهد كـ {user}",
     "confirmTitle": "التبديل إلى المستخدم",
     "confirmText": "سترى المنصة كـ {user}. ستُحفظ جلسة المسؤول الخاصة بك ويمكنك العودة في أي وقت."
+  },
+  "explorer": {
+    "overview": {
+      "title": "مستكشف البيانات",
+      "description": "تصفح واستكشف البيانات من أدوات الأمان المتصلة",
+      "loadError": "فشل في تحميل نظرة عامة على المستكشف",
+      "connectors": "الموصّلات",
+      "connected": "متصل",
+      "configured": "مُهيأ",
+      "notConfigured": "غير مُهيّأ",
+      "enabled": "مُفعّل",
+      "disabled": "مُعطّل",
+      "syncJobs": "مهام المزامنة",
+      "running": "قيد التشغيل",
+      "completed": "مكتمل",
+      "failed": "فشل"
+    },
+    "logs": {
+      "title": "مستكشف السجلات",
+      "description": "ابحث وتصفح السجلات من Graylog",
+      "searchPlaceholder": "البحث في السجلات...",
+      "timestamp": "الطابع الزمني",
+      "source": "المصدر",
+      "message": "الرسالة",
+      "priority": "الأولوية",
+      "noLogs": "لم يتم العثور على سجلات",
+      "noLogsDescription": "لا توجد إدخالات سجل تطابق معايير البحث"
+    },
+    "dashboards": {
+      "title": "مستكشف لوحات المعلومات",
+      "description": "تصفح لوحات معلومات Grafana المتزامنة",
+      "searchPlaceholder": "البحث في لوحات المعلومات...",
+      "title_column": "العنوان",
+      "folder": "المجلد",
+      "tags": "الوسوم",
+      "link": "الرابط",
+      "syncedAt": "تمت المزامنة",
+      "sync": "مزامنة الآن",
+      "syncing": "جارٍ المزامنة...",
+      "syncSuccess": "تمت مزامنة {count} لوحة معلومات",
+      "noDashboards": "لم يتم العثور على لوحات معلومات",
+      "noDashboardsDescription": "زامن لوحات معلومات Grafana لعرضها هنا"
+    },
+    "metrics": {
+      "title": "مستكشف المقاييس",
+      "description": "استعلم عن المقاييس من InfluxDB",
+      "queryBuilder": "مُنشئ الاستعلامات",
+      "bucket": "Bucket",
+      "selectBucket": "اختر bucket",
+      "measurement": "القياس",
+      "measurementPlaceholder": "فلتر اختياري...",
+      "timeRange": "النطاق الزمني",
+      "limit": "الحد",
+      "runQuery": "تنفيذ الاستعلام",
+      "querying": "جارٍ الاستعلام...",
+      "results": "النتائج",
+      "searchPlaceholder": "بحث في النتائج...",
+      "noData": "لا توجد بيانات",
+      "noDataDescription": "لم يُرجع الاستعلام أي نتائج",
+      "totalRows": "{count} صف"
+    },
+    "threatIntel": {
+      "title": "مستكشف استخبارات التهديدات",
+      "description": "تصفح بيانات استخبارات التهديدات من MISP",
+      "searchPlaceholder": "البحث بقيمة السمة...",
+      "eventId": "معرّف الحدث",
+      "info": "معلومات",
+      "date": "التاريخ",
+      "threatLevel": "مستوى التهديد",
+      "org": "المنظمة",
+      "attributes": "السمات",
+      "noEvents": "لم يتم العثور على أحداث",
+      "noEventsDescription": "لا توجد أحداث MISP تطابق معايير البحث"
+    },
+    "endpoints": {
+      "title": "مستكشف نقاط النهاية والصيد",
+      "description": "تصفح نقاط النهاية وعمليات الصيد من Velociraptor",
+      "endpointsTab": "نقاط النهاية",
+      "huntsTab": "عمليات الصيد",
+      "searchPlaceholder": "البحث في نقاط النهاية...",
+      "huntSearchPlaceholder": "البحث في عمليات الصيد...",
+      "sync": "مزامنة الآن",
+      "syncing": "جارٍ المزامنة...",
+      "syncSuccess": "تمت مزامنة {endpoints} نقطة نهاية و {hunts} عملية صيد",
+      "hostname": "اسم المضيف",
+      "os": "نظام التشغيل",
+      "ip": "عنوان IP",
+      "labels": "التسميات",
+      "lastSeen": "آخر ظهور",
+      "noEndpoints": "لم يتم العثور على نقاط نهاية",
+      "noEndpointsDescription": "زامن Velociraptor لعرض نقاط النهاية هنا",
+      "huntId": "معرّف الصيد",
+      "huntDescription": "الوصف",
+      "state": "الحالة",
+      "totalClients": "إجمالي العملاء",
+      "finishedClients": "المكتملون",
+      "createdAt": "تاريخ الإنشاء",
+      "noHunts": "لم يتم العثور على عمليات صيد",
+      "noHuntsDescription": "لم يتم العثور على عمليات صيد في Velociraptor"
+    },
+    "automation": {
+      "title": "مستكشف الأتمتة",
+      "description": "تصفح سير العمل من Shuffle SOAR",
+      "searchPlaceholder": "البحث في سير العمل...",
+      "name": "الاسم",
+      "workflowDescription": "الوصف",
+      "valid": "صالح",
+      "triggers": "المشغّلات",
+      "tags": "الوسوم",
+      "syncedAt": "تمت المزامنة",
+      "sync": "مزامنة الآن",
+      "syncing": "جارٍ المزامنة...",
+      "syncSuccess": "تمت مزامنة {count} سير عمل",
+      "noWorkflows": "لم يتم العثور على سير عمل",
+      "noWorkflowsDescription": "زامن Shuffle لعرض سير العمل هنا"
+    },
+    "pipelines": {
+      "title": "مستكشف خطوط الأنابيب",
+      "description": "تصفح والبحث في سجلات خطوط أنابيب Logstash",
+      "searchPlaceholder": "البحث في رسائل السجل...",
+      "timestamp": "الطابع الزمني",
+      "pipeline": "خط الأنابيب",
+      "level": "المستوى",
+      "message": "الرسالة",
+      "source": "المصدر",
+      "eventsIn": "الأحداث الواردة",
+      "eventsOut": "الأحداث الصادرة",
+      "allLevels": "جميع المستويات",
+      "levelInfo": "معلومات",
+      "levelWarn": "تحذير",
+      "levelError": "خطأ",
+      "levelDebug": "تصحيح",
+      "syncNow": "مزامنة Logstash",
+      "syncing": "جارٍ المزامنة...",
+      "syncSuccess": "تمت مزامنة سجلات خطوط أنابيب Logstash بنجاح",
+      "noLogs": "لم يتم العثور على سجلات خطوط أنابيب",
+      "noLogsDescription": "زامن Logstash أو شغّل سكريبت البذر لعرض سجلات خطوط الأنابيب هنا"
+    },
+    "syncJobs": {
+      "title": "مهام المزامنة",
+      "description": "تتبع مهام مزامنة البيانات عبر الموصّلات",
+      "connector": "الموصّل",
+      "status": "الحالة",
+      "synced": "تمت المزامنة",
+      "failed": "فشل",
+      "duration": "المدة",
+      "initiatedBy": "بواسطة",
+      "startedAt": "بدأ في",
+      "error": "خطأ",
+      "noJobs": "لا توجد مهام مزامنة",
+      "noJobsDescription": "لم يتم تسجيل أي مهام مزامنة بعد"
+    }
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "empty": "لا توجد إشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "allMarkedRead": "تم تحديد جميع الإشعارات كمقروءة",
+    "mentionedYou": "أشار إليك في تعليق",
+    "newNotification": "لديك إشعار جديد",
+    "caseAssigned": "تم تعيينك في قضية",
+    "caseUnassigned": "تم إلغاء تعيينك من قضية",
+    "tenantAssigned": "تمت إضافتك إلى مستأجر جديد",
+    "roleChanged": "تم تغيير دورك",
+    "userBlocked": "تم تعليق حسابك",
+    "userUnblocked": "تمت إعادة تفعيل حسابك",
+    "userRemoved": "تمت إزالة حسابك",
+    "userRestored": "تمت استعادة حسابك",
+    "caseCommentAdded": "تمت إضافة تعليق جديد إلى قضيتك",
+    "caseTaskAdded": "تمت إضافة مهمة جديدة إلى قضيتك",
+    "caseArtifactAdded": "تمت إضافة أثر رقمي جديد إلى قضيتك",
+    "caseStatusChanged": "تم تغيير حالة قضيتك",
+    "caseUpdated": "تم تحديث قضيتك"
   }
 }

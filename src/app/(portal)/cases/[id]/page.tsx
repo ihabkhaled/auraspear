@@ -10,6 +10,7 @@ import {
   CaseTaskList,
   CaseArtifactPanel,
   EditCaseDialog,
+  CaseComments,
 } from '@/components/cases'
 import {
   LoadingSpinner,
@@ -21,8 +22,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import type { CaseStatus } from '@/enums'
-import { CaseSeverity, CaseTaskStatus, SortOrder } from '@/enums'
+import { CaseSeverity, CaseStatus, CaseTaskStatus, SortOrder, UserRole } from '@/enums'
 import {
   useCase,
   useTenantMembers,
@@ -35,7 +35,9 @@ import {
 } from '@/hooks'
 import { useCaseCycles } from '@/hooks/useCaseCycles'
 import { getErrorKey } from '@/lib/api-error'
+import { hasRole } from '@/lib/roles'
 import { cn } from '@/lib/utils'
+import { useAuthStore } from '@/stores'
 import type { CaseDetailPageProps, EditCaseFormValues } from '@/types'
 
 export default function CaseDetailPage({ params }: CaseDetailPageProps) {
@@ -56,6 +58,10 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
     sortBy: 'createdAt',
     sortOrder: SortOrder.DESC,
   })
+  const user = useAuthStore(s => s.user)
+  const currentUserId = user?.sub ?? ''
+  const isAdmin = user?.role ? hasRole(user.role, UserRole.TENANT_ADMIN) : false
+
   const caseItem = data?.data
   const members = membersData?.data ?? []
   const cycles = (cyclesData?.data ?? []).map(c => ({ id: c.id, name: c.name, status: c.status }))
@@ -340,14 +346,25 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
       )}
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Timeline - wider left column */}
-        <div className="lg:col-span-2">
+        {/* Timeline + Comments - wider left column */}
+        <div className="flex flex-col gap-6 lg:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">{t('timeline')}</CardTitle>
             </CardHeader>
             <CardContent>
               <CaseTimeline entries={caseItem.timeline ?? []} />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <CaseComments
+                caseId={id}
+                currentUserId={currentUserId}
+                isAdmin={isAdmin}
+                isCaseClosed={caseItem.status === CaseStatus.CLOSED}
+              />
             </CardContent>
           </Card>
         </div>

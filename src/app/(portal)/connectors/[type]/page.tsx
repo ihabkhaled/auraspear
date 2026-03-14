@@ -18,6 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { WorkspaceTab } from '@/enums'
 import { useConnectorWorkspacePage } from '@/hooks/useConnectorWorkspacePage'
+import { isSyncableConnector } from '@/lib/constants/connectors.constants'
 
 interface ConnectorDetailPageProps {
   params: Promise<{ type: string }>
@@ -286,7 +287,7 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   <Play className="me-2 h-3.5 w-3.5" />
                   {t('testConnection')}
                 </Button>
-                {isEditor && (
+                {isEditor && type && isSyncableConnector(type) && (
                   <Button
                     className="w-full justify-start"
                     variant="default"

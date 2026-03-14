@@ -2,13 +2,13 @@
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { connectorWorkspaceService } from '@/services/connector-workspace.service'
+import { useTenantStore } from '@/stores'
 import type { WorkspaceSearchRequest } from '@/types'
 
-const WORKSPACE_KEY = ['connector-workspace'] as const
-
 export function useWorkspaceOverview(type: string, enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: [...WORKSPACE_KEY, type, 'overview'],
+    queryKey: ['connector-workspace', tenantId, type, 'overview'],
     queryFn: () => connectorWorkspaceService.getOverview(type),
     enabled: Boolean(type) && enabled,
     staleTime: 60_000,
@@ -17,8 +17,9 @@ export function useWorkspaceOverview(type: string, enabled = true) {
 }
 
 export function useWorkspaceRecentActivity(type: string, page = 1, pageSize = 20, enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: [...WORKSPACE_KEY, type, 'recent-activity', page, pageSize],
+    queryKey: ['connector-workspace', tenantId, type, 'recent-activity', page, pageSize],
     queryFn: () => connectorWorkspaceService.getRecentActivity(type, page, pageSize),
     enabled: Boolean(type) && enabled,
     staleTime: 30_000,
@@ -27,8 +28,9 @@ export function useWorkspaceRecentActivity(type: string, page = 1, pageSize = 20
 }
 
 export function useWorkspaceEntities(type: string, page = 1, pageSize = 20, enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
-    queryKey: [...WORKSPACE_KEY, type, 'entities', page, pageSize],
+    queryKey: ['connector-workspace', tenantId, type, 'entities', page, pageSize],
     queryFn: () => connectorWorkspaceService.getEntities(type, page, pageSize),
     enabled: Boolean(type) && enabled,
     staleTime: 60_000,
@@ -44,13 +46,16 @@ export function useWorkspaceSearch(type: string) {
 }
 
 export function useWorkspaceAction(type: string) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: ({ action, params }: { action: string; params?: Record<string, unknown> }) =>
       connectorWorkspaceService.executeAction(type, action, params),
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: [...WORKSPACE_KEY, type] })
+      void queryClient.invalidateQueries({
+        queryKey: ['connector-workspace', tenantId, type],
+      })
     },
   })
 }

@@ -14,7 +14,8 @@
     "main": "Main",
     "intelligence": "Intelligence",
     "system": "System",
-    "connectors": "Connectors"
+    "connectors": "Connectors",
+    "explorer": "Explorer"
   },
   "common": {
     "search": "Search",
@@ -172,7 +173,12 @@
       "detectBruteForce": "Detect brute force attacks",
       "findLateralMovement": "Find lateral movement",
       "checkDataExfiltration": "Check for data exfiltration"
-    }
+    },
+    "aiAnalysis": "AI Analysis",
+    "sourcesCovered": "Sources Queried",
+    "executedQuery": "Executed Query",
+    "noAiAnalysis": "No AI analysis available",
+    "followUpPlaceholder": "Ask a follow-up question about this hunt..."
   },
   "cases": {
     "title": "Case Management",
@@ -342,6 +348,25 @@
       "saving": "Saving...",
       "deleting": "Deleting...",
       "activating": "Activating..."
+    },
+    "comments": {
+      "title": "Comments",
+      "placeholder": "Write a comment... Use @ to mention someone",
+      "mentionHint": "Use @ to mention someone",
+      "commentAdded": "Comment added",
+      "commentDeleted": "Comment deleted",
+      "commentUpdated": "Comment updated",
+      "confirmDelete": "Are you sure you want to delete this comment?",
+      "noComments": "No comments yet",
+      "loadError": "Failed to load comments",
+      "loadMore": "Load more comments",
+      "endOfComments": "All comments loaded",
+      "showMore": "Show more",
+      "showLess": "Show less",
+      "edited": "edited",
+      "editAction": "Edit",
+      "deleteAction": "Delete",
+      "posting": "Posting..."
     }
   },
   "intel": {
@@ -1078,7 +1103,9 @@
       "invalidLinkedAlerts": "One or more linked alerts do not belong to this tenant.",
       "taskNotFound": "Task not found",
       "duplicateArtifact": "This artifact already exists on this case",
-      "artifactNotFound": "Artifact not found"
+      "artifactNotFound": "Artifact not found",
+      "invalidMentionedUsers": "One or more mentioned users are not active members of this tenant.",
+      "cannotMentionSelf": "You cannot mention yourself in a comment."
     },
     "caseCycles": {
       "notFound": "Case cycle not found.",
@@ -1137,6 +1164,11 @@
     },
     "appLogs": {
       "notFound": "Application log entry not found."
+    },
+    "explorer": {
+      "connectorNotConfigured": "This connector is not configured or is disabled.",
+      "connectorUnavailable": "The external service is currently unreachable. Please verify that the service is running and the connector configuration is correct.",
+      "syncFailed": "Failed to connect to the external service. Please verify the connector configuration and that the service is reachable."
     }
   },
   "profile": {
@@ -1189,5 +1221,178 @@
     "started": "Now viewing as {user}",
     "confirmTitle": "Switch to User",
     "confirmText": "You will view the platform as {user}. Your admin session will be preserved and you can return at any time."
+  },
+  "explorer": {
+    "overview": {
+      "title": "Data Explorer",
+      "description": "Browse and explore data from your connected security tools",
+      "loadError": "Failed to load explorer overview",
+      "connectors": "Connectors",
+      "connected": "Connected",
+      "configured": "Configured",
+      "notConfigured": "Not configured",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "syncJobs": "Sync Jobs",
+      "running": "Running",
+      "completed": "Completed",
+      "failed": "Failed"
+    },
+    "logs": {
+      "title": "Log Explorer",
+      "description": "Search and browse logs from Graylog",
+      "searchPlaceholder": "Search logs...",
+      "timestamp": "Timestamp",
+      "source": "Source",
+      "message": "Message",
+      "priority": "Priority",
+      "noLogs": "No logs found",
+      "noLogsDescription": "No log entries match your search criteria"
+    },
+    "dashboards": {
+      "title": "Dashboard Explorer",
+      "description": "Browse synced Grafana dashboards",
+      "searchPlaceholder": "Search dashboards...",
+      "title_column": "Title",
+      "folder": "Folder",
+      "tags": "Tags",
+      "link": "Link",
+      "syncedAt": "Synced",
+      "sync": "Sync Now",
+      "syncing": "Syncing...",
+      "syncSuccess": "Synced {count} dashboards",
+      "noDashboards": "No dashboards found",
+      "noDashboardsDescription": "Sync Grafana dashboards to see them here"
+    },
+    "metrics": {
+      "title": "Metrics Explorer",
+      "description": "Query metrics from InfluxDB",
+      "queryBuilder": "Query Builder",
+      "bucket": "Bucket",
+      "selectBucket": "Select a bucket",
+      "measurement": "Measurement",
+      "measurementPlaceholder": "Optional filter...",
+      "timeRange": "Time Range",
+      "limit": "Limit",
+      "runQuery": "Run Query",
+      "querying": "Querying...",
+      "results": "Results",
+      "searchPlaceholder": "Search results...",
+      "noData": "No data",
+      "noDataDescription": "The query returned no results",
+      "totalRows": "{count} rows"
+    },
+    "threatIntel": {
+      "title": "Threat Intelligence Explorer",
+      "description": "Browse threat intelligence data from MISP",
+      "searchPlaceholder": "Search by attribute value...",
+      "eventId": "Event ID",
+      "info": "Info",
+      "date": "Date",
+      "threatLevel": "Threat Level",
+      "org": "Organization",
+      "attributes": "Attributes",
+      "noEvents": "No events found",
+      "noEventsDescription": "No MISP events match your search criteria"
+    },
+    "endpoints": {
+      "title": "Endpoint & Hunt Explorer",
+      "description": "Browse endpoints and hunts from Velociraptor",
+      "endpointsTab": "Endpoints",
+      "huntsTab": "Hunts",
+      "searchPlaceholder": "Search endpoints...",
+      "huntSearchPlaceholder": "Search hunts...",
+      "sync": "Sync Now",
+      "syncing": "Syncing...",
+      "syncSuccess": "Synced {endpoints} endpoints and {hunts} hunts",
+      "hostname": "Hostname",
+      "os": "OS",
+      "ip": "IP Address",
+      "labels": "Labels",
+      "lastSeen": "Last Seen",
+      "noEndpoints": "No endpoints found",
+      "noEndpointsDescription": "Sync Velociraptor to see endpoints here",
+      "huntId": "Hunt ID",
+      "huntDescription": "Description",
+      "state": "State",
+      "totalClients": "Total Clients",
+      "finishedClients": "Finished",
+      "createdAt": "Created",
+      "noHunts": "No hunts found",
+      "noHuntsDescription": "No Velociraptor hunts found"
+    },
+    "automation": {
+      "title": "Automation Explorer",
+      "description": "Browse workflows from Shuffle SOAR",
+      "searchPlaceholder": "Search workflows...",
+      "name": "Name",
+      "workflowDescription": "Description",
+      "valid": "Valid",
+      "triggers": "Triggers",
+      "tags": "Tags",
+      "syncedAt": "Synced",
+      "sync": "Sync Now",
+      "syncing": "Syncing...",
+      "syncSuccess": "Synced {count} workflows",
+      "noWorkflows": "No workflows found",
+      "noWorkflowsDescription": "Sync Shuffle to see workflows here"
+    },
+    "pipelines": {
+      "title": "Pipeline Logs Explorer",
+      "description": "Browse and search Logstash pipeline log entries",
+      "searchPlaceholder": "Search log messages...",
+      "timestamp": "Timestamp",
+      "pipeline": "Pipeline",
+      "level": "Level",
+      "message": "Message",
+      "source": "Source",
+      "eventsIn": "Events In",
+      "eventsOut": "Events Out",
+      "allLevels": "All Levels",
+      "levelInfo": "Info",
+      "levelWarn": "Warning",
+      "levelError": "Error",
+      "levelDebug": "Debug",
+      "syncNow": "Sync Logstash",
+      "syncing": "Syncing...",
+      "syncSuccess": "Logstash pipeline logs synced successfully",
+      "noLogs": "No pipeline logs found",
+      "noLogsDescription": "Sync Logstash or run the seed script to see pipeline logs here"
+    },
+    "syncJobs": {
+      "title": "Sync Jobs",
+      "description": "Track data synchronization jobs across connectors",
+      "connector": "Connector",
+      "status": "Status",
+      "synced": "Synced",
+      "failed": "Failed",
+      "duration": "Duration",
+      "initiatedBy": "Initiated By",
+      "startedAt": "Started",
+      "error": "Error",
+      "noJobs": "No sync jobs",
+      "noJobsDescription": "No synchronization jobs have been recorded yet"
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No notifications",
+    "markAllRead": "Mark all read",
+    "allMarkedRead": "All notifications marked as read",
+    "mentionedYou": "mentioned you in a comment",
+    "newNotification": "You have a new notification",
+    "caseAssigned": "You have been assigned to a case",
+    "caseUnassigned": "You have been unassigned from a case",
+    "tenantAssigned": "You have been added to a new tenant",
+    "roleChanged": "Your role has been changed",
+    "userBlocked": "Your account has been suspended",
+    "userUnblocked": "Your account has been reactivated",
+    "userRemoved": "Your account has been removed",
+    "userRestored": "Your account has been restored",
+    "caseCommentAdded": "A new comment was added to your case",
+    "caseTaskAdded": "A new task was added to your case",
+    "caseArtifactAdded": "A new artifact was added to your case",
+    "caseStatusChanged": "Your case status has been changed",
+    "caseUpdated": "Your case has been updated"
   }
 }

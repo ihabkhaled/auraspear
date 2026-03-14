@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, Controller } from 'react-hook-form'
@@ -50,6 +51,13 @@ export function CreateCaseDialog({
       severity: CaseSeverity.MEDIUM,
     },
   })
+
+  // Reset form when dialog closes (covers programmatic close on success)
+  useEffect(() => {
+    if (!open) {
+      reset()
+    }
+  }, [open, reset])
 
   const handleFormSubmit = (data: CreateCaseFormValues) => {
     onSubmit(data)

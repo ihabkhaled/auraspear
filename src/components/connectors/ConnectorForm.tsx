@@ -168,6 +168,7 @@ export function ConnectorForm({
           region: '',
           accessKeyId: '',
           secretAccessKey: '',
+          endpoint: '',
           nlHuntingEnabled: false,
           explainableAiEnabled: false,
           auditLoggingEnabled: false,
