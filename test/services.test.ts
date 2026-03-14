@@ -689,7 +689,7 @@ describe('adminService', () => {
       const mockUser = { data: { id: 'u1', name: 'Assigned User' } }
       mockPost.mockResolvedValue({ data: mockUser })
 
-      const input = { userId: 'u1', role: 'ANALYST' }
+      const input = { userId: 'u1', role: 'ANALYST', email: 'u1@test.com' }
       const result = await adminService.assignUser(
         't1',
         input as Parameters<typeof adminService.assignUser>[1]

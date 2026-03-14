@@ -98,6 +98,7 @@ const connectorBaseSchema = z.object({
   region: z.string(),
   accessKeyId: z.string(),
   secretAccessKey: z.string(),
+  endpoint: z.string(),
   nlHuntingEnabled: z.boolean(),
   explainableAiEnabled: z.boolean(),
   auditLoggingEnabled: z.boolean(),

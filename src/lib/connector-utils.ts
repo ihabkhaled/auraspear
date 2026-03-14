@@ -53,6 +53,7 @@ export function recordToFormValues(record: ConnectorRecord): ConnectorFormValues
     region: String(config['region'] ?? ''),
     accessKeyId: String(config['accessKeyId'] ?? ''),
     secretAccessKey: String(config['secretAccessKey'] ?? ''),
+    endpoint: String(config['endpoint'] ?? ''),
     nlHuntingEnabled: config['nlHuntingEnabled'] === true,
     explainableAiEnabled: config['explainableAiEnabled'] === true,
     auditLoggingEnabled: config['auditLoggingEnabled'] === true,

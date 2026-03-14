@@ -718,6 +718,16 @@ export function ConnectorForm({
                 <Label htmlFor="secretAccessKey">{t('secretAccessKey')}</Label>
                 {renderSecret('secretAccessKey')}
               </div>
+              <div className="space-y-2 sm:col-span-2">
+                <Label htmlFor="endpoint">{t('endpoint')}</Label>
+                <Input
+                  id="endpoint"
+                  disabled={disabled}
+                  placeholder={t('endpointPlaceholder')}
+                  {...register('endpoint')}
+                />
+                <p className="text-muted-foreground text-xs">{t('endpointHint')}</p>
+              </div>
             </div>
           </div>
 

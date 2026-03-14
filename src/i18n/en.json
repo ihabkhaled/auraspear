@@ -771,6 +771,9 @@
     "selectRegion": "Select region",
     "accessKeyId": "Access Key ID",
     "secretAccessKey": "Secret Access Key",
+    "endpoint": "Custom Endpoint URL",
+    "endpointPlaceholder": "http://localhost:4566",
+    "endpointHint": "Optional. For LocalStack or custom AWS-compatible endpoint. Leave empty for real AWS Bedrock.",
     "wazuh": {
       "indexerUrl": "Indexer URL",
       "managerUrl": "Manager URL (optional)",

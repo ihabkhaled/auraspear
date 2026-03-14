@@ -42,6 +42,7 @@ function makeValidData(overrides: Record<string, unknown> = {}) {
     region: '',
     accessKeyId: '',
     secretAccessKey: '',
+    endpoint: '',
     nlHuntingEnabled: false,
     explainableAiEnabled: false,
     auditLoggingEnabled: false,
