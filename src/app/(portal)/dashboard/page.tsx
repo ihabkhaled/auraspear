@@ -48,10 +48,9 @@ export default function DashboardPage() {
   const healthPercent = computeHealthPercent(healthServices)
 
   const handleServiceClick = useCallback(
-    (name: string) => {
-      const type = name.toLowerCase()
-      if (isConnectorType(type)) {
-        router.push(`/connectors/${type}`)
+    (connectorType: string) => {
+      if (isConnectorType(connectorType)) {
+        router.push(`/connectors/${connectorType}`)
       }
     },
     [router]

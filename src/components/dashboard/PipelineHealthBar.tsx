@@ -10,7 +10,7 @@ import type { ServiceHealth } from '@/types'
 
 interface PipelineHealthBarProps {
   services: ServiceHealth[]
-  onServiceClick?: ((serviceName: string) => void) | undefined
+  onServiceClick?: ((connectorType: string) => void) | undefined
 }
 
 function HealthDot({ status }: { status: ServiceStatus }) {
@@ -38,8 +38,11 @@ export function PipelineHealthBar({ services, onServiceClick }: PipelineHealthBa
       {services.map(service => (
         <div
           key={service.name}
-          className={cn('flex items-center gap-2', onServiceClick && 'cursor-pointer')}
-          onClick={onServiceClick ? () => onServiceClick(service.name) : undefined}
+          className={cn(
+            'flex items-center gap-2',
+            onServiceClick && 'cursor-pointer hover:opacity-80'
+          )}
+          onClick={onServiceClick ? () => onServiceClick(service.type) : undefined}
         >
           <HealthDot status={service.status} />
           <span className="text-foreground text-sm">{service.name}</span>
