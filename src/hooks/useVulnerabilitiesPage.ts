@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getVulnerabilityColumns } from '@/components/vulnerabilities'
+import { SortOrder } from '@/enums'
 import type { Vulnerability, VulnerabilitySearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
@@ -16,6 +17,8 @@ export function useVulnerabilitiesPage() {
   const [severityFilter, setSeverityFilter] = useState('')
   const [patchStatusFilter, setPatchStatusFilter] = useState('')
   const [exploitFilter, setExploitFilter] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
 
   // CRUD dialog state
   const [createOpen, setCreateOpen] = useState(false)
@@ -32,6 +35,8 @@ export function useVulnerabilitiesPage() {
   const searchParams: VulnerabilitySearchParams = {
     page: pagination.page,
     limit: pagination.limit,
+    sortBy,
+    sortOrder,
   }
 
   if (severityFilter.length > 0) {
@@ -91,6 +96,15 @@ export function useVulnerabilitiesPage() {
     [pagination]
   )
 
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
+    },
+    [pagination]
+  )
+
   const handleRowClick = useCallback((vulnerability: Vulnerability) => {
     setSelectedVulnerability(vulnerability)
     setDetailOpen(true)
@@ -130,6 +144,9 @@ export function useVulnerabilitiesPage() {
     setPatchStatusFilter: handlePatchStatusChange,
     exploitFilter,
     setExploitFilter: handleExploitChange,
+    sortBy,
+    sortOrder,
+    handleSort,
     isFetching,
     data,
     stats: statsData?.data ?? null,

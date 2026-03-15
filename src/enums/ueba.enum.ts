@@ -1,7 +1,7 @@
 export enum UebaEntityType {
   USER = 'user',
   HOST = 'host',
-  IP = 'ip',
+  SERVICE_ACCOUNT = 'service_account',
   APPLICATION = 'application',
 }
 
@@ -10,20 +10,21 @@ export enum UebaRiskLevel {
   HIGH = 'high',
   MEDIUM = 'medium',
   LOW = 'low',
+  NORMAL = 'normal',
 }
 
 export enum MlModelStatus {
-  ACTIVE = 'active',
   TRAINING = 'training',
+  ACTIVE = 'active',
+  DEGRADED = 'degraded',
   INACTIVE = 'inactive',
-  ERROR = 'error',
 }
 
 export enum MlModelType {
   ANOMALY_DETECTION = 'anomaly_detection',
   CLASSIFICATION = 'classification',
   CLUSTERING = 'clustering',
-  REGRESSION = 'regression',
+  TIME_SERIES = 'time_series',
 }
 
 export enum UebaTab {

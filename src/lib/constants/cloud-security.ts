@@ -16,14 +16,12 @@ export const CLOUD_ACCOUNT_STATUS_LABEL_KEYS: Record<CloudAccountStatus, string>
   [CloudAccountStatus.CONNECTED]: 'statusConnected',
   [CloudAccountStatus.DISCONNECTED]: 'statusDisconnected',
   [CloudAccountStatus.ERROR]: 'statusError',
-  [CloudAccountStatus.PENDING]: 'statusPending',
 }
 
 export const CLOUD_ACCOUNT_STATUS_CLASSES: Record<CloudAccountStatus, string> = {
   [CloudAccountStatus.CONNECTED]: 'bg-status-success text-white',
   [CloudAccountStatus.DISCONNECTED]: 'bg-muted text-muted-foreground',
   [CloudAccountStatus.ERROR]: 'bg-status-error text-white',
-  [CloudAccountStatus.PENDING]: 'bg-status-warning text-white',
 }
 
 export const CLOUD_FINDING_SEVERITY_LABEL_KEYS: Record<CloudFindingSeverity, string> = {
@@ -46,12 +44,10 @@ export const CLOUD_FINDING_STATUS_LABEL_KEYS: Record<CloudFindingStatus, string>
   [CloudFindingStatus.OPEN]: 'findingStatusOpen',
   [CloudFindingStatus.RESOLVED]: 'findingStatusResolved',
   [CloudFindingStatus.SUPPRESSED]: 'findingStatusSuppressed',
-  [CloudFindingStatus.IN_PROGRESS]: 'findingStatusInProgress',
 }
 
 export const CLOUD_FINDING_STATUS_CLASSES: Record<CloudFindingStatus, string> = {
   [CloudFindingStatus.OPEN]: 'bg-status-error text-white',
   [CloudFindingStatus.RESOLVED]: 'bg-status-success text-white',
   [CloudFindingStatus.SUPPRESSED]: 'bg-muted text-muted-foreground',
-  [CloudFindingStatus.IN_PROGRESS]: 'bg-status-warning text-white',
 }

@@ -1,4 +1,4 @@
-import type { MlModelStatus, MlModelType, UebaEntityType, UebaRiskLevel } from '@/enums'
+import type { MlModelStatus, MlModelType, SortOrder, UebaEntityType, UebaRiskLevel } from '@/enums'
 
 export interface UebaEntity {
   id: string
@@ -57,6 +57,8 @@ export interface UebaEntitySearchParams {
   query?: string
   entityType?: string
   riskLevel?: string
+  sortBy?: string
+  sortOrder?: SortOrder
 }
 
 export interface UebaAnomalySearchParams {

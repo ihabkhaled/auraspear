@@ -1,18 +1,20 @@
 export enum AiAgentStatus {
   ONLINE = 'online',
   OFFLINE = 'offline',
-  ERROR = 'error',
-  IDLE = 'idle',
+  DEGRADED = 'degraded',
+  MAINTENANCE = 'maintenance',
 }
 
 export enum AiAgentTier {
-  TIER_1 = 'tier_1',
-  TIER_2 = 'tier_2',
-  TIER_3 = 'tier_3',
+  L0 = 'L0',
+  L1 = 'L1',
+  L2 = 'L2',
+  L3 = 'L3',
 }
 
 export enum AiAgentSessionStatus {
-  ACTIVE = 'active',
+  RUNNING = 'running',
   COMPLETED = 'completed',
   FAILED = 'failed',
+  CANCELLED = 'cancelled',
 }

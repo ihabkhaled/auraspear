@@ -35,8 +35,7 @@ export function useAttackPathCreateDialog({
       description: '',
       severity: AttackPathSeverity.MEDIUM,
       stages: [{ ...EMPTY_STAGE }],
-      linkedIncidents: '',
-      affectedAssets: '',
+      affectedAssets: 0,
     },
   })
 

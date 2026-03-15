@@ -1,11 +1,12 @@
 import { z } from 'zod'
-import { PatchStatus } from '@/enums'
+import { PatchStatus, VulnerabilitySeverity } from '@/enums'
 
 export const CVE_ID_PATTERN = /^CVE-\d{4}-\d{4,}$/
 
 export const createVulnerabilitySchema = z.object({
   cveId: z.string().regex(CVE_ID_PATTERN),
   cvssScore: z.number().min(0).max(10),
+  severity: z.nativeEnum(VulnerabilitySeverity),
   description: z.string().min(10),
   affectedHosts: z.number().int().min(0),
   exploitAvailable: z.boolean(),
@@ -18,6 +19,7 @@ export const createVulnerabilitySchema = z.object({
 export const editVulnerabilitySchema = z.object({
   cveId: z.string().regex(CVE_ID_PATTERN),
   cvssScore: z.number().min(0).max(10),
+  severity: z.nativeEnum(VulnerabilitySeverity),
   description: z.string().min(10),
   affectedHosts: z.number().int().min(0),
   exploitAvailable: z.boolean(),

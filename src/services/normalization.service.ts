@@ -31,5 +31,5 @@ export const normalizationService = {
       .then(r => r.data),
 
   getStats: () =>
-    api.get<ApiResponse<NormalizationStats>>('/normalization/stats').then(r => r.data),
+    api.get<ApiResponse<NormalizationStats>>('/normalization/pipelines/stats').then(r => r.data),
 }

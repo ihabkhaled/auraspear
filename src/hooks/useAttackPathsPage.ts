@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getAttackPathColumns } from '@/components/attack-paths'
 import { Toast } from '@/components/common'
+import { SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import type {
   AttackPath,
@@ -31,6 +32,8 @@ export function useAttackPathsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [severityFilter, setSeverityFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [selectedPathId, setSelectedPathId] = useState<string | null>(null)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -42,6 +45,8 @@ export function useAttackPathsPage() {
   const searchParams: AttackPathSearchParams = {
     page: pagination.page,
     limit: pagination.limit,
+    sortBy,
+    sortOrder,
   }
 
   if (debouncedQuery.length > 0) {
@@ -93,6 +98,15 @@ export function useAttackPathsPage() {
     [pagination]
   )
 
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
+    },
+    [pagination]
+  )
+
   const handleRowClick = useCallback((path: AttackPath) => {
     setSelectedPathId(prev => (prev === path.id ? null : path.id))
   }, [])
@@ -108,14 +122,7 @@ export function useAttackPathsPage() {
         description: formData.description,
         severity: formData.severity,
         stages: formData.stages,
-        linkedIncidents: formData.linkedIncidents
-          .split(',')
-          .map(s => s.trim())
-          .filter(s => s.length > 0),
-        affectedAssetNames: formData.affectedAssets
-          .split(',')
-          .map(s => s.trim())
-          .filter(s => s.length > 0),
+        affectedAssets: formData.affectedAssets,
       }
 
       createMutation.mutate(payload, {
@@ -148,14 +155,7 @@ export function useAttackPathsPage() {
         severity: formData.severity,
         status: formData.status,
         stages: formData.stages,
-        linkedIncidents: formData.linkedIncidents
-          .split(',')
-          .map(s => s.trim())
-          .filter(s => s.length > 0),
-        affectedAssetNames: formData.affectedAssets
-          .split(',')
-          .map(s => s.trim())
-          .filter(s => s.length > 0),
+        affectedAssets: formData.affectedAssets,
       }
 
       updateMutation.mutate(
@@ -209,8 +209,7 @@ export function useAttackPathsPage() {
           description: s.description,
           assets: s.assets,
         })),
-        linkedIncidents: (editingPath.linkedIncidents ?? []).join(', '),
-        affectedAssets: (editingPath.affectedAssetNames ?? []).join(', '),
+        affectedAssets: editingPath.affectedAssets ?? 0,
       }
     : null
 
@@ -225,6 +224,9 @@ export function useAttackPathsPage() {
     setSeverityFilter: handleSeverityChange,
     statusFilter: statusFilter.length > 0 ? statusFilter : ALL_FILTER,
     setStatusFilter: handleStatusChange,
+    sortBy,
+    sortOrder,
+    handleSort,
     isFetching,
     data,
     stats: statsData?.data ?? null,

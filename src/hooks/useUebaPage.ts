@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getUebaColumns } from '@/components/ueba'
-import { UebaEntityType } from '@/enums'
+import { SortOrder, UebaEntityType } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import type {
   UebaEntity,
@@ -31,6 +31,8 @@ export function useUebaPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [entityTypeFilter, setEntityTypeFilter] = useState('')
   const [riskLevelFilter, setRiskLevelFilter] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [selectedEntityId, setSelectedEntityId] = useState<string | null>(null)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -46,6 +48,8 @@ export function useUebaPage() {
   const searchParams: UebaEntitySearchParams = {
     page: pagination.page,
     limit: pagination.limit,
+    sortBy,
+    sortOrder,
   }
 
   if (debouncedQuery.length > 0) {
@@ -89,6 +93,15 @@ export function useUebaPage() {
     (value: string) => {
       setRiskLevelFilter(value === ALL_FILTER ? '' : value)
       pagination.setPage(1)
+    },
+    [pagination]
+  )
+
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
     },
     [pagination]
   )
@@ -180,6 +193,9 @@ export function useUebaPage() {
     setEntityTypeFilter: handleEntityTypeChange,
     riskLevelFilter: riskLevelFilter.length > 0 ? riskLevelFilter : ALL_FILTER,
     setRiskLevelFilter: handleRiskLevelChange,
+    sortBy,
+    sortOrder,
+    handleSort,
     isFetching,
     data,
     stats: statsData?.data ?? null,

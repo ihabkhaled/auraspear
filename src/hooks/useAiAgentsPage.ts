@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getAiAgentColumns } from '@/components/ai-agents'
 import { Toast } from '@/components/common'
+import { SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import type {
   AiAgent,
@@ -30,6 +31,8 @@ export function useAiAgentsPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [tierFilter, setTierFilter] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null)
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -45,6 +48,8 @@ export function useAiAgentsPage() {
   const searchParams: AiAgentSearchParams = {
     page: pagination.page,
     limit: pagination.limit,
+    sortBy,
+    sortOrder,
   }
 
   if (debouncedQuery.length > 0) {
@@ -88,6 +93,15 @@ export function useAiAgentsPage() {
     (value: string) => {
       setTierFilter(value === ALL_FILTER ? '' : value)
       pagination.setPage(1)
+    },
+    [pagination]
+  )
+
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
     },
     [pagination]
   )
@@ -186,6 +200,9 @@ export function useAiAgentsPage() {
     setStatusFilter: handleStatusChange,
     tierFilter: tierFilter.length > 0 ? tierFilter : ALL_FILTER,
     setTierFilter: handleTierChange,
+    sortBy,
+    sortOrder,
+    handleSort,
     isFetching,
     data,
     stats: statsData?.data ?? null,

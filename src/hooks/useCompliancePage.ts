@@ -164,6 +164,7 @@ export function useCompliancePage() {
     () => ({
       name: selectedFramework?.name ?? '',
       standard: selectedFramework?.standard ?? ComplianceStandard.ISO_27001,
+      version: selectedFramework?.version ?? '',
       description: selectedFramework?.description ?? '',
     }),
     [selectedFramework]

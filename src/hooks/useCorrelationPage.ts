@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getCorrelationColumns } from '@/components/correlation'
-import { RuleSource } from '@/enums'
+import { RuleSource, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import type {
   CorrelationRule,
@@ -34,6 +34,8 @@ export function useCorrelationPage() {
   const [activeTab, setActiveTab] = useState('all')
   const [severityFilter, setSeverityFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
+  const [sortBy, setSortBy] = useState('createdAt')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
   const [selectedRuleId, setSelectedRuleId] = useState<string | null>(null)
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
@@ -52,6 +54,8 @@ export function useCorrelationPage() {
   const searchParams: CorrelationSearchParams = {
     page: pagination.page,
     limit: pagination.limit,
+    sortBy,
+    sortOrder,
   }
 
   const sourceFromTab = TAB_SOURCE_MAP[activeTab]
@@ -108,6 +112,15 @@ export function useCorrelationPage() {
     (value: string) => {
       setSearchQuery(value)
       pagination.setPage(1)
+    },
+    [pagination]
+  )
+
+  const handleSort = useCallback(
+    (key: string, order: SortOrder) => {
+      pagination.setPage(1)
+      setSortBy(key)
+      setSortOrder(order)
     },
     [pagination]
   )
@@ -240,6 +253,9 @@ export function useCorrelationPage() {
     stats: statsData?.data ?? null,
     pagination,
     columns,
+    sortBy,
+    sortOrder,
+    handleSort,
     handleRowClick,
     createDialogOpen,
     setCreateDialogOpen,

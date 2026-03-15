@@ -8,5 +8,5 @@ export enum AttackPathSeverity {
 export enum AttackPathStatus {
   ACTIVE = 'active',
   MITIGATED = 'mitigated',
-  MONITORING = 'monitoring',
+  RESOLVED = 'resolved',
 }

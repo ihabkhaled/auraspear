@@ -24,6 +24,7 @@ export function useComplianceCreateDialog({
     defaultValues: {
       name: '',
       standard: ComplianceStandard.ISO_27001,
+      version: '',
       description: '',
     },
   })

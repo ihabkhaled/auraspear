@@ -23,7 +23,7 @@ export function useSystemHealthCreateDialog({
     resolver: zodResolver(createHealthCheckSchema),
     defaultValues: {
       serviceName: '',
-      serviceType: ServiceType.WAZUH,
+      serviceType: ServiceType.CONNECTOR,
       config: '{}',
     },
   })

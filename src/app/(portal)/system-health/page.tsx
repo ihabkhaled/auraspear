@@ -55,7 +55,7 @@ export default function SystemHealthPage() {
         serviceType: selectedCheck.serviceType,
         config: '{}',
       }
-    : { serviceName: '', serviceType: ServiceType.WAZUH, config: '{}' }
+    : { serviceName: '', serviceType: ServiceType.CONNECTOR, config: '{}' }
 
   return (
     <div className="space-y-4">

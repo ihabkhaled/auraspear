@@ -28,7 +28,10 @@ export function useAttackPathEditDialog({
     formState: { errors },
   } = useForm<EditAttackPathFormValues>({
     resolver: zodResolver(editAttackPathSchema) as unknown as Resolver<EditAttackPathFormValues>,
-    defaultValues: initialValues,
+    defaultValues: {
+      ...initialValues,
+      affectedAssets: initialValues.affectedAssets ?? 0,
+    },
   })
 
   const { fields, append, remove, move } = useFieldArray({

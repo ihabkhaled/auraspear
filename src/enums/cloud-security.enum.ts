@@ -9,7 +9,6 @@ export enum CloudAccountStatus {
   CONNECTED = 'connected',
   DISCONNECTED = 'disconnected',
   ERROR = 'error',
-  PENDING = 'pending',
 }
 
 export enum CloudFindingSeverity {
@@ -24,5 +23,4 @@ export enum CloudFindingStatus {
   OPEN = 'open',
   RESOLVED = 'resolved',
   SUPPRESSED = 'suppressed',
-  IN_PROGRESS = 'in_progress',
 }

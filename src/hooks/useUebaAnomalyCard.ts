@@ -11,6 +11,7 @@ const SEVERITY_VARIANT_MAP: Record<
   [UebaRiskLevel.HIGH]: 'destructive',
   [UebaRiskLevel.MEDIUM]: 'default',
   [UebaRiskLevel.LOW]: 'secondary',
+  [UebaRiskLevel.NORMAL]: 'outline',
 }
 
 export function useUebaAnomalyCard({

@@ -13,8 +13,7 @@ export const createAttackPathSchema = z.object({
   description: z.string().min(5).max(5000),
   severity: z.nativeEnum(AttackPathSeverity),
   stages: z.array(stageSchema).min(1).max(50),
-  linkedIncidents: z.string().max(2000),
-  affectedAssets: z.string().max(2000),
+  affectedAssets: z.coerce.number().int().min(0).max(1000000).default(0),
 })
 
 export const editAttackPathSchema = z.object({
@@ -23,6 +22,5 @@ export const editAttackPathSchema = z.object({
   severity: z.nativeEnum(AttackPathSeverity),
   status: z.nativeEnum(AttackPathStatus),
   stages: z.array(stageSchema).min(1).max(50),
-  linkedIncidents: z.string().max(2000),
-  affectedAssets: z.string().max(2000),
+  affectedAssets: z.coerce.number().int().min(0).max(1000000).default(0),
 })

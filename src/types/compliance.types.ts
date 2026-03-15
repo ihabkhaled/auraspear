@@ -5,6 +5,7 @@ export interface ComplianceFramework {
   tenantId: string
   name: string
   standard: ComplianceStandard
+  version: string
   description: string | null
   totalControls: number
   passedControls: number
@@ -50,12 +51,14 @@ export interface ComplianceSearchParams {
 export interface CreateComplianceFrameworkFormValues {
   name: string
   standard: ComplianceStandard
+  version: string
   description: string
 }
 
 export interface EditComplianceFrameworkFormValues {
   name: string
   standard: ComplianceStandard
+  version: string
   description: string
 }
 

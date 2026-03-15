@@ -1,4 +1,4 @@
-import type { AttackPathSeverity, AttackPathStatus } from '@/enums'
+import type { AttackPathSeverity, AttackPathStatus, SortOrder } from '@/enums'
 
 export interface AttackPathStage {
   id: string
@@ -41,6 +41,8 @@ export interface AttackPathSearchParams {
   query?: string
   severity?: string
   status?: string
+  sortBy?: string
+  sortOrder?: SortOrder
 }
 
 export interface AttackPathStageFormValue {
@@ -55,8 +57,7 @@ export interface CreateAttackPathFormValues {
   description: string
   severity: AttackPathSeverity
   stages: AttackPathStageFormValue[]
-  linkedIncidents: string
-  affectedAssets: string
+  affectedAssets: number
 }
 
 export interface EditAttackPathFormValues {
@@ -65,8 +66,7 @@ export interface EditAttackPathFormValues {
   severity: AttackPathSeverity
   status: AttackPathStatus
   stages: AttackPathStageFormValue[]
-  linkedIncidents: string
-  affectedAssets: string
+  affectedAssets: number
 }
 
 export interface AttackPathKpiCardsProps {

@@ -1,15 +1,11 @@
 import { HealthCheckStatus, MetricType, ServiceType } from '@/enums'
 
 export const SERVICE_TYPE_LABEL_KEYS: Record<ServiceType, string> = {
-  [ServiceType.WAZUH]: 'serviceWazuh',
-  [ServiceType.GRAYLOG]: 'serviceGraylog',
-  [ServiceType.VELOCIRAPTOR]: 'serviceVelociraptor',
-  [ServiceType.GRAFANA]: 'serviceGrafana',
-  [ServiceType.INFLUXDB]: 'serviceInfluxdb',
-  [ServiceType.MISP]: 'serviceMisp',
-  [ServiceType.SHUFFLE]: 'serviceShuffle',
-  [ServiceType.LOGSTASH]: 'serviceLogstash',
-  [ServiceType.BEDROCK]: 'serviceBedrock',
+  [ServiceType.CONNECTOR]: 'serviceConnector',
+  [ServiceType.DATABASE]: 'serviceDatabase',
+  [ServiceType.API]: 'serviceApi',
+  [ServiceType.QUEUE]: 'serviceQueue',
+  [ServiceType.STORAGE]: 'serviceStorage',
 }
 
 export const HEALTH_CHECK_STATUS_LABEL_KEYS: Record<HealthCheckStatus, string> = {
@@ -30,7 +26,7 @@ export const METRIC_TYPE_LABEL_KEYS: Record<MetricType, string> = {
   [MetricType.CPU]: 'metricCpu',
   [MetricType.MEMORY]: 'metricMemory',
   [MetricType.DISK]: 'metricDisk',
-  [MetricType.EPS]: 'metricEps',
+  [MetricType.NETWORK]: 'metricNetwork',
+  [MetricType.QUEUE_DEPTH]: 'metricQueueDepth',
   [MetricType.LATENCY]: 'metricLatency',
-  [MetricType.QUEUE_SIZE]: 'metricQueueSize',
 }

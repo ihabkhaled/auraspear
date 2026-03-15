@@ -12,6 +12,7 @@ import type {
   SystemHealthCheck,
   SystemMetric,
 } from '@/types'
+import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 import {
   useHealthChecks,
@@ -29,6 +30,7 @@ export function useSystemHealthPage() {
   const t = useTranslations('systemHealth')
   const tCommon = useTranslations('common')
 
+  const [searchQuery, setSearchQuery] = useState('')
   const [serviceTypeFilter, setServiceTypeFilter] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
   const [sortBy, setSortBy] = useState('checkedAt')
@@ -41,6 +43,7 @@ export function useSystemHealthPage() {
   const [detailMetrics, setDetailMetrics] = useState<SystemMetric[]>([])
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
+  const debouncedSearch = useDebounce(searchQuery, 400)
 
   const searchParams: HealthCheckSearchParams = {
     page: pagination.page,
@@ -49,6 +52,9 @@ export function useSystemHealthPage() {
     sortOrder,
   }
 
+  if (debouncedSearch.length > 0) {
+    searchParams.query = debouncedSearch
+  }
   if (serviceTypeFilter.length > 0) {
     searchParams.serviceType = serviceTypeFilter
   }
@@ -69,6 +75,14 @@ export function useSystemHealthPage() {
       pagination.setTotal(data.pagination.total)
     }
   }, [data?.pagination, pagination])
+
+  const handleSearchChange = useCallback(
+    (value: string) => {
+      pagination.setPage(1)
+      setSearchQuery(value)
+    },
+    [pagination]
+  )
 
   const handleServiceTypeChange = useCallback(
     (value: string) => {
@@ -176,6 +190,8 @@ export function useSystemHealthPage() {
     statsLoading,
     latestChecks,
     columns,
+    searchQuery,
+    handleSearchChange,
     isFetching,
     pagination,
     serviceTypeFilter: serviceTypeFilter.length > 0 ? serviceTypeFilter : ALL_FILTER,

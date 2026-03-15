@@ -1,13 +1,9 @@
 export enum ServiceType {
-  WAZUH = 'wazuh',
-  GRAYLOG = 'graylog',
-  VELOCIRAPTOR = 'velociraptor',
-  GRAFANA = 'grafana',
-  INFLUXDB = 'influxdb',
-  MISP = 'misp',
-  SHUFFLE = 'shuffle',
-  LOGSTASH = 'logstash',
-  BEDROCK = 'bedrock',
+  CONNECTOR = 'connector',
+  DATABASE = 'database',
+  API = 'api',
+  QUEUE = 'queue',
+  STORAGE = 'storage',
 }
 
 export enum HealthCheckStatus {
@@ -21,7 +17,7 @@ export enum MetricType {
   CPU = 'cpu',
   MEMORY = 'memory',
   DISK = 'disk',
-  EPS = 'eps',
+  NETWORK = 'network',
+  QUEUE_DEPTH = 'queue_depth',
   LATENCY = 'latency',
-  QUEUE_SIZE = 'queue_size',
 }

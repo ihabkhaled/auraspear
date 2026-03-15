@@ -1,11 +1,10 @@
 import { DetectionRuleSeverity, DetectionRuleStatus, DetectionRuleType } from '@/enums'
 
 export const DETECTION_RULE_TYPE_LABEL_KEYS: Record<DetectionRuleType, string> = {
-  [DetectionRuleType.SIGMA]: 'typeSigma',
-  [DetectionRuleType.YARA]: 'typeYara',
-  [DetectionRuleType.CUSTOM]: 'typeCustom',
-  [DetectionRuleType.CORRELATION]: 'typeCorrelation',
   [DetectionRuleType.THRESHOLD]: 'typeThreshold',
+  [DetectionRuleType.ANOMALY]: 'typeAnomaly',
+  [DetectionRuleType.CHAIN]: 'typeChain',
+  [DetectionRuleType.SCHEDULED]: 'typeScheduled',
 }
 
 export const DETECTION_RULE_SEVERITY_LABEL_KEYS: Record<DetectionRuleSeverity, string> = {
@@ -25,15 +24,13 @@ export const DETECTION_RULE_SEVERITY_CLASSES: Record<DetectionRuleSeverity, stri
 }
 
 export const DETECTION_RULE_STATUS_LABEL_KEYS: Record<DetectionRuleStatus, string> = {
-  [DetectionRuleStatus.ENABLED]: 'statusEnabled',
-  [DetectionRuleStatus.DISABLED]: 'statusDisabled',
+  [DetectionRuleStatus.ACTIVE]: 'statusActive',
   [DetectionRuleStatus.TESTING]: 'statusTesting',
-  [DetectionRuleStatus.DEPRECATED]: 'statusDeprecated',
+  [DetectionRuleStatus.DISABLED]: 'statusDisabled',
 }
 
 export const DETECTION_RULE_STATUS_CLASSES: Record<DetectionRuleStatus, string> = {
-  [DetectionRuleStatus.ENABLED]: 'bg-status-success text-white',
-  [DetectionRuleStatus.DISABLED]: 'bg-muted text-muted-foreground',
+  [DetectionRuleStatus.ACTIVE]: 'bg-status-success text-white',
   [DetectionRuleStatus.TESTING]: 'bg-status-warning text-white',
-  [DetectionRuleStatus.DEPRECATED]: 'bg-status-error text-white',
+  [DetectionRuleStatus.DISABLED]: 'bg-muted text-muted-foreground',
 }

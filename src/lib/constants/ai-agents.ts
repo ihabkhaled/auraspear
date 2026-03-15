@@ -3,32 +3,34 @@ import { AiAgentStatus, AiAgentTier } from '@/enums'
 export const AI_AGENT_STATUS_LABEL_KEYS: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'statusOnline',
   [AiAgentStatus.OFFLINE]: 'statusOffline',
-  [AiAgentStatus.ERROR]: 'statusError',
-  [AiAgentStatus.IDLE]: 'statusIdle',
+  [AiAgentStatus.DEGRADED]: 'statusDegraded',
+  [AiAgentStatus.MAINTENANCE]: 'statusMaintenance',
 }
 
 export const AI_AGENT_STATUS_CLASSES: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'bg-status-success text-white',
   [AiAgentStatus.OFFLINE]: 'bg-muted text-muted-foreground',
-  [AiAgentStatus.ERROR]: 'bg-status-error text-white',
-  [AiAgentStatus.IDLE]: 'bg-status-warning text-white',
+  [AiAgentStatus.DEGRADED]: 'bg-status-warning text-white',
+  [AiAgentStatus.MAINTENANCE]: 'bg-status-info text-white',
 }
 
 export const AI_AGENT_STATUS_DOT_CLASSES: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'bg-status-success',
   [AiAgentStatus.OFFLINE]: 'bg-muted-foreground',
-  [AiAgentStatus.ERROR]: 'bg-status-error',
-  [AiAgentStatus.IDLE]: 'bg-status-warning',
+  [AiAgentStatus.DEGRADED]: 'bg-status-warning',
+  [AiAgentStatus.MAINTENANCE]: 'bg-status-info',
 }
 
 export const AI_AGENT_TIER_LABEL_KEYS: Record<AiAgentTier, string> = {
-  [AiAgentTier.TIER_1]: 'tierOne',
-  [AiAgentTier.TIER_2]: 'tierTwo',
-  [AiAgentTier.TIER_3]: 'tierThree',
+  [AiAgentTier.L0]: 'tierL0',
+  [AiAgentTier.L1]: 'tierL1',
+  [AiAgentTier.L2]: 'tierL2',
+  [AiAgentTier.L3]: 'tierL3',
 }
 
 export const AI_AGENT_TIER_CLASSES: Record<AiAgentTier, string> = {
-  [AiAgentTier.TIER_1]: 'bg-severity-info text-white',
-  [AiAgentTier.TIER_2]: 'bg-severity-medium text-white',
-  [AiAgentTier.TIER_3]: 'bg-severity-critical text-white',
+  [AiAgentTier.L0]: 'bg-muted text-muted-foreground',
+  [AiAgentTier.L1]: 'bg-severity-info text-white',
+  [AiAgentTier.L2]: 'bg-severity-medium text-white',
+  [AiAgentTier.L3]: 'bg-severity-critical text-white',
 }

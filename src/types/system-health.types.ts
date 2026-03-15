@@ -34,6 +34,7 @@ export interface HealthCheckSearchParams {
   limit?: number
   serviceType?: string
   status?: string
+  query?: string
   sortBy?: string
   sortOrder?: SortOrder
 }

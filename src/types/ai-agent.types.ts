@@ -1,4 +1,4 @@
-import type { AiAgentSessionStatus, AiAgentStatus, AiAgentTier } from '@/enums'
+import type { AiAgentSessionStatus, AiAgentStatus, AiAgentTier, SortOrder } from '@/enums'
 
 export interface AiAgent {
   id: string
@@ -44,6 +44,8 @@ export interface AiAgentSearchParams {
   query?: string
   status?: string
   tier?: string
+  sortBy?: string
+  sortOrder?: SortOrder
 }
 
 export interface AiAgentSessionSearchParams {

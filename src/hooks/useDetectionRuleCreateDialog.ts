@@ -23,7 +23,7 @@ export function useDetectionRuleCreateDialog({
     resolver: zodResolver(createDetectionRuleSchema),
     defaultValues: {
       name: '',
-      ruleType: DetectionRuleType.SIGMA,
+      ruleType: DetectionRuleType.THRESHOLD,
       severity: DetectionRuleSeverity.MEDIUM,
       conditions: '{}',
       actions: '{}',

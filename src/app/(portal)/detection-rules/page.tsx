@@ -54,9 +54,9 @@ export default function DetectionRulesPage() {
       }
     : {
         name: '',
-        ruleType: DetectionRuleType.SIGMA,
+        ruleType: DetectionRuleType.THRESHOLD,
         severity: DetectionRuleSeverity.MEDIUM,
-        status: DetectionRuleStatus.ENABLED,
+        status: DetectionRuleStatus.ACTIVE,
         conditions: '{}',
         actions: '{}',
       }

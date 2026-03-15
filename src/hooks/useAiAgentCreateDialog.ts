@@ -25,7 +25,7 @@ export function useAiAgentCreateDialog({
       name: '',
       description: '',
       model: '',
-      tier: AiAgentTier.TIER_1,
+      tier: AiAgentTier.L1,
       soulMd: '',
     },
   })

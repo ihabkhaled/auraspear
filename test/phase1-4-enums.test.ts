@@ -192,8 +192,8 @@ describe('AiAgentStatus', () => {
   it('should have correct values', () => {
     expect(AiAgentStatus.ONLINE).toBe('online')
     expect(AiAgentStatus.OFFLINE).toBe('offline')
-    expect(AiAgentStatus.ERROR).toBe('error')
-    expect(AiAgentStatus.IDLE).toBe('idle')
+    expect(AiAgentStatus.DEGRADED).toBe('degraded')
+    expect(AiAgentStatus.MAINTENANCE).toBe('maintenance')
   })
 
   it('should only have 4 values', () => {
@@ -203,25 +203,27 @@ describe('AiAgentStatus', () => {
 
 describe('AiAgentTier', () => {
   it('should have correct values', () => {
-    expect(AiAgentTier.TIER_1).toBe('tier_1')
-    expect(AiAgentTier.TIER_2).toBe('tier_2')
-    expect(AiAgentTier.TIER_3).toBe('tier_3')
+    expect(AiAgentTier.L0).toBe('L0')
+    expect(AiAgentTier.L1).toBe('L1')
+    expect(AiAgentTier.L2).toBe('L2')
+    expect(AiAgentTier.L3).toBe('L3')
   })
 
-  it('should only have 3 values', () => {
-    expect(Object.values(AiAgentTier)).toHaveLength(3)
+  it('should only have 4 values', () => {
+    expect(Object.values(AiAgentTier)).toHaveLength(4)
   })
 })
 
 describe('AiAgentSessionStatus', () => {
   it('should have correct values', () => {
-    expect(AiAgentSessionStatus.ACTIVE).toBe('active')
+    expect(AiAgentSessionStatus.RUNNING).toBe('running')
     expect(AiAgentSessionStatus.COMPLETED).toBe('completed')
     expect(AiAgentSessionStatus.FAILED).toBe('failed')
+    expect(AiAgentSessionStatus.CANCELLED).toBe('cancelled')
   })
 
-  it('should only have 3 values', () => {
-    expect(Object.values(AiAgentSessionStatus)).toHaveLength(3)
+  it('should only have 4 values', () => {
+    expect(Object.values(AiAgentSessionStatus)).toHaveLength(4)
   })
 })
 
@@ -231,7 +233,7 @@ describe('UebaEntityType', () => {
   it('should have correct values', () => {
     expect(UebaEntityType.USER).toBe('user')
     expect(UebaEntityType.HOST).toBe('host')
-    expect(UebaEntityType.IP).toBe('ip')
+    expect(UebaEntityType.SERVICE_ACCOUNT).toBe('service_account')
     expect(UebaEntityType.APPLICATION).toBe('application')
   })
 
@@ -246,19 +248,20 @@ describe('UebaRiskLevel', () => {
     expect(UebaRiskLevel.HIGH).toBe('high')
     expect(UebaRiskLevel.MEDIUM).toBe('medium')
     expect(UebaRiskLevel.LOW).toBe('low')
+    expect(UebaRiskLevel.NORMAL).toBe('normal')
   })
 
-  it('should only have 4 values', () => {
-    expect(Object.values(UebaRiskLevel)).toHaveLength(4)
+  it('should only have 5 values', () => {
+    expect(Object.values(UebaRiskLevel)).toHaveLength(5)
   })
 })
 
 describe('MlModelStatus', () => {
   it('should have correct values', () => {
-    expect(MlModelStatus.ACTIVE).toBe('active')
     expect(MlModelStatus.TRAINING).toBe('training')
+    expect(MlModelStatus.ACTIVE).toBe('active')
+    expect(MlModelStatus.DEGRADED).toBe('degraded')
     expect(MlModelStatus.INACTIVE).toBe('inactive')
-    expect(MlModelStatus.ERROR).toBe('error')
   })
 
   it('should only have 4 values', () => {
@@ -271,7 +274,7 @@ describe('MlModelType', () => {
     expect(MlModelType.ANOMALY_DETECTION).toBe('anomaly_detection')
     expect(MlModelType.CLASSIFICATION).toBe('classification')
     expect(MlModelType.CLUSTERING).toBe('clustering')
-    expect(MlModelType.REGRESSION).toBe('regression')
+    expect(MlModelType.TIME_SERIES).toBe('time_series')
   })
 
   it('should only have 4 values', () => {
@@ -310,7 +313,7 @@ describe('AttackPathStatus', () => {
   it('should have correct values', () => {
     expect(AttackPathStatus.ACTIVE).toBe('active')
     expect(AttackPathStatus.MITIGATED).toBe('mitigated')
-    expect(AttackPathStatus.MONITORING).toBe('monitoring')
+    expect(AttackPathStatus.RESOLVED).toBe('resolved')
   })
 
   it('should only have 3 values', () => {
@@ -432,19 +435,15 @@ describe('ReportStatus', () => {
 
 describe('ServiceType', () => {
   it('should have correct values', () => {
-    expect(ServiceType.WAZUH).toBe('wazuh')
-    expect(ServiceType.GRAYLOG).toBe('graylog')
-    expect(ServiceType.VELOCIRAPTOR).toBe('velociraptor')
-    expect(ServiceType.GRAFANA).toBe('grafana')
-    expect(ServiceType.INFLUXDB).toBe('influxdb')
-    expect(ServiceType.MISP).toBe('misp')
-    expect(ServiceType.SHUFFLE).toBe('shuffle')
-    expect(ServiceType.LOGSTASH).toBe('logstash')
-    expect(ServiceType.BEDROCK).toBe('bedrock')
+    expect(ServiceType.CONNECTOR).toBe('connector')
+    expect(ServiceType.DATABASE).toBe('database')
+    expect(ServiceType.API).toBe('api')
+    expect(ServiceType.QUEUE).toBe('queue')
+    expect(ServiceType.STORAGE).toBe('storage')
   })
 
-  it('should only have 9 values', () => {
-    expect(Object.values(ServiceType)).toHaveLength(9)
+  it('should only have 5 values', () => {
+    expect(Object.values(ServiceType)).toHaveLength(5)
   })
 })
 
@@ -466,9 +465,9 @@ describe('MetricType', () => {
     expect(MetricType.CPU).toBe('cpu')
     expect(MetricType.MEMORY).toBe('memory')
     expect(MetricType.DISK).toBe('disk')
-    expect(MetricType.EPS).toBe('eps')
+    expect(MetricType.NETWORK).toBe('network')
+    expect(MetricType.QUEUE_DEPTH).toBe('queue_depth')
     expect(MetricType.LATENCY).toBe('latency')
-    expect(MetricType.QUEUE_SIZE).toBe('queue_size')
   })
 
   it('should only have 6 values', () => {
@@ -481,16 +480,15 @@ describe('MetricType', () => {
 describe('NormalizationSourceType', () => {
   it('should have correct values', () => {
     expect(NormalizationSourceType.SYSLOG).toBe('syslog')
-    expect(NormalizationSourceType.WINDOWS_EVENT).toBe('windows_event')
-    expect(NormalizationSourceType.CEF).toBe('cef')
-    expect(NormalizationSourceType.LEEF).toBe('leef')
     expect(NormalizationSourceType.JSON).toBe('json')
     expect(NormalizationSourceType.CSV).toBe('csv')
+    expect(NormalizationSourceType.CEF).toBe('cef')
+    expect(NormalizationSourceType.LEEF).toBe('leef')
     expect(NormalizationSourceType.CUSTOM).toBe('custom')
   })
 
-  it('should only have 7 values', () => {
-    expect(Object.values(NormalizationSourceType)).toHaveLength(7)
+  it('should only have 6 values', () => {
+    expect(Object.values(NormalizationSourceType)).toHaveLength(6)
   })
 })
 
@@ -499,11 +497,10 @@ describe('NormalizationPipelineStatus', () => {
     expect(NormalizationPipelineStatus.ACTIVE).toBe('active')
     expect(NormalizationPipelineStatus.INACTIVE).toBe('inactive')
     expect(NormalizationPipelineStatus.ERROR).toBe('error')
-    expect(NormalizationPipelineStatus.DRAFT).toBe('draft')
   })
 
-  it('should only have 4 values', () => {
-    expect(Object.values(NormalizationPipelineStatus)).toHaveLength(4)
+  it('should only have 3 values', () => {
+    expect(Object.values(NormalizationPipelineStatus)).toHaveLength(3)
   })
 })
 
@@ -511,15 +508,14 @@ describe('NormalizationPipelineStatus', () => {
 
 describe('DetectionRuleType', () => {
   it('should have correct values', () => {
-    expect(DetectionRuleType.SIGMA).toBe('sigma')
-    expect(DetectionRuleType.YARA).toBe('yara')
-    expect(DetectionRuleType.CUSTOM).toBe('custom')
-    expect(DetectionRuleType.CORRELATION).toBe('correlation')
     expect(DetectionRuleType.THRESHOLD).toBe('threshold')
+    expect(DetectionRuleType.ANOMALY).toBe('anomaly')
+    expect(DetectionRuleType.CHAIN).toBe('chain')
+    expect(DetectionRuleType.SCHEDULED).toBe('scheduled')
   })
 
-  it('should only have 5 values', () => {
-    expect(Object.values(DetectionRuleType)).toHaveLength(5)
+  it('should only have 4 values', () => {
+    expect(Object.values(DetectionRuleType)).toHaveLength(4)
   })
 })
 
@@ -539,14 +535,13 @@ describe('DetectionRuleSeverity', () => {
 
 describe('DetectionRuleStatus', () => {
   it('should have correct values', () => {
-    expect(DetectionRuleStatus.ENABLED).toBe('enabled')
-    expect(DetectionRuleStatus.DISABLED).toBe('disabled')
+    expect(DetectionRuleStatus.ACTIVE).toBe('active')
     expect(DetectionRuleStatus.TESTING).toBe('testing')
-    expect(DetectionRuleStatus.DEPRECATED).toBe('deprecated')
+    expect(DetectionRuleStatus.DISABLED).toBe('disabled')
   })
 
-  it('should only have 4 values', () => {
-    expect(Object.values(DetectionRuleStatus)).toHaveLength(4)
+  it('should only have 3 values', () => {
+    expect(Object.values(DetectionRuleStatus)).toHaveLength(3)
   })
 })
 
@@ -570,11 +565,10 @@ describe('CloudAccountStatus', () => {
     expect(CloudAccountStatus.CONNECTED).toBe('connected')
     expect(CloudAccountStatus.DISCONNECTED).toBe('disconnected')
     expect(CloudAccountStatus.ERROR).toBe('error')
-    expect(CloudAccountStatus.PENDING).toBe('pending')
   })
 
-  it('should only have 4 values', () => {
-    expect(Object.values(CloudAccountStatus)).toHaveLength(4)
+  it('should only have 3 values', () => {
+    expect(Object.values(CloudAccountStatus)).toHaveLength(3)
   })
 })
 
@@ -597,10 +591,9 @@ describe('CloudFindingStatus', () => {
     expect(CloudFindingStatus.OPEN).toBe('open')
     expect(CloudFindingStatus.RESOLVED).toBe('resolved')
     expect(CloudFindingStatus.SUPPRESSED).toBe('suppressed')
-    expect(CloudFindingStatus.IN_PROGRESS).toBe('in_progress')
   })
 
-  it('should only have 4 values', () => {
-    expect(Object.values(CloudFindingStatus)).toHaveLength(4)
+  it('should only have 3 values', () => {
+    expect(Object.values(CloudFindingStatus)).toHaveLength(3)
   })
 })

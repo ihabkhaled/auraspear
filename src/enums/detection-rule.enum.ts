@@ -1,9 +1,8 @@
 export enum DetectionRuleType {
-  SIGMA = 'sigma',
-  YARA = 'yara',
-  CUSTOM = 'custom',
-  CORRELATION = 'correlation',
   THRESHOLD = 'threshold',
+  ANOMALY = 'anomaly',
+  CHAIN = 'chain',
+  SCHEDULED = 'scheduled',
 }
 
 export enum DetectionRuleSeverity {
@@ -15,8 +14,7 @@ export enum DetectionRuleSeverity {
 }
 
 export enum DetectionRuleStatus {
-  ENABLED = 'enabled',
-  DISABLED = 'disabled',
+  ACTIVE = 'active',
   TESTING = 'testing',
-  DEPRECATED = 'deprecated',
+  DISABLED = 'disabled',
 }

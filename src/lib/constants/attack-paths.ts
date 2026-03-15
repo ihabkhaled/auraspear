@@ -17,11 +17,11 @@ export const ATTACK_PATH_SEVERITY_CLASSES: Record<AttackPathSeverity, string> = 
 export const ATTACK_PATH_STATUS_LABEL_KEYS: Record<AttackPathStatus, string> = {
   [AttackPathStatus.ACTIVE]: 'statusActive',
   [AttackPathStatus.MITIGATED]: 'statusMitigated',
-  [AttackPathStatus.MONITORING]: 'statusMonitoring',
+  [AttackPathStatus.RESOLVED]: 'statusResolved',
 }
 
 export const ATTACK_PATH_STATUS_CLASSES: Record<AttackPathStatus, string> = {
   [AttackPathStatus.ACTIVE]: 'bg-status-error text-white',
   [AttackPathStatus.MITIGATED]: 'bg-status-success text-white',
-  [AttackPathStatus.MONITORING]: 'bg-status-warning text-white',
+  [AttackPathStatus.RESOLVED]: 'bg-status-info text-white',
 }

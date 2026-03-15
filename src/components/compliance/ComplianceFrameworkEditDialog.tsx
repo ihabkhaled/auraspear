@@ -82,6 +82,19 @@ export function ComplianceFrameworkEditDialog({
           </div>
 
           <div className="flex flex-col gap-2">
+            <Label htmlFor="compliance-edit-version">{t('fieldVersion')}</Label>
+            <Input
+              id="compliance-edit-version"
+              {...register('version')}
+              placeholder={t('fieldVersionPlaceholder')}
+              aria-invalid={errors.version ? true : undefined}
+            />
+            {errors.version && (
+              <p className="text-destructive text-xs">{t('validationVersionMin')}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
             <Label htmlFor="compliance-edit-description">{t('fieldDescription')}</Label>
             <Textarea
               id="compliance-edit-description"

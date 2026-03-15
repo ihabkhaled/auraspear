@@ -158,21 +158,19 @@ export function AttackPathEditDialog({
           {errors.stages && <p className="text-destructive text-xs">{t('validationStagesMin')}</p>}
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-ap-linked-incidents">{t('fieldLinkedIncidents')}</Label>
-            <Input
-              id="edit-ap-linked-incidents"
-              {...register('linkedIncidents')}
-              placeholder={t('fieldLinkedIncidentsPlaceholder')}
-            />
-          </div>
-
-          <div className="flex flex-col gap-2">
             <Label htmlFor="edit-ap-affected-assets">{t('fieldAffectedAssets')}</Label>
             <Input
               id="edit-ap-affected-assets"
-              {...register('affectedAssets')}
+              type="number"
+              min="0"
+              max="1000000"
+              {...register('affectedAssets', { valueAsNumber: true })}
+              aria-invalid={errors.affectedAssets ? true : undefined}
               placeholder={t('fieldAffectedAssetsPlaceholder')}
             />
+            {errors.affectedAssets && (
+              <p className="text-destructive text-xs">{t('validationAffectedAssets')}</p>
+            )}
           </div>
 
           <DialogFooter>
