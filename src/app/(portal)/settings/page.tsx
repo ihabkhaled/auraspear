@@ -2,6 +2,11 @@
 
 import { Sun, Moon, Monitor } from 'lucide-react'
 import { PageHeader } from '@/components/common'
+import {
+  NotificationPreferencesCard,
+  DataRetentionCard,
+  ExportImportCard,
+} from '@/components/settings'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -149,6 +154,17 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* Notification Preferences Card */}
+        <NotificationPreferencesCard />
+
+        {/* Data Retention Card */}
+        <DataRetentionCard />
+
+        {/* Export/Import Settings Card */}
+        <div className="lg:col-span-2">
+          <ExportImportCard />
+        </div>
       </div>
     </div>
   )

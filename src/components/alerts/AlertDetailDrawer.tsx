@@ -1,6 +1,7 @@
 'use client'
 
-import { Brain, Briefcase, X } from 'lucide-react'
+import { AlertTriangle, Brain, Briefcase, X } from 'lucide-react'
+import { AlertTimeline } from '@/components/alerts/AlertTimeline'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -36,6 +37,7 @@ export function AlertDetailDrawer({
   onOpenChange,
   onInvestigate,
   onCreateCase,
+  onEscalateToIncident,
   onClose,
 }: AlertDetailDrawerProps) {
   const { t, tCommon, getStatusLabel } = useAlertDetailDrawer()
@@ -69,6 +71,7 @@ export function AlertDetailDrawer({
           <Tabs defaultValue="overview" className="w-full">
             <TabsList variant="line" className="w-full">
               <TabsTrigger value="overview">{t('viewDetail')}</TabsTrigger>
+              <TabsTrigger value="timeline">{t('timeline')}</TabsTrigger>
               <TabsTrigger value="mitre">{t('mitre')}</TabsTrigger>
               <TabsTrigger value="raw">{t('rawEvent')}</TabsTrigger>
             </TabsList>
@@ -156,6 +159,10 @@ export function AlertDetailDrawer({
               </DetailRow>
             </TabsContent>
 
+            <TabsContent value="timeline" className="pt-4">
+              <AlertTimeline alert={alert} />
+            </TabsContent>
+
             <TabsContent value="mitre" className="pt-4">
               <div className="space-y-3">
                 <h4 className="text-muted-foreground text-xs font-bold tracking-wider uppercase">
@@ -208,6 +215,10 @@ export function AlertDetailDrawer({
           <Button variant="outline" size="sm" onClick={() => onCreateCase?.(alert)}>
             <Briefcase className="h-4 w-4" />
             {t('createCase')}
+          </Button>
+          <Button variant="outline" size="sm" onClick={() => onEscalateToIncident?.(alert)}>
+            <AlertTriangle className="h-4 w-4" />
+            {t('escalate')}
           </Button>
           <Button
             variant="ghost"

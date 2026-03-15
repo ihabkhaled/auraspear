@@ -242,6 +242,15 @@ Configuration:
 
 ---
 
+## Design System
+
+- **Theme**: Dark mode primary, cyan/teal accent for primary actions and links
+- **KPI Cards**: Use `bg-card`, uppercase muted labels, bold large values
+- **Tables**: Dark alternating rows, subtle hover, minimal borders — ALWAYS use `<DataTable>` from `@/components/common/DataTable`
+- **Badges**: Semantic, uppercase, small rounded
+
+---
+
 ## Styling Rules (MANDATORY)
 
 **Never use static Tailwind color classes** for semantic colors. Always use the status class system from `src/app/globals.css`:
@@ -481,6 +490,9 @@ export enum AlertSeverity {
 1. **Every new feature MUST include translations** — in all relevant locale files.
 2. **Never hardcode user-facing strings** — All text visible to users must go through `t()`.
 3. **Cover every user-facing scenario** — Success messages, error messages, validation hints, labels, placeholders, tooltips, confirmation dialogs.
+4. **Namespace by module** — `incidents.title`, `incidents.kpi.open`, `correlation.tabs.sigma`, etc.
+5. **Never leave placeholder or TODO translations** — Provide real translations for all 6 languages.
+6. **Error messages from backend** — `errors.incidents.notFound`, etc. — must exist in frontend i18n too.
 
 ---
 
@@ -570,6 +582,127 @@ src/
 
 ---
 
+## Hook Pattern (MANDATORY)
+
+Every page gets a page-level hook that orchestrates everything:
+
+```typescript
+// src/hooks/useIncidentPage.ts
+export function useIncidentPage() {
+  const t = useTranslations('incidents')
+  const { data, isLoading } = useIncidents()
+  const { stats } = useIncidentStats()
+  const { form, onSubmit } = useIncidentForm()
+  // ... all logic here
+
+  return {
+    t,
+    data,
+    isLoading,
+    stats,
+    form,
+    onSubmit,
+    // ... everything the page needs
+  }
+}
+```
+
+```tsx
+// src/app/[locale]/incidents/page.tsx
+export default function IncidentsPage() {
+  const { t, data, isLoading, stats } = useIncidentPage()
+
+  return (
+    // ONLY JSX — no hooks, no logic, no side effects
+  )
+}
+```
+
+---
+
+## Component Pattern (MANDATORY)
+
+```tsx
+// src/components/incidents/IncidentKpiCards.tsx
+import { KpiCard } from '@/components/common/KpiCard'
+import type { IncidentStats } from '@/types/incident.types'
+
+interface IncidentKpiCardsProps {
+  stats: IncidentStats
+  t: (key: string) => string
+}
+
+export function IncidentKpiCards({ stats, t }: IncidentKpiCardsProps) {
+  return (
+    <div className="grid grid-cols-5 gap-4">
+      <KpiCard label={t('kpi.open')} value={stats.open} />
+      {/* ... */}
+    </div>
+  )
+}
+```
+
+- Props are typed with explicit interfaces
+- `t` is passed as a prop (not called inside component)
+- No hooks called inside
+- Render-only
+
+---
+
+## Form Validation (MANDATORY)
+
+- Every form has a Zod schema in `src/lib/validation/<domain>.schema.ts`
+- Validation runs on submit AND on field blur for important fields
+- Error messages use `t()` for localization
+- Every string field has `.max()`
+- Every array field has `.max()`
+
+---
+
+## Testing Requirements (MANDATORY)
+
+For every module:
+
+- Component render tests (loading, empty, error, data states)
+- Hook tests (data fetching, state management)
+- Table rendering tests (correct columns, correct data)
+- Interaction tests (clicks, form submissions)
+- i18n rendering checks (keys resolve, no raw keys shown)
+- Accessibility: dialogs have aria labels, buttons have labels, tabs are keyboard navigable
+
+Run before claiming done:
+
+```bash
+npm run lint
+npm run build
+npm test
+```
+
+---
+
+## Code Quality Checklist
+
+Before committing any module:
+
+- [ ] No `any` types anywhere
+- [ ] No ESLint disables
+- [ ] No `console.log`
+- [ ] No hooks called in `.tsx` files (all in custom hooks)
+- [ ] No raw user-facing text (all `t()`)
+- [ ] No raw semantic colors (all CSS classes)
+- [ ] No raw `<table>`, `<select>`, `<input>`, `<textarea>`
+- [ ] No string literal unions (all enums)
+- [ ] No inline types/enums/constants in components
+- [ ] No utility functions in component files
+- [ ] All i18n keys in all 6 languages
+- [ ] Form validation on every form
+- [ ] Loading/empty/error states handled
+- [ ] Tests written and passing
+- [ ] Lint passes
+- [ ] Build passes
+
+---
+
 ## NPM Scripts Reference
 
 | Script            | Command                                | Purpose                          |
@@ -605,3 +738,4 @@ src/
 - **MSW** for API mocking in development
 - **Husky** + **lint-staged** for pre-commit hooks
 - **Prettier** + **prettier-plugin-tailwindcss** for formatting
+- **Jest** + **React Testing Library** for testing

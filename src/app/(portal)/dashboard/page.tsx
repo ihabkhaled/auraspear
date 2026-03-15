@@ -8,9 +8,17 @@ import {
   MITRETopTechniques,
   TopTargetedAssets,
   PipelineHealthBar,
+  RecentActivityFeed,
 } from '@/components/dashboard'
+import { Card, CardContent } from '@/components/ui/card'
 import { useDashboardPage } from '@/hooks/useDashboardPage'
-import { KPI_ICONS, KPI_COLORS, KPI_ROUTES } from '@/lib/constants/dashboard'
+import {
+  KPI_ICONS,
+  KPI_COLORS,
+  KPI_ROUTES,
+  EXTENDED_KPI_ICONS,
+  EXTENDED_KPI_COLORS,
+} from '@/lib/constants/dashboard'
 
 export default function DashboardPage() {
   const {
@@ -28,6 +36,8 @@ export default function DashboardPage() {
     healthPercent,
     handleServiceClick,
     router,
+    extendedKPIItems,
+    extendedKPIsLoading,
   } = useDashboardPage()
 
   function renderKPIs() {
@@ -60,12 +70,52 @@ export default function DashboardPage() {
     })
   }
 
+  function renderExtendedKPIs() {
+    if (extendedKPIsLoading) return <LoadingSpinner />
+    if (extendedKPIItems.length === 0) return null
+
+    return extendedKPIItems.map((item, i) => {
+      const icon = EXTENDED_KPI_ICONS[i] ?? EXTENDED_KPI_ICONS[0]
+      const color = EXTENDED_KPI_COLORS[i]
+      return (
+        <Card
+          key={item.labelKey}
+          className="hover:bg-muted/50 cursor-pointer transition-colors"
+          onClick={() => router.push(item.route)}
+        >
+          <CardContent className="flex items-center gap-3 py-3">
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+              style={{
+                backgroundColor: color
+                  ? `color-mix(in srgb, ${color} 12%, transparent)`
+                  : undefined,
+                color,
+              }}
+            >
+              {icon}
+            </div>
+            <div className="min-w-0">
+              <p className="text-muted-foreground truncate text-xs">{t(item.labelKey)}</p>
+              <p className="text-lg font-bold tracking-tight">{item.value}</p>
+            </div>
+          </CardContent>
+        </Card>
+      )
+    })
+  }
+
   return (
     <div className="space-y-6">
       <PageHeader title={t('title')} description={t('description')} />
 
       {/* KPI Grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">{renderKPIs()}</div>
+
+      {/* Extended KPI Grid */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+        {renderExtendedKPIs()}
+      </div>
 
       {/* Alert Trend Chart */}
       <DashboardCard
@@ -89,21 +139,27 @@ export default function DashboardPage() {
         </DashboardCard>
       </div>
 
-      {/* Pipeline Health */}
-      <DashboardCard
-        title={t('pipelineHealth')}
-        action={
-          <span className="text-muted-foreground text-xs">
-            {t('systemHealth')}: {healthPercent}%
-          </span>
-        }
-      >
-        {healthLoading ? (
-          <LoadingSpinner />
-        ) : (
-          <PipelineHealthBar services={healthServices} onServiceClick={handleServiceClick} />
-        )}
-      </DashboardCard>
+      {/* Recent Activity + Pipeline Health */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <DashboardCard title={t('recentActivity')}>
+          <RecentActivityFeed />
+        </DashboardCard>
+
+        <DashboardCard
+          title={t('pipelineHealth')}
+          action={
+            <span className="text-muted-foreground text-xs">
+              {t('systemHealth')}: {healthPercent}%
+            </span>
+          }
+        >
+          {healthLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <PipelineHealthBar services={healthServices} onServiceClick={handleServiceClick} />
+          )}
+        </DashboardCard>
+      </div>
     </div>
   )
 }

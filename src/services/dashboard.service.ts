@@ -6,6 +6,8 @@ import type {
   MITRETechnique,
   AssetRisk,
   PipelineService,
+  ExtendedKPIStats,
+  RecentActivityItem,
 } from '@/types'
 
 export const dashboardService = {
@@ -22,4 +24,14 @@ export const dashboardService = {
 
   getPipelineHealth: () =>
     api.get<ApiResponse<PipelineService[]>>('/dashboard/pipeline-health').then(r => r.data),
+
+  getExtendedKPIs: () =>
+    api.get<ApiResponse<ExtendedKPIStats>>('/dashboard/extended-kpis').then(r => r.data),
+
+  getRecentActivity: (limit = 10) =>
+    api
+      .get<ApiResponse<RecentActivityItem[]>>('/dashboard/recent-activity', {
+        params: { limit },
+      })
+      .then(r => r.data),
 }

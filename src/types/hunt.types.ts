@@ -46,6 +46,10 @@ export interface HuntEvent {
 export interface HuntEventTableProps {
   events: HuntEvent[]
   loading?: boolean
+  page?: number
+  totalPages?: number
+  total?: number
+  onPageChange?: (page: number) => void
 }
 
 export interface ReasoningStepsProps {
@@ -75,12 +79,18 @@ export interface HuntResultsPanelProps {
   threatScore: number
   events: HuntEvent[]
   loading?: boolean
+  page?: number
+  totalPages?: number
+  total?: number
+  onPageChange?: (page: number) => void
 }
 
 export interface HuntChatPanelProps {
   messages: HuntMessage[]
   onSend: (message: string) => void
   disabled?: boolean
+  hasSession?: boolean
+  onNewHunt?: () => void
 }
 
 export interface HuntInputAreaProps {

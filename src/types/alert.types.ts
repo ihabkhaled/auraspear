@@ -1,4 +1,10 @@
-import type { AlertSeverity, AlertStatus, SortOrder, TimeRange } from '@/enums'
+import type {
+  AlertSeverity,
+  AlertStatus,
+  AlertTimelineEventType,
+  SortOrder,
+  TimeRange,
+} from '@/enums'
 
 export interface Alert {
   id: string
@@ -76,6 +82,7 @@ export interface AlertDetailDrawerProps {
   onOpenChange: (open: boolean) => void
   onInvestigate?: (alert: Alert) => void
   onCreateCase?: (alert: Alert) => void
+  onEscalateToIncident?: (alert: Alert) => void
   onClose?: (alert: Alert) => void
 }
 
@@ -119,4 +126,49 @@ export interface KQLSearchBarProps {
   onChange: (value: string) => void
   onSubmit: () => void
   onSavedSearches?: () => void
+}
+
+export interface BulkActionResult {
+  succeeded: number
+  failed: number
+  errors: string[]
+}
+
+export interface BulkCloseInput {
+  ids: string[]
+  resolution: string
+}
+
+export interface AlertTimelineEvent {
+  id: string
+  type: AlertTimelineEventType
+  timestamp: string
+  actor: string | null
+  detail: string | null
+}
+
+export interface AlertBulkActionBarProps {
+  selectedCount: number
+  onAcknowledge: () => void
+  onClose: () => void
+  onClear: () => void
+  isAcknowledging: boolean
+  isClosing: boolean
+}
+
+export interface AlertTimelineProps {
+  alert: Alert
+}
+
+export interface EscalateToIncidentDialogProps {
+  alert: Alert | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
+
+export interface EscalateFormValues {
+  title: string
+  description: string
+  severity: string
+  category: string
 }

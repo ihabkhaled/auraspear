@@ -9,6 +9,7 @@ interface HuntState {
   addMessage: (message: HuntMessage) => void
   setHuntStatus: (status: HuntStatus) => void
   setHuntId: (id: string) => void
+  resetHuntState: () => void
   clearSession: () => void
 }
 
@@ -19,5 +20,6 @@ export const useHuntStore = create<HuntState>(set => ({
   addMessage: message => set(state => ({ messages: [...state.messages, message] })),
   setHuntStatus: huntStatus => set({ huntStatus }),
   setHuntId: huntId => set({ huntId }),
+  resetHuntState: () => set({ huntStatus: null, huntId: null }),
   clearSession: () => set({ messages: [], huntStatus: null, huntId: null }),
 }))

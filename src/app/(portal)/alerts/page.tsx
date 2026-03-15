@@ -6,6 +6,8 @@ import {
   AlertFilterSidebar,
   AlertDetailDrawer,
   AIInvestigationModal,
+  AlertBulkActionBar,
+  EscalateToIncidentDialog,
 } from '@/components/alerts'
 import { CreateCaseDialog } from '@/components/cases'
 import { PageHeader, DataTable, Pagination, LoadingSpinner } from '@/components/common'
@@ -49,6 +51,17 @@ export default function AlertsPage() {
     sortBy,
     sortOrder,
     handleSort,
+    selectedIds,
+    setSelectedIds,
+    handleBulkAcknowledge,
+    handleBulkClose,
+    handleClearSelection,
+    isAcknowledging,
+    isClosing,
+    escalateOpen,
+    setEscalateOpen,
+    escalateAlert,
+    handleEscalateToIncident,
   } = useAlertsPage()
 
   return (
@@ -118,6 +131,8 @@ export default function AlertsPage() {
               sortBy={sortBy}
               sortOrder={sortOrder}
               onSort={handleSort}
+              selectedIds={selectedIds}
+              onSelectionChange={setSelectedIds}
             />
           )}
 
@@ -139,6 +154,7 @@ export default function AlertsPage() {
           setDrawerOpen(false)
           handleCreateCase(alert)
         }}
+        onEscalateToIncident={handleEscalateToIncident}
         onClose={() => setDrawerOpen(false)}
       />
 
@@ -154,6 +170,21 @@ export default function AlertsPage() {
         onSubmit={handleCreateCaseSubmit}
         assigneeOptions={assigneeOptions}
         loading={createCasePending}
+      />
+
+      <EscalateToIncidentDialog
+        alert={escalateAlert}
+        open={escalateOpen}
+        onOpenChange={setEscalateOpen}
+      />
+
+      <AlertBulkActionBar
+        selectedCount={selectedIds.length}
+        onAcknowledge={handleBulkAcknowledge}
+        onClose={handleBulkClose}
+        onClear={handleClearSelection}
+        isAcknowledging={isAcknowledging}
+        isClosing={isClosing}
       />
     </div>
   )

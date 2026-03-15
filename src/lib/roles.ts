@@ -44,6 +44,19 @@ export const ROUTE_ROLE_MAP: Record<string, UserRole> = {
   '/dashboard': UserRole.EXECUTIVE_READONLY,
   '/profile': UserRole.EXECUTIVE_READONLY,
   '/settings': UserRole.EXECUTIVE_READONLY,
+  '/incidents': UserRole.SOC_ANALYST_L1,
+  '/correlation': UserRole.SOC_ANALYST_L2,
+  '/attack-paths': UserRole.SOC_ANALYST_L2,
+  '/ueba': UserRole.SOC_ANALYST_L2,
+  '/soar': UserRole.SOC_ANALYST_L2,
+  '/normalization': UserRole.TENANT_ADMIN,
+  '/detection-rules': UserRole.SOC_ANALYST_L2,
+  '/cloud-security': UserRole.SOC_ANALYST_L2,
+  '/vulnerabilities': UserRole.SOC_ANALYST_L1,
+  '/system-health': UserRole.SOC_ANALYST_L2,
+  '/ai-agents': UserRole.TENANT_ADMIN,
+  '/compliance': UserRole.EXECUTIVE_READONLY,
+  '/reports': UserRole.EXECUTIVE_READONLY,
 }
 
 /**

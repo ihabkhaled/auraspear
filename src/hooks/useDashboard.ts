@@ -44,3 +44,21 @@ export function usePipelineHealth() {
     refetchInterval: POLLING_INTERVAL,
   })
 }
+
+export function useExtendedKPIs() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['dashboard', tenantId, 'extended-kpis'],
+    queryFn: () => dashboardService.getExtendedKPIs(),
+    refetchInterval: POLLING_INTERVAL,
+  })
+}
+
+export function useRecentActivity() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['dashboard', tenantId, 'recent-activity'],
+    queryFn: () => dashboardService.getRecentActivity(),
+    refetchInterval: POLLING_INTERVAL,
+  })
+}

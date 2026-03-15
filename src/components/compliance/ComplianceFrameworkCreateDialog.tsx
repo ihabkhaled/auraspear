@@ -1,0 +1,114 @@
+'use client'
+
+import { Controller } from 'react-hook-form'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from '@/components/ui/dialog'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { ComplianceStandard } from '@/enums'
+import { useComplianceCreateDialog } from '@/hooks/useComplianceCreateDialog'
+import { COMPLIANCE_STANDARD_LABEL_KEYS } from '@/lib/constants/compliance'
+import type { ComplianceCreateDialogProps } from '@/types'
+
+export function ComplianceFrameworkCreateDialog({
+  open,
+  onOpenChange,
+  onSubmit,
+  loading = false,
+}: ComplianceCreateDialogProps) {
+  const { t, register, control, errors, onFormSubmit, handleOpenChange } =
+    useComplianceCreateDialog({ open, onOpenChange, onSubmit })
+
+  return (
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="overflow-hidden sm:max-w-xl">
+        <DialogHeader>
+          <DialogTitle>{t('createTitle')}</DialogTitle>
+          <DialogDescription>{t('createDescription')}</DialogDescription>
+        </DialogHeader>
+
+        <form onSubmit={onFormSubmit} className="flex min-w-0 flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="compliance-name">{t('fieldName')}</Label>
+            <Input
+              id="compliance-name"
+              {...register('name')}
+              placeholder={t('fieldNamePlaceholder')}
+              aria-invalid={errors.name ? true : undefined}
+            />
+            {errors.name && <p className="text-destructive text-xs">{t('validationNameMin')}</p>}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label>{t('fieldStandard')}</Label>
+            <Controller
+              name="standard"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('fieldStandardPlaceholder')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.values(ComplianceStandard).map(standard => (
+                      <SelectItem key={standard} value={standard}>
+                        {t(COMPLIANCE_STANDARD_LABEL_KEYS[standard])}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.standard && (
+              <p className="text-destructive text-xs">{t('validationStandard')}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="compliance-description">{t('fieldDescription')}</Label>
+            <Textarea
+              id="compliance-description"
+              {...register('description')}
+              placeholder={t('fieldDescriptionPlaceholder')}
+              aria-invalid={errors.description ? true : undefined}
+              className="resize-none"
+              rows={4}
+            />
+            {errors.description && (
+              <p className="text-destructive text-xs">{t('validationDescriptionMin')}</p>
+            )}
+          </div>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => handleOpenChange(false)}
+              disabled={loading}
+            >
+              {t('cancelButton')}
+            </Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? t('creating') : t('submitButton')}
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+  )
+}

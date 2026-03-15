@@ -4,8 +4,22 @@ export {
   useMITREStats,
   useAssetRisks,
   usePipelineHealth,
+  useExtendedKPIs,
+  useRecentActivity,
 } from './useDashboard'
-export { useAlerts, useAlert, useInvestigateAlert } from './useAlerts'
+export {
+  useAlerts,
+  useAlert,
+  useInvestigateAlert,
+  useBulkAcknowledgeAlerts,
+  useBulkCloseAlerts,
+  useAlertTimeline,
+} from './useAlerts'
+export { useAlertBulkActions } from './useAlertBulkActions'
+export { useAlertBulkActionBar } from './useAlertBulkActionBar'
+export { useAlertTimelineComponent } from './useAlertTimelineComponent'
+export { useEscalateToIncident } from './useEscalateToIncident'
+export { useEscalateToIncidentDialog } from './useEscalateToIncidentDialog'
 export { useCases, useCase, useCreateCase, useUpdateCase, useTenantMembers } from './useCases'
 export { useCreateCaseTask, useUpdateCaseTask, useDeleteCaseTask } from './useCaseTasks'
 export { useCreateCaseArtifact, useDeleteCaseArtifact } from './useCaseArtifacts'
@@ -201,4 +215,230 @@ export { useMISPEventFeed } from './useMISPEventFeed'
 export { useWazuhCorrelationPanel } from './useWazuhCorrelationPanel'
 export { useExplorerOverviewPage } from './useExplorerOverviewPage'
 export { useExplorerConnectorCard } from './useExplorerConnectorCard'
+export {
+  useIncidents,
+  useIncidentStats,
+  useCreateIncident,
+  useUpdateIncident,
+  useDeleteIncident,
+  useIncidentTimeline,
+  useAddTimelineEntry,
+} from './useIncidents'
+export { useIncidentsPage } from './useIncidentsPage'
+export { useIncidentKpiCards } from './useIncidentKpiCards'
+export { useIncidentFilters } from './useIncidentFilters'
+export { useIncidentCreateDialog } from './useIncidentCreateDialog'
+export { useIncidentEditDialog } from './useIncidentEditDialog'
+export { useIncidentDeleteDialog } from './useIncidentDeleteDialog'
+export { useIncidentTimelineComponent } from './useIncidentTimelineComponent'
+export { useIncidentDetailPanel } from './useIncidentDetailPanel'
 export { useLoginPage } from './useLoginPage'
+export {
+  useCorrelationRules,
+  useCorrelationStats,
+  useCreateRule,
+  useUpdateRule,
+  useDeleteRule,
+} from './useCorrelation'
+export { useCorrelationPage } from './useCorrelationPage'
+export { useCorrelationKpiCards } from './useCorrelationKpiCards'
+export { useCorrelationFilters } from './useCorrelationFilters'
+export { useCorrelationCreateDialog } from './useCorrelationCreateDialog'
+export { useCorrelationEditDialog } from './useCorrelationEditDialog'
+export { useCorrelationDeleteDialog } from './useCorrelationDeleteDialog'
+export { useCorrelationDetailPanel } from './useCorrelationDetailPanel'
+export {
+  useVulnerabilities,
+  useVulnerabilityStats,
+  useCreateVulnerability,
+  useUpdateVulnerability,
+  useDeleteVulnerability,
+} from './useVulnerabilities'
+export { useVulnerabilitiesPage } from './useVulnerabilitiesPage'
+export { useVulnerabilityKpiCards } from './useVulnerabilityKpiCards'
+export { useVulnerabilityFilters } from './useVulnerabilityFilters'
+export { useVulnerabilityCreateDialog } from './useVulnerabilityCreateDialog'
+export { useVulnerabilityEditDialog } from './useVulnerabilityEditDialog'
+export { useVulnerabilityDeleteDialog } from './useVulnerabilityDeleteDialog'
+export { useVulnerabilityDetailPanel } from './useVulnerabilityDetailPanel'
+export { useVulnerabilityBulkImport } from './useVulnerabilityBulkImport'
+export { useAiAgentsPage } from './useAiAgentsPage'
+export {
+  useAiAgents,
+  useAiAgentStats,
+  useAiAgent,
+  useAiAgentSessions,
+  useUpdateSoul,
+  useStopAgent,
+  useCreateAiAgent,
+  useUpdateAiAgent,
+  useDeleteAiAgent,
+} from './useAiAgents'
+export { useAiAgentKpiCards } from './useAiAgentKpiCards'
+export { useAiAgentFilters } from './useAiAgentFilters'
+export { useAiAgentCreateDialog } from './useAiAgentCreateDialog'
+export { useAiAgentEditDialog } from './useAiAgentEditDialog'
+export { useAiAgentDeleteDialog } from './useAiAgentDeleteDialog'
+export { useAiAgentDetailPanel } from './useAiAgentDetailPanel'
+export { useAiAgentToolDialog } from './useAiAgentToolDialog'
+export { useAiAgentSessionTable } from './useAiAgentSessionTable'
+export {
+  useUebaEntities,
+  useUebaEntity,
+  useUebaAnomalies,
+  useMlModels,
+  useUebaStats,
+  useCreateUebaEntity,
+  useUpdateUebaEntity,
+  useDeleteUebaEntity,
+  useResolveAnomaly,
+} from './useUeba'
+export {
+  useAttackPaths,
+  useAttackPathStats,
+  useAttackPath,
+  useCreateAttackPath,
+  useUpdateAttackPath,
+  useDeleteAttackPath,
+} from './useAttackPaths'
+export { useUebaPage } from './useUebaPage'
+export { useUebaKpiCards } from './useUebaKpiCards'
+export { useUebaFilters } from './useUebaFilters'
+export { useUebaEntityCreateDialog } from './useUebaEntityCreateDialog'
+export { useUebaEntityEditDialog } from './useUebaEntityEditDialog'
+export { useUebaEntityDeleteDialog } from './useUebaEntityDeleteDialog'
+export { useUebaEntityDetailPanel } from './useUebaEntityDetailPanel'
+export { useUebaAnomalyCard } from './useUebaAnomalyCard'
+export { useUebaMlModelCard } from './useUebaMlModelCard'
+export { useAttackPathsPage } from './useAttackPathsPage'
+export { useAttackPathKpiCards } from './useAttackPathKpiCards'
+export { useAttackPathFilters } from './useAttackPathFilters'
+export { useAttackPathCreateDialog } from './useAttackPathCreateDialog'
+export { useAttackPathEditDialog } from './useAttackPathEditDialog'
+export { useAttackPathDeleteDialog } from './useAttackPathDeleteDialog'
+export { useAttackPathDetailPanel } from './useAttackPathDetailPanel'
+export { useAttackPathStageEditor } from './useAttackPathStageEditor'
+export {
+  usePlaybooks,
+  usePlaybookStats,
+  useCreatePlaybook,
+  useUpdatePlaybook,
+  useDeletePlaybook,
+  useExecutions,
+  useExecutePlaybook,
+} from './useSoar'
+export { useSoarPage } from './useSoarPage'
+export { useSoarKpiCards } from './useSoarKpiCards'
+export { useSoarFilters } from './useSoarFilters'
+export { useSoarCreateDialog } from './useSoarCreateDialog'
+export { useSoarEditDialog } from './useSoarEditDialog'
+export { useSoarDeleteDialog } from './useSoarDeleteDialog'
+export { useSoarRunDialog } from './useSoarRunDialog'
+export { useSoarDetailPanel } from './useSoarDetailPanel'
+export { useSoarExecutionHistory } from './useSoarExecutionHistory'
+export {
+  useComplianceFrameworks,
+  useComplianceStats,
+  useCreateFramework,
+  useUpdateFramework,
+  useDeleteFramework,
+  useComplianceControls,
+  useUpdateControl,
+} from './useCompliance'
+export { useCompliancePage } from './useCompliancePage'
+export { useComplianceKpiCards } from './useComplianceKpiCards'
+export { useComplianceFilters } from './useComplianceFilters'
+export { useComplianceCreateDialog } from './useComplianceCreateDialog'
+export { useComplianceEditDialog } from './useComplianceEditDialog'
+export { useComplianceDeleteDialog } from './useComplianceDeleteDialog'
+export { useComplianceDetailPanel } from './useComplianceDetailPanel'
+export { useComplianceControlEdit } from './useComplianceControlEdit'
+export { useComplianceControlCard } from './useComplianceControlCard'
+export {
+  useReports,
+  useReportStats,
+  useCreateReport,
+  useUpdateReport,
+  useDeleteReport,
+} from './useReports'
+export { useReportsPage } from './useReportsPage'
+export { useReportKpiCards } from './useReportKpiCards'
+export { useReportFilters } from './useReportFilters'
+export { useReportCreateDialog } from './useReportCreateDialog'
+export { useReportEditDialog } from './useReportEditDialog'
+export { useReportDeleteDialog } from './useReportDeleteDialog'
+export { useReportDetailPanel } from './useReportDetailPanel'
+export {
+  useHealthChecks,
+  useLatestHealthChecks,
+  useSystemMetrics,
+  useSystemHealthStats,
+  useCreateHealthCheck,
+  useUpdateHealthCheck,
+  useDeleteHealthCheck,
+} from './useSystemHealth'
+export { useSystemHealthPage } from './useSystemHealthPage'
+export { useSystemHealthKpiCards } from './useSystemHealthKpiCards'
+export { useSystemHealthFilters } from './useSystemHealthFilters'
+export { useSystemHealthCreateDialog } from './useSystemHealthCreateDialog'
+export { useSystemHealthEditDialog } from './useSystemHealthEditDialog'
+export { useSystemHealthDeleteDialog } from './useSystemHealthDeleteDialog'
+export { useSystemHealthDetailPanel } from './useSystemHealthDetailPanel'
+export {
+  useNormalizationPipelines,
+  useNormalizationStats,
+  useCreatePipeline,
+  useUpdatePipeline,
+  useDeletePipeline,
+} from './useNormalization'
+export { useNormalizationPage } from './useNormalizationPage'
+export { useNormalizationKpiCards } from './useNormalizationKpiCards'
+export { useNormalizationFilters } from './useNormalizationFilters'
+export { useNormalizationCreateDialog } from './useNormalizationCreateDialog'
+export { useNormalizationEditDialog } from './useNormalizationEditDialog'
+export { useNormalizationDeleteDialog } from './useNormalizationDeleteDialog'
+export { useNormalizationDetailPanel } from './useNormalizationDetailPanel'
+export {
+  useDetectionRules,
+  useDetectionRuleStats,
+  useCreateDetectionRule,
+  useUpdateDetectionRule,
+  useDeleteDetectionRule,
+} from './useDetectionRules'
+export { useDetectionRulesPage } from './useDetectionRulesPage'
+export { useDetectionRuleKpiCards } from './useDetectionRuleKpiCards'
+export { useDetectionRuleFilters } from './useDetectionRuleFilters'
+export { useDetectionRuleCreateDialog } from './useDetectionRuleCreateDialog'
+export { useDetectionRuleEditDialog } from './useDetectionRuleEditDialog'
+export { useDetectionRuleDeleteDialog } from './useDetectionRuleDeleteDialog'
+export { useDetectionRuleDetailPanel } from './useDetectionRuleDetailPanel'
+export {
+  useCloudAccounts,
+  useCloudSecurityStats,
+  useCreateCloudAccount,
+  useUpdateCloudAccount,
+  useDeleteCloudAccount,
+  useCloudFindings,
+} from './useCloudSecurity'
+export { useCloudSecurityPage } from './useCloudSecurityPage'
+export { useCloudSecurityKpiCards } from './useCloudSecurityKpiCards'
+export { useCloudSecurityFilters } from './useCloudSecurityFilters'
+export { useCloudAccountCreateDialog } from './useCloudAccountCreateDialog'
+export { useCloudAccountEditDialog } from './useCloudAccountEditDialog'
+export { useCloudAccountDeleteDialog } from './useCloudAccountDeleteDialog'
+export { useCloudAccountDetailPanel } from './useCloudAccountDetailPanel'
+export { useNotificationPreferences } from './useNotificationPreferences'
+export { useDataRetention } from './useDataRetention'
+export { useExportImportSettings } from './useExportImportSettings'
+export { useRecentActivityFeed } from './useRecentActivityFeed'
+export {
+  useConnectors,
+  useConnector,
+  useUpdateConnector,
+  useDeleteConnector,
+  useTestConnector,
+  useCreateConnector,
+  useToggleConnector,
+  useSyncConnector,
+  useSyncStatus,
+} from './useConnectors'

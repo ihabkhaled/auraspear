@@ -1,0 +1,136 @@
+'use client'
+
+import { Badge } from '@/components/ui/badge'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { Separator } from '@/components/ui/separator'
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet'
+import type { IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
+import { useIncidentDetailPanel } from '@/hooks/useIncidentDetailPanel'
+import {
+  INCIDENT_CATEGORY_LABEL_KEYS,
+  INCIDENT_SEVERITY_CLASSES,
+  INCIDENT_SEVERITY_LABEL_KEYS,
+  INCIDENT_STATUS_CLASSES,
+  INCIDENT_STATUS_LABEL_KEYS,
+} from '@/lib/constants/incidents'
+import { cn } from '@/lib/utils'
+import type { IncidentDetailPanelProps } from '@/types'
+import { IncidentTimeline } from './IncidentTimeline'
+
+export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDetailPanelProps) {
+  const { t, tCommon, formattedCreatedAt, formattedUpdatedAt, formattedResolvedAt } =
+    useIncidentDetailPanel(incident)
+
+  return (
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent className="w-full sm:max-w-lg">
+        <SheetHeader>
+          <SheetTitle>
+            {incident?.incidentNumber ?? ''} — {t('incidentDetail')}
+          </SheetTitle>
+          <SheetDescription>{incident?.title ?? ''}</SheetDescription>
+        </SheetHeader>
+
+        {incident && (
+          <ScrollArea className="h-[calc(100vh-8rem)] pe-4">
+            <div className="flex flex-col gap-5 pt-4">
+              <div className="flex flex-wrap gap-2">
+                <span
+                  className={cn(
+                    'inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium',
+                    INCIDENT_SEVERITY_CLASSES[incident.severity as IncidentSeverity]
+                  )}
+                >
+                  {t(INCIDENT_SEVERITY_LABEL_KEYS[incident.severity as IncidentSeverity])}
+                </span>
+                <span
+                  className={cn(
+                    'inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium',
+                    INCIDENT_STATUS_CLASSES[incident.status as IncidentStatus]
+                  )}
+                >
+                  {t(INCIDENT_STATUS_LABEL_KEYS[incident.status as IncidentStatus])}
+                </span>
+                <span className="text-muted-foreground inline-flex items-center text-xs capitalize">
+                  {t(INCIDENT_CATEGORY_LABEL_KEYS[incident.category as IncidentCategory])}
+                </span>
+              </div>
+
+              {incident.description && (
+                <div className="flex flex-col gap-1">
+                  <p className="text-muted-foreground text-xs font-medium">
+                    {t('formDescription')}
+                  </p>
+                  <p className="text-sm">{incident.description}</p>
+                </div>
+              )}
+
+              <Separator />
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex flex-col gap-1">
+                  <p className="text-muted-foreground text-xs font-medium">{tCommon('assignee')}</p>
+                  <p className="text-sm">{incident.assigneeName ?? t('unassigned')}</p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-muted-foreground text-xs font-medium">
+                    {t('detailCreatedBy')}
+                  </p>
+                  <p className="text-sm">{incident.createdByName ?? '-'}</p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-muted-foreground text-xs font-medium">
+                    {t('detailCreatedAt')}
+                  </p>
+                  <p className="text-sm">{formattedCreatedAt}</p>
+                </div>
+                <div className="flex flex-col gap-1">
+                  <p className="text-muted-foreground text-xs font-medium">
+                    {t('detailUpdatedAt')}
+                  </p>
+                  <p className="text-sm">{formattedUpdatedAt}</p>
+                </div>
+                {formattedResolvedAt && (
+                  <div className="flex flex-col gap-1">
+                    <p className="text-muted-foreground text-xs font-medium">
+                      {t('detailResolvedAt')}
+                    </p>
+                    <p className="text-sm">{formattedResolvedAt}</p>
+                  </div>
+                )}
+              </div>
+
+              {incident.mitreTechniques.length > 0 && (
+                <>
+                  <Separator />
+                  <div className="flex flex-col gap-2">
+                    <p className="text-muted-foreground text-xs font-medium">
+                      {t('formMitreTechniques')}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {incident.mitreTechniques.map(technique => (
+                        <Badge key={technique} variant="outline" className="font-mono text-xs">
+                          {technique}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              <Separator />
+
+              <IncidentTimeline incidentId={incident.id} />
+            </div>
+          </ScrollArea>
+        )}
+      </SheetContent>
+    </Sheet>
+  )
+}

@@ -1,4 +1,4 @@
-export { AlertSeverity, AlertStatus } from './alert.enum'
+export { AlertSeverity, AlertStatus, AlertTimelineEventType } from './alert.enum'
 export { TimeRange } from './alert-filter.enum'
 export { BadgeVariant } from './badge.enum'
 export {
@@ -40,3 +40,31 @@ export { StatusDotSize } from './component-size.enum'
 export { AppLogLevel, AppLogFeature } from './app-log.enum'
 export { SyncJobStatus, ExplorerConnector, VelociraptorTab } from './explorer.enum'
 export { WorkspaceEntityStatus } from './workspace-entity.enum'
+export {
+  IncidentSeverity,
+  IncidentStatus,
+  IncidentCategory,
+  IncidentActorType,
+} from './incident.enum'
+export { RuleSource, RuleSeverity, RuleStatus } from './correlation.enum'
+export { VulnerabilitySeverity, PatchStatus } from './vulnerability.enum'
+export { AiAgentStatus, AiAgentTier, AiAgentSessionStatus } from './ai-agent.enum'
+export { UebaEntityType, UebaRiskLevel, MlModelStatus, MlModelType, UebaTab } from './ueba.enum'
+export { AttackPathSeverity, AttackPathStatus } from './attack-path.enum'
+export { SoarPlaybookStatus, SoarTriggerType, SoarExecutionStatus } from './soar.enum'
+export { ComplianceStandard, ComplianceControlStatus } from './compliance.enum'
+export { ReportType, ReportFormat, ReportStatus } from './report.enum'
+export { ServiceType, HealthCheckStatus, MetricType } from './system-health.enum'
+export { NormalizationSourceType, NormalizationPipelineStatus } from './normalization.enum'
+export {
+  DetectionRuleType,
+  DetectionRuleSeverity,
+  DetectionRuleStatus,
+} from './detection-rule.enum'
+export {
+  CloudProvider,
+  CloudAccountStatus,
+  CloudFindingSeverity,
+  CloudFindingStatus,
+} from './cloud-security.enum'
+export { NotificationCategory, RetentionPeriod } from './settings.enum'

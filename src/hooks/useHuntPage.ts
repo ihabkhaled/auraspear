@@ -1,10 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { HuntStatus, MessageRole, ReasoningStepStatus } from '@/enums'
 import { useHuntStore } from '@/stores'
 import type { HuntSession } from '@/types'
-import { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'
+import { useCreateHuntSession, useHuntEvents } from './useHunt'
+import { usePagination } from './usePagination'
 
 export function useHuntPage() {
   const t = useTranslations('hunt')
@@ -17,17 +18,31 @@ export function useHuntPage() {
     addMessage,
     setHuntStatus,
     setHuntId,
-    clearSession: _clearSession,
+    resetHuntState,
+    clearSession,
   } = useHuntStore()
 
+  const pagination = usePagination({ initialLimit: 25 })
+  const { setTotal, resetPage } = pagination
+
   const createSession = useCreateHuntSession()
-  const sendMessage = useSendHuntMessage()
-  const { data: eventsData, isLoading: eventsLoading } = useHuntEvents(huntId ?? '')
+  const { data: eventsData, isLoading: eventsLoading } = useHuntEvents(
+    huntId ?? '',
+    pagination.page,
+    pagination.limit
+  )
 
   const events = useMemo(
     () => (Array.isArray(eventsData?.data) ? eventsData.data : []),
     [eventsData]
   )
+
+  // Sync total from backend pagination metadata
+  useEffect(() => {
+    if (eventsData?.pagination?.total !== undefined) {
+      setTotal(eventsData.pagination.total)
+    }
+  }, [eventsData?.pagination?.total, setTotal])
 
   // Use backend-computed metrics from session, NOT client-side calculations
   const uniqueIps = session?.uniqueIps ?? 0
@@ -36,68 +51,12 @@ export function useHuntPage() {
 
   const handleSend = useCallback(
     (content: string) => {
-      if (huntId === null) {
-        // First message: create hunt session
-        createSession.mutate(
-          { query: content, timeRange: '24h' },
-          {
-            onSuccess: result => {
-              const sessionData = result.data
-              setSession(sessionData)
-              setHuntId(sessionData.id)
-              setHuntStatus(
-                sessionData.status === HuntStatus.COMPLETED
-                  ? HuntStatus.COMPLETED
-                  : sessionData.status === HuntStatus.ERROR
-                    ? HuntStatus.ERROR
-                    : HuntStatus.RUNNING
-              )
+      // Reset hunt state (keep chat messages as history) so a new session is created
+      resetHuntState()
+      setSession(null)
+      resetPage()
 
-              // Add user message
-              addMessage({
-                id: `user-${Date.now()}`,
-                role: MessageRole.USER,
-                content,
-                timestamp: new Date().toISOString(),
-              })
-
-              // Add AI analysis from session as first AI response
-              const hasAnalysis = sessionData.aiAnalysis !== null
-              const hasReasoning =
-                Array.isArray(sessionData.reasoning) && sessionData.reasoning.length > 0
-
-              if (hasAnalysis || hasReasoning) {
-                const reasoningSteps = Array.isArray(sessionData.reasoning)
-                  ? sessionData.reasoning
-                  : []
-
-                addMessage({
-                  id: `ai-${Date.now()}`,
-                  role: MessageRole.AI,
-                  content: sessionData.aiAnalysis ?? reasoningSteps.join('\n'),
-                  timestamp: new Date().toISOString(),
-                  reasoningSteps: reasoningSteps.map((step: string, i: number) => ({
-                    id: `step-${String(i)}`,
-                    label: step,
-                    status: ReasoningStepStatus.COMPLETED,
-                  })),
-                  actions: sessionData.status === HuntStatus.COMPLETED ? ['complete'] : [],
-                })
-
-                if (sessionData.status === HuntStatus.COMPLETED) {
-                  setHuntStatus(HuntStatus.COMPLETED)
-                }
-              }
-            },
-            onError: () => {
-              Toast.error(t('sessionError'))
-            },
-          }
-        )
-        return
-      }
-
-      // Follow-up message: send to AI chat
+      // Add user message
       addMessage({
         id: `user-${Date.now()}`,
         role: MessageRole.USER,
@@ -105,26 +64,68 @@ export function useHuntPage() {
         timestamp: new Date().toISOString(),
       })
 
-      sendMessage.mutate(
-        { sessionId: huntId, content },
+      setHuntStatus(HuntStatus.RUNNING)
+
+      createSession.mutate(
+        { query: content, timeRange: '7d' },
         {
-          onSuccess: response => {
-            addMessage(response.data)
-            if (response.data.actions?.includes('complete')) {
-              setHuntStatus(HuntStatus.COMPLETED)
+          onSuccess: result => {
+            const sessionData = result.data
+            setSession(sessionData)
+            setHuntId(sessionData.id)
+            setHuntStatus(
+              sessionData.status === HuntStatus.COMPLETED
+                ? HuntStatus.COMPLETED
+                : sessionData.status === HuntStatus.ERROR
+                  ? HuntStatus.ERROR
+                  : HuntStatus.RUNNING
+            )
+
+            // Add AI analysis from session as AI response
+            const hasAnalysis = sessionData.aiAnalysis !== null
+            const hasReasoning =
+              Array.isArray(sessionData.reasoning) && sessionData.reasoning.length > 0
+
+            if (hasAnalysis || hasReasoning) {
+              const reasoningSteps = Array.isArray(sessionData.reasoning)
+                ? sessionData.reasoning
+                : []
+
+              addMessage({
+                id: `ai-${Date.now()}`,
+                role: MessageRole.AI,
+                content: sessionData.aiAnalysis ?? reasoningSteps.join('\n'),
+                timestamp: new Date().toISOString(),
+                reasoningSteps: reasoningSteps.map((step: string, i: number) => ({
+                  id: `step-${String(i)}`,
+                  label: step,
+                  status: ReasoningStepStatus.COMPLETED,
+                })),
+                actions: sessionData.status === HuntStatus.COMPLETED ? ['complete'] : [],
+              })
+
+              if (sessionData.status === HuntStatus.COMPLETED) {
+                setHuntStatus(HuntStatus.COMPLETED)
+              }
             }
           },
           onError: () => {
-            Toast.error(t('sendError'))
+            Toast.error(t('sessionError'))
             setHuntStatus(HuntStatus.ERROR)
           },
         }
       )
     },
-    [huntId, createSession, sendMessage, addMessage, setHuntId, setHuntStatus, t]
+    [createSession, addMessage, setHuntId, setHuntStatus, resetHuntState, resetPage, t]
   )
 
-  const isSending = createSession.isPending || sendMessage.isPending
+  const isSending = createSession.isPending
+
+  const handleNewHunt = useCallback(() => {
+    clearSession()
+    setSession(null)
+    resetPage()
+  }, [clearSession, resetPage])
 
   return {
     t,
@@ -140,5 +141,10 @@ export function useHuntPage() {
     eventsLoading,
     isSending,
     handleSend,
+    handleNewHunt,
+    page: pagination.page,
+    totalPages: pagination.totalPages,
+    total: pagination.total,
+    onPageChange: pagination.setPage,
   }
 }

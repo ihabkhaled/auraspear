@@ -1,5 +1,12 @@
 import api from '@/lib/api'
-import type { ApiResponse, Alert, AlertSearchParams, AIInvestigation } from '@/types'
+import type {
+  ApiResponse,
+  Alert,
+  AlertSearchParams,
+  AIInvestigation,
+  BulkActionResult,
+  AlertTimelineEvent,
+} from '@/types'
 
 export const alertService = {
   getAlerts: (params?: AlertSearchParams) =>
@@ -9,4 +16,15 @@ export const alertService = {
 
   investigateAlert: (id: string) =>
     api.post<ApiResponse<AIInvestigation>>(`/alerts/${id}/investigate`).then(r => r.data),
+
+  bulkAcknowledge: (ids: string[]) =>
+    api.post<ApiResponse<BulkActionResult>>('/alerts/bulk/acknowledge', { ids }).then(r => r.data),
+
+  bulkClose: (ids: string[], resolution: string) =>
+    api
+      .post<ApiResponse<BulkActionResult>>('/alerts/bulk/close', { ids, resolution })
+      .then(r => r.data),
+
+  getAlertTimeline: (id: string) =>
+    api.get<ApiResponse<AlertTimelineEvent[]>>(`/alerts/${id}/timeline`).then(r => r.data),
 }

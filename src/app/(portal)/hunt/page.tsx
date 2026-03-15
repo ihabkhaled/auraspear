@@ -21,6 +21,11 @@ export default function HuntPage() {
     eventsLoading,
     isSending,
     handleSend,
+    handleNewHunt,
+    page,
+    totalPages,
+    total,
+    onPageChange,
   } = useHuntPage()
 
   return (
@@ -48,7 +53,13 @@ export default function HuntPage() {
       <div className="flex min-h-0 flex-1">
         {/* Chat panel: visible on mobile when tab=chat, always visible on desktop */}
         <div className={mobileTab === 'chat' ? 'flex flex-1 lg:flex-none' : 'hidden lg:flex'}>
-          <HuntChatPanel messages={messages} onSend={handleSend} disabled={isSending} />
+          <HuntChatPanel
+            messages={messages}
+            onSend={handleSend}
+            disabled={isSending}
+            hasSession={huntId !== null}
+            onNewHunt={handleNewHunt}
+          />
         </div>
 
         {/* Results panel: visible on mobile when tab=results, always visible on desktop */}
@@ -61,6 +72,10 @@ export default function HuntPage() {
             threatScore={threatScore}
             events={events}
             loading={eventsLoading}
+            page={page}
+            totalPages={totalPages}
+            total={total}
+            onPageChange={onPageChange}
           />
         </div>
       </div>

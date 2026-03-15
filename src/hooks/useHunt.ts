@@ -27,12 +27,12 @@ export function useSendHuntMessage() {
   })
 }
 
-export function useHuntEvents(sessionId: string) {
+export function useHuntEvents(sessionId: string, page = 1, limit = 25) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
-    queryKey: ['hunt', tenantId, sessionId, 'events'],
-    queryFn: () => huntService.getEvents(sessionId),
+    queryKey: ['hunt', tenantId, sessionId, 'events', page, limit],
+    queryFn: () => huntService.getEvents(sessionId, page, limit),
     enabled: sessionId.length > 0,
   })
 }

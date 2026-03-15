@@ -123,3 +123,34 @@ export interface PipelineHealthBarProps {
 export interface MITRETopTechniquesProps {
   techniques: MITRETechnique[]
 }
+
+export interface ExtendedKPIStats {
+  openIncidents: number
+  criticalVulnerabilities: number
+  highRiskEntities: number
+  activeAttackPaths: number
+  complianceScore: number | null
+  soarExecutions: number
+  systemHealthScore: number
+}
+
+export interface RecentActivityItem {
+  id: string
+  type: string
+  actorName: string
+  title: string
+  message: string
+  createdAt: string
+  isRead: boolean
+}
+
+export interface RecentActivityFeedProps {
+  items: RecentActivityItem[]
+  onViewAll?: (() => void) | undefined
+}
+
+export interface ExtendedKPIItem {
+  labelKey: string
+  value: number | string
+  route: string
+}

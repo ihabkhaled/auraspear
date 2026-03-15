@@ -14,3 +14,13 @@ export enum AlertStatus {
   CLOSED = 'closed',
   FALSE_POSITIVE = 'false_positive',
 }
+
+export enum AlertTimelineEventType {
+  CREATED = 'created',
+  ACKNOWLEDGED = 'acknowledged',
+  IN_PROGRESS = 'in_progress',
+  RESOLVED = 'resolved',
+  CLOSED = 'closed',
+  ESCALATED = 'escalated',
+  INVESTIGATED = 'investigated',
+}

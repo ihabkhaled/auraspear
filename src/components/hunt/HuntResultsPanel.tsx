@@ -14,6 +14,10 @@ export function HuntResultsPanel({
   threatScore,
   events,
   loading = false,
+  page,
+  totalPages,
+  total,
+  onPageChange,
 }: HuntResultsPanelProps) {
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
@@ -25,7 +29,14 @@ export function HuntResultsPanel({
             uniqueIps={uniqueIps}
             threatScore={threatScore}
           />
-          <HuntEventTable events={events} loading={loading} />
+          <HuntEventTable
+            events={events}
+            loading={loading}
+            page={page ?? 1}
+            totalPages={totalPages ?? 1}
+            total={total ?? 0}
+            onPageChange={onPageChange ?? (() => {})}
+          />
         </div>
       </ScrollArea>
     </div>

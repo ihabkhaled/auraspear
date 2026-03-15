@@ -9,6 +9,7 @@ import { AlertSeverity, SortOrder, TimeRange } from '@/enums'
 import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
 import { useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
+import { useAlertBulkActions } from './useAlertBulkActions'
 import { useAlerts, useInvestigateAlert } from './useAlerts'
 import { useCreateCase, useTenantMembers } from './useCases'
 import { useDebounce } from './useDebounce'
@@ -65,6 +66,10 @@ export function useAlertsPage() {
   const [investigationOpen, setInvestigationOpen] = useState(false)
   const [createCaseOpen, setCreateCaseOpen] = useState(false)
   const [createCaseAlert, setCreateCaseAlert] = useState<Alert | null>(null)
+  const [escalateOpen, setEscalateOpen] = useState(false)
+  const [escalateAlert, setEscalateAlert] = useState<Alert | null>(null)
+
+  const bulkActions = useAlertBulkActions()
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
   const debouncedQuery = useDebounce(kqlQuery, 400)
@@ -168,6 +173,12 @@ export function useAlertsPage() {
   const handleCreateCase = useCallback((alert: Alert) => {
     setCreateCaseAlert(alert)
     setCreateCaseOpen(true)
+  }, [])
+
+  const handleEscalateToIncident = useCallback((alert: Alert) => {
+    setEscalateAlert(alert)
+    setEscalateOpen(true)
+    setDrawerOpen(false)
   }, [])
 
   const handleCreateCaseSubmit = useCallback(
@@ -281,5 +292,18 @@ export function useAlertsPage() {
     sortBy,
     sortOrder,
     handleSort,
+    // Bulk actions
+    selectedIds: bulkActions.selectedIds,
+    setSelectedIds: bulkActions.setSelectedIds,
+    handleBulkAcknowledge: bulkActions.handleBulkAcknowledge,
+    handleBulkClose: bulkActions.handleBulkClose,
+    handleClearSelection: bulkActions.handleClearSelection,
+    isAcknowledging: bulkActions.isAcknowledging,
+    isClosing: bulkActions.isClosing,
+    // Escalation
+    escalateOpen,
+    setEscalateOpen,
+    escalateAlert,
+    handleEscalateToIncident,
   }
 }
