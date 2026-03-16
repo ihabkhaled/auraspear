@@ -13,6 +13,7 @@ import {
   HEALTH_CHECK_STATUS_LABEL_KEYS,
   SERVICE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/system-health'
+import { lookup } from '@/lib/utils'
 import type { SystemHealthFiltersProps } from '@/types'
 
 export function SystemHealthFilters({
@@ -33,7 +34,7 @@ export function SystemHealthFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(ServiceType).map(svc => (
             <SelectItem key={svc} value={svc}>
-              {t(SERVICE_TYPE_LABEL_KEYS[svc])}
+              {t(lookup(SERVICE_TYPE_LABEL_KEYS, svc))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -47,7 +48,7 @@ export function SystemHealthFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(HealthCheckStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(HEALTH_CHECK_STATUS_LABEL_KEYS[status])}
+              {t(lookup(HEALTH_CHECK_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

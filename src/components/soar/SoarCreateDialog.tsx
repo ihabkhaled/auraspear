@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { SoarTriggerType } from '@/enums'
 import { useSoarCreateDialog } from '@/hooks/useSoarCreateDialog'
 import { SOAR_TRIGGER_TYPE_LABEL_KEYS } from '@/lib/constants/soar'
+import { lookup } from '@/lib/utils'
 import type { SoarCreateDialogProps } from '@/types'
 
 export function SoarCreateDialog({
@@ -81,7 +82,7 @@ export function SoarCreateDialog({
                   <SelectContent>
                     {Object.values(SoarTriggerType).map(trigger => (
                       <SelectItem key={trigger} value={trigger}>
-                        {t(SOAR_TRIGGER_TYPE_LABEL_KEYS[trigger])}
+                        {t(lookup(SOAR_TRIGGER_TYPE_LABEL_KEYS, trigger))}
                       </SelectItem>
                     ))}
                   </SelectContent>

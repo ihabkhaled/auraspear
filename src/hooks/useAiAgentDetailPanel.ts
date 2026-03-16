@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
 import { useUpdateSoul, useStopAgent } from './useAiAgents'
 
@@ -22,9 +23,12 @@ export function useAiAgentDetailPanel({
   const updateSoulMutation = useUpdateSoul()
   const stopAgentMutation = useStopAgent()
 
-  const statusLabel = useMemo(() => t(AI_AGENT_STATUS_LABEL_KEYS[agent.status]), [agent.status, t])
+  const statusLabel = useMemo(
+    () => t(lookup(AI_AGENT_STATUS_LABEL_KEYS, agent.status)),
+    [agent.status, t]
+  )
 
-  const tierLabel = useMemo(() => t(AI_AGENT_TIER_LABEL_KEYS[agent.tier]), [agent.tier, t])
+  const tierLabel = useMemo(() => t(lookup(AI_AGENT_TIER_LABEL_KEYS, agent.tier)), [agent.tier, t])
 
   const formattedTokens = useMemo(() => agent.totalTokens.toLocaleString(), [agent.totalTokens])
 

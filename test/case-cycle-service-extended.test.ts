@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
-
 // Mock the api module before importing the service
 vi.mock('@/lib/api', () => ({
   default: {
@@ -9,7 +8,6 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-
 import api from '@/lib/api'
 import { caseCycleService } from '@/services/case-cycle.service'
 

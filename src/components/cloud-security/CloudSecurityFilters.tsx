@@ -15,6 +15,7 @@ import {
   CLOUD_ACCOUNT_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
+import { lookup } from '@/lib/utils'
 import type { CloudSecurityFiltersProps } from '@/types'
 
 export function CloudSecurityFilters({
@@ -47,7 +48,7 @@ export function CloudSecurityFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(CloudProvider).map(provider => (
             <SelectItem key={provider} value={provider}>
-              {t(CLOUD_PROVIDER_LABEL_KEYS[provider])}
+              {t(lookup(CLOUD_PROVIDER_LABEL_KEYS, provider))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -61,7 +62,7 @@ export function CloudSecurityFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(CloudAccountStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(CLOUD_ACCOUNT_STATUS_LABEL_KEYS[status])}
+              {t(lookup(CLOUD_ACCOUNT_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

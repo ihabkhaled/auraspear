@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { Toast } from '@/components/common'
 import { ConnectorAuthType, UserRole } from '@/enums'
 import { useUpdateConnector } from '@/hooks/useConnectors'
@@ -9,6 +9,7 @@ import { getErrorKey } from '@/lib/api-error'
 import { recordToFormValues } from '@/lib/connector-utils'
 import { CONNECTOR_META } from '@/lib/constants/connectors.constants'
 import { hasRole } from '@/lib/roles'
+import { lookup } from '@/lib/utils'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import { useAuthStore } from '@/stores'
 import type { ConnectorFormProps } from '@/types'
@@ -31,7 +32,7 @@ export function useConnectorForm({
   const tValidation = useTranslations('validation')
   const { user } = useAuthStore()
   const userRole = user?.role as UserRole | undefined
-  const meta = CONNECTOR_META[type]
+  const meta = lookup(CONNECTOR_META, type)
   const updateMutation = useUpdateConnector(type)
 
   const disabled = readOnly ?? !(userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false)
@@ -92,7 +93,7 @@ export function useConnectorForm({
         },
   })
 
-  const authType = watch('authType')
+  const authType = useWatch({ control, name: 'authType' })
 
   const onSubmit = (values: ConnectorFormValues) => {
     if (onCreateSubmit) {
@@ -113,16 +114,16 @@ export function useConnectorForm({
     ] as const
     const normalizedConfig = { ...configFields }
     for (const key of urlKeys) {
-      const val = normalizedConfig[key]
+      const val = Reflect.get(normalizedConfig, key) as string | undefined
       if (val) {
-        normalizedConfig[key] = val.toLowerCase()
+        Reflect.set(normalizedConfig, key, val.toLowerCase())
       }
     }
 
     const cleanedConfig: Record<string, unknown> = {}
     for (const [key, val] of Object.entries(normalizedConfig)) {
       if (val !== '***REDACTED***') {
-        cleanedConfig[key] = val
+        Reflect.set(cleanedConfig, key, val)
       }
     }
 
@@ -155,7 +156,7 @@ export function useConnectorForm({
   const [visibleSecrets, setVisibleSecrets] = useState<Record<string, boolean>>({})
 
   const toggleSecret = useCallback((field: string) => {
-    setVisibleSecrets(prev => ({ ...prev, [field]: !prev[field] }))
+    setVisibleSecrets(prev => ({ ...prev, [field]: !Reflect.get(prev, field) }))
   }, [])
 
   const secretSavedLabel = t('secretSaved')

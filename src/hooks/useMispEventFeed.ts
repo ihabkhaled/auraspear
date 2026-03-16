@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export function useMISPEventFeed() {
+export function useMispEventFeed() {
   const t = useTranslations('intel')
 
   return { t }

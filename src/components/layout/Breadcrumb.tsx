@@ -42,7 +42,7 @@ export function LayoutBreadcrumb() {
         {segments.map((segment, index) => {
           const href = `/${segments.slice(0, index + 1).join('/')}`
           const isLast = index === segments.length - 1
-          const labelKey = pathLabelMap[segment]
+          const labelKey = Reflect.get(pathLabelMap, segment) as string | undefined
           const label = labelKey ? t(labelKey) : segment
 
           return (

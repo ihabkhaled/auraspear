@@ -4,6 +4,7 @@ import { Toast } from '@/components/common'
 import { getCorrelationColumns } from '@/components/correlation'
 import { RuleSource, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { lookup } from '@/lib/utils'
 import type {
   CorrelationRule,
   CorrelationSearchParams,
@@ -58,7 +59,7 @@ export function useCorrelationPage() {
     sortOrder,
   }
 
-  const sourceFromTab = TAB_SOURCE_MAP[activeTab]
+  const sourceFromTab = lookup(TAB_SOURCE_MAP, activeTab)
   if (sourceFromTab) {
     searchParams.source = sourceFromTab
   }

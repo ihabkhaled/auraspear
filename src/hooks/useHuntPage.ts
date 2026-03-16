@@ -73,13 +73,13 @@ export function useHuntPage() {
             const sessionData = result.data
             setSession(sessionData)
             setHuntId(sessionData.id)
-            setHuntStatus(
-              sessionData.status === HuntStatus.COMPLETED
-                ? HuntStatus.COMPLETED
-                : sessionData.status === HuntStatus.ERROR
-                  ? HuntStatus.ERROR
-                  : HuntStatus.RUNNING
-            )
+            let nextStatus: HuntStatus = HuntStatus.RUNNING
+            if (sessionData.status === HuntStatus.COMPLETED) {
+              nextStatus = HuntStatus.COMPLETED
+            } else if (sessionData.status === HuntStatus.ERROR) {
+              nextStatus = HuntStatus.ERROR
+            }
+            setHuntStatus(nextStatus)
 
             // Add AI analysis from session as AI response
             const hasAnalysis = sessionData.aiAnalysis !== null

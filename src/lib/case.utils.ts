@@ -1,5 +1,6 @@
 import { BadgeVariant, CaseStatus, type CaseTimelineEntryType } from '@/enums'
 import { AVATAR_COLORS, TIMELINE_TYPE_COLORS } from '@/lib/constants/cases'
+import { lookup } from '@/lib/utils'
 
 export const STATUS_VARIANT_MAP: Record<CaseStatus, BadgeVariant> = {
   [CaseStatus.OPEN]: BadgeVariant.DEFAULT,
@@ -36,7 +37,7 @@ export function getInitials(name?: string | null): string {
   if (!name) return 'U'
   return name
     .split(' ')
-    .map(part => part[0])
+    .map(part => part.at(0))
     .filter(Boolean)
     .slice(0, 2)
     .join('')
@@ -44,9 +45,9 @@ export function getInitials(name?: string | null): string {
 }
 
 export function getAvatarColor(index: number): string {
-  return AVATAR_COLORS[index % AVATAR_COLORS.length] ?? AVATAR_COLORS[0]
+  return AVATAR_COLORS.at(index % AVATAR_COLORS.length) ?? AVATAR_COLORS.at(0) ?? ''
 }
 
 export function getTypeColor(type: CaseTimelineEntryType): string {
-  return TIMELINE_TYPE_COLORS[type] ?? 'var(--muted-foreground)'
+  return lookup(TIMELINE_TYPE_COLORS, type) ?? 'var(--muted-foreground)'
 }

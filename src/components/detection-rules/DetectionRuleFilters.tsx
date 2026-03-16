@@ -16,6 +16,7 @@ import {
   DETECTION_RULE_STATUS_LABEL_KEYS,
   DETECTION_RULE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/detection-rules'
+import { lookup } from '@/lib/utils'
 import type { DetectionRuleFiltersProps } from '@/types'
 
 export function DetectionRuleFilters({
@@ -50,7 +51,7 @@ export function DetectionRuleFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(DetectionRuleType).map(rt => (
             <SelectItem key={rt} value={rt}>
-              {t(DETECTION_RULE_TYPE_LABEL_KEYS[rt])}
+              {t(lookup(DETECTION_RULE_TYPE_LABEL_KEYS, rt))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -64,7 +65,7 @@ export function DetectionRuleFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(DetectionRuleSeverity).map(sev => (
             <SelectItem key={sev} value={sev}>
-              {t(DETECTION_RULE_SEVERITY_LABEL_KEYS[sev])}
+              {t(lookup(DETECTION_RULE_SEVERITY_LABEL_KEYS, sev))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -78,7 +79,7 @@ export function DetectionRuleFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(DetectionRuleStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(DETECTION_RULE_STATUS_LABEL_KEYS[status])}
+              {t(lookup(DETECTION_RULE_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

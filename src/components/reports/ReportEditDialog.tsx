@@ -24,6 +24,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ReportFormat, ReportType } from '@/enums'
 import { useReportEditDialog } from '@/hooks/useReportEditDialog'
 import { REPORT_FORMAT_LABEL_KEYS, REPORT_TYPE_LABEL_KEYS } from '@/lib/constants/reports'
+import { lookup } from '@/lib/utils'
 import type { ReportEditDialogProps } from '@/types'
 
 export function ReportEditDialog({
@@ -84,7 +85,7 @@ export function ReportEditDialog({
                   <SelectContent>
                     {Object.values(ReportType).map(reportType => (
                       <SelectItem key={reportType} value={reportType}>
-                        {t(REPORT_TYPE_LABEL_KEYS[reportType])}
+                        {t(lookup(REPORT_TYPE_LABEL_KEYS, reportType))}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -106,7 +107,7 @@ export function ReportEditDialog({
                   <SelectContent>
                     {Object.values(ReportFormat).map(fmt => (
                       <SelectItem key={fmt} value={fmt}>
-                        {t(REPORT_FORMAT_LABEL_KEYS[fmt])}
+                        {t(lookup(REPORT_FORMAT_LABEL_KEYS, fmt))}
                       </SelectItem>
                     ))}
                   </SelectContent>

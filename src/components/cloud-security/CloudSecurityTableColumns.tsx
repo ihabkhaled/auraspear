@@ -6,7 +6,7 @@ import {
   CLOUD_ACCOUNT_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { CloudAccount, Column } from '@/types'
 
 interface CloudSecurityColumnTranslations {
@@ -30,7 +30,7 @@ export function getCloudSecurityColumns(
       sortable: true,
       render: (value: unknown) => {
         const provider = value as CloudProvider
-        const labelKey = CLOUD_PROVIDER_LABEL_KEYS[provider]
+        const labelKey = lookup(CLOUD_PROVIDER_LABEL_KEYS, provider)
         return (
           <span className="text-muted-foreground text-xs uppercase">
             {labelKey ? t.cloudSecurity(labelKey) : String(value)}
@@ -49,12 +49,12 @@ export function getCloudSecurityColumns(
       sortable: true,
       render: (value: unknown) => {
         const status = value as CloudAccountStatus
-        const labelKey = CLOUD_ACCOUNT_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(CLOUD_ACCOUNT_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              CLOUD_ACCOUNT_STATUS_CLASSES[status]
+              lookup(CLOUD_ACCOUNT_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.cloudSecurity(labelKey) : String(value)}

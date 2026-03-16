@@ -15,7 +15,7 @@ import {
   SOAR_TRIGGER_TYPE_LABEL_KEYS,
   SOAR_TRIGGER_TYPE_CLASSES,
 } from '@/lib/constants/soar'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { SoarDetailPanelProps } from '@/types'
 import { SoarExecutionHistory } from './SoarExecutionHistory'
 
@@ -40,10 +40,10 @@ export function SoarDetailPanel({ playbook, open, onOpenChange }: SoarDetailPane
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                SOAR_PLAYBOOK_STATUS_CLASSES[playbook.status]
+                lookup(SOAR_PLAYBOOK_STATUS_CLASSES, playbook.status)
               )}
             >
-              {t(SOAR_PLAYBOOK_STATUS_LABEL_KEYS[playbook.status])}
+              {t(lookup(SOAR_PLAYBOOK_STATUS_LABEL_KEYS, playbook.status))}
             </span>
           </div>
 
@@ -52,10 +52,10 @@ export function SoarDetailPanel({ playbook, open, onOpenChange }: SoarDetailPane
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                SOAR_TRIGGER_TYPE_CLASSES[playbook.triggerType]
+                lookup(SOAR_TRIGGER_TYPE_CLASSES, playbook.triggerType)
               )}
             >
-              {t(SOAR_TRIGGER_TYPE_LABEL_KEYS[playbook.triggerType])}
+              {t(lookup(SOAR_TRIGGER_TYPE_LABEL_KEYS, playbook.triggerType))}
             </span>
           </div>
 

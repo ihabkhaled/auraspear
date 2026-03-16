@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
 import { ROLE_LABEL_KEYS } from '@/lib/constants/roles'
+import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import { useProfile, useUpdateProfile, useChangePassword } from './useProfile'
 
@@ -43,7 +44,7 @@ export function useProfilePage() {
   const displayEmail = profile?.email ?? user?.email ?? ''
   const displayRole = profile?.role ?? user?.role
   const displayTenant = profile?.tenantSlug ?? user?.tenantSlug ?? ''
-  const roleLabelKey = displayRole ? ROLE_LABEL_KEYS[displayRole] : undefined
+  const roleLabelKey = displayRole ? lookup(ROLE_LABEL_KEYS, displayRole) : undefined
 
   function handleUpdateName(e: React.FormEvent) {
     e.preventDefault()

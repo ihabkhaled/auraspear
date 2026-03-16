@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { TenantEnvironment } from '@/enums'
 import { tenantProfileSchema } from '@/lib/validation/admin.schema'
 import type { TenantProfileFormValues, TenantProfileFormProps } from '@/types'
@@ -15,8 +15,8 @@ export function useTenantProfileForm({
   const {
     register,
     handleSubmit,
+    control,
     setValue,
-    watch,
     formState: { errors },
   } = useForm<TenantProfileFormValues>({
     resolver: zodResolver(tenantProfileSchema),
@@ -27,7 +27,7 @@ export function useTenantProfileForm({
     },
   })
 
-  const currentEnvironment = watch('environment')
+  const currentEnvironment = useWatch({ control, name: 'environment' })
 
   return { t, register, handleSubmit, setValue, errors, currentEnvironment }
 }

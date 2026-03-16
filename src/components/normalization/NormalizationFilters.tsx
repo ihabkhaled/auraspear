@@ -15,6 +15,7 @@ import {
   NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS,
   NORMALIZATION_SOURCE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/normalization'
+import { lookup } from '@/lib/utils'
 import type { NormalizationFiltersProps } from '@/types'
 
 export function NormalizationFilters({
@@ -47,7 +48,7 @@ export function NormalizationFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(NormalizationSourceType).map(src => (
             <SelectItem key={src} value={src}>
-              {t(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS[src])}
+              {t(lookup(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS, src))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -61,7 +62,7 @@ export function NormalizationFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(NormalizationPipelineStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS[status])}
+              {t(lookup(NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

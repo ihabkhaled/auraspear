@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
-export function useAIInvestigationModal() {
+export function useKqlSearchBar() {
   const t = useTranslations('alerts')
 
   return { t }

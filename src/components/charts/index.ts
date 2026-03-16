@@ -1,3 +1,3 @@
 export { AlertTrendChart } from './AlertTrendChart'
-export { MITREBarChart } from './MITREBarChart'
+export { MitreBarChart } from './MitreBarChart'
 export { SeverityDistributionChart } from './SeverityDistributionChart'

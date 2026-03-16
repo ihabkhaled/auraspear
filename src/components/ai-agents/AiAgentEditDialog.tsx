@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { AiAgentTier } from '@/enums'
 import { useAiAgentEditDialog } from '@/hooks/useAiAgentEditDialog'
 import { AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgentEditDialogProps } from '@/types'
 
 export function AiAgentEditDialog({
@@ -93,7 +94,7 @@ export function AiAgentEditDialog({
                   <SelectContent>
                     {Object.values(AiAgentTier).map(tier => (
                       <SelectItem key={tier} value={tier}>
-                        {t(AI_AGENT_TIER_LABEL_KEYS[tier])}
+                        {t(lookup(AI_AGENT_TIER_LABEL_KEYS, tier))}
                       </SelectItem>
                     ))}
                   </SelectContent>

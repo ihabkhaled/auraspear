@@ -19,7 +19,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ConnectorType } from '@/enums'
 import { useExplorerOverviewPage } from '@/hooks'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { ExplorerConnectorStatus, SyncJobStatusDetail } from '@/types'
 
 const CONNECTOR_EXPLORER_MAP: Record<
@@ -219,7 +219,7 @@ export default function ExplorerOverviewPage() {
           {connectors
             .filter(c => c.type in CONNECTOR_EXPLORER_MAP)
             .map(connector => {
-              const meta = CONNECTOR_EXPLORER_MAP[connector.type]
+              const meta = lookup(CONNECTOR_EXPLORER_MAP, connector.type)
               if (!meta) return null
               return (
                 <ConnectorCard

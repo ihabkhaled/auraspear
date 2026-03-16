@@ -7,7 +7,7 @@ import { type CaseStatus, type CaseSeverity } from '@/enums'
 import { useCaseListTable } from '@/hooks'
 import { STATUS_VARIANT_MAP } from '@/lib/case.utils'
 import { CASE_STATUS_LABEL_KEYS } from '@/lib/constants/cases'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { Case, CaseListTableProps, Column } from '@/types'
 
 export function CaseListTable({
@@ -38,9 +38,9 @@ export function CaseListTable({
       sortable: true,
       render: value => {
         const status = value as CaseStatus
-        const labelKey = CASE_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(CASE_STATUS_LABEL_KEYS, status)
         return (
-          <Badge variant={STATUS_VARIANT_MAP[status]} className="capitalize">
+          <Badge variant={lookup(STATUS_VARIANT_MAP, status)} className="capitalize">
             {labelKey ? t(labelKey) : String(value ?? '')}
           </Badge>
         )

@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
-
 // Mock the api module before importing any service
 vi.mock('@/lib/api', () => ({
   default: {
@@ -10,7 +9,6 @@ vi.mock('@/lib/api', () => ({
     put: vi.fn(),
   },
 }))
-
 import api from '@/lib/api'
 import { adminService } from '@/services/admin.service'
 import { alertService } from '@/services/alert.service'

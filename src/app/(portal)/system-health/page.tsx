@@ -14,7 +14,7 @@ import {
   HEALTH_CHECK_STATUS_LABEL_KEYS,
   SERVICE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/system-health'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 
 export default function SystemHealthPage() {
   const {
@@ -49,8 +49,8 @@ export default function SystemHealthPage() {
 
   const editInitialValues = selectedCheck
     ? {
-        serviceName: SERVICE_TYPE_LABEL_KEYS[selectedCheck.serviceType]
-          ? t(SERVICE_TYPE_LABEL_KEYS[selectedCheck.serviceType])
+        serviceName: lookup(SERVICE_TYPE_LABEL_KEYS, selectedCheck.serviceType)
+          ? t(lookup(SERVICE_TYPE_LABEL_KEYS, selectedCheck.serviceType))
           : selectedCheck.serviceType,
         serviceType: selectedCheck.serviceType,
         config: '{}',
@@ -74,8 +74,8 @@ export default function SystemHealthPage() {
       {latestChecks.length > 0 && (
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
           {latestChecks.map(check => {
-            const statusLabelKey = HEALTH_CHECK_STATUS_LABEL_KEYS[check.status]
-            const serviceLabelKey = SERVICE_TYPE_LABEL_KEYS[check.serviceType]
+            const statusLabelKey = lookup(HEALTH_CHECK_STATUS_LABEL_KEYS, check.status)
+            const serviceLabelKey = lookup(SERVICE_TYPE_LABEL_KEYS, check.serviceType)
             return (
               <div
                 key={check.id}
@@ -84,7 +84,7 @@ export default function SystemHealthPage() {
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    HEALTH_CHECK_STATUS_CLASSES[check.status]
+                    lookup(HEALTH_CHECK_STATUS_CLASSES, check.status)
                   )}
                 >
                   {statusLabelKey ? t(statusLabelKey) : check.status}

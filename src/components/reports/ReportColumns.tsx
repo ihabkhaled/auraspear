@@ -9,7 +9,7 @@ import {
   REPORT_STATUS_CLASSES,
   REPORT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/reports'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, Report } from '@/types'
 
 interface ReportColumnTranslations {
@@ -31,12 +31,12 @@ export function getReportColumns(t: ReportColumnTranslations): Column<Report>[] 
       sortable: true,
       render: (value: unknown) => {
         const reportType = value as ReportType
-        const labelKey = REPORT_TYPE_LABEL_KEYS[reportType]
+        const labelKey = lookup(REPORT_TYPE_LABEL_KEYS, reportType)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              REPORT_TYPE_CLASSES[reportType]
+              lookup(REPORT_TYPE_CLASSES, reportType)
             )}
           >
             {labelKey ? t.reports(labelKey) : String(value)}
@@ -50,12 +50,12 @@ export function getReportColumns(t: ReportColumnTranslations): Column<Report>[] 
       sortable: true,
       render: (value: unknown) => {
         const fmt = value as ReportFormat
-        const labelKey = REPORT_FORMAT_LABEL_KEYS[fmt]
+        const labelKey = lookup(REPORT_FORMAT_LABEL_KEYS, fmt)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium uppercase',
-              REPORT_FORMAT_CLASSES[fmt]
+              lookup(REPORT_FORMAT_CLASSES, fmt)
             )}
           >
             {labelKey ? t.reports(labelKey) : String(value)}
@@ -69,12 +69,12 @@ export function getReportColumns(t: ReportColumnTranslations): Column<Report>[] 
       sortable: true,
       render: (value: unknown) => {
         const status = value as ReportStatus
-        const labelKey = REPORT_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(REPORT_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              REPORT_STATUS_CLASSES[status]
+              lookup(REPORT_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.reports(labelKey) : String(value)}

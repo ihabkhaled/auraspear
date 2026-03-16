@@ -13,6 +13,7 @@ import {
 import { AiAgentStatus, AiAgentTier } from '@/enums'
 import { useAiAgentFilters } from '@/hooks/useAiAgentFilters'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgentFiltersProps } from '@/types'
 
 export function AiAgentFilters(props: AiAgentFiltersProps) {
@@ -47,7 +48,7 @@ export function AiAgentFilters(props: AiAgentFiltersProps) {
           <SelectItem value="__all__">{t('all')}</SelectItem>
           {Object.values(AiAgentStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(AI_AGENT_STATUS_LABEL_KEYS[status])}
+              {t(lookup(AI_AGENT_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -61,7 +62,7 @@ export function AiAgentFilters(props: AiAgentFiltersProps) {
           <SelectItem value="__all__">{t('all')}</SelectItem>
           {Object.values(AiAgentTier).map(tier => (
             <SelectItem key={tier} value={tier}>
-              {t(AI_AGENT_TIER_LABEL_KEYS[tier])}
+              {t(lookup(AI_AGENT_TIER_LABEL_KEYS, tier))}
             </SelectItem>
           ))}
         </SelectContent>

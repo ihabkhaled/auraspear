@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
 
-export function useMITREBarChart() {
+export function useMitreBarChart() {
   const [isNarrow, setIsNarrow] = useState(false)
 
   const handleResize = useCallback((width: number) => {

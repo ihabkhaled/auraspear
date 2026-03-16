@@ -10,12 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useIOCSearchBar } from '@/hooks/useIOCSearchBar'
+import { useIocSearchBar } from '@/hooks/useIocSearchBar'
 import { IOC_SOURCE_OPTIONS, IOC_TYPE_OPTIONS } from '@/lib/constants/intel'
 import type { IOCSearchBarProps } from '@/types'
 
-export function IOCSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
-  const { t, query, setQuery, type, setType, source, setSource, handleSubmit } = useIOCSearchBar({
+export function IocSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
+  const { t, query, setQuery, type, setType, source, setSource, handleSubmit } = useIocSearchBar({
     onSearch,
   })
 

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { editIncidentSchema } from '@/lib/validation/incidents.schema'
 import type { EditIncidentFormValues, IncidentEditDialogProps } from '@/types'
 
@@ -18,7 +18,6 @@ export function useIncidentEditDialog({
     handleSubmit,
     control,
     reset,
-    watch,
     formState: { errors },
   } = useForm<EditIncidentFormValues>({
     resolver: zodResolver(editIncidentSchema),
@@ -44,7 +43,7 @@ export function useIncidentEditDialog({
     onOpenChange(nextOpen)
   }
 
-  const currentStatus = watch('status')
+  const currentStatus = useWatch({ control, name: 'status' })
 
   return {
     t,

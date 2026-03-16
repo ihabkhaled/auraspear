@@ -309,3 +309,22 @@ export interface CycleSelectorProps {
 export interface CycleBadgeProps {
   status: CaseCycleStatus
 }
+
+export interface UpdateCaseInput {
+  title?: string
+  description?: string
+  severity?: CaseSeverity
+  assignee?: string
+  status?: CaseStatus
+  linkedAlertIds?: string[]
+}
+
+export interface CaseSearchParams {
+  page?: number
+  limit?: number
+  status?: string
+  severity?: string
+  query?: string
+  sortBy?: string
+  sortOrder?: SortOrder
+}

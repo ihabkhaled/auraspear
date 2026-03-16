@@ -1,7 +1,7 @@
 'use client'
 
 import { AlertTriangle, CheckCircle2, ClipboardList, ShieldCheck } from 'lucide-react'
-import { KPICard } from '@/components/common'
+import { KpiCard } from '@/components/common'
 import { useComplianceKpiCards } from '@/hooks/useComplianceKpiCards'
 import type { ComplianceKpiCardsProps } from '@/types'
 
@@ -10,31 +10,31 @@ export function ComplianceKpiCards({ stats }: ComplianceKpiCardsProps) {
 
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-      <KPICard
+      <KpiCard
         label={t('kpiFrameworks')}
         value={stats?.totalFrameworks ?? 0}
         icon={<ClipboardList className="h-5 w-5" />}
         accentColor="var(--primary)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiAvgScore')}
         value={avgScoreDisplay}
         icon={<ShieldCheck className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiPassed')}
         value={stats?.passedControls ?? 0}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiFailed')}
         value={stats?.failedControls ?? 0}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--status-error)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiNotAssessed')}
         value={stats?.notAssessedControls ?? 0}
         icon={<ClipboardList className="h-5 w-5" />}

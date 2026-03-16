@@ -1,5 +1,5 @@
 export { DashboardCard } from './DashboardCard'
-export { MITRETopTechniques } from './MITRETopTechniques'
+export { MitreTopTechniques } from './MitreTopTechniques'
 export { TopTargetedAssets } from './TopTargetedAssets'
 export { PipelineHealthBar } from './PipelineHealthBar'
 export { RecentActivityFeed } from './RecentActivityFeed'

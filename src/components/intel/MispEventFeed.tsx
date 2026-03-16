@@ -3,13 +3,13 @@
 import { Globe } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
 import { Badge } from '@/components/ui/badge'
-import { useMISPEventFeed } from '@/hooks'
+import { useMispEventFeed } from '@/hooks'
 import { getThreatLevelVariant, truncateInfo } from '@/lib/intel-utils'
 import { formatRelativeTime } from '@/lib/utils'
 import type { MISPEvent, MISPEventFeedProps, Column } from '@/types'
-import { MISPTagPill } from './MISPTagPill'
+import { MispTagPill } from './MispTagPill'
 
-export function MISPEventFeed({
+export function MispEventFeed({
   events,
   loading = false,
   onEventClick,
@@ -17,7 +17,7 @@ export function MISPEventFeed({
   sortOrder,
   onSort,
 }: MISPEventFeedProps) {
-  const { t } = useMISPEventFeed()
+  const { t } = useMispEventFeed()
 
   const columns: Column<MISPEvent>[] = [
     {
@@ -58,7 +58,7 @@ export function MISPEventFeed({
         return (
           <div className="flex flex-wrap gap-1">
             {tags.slice(0, 3).map((tag, index) => (
-              <MISPTagPill key={tag + String(index)} name={tag} />
+              <MispTagPill key={tag + String(index)} name={tag} />
             ))}
             {tags.length > 3 && (
               <span className="text-muted-foreground text-xs">+{tags.length - 3}</span>

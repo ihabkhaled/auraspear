@@ -1,5 +1,5 @@
 export { IntelStatsGrid } from './IntelStatsGrid'
-export { IOCSearchBar } from './IOCSearchBar'
-export { MISPEventFeed } from './MISPEventFeed'
-export { MISPTagPill } from './MISPTagPill'
+export { IocSearchBar } from './IocSearchBar'
+export { MispEventFeed } from './MispEventFeed'
+export { MispTagPill } from './MispTagPill'
 export { WazuhCorrelationPanel } from './WazuhCorrelationPanel'

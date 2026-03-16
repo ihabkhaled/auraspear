@@ -21,6 +21,14 @@ export interface ConnectorTestResult {
   testedAt: string
 }
 
+export interface ConnectorTestResult {
+  type: string
+  ok: boolean
+  latencyMs: number
+  details: string
+  testedAt: string
+}
+
 export interface ConnectorMeta {
   label: string
   descriptionKey: string

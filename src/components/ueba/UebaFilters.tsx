@@ -12,6 +12,7 @@ import {
 import { UebaEntityType, UebaRiskLevel } from '@/enums'
 import { useUebaFilters } from '@/hooks/useUebaFilters'
 import { UEBA_ENTITY_TYPE_LABEL_KEYS, UEBA_RISK_LEVEL_LABEL_KEYS } from '@/lib/constants/ueba'
+import { lookup } from '@/lib/utils'
 import type { UebaFiltersProps } from '@/types'
 
 export function UebaFilters({
@@ -48,7 +49,7 @@ export function UebaFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(UebaEntityType).map(type => (
             <SelectItem key={type} value={type}>
-              {t(UEBA_ENTITY_TYPE_LABEL_KEYS[type])}
+              {t(lookup(UEBA_ENTITY_TYPE_LABEL_KEYS, type))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -62,7 +63,7 @@ export function UebaFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(UebaRiskLevel).map(level => (
             <SelectItem key={level} value={level}>
-              {t(UEBA_RISK_LEVEL_LABEL_KEYS[level])}
+              {t(lookup(UEBA_RISK_LEVEL_LABEL_KEYS, level))}
             </SelectItem>
           ))}
         </SelectContent>

@@ -19,7 +19,7 @@ import { type AlertStatus } from '@/enums'
 import { useAlertDetailDrawer } from '@/hooks'
 import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'
 import { getSeverityClass } from '@/lib/severity-utils'
-import { formatTimestamp, cn } from '@/lib/utils'
+import { formatTimestamp, cn, lookup } from '@/lib/utils'
 import type { AlertDetailDrawerProps } from '@/types'
 
 function DetailRow({ label, children }: { label: string; children: React.ReactNode }) {
@@ -102,7 +102,7 @@ export function AlertDetailDrawer({
                   variant="outline"
                   className={cn(
                     'text-xs',
-                    ALERT_STATUS_CLASSES[alert.status as AlertStatus] ??
+                    lookup(ALERT_STATUS_CLASSES, alert.status as AlertStatus) ??
                       'border-muted-foreground text-muted-foreground'
                   )}
                 >

@@ -7,14 +7,14 @@ import {
   SEVERITY_BORDER_CLASSES,
 } from '@/lib/constants'
 import { getSeverityKey } from '@/lib/severity-utils'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { SeverityBadgeProps } from '@/types'
 
 export function SeverityBadge({ severity }: SeverityBadgeProps) {
   const key = getSeverityKey(severity)
-  const textClass = SEVERITY_TEXT_CLASSES[key] ?? 'text-severity-info'
-  const bgClass = SEVERITY_BG_CLASSES[key] ?? 'bg-severity-info'
-  const borderClass = SEVERITY_BORDER_CLASSES[key] ?? 'border-severity-info'
+  const textClass = lookup(SEVERITY_TEXT_CLASSES, key) ?? 'text-severity-info'
+  const bgClass = lookup(SEVERITY_BG_CLASSES, key) ?? 'bg-severity-info'
+  const borderClass = lookup(SEVERITY_BORDER_CLASSES, key) ?? 'border-severity-info'
 
   return (
     <Badge variant="outline" className={cn('gap-1.5 border', textClass, bgClass, borderClass)}>

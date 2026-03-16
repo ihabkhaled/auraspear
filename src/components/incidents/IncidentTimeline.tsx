@@ -9,7 +9,7 @@ import {
   INCIDENT_ACTOR_TYPE_CLASSES,
   INCIDENT_TIMELINE_DOT_CLASSES,
 } from '@/lib/constants/incidents'
-import { cn, formatRelativeTime } from '@/lib/utils'
+import { cn, formatRelativeTime, lookup } from '@/lib/utils'
 import type { IncidentTimelineProps } from '@/types'
 
 export function IncidentTimeline({ incidentId }: IncidentTimelineProps) {
@@ -43,20 +43,23 @@ export function IncidentTimeline({ incidentId }: IncidentTimelineProps) {
         </Button>
       </div>
 
-      {isLoading ? (
+      {isLoading && (
         <div className="text-muted-foreground py-4 text-center text-sm">{t('loading')}</div>
-      ) : entries.length === 0 ? (
+      )}
+      {!isLoading && entries.length === 0 && (
         <div className="text-muted-foreground py-4 text-center text-sm">{t('timelineEmpty')}</div>
-      ) : (
+      )}
+      {!isLoading && entries.length > 0 && (
         <ScrollArea className="max-h-80">
           <div className="relative space-y-0 ps-6">
             <div className="bg-border absolute start-2.5 top-0 h-full w-px" />
 
             {entries.map(entry => {
               const dotClass =
-                INCIDENT_TIMELINE_DOT_CLASSES[entry.actorType] ?? 'bg-muted-foreground'
+                lookup(INCIDENT_TIMELINE_DOT_CLASSES, entry.actorType) ?? 'bg-muted-foreground'
               const actorClass =
-                INCIDENT_ACTOR_TYPE_CLASSES[entry.actorType] ?? 'bg-muted text-muted-foreground'
+                lookup(INCIDENT_ACTOR_TYPE_CLASSES, entry.actorType) ??
+                'bg-muted text-muted-foreground'
 
               return (
                 <div key={entry.id} className="relative flex gap-3 pb-4">

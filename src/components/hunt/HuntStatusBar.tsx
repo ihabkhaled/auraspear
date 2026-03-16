@@ -2,12 +2,12 @@
 
 import { useHuntStatusBar } from '@/hooks'
 import { HUNT_STATUS_CONFIG } from '@/lib/constants/hunt'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { HuntStatusBarProps } from '@/types'
 
 export function HuntStatusBar({ sessionId, status }: HuntStatusBarProps) {
   const { t } = useHuntStatusBar()
-  const config = HUNT_STATUS_CONFIG[status]
+  const config = lookup(HUNT_STATUS_CONFIG, status)
 
   return (
     <div className="border-border bg-card/50 flex items-center justify-between border-b px-4 py-2.5">

@@ -14,7 +14,7 @@ import {
   COMPLIANCE_STANDARD_LABEL_KEYS,
   COMPLIANCE_STANDARD_CLASSES,
 } from '@/lib/constants/compliance'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { ComplianceDetailPanelProps, ComplianceControl } from '@/types'
 import { ComplianceControlCard } from './ComplianceControlCard'
 
@@ -45,10 +45,10 @@ export function ComplianceFrameworkDetailPanel({
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                COMPLIANCE_STANDARD_CLASSES[framework.standard]
+                lookup(COMPLIANCE_STANDARD_CLASSES, framework.standard)
               )}
             >
-              {t(COMPLIANCE_STANDARD_LABEL_KEYS[framework.standard])}
+              {t(lookup(COMPLIANCE_STANDARD_LABEL_KEYS, framework.standard))}
             </span>
           </div>
 

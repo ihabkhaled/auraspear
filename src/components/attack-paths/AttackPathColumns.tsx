@@ -7,7 +7,7 @@ import {
   ATTACK_PATH_STATUS_LABEL_KEYS,
   ATTACK_PATH_STATUS_CLASSES,
 } from '@/lib/constants/attack-paths'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { AttackPath, Column } from '@/types'
 
 interface AttackPathColumnTranslations {
@@ -36,8 +36,8 @@ export function getAttackPathColumns(t: AttackPathColumnTranslations): Column<At
       className: 'w-24',
       render: (value: unknown) => {
         const severity = value as AttackPathSeverity
-        const labelKey = ATTACK_PATH_SEVERITY_LABEL_KEYS[severity]
-        const className = ATTACK_PATH_SEVERITY_CLASSES[severity]
+        const labelKey = lookup(ATTACK_PATH_SEVERITY_LABEL_KEYS, severity)
+        const className = lookup(ATTACK_PATH_SEVERITY_CLASSES, severity)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}
@@ -53,8 +53,8 @@ export function getAttackPathColumns(t: AttackPathColumnTranslations): Column<At
       className: 'w-28',
       render: (value: unknown) => {
         const status = value as AttackPathStatus
-        const labelKey = ATTACK_PATH_STATUS_LABEL_KEYS[status]
-        const className = ATTACK_PATH_STATUS_CLASSES[status]
+        const labelKey = lookup(ATTACK_PATH_STATUS_LABEL_KEYS, status)
+        const className = lookup(ATTACK_PATH_STATUS_CLASSES, status)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}

@@ -7,6 +7,7 @@ import {
   AI_AGENT_TIER_LABEL_KEYS,
   AI_AGENT_TIER_CLASSES,
 } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgent, Column } from '@/types'
 
 interface AiAgentColumnTranslations {
@@ -21,7 +22,7 @@ export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>
       sortable: true,
       render: (value: unknown, row: AiAgent) => {
         const statusClass =
-          AI_AGENT_STATUS_DOT_CLASSES[row.status as AiAgentStatus] ?? 'bg-muted-foreground'
+          lookup(AI_AGENT_STATUS_DOT_CLASSES, row.status as AiAgentStatus) ?? 'bg-muted-foreground'
         return (
           <div className="flex items-center gap-2">
             <span className={`h-2 w-2 shrink-0 rounded-full ${statusClass}`} />
@@ -42,8 +43,8 @@ export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>
       className: 'w-24',
       render: (value: unknown) => {
         const tier = value as AiAgentTier
-        const labelKey = AI_AGENT_TIER_LABEL_KEYS[tier]
-        const className = AI_AGENT_TIER_CLASSES[tier]
+        const labelKey = lookup(AI_AGENT_TIER_LABEL_KEYS, tier)
+        const className = lookup(AI_AGENT_TIER_CLASSES, tier)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}
@@ -59,8 +60,8 @@ export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>
       className: 'w-24',
       render: (value: unknown) => {
         const status = value as AiAgentStatus
-        const labelKey = AI_AGENT_STATUS_LABEL_KEYS[status]
-        const dotClass = AI_AGENT_STATUS_DOT_CLASSES[status] ?? 'bg-muted-foreground'
+        const labelKey = lookup(AI_AGENT_STATUS_LABEL_KEYS, status)
+        const dotClass = lookup(AI_AGENT_STATUS_DOT_CLASSES, status) ?? 'bg-muted-foreground'
         return (
           <div className="flex items-center gap-1.5">
             <span className={`h-1.5 w-1.5 rounded-full ${dotClass}`} />

@@ -6,7 +6,7 @@ import {
   NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS,
   NORMALIZATION_SOURCE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/normalization'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, NormalizationPipeline } from '@/types'
 
 interface NormalizationColumnTranslations {
@@ -30,7 +30,7 @@ export function getNormalizationColumns(
       sortable: true,
       render: (value: unknown) => {
         const src = value as NormalizationSourceType
-        const labelKey = NORMALIZATION_SOURCE_TYPE_LABEL_KEYS[src]
+        const labelKey = lookup(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS, src)
         return (
           <span className="text-muted-foreground text-xs">
             {labelKey ? t.normalization(labelKey) : String(value)}
@@ -44,12 +44,12 @@ export function getNormalizationColumns(
       sortable: true,
       render: (value: unknown) => {
         const status = value as NormalizationPipelineStatus
-        const labelKey = NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              NORMALIZATION_PIPELINE_STATUS_CLASSES[status]
+              lookup(NORMALIZATION_PIPELINE_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.normalization(labelKey) : String(value)}

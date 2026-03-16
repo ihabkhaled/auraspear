@@ -92,9 +92,9 @@ export function useExportImportSettings() {
               auditLogRetention: 'retention_auditLogs',
             }
             for (const [key, value] of Object.entries(importedData.dataRetention)) {
-              const mappedKey = retentionMap[key]
+              const mappedKey = Reflect.get(retentionMap, key) as string | undefined
               if (mappedKey) {
-                flatPreferences[mappedKey] = value
+                Reflect.set(flatPreferences, mappedKey, value)
               }
             }
           }

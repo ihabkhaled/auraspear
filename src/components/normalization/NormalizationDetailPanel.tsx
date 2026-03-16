@@ -14,7 +14,7 @@ import {
   NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS,
   NORMALIZATION_SOURCE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/normalization'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { NormalizationDetailPanelProps } from '@/types'
 
 export function NormalizationDetailPanel({
@@ -42,7 +42,7 @@ export function NormalizationDetailPanel({
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldSourceType')}</span>
                 <Badge variant="secondary">
-                  {t(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS[pipeline.sourceType])}
+                  {t(lookup(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS, pipeline.sourceType))}
                 </Badge>
               </div>
               <div className="flex items-center justify-between">
@@ -50,10 +50,10 @@ export function NormalizationDetailPanel({
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    NORMALIZATION_PIPELINE_STATUS_CLASSES[pipeline.status]
+                    lookup(NORMALIZATION_PIPELINE_STATUS_CLASSES, pipeline.status)
                   )}
                 >
-                  {t(NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS[pipeline.status])}
+                  {t(lookup(NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS, pipeline.status))}
                 </span>
               </div>
               <div className="flex items-center justify-between">

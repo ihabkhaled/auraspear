@@ -1,7 +1,7 @@
 'use client'
 
 import { Users, Globe, FileText, Link } from 'lucide-react'
-import { KPICard } from '@/components/common/KPICard'
+import { KpiCard } from '@/components/common/KpiCard'
 import { useIntelStatsGrid } from '@/hooks'
 import type { IntelStatsGridProps } from '@/types'
 
@@ -42,7 +42,7 @@ export function IntelStatsGrid({ stats }: IntelStatsGridProps) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map(card => (
-        <KPICard
+        <KpiCard
           key={card.label}
           label={card.label}
           value={card.value}

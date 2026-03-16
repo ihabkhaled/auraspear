@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { generateSlug } from '@/lib/admin.utils'
 import { createTenantSchema } from '@/lib/validation/admin.schema'
 import type { CreateTenantDialogProps, CreateTenantFormValues } from '@/types'
@@ -12,8 +12,8 @@ export function useCreateTenantDialog({ open, onOpenChange, onSubmit }: CreateTe
   const {
     register,
     handleSubmit,
+    control,
     setValue,
-    watch,
     reset,
     formState: { errors },
   } = useForm<CreateTenantFormValues>({
@@ -31,12 +31,13 @@ export function useCreateTenantDialog({ open, onOpenChange, onSubmit }: CreateTe
     }
   }, [open, reset])
 
-  const currentSlug = watch('slug')
+  const currentSlug = useWatch({ control, name: 'slug' })
+  const currentName = useWatch({ control, name: 'name' })
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
     const nameVal = e.target.value
     setValue('name', nameVal)
-    if (!currentSlug || currentSlug === generateSlug(watch('name'))) {
+    if (!currentSlug || currentSlug === generateSlug(currentName)) {
       setValue('slug', generateSlug(nameVal))
     }
   }

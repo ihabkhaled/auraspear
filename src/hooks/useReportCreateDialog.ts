@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm, type Resolver } from 'react-hook-form'
+import { useForm, useWatch, type Resolver } from 'react-hook-form'
 import { ReportType, ReportFormat } from '@/enums'
 import { createReportSchema } from '@/lib/validation/reports.schema'
 import type { ReportCreateDialogProps, CreateReportFormValues } from '@/types'
@@ -18,7 +18,6 @@ export function useReportCreateDialog({
     handleSubmit,
     control,
     reset,
-    watch,
     formState: { errors },
   } = useForm<CreateReportFormValues>({
     resolver: zodResolver(createReportSchema) as unknown as Resolver<CreateReportFormValues>,
@@ -32,7 +31,7 @@ export function useReportCreateDialog({
     },
   })
 
-  const isScheduled = watch('scheduled')
+  const isScheduled = useWatch({ control, name: 'scheduled' })
 
   useEffect(() => {
     if (!open) {

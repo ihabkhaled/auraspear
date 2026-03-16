@@ -15,7 +15,7 @@ import {
   METRIC_TYPE_LABEL_KEYS,
   SERVICE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/system-health'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { SystemHealthDetailPanelProps } from '@/types'
 
 export function SystemHealthDetailPanel({
@@ -40,7 +40,7 @@ export function SystemHealthDetailPanel({
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldServiceType')}</span>
                 <span className="text-foreground text-sm font-medium">
-                  {t(SERVICE_TYPE_LABEL_KEYS[healthCheck.serviceType])}
+                  {t(lookup(SERVICE_TYPE_LABEL_KEYS, healthCheck.serviceType))}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -48,10 +48,10 @@ export function SystemHealthDetailPanel({
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    HEALTH_CHECK_STATUS_CLASSES[healthCheck.status]
+                    lookup(HEALTH_CHECK_STATUS_CLASSES, healthCheck.status)
                   )}
                 >
-                  {t(HEALTH_CHECK_STATUS_LABEL_KEYS[healthCheck.status])}
+                  {t(lookup(HEALTH_CHECK_STATUS_LABEL_KEYS, healthCheck.status))}
                 </span>
               </div>
               {healthCheck.responseTimeMs !== null && (
@@ -94,7 +94,7 @@ export function SystemHealthDetailPanel({
                       className="bg-muted flex items-center justify-between rounded-md p-2"
                     >
                       <span className="text-foreground text-sm">
-                        {t(METRIC_TYPE_LABEL_KEYS[metric.metricType])}
+                        {t(lookup(METRIC_TYPE_LABEL_KEYS, metric.metricType))}
                       </span>
                       <span className="text-muted-foreground text-sm">
                         {`${metric.value} ${metric.unit}`}

@@ -22,6 +22,7 @@ import {
 import { CloudProvider } from '@/enums'
 import { useCloudAccountEditDialog } from '@/hooks/useCloudAccountEditDialog'
 import { CLOUD_PROVIDER_LABEL_KEYS } from '@/lib/constants/cloud-security'
+import { lookup } from '@/lib/utils'
 import type { CloudAccountEditDialogProps } from '@/types'
 
 export function CloudAccountEditDialog({
@@ -56,7 +57,7 @@ export function CloudAccountEditDialog({
                   <SelectContent>
                     {Object.values(CloudProvider).map(provider => (
                       <SelectItem key={provider} value={provider}>
-                        {t(CLOUD_PROVIDER_LABEL_KEYS[provider])}
+                        {t(lookup(CLOUD_PROVIDER_LABEL_KEYS, provider))}
                       </SelectItem>
                     ))}
                   </SelectContent>

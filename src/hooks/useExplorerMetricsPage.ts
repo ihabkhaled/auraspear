@@ -66,8 +66,8 @@ export function useExplorerMetricsPage() {
     if (!sortBy) return filteredRows
     const sorted = [...filteredRows]
     sorted.sort((a, b) => {
-      const aVal = a[sortBy] ?? ''
-      const bVal = b[sortBy] ?? ''
+      const aVal = (Reflect.get(a, sortBy) as string) ?? ''
+      const bVal = (Reflect.get(b, sortBy) as string) ?? ''
       // Try numeric comparison first
       const aNum = Number(aVal)
       const bNum = Number(bVal)

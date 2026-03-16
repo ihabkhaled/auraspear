@@ -19,7 +19,7 @@ import {
   REPORT_STATUS_LABEL_KEYS,
   REPORT_STATUS_CLASSES,
 } from '@/lib/constants/reports'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { ReportDetailPanelProps } from '@/types'
 
 export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPanelProps) {
@@ -43,10 +43,10 @@ export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPa
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                REPORT_TYPE_CLASSES[report.type]
+                lookup(REPORT_TYPE_CLASSES, report.type)
               )}
             >
-              {t(REPORT_TYPE_LABEL_KEYS[report.type])}
+              {t(lookup(REPORT_TYPE_LABEL_KEYS, report.type))}
             </span>
           </div>
 
@@ -55,10 +55,10 @@ export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPa
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                REPORT_FORMAT_CLASSES[report.format]
+                lookup(REPORT_FORMAT_CLASSES, report.format)
               )}
             >
-              {t(REPORT_FORMAT_LABEL_KEYS[report.format])}
+              {t(lookup(REPORT_FORMAT_LABEL_KEYS, report.format))}
             </span>
           </div>
 
@@ -67,10 +67,10 @@ export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPa
             <span
               className={cn(
                 'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                REPORT_STATUS_CLASSES[report.status]
+                lookup(REPORT_STATUS_CLASSES, report.status)
               )}
             >
-              {t(REPORT_STATUS_LABEL_KEYS[report.status])}
+              {t(lookup(REPORT_STATUS_LABEL_KEYS, report.status))}
             </span>
           </div>
 

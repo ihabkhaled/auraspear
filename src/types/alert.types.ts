@@ -172,3 +172,20 @@ export interface EscalateFormValues {
   severity: string
   category: string
 }
+
+export interface SeverityCount {
+  severity: AlertSeverity
+  count: number
+}
+
+export interface AlertColumnTranslations {
+  alerts: (key: string) => string
+  common: (key: string) => string
+}
+
+export interface GetAlertColumnsOptions {
+  onView?: (alert: Alert) => void
+  onInvestigate?: (alert: Alert) => void
+  onCreateCase?: (alert: Alert) => void
+  onCopyId?: (id: string) => void
+}

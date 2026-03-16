@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { AlertSeverity } from '@/enums'
 import { useWorkspaceSearchPanel } from '@/hooks/useWorkspaceSearchPanel'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceRecentItem, WorkspaceSearchPanelProps } from '@/types'
 
 const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
@@ -71,7 +71,7 @@ export function WorkspaceSearchPanel({ onSearch, results, loading }: WorkspaceSe
                         {item.severity && (
                           <Badge
                             variant="outline"
-                            className={cn('text-[10px]', SEVERITY_CLASSES[item.severity])}
+                            className={cn('text-[10px]', lookup(SEVERITY_CLASSES, item.severity))}
                           >
                             {item.severity}
                           </Badge>

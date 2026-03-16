@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
 import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
 import { AiAgentDeleteDialog } from './AiAgentDeleteDialog'
 import { AiAgentSessionTable } from './AiAgentSessionTable'
@@ -73,7 +74,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colStatus')}</p>
               <span
-                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${AI_AGENT_STATUS_CLASSES[agent.status]}`}
+                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(AI_AGENT_STATUS_CLASSES, agent.status)}`}
               >
                 {statusLabel}
               </span>
@@ -81,7 +82,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colTier')}</p>
               <span
-                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${AI_AGENT_TIER_CLASSES[agent.tier]}`}
+                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(AI_AGENT_TIER_CLASSES, agent.tier)}`}
               >
                 {tierLabel}
               </span>

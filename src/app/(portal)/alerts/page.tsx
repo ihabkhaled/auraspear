@@ -2,10 +2,10 @@
 
 import { Filter, ShieldAlert } from 'lucide-react'
 import {
-  KQLSearchBar,
+  KqlSearchBar,
   AlertFilterSidebar,
   AlertDetailDrawer,
-  AIInvestigationModal,
+  AiInvestigationModal,
   AlertBulkActionBar,
   EscalateToIncidentDialog,
 } from '@/components/alerts'
@@ -70,7 +70,7 @@ export default function AlertsPage() {
 
       <div className="flex items-center gap-3">
         <div className="flex-1">
-          <KQLSearchBar value={kqlQuery} onChange={setKqlQuery} onSubmit={handleSearchSubmit} />
+          <KqlSearchBar value={kqlQuery} onChange={setKqlQuery} onSubmit={handleSearchSubmit} />
         </div>
 
         {/* Mobile filter button */}
@@ -158,7 +158,7 @@ export default function AlertsPage() {
         onClose={() => setDrawerOpen(false)}
       />
 
-      <AIInvestigationModal
+      <AiInvestigationModal
         investigation={investigation}
         open={investigationOpen}
         onOpenChange={setInvestigationOpen}

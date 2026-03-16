@@ -16,7 +16,7 @@ import {
   DETECTION_RULE_STATUS_LABEL_KEYS,
   DETECTION_RULE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/detection-rules'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { DetectionRuleDetailPanelProps } from '@/types'
 
 export function DetectionRuleDetailPanel({
@@ -44,7 +44,7 @@ export function DetectionRuleDetailPanel({
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldRuleType')}</span>
                 <Badge variant="secondary">
-                  {t(DETECTION_RULE_TYPE_LABEL_KEYS[rule.ruleType])}
+                  {t(lookup(DETECTION_RULE_TYPE_LABEL_KEYS, rule.ruleType))}
                 </Badge>
               </div>
               <div className="flex items-center justify-between">
@@ -52,10 +52,10 @@ export function DetectionRuleDetailPanel({
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    DETECTION_RULE_SEVERITY_CLASSES[rule.severity]
+                    lookup(DETECTION_RULE_SEVERITY_CLASSES, rule.severity)
                   )}
                 >
-                  {t(DETECTION_RULE_SEVERITY_LABEL_KEYS[rule.severity])}
+                  {t(lookup(DETECTION_RULE_SEVERITY_LABEL_KEYS, rule.severity))}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -63,10 +63,10 @@ export function DetectionRuleDetailPanel({
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    DETECTION_RULE_STATUS_CLASSES[rule.status]
+                    lookup(DETECTION_RULE_STATUS_CLASSES, rule.status)
                   )}
                 >
-                  {t(DETECTION_RULE_STATUS_LABEL_KEYS[rule.status])}
+                  {t(lookup(DETECTION_RULE_STATUS_LABEL_KEYS, rule.status))}
                 </span>
               </div>
               <div className="flex items-center justify-between">

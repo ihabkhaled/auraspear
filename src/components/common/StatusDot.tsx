@@ -1,5 +1,5 @@
 import { ServiceStatus, StatusDotSize } from '@/enums'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { StatusDotProps } from '@/types'
 
 const STATUS_COLOR_MAP: Record<ServiceStatus, string> = {
@@ -27,15 +27,15 @@ export function StatusDot({ status, size = StatusDotSize.SM }: StatusDotProps) {
       <span
         className={cn(
           'absolute inline-flex animate-ping rounded-full opacity-75',
-          SIZE_MAP[size],
-          PING_COLOR_MAP[status]
+          lookup(SIZE_MAP, size),
+          lookup(PING_COLOR_MAP, status)
         )}
       />
       <span
         className={cn(
           'relative inline-flex rounded-full',
-          SIZE_MAP[size],
-          STATUS_COLOR_MAP[status]
+          lookup(SIZE_MAP, size),
+          lookup(STATUS_COLOR_MAP, status)
         )}
       />
     </span>

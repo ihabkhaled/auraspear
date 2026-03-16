@@ -11,7 +11,7 @@ import {
   ATTACK_PATH_STATUS_CLASSES,
   ATTACK_PATH_STATUS_LABEL_KEYS,
 } from '@/lib/constants/attack-paths'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { AttackPathDetailPanelProps } from '@/types'
 import { AttackPathVisualization } from './AttackPathVisualization'
 
@@ -40,10 +40,10 @@ export function AttackPathDetailPanel({
     )
   }
 
-  const severityLabelKey = ATTACK_PATH_SEVERITY_LABEL_KEYS[path.severity]
-  const severityClass = ATTACK_PATH_SEVERITY_CLASSES[path.severity]
-  const statusLabelKey = ATTACK_PATH_STATUS_LABEL_KEYS[path.status]
-  const statusClass = ATTACK_PATH_STATUS_CLASSES[path.status]
+  const severityLabelKey = lookup(ATTACK_PATH_SEVERITY_LABEL_KEYS, path.severity)
+  const severityClass = lookup(ATTACK_PATH_SEVERITY_CLASSES, path.severity)
+  const statusLabelKey = lookup(ATTACK_PATH_STATUS_LABEL_KEYS, path.status)
+  const statusClass = lookup(ATTACK_PATH_STATUS_CLASSES, path.status)
 
   return (
     <div className="border-border bg-card rounded-lg border">

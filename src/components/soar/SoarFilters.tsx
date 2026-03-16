@@ -12,6 +12,7 @@ import {
 import { SoarPlaybookStatus, SoarTriggerType } from '@/enums'
 import { useSoarFilters } from '@/hooks/useSoarFilters'
 import { SOAR_PLAYBOOK_STATUS_LABEL_KEYS, SOAR_TRIGGER_TYPE_LABEL_KEYS } from '@/lib/constants/soar'
+import { lookup } from '@/lib/utils'
 import type { SoarFiltersProps } from '@/types'
 
 export function SoarFilters({
@@ -44,7 +45,7 @@ export function SoarFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(SoarPlaybookStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(SOAR_PLAYBOOK_STATUS_LABEL_KEYS[status])}
+              {t(lookup(SOAR_PLAYBOOK_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -58,7 +59,7 @@ export function SoarFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(SoarTriggerType).map(trigger => (
             <SelectItem key={trigger} value={trigger}>
-              {t(SOAR_TRIGGER_TYPE_LABEL_KEYS[trigger])}
+              {t(lookup(SOAR_TRIGGER_TYPE_LABEL_KEYS, trigger))}
             </SelectItem>
           ))}
         </SelectContent>

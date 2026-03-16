@@ -11,7 +11,7 @@ import {
   UEBA_RISK_LEVEL_LABEL_KEYS,
   UEBA_RISK_LEVEL_CLASSES,
 } from '@/lib/constants/ueba'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { UebaEntityDetailPanelProps } from '@/types'
 import { UebaAnomalyCard } from './UebaAnomalyCard'
 
@@ -58,14 +58,14 @@ export function UebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPan
 
       <div className="flex flex-wrap items-center gap-2">
         <span
-          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${UEBA_ENTITY_TYPE_CLASSES[entity.entityType]}`}
+          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(UEBA_ENTITY_TYPE_CLASSES, entity.entityType)}`}
         >
-          {t(UEBA_ENTITY_TYPE_LABEL_KEYS[entity.entityType])}
+          {t(lookup(UEBA_ENTITY_TYPE_LABEL_KEYS, entity.entityType))}
         </span>
         <span
-          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${UEBA_RISK_LEVEL_CLASSES[entity.riskLevel]}`}
+          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(UEBA_RISK_LEVEL_CLASSES, entity.riskLevel)}`}
         >
-          {t(UEBA_RISK_LEVEL_LABEL_KEYS[entity.riskLevel])}
+          {t(lookup(UEBA_RISK_LEVEL_LABEL_KEYS, entity.riskLevel))}
         </span>
       </div>
 

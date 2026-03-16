@@ -7,7 +7,7 @@ import { CaseStatus } from '@/enums'
 import { useCaseKanbanCard } from '@/hooks'
 import { getInitials } from '@/lib/case.utils'
 import { CASE_SEVERITY_BORDER_COLORS } from '@/lib/constants/cases'
-import { cn, formatRelativeTime } from '@/lib/utils'
+import { cn, formatRelativeTime, lookup } from '@/lib/utils'
 import type { CaseKanbanCardProps } from '@/types'
 
 export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: CaseKanbanCardProps) {
@@ -35,7 +35,7 @@ export function CaseKanbanCard({ caseItem, onClick, currentUserId, isAdmin }: Ca
     >
       <div
         className="absolute inset-y-0 start-0 w-1"
-        style={{ backgroundColor: CASE_SEVERITY_BORDER_COLORS[caseItem.severity] }}
+        style={{ backgroundColor: lookup(CASE_SEVERITY_BORDER_COLORS, caseItem.severity) }}
       />
 
       <div className="flex flex-col gap-2.5 p-3 ps-4">

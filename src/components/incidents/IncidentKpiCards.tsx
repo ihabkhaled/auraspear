@@ -1,7 +1,7 @@
 'use client'
 
 import { AlertTriangle, CheckCircle2, Clock, Shield } from 'lucide-react'
-import { KPICard } from '@/components/common'
+import { KpiCard } from '@/components/common'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useIncidentKpiCards } from '@/hooks/useIncidentKpiCards'
 import type { IncidentKpiCardsProps } from '@/types'
@@ -22,31 +22,31 @@ export function IncidentKpiCards({ stats, isLoading }: IncidentKpiCardsProps) {
 
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-      <KPICard
+      <KpiCard
         label={t('kpiOpen')}
         value={open}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--status-error)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiInProgress')}
         value={inProgress}
         icon={<Clock className="h-5 w-5" />}
         accentColor="var(--primary)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiContained')}
         value={contained}
         icon={<Shield className="h-5 w-5" />}
         accentColor="var(--status-warning)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiResolved30d')}
         value={resolved30d}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiAvgResolve')}
         value={avgResolveDisplay}
         icon={<Clock className="h-5 w-5" />}

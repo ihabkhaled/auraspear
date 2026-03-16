@@ -103,7 +103,7 @@ export function useCasesPage() {
 
   // Tenant members for assignee options
   const { data: membersData } = useTenantMembers()
-  const membersList = membersData?.data ?? []
+  const membersList = useMemo(() => membersData?.data ?? [], [membersData?.data])
 
   const assigneeOptions = useMemo(
     () =>

@@ -3,11 +3,11 @@
 import { Swords } from 'lucide-react'
 import { EmptyState } from '@/components/common/EmptyState'
 import { Progress } from '@/components/ui/progress'
-import { useMITRETopTechniques } from '@/hooks'
+import { useMitreTopTechniques } from '@/hooks'
 import type { MITRETopTechniquesProps } from '@/types'
 
-export function MITRETopTechniques({ techniques }: MITRETopTechniquesProps) {
-  const { t } = useMITRETopTechniques()
+export function MitreTopTechniques({ techniques }: MITRETopTechniquesProps) {
+  const { t } = useMitreTopTechniques()
 
   if (techniques.length === 0) {
     return (

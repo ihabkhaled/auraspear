@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useUebaAnomalyCard } from '@/hooks/useUebaAnomalyCard'
 import { UEBA_RISK_LEVEL_LABEL_KEYS } from '@/lib/constants/ueba'
-import { formatRelativeTime } from '@/lib/utils'
+import { formatRelativeTime, lookup } from '@/lib/utils'
 import type { UebaAnomalyCardProps } from '@/types'
 
 export function UebaAnomalyCard({ anomaly, onResolve, resolving }: UebaAnomalyCardProps) {
@@ -18,7 +18,9 @@ export function UebaAnomalyCard({ anomaly, onResolve, resolving }: UebaAnomalyCa
     <div className="bg-card border-border flex flex-col gap-2 rounded-lg border p-3">
       <div className="flex items-center justify-between gap-2">
         <span className="text-sm font-medium">{anomaly.anomalyType}</span>
-        <Badge variant={severityVariant}>{t(UEBA_RISK_LEVEL_LABEL_KEYS[anomaly.severity])}</Badge>
+        <Badge variant={severityVariant}>
+          {t(lookup(UEBA_RISK_LEVEL_LABEL_KEYS, anomaly.severity))}
+        </Badge>
       </div>
 
       <p className="text-muted-foreground text-xs">{anomaly.description}</p>

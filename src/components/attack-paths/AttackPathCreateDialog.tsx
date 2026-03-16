@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { AttackPathSeverity } from '@/enums'
 import { useAttackPathCreateDialog } from '@/hooks/useAttackPathCreateDialog'
 import { ATTACK_PATH_SEVERITY_LABEL_KEYS } from '@/lib/constants/attack-paths'
+import { lookup } from '@/lib/utils'
 import type { AttackPathCreateDialogProps } from '@/types'
 import { AttackPathStageEditor } from './AttackPathStageEditor'
 
@@ -92,7 +93,7 @@ export function AttackPathCreateDialog({
                   <SelectContent>
                     {Object.values(AttackPathSeverity).map(severity => (
                       <SelectItem key={severity} value={severity}>
-                        {t(ATTACK_PATH_SEVERITY_LABEL_KEYS[severity])}
+                        {t(lookup(ATTACK_PATH_SEVERITY_LABEL_KEYS, severity))}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -116,9 +117,9 @@ export function AttackPathCreateDialog({
                 onMoveDown={handleMoveStageDown}
                 onStageChange={(idx, key, value) => {
                   const updated = [...field.value]
-                  const current = updated[idx]
+                  const current = updated.at(idx)
                   if (current) {
-                    updated[idx] = { ...current, [key]: value }
+                    updated.splice(idx, 1, { ...current, [key]: value })
                     field.onChange(updated)
                   }
                 }}

@@ -18,7 +18,7 @@ import {
   CLOUD_FINDING_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { CloudAccountDetailPanelProps } from '@/types'
 
 export function CloudAccountDetailPanel({
@@ -46,7 +46,9 @@ export function CloudAccountDetailPanel({
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldProvider')}</span>
-                <Badge variant="secondary">{t(CLOUD_PROVIDER_LABEL_KEYS[account.provider])}</Badge>
+                <Badge variant="secondary">
+                  {t(lookup(CLOUD_PROVIDER_LABEL_KEYS, account.provider))}
+                </Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldAccountId')}</span>
@@ -57,10 +59,10 @@ export function CloudAccountDetailPanel({
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                    CLOUD_ACCOUNT_STATUS_CLASSES[account.status]
+                    lookup(CLOUD_ACCOUNT_STATUS_CLASSES, account.status)
                   )}
                 >
-                  {t(CLOUD_ACCOUNT_STATUS_LABEL_KEYS[account.status])}
+                  {t(lookup(CLOUD_ACCOUNT_STATUS_LABEL_KEYS, account.status))}
                 </span>
               </div>
               <div className="flex items-center justify-between">
@@ -106,10 +108,10 @@ export function CloudAccountDetailPanel({
                         <span
                           className={cn(
                             'inline-flex shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
-                            CLOUD_FINDING_SEVERITY_CLASSES[finding.severity]
+                            lookup(CLOUD_FINDING_SEVERITY_CLASSES, finding.severity)
                           )}
                         >
-                          {t(CLOUD_FINDING_SEVERITY_LABEL_KEYS[finding.severity])}
+                          {t(lookup(CLOUD_FINDING_SEVERITY_LABEL_KEYS, finding.severity))}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
@@ -117,10 +119,10 @@ export function CloudAccountDetailPanel({
                         <span
                           className={cn(
                             'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                            CLOUD_FINDING_STATUS_CLASSES[finding.status]
+                            lookup(CLOUD_FINDING_STATUS_CLASSES, finding.status)
                           )}
                         >
-                          {t(CLOUD_FINDING_STATUS_LABEL_KEYS[finding.status])}
+                          {t(lookup(CLOUD_FINDING_STATUS_LABEL_KEYS, finding.status))}
                         </span>
                       </div>
                     </div>

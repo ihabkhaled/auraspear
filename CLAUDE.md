@@ -20,6 +20,16 @@
 16. **NEVER call ANY hook directly in `.tsx` component files** — This includes `useState`, `useEffect`, `useMemo`, `useCallback`, `useRef`, `useTranslations`, `useRouter`, `usePathname`, `useTheme`, `useSearchParams`, `useSyncExternalStore`, store hooks (`useAuthStore`, etc.), and ALL other hooks. Extract ALL hook calls into custom hooks in `src/hooks/`. TSX files must contain ONLY JSX rendering and component structure — zero hook imports, zero hook calls.
 17. **NEVER use string literal unions** — All string literal types like `'foo' | 'bar'` MUST be enums in `src/enums/`. Use existing enums (e.g., `CaseCycleStatus.ACTIVE`) instead of hardcoded strings like `'active'`.
 18. **NEVER define Zod schemas inside component files** — All validation schemas → `src/lib/validation/<domain>.schema.ts`. Exception: schemas that use `t()` translations for error messages must stay inside the component since they depend on hook context.
+19. **NEVER use nested ternary expressions** — Use `if/else` with a variable or early returns instead (`no-nested-ternary: warn`).
+20. **NEVER shadow variables from outer scope** — Rename inner variables to avoid collision (`@typescript-eslint/no-shadow: warn`).
+21. **NEVER use `new RegExp()` with non-literal arguments** — Use literal regex or pre-compiled patterns to avoid injection (`security/detect-non-literal-regexp: warn`).
+22. **NEVER use bracket access `obj[variable]` on Record/constant maps** — Use the `lookup()` utility from `@/lib/utils` which uses `Reflect.get()` to avoid `security/detect-object-injection` warnings. Example: `lookup(LABEL_KEYS, severity)` instead of `LABEL_KEYS[severity]`. For array index access use `.at(idx)` instead of `arr[idx]`.
+23. **NEVER use `watch()` from react-hook-form's `useForm()` return** — Use `useWatch({ control, name: 'fieldName' })` instead, which is React Compiler compatible (`react-hooks/incompatible-library`).
+24. **NEVER place value imports after type imports** — Value imports (`import { foo }`) must come before type imports (`import type { Bar }`) within the same import group (`import-x/order`).
+25. **NEVER use uppercase acronyms in filenames** — Use PascalCase without consecutive uppercase letters: `MitreBarChart.tsx` not `MITREBarChart.tsx`, `KpiCard.tsx` not `KPICard.tsx` (`unicorn/filename-case`).
+26. **NEVER have blank lines between import groups** — All imports must be contiguous with no empty lines separating them (`import-x/order` with `newlines-between: 'never'`).
+27. **NEVER reference loop-mutated variables inside closures** — Capture the variable in a `const` before using it in callbacks like `.find()`, `.map()`, etc. inside loops (`@typescript-eslint/no-loop-func`).
+28. **ALWAYS order `@/lib/*` imports alphabetically** — `@/lib/constants/foo` before `@/lib/utils`, `@/lib/api-error` before `@/lib/roles` (`import-x/order` with `alphabetize: asc`).
 
 ---
 
@@ -120,19 +130,21 @@
 
 ### React Rules
 
-| Rule                             | Level     | Details                                                        |
-| -------------------------------- | --------- | -------------------------------------------------------------- |
-| `react-hooks/rules-of-hooks`     | **error** | Hooks must be called at the top level                          |
-| `react-hooks/exhaustive-deps`    | **warn**  | Dependencies array must be complete                            |
-| `react/jsx-key`                  | **error** | Must provide `key` in iterators (including Fragment shorthand) |
-| `react/no-danger`                | **error** | No `dangerouslySetInnerHTML`                                   |
-| `react/no-deprecated`            | **warn**  | No deprecated React APIs                                       |
-| `react/no-unescaped-entities`    | **error** | Escape `'`, `"`, `>`, `}` in JSX text                          |
-| `react/jsx-no-target-blank`      | **error** | `target="_blank"` requires `rel="noopener noreferrer"`         |
-| `react/self-closing-comp`        | **warn**  | Self-close components with no children                         |
-| `react/jsx-boolean-value`        | **warn**  | Prefer `<Comp disabled />` over `<Comp disabled={true} />`     |
-| `react/jsx-curly-brace-presence` | **warn**  | No unnecessary curly braces in JSX                             |
-| `react/jsx-no-useless-fragment`  | **warn**  | No useless `<></>` fragments                                   |
+| Rule                               | Level     | Details                                                                                          |
+| ---------------------------------- | --------- | ------------------------------------------------------------------------------------------------ |
+| `react-hooks/rules-of-hooks`       | **error** | Hooks must be called at the top level                                                            |
+| `react-hooks/exhaustive-deps`      | **warn**  | Dependencies array must be complete                                                              |
+| `react/jsx-key`                    | **error** | Must provide `key` in iterators (including Fragment shorthand)                                   |
+| `react/no-danger`                  | **error** | No `dangerouslySetInnerHTML`                                                                     |
+| `react/no-deprecated`              | **warn**  | No deprecated React APIs                                                                         |
+| `react/no-unescaped-entities`      | **error** | Escape `'`, `"`, `>`, `}` in JSX text                                                            |
+| `react/jsx-no-target-blank`        | **error** | `target="_blank"` requires `rel="noopener noreferrer"`                                           |
+| `react/self-closing-comp`          | **warn**  | Self-close components with no children                                                           |
+| `react/jsx-boolean-value`          | **warn**  | Prefer `<Comp disabled />` over `<Comp disabled={true} />`                                       |
+| `react/jsx-curly-brace-presence`   | **warn**  | No unnecessary curly braces in JSX                                                               |
+| `react/jsx-no-useless-fragment`    | **warn**  | No useless `<></>` fragments                                                                     |
+| `react-hooks/incompatible-library` | **warn**  | Don't use `watch()` from react-hook-form — use `useWatch({ control, name })` instead             |
+| `react-hooks/static-components`    | **error** | Don't create component references during render — resolve outside or use `React.createElement()` |
 
 ### Accessibility Rules (jsx-a11y)
 
@@ -155,31 +167,31 @@
 
 ### Unicorn Rules (Modern JS Best Practices)
 
-| Rule                                | Level     | Details                                                |
-| ----------------------------------- | --------- | ------------------------------------------------------ |
-| `prefer-array-find`                 | **error** | Use `.find()` instead of `.filter()[0]`                |
-| `prefer-array-flat`                 | **error** | Use `.flat()` instead of manual flattening             |
-| `prefer-array-flat-map`             | **error** | Use `.flatMap()` instead of `.map().flat()`            |
-| `prefer-array-some`                 | **error** | Use `.some()` instead of `.find() !== undefined`       |
-| `prefer-includes`                   | **error** | Use `.includes()` instead of `.indexOf() !== -1`       |
-| `no-array-for-each`                 | **warn**  | Prefer `for...of` over `.forEach()`                    |
-| `prefer-string-replace-all`         | **warn**  | Use `.replaceAll()` instead of `.replace(/g/)`         |
-| `prefer-string-starts-ends-with`    | **error** | Use `.startsWith()`/`.endsWith()`                      |
-| `prefer-number-properties`          | **error** | Use `Number.isNaN()`, `Number.parseInt()`, etc.        |
-| `no-zero-fractions`                 | **error** | No `1.0` — just write `1`                              |
-| `prefer-date-now`                   | **error** | Use `Date.now()` instead of `new Date().getTime()`     |
-| `prefer-type-error`                 | **error** | Throw `TypeError` for type-checking failures           |
-| `prefer-regexp-test`                | **error** | Use `.test()` instead of `.match()` for boolean checks |
-| `throw-new-error`                   | **error** | Always use `throw new Error()`, not `throw Error()`    |
-| `error-message`                     | **error** | Error constructors must have a message                 |
-| `no-instanceof-array`               | **error** | Use `Array.isArray()` instead of `instanceof Array`    |
-| `no-useless-spread`                 | **error** | No `[...array]` when not needed                        |
-| `no-useless-promise-resolve-reject` | **error** | Use `throw` instead of `Promise.reject()` in async     |
-| `no-unnecessary-await`              | **error** | Don't await non-Promise values                         |
-| `no-lonely-if`                      | **error** | Merge nested `if` into `else if`                       |
-| `no-object-as-default-parameter`    | **error** | No `function(options = {})` pattern                    |
-| `consistent-function-scoping`       | **warn**  | Move functions to smallest needed scope                |
-| `filename-case`                     | **warn**  | Files: `kebab-case`, `PascalCase`, or `camelCase`      |
+| Rule                                | Level     | Details                                                                                                                  |
+| ----------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `prefer-array-find`                 | **error** | Use `.find()` instead of `.filter()[0]`                                                                                  |
+| `prefer-array-flat`                 | **error** | Use `.flat()` instead of manual flattening                                                                               |
+| `prefer-array-flat-map`             | **error** | Use `.flatMap()` instead of `.map().flat()`                                                                              |
+| `prefer-array-some`                 | **error** | Use `.some()` instead of `.find() !== undefined`                                                                         |
+| `prefer-includes`                   | **error** | Use `.includes()` instead of `.indexOf() !== -1`                                                                         |
+| `no-array-for-each`                 | **warn**  | Prefer `for...of` over `.forEach()`                                                                                      |
+| `prefer-string-replace-all`         | **warn**  | Use `.replaceAll()` instead of `.replace(/g/)`                                                                           |
+| `prefer-string-starts-ends-with`    | **error** | Use `.startsWith()`/`.endsWith()`                                                                                        |
+| `prefer-number-properties`          | **error** | Use `Number.isNaN()`, `Number.parseInt()`, etc.                                                                          |
+| `no-zero-fractions`                 | **error** | No `1.0` — just write `1`                                                                                                |
+| `prefer-date-now`                   | **error** | Use `Date.now()` instead of `new Date().getTime()`                                                                       |
+| `prefer-type-error`                 | **error** | Throw `TypeError` for type-checking failures                                                                             |
+| `prefer-regexp-test`                | **error** | Use `.test()` instead of `.match()` for boolean checks                                                                   |
+| `throw-new-error`                   | **error** | Always use `throw new Error()`, not `throw Error()`                                                                      |
+| `error-message`                     | **error** | Error constructors must have a message                                                                                   |
+| `no-instanceof-array`               | **error** | Use `Array.isArray()` instead of `instanceof Array`                                                                      |
+| `no-useless-spread`                 | **error** | No `[...array]` when not needed                                                                                          |
+| `no-useless-promise-resolve-reject` | **error** | Use `throw` instead of `Promise.reject()` in async                                                                       |
+| `no-unnecessary-await`              | **error** | Don't await non-Promise values                                                                                           |
+| `no-lonely-if`                      | **error** | Merge nested `if` into `else if`                                                                                         |
+| `no-object-as-default-parameter`    | **error** | No `function(options = {})` pattern                                                                                      |
+| `consistent-function-scoping`       | **warn**  | Move functions to smallest needed scope                                                                                  |
+| `filename-case`                     | **warn**  | Files: `kebab-case`, `PascalCase`, or `camelCase` — no consecutive uppercase (e.g., `MitreBarChart` not `MITREBarChart`) |
 
 ---
 

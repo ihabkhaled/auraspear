@@ -7,7 +7,7 @@ export function useConnectorsPage() {
   const t = useTranslations('connectors')
   const { data: connectors, isLoading, isFetching } = useConnectors()
 
-  const list = connectors ?? []
+  const list = useMemo(() => connectors ?? [], [connectors])
 
   const unconfiguredTypes = useMemo(() => {
     const configuredTypes = new Set(list.map(c => c.type))

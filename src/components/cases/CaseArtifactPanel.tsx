@@ -13,7 +13,7 @@ import {
 import { CaseArtifactType } from '@/enums'
 import { useCaseArtifactPanel } from '@/hooks'
 import { ARTIFACT_TYPE_ICONS, ARTIFACT_TYPE_KEYS } from '@/lib/constants/cases'
-import { copyToClipboard } from '@/lib/utils'
+import { copyToClipboard, lookup } from '@/lib/utils'
 import type { CaseArtifactPanelProps } from '@/types'
 
 export function CaseArtifactPanel({
@@ -88,8 +88,10 @@ export function CaseArtifactPanel({
           return null
         }
         const artType = type as CaseArtifactType
-        const Icon = ARTIFACT_TYPE_ICONS[artType] ?? Globe
-        const label = ARTIFACT_TYPE_KEYS[artType] ? t(ARTIFACT_TYPE_KEYS[artType]) : type
+        const Icon = lookup(ARTIFACT_TYPE_ICONS, artType) ?? Globe
+        const label = lookup(ARTIFACT_TYPE_KEYS, artType)
+          ? t(lookup(ARTIFACT_TYPE_KEYS, artType))
+          : type
 
         return (
           <div key={type} className="flex flex-col gap-2">

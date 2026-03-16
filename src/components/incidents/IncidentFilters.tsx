@@ -17,6 +17,7 @@ import {
   INCIDENT_SEVERITY_LABEL_KEYS,
   INCIDENT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/incidents'
+import { lookup } from '@/lib/utils'
 import type { IncidentFiltersProps } from '@/types'
 
 export function IncidentFilters(props: IncidentFiltersProps) {
@@ -42,7 +43,7 @@ export function IncidentFilters(props: IncidentFiltersProps) {
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(IncidentStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(INCIDENT_STATUS_LABEL_KEYS[status])}
+              {t(lookup(INCIDENT_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -56,7 +57,7 @@ export function IncidentFilters(props: IncidentFiltersProps) {
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(IncidentSeverity).map(sev => (
             <SelectItem key={sev} value={sev}>
-              {t(INCIDENT_SEVERITY_LABEL_KEYS[sev])}
+              {t(lookup(INCIDENT_SEVERITY_LABEL_KEYS, sev))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -70,7 +71,7 @@ export function IncidentFilters(props: IncidentFiltersProps) {
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(IncidentCategory).map(cat => (
             <SelectItem key={cat} value={cat}>
-              {t(INCIDENT_CATEGORY_LABEL_KEYS[cat])}
+              {t(lookup(INCIDENT_CATEGORY_LABEL_KEYS, cat))}
             </SelectItem>
           ))}
         </SelectContent>

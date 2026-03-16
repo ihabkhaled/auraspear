@@ -7,7 +7,7 @@ import {
   SOAR_TRIGGER_TYPE_CLASSES,
   SOAR_TRIGGER_TYPE_LABEL_KEYS,
 } from '@/lib/constants/soar'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, SoarPlaybook } from '@/types'
 
 interface SoarColumnTranslations {
@@ -29,12 +29,12 @@ export function getSoarPlaybookColumns(t: SoarColumnTranslations): Column<SoarPl
       sortable: true,
       render: (value: unknown) => {
         const status = value as SoarPlaybookStatus
-        const labelKey = SOAR_PLAYBOOK_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(SOAR_PLAYBOOK_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              SOAR_PLAYBOOK_STATUS_CLASSES[status]
+              lookup(SOAR_PLAYBOOK_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.soar(labelKey) : String(value)}
@@ -48,12 +48,12 @@ export function getSoarPlaybookColumns(t: SoarColumnTranslations): Column<SoarPl
       sortable: true,
       render: (value: unknown) => {
         const trigger = value as SoarTriggerType
-        const labelKey = SOAR_TRIGGER_TYPE_LABEL_KEYS[trigger]
+        const labelKey = lookup(SOAR_TRIGGER_TYPE_LABEL_KEYS, trigger)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              SOAR_TRIGGER_TYPE_CLASSES[trigger]
+              lookup(SOAR_TRIGGER_TYPE_CLASSES, trigger)
             )}
           >
             {labelKey ? t.soar(labelKey) : String(value)}

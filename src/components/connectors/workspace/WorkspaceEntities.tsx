@@ -41,15 +41,20 @@ export function WorkspaceEntities({
       render: value => {
         const status = value as string | undefined
         if (!status) return null
-        const statusClass =
+        let statusClass = ''
+        if (
           status === WorkspaceEntityStatus.ACTIVE ||
           status === WorkspaceEntityStatus.SEEN ||
           status === WorkspaceEntityStatus.AVAILABLE ||
           status === WorkspaceEntityStatus.PUBLISHED
-            ? 'bg-status-success text-white border-status-success'
-            : status === WorkspaceEntityStatus.INACTIVE || status === WorkspaceEntityStatus.DRAFT
-              ? 'bg-status-warning text-white border-status-warning'
-              : ''
+        ) {
+          statusClass = 'bg-status-success text-white border-status-success'
+        } else if (
+          status === WorkspaceEntityStatus.INACTIVE ||
+          status === WorkspaceEntityStatus.DRAFT
+        ) {
+          statusClass = 'bg-status-warning text-white border-status-warning'
+        }
         return (
           <Badge variant="outline" className={cn('text-xs', statusClass)}>
             {status}

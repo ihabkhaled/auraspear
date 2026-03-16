@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { type AlertSeverity, type AlertStatus, SortOrder } from '@/enums'
 import { ALERT_STATUS_CLASSES, ALERT_STATUS_LABEL_KEYS } from '@/lib/constants/alerts'
 import { getSeverityVariant } from '@/lib/severity-utils'
-import { formatTimestamp, cn } from '@/lib/utils'
+import { formatTimestamp, cn, lookup } from '@/lib/utils'
 import type { Column, Alert, AlertColumnTranslations, GetAlertColumnsOptions } from '@/types'
 import { AlertRowActions } from './AlertRowActions'
 
@@ -22,7 +22,7 @@ function StatusBadge({ status, label }: { status: AlertStatus; label: string }) 
       variant="outline"
       className={cn(
         'text-xs',
-        ALERT_STATUS_CLASSES[status] ?? 'border-muted-foreground text-muted-foreground'
+        lookup(ALERT_STATUS_CLASSES, status) ?? 'border-muted-foreground text-muted-foreground'
       )}
     >
       {label}
@@ -31,7 +31,7 @@ function StatusBadge({ status, label }: { status: AlertStatus; label: string }) 
 }
 
 function MITREBadge({ techniques }: { techniques: string[] }) {
-  const first = techniques[0]
+  const first = techniques.at(0)
   if (!first) {
     return <span className="text-muted-foreground text-xs">-</span>
   }
@@ -75,7 +75,7 @@ export function getAlertColumns(
       label: t.common('status'),
       sortable: true,
       render: (_value, row) => {
-        const labelKey = ALERT_STATUS_LABEL_KEYS[row.status] ?? row.status
+        const labelKey = lookup(ALERT_STATUS_LABEL_KEYS, row.status) ?? row.status
         return <StatusBadge status={row.status} label={t.alerts(labelKey)} />
       },
     },

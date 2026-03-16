@@ -59,7 +59,9 @@ export function DataTable<T>({
     hasSelection &&
     data.length > 0 &&
     data.every(row => {
-      const id = String(keyField ? row[keyField] : (row as Record<string, unknown>)['id'])
+      const id = String(
+        keyField ? Reflect.get(row as object, keyField as string) : Reflect.get(row as object, 'id')
+      )
       return selectedIds.includes(id)
     })
 
@@ -69,7 +71,11 @@ export function DataTable<T>({
       onSelectionChange([])
     } else {
       const ids = data.map(row =>
-        String(keyField ? row[keyField] : (row as Record<string, unknown>)['id'])
+        String(
+          keyField
+            ? Reflect.get(row as object, keyField as string)
+            : Reflect.get(row as object, 'id')
+        )
       )
       onSelectionChange(ids)
     }
@@ -172,7 +178,9 @@ export function DataTable<T>({
         <TableBody>
           {data.map((row, rowIndex) => {
             const rowId = String(
-              keyField ? row[keyField] : ((row as Record<string, unknown>)['id'] ?? rowIndex)
+              keyField
+                ? Reflect.get(row as object, keyField as string)
+                : (Reflect.get(row as object, 'id') ?? rowIndex)
             )
             const isSelected = hasSelection && selectedIds.includes(rowId)
 

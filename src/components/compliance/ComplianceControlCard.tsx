@@ -7,7 +7,7 @@ import {
   COMPLIANCE_CONTROL_STATUS_CLASSES,
   COMPLIANCE_CONTROL_STATUS_LABEL_KEYS,
 } from '@/lib/constants/compliance'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { ComplianceControlCardProps } from '@/types'
 
 export function ComplianceControlCard({ control, onAssess }: ComplianceControlCardProps) {
@@ -21,10 +21,10 @@ export function ComplianceControlCard({ control, onAssess }: ComplianceControlCa
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              COMPLIANCE_CONTROL_STATUS_CLASSES[control.status]
+              lookup(COMPLIANCE_CONTROL_STATUS_CLASSES, control.status)
             )}
           >
-            {t(COMPLIANCE_CONTROL_STATUS_LABEL_KEYS[control.status])}
+            {t(lookup(COMPLIANCE_CONTROL_STATUS_LABEL_KEYS, control.status))}
           </span>
         </div>
         <p className="text-foreground mt-1 text-sm font-medium">{control.title}</p>

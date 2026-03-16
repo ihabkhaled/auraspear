@@ -6,7 +6,7 @@ import {
   HEALTH_CHECK_STATUS_LABEL_KEYS,
   SERVICE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/system-health'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, SystemHealthCheck } from '@/types'
 
 interface SystemHealthColumnTranslations {
@@ -24,7 +24,7 @@ export function getSystemHealthColumns(
       sortable: true,
       render: (value: unknown) => {
         const svc = value as ServiceType
-        const labelKey = SERVICE_TYPE_LABEL_KEYS[svc]
+        const labelKey = lookup(SERVICE_TYPE_LABEL_KEYS, svc)
         return (
           <span className="text-sm font-medium">
             {labelKey ? t.systemHealth(labelKey) : String(value)}
@@ -38,12 +38,12 @@ export function getSystemHealthColumns(
       sortable: true,
       render: (value: unknown) => {
         const status = value as HealthCheckStatus
-        const labelKey = HEALTH_CHECK_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(HEALTH_CHECK_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              HEALTH_CHECK_STATUS_CLASSES[status]
+              lookup(HEALTH_CHECK_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.systemHealth(labelKey) : String(value)}

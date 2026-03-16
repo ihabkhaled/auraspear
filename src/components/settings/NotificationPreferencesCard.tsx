@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import type { NotificationCategory } from '@/enums'
 import { useNotificationPreferences } from '@/hooks/useNotificationPreferences'
+import { lookup } from '@/lib/utils'
 
 const CATEGORY_LABEL_KEYS: Record<NotificationCategory, string> = {
   criticalAlerts: 'criticalAlerts',
@@ -41,10 +42,10 @@ export default function NotificationPreferencesCard() {
             <div className="flex items-center justify-between gap-4">
               <div className="space-y-0.5">
                 <Label htmlFor={`notification-${category}`}>
-                  {t(CATEGORY_LABEL_KEYS[category])}
+                  {t(lookup(CATEGORY_LABEL_KEYS, category))}
                 </Label>
                 <p className="text-muted-foreground text-sm">
-                  {t(CATEGORY_DESCRIPTION_KEYS[category])}
+                  {t(lookup(CATEGORY_DESCRIPTION_KEYS, category))}
                 </p>
               </div>
               <Switch

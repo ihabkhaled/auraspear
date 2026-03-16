@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useWorkspaceRecentActivityComponent } from '@/hooks/useWorkspaceRecentActivityComponent'
 import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceRecentActivityProps } from '@/types'
 
 export function WorkspaceRecentActivity({ items, loading, title }: WorkspaceRecentActivityProps) {
@@ -51,7 +51,10 @@ export function WorkspaceRecentActivity({ items, loading, title }: WorkspaceRece
                     {item.severity && (
                       <Badge
                         variant="outline"
-                        className={cn('shrink-0 text-[10px]', SEVERITY_CLASSES[item.severity])}
+                        className={cn(
+                          'shrink-0 text-[10px]',
+                          lookup(SEVERITY_CLASSES, item.severity)
+                        )}
                       >
                         {item.severity}
                       </Badge>

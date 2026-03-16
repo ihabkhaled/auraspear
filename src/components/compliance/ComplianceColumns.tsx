@@ -5,7 +5,7 @@ import {
   COMPLIANCE_STANDARD_CLASSES,
   COMPLIANCE_STANDARD_LABEL_KEYS,
 } from '@/lib/constants/compliance'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, ComplianceFramework } from '@/types'
 
 interface ComplianceColumnTranslations {
@@ -29,12 +29,12 @@ export function getComplianceColumns(
       sortable: true,
       render: (value: unknown) => {
         const standard = value as ComplianceStandard
-        const labelKey = COMPLIANCE_STANDARD_LABEL_KEYS[standard]
+        const labelKey = lookup(COMPLIANCE_STANDARD_LABEL_KEYS, standard)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              COMPLIANCE_STANDARD_CLASSES[standard]
+              lookup(COMPLIANCE_STANDARD_CLASSES, standard)
             )}
           >
             {labelKey ? t.compliance(labelKey) : String(value)}

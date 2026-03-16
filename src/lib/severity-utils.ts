@@ -1,6 +1,7 @@
 import { AlertSeverity } from '@/enums'
 import type { CaseSeverity } from '@/enums'
 import { SEVERITY_COLORS, type SEVERITY_TEXT_CLASSES } from '@/lib/constants'
+import { lookup } from '@/lib/utils'
 
 /**
  * Returns combined bg + text + border status classes for an alert severity.
@@ -33,7 +34,7 @@ export const getSeverityClass = getSeverityVariant
  */
 export function getSeverityColor(severity: string): string {
   const key = severity as keyof typeof SEVERITY_COLORS
-  return SEVERITY_COLORS[key] ?? 'var(--muted-foreground)'
+  return lookup(SEVERITY_COLORS, key) ?? 'var(--muted-foreground)'
 }
 
 /**

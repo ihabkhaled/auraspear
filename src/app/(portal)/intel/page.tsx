@@ -4,8 +4,8 @@ import { Globe } from 'lucide-react'
 import { PageHeader, Pagination, LoadingSpinner, EmptyState } from '@/components/common'
 import {
   IntelStatsGrid,
-  IOCSearchBar,
-  MISPEventFeed,
+  IocSearchBar,
+  MispEventFeed,
   WazuhCorrelationPanel,
 } from '@/components/intel'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -42,7 +42,7 @@ export default function IntelPage() {
       )
     }
     return (
-      <MISPEventFeed
+      <MispEventFeed
         events={mispData?.data ?? []}
         loading={mispLoading}
         sortBy={mispSortBy}
@@ -63,7 +63,7 @@ export default function IntelPage() {
           <CardTitle className="text-base">{t('search.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <IOCSearchBar onSearch={handleIOCSearch} loading={iocLoading} />
+          <IocSearchBar onSearch={handleIOCSearch} loading={iocLoading} />
           <WazuhCorrelationPanel
             correlations={iocData?.data ?? []}
             loading={iocLoading}

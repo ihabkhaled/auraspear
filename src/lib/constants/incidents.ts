@@ -1,4 +1,4 @@
-import { IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
+import { IncidentActorType, IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
 
 export const INCIDENT_STATUS_LABEL_KEYS: Record<IncidentStatus, string> = {
   [IncidentStatus.OPEN]: 'statusOpen',
@@ -58,14 +58,14 @@ export const INCIDENT_VALID_TRANSITIONS: Record<IncidentStatus, IncidentStatus[]
   [IncidentStatus.CLOSED]: [IncidentStatus.OPEN],
 }
 
-export const INCIDENT_ACTOR_TYPE_CLASSES: Record<string, string> = {
-  user: 'bg-status-info text-white',
-  ai_agent: 'bg-primary text-white',
-  system: 'bg-muted text-muted-foreground',
+export const INCIDENT_ACTOR_TYPE_CLASSES: Record<IncidentActorType, string> = {
+  [IncidentActorType.USER]: 'bg-status-info text-white',
+  [IncidentActorType.AI_AGENT]: 'bg-primary text-white',
+  [IncidentActorType.SYSTEM]: 'bg-muted text-muted-foreground',
 }
 
-export const INCIDENT_TIMELINE_DOT_CLASSES: Record<string, string> = {
-  user: 'bg-status-info',
-  ai_agent: 'bg-primary',
-  system: 'bg-muted-foreground',
+export const INCIDENT_TIMELINE_DOT_CLASSES: Record<IncidentActorType, string> = {
+  [IncidentActorType.USER]: 'bg-status-info',
+  [IncidentActorType.AI_AGENT]: 'bg-primary',
+  [IncidentActorType.SYSTEM]: 'bg-muted-foreground',
 }

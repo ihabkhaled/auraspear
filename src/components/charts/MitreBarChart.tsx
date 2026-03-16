@@ -10,15 +10,15 @@ import {
   Tooltip,
   Cell,
 } from 'recharts'
-import { useMITREBarChart } from '@/hooks/useMITREBarChart'
+import { useMitreBarChart } from '@/hooks/useMitreBarChart'
 import type { MITRETechnique } from '@/types'
 
-interface MITREBarChartProps {
+interface MitreBarChartProps {
   data: MITRETechnique[]
 }
 
-export function MITREBarChart({ data }: MITREBarChartProps) {
-  const { isNarrow, handleResize, yAxisWidth, leftMargin } = useMITREBarChart()
+export function MitreBarChart({ data }: MitreBarChartProps) {
+  const { isNarrow, handleResize, yAxisWidth, leftMargin } = useMitreBarChart()
 
   return (
     <ResponsiveContainer width="100%" height={300} onResize={handleResize}>

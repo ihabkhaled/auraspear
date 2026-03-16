@@ -8,7 +8,7 @@ import {
   ML_MODEL_STATUS_CLASSES,
   ML_MODEL_TYPE_LABEL_KEYS,
 } from '@/lib/constants/ueba'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { UebaMlModelCardProps } from '@/types'
 
 export function UebaMlModelCard({ model }: UebaMlModelCardProps) {
@@ -22,16 +22,16 @@ export function UebaMlModelCard({ model }: UebaMlModelCardProps) {
           <span className="text-sm font-medium">{model.name}</span>
         </div>
         <span
-          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${ML_MODEL_STATUS_CLASSES[model.status]}`}
+          className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(ML_MODEL_STATUS_CLASSES, model.status)}`}
         >
-          {t(ML_MODEL_STATUS_LABEL_KEYS[model.status])}
+          {t(lookup(ML_MODEL_STATUS_LABEL_KEYS, model.status))}
         </span>
       </div>
 
       {model.description && <p className="text-muted-foreground text-xs">{model.description}</p>}
 
       <div className="flex flex-wrap items-center gap-3">
-        <Badge variant="secondary">{t(ML_MODEL_TYPE_LABEL_KEYS[model.modelType])}</Badge>
+        <Badge variant="secondary">{t(lookup(ML_MODEL_TYPE_LABEL_KEYS, model.modelType))}</Badge>
 
         <div className="text-muted-foreground flex items-center gap-1 text-xs">
           <span>{t('accuracy')}:</span>

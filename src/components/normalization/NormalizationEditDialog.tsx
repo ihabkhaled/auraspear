@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { NormalizationSourceType } from '@/enums'
 import { useNormalizationEditDialog } from '@/hooks/useNormalizationEditDialog'
 import { NORMALIZATION_SOURCE_TYPE_LABEL_KEYS } from '@/lib/constants/normalization'
+import { lookup } from '@/lib/utils'
 import type { NormalizationEditDialogProps } from '@/types'
 
 export function NormalizationEditDialog({
@@ -68,7 +69,7 @@ export function NormalizationEditDialog({
                   <SelectContent>
                     {Object.values(NormalizationSourceType).map(src => (
                       <SelectItem key={src} value={src}>
-                        {t(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS[src])}
+                        {t(lookup(NORMALIZATION_SOURCE_TYPE_LABEL_KEYS, src))}
                       </SelectItem>
                     ))}
                   </SelectContent>

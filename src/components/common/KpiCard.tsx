@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import type { KPICardProps } from '@/types'
 
-export function KPICard({
+export function KpiCard({
   label,
   value,
   trend,

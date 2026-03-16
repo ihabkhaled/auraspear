@@ -4,11 +4,11 @@ import { Search } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { useKQLSearchBar } from '@/hooks'
+import { useKqlSearchBar } from '@/hooks'
 import type { KQLSearchBarProps } from '@/types'
 
-export function KQLSearchBar({ value, onChange, onSubmit, onSavedSearches }: KQLSearchBarProps) {
-  const { t } = useKQLSearchBar()
+export function KqlSearchBar({ value, onChange, onSubmit, onSavedSearches }: KQLSearchBarProps) {
+  const { t } = useKqlSearchBar()
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {

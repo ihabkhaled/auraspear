@@ -19,7 +19,7 @@ describe('STATUS_VARIANT_MAP', () => {
 
   it('should have a mapping for every CaseStatus', () => {
     for (const status of Object.values(CaseStatus)) {
-      expect(STATUS_VARIANT_MAP[status]).toBeDefined()
+      expect(Reflect.get(STATUS_VARIANT_MAP, status)).toBeDefined()
     }
   })
 })

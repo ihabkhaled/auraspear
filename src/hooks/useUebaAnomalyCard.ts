@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { UebaRiskLevel } from '@/enums'
+import { lookup } from '@/lib/utils'
 import type { UebaAnomaly } from '@/types'
 
 const SEVERITY_VARIANT_MAP: Record<
@@ -23,7 +24,7 @@ export function useUebaAnomalyCard({
 }) {
   const t = useTranslations('ueba')
 
-  const severityVariant = SEVERITY_VARIANT_MAP[anomaly.severity] ?? 'secondary'
+  const severityVariant = lookup(SEVERITY_VARIANT_MAP, anomaly.severity) ?? 'secondary'
 
   const handleResolve = useCallback(() => {
     onResolve(anomaly.id)

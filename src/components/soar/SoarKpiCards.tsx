@@ -1,7 +1,7 @@
 'use client'
 
 import { CheckCircle2, Clock, Play, Workflow, Zap } from 'lucide-react'
-import { KPICard } from '@/components/common'
+import { KpiCard } from '@/components/common'
 import { useSoarKpiCards } from '@/hooks/useSoarKpiCards'
 import type { SoarKpiCardsProps } from '@/types'
 
@@ -10,31 +10,31 @@ export function SoarKpiCards({ stats }: SoarKpiCardsProps) {
 
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-      <KPICard
+      <KpiCard
         label={t('kpiTotal')}
         value={stats?.totalPlaybooks ?? 0}
         icon={<Workflow className="h-5 w-5" />}
         accentColor="var(--primary)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiActive')}
         value={stats?.activePlaybooks ?? 0}
         icon={<Zap className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiExecutions30d')}
         value={stats?.totalExecutions30d ?? 0}
         icon={<Play className="h-5 w-5" />}
         accentColor="var(--status-info)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiSuccessRate')}
         value={successRateDisplay}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiAvgDuration')}
         value={avgDurationDisplay}
         icon={<Clock className="h-5 w-5" />}

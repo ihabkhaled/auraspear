@@ -11,7 +11,7 @@ import {
   CLOUD_FINDING_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { CloudFindingCardProps } from '@/types'
 
 export function CloudFindingCard({ finding, onResolve, onSuppress }: CloudFindingCardProps) {
@@ -24,10 +24,10 @@ export function CloudFindingCard({ finding, onResolve, onSuppress }: CloudFindin
         <span
           className={cn(
             'inline-flex shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
-            CLOUD_FINDING_SEVERITY_CLASSES[finding.severity]
+            lookup(CLOUD_FINDING_SEVERITY_CLASSES, finding.severity)
           )}
         >
-          {t(CLOUD_FINDING_SEVERITY_LABEL_KEYS[finding.severity])}
+          {t(lookup(CLOUD_FINDING_SEVERITY_LABEL_KEYS, finding.severity))}
         </span>
       </div>
 
@@ -36,16 +36,16 @@ export function CloudFindingCard({ finding, onResolve, onSuppress }: CloudFindin
       )}
 
       <div className="flex flex-wrap items-center gap-2">
-        <Badge variant="outline">{t(CLOUD_PROVIDER_LABEL_KEYS[finding.provider])}</Badge>
+        <Badge variant="outline">{t(lookup(CLOUD_PROVIDER_LABEL_KEYS, finding.provider))}</Badge>
         <Badge variant="secondary">{finding.resource}</Badge>
         <Badge variant="secondary">{finding.region}</Badge>
         <span
           className={cn(
             'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-            CLOUD_FINDING_STATUS_CLASSES[finding.status]
+            lookup(CLOUD_FINDING_STATUS_CLASSES, finding.status)
           )}
         >
-          {t(CLOUD_FINDING_STATUS_LABEL_KEYS[finding.status])}
+          {t(lookup(CLOUD_FINDING_STATUS_LABEL_KEYS, finding.status))}
         </span>
       </div>
 

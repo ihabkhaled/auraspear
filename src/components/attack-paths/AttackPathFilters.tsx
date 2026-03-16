@@ -14,6 +14,7 @@ import {
   ATTACK_PATH_SEVERITY_LABEL_KEYS,
   ATTACK_PATH_STATUS_LABEL_KEYS,
 } from '@/lib/constants/attack-paths'
+import { lookup } from '@/lib/utils'
 import type { AttackPathFiltersProps } from '@/types'
 
 export function AttackPathFilters({
@@ -46,7 +47,7 @@ export function AttackPathFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(AttackPathSeverity).map(sev => (
             <SelectItem key={sev} value={sev}>
-              {t(ATTACK_PATH_SEVERITY_LABEL_KEYS[sev])}
+              {t(lookup(ATTACK_PATH_SEVERITY_LABEL_KEYS, sev))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -60,7 +61,7 @@ export function AttackPathFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(AttackPathStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(ATTACK_PATH_STATUS_LABEL_KEYS[status])}
+              {t(lookup(ATTACK_PATH_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

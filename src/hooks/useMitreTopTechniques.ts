@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-export function useMITRETopTechniques() {
+export function useMitreTopTechniques() {
   const t = useTranslations('dashboard')
 
   return { t }

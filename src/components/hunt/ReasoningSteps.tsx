@@ -1,14 +1,14 @@
 'use client'
 
 import { REASONING_STEP_CONFIG_MAP, STEP_ICONS } from '@/lib/constants/hunt'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { ReasoningStepsProps } from '@/types'
 
 export function ReasoningSteps({ steps }: ReasoningStepsProps) {
   return (
     <div className="flex flex-col gap-1.5">
       {steps.map(step => {
-        const config = REASONING_STEP_CONFIG_MAP[step.status]
+        const config = lookup(REASONING_STEP_CONFIG_MAP, step.status)
         const Icon = STEP_ICONS[step.status]
 
         return (

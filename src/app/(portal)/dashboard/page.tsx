@@ -2,10 +2,10 @@
 
 import { Shield, BarChart3 } from 'lucide-react'
 import { AlertTrendChart } from '@/components/charts'
-import { PageHeader, KPICard, LoadingSpinner, EmptyState } from '@/components/common'
+import { PageHeader, KpiCard, LoadingSpinner, EmptyState } from '@/components/common'
 import {
   DashboardCard,
-  MITRETopTechniques,
+  MitreTopTechniques,
   TopTargetedAssets,
   PipelineHealthBar,
   RecentActivityFeed,
@@ -54,16 +54,16 @@ export default function DashboardPage() {
       )
     }
     return kpis?.data?.map((kpi, i) => {
-      const route = KPI_ROUTES[kpi.label]
+      const route = Reflect.get(KPI_ROUTES, kpi.label) as string | undefined
       return (
-        <KPICard
+        <KpiCard
           key={kpi.label}
           label={t(kpi.label)}
           value={kpi.value}
           trend={kpi.trend}
           trendLabel={t(kpi.trendLabel)}
-          icon={KPI_ICONS[i] ?? KPI_ICONS[0] ?? <Shield className="h-5 w-5" />}
-          accentColor={KPI_COLORS[i]}
+          icon={KPI_ICONS.at(i) ?? KPI_ICONS.at(0) ?? <Shield className="h-5 w-5" />}
+          accentColor={KPI_COLORS.at(i)}
           onClick={route ? () => router.push(route) : undefined}
         />
       )
@@ -75,8 +75,8 @@ export default function DashboardPage() {
     if (extendedKPIItems.length === 0) return null
 
     return extendedKPIItems.map((item, i) => {
-      const icon = EXTENDED_KPI_ICONS[i] ?? EXTENDED_KPI_ICONS[0]
-      const color = EXTENDED_KPI_COLORS[i]
+      const icon = EXTENDED_KPI_ICONS.at(i) ?? EXTENDED_KPI_ICONS.at(0)
+      const color = EXTENDED_KPI_COLORS.at(i)
       return (
         <Card
           key={item.labelKey}
@@ -131,7 +131,7 @@ export default function DashboardPage() {
           {mitreLoading ? (
             <LoadingSpinner />
           ) : (
-            <MITRETopTechniques techniques={mitre?.data ?? []} />
+            <MitreTopTechniques techniques={mitre?.data ?? []} />
           )}
         </DashboardCard>
         <DashboardCard title={t('topTargetedAssets')}>

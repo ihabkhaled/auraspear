@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm, type Resolver } from 'react-hook-form'
+import { useForm, useWatch, type Resolver } from 'react-hook-form'
 import { editSoarPlaybookSchema } from '@/lib/validation/soar.schema'
 import type { SoarEditDialogProps, EditSoarPlaybookFormValues } from '@/types'
 
@@ -18,7 +18,6 @@ export function useSoarEditDialog({
     handleSubmit,
     control,
     reset,
-    watch,
     formState: { errors },
   } = useForm<EditSoarPlaybookFormValues>({
     resolver: zodResolver(
@@ -27,7 +26,7 @@ export function useSoarEditDialog({
     defaultValues: initialValues,
   })
 
-  const triggerType = watch('triggerType')
+  const triggerType = useWatch({ control, name: 'triggerType' })
 
   useEffect(() => {
     if (open) {

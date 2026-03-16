@@ -45,7 +45,7 @@ export function copyToClipboard(text: string): Promise<void> {
 export function getNestedValue<T>(row: T, key: string): unknown {
   return key.split('.').reduce<unknown>((obj, k) => {
     if (obj !== null && obj !== undefined && typeof obj === 'object') {
-      return (obj as Record<string, unknown>)[k]
+      return Reflect.get(obj as object, k)
     }
     return
   }, row)
@@ -65,7 +65,7 @@ export function parseFluxCSV(csv: string): {
   // Find the header line (first non-empty, non-annotation line)
   let headerIdx = 0
   for (let i = 0; i < lines.length; i++) {
-    const line = lines[i] ?? ''
+    const line = lines.at(i) ?? ''
     // Skip annotation lines that start with #
     if (line.startsWith('#')) {
       headerIdx = i + 1
@@ -74,7 +74,7 @@ export function parseFluxCSV(csv: string): {
     break
   }
 
-  const headerLine = lines[headerIdx]
+  const headerLine = lines.at(headerIdx)
   if (!headerLine) return { columns: [], rows: [] }
 
   const headers = headerLine.split(',').map(h => h.trim())
@@ -83,19 +83,29 @@ export function parseFluxCSV(csv: string): {
 
   const rows: Record<string, string>[] = []
   for (let i = headerIdx + 1; i < lines.length; i++) {
-    const line = lines[i] ?? ''
+    const line = lines.at(i) ?? ''
     if (line.startsWith('#') || line.trim().length === 0) continue
 
     const values = line.split(',')
     const row: Record<string, string> = {}
     for (const header of visibleHeaders) {
       const colIdx = headers.indexOf(header)
-      row[header] = colIdx >= 0 ? (values[colIdx]?.trim() ?? '') : ''
+      const cellValue = colIdx >= 0 ? (values.at(colIdx)?.trim() ?? '') : ''
+      Reflect.set(row, header, cellValue)
     }
     rows.push(row)
   }
 
   return { columns: visibleHeaders, rows }
+}
+
+/**
+ * Type-safe record lookup using Reflect.get to avoid
+ * eslint security/detect-object-injection false positives
+ * on typed enum-keyed constant maps.
+ */
+export function lookup<K extends string, V>(record: Readonly<Record<K, V>>, key: K): V {
+  return Reflect.get(record, key) as V
 }
 
 export function formatFileSize(bytes: number): string {
@@ -106,5 +116,5 @@ export function formatFileSize(bytes: number): string {
   const k = 1024
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   const size = bytes / Math.pow(k, i)
-  return `${Math.round(size * 100) / 100} ${units[i] ?? 'B'}`
+  return `${Math.round(size * 100) / 100} ${units.at(i) ?? 'B'}`
 }

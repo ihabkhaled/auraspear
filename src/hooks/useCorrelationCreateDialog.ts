@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { RuleSeverity, RuleSource, RuleStatus } from '@/enums'
 import { createCorrelationSchema } from '@/lib/validation/correlation.schema'
 import type { CorrelationCreateDialogProps, CorrelationCreateFormValues } from '@/types'
@@ -18,7 +18,6 @@ export function useCorrelationCreateDialog({
     handleSubmit,
     control,
     reset,
-    watch,
     formState: { errors },
   } = useForm<CorrelationCreateFormValues>({
     resolver: zodResolver(createCorrelationSchema),
@@ -34,7 +33,7 @@ export function useCorrelationCreateDialog({
     },
   })
 
-  const selectedSource = watch('source')
+  const selectedSource = useWatch({ control, name: 'source' })
   const isSigmaSource = selectedSource === RuleSource.SIGMA
 
   useEffect(() => {

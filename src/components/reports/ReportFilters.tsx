@@ -16,6 +16,7 @@ import {
   REPORT_STATUS_LABEL_KEYS,
   REPORT_TYPE_LABEL_KEYS,
 } from '@/lib/constants/reports'
+import { lookup } from '@/lib/utils'
 import type { ReportFiltersProps } from '@/types'
 
 export function ReportFilters({
@@ -50,7 +51,7 @@ export function ReportFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(ReportType).map(reportType => (
             <SelectItem key={reportType} value={reportType}>
-              {t(REPORT_TYPE_LABEL_KEYS[reportType])}
+              {t(lookup(REPORT_TYPE_LABEL_KEYS, reportType))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -64,7 +65,7 @@ export function ReportFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(ReportFormat).map(fmt => (
             <SelectItem key={fmt} value={fmt}>
-              {t(REPORT_FORMAT_LABEL_KEYS[fmt])}
+              {t(lookup(REPORT_FORMAT_LABEL_KEYS, fmt))}
             </SelectItem>
           ))}
         </SelectContent>
@@ -78,7 +79,7 @@ export function ReportFilters({
           <SelectItem value="__all__">{tCommon('all')}</SelectItem>
           {Object.values(ReportStatus).map(status => (
             <SelectItem key={status} value={status}>
-              {t(REPORT_STATUS_LABEL_KEYS[status])}
+              {t(lookup(REPORT_STATUS_LABEL_KEYS, status))}
             </SelectItem>
           ))}
         </SelectContent>

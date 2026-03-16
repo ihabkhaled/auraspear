@@ -26,6 +26,7 @@ import {
   INCIDENT_CATEGORY_LABEL_KEYS,
   INCIDENT_SEVERITY_LABEL_KEYS,
 } from '@/lib/constants/incidents'
+import { lookup } from '@/lib/utils'
 import type { IncidentCreateDialogProps } from '@/types'
 
 export function IncidentCreateDialog({
@@ -86,7 +87,7 @@ export function IncidentCreateDialog({
                     <SelectContent>
                       {Object.values(IncidentSeverity).map(sev => (
                         <SelectItem key={sev} value={sev}>
-                          {t(INCIDENT_SEVERITY_LABEL_KEYS[sev])}
+                          {t(lookup(INCIDENT_SEVERITY_LABEL_KEYS, sev))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -111,7 +112,7 @@ export function IncidentCreateDialog({
                     <SelectContent>
                       {Object.values(IncidentCategory).map(cat => (
                         <SelectItem key={cat} value={cat}>
-                          {t(INCIDENT_CATEGORY_LABEL_KEYS[cat])}
+                          {t(lookup(INCIDENT_CATEGORY_LABEL_KEYS, cat))}
                         </SelectItem>
                       ))}
                     </SelectContent>

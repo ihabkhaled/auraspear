@@ -3,7 +3,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { CardVariant } from '@/enums'
 import { WORKSPACE_ICON_MAP, WORKSPACE_VARIANT_CLASSES } from '@/lib/constants/connectors.constants'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { WorkspaceSummaryGridProps } from '@/types'
 
 export function WorkspaceSummaryGrid({ cards, loading }: WorkspaceSummaryGridProps) {
@@ -26,8 +26,8 @@ export function WorkspaceSummaryGrid({ cards, loading }: WorkspaceSummaryGridPro
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {cards.map(card => {
-        const IconComponent = card.icon ? WORKSPACE_ICON_MAP[card.icon] : undefined
-        const variantClass = WORKSPACE_VARIANT_CLASSES[card.variant ?? CardVariant.DEFAULT]
+        const IconComponent = card.icon ? lookup(WORKSPACE_ICON_MAP, card.icon) : undefined
+        const variantClass = lookup(WORKSPACE_VARIANT_CLASSES, card.variant ?? CardVariant.DEFAULT)
 
         return (
           <Card key={card.key}>

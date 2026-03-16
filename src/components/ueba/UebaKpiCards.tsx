@@ -1,7 +1,7 @@
 'use client'
 
 import { AlertTriangle, Brain, ShieldAlert, Users } from 'lucide-react'
-import { KPICard } from '@/components/common'
+import { KpiCard } from '@/components/common'
 import { useUebaKpiCards } from '@/hooks/useUebaKpiCards'
 import type { UebaKpiCardsProps } from '@/types'
 
@@ -12,31 +12,31 @@ export function UebaKpiCards({ stats }: UebaKpiCardsProps) {
 
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
-      <KPICard
+      <KpiCard
         label={t('kpiEntities')}
         value={totalEntities}
         icon={<Users className="h-5 w-5" />}
         accentColor="var(--primary)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiCritical')}
         value={criticalRisk}
         icon={<ShieldAlert className="h-5 w-5" />}
         accentColor="var(--severity-critical)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiHigh')}
         value={highRisk}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--severity-high)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiAnomalies')}
         value={anomalies24h}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--status-warning)"
       />
-      <KPICard
+      <KpiCard
         label={t('kpiModels')}
         value={activeModels}
         icon={<Brain className="h-5 w-5" />}

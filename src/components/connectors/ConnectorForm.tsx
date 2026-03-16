@@ -62,7 +62,7 @@ function SecretField({
 }
 
 function FieldError({ name, errors, tValidation }: FieldErrorProps) {
-  const error = errors[name]
+  const error = Reflect.get(errors, name) as { message?: string } | undefined
   if (!error?.message) return null
   const msg = String(error.message)
   const translated = tValidation.has(msg) ? tValidation(msg) : msg
@@ -99,7 +99,7 @@ export function ConnectorForm({
     <SecretField
       id={id}
       fieldDisabled={disabled}
-      isVisible={visibleSecrets[id] === true}
+      isVisible={Reflect.get(visibleSecrets, id) === true}
       onToggle={() => toggleSecret(id)}
       isRedacted={watch(id) === '***REDACTED***'}
       secretSavedLabel={secretSavedLabel}

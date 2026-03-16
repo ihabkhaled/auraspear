@@ -75,36 +75,42 @@ export default function CycleHistoryPage() {
         </button>
       )}
 
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : cycles.length === 0 ? (
-        <EmptyState
-          icon={<History className="h-6 w-6" />}
-          title={t('noCycles')}
-          description={t('noCyclesDescription')}
-        />
-      ) : (
-        <>
-          <CycleHistoryTable
-            cycles={cycles}
-            onCycleClick={handleCycleClick}
-            loading={isFetching}
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            onSort={handleSort}
-            showActions={isAdmin}
-            onEdit={handleEditClick}
-            onActivate={handleActivateCycle}
-            onClose={handleCloseCycle}
-            onDelete={handleDeleteCycle}
-          />
-          <Pagination
-            page={pagination.page}
-            totalPages={pagination.totalPages}
-            onPageChange={pagination.setPage}
-          />
-        </>
-      )}
+      {(() => {
+        if (isLoading) {
+          return <LoadingSpinner />
+        }
+        if (cycles.length === 0) {
+          return (
+            <EmptyState
+              icon={<History className="h-6 w-6" />}
+              title={t('noCycles')}
+              description={t('noCyclesDescription')}
+            />
+          )
+        }
+        return (
+          <>
+            <CycleHistoryTable
+              cycles={cycles}
+              onCycleClick={handleCycleClick}
+              loading={isFetching}
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSort={handleSort}
+              showActions={isAdmin}
+              onEdit={handleEditClick}
+              onActivate={handleActivateCycle}
+              onClose={handleCloseCycle}
+              onDelete={handleDeleteCycle}
+            />
+            <Pagination
+              page={pagination.page}
+              totalPages={pagination.totalPages}
+              onPageChange={pagination.setPage}
+            />
+          </>
+        )
+      })()}
 
       <CreateCycleDialog
         open={createDialogOpen}

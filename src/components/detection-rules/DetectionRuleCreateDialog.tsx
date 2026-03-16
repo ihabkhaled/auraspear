@@ -26,6 +26,7 @@ import {
   DETECTION_RULE_SEVERITY_LABEL_KEYS,
   DETECTION_RULE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/detection-rules'
+import { lookup } from '@/lib/utils'
 import type { DetectionRuleCreateDialogProps } from '@/types'
 
 export function DetectionRuleCreateDialog({
@@ -71,7 +72,7 @@ export function DetectionRuleCreateDialog({
                     <SelectContent>
                       {Object.values(DetectionRuleType).map(rt => (
                         <SelectItem key={rt} value={rt}>
-                          {t(DETECTION_RULE_TYPE_LABEL_KEYS[rt])}
+                          {t(lookup(DETECTION_RULE_TYPE_LABEL_KEYS, rt))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -93,7 +94,7 @@ export function DetectionRuleCreateDialog({
                     <SelectContent>
                       {Object.values(DetectionRuleSeverity).map(sev => (
                         <SelectItem key={sev} value={sev}>
-                          {t(DETECTION_RULE_SEVERITY_LABEL_KEYS[sev])}
+                          {t(lookup(DETECTION_RULE_SEVERITY_LABEL_KEYS, sev))}
                         </SelectItem>
                       ))}
                     </SelectContent>

@@ -15,7 +15,7 @@ import { CaseCycleStatus, CaseStatus } from '@/enums'
 import { useCaseDetailHeader } from '@/hooks'
 import { getAvailableTransitions, STATUS_VARIANT_MAP } from '@/lib/case.utils'
 import { CASE_STATUS_LABEL_KEYS, NO_CYCLE_VALUE, UNASSIGNED_VALUE } from '@/lib/constants/cases'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { CaseDetailHeaderProps } from '@/types'
 
 export function CaseDetailHeader({
@@ -40,8 +40,8 @@ export function CaseDetailHeader({
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
             <span className="text-muted-foreground font-mono text-sm">{caseItem.caseNumber}</span>
-            <Badge variant={STATUS_VARIANT_MAP[caseItem.status]} className="capitalize">
-              {t(CASE_STATUS_LABEL_KEYS[caseItem.status])}
+            <Badge variant={lookup(STATUS_VARIANT_MAP, caseItem.status)} className="capitalize">
+              {t(lookup(CASE_STATUS_LABEL_KEYS, caseItem.status))}
             </Badge>
             <SeverityBadge severity={caseItem.severity} />
           </div>
@@ -60,7 +60,7 @@ export function CaseDetailHeader({
               <SelectContent>
                 {availableTransitions.map(status => (
                   <SelectItem key={status} value={status}>
-                    {t(CASE_STATUS_LABEL_KEYS[status])}
+                    {t(lookup(CASE_STATUS_LABEL_KEYS, status))}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -19,6 +19,7 @@ import {
   RULE_STATUS_LABEL_KEYS,
   RULE_STATUS_CLASSES,
 } from '@/lib/constants/correlation'
+import { lookup } from '@/lib/utils'
 import type { CorrelationDetailPanelProps } from '@/types'
 
 export function CorrelationDetailPanel({
@@ -74,27 +75,27 @@ export function CorrelationDetailPanel({
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('fieldSource')}</p>
                 <span
-                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${RULE_SOURCE_CLASSES[rule.source] ?? ''}`}
+                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(RULE_SOURCE_CLASSES, rule.source) ?? ''}`}
                 >
-                  {t(RULE_SOURCE_LABEL_KEYS[rule.source] as 'sourceSigma')}
+                  {t(lookup(RULE_SOURCE_LABEL_KEYS, rule.source) as 'sourceSigma')}
                 </span>
               </div>
 
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('fieldSeverity')}</p>
                 <span
-                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${RULE_SEVERITY_CLASSES[rule.severity] ?? ''}`}
+                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(RULE_SEVERITY_CLASSES, rule.severity) ?? ''}`}
                 >
-                  {t(RULE_SEVERITY_LABEL_KEYS[rule.severity] as 'severityCritical')}
+                  {t(lookup(RULE_SEVERITY_LABEL_KEYS, rule.severity) as 'severityCritical')}
                 </span>
               </div>
 
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('fieldStatus')}</p>
                 <span
-                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${RULE_STATUS_CLASSES[rule.status] ?? ''}`}
+                  className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(RULE_STATUS_CLASSES, rule.status) ?? ''}`}
                 >
-                  {t(RULE_STATUS_LABEL_KEYS[rule.status] as 'statusActive')}
+                  {t(lookup(RULE_STATUS_LABEL_KEYS, rule.status) as 'statusActive')}
                 </span>
               </div>
             </div>

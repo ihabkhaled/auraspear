@@ -22,6 +22,7 @@ import {
 import { UebaEntityType } from '@/enums'
 import { useUebaEntityCreateDialog } from '@/hooks/useUebaEntityCreateDialog'
 import { UEBA_ENTITY_TYPE_LABEL_KEYS } from '@/lib/constants/ueba'
+import { lookup } from '@/lib/utils'
 import type { UebaEntityCreateDialogProps } from '@/types'
 
 export function UebaEntityCreateDialog({
@@ -68,7 +69,7 @@ export function UebaEntityCreateDialog({
                   <SelectContent>
                     {Object.values(UebaEntityType).map(type => (
                       <SelectItem key={type} value={type}>
-                        {t(UEBA_ENTITY_TYPE_LABEL_KEYS[type])}
+                        {t(lookup(UEBA_ENTITY_TYPE_LABEL_KEYS, type))}
                       </SelectItem>
                     ))}
                   </SelectContent>

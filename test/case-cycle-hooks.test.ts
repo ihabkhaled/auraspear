@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
-
 // Mock the services module before importing hooks
 vi.mock('@/services', () => ({
   caseCycleService: {
@@ -14,7 +13,6 @@ vi.mock('@/services', () => ({
     getOrphanedStats: vi.fn(),
   },
 }))
-
 // Mock @tanstack/react-query to capture mutation/query configs
 const mockInvalidateQueries = vi.fn()
 vi.mock('@tanstack/react-query', () => {
@@ -39,7 +37,6 @@ vi.mock('@tanstack/react-query', () => {
     }),
   }
 })
-
 import { useUpdateCaseCycle, useActivateCaseCycle, useDeleteCaseCycle } from '@/hooks/useCaseCycles'
 import { caseCycleService } from '@/services'
 

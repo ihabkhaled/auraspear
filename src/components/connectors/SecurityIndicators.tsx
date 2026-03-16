@@ -5,11 +5,12 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useSecurityIndicators } from '@/hooks/useSecurityIndicators'
 import { SECURITY_POSTURE } from '@/lib/constants/connectors.constants'
+import { lookup } from '@/lib/utils'
 import type { SecurityIndicatorsProps } from '@/types'
 
 export function SecurityIndicators({ type }: SecurityIndicatorsProps) {
   const { t } = useSecurityIndicators()
-  const posture = SECURITY_POSTURE[type]
+  const posture = lookup(SECURITY_POSTURE, type)
 
   const indicators = [
     { label: t('mTLS'), enabled: posture.mTLS, icon: Shield },

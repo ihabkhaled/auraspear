@@ -4,6 +4,7 @@ import { Play, RefreshCw, Workflow, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useWorkspaceActionsPanel } from '@/hooks/useWorkspaceActionsPanel'
+import { lookup } from '@/lib/utils'
 import type { WorkspaceActionsPanelProps } from '@/types'
 import type { LucideIcon } from 'lucide-react'
 
@@ -33,7 +34,9 @@ export function WorkspaceActionsPanel({
         ) : (
           <div className="space-y-2">
             {actions.map(action => {
-              const IconComponent = action.icon ? (ACTION_ICON_MAP[action.icon] ?? Zap) : Zap
+              const IconComponent = action.icon
+                ? (lookup(ACTION_ICON_MAP, action.icon) ?? Zap)
+                : Zap
 
               return (
                 <Button

@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ComplianceStandard } from '@/enums'
 import { useComplianceEditDialog } from '@/hooks/useComplianceEditDialog'
 import { COMPLIANCE_STANDARD_LABEL_KEYS } from '@/lib/constants/compliance'
+import { lookup } from '@/lib/utils'
 import type { ComplianceEditDialogProps } from '@/types'
 
 export function ComplianceFrameworkEditDialog({
@@ -72,7 +73,7 @@ export function ComplianceFrameworkEditDialog({
                   <SelectContent>
                     {Object.values(ComplianceStandard).map(standard => (
                       <SelectItem key={standard} value={standard}>
-                        {t(COMPLIANCE_STANDARD_LABEL_KEYS[standard])}
+                        {t(lookup(COMPLIANCE_STANDARD_LABEL_KEYS, standard))}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -9,6 +9,7 @@ import {
   RULE_STATUS_LABEL_KEYS,
   RULE_STATUS_CLASSES,
 } from '@/lib/constants/correlation'
+import { lookup } from '@/lib/utils'
 import type { Column, CorrelationRule } from '@/types'
 
 interface CorrelationColumnTranslations {
@@ -29,8 +30,8 @@ export function getCorrelationColumns(t: CorrelationColumnTranslations): Column<
       className: 'w-28',
       render: (value: unknown) => {
         const src = value as RuleSource
-        const labelKey = RULE_SOURCE_LABEL_KEYS[src]
-        const className = RULE_SOURCE_CLASSES[src]
+        const labelKey = lookup(RULE_SOURCE_LABEL_KEYS, src)
+        const className = lookup(RULE_SOURCE_CLASSES, src)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}
@@ -70,8 +71,8 @@ export function getCorrelationColumns(t: CorrelationColumnTranslations): Column<
       className: 'w-24',
       render: (value: unknown) => {
         const sev = value as keyof typeof RULE_SEVERITY_LABEL_KEYS
-        const labelKey = RULE_SEVERITY_LABEL_KEYS[sev]
-        const className = RULE_SEVERITY_CLASSES[sev]
+        const labelKey = lookup(RULE_SEVERITY_LABEL_KEYS, sev)
+        const className = lookup(RULE_SEVERITY_CLASSES, sev)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}
@@ -87,8 +88,8 @@ export function getCorrelationColumns(t: CorrelationColumnTranslations): Column<
       className: 'w-24',
       render: (value: unknown) => {
         const st = value as keyof typeof RULE_STATUS_LABEL_KEYS
-        const labelKey = RULE_STATUS_LABEL_KEYS[st]
-        const className = RULE_STATUS_CLASSES[st]
+        const labelKey = lookup(RULE_STATUS_LABEL_KEYS, st)
+        const className = lookup(RULE_STATUS_CLASSES, st)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}

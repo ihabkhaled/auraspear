@@ -4,7 +4,7 @@ import { getTagClasses } from '@/lib/intel-utils'
 import { cn } from '@/lib/utils'
 import type { MISPTagPillProps } from '@/types'
 
-export function MISPTagPill({ name }: MISPTagPillProps) {
+export function MispTagPill({ name }: MISPTagPillProps) {
   return (
     <span
       className={cn(

@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, beforeEach, afterEach, type Mock } from 'vitest'
-
 // Mock the api module before importing any service
 vi.mock('@/lib/api', () => ({
   default: {
@@ -10,7 +9,6 @@ vi.mock('@/lib/api', () => ({
     put: vi.fn(),
   },
 }))
-
 // Mock the services module before importing hooks
 vi.mock('@/services', () => ({
   explorerService: {
@@ -35,14 +33,12 @@ vi.mock('@/services', () => ({
     triggerSync: vi.fn(),
   },
 }))
-
 // Mock the tenant store
 vi.mock('@/stores', () => ({
   useTenantStore: vi.fn((selector: (s: { currentTenantId: string | null }) => unknown) =>
     selector({ currentTenantId: 'test-tenant-id' })
   ),
 }))
-
 // Mock @tanstack/react-query to capture mutation/query configs
 const mockInvalidateQueries = vi.fn()
 vi.mock('@tanstack/react-query', () => {
@@ -66,7 +62,6 @@ vi.mock('@tanstack/react-query', () => {
     }),
   }
 })
-
 import {
   useExplorerOverview,
   useGraylogLogs,

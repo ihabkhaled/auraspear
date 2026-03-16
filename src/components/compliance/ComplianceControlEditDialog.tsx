@@ -22,6 +22,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ComplianceControlStatus } from '@/enums'
 import { useComplianceControlEdit } from '@/hooks/useComplianceControlEdit'
 import { COMPLIANCE_CONTROL_STATUS_LABEL_KEYS } from '@/lib/constants/compliance'
+import { lookup } from '@/lib/utils'
 import type { ComplianceControlEditDialogProps } from '@/types'
 
 export function ComplianceControlEditDialog({
@@ -58,7 +59,7 @@ export function ComplianceControlEditDialog({
                   <SelectContent>
                     {Object.values(ComplianceControlStatus).map(status => (
                       <SelectItem key={status} value={status}>
-                        {t(COMPLIANCE_CONTROL_STATUS_LABEL_KEYS[status])}
+                        {t(lookup(COMPLIANCE_CONTROL_STATUS_LABEL_KEYS, status))}
                       </SelectItem>
                     ))}
                   </SelectContent>

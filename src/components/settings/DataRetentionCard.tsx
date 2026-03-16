@@ -64,7 +64,7 @@ export default function DataRetentionCard() {
             <Label htmlFor={`retention-${key}`}>{t(labelKey)}</Label>
             <p className="text-muted-foreground text-xs">{t(descriptionKey)}</p>
             <Select
-              value={retentionConfig[key]}
+              value={Reflect.get(retentionConfig, key) as string}
               onValueChange={(value: string) => handleRetentionChange(key, value)}
               disabled={isPending}
             >

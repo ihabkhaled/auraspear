@@ -1,4 +1,5 @@
-import { CheckCircle, XCircle } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { CheckCircle2, XCircle, WifiOff } from 'lucide-react'
 import { IntegrationStatus } from '@/enums'
 
 /**
@@ -16,17 +17,15 @@ export function getStatusBorderClass(status: IntegrationStatus): string {
 }
 
 /**
- * Returns a JSX icon element for the given integration status.
+ * Returns a status icon element for the given integration status.
  */
-export function getStatusIcon(status: IntegrationStatus) {
+export function getStatusIcon(status: IntegrationStatus): ReactNode {
   switch (status) {
     case IntegrationStatus.CONNECTED:
-      return <CheckCircle className="text-status-success h-4 w-4" />
-    case IntegrationStatus.DISCONNECTED:
-      return <XCircle className="text-status-neutral h-4 w-4" />
+      return <CheckCircle2 className="text-status-success h-4 w-4 shrink-0" />
     case IntegrationStatus.ERROR:
-      return <XCircle className="text-status-error h-4 w-4" />
+      return <XCircle className="text-status-error h-4 w-4 shrink-0" />
     default:
-      return <XCircle className="text-status-neutral h-4 w-4" />
+      return <WifiOff className="text-muted-foreground h-4 w-4 shrink-0" />
   }
 }

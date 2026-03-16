@@ -22,6 +22,7 @@ import {
 import { CloudProvider } from '@/enums'
 import { useCloudAccountCreateDialog } from '@/hooks/useCloudAccountCreateDialog'
 import { CLOUD_PROVIDER_LABEL_KEYS } from '@/lib/constants/cloud-security'
+import { lookup } from '@/lib/utils'
 import type { CloudAccountCreateDialogProps } from '@/types'
 
 export function CloudAccountCreateDialog({
@@ -55,7 +56,7 @@ export function CloudAccountCreateDialog({
                   <SelectContent>
                     {Object.values(CloudProvider).map(provider => (
                       <SelectItem key={provider} value={provider}>
-                        {t(CLOUD_PROVIDER_LABEL_KEYS[provider])}
+                        {t(lookup(CLOUD_PROVIDER_LABEL_KEYS, provider))}
                       </SelectItem>
                     ))}
                   </SelectContent>

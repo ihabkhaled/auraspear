@@ -19,7 +19,7 @@ import {
   INCIDENT_STATUS_CLASSES,
   INCIDENT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/incidents'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { IncidentDetailPanelProps } from '@/types'
 import { IncidentTimeline } from './IncidentTimeline'
 
@@ -44,21 +44,21 @@ export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDe
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium',
-                    INCIDENT_SEVERITY_CLASSES[incident.severity as IncidentSeverity]
+                    lookup(INCIDENT_SEVERITY_CLASSES, incident.severity as IncidentSeverity)
                   )}
                 >
-                  {t(INCIDENT_SEVERITY_LABEL_KEYS[incident.severity as IncidentSeverity])}
+                  {t(lookup(INCIDENT_SEVERITY_LABEL_KEYS, incident.severity as IncidentSeverity))}
                 </span>
                 <span
                   className={cn(
                     'inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium',
-                    INCIDENT_STATUS_CLASSES[incident.status as IncidentStatus]
+                    lookup(INCIDENT_STATUS_CLASSES, incident.status as IncidentStatus)
                   )}
                 >
-                  {t(INCIDENT_STATUS_LABEL_KEYS[incident.status as IncidentStatus])}
+                  {t(lookup(INCIDENT_STATUS_LABEL_KEYS, incident.status as IncidentStatus))}
                 </span>
                 <span className="text-muted-foreground inline-flex items-center text-xs capitalize">
-                  {t(INCIDENT_CATEGORY_LABEL_KEYS[incident.category as IncidentCategory])}
+                  {t(lookup(INCIDENT_CATEGORY_LABEL_KEYS, incident.category as IncidentCategory))}
                 </span>
               </div>
 

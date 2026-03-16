@@ -28,6 +28,7 @@ import {
   INCIDENT_STATUS_LABEL_KEYS,
   INCIDENT_VALID_TRANSITIONS,
 } from '@/lib/constants/incidents'
+import { lookup } from '@/lib/utils'
 import type { IncidentEditDialogProps } from '@/types'
 
 export function IncidentEditDialog({
@@ -100,7 +101,7 @@ export function IncidentEditDialog({
                     <SelectContent>
                       {Object.values(IncidentSeverity).map(sev => (
                         <SelectItem key={sev} value={sev}>
-                          {t(INCIDENT_SEVERITY_LABEL_KEYS[sev])}
+                          {t(lookup(INCIDENT_SEVERITY_LABEL_KEYS, sev))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -122,7 +123,7 @@ export function IncidentEditDialog({
                     <SelectContent>
                       {Object.values(IncidentCategory).map(cat => (
                         <SelectItem key={cat} value={cat}>
-                          {t(INCIDENT_CATEGORY_LABEL_KEYS[cat])}
+                          {t(lookup(INCIDENT_CATEGORY_LABEL_KEYS, cat))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -145,7 +146,7 @@ export function IncidentEditDialog({
                   <SelectContent>
                     {statusOptions.map(status => (
                       <SelectItem key={status} value={status}>
-                        {t(INCIDENT_STATUS_LABEL_KEYS[status])}
+                        {t(lookup(INCIDENT_STATUS_LABEL_KEYS, status))}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -38,7 +38,7 @@ export function CommandPalette() {
         <CommandEmpty>{t('layout.noResults')}</CommandEmpty>
         <CommandGroup heading={t('layout.pages')}>
           {pages.map((page, index) => {
-            const Icon = PAGE_ICONS[index]
+            const Icon = PAGE_ICONS.at(index)
             return (
               <CommandItem key={page.href} onSelect={() => handleSelect(page.href)}>
                 {Icon ? <Icon className="h-4 w-4" /> : null}

@@ -23,6 +23,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { ServiceType } from '@/enums'
 import { useSystemHealthCreateDialog } from '@/hooks/useSystemHealthCreateDialog'
 import { SERVICE_TYPE_LABEL_KEYS } from '@/lib/constants/system-health'
+import { lookup } from '@/lib/utils'
 import type { SystemHealthCreateDialogProps } from '@/types'
 
 export function SystemHealthCreateDialog({
@@ -69,7 +70,7 @@ export function SystemHealthCreateDialog({
                   <SelectContent>
                     {Object.values(ServiceType).map(svc => (
                       <SelectItem key={svc} value={svc}>
-                        {t(SERVICE_TYPE_LABEL_KEYS[svc])}
+                        {t(lookup(SERVICE_TYPE_LABEL_KEYS, svc))}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -13,7 +13,7 @@ import {
   DETECTION_RULE_STATUS_LABEL_KEYS,
   DETECTION_RULE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/detection-rules'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, DetectionRule } from '@/types'
 
 interface DetectionRuleColumnTranslations {
@@ -40,7 +40,7 @@ export function getDetectionRuleColumns(
       sortable: true,
       render: (value: unknown) => {
         const ruleType = value as DetectionRuleType
-        const labelKey = DETECTION_RULE_TYPE_LABEL_KEYS[ruleType]
+        const labelKey = lookup(DETECTION_RULE_TYPE_LABEL_KEYS, ruleType)
         return (
           <span className="text-muted-foreground text-xs">
             {labelKey ? t.detectionRules(labelKey) : String(value)}
@@ -54,12 +54,12 @@ export function getDetectionRuleColumns(
       sortable: true,
       render: (value: unknown) => {
         const sev = value as DetectionRuleSeverity
-        const labelKey = DETECTION_RULE_SEVERITY_LABEL_KEYS[sev]
+        const labelKey = lookup(DETECTION_RULE_SEVERITY_LABEL_KEYS, sev)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              DETECTION_RULE_SEVERITY_CLASSES[sev]
+              lookup(DETECTION_RULE_SEVERITY_CLASSES, sev)
             )}
           >
             {labelKey ? t.detectionRules(labelKey) : String(value)}
@@ -73,12 +73,12 @@ export function getDetectionRuleColumns(
       sortable: true,
       render: (value: unknown) => {
         const status = value as DetectionRuleStatus
-        const labelKey = DETECTION_RULE_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(DETECTION_RULE_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              DETECTION_RULE_STATUS_CLASSES[status]
+              lookup(DETECTION_RULE_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.detectionRules(labelKey) : String(value)}
@@ -99,7 +99,7 @@ export function getDetectionRuleColumns(
       label: t.detectionRules('columnMitre'),
       render: (value: unknown) => {
         const techniques = Array.isArray(value) ? (value as string[]) : []
-        const first = techniques[0]
+        const first = techniques.at(0)
         if (!first) {
           return <span className="text-muted-foreground text-xs">-</span>
         }

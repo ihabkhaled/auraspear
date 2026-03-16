@@ -10,6 +10,7 @@ import {
   CONNECTOR_META,
 } from '@/lib/constants/connectors.constants'
 import { hasRole } from '@/lib/roles'
+import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import {
   useConnector,
@@ -39,8 +40,8 @@ export function useConnectorDetailPage(rawType: string) {
 
   const isValidType = isConnectorType(rawType)
   const validType = isValidType ? (rawType as ConnectorType) : undefined
-  const meta = validType ? CONNECTOR_META[validType] : undefined
-  const Icon = validType ? CONNECTOR_ICONS[validType] : undefined
+  const meta = validType ? lookup(CONNECTOR_META, validType) : undefined
+  const Icon = validType ? lookup(CONNECTOR_ICONS, validType) : undefined
 
   const handleTest = () => {
     if (!isValidType || !meta) return

@@ -1,5 +1,4 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
-
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
@@ -8,7 +7,6 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-
 import api from '@/lib/api'
 import { normalizationService } from '@/services/normalization.service'
 
@@ -139,7 +137,7 @@ describe('normalizationService', () => {
 
       const result = await normalizationService.getStats()
 
-      expect(mockGet).toHaveBeenCalledWith('/normalization/stats')
+      expect(mockGet).toHaveBeenCalledWith('/normalization/pipelines/stats')
       expect(result).toEqual({ data: stats })
     })
 

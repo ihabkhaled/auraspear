@@ -13,7 +13,7 @@ import {
   INCIDENT_STATUS_CLASSES,
   INCIDENT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/incidents'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, Incident } from '@/types'
 
 interface IncidentColumnTranslations {
@@ -37,12 +37,12 @@ export function getIncidentColumns(t: IncidentColumnTranslations): Column<Incide
       sortable: true,
       render: (value: unknown) => {
         const sev = value as IncidentSeverity
-        const labelKey = INCIDENT_SEVERITY_LABEL_KEYS[sev]
+        const labelKey = lookup(INCIDENT_SEVERITY_LABEL_KEYS, sev)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              INCIDENT_SEVERITY_CLASSES[sev]
+              lookup(INCIDENT_SEVERITY_CLASSES, sev)
             )}
           >
             {labelKey ? t.incidents(labelKey) : String(value)}
@@ -64,7 +64,7 @@ export function getIncidentColumns(t: IncidentColumnTranslations): Column<Incide
       sortable: true,
       render: (value: unknown) => {
         const cat = value as IncidentCategory
-        const labelKey = INCIDENT_CATEGORY_LABEL_KEYS[cat]
+        const labelKey = lookup(INCIDENT_CATEGORY_LABEL_KEYS, cat)
         return (
           <span className="text-muted-foreground text-xs capitalize">
             {labelKey ? t.incidents(labelKey) : String(value)}
@@ -78,12 +78,12 @@ export function getIncidentColumns(t: IncidentColumnTranslations): Column<Incide
       sortable: true,
       render: (value: unknown) => {
         const status = value as IncidentStatus
-        const labelKey = INCIDENT_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(INCIDENT_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              INCIDENT_STATUS_CLASSES[status]
+              lookup(INCIDENT_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t.incidents(labelKey) : String(value)}
@@ -103,7 +103,7 @@ export function getIncidentColumns(t: IncidentColumnTranslations): Column<Incide
       label: t.incidents('columnMitre'),
       render: (value: unknown) => {
         const techniques = value as string[]
-        const first = techniques[0]
+        const first = techniques.at(0)
         if (!first) {
           return <span className="text-muted-foreground text-xs">-</span>
         }

@@ -7,7 +7,7 @@ import {
   UEBA_RISK_LEVEL_LABEL_KEYS,
   UEBA_RISK_LEVEL_CLASSES,
 } from '@/lib/constants/ueba'
-import { formatDate } from '@/lib/utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { UebaEntity, Column } from '@/types'
 
 interface UebaColumnTranslations {
@@ -28,8 +28,8 @@ export function getUebaColumns(t: UebaColumnTranslations): Column<UebaEntity>[] 
       className: 'w-28',
       render: (value: unknown) => {
         const entityType = value as UebaEntityType
-        const labelKey = UEBA_ENTITY_TYPE_LABEL_KEYS[entityType]
-        const className = UEBA_ENTITY_TYPE_CLASSES[entityType]
+        const labelKey = lookup(UEBA_ENTITY_TYPE_LABEL_KEYS, entityType)
+        const className = lookup(UEBA_ENTITY_TYPE_CLASSES, entityType)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}
@@ -54,8 +54,8 @@ export function getUebaColumns(t: UebaColumnTranslations): Column<UebaEntity>[] 
       className: 'w-24',
       render: (value: unknown) => {
         const level = value as UebaRiskLevel
-        const labelKey = UEBA_RISK_LEVEL_LABEL_KEYS[level]
-        const className = UEBA_RISK_LEVEL_CLASSES[level]
+        const labelKey = lookup(UEBA_RISK_LEVEL_LABEL_KEYS, level)
+        const className = lookup(UEBA_RISK_LEVEL_CLASSES, level)
         return (
           <span
             className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${className ?? ''}`}

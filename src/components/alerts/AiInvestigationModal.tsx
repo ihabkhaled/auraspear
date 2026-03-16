@@ -11,17 +11,17 @@ import {
 import { Progress } from '@/components/ui/progress'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
-import { useAIInvestigationModal } from '@/hooks'
+import { useAiInvestigationModal } from '@/hooks'
 import { getConfidenceColor } from '@/lib/alert.utils'
 import { cn } from '@/lib/utils'
 import type { AIInvestigationModalProps } from '@/types'
 
-export function AIInvestigationModal({
+export function AiInvestigationModal({
   investigation,
   open,
   onOpenChange,
 }: AIInvestigationModalProps) {
-  const { t } = useAIInvestigationModal()
+  const { t } = useAiInvestigationModal()
 
   if (!investigation) {
     return null

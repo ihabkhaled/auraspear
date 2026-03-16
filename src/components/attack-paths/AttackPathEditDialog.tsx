@@ -26,6 +26,7 @@ import {
   ATTACK_PATH_SEVERITY_LABEL_KEYS,
   ATTACK_PATH_STATUS_LABEL_KEYS,
 } from '@/lib/constants/attack-paths'
+import { lookup } from '@/lib/utils'
 import type { AttackPathEditDialogProps } from '@/types'
 import { AttackPathStageEditor } from './AttackPathStageEditor'
 
@@ -97,7 +98,7 @@ export function AttackPathEditDialog({
                     <SelectContent>
                       {Object.values(AttackPathSeverity).map(severity => (
                         <SelectItem key={severity} value={severity}>
-                          {t(ATTACK_PATH_SEVERITY_LABEL_KEYS[severity])}
+                          {t(lookup(ATTACK_PATH_SEVERITY_LABEL_KEYS, severity))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -122,7 +123,7 @@ export function AttackPathEditDialog({
                     <SelectContent>
                       {Object.values(AttackPathStatus).map(status => (
                         <SelectItem key={status} value={status}>
-                          {t(ATTACK_PATH_STATUS_LABEL_KEYS[status])}
+                          {t(lookup(ATTACK_PATH_STATUS_LABEL_KEYS, status))}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -145,9 +146,9 @@ export function AttackPathEditDialog({
                 onMoveDown={handleMoveStageDown}
                 onStageChange={(idx, key, value) => {
                   const updated = [...field.value]
-                  const current = updated[idx]
+                  const current = updated.at(idx)
                   if (current) {
-                    updated[idx] = { ...current, [key]: value }
+                    updated.splice(idx, 1, { ...current, [key]: value })
                     field.onChange(updated)
                   }
                 }}

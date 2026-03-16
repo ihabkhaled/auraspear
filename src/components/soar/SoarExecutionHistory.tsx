@@ -7,7 +7,7 @@ import {
   SOAR_EXECUTION_STATUS_CLASSES,
   SOAR_EXECUTION_STATUS_LABEL_KEYS,
 } from '@/lib/constants/soar'
-import { formatRelativeTime, cn } from '@/lib/utils'
+import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { Column, SoarExecution, SoarExecutionHistoryProps } from '@/types'
 
 export function SoarExecutionHistory({ playbookId }: SoarExecutionHistoryProps) {
@@ -19,12 +19,12 @@ export function SoarExecutionHistory({ playbookId }: SoarExecutionHistoryProps) 
       label: t('execColumnStatus'),
       render: (value: unknown) => {
         const status = value as SoarExecutionStatus
-        const labelKey = SOAR_EXECUTION_STATUS_LABEL_KEYS[status]
+        const labelKey = lookup(SOAR_EXECUTION_STATUS_LABEL_KEYS, status)
         return (
           <span
             className={cn(
               'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-              SOAR_EXECUTION_STATUS_CLASSES[status]
+              lookup(SOAR_EXECUTION_STATUS_CLASSES, status)
             )}
           >
             {labelKey ? t(labelKey) : String(value)}

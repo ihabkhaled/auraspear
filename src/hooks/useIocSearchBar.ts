@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import type { IOCSearchBarProps } from '@/types'
 
-type UseIOCSearchBarParams = Pick<IOCSearchBarProps, 'onSearch'>
+type UseIocSearchBarParams = Pick<IOCSearchBarProps, 'onSearch'>
 
-export function useIOCSearchBar({ onSearch }: UseIOCSearchBarParams) {
+export function useIocSearchBar({ onSearch }: UseIocSearchBarParams) {
   const t = useTranslations('intel')
   const [query, setQuery] = useState('')
   const [type, setType] = useState('all')

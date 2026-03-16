@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ConnectorStatus } from '@/enums'
 import { useWorkspaceHeader } from '@/hooks/useWorkspaceHeader'
-import { cn, formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceHeaderProps } from '@/types'
 
 const STATUS_CLASSES: Record<string, string> = {
@@ -40,7 +40,7 @@ export function WorkspaceHeader({
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold">{name}</h1>
-            <Badge variant="outline" className={cn('text-[10px]', STATUS_CLASSES[status])}>
+            <Badge variant="outline" className={cn('text-[10px]', lookup(STATUS_CLASSES, status))}>
               {status}
             </Badge>
           </div>
