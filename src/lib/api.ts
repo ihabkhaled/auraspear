@@ -4,6 +4,9 @@ import type { AuthStorageState, RefreshResponse, TenantStorageState } from '@/ty
 
 const API_BASE_URL = process.env['NEXT_PUBLIC_API_URL'] ?? '/api'
 
+/** Timeout for token refresh requests (10 seconds) */
+const REFRESH_TIMEOUT_MS = 10_000
+
 interface RetryableRequest extends InternalAxiosRequestConfig {
   _retry?: boolean
 }
@@ -50,6 +53,11 @@ function getAuthState(): { accessToken: string; refreshToken: string; tenantId: 
   }
 }
 
+/**
+ * Updates tokens in both localStorage AND Zustand store to prevent stale state.
+ * The Zustand persist middleware will pick up the localStorage change,
+ * but we also trigger a storage event to ensure cross-tab sync.
+ */
 function updateStoredTokens(accessToken: string, refreshToken: string): void {
   if (typeof window === 'undefined') return
 
@@ -63,6 +71,15 @@ function updateStoredTokens(accessToken: string, refreshToken: string): void {
       parsed.state.refreshToken = refreshToken
       parsed.state.isAuthenticated = true
       localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(parsed))
+
+      // Dispatch a storage event so Zustand's persist middleware re-syncs.
+      // This ensures the in-memory store picks up the new tokens immediately.
+      window.dispatchEvent(
+        new StorageEvent('storage', {
+          key: AUTH_STORAGE_KEY,
+          newValue: JSON.stringify(parsed),
+        })
+      )
     }
   } catch {
     // storage corrupted — will be cleared on redirect
@@ -76,13 +93,12 @@ function clearAuthAndRedirect(): void {
   window.location.href = '/login'
 }
 
-function processQueue(error: unknown): void {
+function processQueue(error: unknown, newAccessToken?: string): void {
   for (const item of failedQueue) {
     if (error) {
       item.reject(error)
-    } else {
-      const { accessToken } = getAuthState()
-      item.config.headers['Authorization'] = `Bearer ${accessToken}`
+    } else if (newAccessToken) {
+      item.config.headers['Authorization'] = `Bearer ${newAccessToken}`
       item.resolve(item.config)
     }
   }
@@ -110,14 +126,17 @@ async function attemptTokenRefresh(originalRequest: RetryableRequest): Promise<R
     const response = await axios.post<RefreshResponse>(
       `${API_BASE_URL}/auth/refresh`,
       { refreshToken },
-      { headers: { 'Content-Type': 'application/json' } }
+      {
+        headers: { 'Content-Type': 'application/json' },
+        timeout: REFRESH_TIMEOUT_MS,
+      }
     )
 
     const { accessToken: newAccessToken, refreshToken: newRefreshToken } = response.data
     updateStoredTokens(newAccessToken, newRefreshToken)
 
     originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`
-    processQueue(null)
+    processQueue(null, newAccessToken)
     return originalRequest
   } catch (refreshError) {
     processQueue(refreshError)

@@ -97,3 +97,8 @@ export interface UseNormalizationDetailPanelParams {
   onEdit?: NormalizationDetailPanelProps['onEdit']
   onDelete?: NormalizationDetailPanelProps['onDelete']
 }
+
+export interface NormalizationColumnTranslations {
+  normalization: (key: string) => string
+  common: (key: string) => string
+}

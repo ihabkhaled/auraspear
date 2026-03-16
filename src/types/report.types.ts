@@ -94,3 +94,8 @@ export interface ReportFiltersProps {
 export interface ReportKpiCardsProps {
   stats: ReportStats | undefined
 }
+
+export interface ReportColumnTranslations {
+  reports: (key: string) => string
+  common: (key: string) => string
+}

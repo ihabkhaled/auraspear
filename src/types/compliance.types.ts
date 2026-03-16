@@ -121,3 +121,8 @@ export interface ComplianceFiltersProps {
 export interface ComplianceKpiCardsProps {
   stats: ComplianceStats | undefined
 }
+
+export interface ComplianceColumnTranslations {
+  compliance: (key: string) => string
+  common: (key: string) => string
+}

@@ -11,7 +11,7 @@ import type { AppLogDetailDialogProps } from '@/types'
 function DetailRow({ label, value }: { label: string; value: string | null | undefined }) {
   if (!value) return null
   return (
-    <div className="border-border grid grid-cols-3 gap-2 border-b py-2 text-sm">
+    <div className="border-border grid grid-cols-1 gap-2 border-b py-2 text-sm sm:grid-cols-3">
       <span className="text-muted-foreground font-medium">{label}</span>
       <span className="col-span-2 font-mono text-xs break-all">{value}</span>
     </div>

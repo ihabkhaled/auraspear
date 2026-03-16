@@ -140,3 +140,11 @@ export interface AiAgentFiltersProps {
   onTierChange: (value: string) => void
   onCreateClick: () => void
 }
+
+export interface AiAgentColumnTranslations {
+  aiAgents: (key: string) => string
+}
+
+export interface SessionColumnTranslations {
+  (key: string): string
+}

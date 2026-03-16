@@ -7,12 +7,7 @@ import {
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
 import { cn, formatRelativeTime, lookup } from '@/lib/utils'
-import type { CloudAccount, Column } from '@/types'
-
-interface CloudSecurityColumnTranslations {
-  cloudSecurity: (key: string) => string
-  common: (key: string) => string
-}
+import type { CloudAccount, CloudSecurityColumnTranslations, Column } from '@/types'
 
 export function getCloudSecurityColumns(
   t: CloudSecurityColumnTranslations

@@ -1,10 +1,6 @@
 'use client'
 
-import type { AiAgentSession, Column } from '@/types'
-
-interface SessionColumnTranslations {
-  (key: string): string
-}
+import type { AiAgentSession, Column, SessionColumnTranslations } from '@/types'
 
 export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<AiAgentSession>[] {
   return [

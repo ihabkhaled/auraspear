@@ -418,7 +418,11 @@
       "editAction": "Editar",
       "deleteAction": "Eliminar",
       "posting": "Publicando..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "Hash",
+    "artifactTypeDomain": "Dominio",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "Inteligencia de Amenazas",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "Este artefacto ya existe en este caso",
       "artifactNotFound": "Artefacto no encontrado",
       "invalidMentionedUsers": "Uno o más usuarios mencionados no son miembros activos de este inquilino.",
-      "cannotMentionSelf": "No puedes mencionarte a ti mismo en un comentario."
+      "cannotMentionSelf": "No puedes mencionarte a ti mismo en un comentario.",
+      "commentDeleteNotAllowed": "No tienes permiso para eliminar este comentario.",
+      "commentEditNotAllowed": "No tienes permiso para editar este comentario.",
+      "commentNotFound": "Comentario no encontrado.",
+      "invalidCycle": "El ciclo especificado no es válido o no está activo."
     },
     "caseCycles": {
       "notFound": "Ciclo de casos no encontrado.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "Este conector no está configurado o está deshabilitado.",
       "connectorUnavailable": "El servicio externo no está disponible actualmente. Verifique que el servicio esté en ejecución y que la configuración del conector sea correcta.",
       "syncFailed": "No se pudo conectar al servicio externo. Verifique la configuración del conector y que el servicio sea accesible."
+    },
+    "attackPaths": {
+      "notFound": "Ruta de ataque no encontrada."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "Cuenta en la nube no encontrada."
+    },
+    "compliance": {
+      "controlNotFound": "Control de cumplimiento no encontrado.",
+      "frameworkAlreadyExists": "Ya existe un marco de cumplimiento con este nombre.",
+      "frameworkNotFound": "Marco de cumplimiento no encontrado."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "Esta acción no está permitida para este conector.",
+      "notConfigured": "El espacio de trabajo del conector no está configurado.",
+      "unsupportedType": "Este tipo de conector no admite espacios de trabajo."
+    },
+    "correlation": {
+      "notFound": "Regla de correlación no encontrada."
+    },
+    "detectionRules": {
+      "notFound": "Regla de detección no encontrada."
+    },
+    "incidents": {
+      "alreadyClosed": "Este incidente ya está cerrado.",
+      "invalidAssignee": "El usuario asignado no es un miembro activo de este inquilino.",
+      "invalidLinkedAlerts": "Una o más alertas vinculadas no pertenecen a este inquilino.",
+      "invalidLinkedCase": "El caso vinculado no pertenece a este inquilino.",
+      "notFound": "Incidente no encontrado."
+    },
+    "normalization": {
+      "notFound": "Pipeline de normalización no encontrado.",
+      "pipelineAlreadyExists": "Ya existe un pipeline con este nombre."
+    },
+    "notifications": {
+      "notFound": "Notificación no encontrada."
+    },
+    "reports": {
+      "notFound": "Informe no encontrado."
+    },
+    "soar": {
+      "playbookAlreadyExists": "Ya existe un playbook con este nombre.",
+      "playbookNotActive": "El playbook no está activo y no se puede ejecutar.",
+      "playbookNotFound": "Playbook no encontrado."
+    },
+    "ueba": {
+      "anomalyNotFound": "Anomalía no encontrada.",
+      "entityAlreadyExists": "Ya existe una entidad con este nombre.",
+      "entityNotFound": "Entidad no encontrada."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "Ya existe una vulnerabilidad con este ID de CVE.",
+      "notFound": "Vulnerabilidad no encontrada."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "Recibir notificaciones para alertas de gravedad alta",
     "caseAssignments": "Asignaciones de casos",
     "caseAssignmentsDescription": "Recibir notificacion cuando se te asigne un caso",
+    "caseUpdates": "Actualizaciones de casos",
+    "caseUpdatesDescription": "Recibir notificaciones cuando cambia el estado o los campos de un caso",
+    "caseComments": "Comentarios y menciones",
+    "caseCommentsDescription": "Recibir notificaciones cuando alguien comenta en tu caso o te menciona",
+    "caseActivity": "Actividad de casos",
+    "caseActivityDescription": "Recibir notificaciones cuando se agregan tareas o artefactos a tus casos",
     "incidentUpdates": "Actualizaciones de incidentes",
     "incidentUpdatesDescription": "Recibir actualizaciones sobre cambios de estado de incidentes activos",
     "complianceAlerts": "Alertas de cumplimiento",
     "complianceAlertsDescription": "Recibir notificacion sobre violaciones de politicas de cumplimiento",
+    "userManagement": "Gestión de usuarios",
+    "userManagementDescription": "Recibir notificaciones sobre cambios de roles, bloqueos de cuentas y asignaciones de inquilinos",
     "dataRetention": "Retencion de datos",
     "alertRetention": "Retencion de alertas",
     "alertRetentionDescription": "Tiempo de retencion de datos de alertas antes del archivado",

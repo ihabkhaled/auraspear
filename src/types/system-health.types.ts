@@ -67,3 +67,8 @@ export interface SystemHealthDetailPanelProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
+
+export interface SystemHealthColumnTranslations {
+  systemHealth: (key: string) => string
+  common: (key: string) => string
+}

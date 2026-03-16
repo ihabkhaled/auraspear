@@ -137,3 +137,7 @@ export interface UebaAnomalyCardProps {
 export interface UebaMlModelCardProps {
   model: MlModel
 }
+
+export interface UebaColumnTranslations {
+  ueba: (key: string) => string
+}

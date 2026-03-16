@@ -1,8 +1,9 @@
 'use client'
 
-import { Download, Edit, Trash2 } from 'lucide-react'
+import { ChevronDown, Download, Edit, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -90,7 +91,7 @@ export function ReportDetailPanel({
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="bg-muted rounded-lg p-3">
               <p className="text-muted-foreground text-xs">{t('detailGeneratedBy')}</p>
               <p className="text-foreground text-sm font-medium">{report.generatedByName ?? '-'}</p>
@@ -115,12 +116,17 @@ export function ReportDetailPanel({
 
           {report.parameters && Object.keys(report.parameters).length > 0 && (
             <div className="border-border border-t pt-4">
-              <h4 className="text-foreground mb-2 text-sm font-semibold">
-                {t('detailParameters')}
-              </h4>
-              <pre className="bg-muted text-muted-foreground max-h-40 overflow-auto rounded-lg p-3 text-xs">
-                {JSON.stringify(report.parameters, null, 2)}
-              </pre>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <h4 className="text-foreground text-sm font-semibold">{t('detailParameters')}</h4>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <pre className="bg-muted text-muted-foreground mt-2 max-h-40 overflow-auto rounded-lg p-3 text-xs">
+                    {JSON.stringify(report.parameters, null, 2)}
+                  </pre>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           )}
 

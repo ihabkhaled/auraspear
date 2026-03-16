@@ -202,7 +202,12 @@ export type {
   PreferencesResponse,
 } from './profile.types'
 export type { NavItem, NavSection, SidebarHealthFooterProps } from './layout.types'
-export type { SeverityDataPoint } from './chart.types'
+export type {
+  SeverityDataPoint,
+  AlertTrendChartProps,
+  MitreBarChartProps,
+  SeverityDistributionChartProps,
+} from './chart.types'
 export type { AuthStorageState, TenantStorageState } from './storage.types'
 export type {
   WorkspaceSummaryCard,
@@ -291,6 +296,7 @@ export type {
   IncidentFiltersProps,
   IncidentTimelineProps,
   IncidentDetailPanelProps,
+  IncidentColumnTranslations,
 } from './incident.types'
 export type {
   CorrelationRule,
@@ -304,6 +310,7 @@ export type {
   CorrelationEditFormValues,
   CorrelationDeleteDialogProps,
   CorrelationDetailPanelProps,
+  CorrelationColumnTranslations,
 } from './correlation.types'
 export type {
   Vulnerability,
@@ -319,6 +326,7 @@ export type {
   VulnerabilityKpiCardsProps,
   VulnerabilityBulkImportDialogProps,
   BulkImportRow,
+  VulnerabilityColumnTranslations,
 } from './vulnerability.types'
 export type {
   AiAgent,
@@ -338,6 +346,8 @@ export type {
   AiAgentSessionTableProps,
   AiAgentKpiCardsProps,
   AiAgentFiltersProps,
+  AiAgentColumnTranslations,
+  SessionColumnTranslations,
 } from './ai-agent.types'
 export type {
   UebaEntity,
@@ -357,6 +367,7 @@ export type {
   UebaFiltersProps,
   UebaAnomalyCardProps,
   UebaMlModelCardProps,
+  UebaColumnTranslations,
 } from './ueba.types'
 export type {
   AttackPath,
@@ -374,6 +385,7 @@ export type {
   AttackPathDetailPanelProps,
   AttackPathStageEditorProps,
   AttackPathVisualizationProps,
+  AttackPathColumnTranslations,
 } from './attack-path.types'
 export type {
   SoarPlaybook,
@@ -391,6 +403,7 @@ export type {
   SoarExecutionHistoryProps,
   SoarFiltersProps,
   SoarKpiCardsProps,
+  SoarColumnTranslations,
 } from './soar.types'
 export type {
   ComplianceFramework,
@@ -408,6 +421,7 @@ export type {
   ComplianceControlEditDialogProps,
   ComplianceFiltersProps,
   ComplianceKpiCardsProps,
+  ComplianceColumnTranslations,
 } from './compliance.types'
 export type {
   Report,
@@ -421,6 +435,7 @@ export type {
   ReportDetailPanelProps,
   ReportFiltersProps,
   ReportKpiCardsProps,
+  ReportColumnTranslations,
 } from './report.types'
 export type {
   SystemHealthCheck,
@@ -431,6 +446,7 @@ export type {
   SystemHealthKpiCardsProps,
   SystemHealthFiltersProps,
   SystemHealthDetailPanelProps,
+  SystemHealthColumnTranslations,
 } from './system-health.types'
 export type {
   NormalizationPipeline,
@@ -445,6 +461,7 @@ export type {
   NormalizationFiltersProps,
   NormalizationDetailPanelProps,
   UseNormalizationDetailPanelParams,
+  NormalizationColumnTranslations,
 } from './normalization.types'
 export type {
   DetectionRule,
@@ -458,6 +475,7 @@ export type {
   DetectionRuleKpiCardsProps,
   DetectionRuleFiltersProps,
   DetectionRuleDetailPanelProps,
+  DetectionRuleColumnTranslations,
 } from './detection-rule.types'
 export type {
   CloudAccount,
@@ -474,6 +492,7 @@ export type {
   CloudSecurityFiltersProps,
   CloudAccountDetailPanelProps,
   CloudFindingCardProps,
+  CloudSecurityColumnTranslations,
 } from './cloud-security.types'
 export type {
   NotificationPreference,

@@ -12,11 +12,7 @@ import {
 } from 'recharts'
 import { useAlertTrendChart } from '@/hooks'
 import { SEVERITY_COLORS } from '@/lib/constants'
-import type { AlertTrendPoint } from '@/types'
-
-interface AlertTrendChartProps {
-  data: AlertTrendPoint[]
-}
+import type { AlertTrendChartProps } from '@/types'
 
 export function AlertTrendChart({ data }: AlertTrendChartProps) {
   const { t } = useAlertTrendChart()

@@ -128,3 +128,8 @@ export interface IncidentDetailPanelProps {
   open: boolean
   onOpenChange: (open: boolean) => void
 }
+
+export interface IncidentColumnTranslations {
+  incidents: (key: string) => string
+  common: (key: string) => string
+}

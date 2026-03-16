@@ -2,11 +2,7 @@
 
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 import { getSeverityColor } from '@/lib/severity-utils'
-import type { SeverityDataPoint } from '@/types'
-
-interface SeverityDistributionChartProps {
-  data: SeverityDataPoint[]
-}
+import type { SeverityDistributionChartProps } from '@/types'
 
 export function SeverityDistributionChart({ data }: SeverityDistributionChartProps) {
   return (

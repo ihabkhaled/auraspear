@@ -99,9 +99,9 @@ describe('authService', () => {
     it('should call POST /auth/logout', async () => {
       mockPost.mockResolvedValue({ data: { success: true } })
 
-      const result = await authService.logout()
+      const result = await authService.logout('test-refresh-token')
 
-      expect(mockPost).toHaveBeenCalledWith('/auth/logout')
+      expect(mockPost).toHaveBeenCalledWith('/auth/logout', { refreshToken: 'test-refresh-token' })
       expect(result).toEqual({ success: true })
     })
   })

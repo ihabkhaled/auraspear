@@ -418,7 +418,11 @@
       "editAction": "Bearbeiten",
       "deleteAction": "Löschen",
       "posting": "Wird gepostet..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "Hash",
+    "artifactTypeDomain": "Domain",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "Dieses Artefakt existiert bereits in diesem Vorfall",
       "artifactNotFound": "Artefakt nicht gefunden",
       "invalidMentionedUsers": "Einer oder mehrere erwähnte Benutzer sind keine aktiven Mitglieder dieses Mandanten.",
-      "cannotMentionSelf": "Sie können sich nicht selbst in einem Kommentar erwähnen."
+      "cannotMentionSelf": "Sie können sich nicht selbst in einem Kommentar erwähnen.",
+      "commentDeleteNotAllowed": "Sie dürfen diesen Kommentar nicht löschen.",
+      "commentEditNotAllowed": "Sie dürfen diesen Kommentar nicht bearbeiten.",
+      "commentNotFound": "Kommentar nicht gefunden.",
+      "invalidCycle": "Der angegebene Zyklus ist ungültig oder nicht aktiv."
     },
     "caseCycles": {
       "notFound": "Fallzyklus nicht gefunden.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "Dieser Connector ist nicht konfiguriert oder ist deaktiviert.",
       "connectorUnavailable": "Der externe Dienst ist derzeit nicht erreichbar. Bitte überprüfen Sie, ob der Dienst ausgeführt wird und die Connector-Konfiguration korrekt ist.",
       "syncFailed": "Verbindung zum externen Dienst fehlgeschlagen. Bitte überprüfen Sie die Connector-Konfiguration und ob der Dienst erreichbar ist."
+    },
+    "attackPaths": {
+      "notFound": "Angriffspfad nicht gefunden."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "Cloud-Konto nicht gefunden."
+    },
+    "compliance": {
+      "controlNotFound": "Compliance-Kontrolle nicht gefunden.",
+      "frameworkAlreadyExists": "Ein Compliance-Framework mit diesem Namen existiert bereits.",
+      "frameworkNotFound": "Compliance-Framework nicht gefunden."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "Diese Aktion ist für diesen Connector nicht zulässig.",
+      "notConfigured": "Connector-Workspace ist nicht konfiguriert.",
+      "unsupportedType": "Dieser Connector-Typ unterstützt keine Workspaces."
+    },
+    "correlation": {
+      "notFound": "Korrelationsregel nicht gefunden."
+    },
+    "detectionRules": {
+      "notFound": "Erkennungsregel nicht gefunden."
+    },
+    "incidents": {
+      "alreadyClosed": "Dieser Vorfall ist bereits geschlossen.",
+      "invalidAssignee": "Der zugewiesene Benutzer ist kein aktives Mitglied dieses Mandanten.",
+      "invalidLinkedAlerts": "Eine oder mehrere verknüpfte Warnungen gehören nicht zu diesem Mandanten.",
+      "invalidLinkedCase": "Der verknüpfte Fall gehört nicht zu diesem Mandanten.",
+      "notFound": "Vorfall nicht gefunden."
+    },
+    "normalization": {
+      "notFound": "Normalisierungspipeline nicht gefunden.",
+      "pipelineAlreadyExists": "Eine Pipeline mit diesem Namen existiert bereits."
+    },
+    "notifications": {
+      "notFound": "Benachrichtigung nicht gefunden."
+    },
+    "reports": {
+      "notFound": "Bericht nicht gefunden."
+    },
+    "soar": {
+      "playbookAlreadyExists": "Ein Playbook mit diesem Namen existiert bereits.",
+      "playbookNotActive": "Das Playbook ist nicht aktiv und kann nicht ausgeführt werden.",
+      "playbookNotFound": "Playbook nicht gefunden."
+    },
+    "ueba": {
+      "anomalyNotFound": "Anomalie nicht gefunden.",
+      "entityAlreadyExists": "Eine Entität mit diesem Namen existiert bereits.",
+      "entityNotFound": "Entität nicht gefunden."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "Eine Schwachstelle mit dieser CVE-ID existiert bereits.",
+      "notFound": "Schwachstelle nicht gefunden."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "Benachrichtigungen fuer Warnungen mit hohem Schweregrad erhalten",
     "caseAssignments": "Fallzuweisungen",
     "caseAssignmentsDescription": "Benachrichtigt werden, wenn Ihnen ein Fall zugewiesen wird",
+    "caseUpdates": "Fall-Aktualisierungen",
+    "caseUpdatesDescription": "Benachrichtigung bei Statusänderungen oder Aktualisierungen von Fällen",
+    "caseComments": "Fall-Kommentare & Erwähnungen",
+    "caseCommentsDescription": "Benachrichtigung wenn jemand Ihren Fall kommentiert oder Sie erwähnt",
+    "caseActivity": "Fall-Aktivitäten",
+    "caseActivityDescription": "Benachrichtigung wenn Aufgaben oder Artefakte zu Ihren Fällen hinzugefügt werden",
     "incidentUpdates": "Vorfallaktualisierungen",
     "incidentUpdatesDescription": "Aktualisierungen ueber Statusaenderungen aktiver Vorfaelle erhalten",
     "complianceAlerts": "Compliance-Warnungen",
     "complianceAlertsDescription": "Ueber Verstoesse gegen Compliance-Richtlinien benachrichtigt werden",
+    "userManagement": "Benutzerverwaltung",
+    "userManagementDescription": "Benachrichtigungen über Rollenänderungen, Kontosperrungen und Mandantenzuweisungen",
     "dataRetention": "Datenaufbewahrung",
     "alertRetention": "Warnungsaufbewahrung",
     "alertRetentionDescription": "Wie lange Warnungsdaten vor der Archivierung aufbewahrt werden",

@@ -6,12 +6,7 @@ import {
   COMPLIANCE_STANDARD_LABEL_KEYS,
 } from '@/lib/constants/compliance'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, ComplianceFramework } from '@/types'
-
-interface ComplianceColumnTranslations {
-  compliance: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, ComplianceColumnTranslations, ComplianceFramework } from '@/types'
 
 export function getComplianceColumns(
   t: ComplianceColumnTranslations

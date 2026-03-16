@@ -72,7 +72,7 @@ export function UebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPan
         </span>
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <div className="flex flex-col gap-0.5">
           <span className="text-muted-foreground text-xs">{t('colRiskScore')}</span>
           <span className="font-mono text-sm font-medium">{entity.riskScore}</span>

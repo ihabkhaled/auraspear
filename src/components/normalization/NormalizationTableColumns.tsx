@@ -7,12 +7,7 @@ import {
   NORMALIZATION_SOURCE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/normalization'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, NormalizationPipeline } from '@/types'
-
-interface NormalizationColumnTranslations {
-  normalization: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, NormalizationColumnTranslations, NormalizationPipeline } from '@/types'
 
 export function getNormalizationColumns(
   t: NormalizationColumnTranslations

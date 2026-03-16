@@ -9,7 +9,7 @@ export function ComplianceKpiCards({ stats }: ComplianceKpiCardsProps) {
   const { t, avgScoreDisplay } = useComplianceKpiCards({ stats })
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <KpiCard
         label={t('kpiFrameworks')}
         value={stats?.totalFrameworks ?? 0}

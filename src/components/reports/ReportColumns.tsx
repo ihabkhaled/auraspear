@@ -10,12 +10,7 @@ import {
   REPORT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/reports'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, Report } from '@/types'
-
-interface ReportColumnTranslations {
-  reports: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, Report, ReportColumnTranslations } from '@/types'
 
 export function getReportColumns(t: ReportColumnTranslations): Column<Report>[] {
   return [

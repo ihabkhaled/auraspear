@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import type { ComplianceDeleteDialogProps } from '@/types'
@@ -27,6 +27,12 @@ export function useComplianceDeleteDialog({
       onConfirm(frameworkId)
     }
   }, [frameworkId, frameworkName, onConfirm, t])
+
+  useEffect(() => {
+    if (frameworkId) {
+      void handleDelete()
+    }
+  }, [frameworkId, handleDelete])
 
   return { handleDelete }
 }

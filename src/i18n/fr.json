@@ -418,7 +418,11 @@
       "editAction": "Modifier",
       "deleteAction": "Supprimer",
       "posting": "Publication..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "Hash",
+    "artifactTypeDomain": "Domaine",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "Cet artefact existe deja dans ce dossier",
       "artifactNotFound": "Artefact introuvable",
       "invalidMentionedUsers": "Un ou plusieurs utilisateurs mentionnés ne sont pas des membres actifs de ce locataire.",
-      "cannotMentionSelf": "Vous ne pouvez pas vous mentionner dans un commentaire."
+      "cannotMentionSelf": "Vous ne pouvez pas vous mentionner dans un commentaire.",
+      "commentDeleteNotAllowed": "Vous n'êtes pas autorisé à supprimer ce commentaire.",
+      "commentEditNotAllowed": "Vous n'êtes pas autorisé à modifier ce commentaire.",
+      "commentNotFound": "Commentaire introuvable.",
+      "invalidCycle": "Le cycle spécifié est invalide ou non actif."
     },
     "caseCycles": {
       "notFound": "Cycle de cas introuvable.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "Ce connecteur n'est pas configuré ou est désactivé.",
       "connectorUnavailable": "Le service externe est actuellement inaccessible. Veuillez vérifier que le service est en cours d'exécution et que la configuration du connecteur est correcte.",
       "syncFailed": "Échec de la connexion au service externe. Veuillez vérifier la configuration du connecteur et que le service est accessible."
+    },
+    "attackPaths": {
+      "notFound": "Chemin d'attaque introuvable."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "Compte cloud introuvable."
+    },
+    "compliance": {
+      "controlNotFound": "Contrôle de conformité introuvable.",
+      "frameworkAlreadyExists": "Un cadre de conformité portant ce nom existe déjà.",
+      "frameworkNotFound": "Cadre de conformité introuvable."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "Cette action n'est pas autorisée pour ce connecteur.",
+      "notConfigured": "L'espace de travail du connecteur n'est pas configuré.",
+      "unsupportedType": "Ce type de connecteur ne prend pas en charge les espaces de travail."
+    },
+    "correlation": {
+      "notFound": "Règle de corrélation introuvable."
+    },
+    "detectionRules": {
+      "notFound": "Règle de détection introuvable."
+    },
+    "incidents": {
+      "alreadyClosed": "Cet incident est déjà clôturé.",
+      "invalidAssignee": "L'utilisateur assigné n'est pas un membre actif de ce locataire.",
+      "invalidLinkedAlerts": "Une ou plusieurs alertes liées n'appartiennent pas à ce locataire.",
+      "invalidLinkedCase": "Le dossier lié n'appartient pas à ce locataire.",
+      "notFound": "Incident introuvable."
+    },
+    "normalization": {
+      "notFound": "Pipeline de normalisation introuvable.",
+      "pipelineAlreadyExists": "Un pipeline portant ce nom existe déjà."
+    },
+    "notifications": {
+      "notFound": "Notification introuvable."
+    },
+    "reports": {
+      "notFound": "Rapport introuvable."
+    },
+    "soar": {
+      "playbookAlreadyExists": "Un playbook portant ce nom existe déjà.",
+      "playbookNotActive": "Le playbook n'est pas actif et ne peut pas être exécuté.",
+      "playbookNotFound": "Playbook introuvable."
+    },
+    "ueba": {
+      "anomalyNotFound": "Anomalie introuvable.",
+      "entityAlreadyExists": "Une entité portant ce nom existe déjà.",
+      "entityNotFound": "Entité introuvable."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "Une vulnérabilité avec cet identifiant CVE existe déjà.",
+      "notFound": "Vulnérabilité introuvable."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "Recevoir des notifications pour les alertes de gravite elevee",
     "caseAssignments": "Affectations de dossiers",
     "caseAssignmentsDescription": "Etre notifie lorsqu'un dossier vous est attribue",
+    "caseUpdates": "Mises à jour des dossiers",
+    "caseUpdatesDescription": "Recevoir des notifications lors de changements de statut ou de mise à jour des dossiers",
+    "caseComments": "Commentaires et mentions",
+    "caseCommentsDescription": "Recevoir des notifications quand quelqu'un commente votre dossier ou vous mentionne",
+    "caseActivity": "Activité des dossiers",
+    "caseActivityDescription": "Recevoir des notifications quand des tâches ou artefacts sont ajoutés à vos dossiers",
     "incidentUpdates": "Mises a jour des incidents",
     "incidentUpdatesDescription": "Recevoir des mises a jour sur les changements de statut des incidents actifs",
     "complianceAlerts": "Alertes de conformite",
     "complianceAlertsDescription": "Etre notifie des violations des politiques de conformite",
+    "userManagement": "Gestion des utilisateurs",
+    "userManagementDescription": "Recevoir des notifications sur les changements de rôles, les blocages de comptes et les affectations de locataires",
     "dataRetention": "Conservation des donnees",
     "alertRetention": "Conservation des alertes",
     "alertRetentionDescription": "Duree de conservation des donnees d'alertes avant archivage",

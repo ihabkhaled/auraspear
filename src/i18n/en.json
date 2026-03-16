@@ -418,7 +418,11 @@
       "editAction": "Edit",
       "deleteAction": "Delete",
       "posting": "Posting..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "Hash",
+    "artifactTypeDomain": "Domain",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "This artifact already exists on this case",
       "artifactNotFound": "Artifact not found",
       "invalidMentionedUsers": "One or more mentioned users are not active members of this tenant.",
-      "cannotMentionSelf": "You cannot mention yourself in a comment."
+      "cannotMentionSelf": "You cannot mention yourself in a comment.",
+      "commentDeleteNotAllowed": "You are not allowed to delete this comment.",
+      "commentEditNotAllowed": "You are not allowed to edit this comment.",
+      "commentNotFound": "Comment not found.",
+      "invalidCycle": "The specified cycle is invalid or not active."
     },
     "caseCycles": {
       "notFound": "Case cycle not found.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "This connector is not configured or is disabled.",
       "connectorUnavailable": "The external service is currently unreachable. Please verify that the service is running and the connector configuration is correct.",
       "syncFailed": "Failed to connect to the external service. Please verify the connector configuration and that the service is reachable."
+    },
+    "attackPaths": {
+      "notFound": "Attack path not found."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "Cloud account not found."
+    },
+    "compliance": {
+      "controlNotFound": "Compliance control not found.",
+      "frameworkAlreadyExists": "A compliance framework with this name already exists.",
+      "frameworkNotFound": "Compliance framework not found."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "This action is not allowed for this connector.",
+      "notConfigured": "Connector workspace is not configured.",
+      "unsupportedType": "This connector type does not support workspaces."
+    },
+    "correlation": {
+      "notFound": "Correlation rule not found."
+    },
+    "detectionRules": {
+      "notFound": "Detection rule not found."
+    },
+    "incidents": {
+      "alreadyClosed": "This incident is already closed.",
+      "invalidAssignee": "The assigned user is not an active member of this tenant.",
+      "invalidLinkedAlerts": "One or more linked alerts do not belong to this tenant.",
+      "invalidLinkedCase": "The linked case does not belong to this tenant.",
+      "notFound": "Incident not found."
+    },
+    "normalization": {
+      "notFound": "Normalization pipeline not found.",
+      "pipelineAlreadyExists": "A pipeline with this name already exists."
+    },
+    "notifications": {
+      "notFound": "Notification not found."
+    },
+    "reports": {
+      "notFound": "Report not found."
+    },
+    "soar": {
+      "playbookAlreadyExists": "A playbook with this name already exists.",
+      "playbookNotActive": "Playbook is not active and cannot be executed.",
+      "playbookNotFound": "Playbook not found."
+    },
+    "ueba": {
+      "anomalyNotFound": "Anomaly not found.",
+      "entityAlreadyExists": "An entity with this name already exists.",
+      "entityNotFound": "Entity not found."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "A vulnerability with this CVE ID already exists.",
+      "notFound": "Vulnerability not found."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "Receive notifications for high severity alerts",
     "caseAssignments": "Case Assignments",
     "caseAssignmentsDescription": "Get notified when a case is assigned to you",
+    "caseUpdates": "Case Updates",
+    "caseUpdatesDescription": "Get notified when case status changes or case fields are updated",
+    "caseComments": "Case Comments & Mentions",
+    "caseCommentsDescription": "Get notified when someone comments on your case or mentions you",
+    "caseActivity": "Case Activity",
+    "caseActivityDescription": "Get notified when tasks or artifacts are added to your cases",
     "incidentUpdates": "Incident Updates",
     "incidentUpdatesDescription": "Receive updates on active incident status changes",
     "complianceAlerts": "Compliance Alerts",
     "complianceAlertsDescription": "Get notified about compliance policy violations",
+    "userManagement": "User Management",
+    "userManagementDescription": "Get notified about role changes, account blocks, and tenant assignments",
     "dataRetention": "Data Retention",
     "alertRetention": "Alert Retention",
     "alertRetentionDescription": "How long to retain alert data before archival",

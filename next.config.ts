@@ -17,6 +17,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   turbopack: {},
   productionBrowserSourceMaps: false,
   async headers() {

@@ -108,3 +108,7 @@ export interface CorrelationDetailPanelProps {
   onDelete: (rule: CorrelationRule) => void
   children?: ReactNode
 }
+
+export interface CorrelationColumnTranslations {
+  correlation: (key: string) => string
+}

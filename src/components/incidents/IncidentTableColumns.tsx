@@ -14,12 +14,7 @@ import {
   INCIDENT_STATUS_LABEL_KEYS,
 } from '@/lib/constants/incidents'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, Incident } from '@/types'
-
-interface IncidentColumnTranslations {
-  incidents: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, Incident, IncidentColumnTranslations } from '@/types'
 
 export function getIncidentColumns(t: IncidentColumnTranslations): Column<Incident>[] {
   return [

@@ -8,11 +8,7 @@ import {
   UEBA_RISK_LEVEL_CLASSES,
 } from '@/lib/constants/ueba'
 import { formatDate, lookup } from '@/lib/utils'
-import type { UebaEntity, Column } from '@/types'
-
-interface UebaColumnTranslations {
-  ueba: (key: string) => string
-}
+import type { Column, UebaColumnTranslations, UebaEntity } from '@/types'
 
 export function getUebaColumns(t: UebaColumnTranslations): Column<UebaEntity>[] {
   return [

@@ -418,7 +418,11 @@
       "editAction": "تعديل",
       "deleteAction": "حذف",
       "posting": "جارٍ النشر..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "تجزئة",
+    "artifactTypeDomain": "نطاق",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "هذه القطعة الأثرية موجودة بالفعل في هذه القضية",
       "artifactNotFound": "لم يتم العثور على القطعة الأثرية",
       "invalidMentionedUsers": "أحد المستخدمين المذكورين أو أكثر ليسوا أعضاء نشطين في هذا المستأجر.",
-      "cannotMentionSelf": "لا يمكنك الإشارة إلى نفسك في تعليق."
+      "cannotMentionSelf": "لا يمكنك الإشارة إلى نفسك في تعليق.",
+      "commentDeleteNotAllowed": "غير مسموح لك بحذف هذا التعليق.",
+      "commentEditNotAllowed": "غير مسموح لك بتعديل هذا التعليق.",
+      "commentNotFound": "التعليق غير موجود.",
+      "invalidCycle": "الدورة المحددة غير صالحة أو غير نشطة."
     },
     "caseCycles": {
       "notFound": "دورة الحالات غير موجودة.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "هذا الموصل غير مُهيأ أو معطّل.",
       "connectorUnavailable": "الخدمة الخارجية غير متاحة حالياً. يرجى التأكد من أن الخدمة قيد التشغيل وأن إعدادات الموصل صحيحة.",
       "syncFailed": "فشل الاتصال بالخدمة الخارجية. يرجى التحقق من تهيئة الموصل ومن إمكانية الوصول إلى الخدمة."
+    },
+    "attackPaths": {
+      "notFound": "مسار الهجوم غير موجود."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "حساب السحابة غير موجود."
+    },
+    "compliance": {
+      "controlNotFound": "عنصر الامتثال غير موجود.",
+      "frameworkAlreadyExists": "يوجد بالفعل إطار امتثال بهذا الاسم.",
+      "frameworkNotFound": "إطار الامتثال غير موجود."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "هذا الإجراء غير مسموح به لهذا الموصل.",
+      "notConfigured": "مساحة عمل الموصل غير مهيأة.",
+      "unsupportedType": "نوع الموصل هذا لا يدعم مساحات العمل."
+    },
+    "correlation": {
+      "notFound": "قاعدة الارتباط غير موجودة."
+    },
+    "detectionRules": {
+      "notFound": "قاعدة الكشف غير موجودة."
+    },
+    "incidents": {
+      "alreadyClosed": "هذه الحادثة مغلقة بالفعل.",
+      "invalidAssignee": "المستخدم المعين ليس عضواً نشطاً في هذا المستأجر.",
+      "invalidLinkedAlerts": "واحد أو أكثر من التنبيهات المرتبطة لا تنتمي إلى هذا المستأجر.",
+      "invalidLinkedCase": "القضية المرتبطة لا تنتمي إلى هذا المستأجر.",
+      "notFound": "الحادثة غير موجودة."
+    },
+    "normalization": {
+      "notFound": "خط أنابيب التطبيع غير موجود.",
+      "pipelineAlreadyExists": "يوجد بالفعل خط أنابيب بهذا الاسم."
+    },
+    "notifications": {
+      "notFound": "الإشعار غير موجود."
+    },
+    "reports": {
+      "notFound": "التقرير غير موجود."
+    },
+    "soar": {
+      "playbookAlreadyExists": "يوجد بالفعل دليل تشغيل بهذا الاسم.",
+      "playbookNotActive": "دليل التشغيل غير نشط ولا يمكن تنفيذه.",
+      "playbookNotFound": "دليل التشغيل غير موجود."
+    },
+    "ueba": {
+      "anomalyNotFound": "الشذوذ غير موجود.",
+      "entityAlreadyExists": "يوجد بالفعل كيان بهذا الاسم.",
+      "entityNotFound": "الكيان غير موجود."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "توجد بالفعل ثغرة بمعرّف CVE هذا.",
+      "notFound": "الثغرة غير موجودة."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "تلقي إشعارات للتنبيهات ذات الخطورة العالية",
     "caseAssignments": "تعيينات القضايا",
     "caseAssignmentsDescription": "الحصول على إشعار عند تعيين قضية لك",
+    "caseUpdates": "تحديثات القضايا",
+    "caseUpdatesDescription": "تلقي إشعارات عند تغيير حالة القضية أو تحديث حقولها",
+    "caseComments": "التعليقات والإشارات",
+    "caseCommentsDescription": "تلقي إشعارات عند تعليق شخص على قضيتك أو الإشارة إليك",
+    "caseActivity": "نشاط القضايا",
+    "caseActivityDescription": "تلقي إشعارات عند إضافة مهام أو مرفقات إلى قضاياك",
     "incidentUpdates": "تحديثات الحوادث",
     "incidentUpdatesDescription": "تلقي تحديثات عن تغييرات حالة الحوادث النشطة",
     "complianceAlerts": "تنبيهات الامتثال",
     "complianceAlertsDescription": "الحصول على إشعار بشأن انتهاكات سياسات الامتثال",
+    "userManagement": "إدارة المستخدمين",
+    "userManagementDescription": "تلقي إشعارات حول تغييرات الأدوار وحظر الحسابات وتعيينات المستأجر",
     "dataRetention": "الاحتفاظ بالبيانات",
     "alertRetention": "الاحتفاظ بالتنبيهات",
     "alertRetentionDescription": "مدة الاحتفاظ ببيانات التنبيهات قبل الأرشفة",

@@ -203,6 +203,13 @@ export const WORKSPACE_ICON_MAP: Record<string, LucideIcon> = {
   workflow: Workflow,
 }
 
+export const WORKSPACE_HEADER_STATUS_CLASSES: Record<string, string> = {
+  [ConnectorStatus.CONNECTED]: 'bg-status-success text-status-success border-status-success',
+  [ConnectorStatus.DISCONNECTED]: 'bg-status-error text-status-error border-status-error',
+  [ConnectorStatus.TESTING]: 'bg-status-warning text-status-warning border-status-warning',
+  [ConnectorStatus.NOT_CONFIGURED]: '',
+}
+
 export const WORKSPACE_VARIANT_CLASSES: Record<CardVariant, string> = {
   [CardVariant.DEFAULT]: 'text-foreground',
   [CardVariant.SUCCESS]: 'text-status-success',

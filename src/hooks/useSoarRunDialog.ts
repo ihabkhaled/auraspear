@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import type { SoarRunDialogProps } from '@/types'
@@ -23,6 +23,12 @@ export function useSoarRunDialog({ playbookId, playbookName, onConfirm }: SoarRu
       onConfirm(playbookId)
     }
   }, [playbookId, playbookName, onConfirm, t])
+
+  useEffect(() => {
+    if (playbookId) {
+      void handleRun()
+    }
+  }, [playbookId, handleRun])
 
   return { handleRun }
 }

@@ -49,7 +49,7 @@ export function CreateCycleDialog({
               rows={3}
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label htmlFor="cycle-start">{t('startDate')}</Label>
               <Input id="cycle-start" type="date" {...register('startDate', { required: true })} />

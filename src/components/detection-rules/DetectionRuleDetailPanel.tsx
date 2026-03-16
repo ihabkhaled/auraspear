@@ -119,12 +119,12 @@ export function DetectionRuleDetailPanel({
               )}
             </div>
 
-            <Collapsible>
+            <Collapsible defaultOpen>
               <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
                 <span className="text-foreground text-sm font-semibold">
                   {t('fieldConditions')}
                 </span>
-                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <pre className="bg-muted text-foreground overflow-auto rounded-md p-3 font-mono text-xs">
@@ -133,10 +133,10 @@ export function DetectionRuleDetailPanel({
               </CollapsibleContent>
             </Collapsible>
 
-            <Collapsible>
+            <Collapsible defaultOpen>
               <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
                 <span className="text-foreground text-sm font-semibold">{t('fieldActions')}</span>
-                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <pre className="bg-muted text-foreground overflow-auto rounded-md p-3 font-mono text-xs">

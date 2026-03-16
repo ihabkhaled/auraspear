@@ -12,9 +12,8 @@ import {
 } from '@/components/ui/select'
 import { RuleSeverity, RuleStatus } from '@/enums'
 import { useCorrelationFilters } from '@/hooks/useCorrelationFilters'
+import { SOURCE_TABS } from '@/lib/constants/correlation'
 import type { CorrelationFiltersProps } from '@/types'
-
-const SOURCE_TABS = ['all', 'sigma', 'custom', 'ai'] as const
 
 export function CorrelationFilters(props: CorrelationFiltersProps) {
   const {

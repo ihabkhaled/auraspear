@@ -22,6 +22,13 @@ const DEFAULT_RETENTION: DataRetentionConfig = {
   auditLogRetention: RetentionPeriod.DAYS_365,
 }
 
+const RETENTION_KEY_TO_PREF: Record<keyof DataRetentionConfig, string> = {
+  alertRetention: 'retentionAlerts',
+  logRetention: 'retentionLogs',
+  incidentRetention: 'retentionIncidents',
+  auditLogRetention: 'retentionAuditLogs',
+}
+
 export function useDataRetention() {
   const t = useTranslations('settings')
   const tErrors = useTranslations()
@@ -31,16 +38,16 @@ export function useDataRetention() {
   const retentionConfig = useMemo(
     (): DataRetentionConfig => ({
       alertRetention:
-        (preferences?.['retention_alerts'] as RetentionPeriod | undefined) ??
+        (preferences?.['retentionAlerts'] as RetentionPeriod | undefined) ??
         DEFAULT_RETENTION.alertRetention,
       logRetention:
-        (preferences?.['retention_logs'] as RetentionPeriod | undefined) ??
+        (preferences?.['retentionLogs'] as RetentionPeriod | undefined) ??
         DEFAULT_RETENTION.logRetention,
       incidentRetention:
-        (preferences?.['retention_incidents'] as RetentionPeriod | undefined) ??
+        (preferences?.['retentionIncidents'] as RetentionPeriod | undefined) ??
         DEFAULT_RETENTION.incidentRetention,
       auditLogRetention:
-        (preferences?.['retention_auditLogs'] as RetentionPeriod | undefined) ??
+        (preferences?.['retentionAuditLogs'] as RetentionPeriod | undefined) ??
         DEFAULT_RETENTION.auditLogRetention,
     }),
     [preferences]
@@ -48,14 +55,8 @@ export function useDataRetention() {
 
   const handleRetentionChange = useCallback(
     (key: keyof DataRetentionConfig, value: string) => {
-      const prefKeyMap: Record<keyof DataRetentionConfig, string> = {
-        alertRetention: 'retention_alerts',
-        logRetention: 'retention_logs',
-        incidentRetention: 'retention_incidents',
-        auditLogRetention: 'retention_auditLogs',
-      }
       updatePreferences.mutate(
-        { [lookup(prefKeyMap, key)]: value },
+        { [lookup(RETENTION_KEY_TO_PREF, key)]: value },
         {
           onSuccess: () => {
             Toast.success(t('saved'))

@@ -105,3 +105,8 @@ export interface DetectionRuleDetailPanelProps {
   onDelete?: (rule: DetectionRule) => void
   deleteLoading?: boolean
 }
+
+export interface DetectionRuleColumnTranslations {
+  detectionRules: (key: string) => string
+  common: (key: string) => string
+}

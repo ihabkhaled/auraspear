@@ -7,12 +7,7 @@ import {
   SERVICE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/system-health'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, SystemHealthCheck } from '@/types'
-
-interface SystemHealthColumnTranslations {
-  systemHealth: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, SystemHealthCheck, SystemHealthColumnTranslations } from '@/types'
 
 export function getSystemHealthColumns(
   t: SystemHealthColumnTranslations

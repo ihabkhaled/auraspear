@@ -131,3 +131,8 @@ export interface SoarFiltersProps {
 export interface SoarKpiCardsProps {
   stats: SoarStats | undefined
 }
+
+export interface SoarColumnTranslations {
+  soar: (key: string) => string
+  common: (key: string) => string
+}

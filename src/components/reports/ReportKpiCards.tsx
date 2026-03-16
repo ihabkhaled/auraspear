@@ -9,7 +9,7 @@ export function ReportKpiCards({ stats }: ReportKpiCardsProps) {
   const { t } = useReportKpiCards({ stats })
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       <KpiCard
         label={t('kpiTotal')}
         value={stats?.totalReports ?? 0}

@@ -125,3 +125,7 @@ export interface AttackPathVisualizationProps {
   stages: AttackPathStage[]
   t: (key: string) => string
 }
+
+export interface AttackPathColumnTranslations {
+  attackPath: (key: string) => string
+}

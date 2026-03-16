@@ -9,7 +9,7 @@ export function SoarKpiCards({ stats }: SoarKpiCardsProps) {
   const { t, avgDurationDisplay, successRateDisplay } = useSoarKpiCards({ stats })
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <KpiCard
         label={t('kpiTotal')}
         value={stats?.totalPlaybooks ?? 0}

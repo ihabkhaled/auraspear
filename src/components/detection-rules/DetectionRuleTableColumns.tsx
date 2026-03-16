@@ -14,12 +14,7 @@ import {
   DETECTION_RULE_TYPE_LABEL_KEYS,
 } from '@/lib/constants/detection-rules'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, DetectionRule } from '@/types'
-
-interface DetectionRuleColumnTranslations {
-  detectionRules: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, DetectionRule, DetectionRuleColumnTranslations } from '@/types'
 
 export function getDetectionRuleColumns(
   t: DetectionRuleColumnTranslations

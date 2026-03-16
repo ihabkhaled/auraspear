@@ -1,8 +1,9 @@
 'use client'
 
-import { Pencil, Play, Trash2 } from 'lucide-react'
+import { ChevronDown, Pencil, Play, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -83,7 +84,7 @@ export function SoarDetailPanel({
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="bg-muted rounded-lg p-3">
               <p className="text-muted-foreground text-xs">{t('detailSteps')}</p>
               <p className="text-foreground text-lg font-semibold">{playbook.stepsCount}</p>
@@ -110,8 +111,17 @@ export function SoarDetailPanel({
           )}
 
           <div className="border-border border-t pt-4">
-            <h4 className="text-foreground mb-3 text-sm font-semibold">{t('executionHistory')}</h4>
-            <SoarExecutionHistory playbookId={playbook.id} />
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                <h4 className="text-foreground text-sm font-semibold">{t('executionHistory')}</h4>
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <div className="pt-2">
+                  <SoarExecutionHistory playbookId={playbook.id} />
+                </div>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         </div>
       </SheetContent>

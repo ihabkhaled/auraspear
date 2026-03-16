@@ -12,7 +12,7 @@ export function IncidentKpiCards({ stats, isLoading }: IncidentKpiCardsProps) {
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {Array.from({ length: 5 }).map((_, idx) => (
           <Skeleton key={`kpi-skel-${String(idx)}`} className="h-24 rounded-xl" />
         ))}
@@ -21,7 +21,7 @@ export function IncidentKpiCards({ stats, isLoading }: IncidentKpiCardsProps) {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       <KpiCard
         label={t('kpiOpen')}
         value={open}

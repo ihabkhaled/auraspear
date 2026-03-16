@@ -48,10 +48,10 @@ export function CaseArtifactPanel({
                 <SelectValue placeholder={t('artifactType')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={CaseArtifactType.IP}>IP</SelectItem>
-                <SelectItem value={CaseArtifactType.HASH}>Hash</SelectItem>
-                <SelectItem value={CaseArtifactType.DOMAIN}>Domain</SelectItem>
-                <SelectItem value={CaseArtifactType.URL}>URL</SelectItem>
+                <SelectItem value={CaseArtifactType.IP}>{t('artifactTypeIp')}</SelectItem>
+                <SelectItem value={CaseArtifactType.HASH}>{t('artifactTypeHash')}</SelectItem>
+                <SelectItem value={CaseArtifactType.DOMAIN}>{t('artifactTypeDomain')}</SelectItem>
+                <SelectItem value={CaseArtifactType.URL}>{t('artifactTypeUrl')}</SelectItem>
               </SelectContent>
             </Select>
             <Input

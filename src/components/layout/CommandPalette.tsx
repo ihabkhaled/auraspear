@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/command'
 import { useCommandPalette } from '@/hooks'
 
+// PAGE_ICONS contains React component references (LucideIcon), so it must stay inline per CLAUDE.md rule 13 exception.
 const PAGE_ICONS = [LayoutDashboard, Bell, Crosshair, Briefcase, Globe, Settings, Server] as const
 
 export function CommandPalette() {

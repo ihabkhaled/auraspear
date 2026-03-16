@@ -1,5 +1,7 @@
 import { RuleSeverity, RuleSource, RuleStatus } from '@/enums'
 
+export const SOURCE_TABS = ['all', 'sigma', 'custom', 'ai'] as const
+
 export const RULE_SOURCE_LABEL_KEYS: Record<RuleSource, string> = {
   [RuleSource.SIGMA]: 'sourceSigma',
   [RuleSource.CUSTOM]: 'sourceCustom',

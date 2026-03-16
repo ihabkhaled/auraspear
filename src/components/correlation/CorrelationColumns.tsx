@@ -10,11 +10,7 @@ import {
   RULE_STATUS_CLASSES,
 } from '@/lib/constants/correlation'
 import { lookup } from '@/lib/utils'
-import type { Column, CorrelationRule } from '@/types'
-
-interface CorrelationColumnTranslations {
-  correlation: (key: string) => string
-}
+import type { Column, CorrelationColumnTranslations, CorrelationRule } from '@/types'
 
 export function getCorrelationColumns(t: CorrelationColumnTranslations): Column<CorrelationRule>[] {
   return [

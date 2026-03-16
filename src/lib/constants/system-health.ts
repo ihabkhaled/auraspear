@@ -1,4 +1,4 @@
-import { HealthCheckStatus, MetricType, ServiceType } from '@/enums'
+import { HealthCheckStatus, MetricType, ServiceStatus, ServiceType, StatusDotSize } from '@/enums'
 
 export const SERVICE_TYPE_LABEL_KEYS: Record<ServiceType, string> = {
   [ServiceType.CONNECTOR]: 'serviceConnector',
@@ -29,4 +29,23 @@ export const METRIC_TYPE_LABEL_KEYS: Record<MetricType, string> = {
   [MetricType.NETWORK]: 'metricNetwork',
   [MetricType.QUEUE_DEPTH]: 'metricQueueDepth',
   [MetricType.LATENCY]: 'metricLatency',
+}
+
+export const STATUS_DOT_COLOR_MAP: Record<ServiceStatus, string> = {
+  [ServiceStatus.HEALTHY]: 'bg-status-success',
+  [ServiceStatus.DEGRADED]: 'bg-status-warning',
+  [ServiceStatus.DOWN]: 'bg-status-error',
+  [ServiceStatus.MAINTENANCE]: 'bg-status-info',
+}
+
+export const STATUS_DOT_PING_COLOR_MAP: Record<ServiceStatus, string> = {
+  [ServiceStatus.HEALTHY]: 'bg-status-success',
+  [ServiceStatus.DEGRADED]: 'bg-status-warning',
+  [ServiceStatus.DOWN]: 'bg-status-error',
+  [ServiceStatus.MAINTENANCE]: 'bg-status-info',
+}
+
+export const STATUS_DOT_SIZE_MAP: Record<StatusDotSize, string> = {
+  [StatusDotSize.SM]: 'h-2 w-2',
+  [StatusDotSize.MD]: 'h-3 w-3',
 }

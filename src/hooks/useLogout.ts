@@ -8,7 +8,8 @@ import { useAuthStore, useTenantStore } from '@/stores'
 export function useLogout() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { logout, impersonator, setTokens, setUser, endImpersonation } = useAuthStore()
+  const { logout, refreshToken, impersonator, setTokens, setUser, endImpersonation } =
+    useAuthStore()
   const { setCurrentTenant } = useTenantStore()
 
   const handleLogout = useCallback(async () => {
@@ -34,9 +35,11 @@ export function useLogout() {
       }
     }
 
-    // Full logout
+    // Full logout — blacklist tokens on the backend
     try {
-      await authService.logout()
+      if (refreshToken) {
+        await authService.logout(refreshToken)
+      }
     } catch {
       // Proceed with local logout even if backend call fails
     }
@@ -47,6 +50,7 @@ export function useLogout() {
   }, [
     queryClient,
     logout,
+    refreshToken,
     setCurrentTenant,
     router,
     impersonator,

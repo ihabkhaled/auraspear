@@ -418,7 +418,11 @@
       "editAction": "Modifica",
       "deleteAction": "Elimina",
       "posting": "Pubblicazione..."
-    }
+    },
+    "artifactTypeIp": "IP",
+    "artifactTypeHash": "Hash",
+    "artifactTypeDomain": "Dominio",
+    "artifactTypeUrl": "URL"
   },
   "intel": {
     "title": "Intelligence sulle Minacce",
@@ -1169,7 +1173,11 @@
       "duplicateArtifact": "Questo artefatto esiste gia in questo caso",
       "artifactNotFound": "Artefatto non trovato",
       "invalidMentionedUsers": "Uno o più utenti menzionati non sono membri attivi di questo tenant.",
-      "cannotMentionSelf": "Non puoi menzionare te stesso in un commento."
+      "cannotMentionSelf": "Non puoi menzionare te stesso in un commento.",
+      "commentDeleteNotAllowed": "Non hai il permesso di eliminare questo commento.",
+      "commentEditNotAllowed": "Non hai il permesso di modificare questo commento.",
+      "commentNotFound": "Commento non trovato.",
+      "invalidCycle": "Il ciclo specificato non è valido o non è attivo."
     },
     "caseCycles": {
       "notFound": "Ciclo dei casi non trovato.",
@@ -1239,6 +1247,59 @@
       "connectorNotConfigured": "Questo connettore non è configurato o è disabilitato.",
       "connectorUnavailable": "Il servizio esterno non è attualmente raggiungibile. Verificare che il servizio sia in esecuzione e che la configurazione del connettore sia corretta.",
       "syncFailed": "Impossibile connettersi al servizio esterno. Verificare la configurazione del connettore e che il servizio sia raggiungibile."
+    },
+    "attackPaths": {
+      "notFound": "Percorso di attacco non trovato."
+    },
+    "cloudSecurity": {
+      "accountNotFound": "Account cloud non trovato."
+    },
+    "compliance": {
+      "controlNotFound": "Controllo di conformità non trovato.",
+      "frameworkAlreadyExists": "Esiste già un framework di conformità con questo nome.",
+      "frameworkNotFound": "Framework di conformità non trovato."
+    },
+    "connectorWorkspaces": {
+      "actionNotAllowed": "Questa azione non è consentita per questo connettore.",
+      "notConfigured": "Lo spazio di lavoro del connettore non è configurato.",
+      "unsupportedType": "Questo tipo di connettore non supporta gli spazi di lavoro."
+    },
+    "correlation": {
+      "notFound": "Regola di correlazione non trovata."
+    },
+    "detectionRules": {
+      "notFound": "Regola di rilevamento non trovata."
+    },
+    "incidents": {
+      "alreadyClosed": "Questo incidente è già chiuso.",
+      "invalidAssignee": "L'utente assegnato non è un membro attivo di questo tenant.",
+      "invalidLinkedAlerts": "Uno o più avvisi collegati non appartengono a questo tenant.",
+      "invalidLinkedCase": "Il caso collegato non appartiene a questo tenant.",
+      "notFound": "Incidente non trovato."
+    },
+    "normalization": {
+      "notFound": "Pipeline di normalizzazione non trovata.",
+      "pipelineAlreadyExists": "Esiste già un pipeline con questo nome."
+    },
+    "notifications": {
+      "notFound": "Notifica non trovata."
+    },
+    "reports": {
+      "notFound": "Rapporto non trovato."
+    },
+    "soar": {
+      "playbookAlreadyExists": "Esiste già un playbook con questo nome.",
+      "playbookNotActive": "Il playbook non è attivo e non può essere eseguito.",
+      "playbookNotFound": "Playbook non trovato."
+    },
+    "ueba": {
+      "anomalyNotFound": "Anomalia non trovata.",
+      "entityAlreadyExists": "Esiste già un'entità con questo nome.",
+      "entityNotFound": "Entità non trovata."
+    },
+    "vulnerabilities": {
+      "duplicateCve": "Esiste già una vulnerabilità con questo ID CVE.",
+      "notFound": "Vulnerabilità non trovata."
     }
   },
   "profile": {
@@ -1290,10 +1351,18 @@
     "highAlertsDescription": "Ricevi notifiche per avvisi di gravita alta",
     "caseAssignments": "Assegnazioni casi",
     "caseAssignmentsDescription": "Ricevi notifica quando ti viene assegnato un caso",
+    "caseUpdates": "Aggiornamenti casi",
+    "caseUpdatesDescription": "Ricevi notifiche quando lo stato o i campi di un caso vengono aggiornati",
+    "caseComments": "Commenti e menzioni",
+    "caseCommentsDescription": "Ricevi notifiche quando qualcuno commenta un tuo caso o ti menziona",
+    "caseActivity": "Attività dei casi",
+    "caseActivityDescription": "Ricevi notifiche quando vengono aggiunte attività o artefatti ai tuoi casi",
     "incidentUpdates": "Aggiornamenti incidenti",
     "incidentUpdatesDescription": "Ricevi aggiornamenti sui cambiamenti di stato degli incidenti attivi",
     "complianceAlerts": "Avvisi di conformita",
     "complianceAlertsDescription": "Ricevi notifica sulle violazioni delle politiche di conformita",
+    "userManagement": "Gestione utenti",
+    "userManagementDescription": "Ricevi notifiche su modifiche ruoli, blocchi account e assegnazioni tenant",
     "dataRetention": "Conservazione dati",
     "alertRetention": "Conservazione avvisi",
     "alertRetentionDescription": "Per quanto tempo conservare i dati degli avvisi prima dell'archiviazione",

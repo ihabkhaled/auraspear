@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import type { SoarDeleteDialogProps } from '@/types'
@@ -27,6 +27,12 @@ export function useSoarDeleteDialog({
       onConfirm(playbookId)
     }
   }, [playbookId, playbookName, onConfirm, t])
+
+  useEffect(() => {
+    if (playbookId) {
+      void handleDelete()
+    }
+  }, [playbookId, handleDelete])
 
   return { handleDelete }
 }

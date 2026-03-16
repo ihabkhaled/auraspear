@@ -19,17 +19,21 @@ export function useExportImportSettings() {
 
     const exportData: ExportedSettings = {
       notificationPreferences: {
-        criticalAlerts: Boolean(preferences['notification_criticalAlerts'] ?? true),
-        highAlerts: Boolean(preferences['notification_highAlerts'] ?? true),
-        caseAssignments: Boolean(preferences['notification_caseAssignments'] ?? true),
-        incidentUpdates: Boolean(preferences['notification_incidentUpdates'] ?? true),
-        complianceAlerts: Boolean(preferences['notification_complianceAlerts'] ?? true),
+        criticalAlerts: Boolean(preferences['notifyCriticalAlerts'] ?? true),
+        highAlerts: Boolean(preferences['notifyHighAlerts'] ?? true),
+        caseAssignments: Boolean(preferences['notifyCaseAssignments'] ?? true),
+        caseUpdates: Boolean(preferences['notifyCaseUpdates'] ?? true),
+        caseComments: Boolean(preferences['notifyCaseComments'] ?? true),
+        caseActivity: Boolean(preferences['notifyCaseActivity'] ?? true),
+        incidentUpdates: Boolean(preferences['notifyIncidentUpdates'] ?? true),
+        complianceAlerts: Boolean(preferences['notifyComplianceAlerts'] ?? true),
+        userManagement: Boolean(preferences['notifyUserManagement'] ?? true),
       },
       dataRetention: {
-        alertRetention: (preferences['retention_alerts'] as string) ?? '90',
-        logRetention: (preferences['retention_logs'] as string) ?? '90',
-        incidentRetention: (preferences['retention_incidents'] as string) ?? '365',
-        auditLogRetention: (preferences['retention_auditLogs'] as string) ?? '365',
+        alertRetention: (preferences['retentionAlerts'] as string) ?? '90',
+        logRetention: (preferences['retentionLogs'] as string) ?? '90',
+        incidentRetention: (preferences['retentionIncidents'] as string) ?? '365',
+        auditLogRetention: (preferences['retentionAuditLogs'] as string) ?? '365',
       },
       theme: (preferences['theme'] as string) ?? 'system',
       language: (preferences['language'] as string) ?? 'en',
@@ -79,17 +83,31 @@ export function useExportImportSettings() {
           const flatPreferences: Record<string, unknown> = {}
 
           if (importedData.notificationPreferences) {
+            const notifMap: Record<string, string> = {
+              criticalAlerts: 'notifyCriticalAlerts',
+              highAlerts: 'notifyHighAlerts',
+              caseAssignments: 'notifyCaseAssignments',
+              caseUpdates: 'notifyCaseUpdates',
+              caseComments: 'notifyCaseComments',
+              caseActivity: 'notifyCaseActivity',
+              incidentUpdates: 'notifyIncidentUpdates',
+              complianceAlerts: 'notifyComplianceAlerts',
+              userManagement: 'notifyUserManagement',
+            }
             for (const [key, value] of Object.entries(importedData.notificationPreferences)) {
-              flatPreferences[`notification_${key}`] = value
+              const mappedKey = Reflect.get(notifMap, key) as string | undefined
+              if (mappedKey) {
+                Reflect.set(flatPreferences, mappedKey, value)
+              }
             }
           }
 
           if (importedData.dataRetention) {
             const retentionMap: Record<string, string> = {
-              alertRetention: 'retention_alerts',
-              logRetention: 'retention_logs',
-              incidentRetention: 'retention_incidents',
-              auditLogRetention: 'retention_auditLogs',
+              alertRetention: 'retentionAlerts',
+              logRetention: 'retentionLogs',
+              incidentRetention: 'retentionIncidents',
+              auditLogRetention: 'retentionAuditLogs',
             }
             for (const [key, value] of Object.entries(importedData.dataRetention)) {
               const mappedKey = Reflect.get(retentionMap, key) as string | undefined

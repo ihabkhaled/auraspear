@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import type { ReportDeleteDialogProps } from '@/types'
@@ -27,6 +27,12 @@ export function useReportDeleteDialog({
       onConfirm(reportId)
     }
   }, [reportId, reportName, onConfirm, t])
+
+  useEffect(() => {
+    if (reportId) {
+      void handleDelete()
+    }
+  }, [reportId, handleDelete])
 
   return { handleDelete }
 }

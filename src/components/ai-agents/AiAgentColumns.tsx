@@ -8,11 +8,7 @@ import {
   AI_AGENT_TIER_CLASSES,
 } from '@/lib/constants/ai-agents'
 import { lookup } from '@/lib/utils'
-import type { AiAgent, Column } from '@/types'
-
-interface AiAgentColumnTranslations {
-  aiAgents: (key: string) => string
-}
+import type { AiAgent, AiAgentColumnTranslations, Column } from '@/types'
 
 export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>[] {
   return [

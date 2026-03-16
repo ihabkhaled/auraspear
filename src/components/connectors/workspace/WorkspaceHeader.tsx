@@ -3,17 +3,10 @@
 import { ArrowLeft } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ConnectorStatus } from '@/enums'
 import { useWorkspaceHeader } from '@/hooks/useWorkspaceHeader'
+import { WORKSPACE_HEADER_STATUS_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceHeaderProps } from '@/types'
-
-const STATUS_CLASSES: Record<string, string> = {
-  [ConnectorStatus.CONNECTED]: 'bg-status-success text-status-success border-status-success',
-  [ConnectorStatus.DISCONNECTED]: 'bg-status-error text-status-error border-status-error',
-  [ConnectorStatus.TESTING]: 'bg-status-warning text-status-warning border-status-warning',
-  [ConnectorStatus.NOT_CONFIGURED]: '',
-}
 
 export function WorkspaceHeader({
   name,
@@ -40,7 +33,10 @@ export function WorkspaceHeader({
         <div>
           <div className="flex items-center gap-2">
             <h1 className="text-xl font-bold">{name}</h1>
-            <Badge variant="outline" className={cn('text-[10px]', lookup(STATUS_CLASSES, status))}>
+            <Badge
+              variant="outline"
+              className={cn('text-[10px]', lookup(WORKSPACE_HEADER_STATUS_CLASSES, status))}
+            >
               {status}
             </Badge>
           </div>

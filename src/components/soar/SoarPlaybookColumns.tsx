@@ -8,12 +8,7 @@ import {
   SOAR_TRIGGER_TYPE_LABEL_KEYS,
 } from '@/lib/constants/soar'
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
-import type { Column, SoarPlaybook } from '@/types'
-
-interface SoarColumnTranslations {
-  soar: (key: string) => string
-  common: (key: string) => string
-}
+import type { Column, SoarColumnTranslations, SoarPlaybook } from '@/types'
 
 export function getSoarPlaybookColumns(t: SoarColumnTranslations): Column<SoarPlaybook>[] {
   return [

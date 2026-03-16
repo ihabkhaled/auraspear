@@ -11,11 +11,7 @@ import {
   Cell,
 } from 'recharts'
 import { useMitreBarChart } from '@/hooks/useMitreBarChart'
-import type { MITRETechnique } from '@/types'
-
-interface MitreBarChartProps {
-  data: MITRETechnique[]
-}
+import type { MitreBarChartProps } from '@/types'
 
 export function MitreBarChart({ data }: MitreBarChartProps) {
   const { isNarrow, handleResize, yAxisWidth, leftMargin } = useMitreBarChart()

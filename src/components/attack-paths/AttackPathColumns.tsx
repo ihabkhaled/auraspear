@@ -8,11 +8,7 @@ import {
   ATTACK_PATH_STATUS_CLASSES,
 } from '@/lib/constants/attack-paths'
 import { formatDate, lookup } from '@/lib/utils'
-import type { AttackPath, Column } from '@/types'
-
-interface AttackPathColumnTranslations {
-  attackPath: (key: string) => string
-}
+import type { AttackPath, AttackPathColumnTranslations, Column } from '@/types'
 
 export function getAttackPathColumns(t: AttackPathColumnTranslations): Column<AttackPath>[] {
   return [

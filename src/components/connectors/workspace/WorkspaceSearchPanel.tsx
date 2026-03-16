@@ -6,18 +6,10 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { AlertSeverity } from '@/enums'
 import { useWorkspaceSearchPanel } from '@/hooks/useWorkspaceSearchPanel'
+import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceRecentItem, WorkspaceSearchPanelProps } from '@/types'
-
-const SEVERITY_CLASSES: Record<AlertSeverity, string> = {
-  [AlertSeverity.CRITICAL]: 'bg-severity-critical text-white',
-  [AlertSeverity.HIGH]: 'bg-severity-high text-white',
-  [AlertSeverity.MEDIUM]: 'bg-severity-medium text-white',
-  [AlertSeverity.LOW]: 'bg-severity-low',
-  [AlertSeverity.INFO]: 'bg-severity-info',
-}
 
 export function WorkspaceSearchPanel({ onSearch, results, loading }: WorkspaceSearchPanelProps) {
   const { t, query, setQuery, handleSubmit } = useWorkspaceSearchPanel({ onSearch })

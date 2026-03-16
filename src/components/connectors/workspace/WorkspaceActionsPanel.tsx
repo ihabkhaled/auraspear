@@ -8,6 +8,7 @@ import { lookup } from '@/lib/utils'
 import type { WorkspaceActionsPanelProps } from '@/types'
 import type { LucideIcon } from 'lucide-react'
 
+// ACTION_ICON_MAP contains React component references (LucideIcon), so it must stay inline per CLAUDE.md rule 13 exception.
 const ACTION_ICON_MAP: Record<string, LucideIcon> = {
   play: Play,
   'refresh-cw': RefreshCw,

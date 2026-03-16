@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server'
+import { type NextRequest } from 'next/server'
+import { proxyToBackend } from '@/lib/backend-proxy'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST() {
-  // Logout is client-side only - clear tokens in localStorage
-  return NextResponse.json({ message: 'Logged out successfully' })
+export async function POST(request: NextRequest) {
+  return proxyToBackend(request, { path: '/auth/logout' })
 }

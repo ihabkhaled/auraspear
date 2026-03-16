@@ -134,3 +134,8 @@ export interface CloudFindingCardProps {
   onResolve: (id: string) => void
   onSuppress: (id: string) => void
 }
+
+export interface CloudSecurityColumnTranslations {
+  cloudSecurity: (key: string) => string
+  common: (key: string) => string
+}

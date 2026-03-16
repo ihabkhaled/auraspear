@@ -1,8 +1,9 @@
 'use client'
 
-import { Edit, Trash2 } from 'lucide-react'
+import { ChevronDown, Edit, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -71,7 +72,7 @@ export function CorrelationDetailPanel({
               <p className="text-sm">{rule.description ?? '-'}</p>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('fieldSource')}</p>
                 <span
@@ -100,7 +101,7 @@ export function CorrelationDetailPanel({
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('detailHitCount')}</p>
                 <p className="text-sm font-medium">{rule.hitCount}</p>
@@ -114,36 +115,42 @@ export function CorrelationDetailPanel({
             </div>
 
             {rule.mitreTechniques.length > 0 && (
-              <div>
-                <p className="text-muted-foreground mb-1 text-xs font-medium">
-                  {t('fieldMitreTechniques')}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {rule.mitreTechniques.map(technique => (
-                    <Badge key={technique} variant="outline" className="font-mono text-xs">
-                      {technique}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <p className="text-sm font-semibold">{t('fieldMitreTechniques')}</p>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="flex flex-wrap gap-1 pt-2">
+                    {rule.mitreTechniques.map(technique => (
+                      <Badge key={technique} variant="outline" className="font-mono text-xs">
+                        {technique}
+                      </Badge>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             )}
 
             {rule.mitreTactics.length > 0 && (
-              <div>
-                <p className="text-muted-foreground mb-1 text-xs font-medium">
-                  {t('detailMitreTactics')}
-                </p>
-                <div className="flex flex-wrap gap-1">
-                  {rule.mitreTactics.map(tactic => (
-                    <Badge key={tactic} variant="secondary" className="text-xs">
-                      {tactic}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <p className="text-sm font-semibold">{t('detailMitreTactics')}</p>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="flex flex-wrap gap-1 pt-2">
+                    {rule.mitreTactics.map(tactic => (
+                      <Badge key={tactic} variant="secondary" className="text-xs">
+                        {tactic}
+                      </Badge>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('detailCreatedBy')}</p>
                 <p className="text-sm">{rule.createdByName ?? rule.createdBy}</p>
@@ -154,7 +161,7 @@ export function CorrelationDetailPanel({
               </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               <div>
                 <p className="text-muted-foreground text-xs font-medium">{t('detailCreatedAt')}</p>
                 <p className="text-sm">{formattedCreatedAt}</p>
@@ -170,25 +177,31 @@ export function CorrelationDetailPanel({
             </div>
 
             {rule.yamlContent && (
-              <div>
-                <p className="text-muted-foreground mb-1 text-xs font-medium">
-                  {t('fieldYamlContent')}
-                </p>
-                <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-xs">
-                  <code>{rule.yamlContent}</code>
-                </pre>
-              </div>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <p className="text-sm font-semibold">{t('fieldYamlContent')}</p>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <pre className="bg-muted mt-2 overflow-x-auto rounded-lg p-4 font-mono text-xs">
+                    <code>{rule.yamlContent}</code>
+                  </pre>
+                </CollapsibleContent>
+              </Collapsible>
             )}
 
             {rule.conditions && (
-              <div>
-                <p className="text-muted-foreground mb-1 text-xs font-medium">
-                  {t('detailConditions')}
-                </p>
-                <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-xs">
-                  <code>{JSON.stringify(rule.conditions, null, 2)}</code>
-                </pre>
-              </div>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <p className="text-sm font-semibold">{t('detailConditions')}</p>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <pre className="bg-muted mt-2 overflow-x-auto rounded-lg p-4 font-mono text-xs">
+                    <code>{JSON.stringify(rule.conditions, null, 2)}</code>
+                  </pre>
+                </CollapsibleContent>
+              </Collapsible>
             )}
           </div>
         </div>
