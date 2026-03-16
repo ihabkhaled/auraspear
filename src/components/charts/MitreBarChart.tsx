@@ -1,15 +1,6 @@
 'use client'
 
-import {
-  ResponsiveContainer,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Cell,
-} from 'recharts'
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import { useMitreBarChart } from '@/hooks/useMitreBarChart'
 import type { MitreBarChartProps } from '@/types'
 
@@ -51,11 +42,13 @@ export function MitreBarChart({ data }: MitreBarChartProps) {
           formatter={value => [value ?? 0, 'Count']}
           labelFormatter={label => label}
         />
-        <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={24}>
-          {data.map(entry => (
-            <Cell key={entry.id} fill="var(--primary)" fillOpacity={0.8} />
-          ))}
-        </Bar>
+        <Bar
+          dataKey="count"
+          radius={[0, 4, 4, 0]}
+          maxBarSize={24}
+          fill="var(--primary)"
+          fillOpacity={0.8}
+        />
       </BarChart>
     </ResponsiveContainer>
   )

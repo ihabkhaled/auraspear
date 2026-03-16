@@ -1,15 +1,17 @@
 'use client'
 
-import { ResponsiveContainer, PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
-import { getSeverityColor } from '@/lib/severity-utils'
+import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from 'recharts'
+import { useSeverityChartData } from '@/hooks/useSeverityChartData'
 import type { SeverityDistributionChartProps } from '@/types'
 
 export function SeverityDistributionChart({ data }: SeverityDistributionChartProps) {
+  const coloredData = useSeverityChartData(data)
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart>
         <Pie
-          data={data}
+          data={coloredData}
           cx="50%"
           cy="50%"
           innerRadius={60}
@@ -18,11 +20,7 @@ export function SeverityDistributionChart({ data }: SeverityDistributionChartPro
           dataKey="value"
           nameKey="name"
           strokeWidth={0}
-        >
-          {data.map(entry => (
-            <Cell key={entry.name} fill={getSeverityColor(entry.severity)} />
-          ))}
-        </Pie>
+        />
         <Tooltip
           contentStyle={{
             backgroundColor: 'var(--card)',
