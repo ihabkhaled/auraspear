@@ -352,6 +352,18 @@ Theme-aware colors are defined via `@theme` in `src/app/globals.css` using CSS v
 
 ---
 
+## Security Rules (MANDATORY)
+
+35. **NEVER store sensitive data in localStorage without encryption** — Tokens should use HttpOnly cookies when possible. If localStorage must stay, ensure CSP blocks inline scripts.
+36. **NEVER use `dangerouslySetInnerHTML`** — If unavoidable, sanitize with DOMPurify first. Currently none in codebase — keep it that way.
+37. **EVERY redirect MUST be to a known path** — No open redirects from user input. Validate redirect targets against a whitelist.
+38. **Security headers MUST be set in `next.config.ts`** — X-Content-Type-Options, X-Frame-Options, X-XSS-Protection: 0, HSTS, Referrer-Policy, Permissions-Policy are all configured.
+39. **NEVER log tokens or credentials** — Not in console.warn, not in error handlers, not in Zustand devtools.
+40. **API errors MUST NOT expose internal details** — Show only `t(messageKey)` to users. Never display raw error messages from backend.
+41. **NEVER forward role/auth headers from client in API proxy** — The backend-proxy must not pass through X-Role or similar headers.
+
+---
+
 ## Components — MUST USE (never build custom alternatives)
 
 ### DataTable — `@/components/common/DataTable`

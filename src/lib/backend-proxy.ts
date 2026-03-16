@@ -46,14 +46,6 @@ export async function proxyToBackend(
     headers['X-Tenant-Id'] = tenantId
   }
 
-  // Dev mode: forward dev headers for role/tenant override
-  if (process.env['NODE_ENV'] === 'development') {
-    const devRole = request.headers.get('x-role')
-    if (devRole) {
-      headers['X-Role'] = devRole
-    }
-  }
-
   // Build fetch options
   const fetchOptions: RequestInit = { method, headers }
 
