@@ -244,9 +244,12 @@ export type {
   ConnectorDetailPageProps,
 } from './connector.types'
 export type {
+  TranslatableMessage,
   NotificationItem,
   NotificationSearchParams,
   UnreadCountResponse,
+  NotificationColumnTranslations,
+  NotificationFiltersProps,
 } from './notification.types'
 export type {
   ApplicationLogEntry,

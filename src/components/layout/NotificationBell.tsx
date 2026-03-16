@@ -6,12 +6,14 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { useNotificationBell } from '@/hooks'
+import { NOTIFICATION_TYPE_LABEL_MAP } from '@/lib/constants/notifications'
 import { getNotificationIcon, getNotificationIconColor } from '@/lib/notification.utils'
-import { cn, formatRelativeTime } from '@/lib/utils'
+import { cn, formatRelativeTime, lookup } from '@/lib/utils'
 
 export function NotificationBell() {
   const {
     t,
+    locale,
     open,
     setOpen,
     unreadCount,
@@ -23,6 +25,7 @@ export function NotificationBell() {
     handleNotificationClick,
     handleMarkAllRead,
     markAllReadPending,
+    resolveMessage,
   } = useNotificationBell()
 
   return (
@@ -98,16 +101,21 @@ export function NotificationBell() {
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-sm font-medium">{notification.actorName}</p>
+                  <p className="text-sm font-medium">
+                    {lookup(NOTIFICATION_TYPE_LABEL_MAP, notification.type)
+                      ? t(lookup(NOTIFICATION_TYPE_LABEL_MAP, notification.type))
+                      : notification.title}
+                  </p>
                   {!notification.isRead && (
                     <span className="bg-primary mt-1.5 h-2 w-2 shrink-0 rounded-full" />
                   )}
                 </div>
                 <p className="text-muted-foreground mt-0.5 line-clamp-2 text-xs">
-                  {notification.message}
+                  {notification.actorName}
+                  {notification.message ? ` — ${resolveMessage(notification.message)}` : ''}
                 </p>
                 <p className="text-muted-foreground mt-1 text-xs">
-                  {formatRelativeTime(notification.createdAt)}
+                  {formatRelativeTime(notification.createdAt, locale)}
                 </p>
               </div>
             </button>

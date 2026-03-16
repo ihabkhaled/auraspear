@@ -14,6 +14,7 @@ import { LoadingSpinner, EmptyState } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { CaseStatus } from '@/enums'
 import { useCaseDetailPage } from '@/hooks/useCaseDetailPage'
 import { cn } from '@/lib/utils'
@@ -187,34 +188,48 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
             </Card>
           )}
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">{t('tasks')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CaseTaskList
-                tasks={caseItem.tasks ?? []}
-                onToggleTask={handleToggleTask}
-                onAddTask={handleAddTask}
-                onDeleteTask={handleDeleteTask}
-                addingTask={createTaskPending}
-              />
-            </CardContent>
-          </Card>
+          <Collapsible defaultOpen>
+            <Card>
+              <CardHeader>
+                <CollapsibleTrigger className="flex w-full items-center justify-between">
+                  <CardTitle className="text-base">{t('tasks')}</CardTitle>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+              </CardHeader>
+              <CollapsibleContent>
+                <CardContent className="max-h-[400px] overflow-y-auto">
+                  <CaseTaskList
+                    tasks={caseItem.tasks ?? []}
+                    onToggleTask={handleToggleTask}
+                    onAddTask={handleAddTask}
+                    onDeleteTask={handleDeleteTask}
+                    addingTask={createTaskPending}
+                  />
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-base">{t('artifacts')}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <CaseArtifactPanel
-                artifacts={caseItem.artifacts ?? []}
-                onAddArtifact={handleAddArtifact}
-                onDeleteArtifact={handleDeleteArtifact}
-                addingArtifact={createArtifactPending}
-              />
-            </CardContent>
-          </Card>
+          <Collapsible defaultOpen>
+            <Card>
+              <CardHeader>
+                <CollapsibleTrigger className="flex w-full items-center justify-between">
+                  <CardTitle className="text-base">{t('artifacts')}</CardTitle>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+              </CardHeader>
+              <CollapsibleContent>
+                <CardContent className="max-h-[400px] overflow-y-auto">
+                  <CaseArtifactPanel
+                    artifacts={caseItem.artifacts ?? []}
+                    onAddArtifact={handleAddArtifact}
+                    onDeleteArtifact={handleDeleteArtifact}
+                    addingArtifact={createArtifactPending}
+                  />
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
         </div>
       </div>
     </div>

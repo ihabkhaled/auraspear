@@ -1,6 +1,11 @@
 import { clsx, type ClassValue } from 'clsx'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import 'dayjs/locale/ar'
+import 'dayjs/locale/de'
+import 'dayjs/locale/es'
+import 'dayjs/locale/fr'
+import 'dayjs/locale/it'
 import { twMerge } from 'tailwind-merge'
 
 dayjs.extend(relativeTime)
@@ -17,8 +22,8 @@ export function formatTimestamp(date: string | Date): string {
   return dayjs(date).format('MMM D, YYYY HH:mm:ss')
 }
 
-export function formatRelativeTime(date: string | Date): string {
-  return dayjs(date).fromNow()
+export function formatRelativeTime(date: string | Date, locale = 'en'): string {
+  return dayjs(date).locale(locale).fromNow()
 }
 
 export function formatNumber(num: number): string {

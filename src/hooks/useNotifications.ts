@@ -1,6 +1,7 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { notificationService } from '@/services'
 import { useTenantStore } from '@/stores'
+import type { NotificationSearchParams } from '@/types'
 
 const NOTIFICATIONS_PAGE_SIZE = 15
 
@@ -18,6 +19,16 @@ export function useNotifications() {
       }
       return
     },
+  })
+}
+
+export function useNotificationsList(params?: NotificationSearchParams) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
+  return useQuery({
+    queryKey: ['notifications', 'list', tenantId, params],
+    queryFn: () => notificationService.getNotifications(params),
+    placeholderData: prev => prev,
   })
 }
 

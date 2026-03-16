@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import {
   useMarkAllNotificationsRead,
@@ -12,11 +12,14 @@ import {
   useUnreadNotificationCount,
 } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
+import { resolveNotificationMessage } from '@/lib/constants/notifications'
 import type { NotificationItem } from '@/types'
 
 export function useNotificationBell() {
   const t = useTranslations('notifications')
+  const tMessages = useTranslations('notifications.messages')
   const tError = useTranslations('errors')
+  const locale = useLocale()
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -92,8 +95,14 @@ export function useNotificationBell() {
     })
   }, [markAllRead, t, tError])
 
+  const resolveMessage = useCallback(
+    (message: string) => resolveNotificationMessage(message, tMessages),
+    [tMessages]
+  )
+
   return {
     t,
+    locale,
     open,
     setOpen,
     unreadCount,
@@ -105,5 +114,6 @@ export function useNotificationBell() {
     handleNotificationClick,
     handleMarkAllRead,
     markAllReadPending: markAllRead.isPending,
+    resolveMessage,
   }
 }

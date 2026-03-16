@@ -8,7 +8,7 @@ import { cn, formatTimestamp } from '@/lib/utils'
 import type { CaseTimelineProps } from '@/types'
 
 export function CaseTimeline({ entries }: CaseTimelineProps) {
-  const { t, expanded, toggleExpanded } = useCaseTimeline()
+  const { t, expanded, toggleExpanded, resolveDescription } = useCaseTimeline()
 
   if (entries.length === 0) {
     return (
@@ -48,7 +48,9 @@ export function CaseTimeline({ entries }: CaseTimelineProps) {
                       {formatTimestamp(entry.timestamp)}
                     </span>
                   </div>
-                  <p className="text-muted-foreground text-sm">{entry.description}</p>
+                  <p className="text-muted-foreground text-sm">
+                    {resolveDescription(entry.description)}
+                  </p>
                 </div>
               </div>
             )

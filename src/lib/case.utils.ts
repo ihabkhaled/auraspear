@@ -51,3 +51,31 @@ export function getAvatarColor(index: number): string {
 export function getTypeColor(type: CaseTimelineEntryType): string {
   return lookup(TIMELINE_TYPE_COLORS, type) ?? 'var(--muted-foreground)'
 }
+
+/**
+ * Resolves a timeline description that may be either a plain-text string (legacy)
+ * or a JSON-encoded translatable message with `key` + `params`.
+ *
+ * If the message is valid JSON with `key` and `params`, returns `t(key, params)`.
+ * Otherwise returns the raw description string for backward compatibility.
+ */
+export function resolveTimelineDescription(
+  description: string,
+  t: (key: string, params?: Record<string, string>) => string
+): string {
+  try {
+    const parsed: unknown = JSON.parse(description)
+    if (
+      typeof parsed === 'object' &&
+      parsed !== null &&
+      'key' in parsed &&
+      typeof (parsed as { key: unknown }).key === 'string'
+    ) {
+      const { key, params } = parsed as { key: string; params?: Record<string, string> }
+      return t(key, params)
+    }
+    return description
+  } catch {
+    return description
+  }
+}

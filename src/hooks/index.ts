@@ -87,11 +87,14 @@ export { useConnectorWorkspacePage } from './useConnectorWorkspacePage'
 export { useAppLogs, useAppLogDetail } from './useAppLogs'
 export {
   useNotifications,
+  useNotificationsList,
   useUnreadNotificationCount,
   useMarkNotificationRead,
   useMarkAllNotificationsRead,
 } from './useNotifications'
 export { useNotificationSocket } from './useNotificationSocket'
+export { useNotificationsPage } from './useNotificationsPage'
+export { useNotificationsPageFilters } from './useNotificationsPageFilters'
 export { useSystemAdminPage } from './useSystemAdminPage'
 export { useTenantConfigPage } from './useTenantConfigPage'
 export { useSidebarHealth } from './useSidebarHealth'

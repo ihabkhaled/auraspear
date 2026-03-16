@@ -46,7 +46,8 @@ export default async function RootLayout({
         <Providers messages={messages} locale={locale}>
           {children}
           <Toaster
-            position="top-right"
+            position={dir === 'rtl' ? 'top-left' : 'top-right'}
+            dir={dir}
             toastOptions={{
               className: 'bg-card text-card-foreground border-border',
             }}
