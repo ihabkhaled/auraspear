@@ -751,3 +751,35 @@ Before committing any module:
 - **Husky** + **lint-staged** for pre-commit hooks
 - **Prettier** + **prettier-plugin-tailwindcss** for formatting
 - **Jest** + **React Testing Library** for testing
+
+---
+
+## Audit Rules (discovered during SpearX audit — MANDATORY)
+
+### Hook Splitting
+
+29. **No page hook > 150 lines** — Split into `useModulePageDialogs()`, `useModulePageCrud()`, `useModulePageFilters()`. The parent hook composes them and returns the same interface.
+
+### Responsive Design
+
+30. **All grid layouts MUST have responsive breakpoints** — Never use `grid-cols-N` (N>1) without `sm:`/`lg:` variants. Patterns:
+    - KPI cards: `grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5`
+    - Form grids: `grid-cols-1 sm:grid-cols-2`
+    - Detail grids: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`
+    - Dialog widths: `max-w-[95vw] sm:max-w-xl`
+
+### Collapsible Panels
+
+31. **All detail panel sections with > 3 items MUST be Collapsible** — Use `<Collapsible defaultOpen>` from `@/components/ui/collapsible` with a `<ChevronDown>` trigger. Apply to all JSON views, lists, timelines, and MITRE mappings.
+
+### Column Translation Interfaces
+
+32. **All column translation interfaces go in `src/types/<module>.types.ts`** — Never define `*ColumnTranslations` or `*ChartProps` interfaces inline in component files.
+
+### Constants with JSX
+
+33. **Constants containing React components/JSX may stay inline** — Pure data constants (string maps, config objects) must go to `src/lib/constants/`. Constants referencing `LucideIcon` or JSX elements are acceptable inline with a comment explaining the exception.
+
+### Translations
+
+34. **Every backend `BusinessException` messageKey must have a matching `errors.*` key in ALL 6 locale files** — When adding a new error in the backend, immediately add the translation key to all frontend locale files.
