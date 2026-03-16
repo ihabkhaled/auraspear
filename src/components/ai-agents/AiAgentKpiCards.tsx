@@ -1,6 +1,6 @@
 'use client'
 
-import { Bot, Wifi, Zap, Hash, DollarSign } from 'lucide-react'
+import { Bot, DollarSign, Hash, Wifi, Zap } from 'lucide-react'
 import { KpiCard } from '@/components/common'
 import { useAiAgentKpiCards } from '@/hooks/useAiAgentKpiCards'
 import type { AiAgentKpiCardsProps } from '@/types'
@@ -10,7 +10,7 @@ export function AiAgentKpiCards(props: AiAgentKpiCardsProps) {
     useAiAgentKpiCards(props)
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-5">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       <KpiCard
         label={t('kpiTotalAgents')}
         value={totalAgents}

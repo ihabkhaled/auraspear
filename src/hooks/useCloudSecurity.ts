@@ -56,6 +56,7 @@ export function useCloudFindings(params?: CloudFindingSearchParams) {
   return useQuery({
     queryKey: ['cloud-security', 'findings', tenantId, params],
     queryFn: () => cloudSecurityService.listFindings(params),
+    enabled: params !== undefined,
     placeholderData: keepPreviousData,
   })
 }

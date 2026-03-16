@@ -14,6 +14,7 @@ import { useCreateCaseTask, useUpdateCaseTask, useDeleteCaseTask } from './useCa
 
 export function useCaseDetailPage(id: string) {
   const t = useTranslations('cases')
+  const tError = useTranslations('errors')
   const router = useRouter()
 
   const { data, isLoading, isError } = useCase(id)
@@ -60,12 +61,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('statusUpdated'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [id, updateCase, t]
+    [id, updateCase, t, tError]
   )
 
   const handleAssigneeChange = useCallback(
@@ -77,12 +78,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('assigneeUpdated'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [id, updateCase, t]
+    [id, updateCase, t, tError]
   )
 
   const handleCycleChange = useCallback(
@@ -94,12 +95,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('cycleUpdated'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [id, updateCase, t]
+    [id, updateCase, t, tError]
   )
 
   const handleEditClick = useCallback(() => {
@@ -123,12 +124,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('caseUpdated'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [id, updateCase, t]
+    [id, updateCase, t, tError]
   )
 
   const handleToggleTask = useCallback(
@@ -145,12 +146,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('taskUpdated'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [updateTask, t]
+    [updateTask, t, tError]
   )
 
   const handleAddTask = useCallback(
@@ -162,12 +163,12 @@ export function useCaseDetailPage(id: string) {
             Toast.success(t('taskAdded'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [createTask, t]
+    [createTask, t, tError]
   )
 
   const handleDeleteTask = useCallback(
@@ -184,11 +185,11 @@ export function useCaseDetailPage(id: string) {
           Toast.success(t('taskDeleted'))
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [deleteTask, t]
+    [deleteTask, t, tError]
   )
 
   const handleAddArtifact = useCallback(
@@ -198,11 +199,11 @@ export function useCaseDetailPage(id: string) {
           Toast.success(t('artifactAdded'))
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [createArtifact, t]
+    [createArtifact, t, tError]
   )
 
   const handleDeleteArtifact = useCallback(
@@ -219,11 +220,11 @@ export function useCaseDetailPage(id: string) {
           Toast.success(t('artifactDeleted'))
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [deleteArtifact, t]
+    [deleteArtifact, t, tError]
   )
 
   const toggleDescription = useCallback(() => {

@@ -39,7 +39,6 @@ export function useCloudSecurityPage() {
   const [editOpen, setEditOpen] = useState(false)
   const [detailOpen, setDetailOpen] = useState(false)
   const [selectedAccount, setSelectedAccount] = useState<CloudAccount | null>(null)
-  const [accountFindings, setAccountFindings] = useState<CloudFinding[]>([])
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
   const debouncedSearch = useDebounce(searchQuery, 400)
@@ -63,7 +62,14 @@ export function useCloudSecurityPage() {
 
   const { data, isFetching } = useCloudAccounts(searchParams)
   const { data: statsData, isLoading: statsLoading } = useCloudSecurityStats()
-  const { data: findingsData } = useCloudFindings()
+
+  // Fetch findings for the selected account via backend filter
+  const { data: findingsData } = useCloudFindings(
+    selectedAccount ? { cloudAccountId: selectedAccount.id } : undefined
+  )
+
+  const accountFindings: CloudFinding[] = useMemo(() => findingsData?.data ?? [], [findingsData])
+
   const createMutation = useCreateCloudAccount()
   const updateMutation = useUpdateCloudAccount()
   const deleteMutation = useDeleteCloudAccount()
@@ -156,16 +162,10 @@ export function useCloudSecurityPage() {
     [deleteMutation, t]
   )
 
-  const handleOpenDetail = useCallback(
-    (account: CloudAccount) => {
-      setSelectedAccount(account)
-      const filtered =
-        findingsData?.data?.filter((f: CloudFinding) => f.cloudAccountId === account.id) ?? []
-      setAccountFindings(filtered)
-      setDetailOpen(true)
-    },
-    [findingsData]
-  )
+  const handleRowClick = useCallback((account: CloudAccount) => {
+    setSelectedAccount(account)
+    setDetailOpen(true)
+  }, [])
 
   const handleOpenEdit = useCallback((account: CloudAccount) => {
     setSelectedAccount(account)
@@ -211,7 +211,7 @@ export function useCloudSecurityPage() {
     handleCreate,
     handleEdit,
     handleDelete,
-    handleOpenDetail,
+    handleRowClick,
     handleOpenEdit,
   }
 }

@@ -16,6 +16,7 @@ import type { NotificationItem } from '@/types'
 
 export function useNotificationBell() {
   const t = useTranslations('notifications')
+  const tError = useTranslations('errors')
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
@@ -63,7 +64,7 @@ export function useNotificationBell() {
       if (!notification.isRead) {
         markRead.mutate(notification.id, {
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         })
       }
@@ -77,7 +78,7 @@ export function useNotificationBell() {
         router.push(`/cases/${notification.caseId}${commentAnchor}`)
       }
     },
-    [markRead, router, t]
+    [markRead, router, tError]
   )
 
   const handleMarkAllRead = useCallback(() => {
@@ -86,10 +87,10 @@ export function useNotificationBell() {
         Toast.success(t('allMarkedRead'))
       },
       onError: (error: unknown) => {
-        Toast.error(t(getErrorKey(error)))
+        Toast.error(tError(getErrorKey(error)))
       },
     })
-  }, [markAllRead, t])
+  }, [markAllRead, t, tError])
 
   return {
     t,

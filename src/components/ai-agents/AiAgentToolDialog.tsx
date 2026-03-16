@@ -1,6 +1,5 @@
 'use client'
 
-import { Controller } from 'react-hook-form'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,7 +11,6 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { useAiAgentToolDialog } from '@/hooks/useAiAgentToolDialog'
 import type { AiAgentToolDialogProps } from '@/types'
@@ -24,20 +22,12 @@ export function AiAgentToolDialog({
   initialValues,
   loading = false,
 }: AiAgentToolDialogProps) {
-  const {
-    t,
-    register,
-    handleSubmit,
-    control,
-    errors,
-    isEditing,
-    handleFormSubmit,
-    handleOpenChange,
-  } = useAiAgentToolDialog({ open, onOpenChange, onSubmit, initialValues })
+  const { t, register, handleSubmit, errors, isEditing, handleFormSubmit, handleOpenChange } =
+    useAiAgentToolDialog({ open, onOpenChange, onSubmit, initialValues })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-lg">
+      <DialogContent className="w-full max-w-[calc(100vw-2rem)] overflow-hidden sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{isEditing ? t('editTool') : t('addTool')}</DialogTitle>
           <DialogDescription>{t('toolDialogDescription')}</DialogDescription>
@@ -83,17 +73,6 @@ export function AiAgentToolDialog({
             {errors.schema && (
               <p className="text-destructive text-xs">{t('validationToolSchemaMin')}</p>
             )}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Label htmlFor="tool-enabled">{t('toolEnabled')}</Label>
-            <Controller
-              name="enabled"
-              control={control}
-              render={({ field }) => (
-                <Switch id="tool-enabled" checked={field.value} onCheckedChange={field.onChange} />
-              )}
-            />
           </div>
 
           <DialogFooter>

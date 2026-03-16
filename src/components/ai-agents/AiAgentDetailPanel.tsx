@@ -1,12 +1,13 @@
 'use client'
 
-import { Bot, Edit, X, Square, Save, Plus, Wrench } from 'lucide-react'
+import { Bot, ChevronDown, Edit, Play, Plus, Save, Square, Wrench, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
 import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
-import { lookup } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
 import { AiAgentDeleteDialog } from './AiAgentDeleteDialog'
 import { AiAgentSessionTable } from './AiAgentSessionTable'
@@ -21,15 +22,22 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     setSoulMdDraft,
     toolDialogOpen,
     setToolDialogOpen,
+    sessionsOpen,
+    setSessionsOpen,
+    toolsOpen,
+    setToolsOpen,
+    soulOpen,
+    setSoulOpen,
     statusLabel,
     tierLabel,
     formattedTokens,
     formattedCost,
     formattedDate,
     handleSaveSoul,
-    handleStopAgent,
+    handleToggleAgent,
+    isAgentOnline,
     isSavingSoul,
-    isStopping,
+    isToggling,
     onClose,
     onEdit,
     onDelete,
@@ -52,7 +60,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
             <Edit className="h-3.5 w-3.5" />
-            {t('editAgent')}
+            <span className="hidden sm:inline">{t('editAgent')}</span>
           </Button>
           <AiAgentDeleteDialog agentName={agent.name} onConfirm={() => onDelete()} />
           <Button variant="ghost" size="icon" onClick={onClose}>
@@ -62,7 +70,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
-        <TabsList className="border-border w-full justify-start rounded-none border-b px-4">
+        <TabsList className="border-border w-full justify-start overflow-x-auto rounded-none border-b px-4">
           <TabsTrigger value="overview">{t('tabOverview')}</TabsTrigger>
           <TabsTrigger value="soul">{t('tabSoul')}</TabsTrigger>
           <TabsTrigger value="sessions">{t('tabSessions')}</TabsTrigger>
@@ -70,11 +78,14 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
         </TabsList>
 
         <TabsContent value="overview" className="p-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colStatus')}</p>
               <span
-                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(AI_AGENT_STATUS_CLASSES, agent.status)}`}
+                className={cn(
+                  'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
+                  lookup(AI_AGENT_STATUS_CLASSES, agent.status)
+                )}
               >
                 {statusLabel}
               </span>
@@ -82,7 +93,10 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colTier')}</p>
               <span
-                className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${lookup(AI_AGENT_TIER_CLASSES, agent.tier)}`}
+                className={cn(
+                  'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
+                  lookup(AI_AGENT_TIER_CLASSES, agent.tier)
+                )}
               >
                 {tierLabel}
               </span>
@@ -93,7 +107,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
             </div>
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('kpiTotalSessions')}</p>
-              <p className="text-foreground text-sm font-semibold">{agent.totalSessions}</p>
+              <p className="text-foreground text-sm font-semibold">{agent.sessionsCount}</p>
             </div>
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colTokens')}</p>
@@ -103,7 +117,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
               <p className="text-muted-foreground mb-1 text-xs">{t('colCost')}</p>
               <p className="text-foreground font-mono text-sm font-semibold">{formattedCost}</p>
             </div>
-            <div className="bg-muted/50 col-span-2 rounded-lg p-3">
+            <div className="bg-muted/50 col-span-1 rounded-lg p-3 sm:col-span-2">
               <p className="text-muted-foreground mb-1 text-xs">{t('fieldDescription')}</p>
               <p className="text-foreground text-sm">{agent.description ?? '-'}</p>
             </div>
@@ -113,81 +127,139 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
             </div>
           </div>
           <div className="mt-4 flex gap-2">
-            <Button
-              variant="destructive"
-              size="sm"
-              onClick={handleStopAgent}
-              disabled={isStopping}
-              className="gap-1.5"
-            >
-              <Square className="h-3.5 w-3.5" />
-              {isStopping ? t('stopping') : t('stopAgent')}
-            </Button>
+            {isAgentOnline ? (
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={handleToggleAgent}
+                disabled={isToggling}
+                className="gap-1.5"
+              >
+                <Square className="h-3.5 w-3.5" />
+                {isToggling ? t('stopping') : t('stopAgent')}
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                size="sm"
+                onClick={handleToggleAgent}
+                disabled={isToggling}
+                className="gap-1.5"
+              >
+                <Play className="h-3.5 w-3.5" />
+                {isToggling ? t('starting') : t('startAgent')}
+              </Button>
+            )}
           </div>
         </TabsContent>
 
         <TabsContent value="soul" className="p-4">
-          <div className="flex flex-col gap-3">
-            <p className="text-muted-foreground text-sm">{t('soulEditor')}</p>
-            <Textarea
-              value={soulMdDraft}
-              onChange={e => setSoulMdDraft(e.target.value)}
-              className="h-64 resize-none font-mono text-sm"
-              placeholder={t('fieldSoulMdPlaceholder')}
-            />
-            <div className="flex justify-end">
-              <Button
-                size="sm"
-                onClick={handleSaveSoul}
-                disabled={isSavingSoul}
-                className="gap-1.5"
-              >
-                <Save className="h-3.5 w-3.5" />
-                {isSavingSoul ? t('saving') : t('saveSoul')}
-              </Button>
-            </div>
-          </div>
+          <Collapsible open={soulOpen} onOpenChange={setSoulOpen}>
+            <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+              <p className="text-muted-foreground text-sm">{t('soulEditor')}</p>
+              <ChevronDown
+                className={cn(
+                  'text-muted-foreground h-4 w-4 transition-transform',
+                  soulOpen && 'rotate-180'
+                )}
+              />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="flex flex-col gap-3 pt-2">
+                <Textarea
+                  value={soulMdDraft}
+                  onChange={e => setSoulMdDraft(e.target.value)}
+                  className="h-64 resize-none font-mono text-sm"
+                  placeholder={t('fieldSoulMdPlaceholder')}
+                />
+                <div className="flex justify-end">
+                  <Button
+                    size="sm"
+                    onClick={handleSaveSoul}
+                    disabled={isSavingSoul}
+                    className="gap-1.5"
+                  >
+                    <Save className="h-3.5 w-3.5" />
+                    {isSavingSoul ? t('saving') : t('saveSoul')}
+                  </Button>
+                </div>
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </TabsContent>
 
         <TabsContent value="sessions" className="p-4">
-          <AiAgentSessionTable agentId={agent.id} />
+          <Collapsible open={sessionsOpen} onOpenChange={setSessionsOpen}>
+            <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+              <p className="text-foreground text-sm font-semibold">{t('tabSessions')}</p>
+              <ChevronDown
+                className={cn(
+                  'text-muted-foreground h-4 w-4 transition-transform',
+                  sessionsOpen && 'rotate-180'
+                )}
+              />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="pt-2">
+                <AiAgentSessionTable agentId={agent.id} />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         </TabsContent>
 
         <TabsContent value="tools" className="p-4">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between">
-              <p className="text-muted-foreground text-sm">{t('toolsDescription')}</p>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => setToolDialogOpen(true)}
-                className="gap-1.5"
-              >
-                <Plus className="h-3.5 w-3.5" />
-                {t('addTool')}
-              </Button>
-            </div>
-            {agent.tools.length === 0 ? (
-              <div className="bg-muted/50 flex flex-col items-center gap-2 rounded-lg py-8">
-                <Wrench className="text-muted-foreground h-8 w-8" />
-                <p className="text-muted-foreground text-sm">{t('noTools')}</p>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2">
-                {agent.tools.map(tool => (
-                  <div
-                    key={tool}
-                    className="bg-muted/50 border-border flex items-center justify-between rounded-lg border p-3"
+          <Collapsible open={toolsOpen} onOpenChange={setToolsOpen}>
+            <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+              <p className="text-foreground text-sm font-semibold">{t('tabTools')}</p>
+              <ChevronDown
+                className={cn(
+                  'text-muted-foreground h-4 w-4 transition-transform',
+                  toolsOpen && 'rotate-180'
+                )}
+              />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="flex flex-col gap-3 pt-2">
+                <div className="flex items-center justify-between">
+                  <p className="text-muted-foreground text-sm">{t('toolsDescription')}</p>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => setToolDialogOpen(true)}
+                    className="gap-1.5"
                   >
-                    <div className="flex items-center gap-2">
-                      <Wrench className="text-muted-foreground h-4 w-4" />
-                      <span className="text-foreground text-sm font-medium">{tool}</span>
-                    </div>
+                    <Plus className="h-3.5 w-3.5" />
+                    {t('addTool')}
+                  </Button>
+                </div>
+                {!agent.tools || agent.tools.length === 0 ? (
+                  <div className="bg-muted/50 flex flex-col items-center gap-2 rounded-lg py-8">
+                    <Wrench className="text-muted-foreground h-8 w-8" />
+                    <p className="text-muted-foreground text-sm">{t('noTools')}</p>
                   </div>
-                ))}
+                ) : (
+                  <div className="flex flex-col gap-2">
+                    {agent.tools.map(tool => (
+                      <div
+                        key={tool.id}
+                        className="bg-muted/50 border-border flex items-center justify-between rounded-lg border p-3"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Wrench className="text-muted-foreground h-4 w-4" />
+                          <div>
+                            <span className="text-foreground text-sm font-medium">{tool.name}</span>
+                            {tool.description && (
+                              <p className="text-muted-foreground text-xs">{tool.description}</p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </CollapsibleContent>
+          </Collapsible>
           <AiAgentToolDialog
             open={toolDialogOpen}
             onOpenChange={setToolDialogOpen}

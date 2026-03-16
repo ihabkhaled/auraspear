@@ -1,6 +1,8 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -27,7 +29,8 @@ export function CloudAccountDetailPanel({
   open,
   onOpenChange,
 }: CloudAccountDetailPanelProps) {
-  const { t, tCommon, hasData } = useCloudAccountDetailPanel({ account })
+  const { t, tCommon, hasData, findingsOpen, setFindingsOpen, complianceScoreClass } =
+    useCloudAccountDetailPanel({ account })
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -38,11 +41,11 @@ export function CloudAccountDetailPanel({
         </SheetHeader>
 
         {hasData && account && (
-          <div className="mt-6 space-y-6">
+          <div className="space-y-6">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldAlias')}</span>
-                <span className="text-foreground text-sm font-medium">{account.name}</span>
+                <span className="text-foreground text-sm font-medium">{account.alias ?? '-'}</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldProvider')}</span>
@@ -67,24 +70,18 @@ export function CloudAccountDetailPanel({
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('columnFindings')}</span>
-                <span className="text-foreground text-sm font-medium">{account.totalFindings}</span>
+                <span className="text-foreground text-sm font-medium">{account.findingsCount}</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-sm">{t('columnCritical')}</span>
-                <span className="text-severity-critical text-sm font-medium">
-                  {account.criticalFindings}
+                <span className="text-muted-foreground text-sm">{t('columnComplianceScore')}</span>
+                <span className={cn('text-sm font-medium', complianceScoreClass)}>
+                  {`${account.complianceScore}%`}
                 </span>
               </div>
-              {account.regionsMonitored.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-muted-foreground text-sm">{t('regions')}</span>
-                  <div className="flex flex-wrap gap-1">
-                    {account.regionsMonitored.map(region => (
-                      <Badge key={region} variant="outline">
-                        {region}
-                      </Badge>
-                    ))}
-                  </div>
+              {account.region && (
+                <div className="flex items-center justify-between">
+                  <span className="text-muted-foreground text-sm">{t('fieldRegion')}</span>
+                  <Badge variant="outline">{account.region}</Badge>
                 </div>
               )}
               {account.lastScanAt && (
@@ -98,37 +95,53 @@ export function CloudAccountDetailPanel({
             </div>
 
             {findings.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="text-foreground text-sm font-semibold">{t('findingsTitle')}</h3>
-                <div className="space-y-2">
-                  {findings.map(finding => (
-                    <div key={finding.id} className="bg-muted space-y-2 rounded-md p-3">
-                      <div className="flex items-start justify-between gap-2">
-                        <span className="text-foreground text-sm font-medium">{finding.title}</span>
-                        <span
-                          className={cn(
-                            'inline-flex shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
-                            lookup(CLOUD_FINDING_SEVERITY_CLASSES, finding.severity)
-                          )}
-                        >
-                          {t(lookup(CLOUD_FINDING_SEVERITY_LABEL_KEYS, finding.severity))}
-                        </span>
+              <Collapsible open={findingsOpen} onOpenChange={setFindingsOpen}>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                  <h3 className="text-foreground text-sm font-semibold">
+                    {t('findingsTitle')} ({findings.length})
+                  </h3>
+                  <ChevronDown
+                    className={cn(
+                      'text-muted-foreground h-4 w-4 transition-transform',
+                      findingsOpen && 'rotate-180'
+                    )}
+                  />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="space-y-2 pt-2">
+                    {findings.map(finding => (
+                      <div key={finding.id} className="bg-muted space-y-2 rounded-md p-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="text-foreground text-sm font-medium">
+                            {finding.title}
+                          </span>
+                          <span
+                            className={cn(
+                              'inline-flex shrink-0 rounded-full px-2 py-0.5 text-xs font-medium',
+                              lookup(CLOUD_FINDING_SEVERITY_CLASSES, finding.severity)
+                            )}
+                          >
+                            {t(lookup(CLOUD_FINDING_SEVERITY_LABEL_KEYS, finding.severity))}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-muted-foreground text-xs">
+                            {finding.resourceType}: {finding.resourceId}
+                          </span>
+                          <span
+                            className={cn(
+                              'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
+                              lookup(CLOUD_FINDING_STATUS_CLASSES, finding.status)
+                            )}
+                          >
+                            {t(lookup(CLOUD_FINDING_STATUS_LABEL_KEYS, finding.status))}
+                          </span>
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground text-xs">{finding.resource}</span>
-                        <span
-                          className={cn(
-                            'inline-flex rounded-full px-2 py-0.5 text-xs font-medium',
-                            lookup(CLOUD_FINDING_STATUS_CLASSES, finding.status)
-                          )}
-                        >
-                          {t(lookup(CLOUD_FINDING_STATUS_LABEL_KEYS, finding.status))}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             )}
           </div>
         )}

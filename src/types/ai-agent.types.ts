@@ -12,8 +12,11 @@ export interface AiAgent {
   totalTasks: number
   totalTokens: number
   totalCost: number
-  totalSessions: number
-  tools: string[]
+  avgTimeMs: number
+  toolsCount: number
+  sessionsCount: number
+  tools?: AiAgentTool[]
+  recentSessions?: AiAgentSession[]
   createdAt: string
   updatedAt: string
 }
@@ -22,12 +25,13 @@ export interface AiAgentSession {
   id: string
   agentId: string
   status: AiAgentSessionStatus
-  taskDescription: string
+  input: string
+  output: string | null
   tokensUsed: number
   cost: number
+  durationMs: number
   startedAt: string
   completedAt: string | null
-  result: string | null
 }
 
 export interface AiAgentStats {
@@ -58,10 +62,8 @@ export interface AiAgentTool {
   agentId: string
   name: string
   description: string
-  schema: string
-  enabled: boolean
+  schema: unknown
   createdAt: string
-  updatedAt: string
 }
 
 export interface CreateAiAgentFormValues {
@@ -84,7 +86,6 @@ export interface AiAgentToolFormValues {
   name: string
   description: string
   schema: string
-  enabled: boolean
 }
 
 export interface AiAgentCreateDialogProps {

@@ -41,6 +41,8 @@ export default function CompliancePage() {
     handleCreate,
     handleEdit,
     handleDelete,
+    openEditDialog,
+    openDeleteDialog,
     createLoading,
     editLoading,
   } = useCompliancePage()
@@ -111,6 +113,8 @@ export default function CompliancePage() {
         framework={selectedFramework}
         open={detailOpen}
         onOpenChange={setDetailOpen}
+        onEdit={openEditDialog}
+        onDelete={openDeleteDialog}
       />
     </div>
   )

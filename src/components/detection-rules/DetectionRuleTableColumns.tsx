@@ -87,7 +87,7 @@ export function getDetectionRuleColumns(
       },
     },
     {
-      key: 'matchCount',
+      key: 'hitCount',
       label: t.detectionRules('columnMatches'),
       sortable: true,
       render: (value: unknown) => (
@@ -95,25 +95,12 @@ export function getDetectionRuleColumns(
       ),
     },
     {
-      key: 'mitreTechniques',
-      label: t.detectionRules('columnMitre'),
-      render: (value: unknown) => {
-        const techniques = Array.isArray(value) ? (value as string[]) : []
-        const first = techniques.at(0)
-        if (!first) {
-          return <span className="text-muted-foreground text-xs">-</span>
-        }
-        return (
-          <div className="flex items-center gap-1">
-            <span className="border-border rounded border px-1.5 py-0.5 font-mono text-xs">
-              {first}
-            </span>
-            {techniques.length > 1 && (
-              <span className="text-muted-foreground text-xs">+{techniques.length - 1}</span>
-            )}
-          </div>
-        )
-      },
+      key: 'falsePositiveCount',
+      label: t.detectionRules('columnFalsePositives'),
+      sortable: true,
+      render: (value: unknown) => (
+        <span className="text-muted-foreground text-xs">{Number(value).toLocaleString()}</span>
+      ),
     },
     {
       key: 'createdAt',

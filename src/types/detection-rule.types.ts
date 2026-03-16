@@ -8,17 +8,17 @@ import type {
 export interface DetectionRule {
   id: string
   tenantId: string
+  ruleNumber: string
   name: string
   description: string | null
   ruleType: DetectionRuleType
   severity: DetectionRuleSeverity
   status: DetectionRuleStatus
-  matchCount: number
-  falsePositiveRate: number
-  mitreTactics: string[]
-  mitreTechniques: string[]
+  conditions: Record<string, unknown>
+  actions: Record<string, unknown>
+  hitCount: number
+  falsePositiveCount: number
   createdBy: string
-  createdByName: string | null
   lastTriggeredAt: string | null
   createdAt: string
   updatedAt: string
@@ -26,11 +26,10 @@ export interface DetectionRule {
 
 export interface DetectionRuleStats {
   totalRules: number
-  enabled: number
-  disabled: number
-  testing: number
-  totalMatches30d: number
-  avgFalsePositiveRate: number
+  activeRules: number
+  testingRules: number
+  disabledRules: number
+  totalMatches: number
 }
 
 export interface DetectionRuleSearchParams {
@@ -102,4 +101,7 @@ export interface DetectionRuleDetailPanelProps {
   rule: DetectionRule | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  onEdit?: (rule: DetectionRule) => void
+  onDelete?: (rule: DetectionRule) => void
+  deleteLoading?: boolean
 }

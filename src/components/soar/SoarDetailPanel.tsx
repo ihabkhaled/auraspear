@@ -1,6 +1,8 @@
 'use client'
 
+import { Pencil, Play, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
@@ -19,8 +21,15 @@ import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { SoarDetailPanelProps } from '@/types'
 import { SoarExecutionHistory } from './SoarExecutionHistory'
 
-export function SoarDetailPanel({ playbook, open, onOpenChange }: SoarDetailPanelProps) {
-  const { t, avgDurationDisplay } = useSoarDetailPanel({ playbook })
+export function SoarDetailPanel({
+  playbook,
+  open,
+  onOpenChange,
+  onEdit,
+  onDelete,
+  onRun,
+}: SoarDetailPanelProps) {
+  const { t, tCommon, avgDurationDisplay } = useSoarDetailPanel({ playbook })
 
   if (!playbook) {
     return null
@@ -34,7 +43,22 @@ export function SoarDetailPanel({ playbook, open, onOpenChange }: SoarDetailPane
           <SheetDescription>{playbook.description ?? t('noDescription')}</SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <Button variant="outline" size="sm" onClick={() => onEdit(playbook)}>
+              <Pencil className="me-1.5 h-3.5 w-3.5" />
+              {tCommon('edit')}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => onRun(playbook)}>
+              <Play className="me-1.5 h-3.5 w-3.5" />
+              {t('detailRunButton')}
+            </Button>
+            <Button variant="destructive" size="sm" onClick={() => onDelete(playbook)}>
+              <Trash2 className="me-1.5 h-3.5 w-3.5" />
+              {tCommon('delete')}
+            </Button>
+          </div>
+
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-sm">{t('detailStatus')}:</span>
             <span

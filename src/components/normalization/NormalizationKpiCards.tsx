@@ -18,13 +18,13 @@ export function NormalizationKpiCards({ stats }: NormalizationKpiCardsProps) {
       />
       <KpiCard
         label={t('kpiActive')}
-        value={stats?.active ?? 0}
+        value={stats?.activePipelines ?? 0}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
       <KpiCard
         label={t('kpiError')}
-        value={stats?.error ?? 0}
+        value={stats?.errorPipelines ?? 0}
         icon={<XCircle className="h-5 w-5" />}
         accentColor="var(--status-error)"
       />

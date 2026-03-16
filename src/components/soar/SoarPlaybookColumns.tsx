@@ -64,7 +64,6 @@ export function getSoarPlaybookColumns(t: SoarColumnTranslations): Column<SoarPl
     {
       key: 'stepsCount',
       label: t.soar('columnSteps'),
-      sortable: true,
       render: (value: unknown) => (
         <span className="text-muted-foreground text-sm">{String(value)}</span>
       ),

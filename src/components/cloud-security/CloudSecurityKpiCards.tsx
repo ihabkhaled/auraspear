@@ -9,7 +9,7 @@ export function CloudSecurityKpiCards({ stats }: CloudSecurityKpiCardsProps) {
   const { t } = useCloudSecurityKpiCards()
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
       <KpiCard
         label={t('kpiAccounts')}
         value={stats?.totalAccounts ?? 0}
@@ -30,7 +30,7 @@ export function CloudSecurityKpiCards({ stats }: CloudSecurityKpiCardsProps) {
       />
       <KpiCard
         label={t('kpiConnected')}
-        value={stats?.connected ?? 0}
+        value={stats?.connectedAccounts ?? 0}
         icon={<Link2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />

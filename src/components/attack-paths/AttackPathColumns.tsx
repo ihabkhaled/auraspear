@@ -72,7 +72,7 @@ export function getAttackPathColumns(t: AttackPathColumnTranslations): Column<At
       render: (value: unknown) => <span className="text-sm font-medium">{String(value ?? 0)}</span>,
     },
     {
-      key: 'killChainPercentage',
+      key: 'killChainCoverage',
       label: t.attackPath('colKillChain'),
       sortable: true,
       className: 'w-28',

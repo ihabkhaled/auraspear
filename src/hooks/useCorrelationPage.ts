@@ -4,7 +4,7 @@ import { Toast } from '@/components/common'
 import { getCorrelationColumns } from '@/components/correlation'
 import { RuleSource, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { lookup } from '@/lib/utils'
+import { lookup, safeJsonParse } from '@/lib/utils'
 import type {
   CorrelationRule,
   CorrelationSearchParams,
@@ -30,6 +30,7 @@ const TAB_SOURCE_MAP: Record<string, RuleSource | undefined> = {
 
 export function useCorrelationPage() {
   const t = useTranslations('correlation')
+  const tError = useTranslations('errors')
 
   const [searchQuery, setSearchQuery] = useState('')
   const [activeTab, setActiveTab] = useState('all')
@@ -154,7 +155,10 @@ export function useCorrelationPage() {
           .map(s => s.trim())
           .filter(s => s.length > 0),
         yamlContent: formData.yamlContent || null,
-        conditions: formData.conditions || null,
+        conditions:
+          formData.conditions.trim().length > 0
+            ? safeJsonParse<Record<string, unknown>>(formData.conditions, {})
+            : null,
       }
 
       createMutation.mutate(payload, {
@@ -163,11 +167,11 @@ export function useCorrelationPage() {
           setCreateDialogOpen(false)
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error) as 'createSuccess'))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [createMutation, t]
+    [createMutation, t, tError]
   )
 
   const handleEditSubmit = useCallback(
@@ -185,7 +189,10 @@ export function useCorrelationPage() {
           .map(s => s.trim())
           .filter(s => s.length > 0),
         yamlContent: formData.yamlContent || null,
-        conditions: formData.conditions || null,
+        conditions:
+          formData.conditions.trim().length > 0
+            ? safeJsonParse<Record<string, unknown>>(formData.conditions, {})
+            : null,
       }
 
       updateMutation.mutate(
@@ -197,12 +204,12 @@ export function useCorrelationPage() {
             setEditingRule(null)
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error) as 'updateSuccess'))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [editingRule, updateMutation, t]
+    [editingRule, updateMutation, t, tError]
   )
 
   const handleDeleteConfirm = useCallback(
@@ -217,11 +224,11 @@ export function useCorrelationPage() {
           }
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error) as 'deleteSuccess'))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [deleteMutation, selectedRuleId, t]
+    [deleteMutation, selectedRuleId, t, tError]
   )
 
   const handleOpenCreate = useCallback(() => {

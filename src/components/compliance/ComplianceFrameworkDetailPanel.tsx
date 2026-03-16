@@ -1,7 +1,9 @@
 'use client'
 
+import { Pencil, Trash2 } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import {
   Sheet,
   SheetContent,
@@ -17,13 +19,29 @@ import {
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { ComplianceDetailPanelProps, ComplianceControl } from '@/types'
 import { ComplianceControlCard } from './ComplianceControlCard'
+import { ComplianceControlEditDialog } from './ComplianceControlEditDialog'
 
 export function ComplianceFrameworkDetailPanel({
   framework,
   open,
   onOpenChange,
+  onEdit,
+  onDelete,
 }: ComplianceDetailPanelProps) {
-  const { t, controls, controlsLoading, scoreDisplay, scorePercent } = useComplianceDetailPanel({
+  const {
+    t,
+    controls,
+    controlsLoading,
+    scoreDisplay,
+    scorePercent,
+    assessOpen,
+    setAssessOpen,
+    assessControl,
+    assessInitialValues,
+    handleAssessOpen,
+    handleAssessSubmit,
+    assessLoading,
+  } = useComplianceDetailPanel({
     framework,
   })
 
@@ -39,7 +57,24 @@ export function ComplianceFrameworkDetailPanel({
           <SheetDescription>{framework.description ?? t('noDescription')}</SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        {(onEdit ?? onDelete) && (
+          <div className="flex items-center gap-2">
+            {onEdit && (
+              <Button variant="outline" size="sm" onClick={() => onEdit(framework)}>
+                <Pencil className="mr-1.5 h-3.5 w-3.5" />
+                {t('editFramework')}
+              </Button>
+            )}
+            {onDelete && (
+              <Button variant="destructive" size="sm" onClick={() => onDelete(framework)}>
+                <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+                {t('deleteFramework')}
+              </Button>
+            )}
+          </div>
+        )}
+
+        <div className="space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-sm">{t('detailStandard')}:</span>
             <span
@@ -98,12 +133,25 @@ export function ComplianceFrameworkDetailPanel({
             {!controlsLoading && controls.length > 0 && (
               <div className="space-y-2">
                 {controls.map((control: ComplianceControl) => (
-                  <ComplianceControlCard key={control.id} control={control} onAssess={() => {}} />
+                  <ComplianceControlCard
+                    key={control.id}
+                    control={control}
+                    onAssess={handleAssessOpen}
+                  />
                 ))}
               </div>
             )}
           </div>
         </div>
+
+        <ComplianceControlEditDialog
+          open={assessOpen}
+          onOpenChange={setAssessOpen}
+          onSubmit={handleAssessSubmit}
+          initialValues={assessInitialValues}
+          controlTitle={assessControl?.title ?? ''}
+          loading={assessLoading}
+        />
       </SheetContent>
     </Sheet>
   )

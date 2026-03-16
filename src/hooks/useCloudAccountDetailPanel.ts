@@ -1,4 +1,6 @@
+import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { getComplianceScoreClass } from '@/lib/cloud-security.utils'
 import type { CloudAccountDetailPanelProps } from '@/types'
 
 export function useCloudAccountDetailPanel({
@@ -7,7 +9,14 @@ export function useCloudAccountDetailPanel({
   const t = useTranslations('cloudSecurity')
   const tCommon = useTranslations('common')
 
+  const [findingsOpen, setFindingsOpen] = useState(true)
+
   const hasData = account !== null
 
-  return { t, tCommon, hasData }
+  const complianceScoreClass = useMemo(
+    () => (account ? getComplianceScoreClass(account.complianceScore) : ''),
+    [account]
+  )
+
+  return { t, tCommon, hasData, findingsOpen, setFindingsOpen, complianceScoreClass }
 }

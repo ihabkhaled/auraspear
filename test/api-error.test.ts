@@ -2,40 +2,40 @@ import { describe, test, expect } from 'vitest'
 import { getErrorKey, getFieldErrors, getFirstFieldError } from '@/lib/api-error'
 
 describe('getErrorKey', () => {
-  test('should extract messageKey from axios error', () => {
+  test('should extract messageKey from axios error and strip errors. prefix', () => {
     const error = {
       response: {
         data: { messageKey: 'errors.users.notFound' },
       },
     }
-    expect(getErrorKey(error)).toBe('errors.users.notFound')
+    expect(getErrorKey(error)).toBe('users.notFound')
   })
 
   test('should return unknown for null error', () => {
-    expect(getErrorKey(null)).toBe('errors.common.unknown')
+    expect(getErrorKey(null)).toBe('common.unknown')
   })
 
   test('should return unknown for undefined error', () => {
-    expect(getErrorKey(undefined)).toBe('errors.common.unknown')
+    expect(getErrorKey(undefined)).toBe('common.unknown')
   })
 
   test('should return unknown when no messageKey', () => {
     const error = { response: { data: {} } }
-    expect(getErrorKey(error)).toBe('errors.common.unknown')
+    expect(getErrorKey(error)).toBe('common.unknown')
   })
 
   test('should return unknown when no response', () => {
     const error = new Error('Network error')
-    expect(getErrorKey(error)).toBe('errors.common.unknown')
+    expect(getErrorKey(error)).toBe('common.unknown')
   })
 
   test('should return unknown for non-object error', () => {
-    expect(getErrorKey('string error')).toBe('errors.common.unknown')
+    expect(getErrorKey('string error')).toBe('common.unknown')
   })
 })
 
 describe('getFieldErrors', () => {
-  test('should return field error keys', () => {
+  test('should return raw field error keys (no prefix stripping)', () => {
     const error = {
       response: {
         data: {
@@ -64,7 +64,7 @@ describe('getFieldErrors', () => {
 })
 
 describe('getFirstFieldError', () => {
-  test('should return first field error when present', () => {
+  test('should return first field error with errors. prefix stripped', () => {
     const error = {
       response: {
         data: {
@@ -73,16 +73,16 @@ describe('getFirstFieldError', () => {
         },
       },
     }
-    expect(getFirstFieldError(error)).toBe('errors.validation.email.required')
+    expect(getFirstFieldError(error)).toBe('validation.email.required')
   })
 
-  test('should fall back to messageKey when no field errors', () => {
+  test('should fall back to messageKey with errors. prefix stripped', () => {
     const error = {
       response: {
         data: { messageKey: 'errors.users.notFound', errors: [] },
       },
     }
-    expect(getFirstFieldError(error)).toBe('errors.users.notFound')
+    expect(getFirstFieldError(error)).toBe('users.notFound')
   })
 
   test('should fall back to messageKey when errors is undefined', () => {
@@ -91,10 +91,10 @@ describe('getFirstFieldError', () => {
         data: { messageKey: 'errors.users.notFound' },
       },
     }
-    expect(getFirstFieldError(error)).toBe('errors.users.notFound')
+    expect(getFirstFieldError(error)).toBe('users.notFound')
   })
 
   test('should return unknown for null error', () => {
-    expect(getFirstFieldError(null)).toBe('errors.common.unknown')
+    expect(getFirstFieldError(null)).toBe('common.unknown')
   })
 })

@@ -82,15 +82,6 @@ export function UebaEntityEditDialog({
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-entity-department">{t('fieldDepartment')}</Label>
-            <Input
-              id="edit-entity-department"
-              {...register('department')}
-              placeholder={t('fieldDepartmentPlaceholder')}
-            />
-          </div>
-
           <DialogFooter>
             <Button
               type="button"

@@ -47,6 +47,8 @@ export default function ReportsPage() {
     handleDelete,
     createLoading,
     editLoading,
+    openEditDialog,
+    openDeleteDialog,
   } = useReportsPage()
 
   return (
@@ -115,7 +117,13 @@ export default function ReportsPage() {
         onConfirm={handleDelete}
       />
 
-      <ReportDetailPanel report={selectedReport} open={detailOpen} onOpenChange={setDetailOpen} />
+      <ReportDetailPanel
+        report={selectedReport}
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        onEdit={openEditDialog}
+        onDelete={openDeleteDialog}
+      />
     </div>
   )
 }

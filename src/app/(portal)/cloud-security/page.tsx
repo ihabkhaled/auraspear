@@ -40,19 +40,20 @@ export default function CloudSecurityPage() {
     handleSort,
     handleCreate,
     handleEdit,
+    handleRowClick,
   } = useCloudSecurityPage()
 
   const editInitialValues = selectedAccount
     ? {
         provider: selectedAccount.provider,
         accountId: selectedAccount.accountId,
-        name: selectedAccount.name,
-        region: selectedAccount.regionsMonitored[0] ?? '',
+        alias: selectedAccount.alias ?? '',
+        region: selectedAccount.region ?? '',
       }
     : {
         provider: CloudProvider.AWS,
         accountId: '',
-        name: '',
+        alias: '',
         region: '',
       }
 
@@ -83,6 +84,7 @@ export default function CloudSecurityPage() {
         columns={columns}
         data={data?.data ?? []}
         loading={isFetching}
+        onRowClick={handleRowClick}
         emptyMessage={t('noAccounts')}
         emptyIcon={<Cloud className="h-6 w-6" />}
         emptyDescription={t('emptyDescription')}

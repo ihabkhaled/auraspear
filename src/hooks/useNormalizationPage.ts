@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo } from 'react'
+import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
+import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getNormalizationColumns } from '@/components/normalization/NormalizationTableColumns'
-import { SortOrder } from '@/enums'
+import { NormalizationSourceType, SortOrder } from '@/enums'
+import { safeJsonParse } from '@/lib/utils'
 import type {
   CreateNormalizationFormValues,
   EditNormalizationFormValues,
@@ -105,7 +106,13 @@ export function useNormalizationPage() {
 
   const handleCreate = useCallback(
     (formData: CreateNormalizationFormValues) => {
-      createMutation.mutate(formData as unknown as Record<string, unknown>, {
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        sourceType: formData.sourceType,
+        parserConfig: safeJsonParse(formData.parserConfig, {}),
+        fieldMappings: safeJsonParse(formData.fieldMappings, {}),
+      }
+      createMutation.mutate(payload, {
         onSuccess: () => {
           Toast.success(t('createSuccess'))
           setCreateOpen(false)
@@ -121,8 +128,14 @@ export function useNormalizationPage() {
   const handleEdit = useCallback(
     (formData: EditNormalizationFormValues) => {
       if (!selectedPipeline) return
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        sourceType: formData.sourceType,
+        parserConfig: safeJsonParse(formData.parserConfig, {}),
+        fieldMappings: safeJsonParse(formData.fieldMappings, {}),
+      }
       updateMutation.mutate(
-        { id: selectedPipeline.id, data: formData as unknown as Record<string, unknown> },
+        { id: selectedPipeline.id, data: payload },
         {
           onSuccess: () => {
             Toast.success(t('editSuccess'))
@@ -139,7 +152,14 @@ export function useNormalizationPage() {
   )
 
   const handleDelete = useCallback(
-    (id: string) => {
+    async (id: string, name?: string) => {
+      const confirmed = await SweetAlertDialog.show({
+        text: t('confirmDeletePipeline', { name: name ?? '' }),
+        icon: SweetAlertIcon.WARNING,
+        confirmButtonText: tCommon('delete'),
+        cancelButtonText: tCommon('cancel'),
+      })
+      if (!confirmed) return
       deleteMutation.mutate(id, {
         onSuccess: () => {
           Toast.success(t('deleteSuccess'))
@@ -149,18 +169,27 @@ export function useNormalizationPage() {
         },
       })
     },
-    [deleteMutation, t]
+    [deleteMutation, t, tCommon]
   )
 
-  const handleOpenDetail = useCallback((pipeline: NormalizationPipeline) => {
+  const handleRowClick = useCallback((pipeline: NormalizationPipeline) => {
     setSelectedPipeline(pipeline)
     setDetailOpen(true)
   }, [])
 
   const handleOpenEdit = useCallback((pipeline: NormalizationPipeline) => {
     setSelectedPipeline(pipeline)
+    setDetailOpen(false)
     setEditOpen(true)
   }, [])
+
+  const handleOpenDelete = useCallback(
+    (pipeline: NormalizationPipeline) => {
+      setDetailOpen(false)
+      void handleDelete(pipeline.id, pipeline.name)
+    },
+    [handleDelete]
+  )
 
   const columns = useMemo(
     () => getNormalizationColumns({ normalization: t, common: tCommon }),
@@ -168,6 +197,20 @@ export function useNormalizationPage() {
   )
 
   const stats = statsData?.data
+
+  const editInitialValues = useMemo(
+    () => ({
+      name: selectedPipeline?.name ?? '',
+      sourceType: selectedPipeline?.sourceType ?? NormalizationSourceType.SYSLOG,
+      parserConfig: selectedPipeline
+        ? JSON.stringify(selectedPipeline.parserConfig, null, 2)
+        : '{}',
+      fieldMappings: selectedPipeline
+        ? JSON.stringify(selectedPipeline.fieldMappings, null, 2)
+        : '{}',
+    }),
+    [selectedPipeline]
+  )
 
   return {
     t,
@@ -191,6 +234,7 @@ export function useNormalizationPage() {
     setDetailOpen,
     selectedPipeline,
     createLoading: createMutation.isPending,
+    editInitialValues,
     editLoading: updateMutation.isPending,
     deleteLoading: deleteMutation.isPending,
     handleSearchChange,
@@ -200,7 +244,8 @@ export function useNormalizationPage() {
     handleCreate,
     handleEdit,
     handleDelete,
-    handleOpenDetail,
+    handleRowClick,
     handleOpenEdit,
+    handleOpenDelete,
   }
 }

@@ -27,6 +27,7 @@ const ALL_FILTER = '__all__'
 export function useUebaPage() {
   const t = useTranslations('ueba')
   const tCommon = useTranslations('common')
+  const tError = useTranslations('errors')
 
   const [searchQuery, setSearchQuery] = useState('')
   const [entityTypeFilter, setEntityTypeFilter] = useState('')
@@ -122,11 +123,11 @@ export function useUebaPage() {
           setCreateDialogOpen(false)
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [createEntity, t]
+    [createEntity, t, tError]
   )
 
   const handleEditOpen = useCallback((entity: UebaEntity) => {
@@ -148,12 +149,12 @@ export function useUebaPage() {
             setEditingEntity(null)
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [editingEntity, updateEntity, t]
+    [editingEntity, updateEntity, t, tError]
   )
 
   const handleDeleteEntity = useCallback(
@@ -166,20 +167,19 @@ export function useUebaPage() {
           }
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [deleteEntity, t, selectedEntityId]
+    [deleteEntity, t, tError, selectedEntityId]
   )
 
   const editInitialValues = useMemo(
     () => ({
       entityName: editingEntity?.entityName ?? '',
       entityType: editingEntity?.entityType ?? UebaEntityType.USER,
-      department: editingEntity?.department ?? '',
     }),
-    [editingEntity?.entityName, editingEntity?.entityType, editingEntity?.department]
+    [editingEntity?.entityName, editingEntity?.entityType]
   )
 
   const columns = useMemo(() => getUebaColumns({ ueba: t }), [t])

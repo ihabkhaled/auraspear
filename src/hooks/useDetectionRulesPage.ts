@@ -2,9 +2,10 @@
 
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
+import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getDetectionRuleColumns } from '@/components/detection-rules/DetectionRuleTableColumns'
 import { SortOrder } from '@/enums'
+import { safeJsonParse } from '@/lib/utils'
 import type {
   CreateDetectionRuleFormValues,
   DetectionRule,
@@ -117,7 +118,14 @@ export function useDetectionRulesPage() {
 
   const handleCreate = useCallback(
     (formData: CreateDetectionRuleFormValues) => {
-      createMutation.mutate(formData as unknown as Record<string, unknown>, {
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        ruleType: formData.ruleType,
+        severity: formData.severity,
+        conditions: safeJsonParse(formData.conditions, {}),
+        actions: safeJsonParse(formData.actions, {}),
+      }
+      createMutation.mutate(payload, {
         onSuccess: () => {
           Toast.success(t('createSuccess'))
           setCreateOpen(false)
@@ -133,8 +141,16 @@ export function useDetectionRulesPage() {
   const handleEdit = useCallback(
     (formData: EditDetectionRuleFormValues) => {
       if (!selectedRule) return
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        ruleType: formData.ruleType,
+        severity: formData.severity,
+        status: formData.status,
+        conditions: safeJsonParse(formData.conditions, {}),
+        actions: safeJsonParse(formData.actions, {}),
+      }
       updateMutation.mutate(
-        { id: selectedRule.id, data: formData as unknown as Record<string, unknown> },
+        { id: selectedRule.id, data: payload },
         {
           onSuccess: () => {
             Toast.success(t('editSuccess'))
@@ -151,10 +167,17 @@ export function useDetectionRulesPage() {
   )
 
   const handleDelete = useCallback(
-    (id: string) => {
-      deleteMutation.mutate(id, {
+    async (rule: DetectionRule) => {
+      const confirmed = await SweetAlertDialog.show({
+        text: t('confirmDeleteRule', { name: rule.name }),
+        icon: SweetAlertIcon.QUESTION,
+      })
+      if (!confirmed) return
+      deleteMutation.mutate(rule.id, {
         onSuccess: () => {
           Toast.success(t('deleteSuccess'))
+          setDetailOpen(false)
+          setSelectedRule(null)
         },
         onError: () => {
           Toast.error(t('deleteError'))
@@ -171,6 +194,7 @@ export function useDetectionRulesPage() {
 
   const handleOpenEdit = useCallback((rule: DetectionRule) => {
     setSelectedRule(rule)
+    setDetailOpen(false)
     setEditOpen(true)
   }, [])
 

@@ -11,6 +11,7 @@ export interface CorrelationRule {
   severity: RuleSeverity
   status: RuleStatus
   yamlContent: string | null
+  conditions: Record<string, unknown> | null
   mitreTactics: string[]
   mitreTechniques: string[]
   hitCount: number

@@ -41,7 +41,7 @@ export function IncidentCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[95vw] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('createTitle')}</DialogTitle>
           <DialogDescription>{t('createDescription')}</DialogDescription>
@@ -73,7 +73,7 @@ export function IncidentCreateDialog({
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
               <Label>{t('formSeverity')}</Label>
               <Controller

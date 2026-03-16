@@ -9,16 +9,14 @@ import type {
 export interface CloudAccount {
   id: string
   tenantId: string
-  name: string
   provider: CloudProvider
   accountId: string
+  alias: string | null
+  region: string | null
   status: CloudAccountStatus
-  regionsMonitored: string[]
-  totalFindings: number
-  criticalFindings: number
   lastScanAt: string | null
-  createdBy: string
-  createdByName: string | null
+  findingsCount: number
+  complianceScore: number
   createdAt: string
   updatedAt: string
 }
@@ -27,27 +25,30 @@ export interface CloudFinding {
   id: string
   tenantId: string
   cloudAccountId: string
-  cloudAccountName: string
-  provider: CloudProvider
-  resource: string
-  region: string
-  severity: CloudFindingSeverity
-  status: CloudFindingStatus
   title: string
   description: string | null
-  remediation: string | null
+  severity: CloudFindingSeverity
+  status: CloudFindingStatus
+  resourceId: string
+  resourceType: string
+  remediationSteps: string | null
   detectedAt: string
   resolvedAt: string | null
+  createdAt: string
+  updatedAt: string
 }
 
 export interface CloudSecurityStats {
   totalAccounts: number
-  connected: number
-  disconnected: number
+  connectedAccounts: number
+  disconnectedAccounts: number
+  errorAccounts: number
   totalFindings: number
+  openFindings: number
+  resolvedFindings: number
+  suppressedFindings: number
   criticalFindings: number
   highFindings: number
-  openFindings: number
 }
 
 export interface CloudAccountSearchParams {
@@ -75,14 +76,14 @@ export interface CloudFindingSearchParams {
 export interface CreateCloudAccountFormValues {
   provider: CloudProvider
   accountId: string
-  name: string
+  alias: string
   region: string
 }
 
 export interface EditCloudAccountFormValues {
   provider: CloudProvider
   accountId: string
-  name: string
+  alias: string
   region: string
 }
 

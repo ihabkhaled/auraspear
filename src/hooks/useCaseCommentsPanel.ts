@@ -7,6 +7,7 @@ import type { CaseComment, CaseCommentsProps } from '@/types'
 
 export function useCaseCommentsPanel({ caseId }: Pick<CaseCommentsProps, 'caseId'>) {
   const t = useTranslations('cases.comments')
+  const tError = useTranslations('errors')
   const [expanded, setExpanded] = useState(true)
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useCaseComments(caseId)
@@ -75,12 +76,12 @@ export function useCaseCommentsPanel({ caseId }: Pick<CaseCommentsProps, 'caseId
             Toast.success(t('commentAdded'))
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [createComment, t]
+    [createComment, t, tError]
   )
 
   const handleDeleteComment = useCallback(
@@ -96,11 +97,11 @@ export function useCaseCommentsPanel({ caseId }: Pick<CaseCommentsProps, 'caseId
           Toast.success(t('commentDeleted'))
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [deleteComment, t]
+    [deleteComment, t, tError]
   )
 
   return {

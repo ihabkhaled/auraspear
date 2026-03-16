@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
-import { useForm, useWatch, type Resolver } from 'react-hook-form'
+import { useForm, type Resolver } from 'react-hook-form'
 import { ReportType, ReportFormat } from '@/enums'
 import { createReportSchema } from '@/lib/validation/reports.schema'
 import type { ReportCreateDialogProps, CreateReportFormValues } from '@/types'
@@ -26,12 +26,9 @@ export function useReportCreateDialog({
       description: '',
       type: ReportType.EXECUTIVE,
       format: ReportFormat.PDF,
-      scheduled: false,
-      cronExpression: '',
+      parameters: '',
     },
   })
-
-  const isScheduled = useWatch({ control, name: 'scheduled' })
 
   useEffect(() => {
     if (!open) {
@@ -57,7 +54,6 @@ export function useReportCreateDialog({
     register,
     control,
     errors,
-    isScheduled,
     onFormSubmit,
     handleOpenChange,
   }

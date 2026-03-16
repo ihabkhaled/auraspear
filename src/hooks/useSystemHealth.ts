@@ -1,7 +1,9 @@
-import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { useQuery, keepPreviousData } from '@tanstack/react-query'
 import { systemHealthService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { HealthCheckSearchParams, MetricSearchParams } from '@/types'
+
+const HEALTH_POLL_INTERVAL = 30_000
 
 export function useHealthChecks(params?: HealthCheckSearchParams) {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -9,6 +11,7 @@ export function useHealthChecks(params?: HealthCheckSearchParams) {
     queryKey: ['system-health', 'checks', tenantId, params],
     queryFn: () => systemHealthService.listHealthChecks(params),
     placeholderData: keepPreviousData,
+    refetchInterval: HEALTH_POLL_INTERVAL,
   })
 }
 
@@ -17,6 +20,7 @@ export function useLatestHealthChecks() {
   return useQuery({
     queryKey: ['system-health', 'checks', 'latest', tenantId],
     queryFn: () => systemHealthService.getLatestChecks(),
+    refetchInterval: HEALTH_POLL_INTERVAL,
   })
 }
 
@@ -26,6 +30,7 @@ export function useSystemMetrics(params?: MetricSearchParams) {
     queryKey: ['system-health', 'metrics', tenantId, params],
     queryFn: () => systemHealthService.listMetrics(params),
     placeholderData: keepPreviousData,
+    refetchInterval: HEALTH_POLL_INTERVAL,
   })
 }
 
@@ -34,36 +39,6 @@ export function useSystemHealthStats() {
   return useQuery({
     queryKey: ['system-health', 'stats', tenantId],
     queryFn: () => systemHealthService.getStats(),
-  })
-}
-
-export function useCreateHealthCheck() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (data: Record<string, unknown>) => systemHealthService.createHealthCheck(data),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['system-health'] })
-    },
-  })
-}
-
-export function useUpdateHealthCheck() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      systemHealthService.updateHealthCheck(id, data),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['system-health'] })
-    },
-  })
-}
-
-export function useDeleteHealthCheck() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (id: string) => systemHealthService.deleteHealthCheck(id),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['system-health'] })
-    },
+    refetchInterval: HEALTH_POLL_INTERVAL,
   })
 }

@@ -37,7 +37,7 @@ export function NormalizationCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[95vw] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('createPipeline')}</DialogTitle>
           <DialogDescription>{t('createPipelineDescription')}</DialogDescription>
@@ -88,7 +88,7 @@ export function NormalizationCreateDialog({
               rows={4}
             />
             {errors.parserConfig && (
-              <p className="text-destructive text-xs">{t('validationParserConfig')}</p>
+              <p className="text-destructive text-xs">{t('validationParserConfigJson')}</p>
             )}
           </div>
 
@@ -103,7 +103,7 @@ export function NormalizationCreateDialog({
               rows={4}
             />
             {errors.fieldMappings && (
-              <p className="text-destructive text-xs">{t('validationFieldMappings')}</p>
+              <p className="text-destructive text-xs">{t('validationFieldMappingsJson')}</p>
             )}
           </div>
 

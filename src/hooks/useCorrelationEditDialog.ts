@@ -47,7 +47,7 @@ export function useCorrelationEditDialog({
         status: rule.status,
         mitreTechniques: rule.mitreTechniques.join(', '),
         yamlContent: rule.yamlContent ?? '',
-        conditions: '',
+        conditions: rule.conditions ? JSON.stringify(rule.conditions, null, 2) : '',
       })
     }
     if (!open) {

@@ -8,18 +8,19 @@ export interface Report {
   type: ReportType
   format: ReportFormat
   status: ReportStatus
+  parameters: Record<string, unknown> | null
   fileUrl: string | null
   fileSize: number | null
   generatedBy: string
   generatedByName: string | null
+  generatedAt: string | null
   createdAt: string
-  completedAt: string | null
 }
 
 export interface ReportStats {
   totalReports: number
-  generated30d: number
-  pendingReports: number
+  completedReports: number
+  generatingReports: number
   failedReports: number
 }
 
@@ -39,8 +40,7 @@ export interface CreateReportFormValues {
   description: string
   type: ReportType
   format: ReportFormat
-  scheduled: boolean
-  cronExpression: string
+  parameters: string
 }
 
 export interface EditReportFormValues {
@@ -48,8 +48,7 @@ export interface EditReportFormValues {
   description: string
   type: ReportType
   format: ReportFormat
-  scheduled: boolean
-  cronExpression: string
+  parameters: string
 }
 
 export interface ReportCreateDialogProps {
@@ -77,6 +76,8 @@ export interface ReportDetailPanelProps {
   report: Report | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  onEdit: () => void
+  onDelete: () => void
 }
 
 export interface ReportFiltersProps {

@@ -428,11 +428,6 @@ export type {
   SystemHealthStats,
   HealthCheckSearchParams,
   MetricSearchParams,
-  CreateHealthCheckFormValues,
-  EditHealthCheckFormValues,
-  SystemHealthCreateDialogProps,
-  SystemHealthEditDialogProps,
-  SystemHealthDeleteDialogProps,
   SystemHealthKpiCardsProps,
   SystemHealthFiltersProps,
   SystemHealthDetailPanelProps,
@@ -449,6 +444,7 @@ export type {
   NormalizationKpiCardsProps,
   NormalizationFiltersProps,
   NormalizationDetailPanelProps,
+  UseNormalizationDetailPanelParams,
 } from './normalization.types'
 export type {
   DetectionRule,

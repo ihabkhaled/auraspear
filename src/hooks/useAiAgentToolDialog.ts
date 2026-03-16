@@ -9,7 +9,6 @@ const DEFAULT_VALUES: AiAgentToolFormValues = {
   name: '',
   description: '',
   schema: '{\n  \n}',
-  enabled: true,
 }
 
 interface UseAiAgentToolDialogParams {
@@ -30,7 +29,6 @@ export function useAiAgentToolDialog({
   const {
     register,
     handleSubmit,
-    control,
     reset,
     formState: { errors },
   } = useForm<AiAgentToolFormValues>({
@@ -63,7 +61,6 @@ export function useAiAgentToolDialog({
     t,
     register,
     handleSubmit,
-    control,
     errors,
     isEditing,
     handleFormSubmit,

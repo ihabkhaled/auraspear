@@ -7,10 +7,11 @@ import { useUebaEntity, useUebaAnomalies, useResolveAnomaly } from './useUeba'
 
 export function useUebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPanelProps) {
   const t = useTranslations('ueba')
+  const tError = useTranslations('errors')
 
   const { data: entityData, isLoading: entityLoading } = useUebaEntity(entityId)
   const { data: anomaliesData, isFetching: anomaliesFetching } = useUebaAnomalies(
-    entityId ? { query: entityId } : undefined
+    entityId ? { entityId } : undefined
   )
   const resolveAnomaly = useResolveAnomaly()
 
@@ -24,11 +25,11 @@ export function useUebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetail
           Toast.success(t('anomalyResolved'))
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [resolveAnomaly, t]
+    [resolveAnomaly, t, tError]
   )
 
   const handleClose = useCallback(() => {

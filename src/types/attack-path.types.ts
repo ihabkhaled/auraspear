@@ -1,12 +1,10 @@
 import type { AttackPathSeverity, AttackPathStatus, SortOrder } from '@/enums'
 
 export interface AttackPathStage {
-  id: string
   name: string
   mitreId: string
   description: string
   assets: string[]
-  order: number
 }
 
 export interface AttackPath {
@@ -18,11 +16,11 @@ export interface AttackPath {
   severity: AttackPathSeverity
   status: AttackPathStatus
   affectedAssets: number
-  killChainPercentage: number
+  killChainCoverage: number
   mitreTechniques: string[]
+  mitreTactics: string[]
   stages: AttackPathStage[]
-  linkedIncidents: string[]
-  affectedAssetNames: string[]
+  linkedIncidentIds: string[]
   detectedAt: string
   createdAt: string
   updatedAt: string
@@ -31,8 +29,7 @@ export interface AttackPath {
 export interface AttackPathStats {
   activePaths: number
   assetsAtRisk: number
-  killChainCoverage: number
-  criticalPaths: number
+  avgKillChainCoverage: number
 }
 
 export interface AttackPathSearchParams {

@@ -12,14 +12,10 @@ import type {
 
 export const dynamic = 'force-dynamic'
 
-interface StatsResult<T> {
-  data: T
-}
-
 async function fetchStatsSafe<T>(request: NextRequest, path: string, fallback: T): Promise<T> {
   try {
-    const result = (await fetchBackendJson(request, path)) as StatsResult<T>
-    return result.data
+    const result = (await fetchBackendJson(request, path)) as T
+    return result ?? fallback
   } catch {
     return fallback
   }
@@ -45,16 +41,15 @@ export async function GET(request: NextRequest) {
         }),
         fetchStatsSafe<UebaStats>(request, '/ueba/stats', {
           totalEntities: 0,
-          criticalRisk: 0,
-          highRisk: 0,
+          criticalRiskEntities: 0,
+          highRiskEntities: 0,
           anomalies24h: 0,
           activeModels: 0,
         }),
         fetchStatsSafe<AttackPathStats>(request, '/attack-paths/stats', {
           activePaths: 0,
           assetsAtRisk: 0,
-          killChainCoverage: 0,
-          criticalPaths: 0,
+          avgKillChainCoverage: 0,
         }),
         fetchStatsSafe<ComplianceStats>(request, '/compliance/stats', {
           totalFrameworks: 0,
@@ -72,20 +67,21 @@ export async function GET(request: NextRequest) {
         }),
         fetchStatsSafe<SystemHealthStats>(request, '/system-health/stats', {
           totalServices: 0,
-          healthy: 0,
-          degraded: 0,
-          down: 0,
+          healthyServices: 0,
+          degradedServices: 0,
+          downServices: 0,
           avgResponseTimeMs: null,
+          lastCheckedAt: null,
         }),
       ])
 
     const totalServices = systemHealth.totalServices || 1
-    const healthScore = Math.round((systemHealth.healthy / totalServices) * 100)
+    const healthScore = Math.round((systemHealth.healthyServices / totalServices) * 100)
 
     const data = {
       openIncidents: incidents.open + incidents.inProgress,
       criticalVulnerabilities: vulnerabilities.critical,
-      highRiskEntities: ueba.criticalRisk + ueba.highRisk,
+      highRiskEntities: ueba.criticalRiskEntities + ueba.highRiskEntities,
       activeAttackPaths: attackPaths.activePaths,
       complianceScore: compliance.avgComplianceScore,
       soarExecutions: soar.totalExecutions30d,

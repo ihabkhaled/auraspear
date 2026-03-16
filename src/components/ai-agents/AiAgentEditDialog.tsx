@@ -38,7 +38,7 @@ export function AiAgentEditDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[calc(100vw-2rem)] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('editAgent')}</DialogTitle>
           <DialogDescription>{t('editAgentDescription')}</DialogDescription>

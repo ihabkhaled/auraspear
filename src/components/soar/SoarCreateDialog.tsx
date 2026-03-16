@@ -104,8 +104,27 @@ export function SoarCreateDialog({
               className="resize-none font-mono text-xs"
               rows={6}
             />
-            {errors.steps && <p className="text-destructive text-xs">{t('validationStepsMin')}</p>}
+            {errors.steps && (
+              <p className="text-destructive text-xs">
+                {errors.steps.type === 'custom'
+                  ? t('validationStepsJson')
+                  : t('validationStepsMin')}
+              </p>
+            )}
           </div>
+
+          {triggerType !== SoarTriggerType.MANUAL && (
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="soar-trigger-conditions">{t('fieldTriggerConditions')}</Label>
+              <Textarea
+                id="soar-trigger-conditions"
+                {...register('triggerConditions')}
+                placeholder={t('fieldTriggerConditionsPlaceholder')}
+                className="resize-none font-mono text-xs"
+                rows={4}
+              />
+            </div>
+          )}
 
           {triggerType === SoarTriggerType.SCHEDULED && (
             <div className="flex flex-col gap-2">

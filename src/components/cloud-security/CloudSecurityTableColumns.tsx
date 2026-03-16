@@ -6,7 +6,7 @@ import {
   CLOUD_ACCOUNT_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,
 } from '@/lib/constants/cloud-security'
-import { formatRelativeTime, cn, lookup } from '@/lib/utils'
+import { cn, formatRelativeTime, lookup } from '@/lib/utils'
 import type { CloudAccount, Column } from '@/types'
 
 interface CloudSecurityColumnTranslations {
@@ -19,10 +19,12 @@ export function getCloudSecurityColumns(
 ): Column<CloudAccount>[] {
   return [
     {
-      key: 'name',
-      label: t.common('name'),
+      key: 'alias',
+      label: t.cloudSecurity('fieldAlias'),
       sortable: true,
-      render: (value: unknown) => <span className="text-sm font-medium">{String(value)}</span>,
+      render: (value: unknown) => (
+        <span className="text-sm font-medium">{value ? String(value) : '-'}</span>
+      ),
     },
     {
       key: 'provider',
@@ -41,6 +43,7 @@ export function getCloudSecurityColumns(
     {
       key: 'accountId',
       label: t.cloudSecurity('columnAccountId'),
+      sortable: true,
       render: (value: unknown) => <span className="font-mono text-xs">{String(value)}</span>,
     },
     {
@@ -63,7 +66,7 @@ export function getCloudSecurityColumns(
       },
     },
     {
-      key: 'totalFindings',
+      key: 'findingsCount',
       label: t.cloudSecurity('columnFindings'),
       sortable: true,
       render: (value: unknown) => (
@@ -71,21 +74,18 @@ export function getCloudSecurityColumns(
       ),
     },
     {
-      key: 'criticalFindings',
-      label: t.cloudSecurity('columnCritical'),
+      key: 'complianceScore',
+      label: t.cloudSecurity('columnComplianceScore'),
       sortable: true,
       render: (value: unknown) => {
-        const count = Number(value)
-        return (
-          <span
-            className={cn(
-              'text-xs font-medium',
-              count > 0 ? 'text-severity-critical' : 'text-muted-foreground'
-            )}
-          >
-            {count.toLocaleString()}
-          </span>
-        )
+        const score = Number(value)
+        let colorClass = 'text-status-error'
+        if (score >= 80) {
+          colorClass = 'text-status-success'
+        } else if (score >= 50) {
+          colorClass = 'text-status-warning'
+        }
+        return <span className={cn('text-xs font-medium', colorClass)}>{`${score}%`}</span>
       },
     },
     {

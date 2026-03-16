@@ -1,9 +1,10 @@
 'use client'
 
-import { Edit, Trash2, X } from 'lucide-react'
+import { ChevronDown, Edit, Trash2, X } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { useAttackPathDetailPanel } from '@/hooks/useAttackPathDetailPanel'
 import {
   ATTACK_PATH_SEVERITY_CLASSES,
@@ -93,7 +94,7 @@ export function AttackPathDetailPanel({
           </div>
         )}
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           <div className="flex flex-col gap-1">
             <span className="text-muted-foreground text-xs font-medium uppercase">
               {t('colAffectedAssets')}
@@ -108,10 +109,10 @@ export function AttackPathDetailPanel({
               <div className="bg-muted h-2 w-20 rounded-full">
                 <div
                   className="bg-status-warning h-2 rounded-full"
-                  style={{ width: `${path.killChainPercentage}%` }}
+                  style={{ width: `${path.killChainCoverage}%` }}
                 />
               </div>
-              <span className="font-mono text-sm">{path.killChainPercentage}%</span>
+              <span className="font-mono text-sm">{path.killChainCoverage}%</span>
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -123,52 +124,59 @@ export function AttackPathDetailPanel({
         </div>
 
         {path.mitreTechniques.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <span className="text-muted-foreground text-xs font-medium uppercase">
-              {t('colMitre')}
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {path.mitreTechniques.map(tech => (
-                <Badge key={tech} variant="outline" className="font-mono text-xs">
-                  {tech}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex w-full items-center justify-between">
+              <span className="text-muted-foreground text-xs font-medium uppercase">
+                {t('colMitre')}
+              </span>
+              <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="flex flex-wrap gap-1.5 pt-1.5">
+                {path.mitreTechniques.map(tech => (
+                  <Badge key={tech} variant="outline" className="font-mono text-xs">
+                    {tech}
+                  </Badge>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         )}
 
         {path.stages && path.stages.length > 0 && (
-          <AttackPathVisualization stages={path.stages} t={t} />
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex w-full items-center justify-between">
+              <span className="text-muted-foreground text-xs font-medium uppercase">
+                {t('stagesVisualization')}
+              </span>
+              <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="pt-1.5">
+                <AttackPathVisualization stages={path.stages} t={t} />
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         )}
 
-        {path.linkedIncidents && path.linkedIncidents.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <span className="text-muted-foreground text-xs font-medium uppercase">
-              {t('fieldLinkedIncidents')}
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {path.linkedIncidents.map(incident => (
-                <Badge key={incident} variant="secondary" className="text-xs">
-                  {incident}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {path.affectedAssetNames && path.affectedAssetNames.length > 0 && (
-          <div className="flex flex-col gap-1.5">
-            <span className="text-muted-foreground text-xs font-medium uppercase">
-              {t('fieldAffectedAssets')}
-            </span>
-            <div className="flex flex-wrap gap-1.5">
-              {path.affectedAssetNames.map(asset => (
-                <Badge key={asset} variant="outline" className="text-xs">
-                  {asset}
-                </Badge>
-              ))}
-            </div>
-          </div>
+        {path.linkedIncidentIds && path.linkedIncidentIds.length > 0 && (
+          <Collapsible defaultOpen>
+            <CollapsibleTrigger className="flex w-full items-center justify-between">
+              <span className="text-muted-foreground text-xs font-medium uppercase">
+                {t('fieldLinkedIncidents')}
+              </span>
+              <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+            </CollapsibleTrigger>
+            <CollapsibleContent>
+              <div className="flex flex-wrap gap-1.5 pt-1.5">
+                {path.linkedIncidentIds.map(incident => (
+                  <Badge key={incident} variant="secondary" className="text-xs">
+                    {incident}
+                  </Badge>
+                ))}
+              </div>
+            </CollapsibleContent>
+          </Collapsible>
         )}
       </div>
     </div>

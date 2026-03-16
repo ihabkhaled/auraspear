@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getSoarPlaybookColumns } from '@/components/soar'
 import { SoarTriggerType, SortOrder } from '@/enums'
+import { safeJsonParse } from '@/lib/utils'
 import type {
   SoarPlaybook,
   SoarPlaybookSearchParams,
@@ -117,7 +118,22 @@ export function useSoarPage() {
 
   const handleCreate = useCallback(
     (formData: CreateSoarPlaybookFormValues) => {
-      createMutation.mutate(formData as unknown as Record<string, unknown>, {
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        description: formData.description,
+        triggerType: formData.triggerType,
+        steps: safeJsonParse<unknown[]>(formData.steps, []),
+      }
+      if (formData.triggerConditions && formData.triggerConditions.trim().length > 0) {
+        payload['triggerConditions'] = safeJsonParse<Record<string, unknown>>(
+          formData.triggerConditions,
+          {}
+        )
+      }
+      if (formData.cronExpression.length > 0) {
+        payload['cronExpression'] = formData.cronExpression
+      }
+      createMutation.mutate(payload, {
         onSuccess: () => {
           Toast.success(t('createSuccess'))
           setCreateOpen(false)
@@ -135,8 +151,23 @@ export function useSoarPage() {
       if (!selectedPlaybook) {
         return
       }
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        description: formData.description,
+        triggerType: formData.triggerType,
+        steps: safeJsonParse<unknown[]>(formData.steps, []),
+      }
+      if (formData.triggerConditions && formData.triggerConditions.trim().length > 0) {
+        payload['triggerConditions'] = safeJsonParse<Record<string, unknown>>(
+          formData.triggerConditions,
+          {}
+        )
+      }
+      if (formData.cronExpression.length > 0) {
+        payload['cronExpression'] = formData.cronExpression
+      }
       updateMutation.mutate(
-        { id: selectedPlaybook.id, data: formData as unknown as Record<string, unknown> },
+        { id: selectedPlaybook.id, data: payload },
         {
           onSuccess: () => {
             Toast.success(t('updateSuccess'))
@@ -182,16 +213,19 @@ export function useSoarPage() {
   )
 
   const openEditDialog = useCallback((playbook: SoarPlaybook) => {
+    setDetailOpen(false)
     setSelectedPlaybook(playbook)
     setEditOpen(true)
   }, [])
 
   const openDeleteDialog = useCallback((playbook: SoarPlaybook) => {
+    setDetailOpen(false)
     setDeletePlaybookId(playbook.id)
     setDeletePlaybookName(playbook.name)
   }, [])
 
   const openRunDialog = useCallback((playbook: SoarPlaybook) => {
+    setDetailOpen(false)
     setRunPlaybookId(playbook.id)
     setRunPlaybookName(playbook.name)
   }, [])
@@ -201,7 +235,8 @@ export function useSoarPage() {
       name: selectedPlaybook?.name ?? '',
       description: selectedPlaybook?.description ?? '',
       triggerType: selectedPlaybook?.triggerType ?? SoarTriggerType.MANUAL,
-      steps: '',
+      steps: '[]',
+      triggerConditions: '',
       cronExpression: '',
     }),
     [selectedPlaybook]

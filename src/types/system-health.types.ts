@@ -23,10 +23,11 @@ export interface SystemMetric {
 
 export interface SystemHealthStats {
   totalServices: number
-  healthy: number
-  degraded: number
-  down: number
+  healthyServices: number
+  degradedServices: number
+  downServices: number
   avgResponseTimeMs: number | null
+  lastCheckedAt: string | null
 }
 
 export interface HealthCheckSearchParams {
@@ -46,39 +47,6 @@ export interface MetricSearchParams {
   metricType?: string
   sortBy?: string
   sortOrder?: SortOrder
-}
-
-export interface CreateHealthCheckFormValues {
-  serviceName: string
-  serviceType: ServiceType
-  config: string
-}
-
-export interface EditHealthCheckFormValues {
-  serviceName: string
-  serviceType: ServiceType
-  config: string
-}
-
-export interface SystemHealthCreateDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: CreateHealthCheckFormValues) => void
-  loading?: boolean
-}
-
-export interface SystemHealthEditDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: EditHealthCheckFormValues) => void
-  initialValues: EditHealthCheckFormValues
-  loading?: boolean
-}
-
-export interface SystemHealthDeleteDialogProps {
-  serviceName: string
-  onConfirm: () => void
-  loading?: boolean
 }
 
 export interface SystemHealthKpiCardsProps {

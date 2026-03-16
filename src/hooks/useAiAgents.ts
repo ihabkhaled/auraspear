@@ -49,6 +49,16 @@ export function useUpdateSoul() {
   })
 }
 
+export function useStartAgent() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (id: string) => aiAgentService.startAgent(id),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+    },
+  })
+}
+
 export function useStopAgent() {
   const queryClient = useQueryClient()
   return useMutation({

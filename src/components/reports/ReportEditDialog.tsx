@@ -19,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { ReportFormat, ReportType } from '@/enums'
 import { useReportEditDialog } from '@/hooks/useReportEditDialog'
@@ -34,8 +33,12 @@ export function ReportEditDialog({
   initialValues,
   loading = false,
 }: ReportEditDialogProps) {
-  const { t, register, control, errors, isScheduled, onFormSubmit, handleOpenChange } =
-    useReportEditDialog({ open, onOpenChange, onSubmit, initialValues })
+  const { t, register, control, errors, onFormSubmit, handleOpenChange } = useReportEditDialog({
+    open,
+    onOpenChange,
+    onSubmit,
+    initialValues,
+  })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -116,31 +119,20 @@ export function ReportEditDialog({
             />
           </div>
 
-          <div className="flex items-center gap-3">
-            <Controller
-              name="scheduled"
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value ?? false}
-                  onCheckedChange={field.onChange}
-                  id="report-edit-scheduled"
-                />
-              )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="report-edit-parameters">{t('fieldParameters')}</Label>
+            <Textarea
+              id="report-edit-parameters"
+              {...register('parameters')}
+              placeholder={t('fieldParametersPlaceholder')}
+              aria-invalid={errors.parameters ? true : undefined}
+              className="resize-none font-mono text-xs"
+              rows={4}
             />
-            <Label htmlFor="report-edit-scheduled">{t('fieldScheduled')}</Label>
+            {errors.parameters && (
+              <p className="text-destructive text-xs">{t('validationParametersJson')}</p>
+            )}
           </div>
-
-          {isScheduled && (
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="report-edit-cron">{t('fieldCron')}</Label>
-              <Input
-                id="report-edit-cron"
-                {...register('cronExpression')}
-                placeholder={t('fieldCronPlaceholder')}
-              />
-            </div>
-          )}
 
           <DialogFooter>
             <Button

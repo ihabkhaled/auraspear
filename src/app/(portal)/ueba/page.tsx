@@ -62,7 +62,7 @@ export default function UebaPage() {
         onRiskLevelChange={setRiskLevelFilter}
       />
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 lg:flex-row">
         <div className={selectedEntityId ? 'min-w-0 flex-1' : 'w-full'}>
           <DataTable
             columns={columns}
@@ -76,7 +76,7 @@ export default function UebaPage() {
         </div>
 
         {selectedEntityId && (
-          <div className="w-[400px] shrink-0">
+          <div className="w-full shrink-0 lg:w-[400px]">
             <UebaEntityDetailPanel entityId={selectedEntityId} onClose={handleCloseDetailPanel} />
           </div>
         )}

@@ -1,11 +1,12 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { AiAgentStatus } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
-import { useUpdateSoul, useStopAgent } from './useAiAgents'
+import { useUpdateSoul, useStartAgent, useStopAgent } from './useAiAgents'
 
 export function useAiAgentDetailPanel({
   agent,
@@ -19,9 +20,15 @@ export function useAiAgentDetailPanel({
   const [activeTab, setActiveTab] = useState('overview')
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
   const [toolDialogOpen, setToolDialogOpen] = useState(false)
+  const [sessionsOpen, setSessionsOpen] = useState(true)
+  const [toolsOpen, setToolsOpen] = useState(true)
+  const [soulOpen, setSoulOpen] = useState(true)
 
   const updateSoulMutation = useUpdateSoul()
+  const startAgentMutation = useStartAgent()
   const stopAgentMutation = useStopAgent()
+
+  const isAgentOnline = agent.status === AiAgentStatus.ONLINE
 
   const statusLabel = useMemo(
     () => t(lookup(AI_AGENT_STATUS_LABEL_KEYS, agent.status)),
@@ -53,6 +60,17 @@ export function useAiAgentDetailPanel({
     )
   }, [agent.id, soulMdDraft, updateSoulMutation, t, tErrors])
 
+  const handleStartAgent = useCallback(() => {
+    startAgentMutation.mutate(agent.id, {
+      onSuccess: () => {
+        Toast.success(t('agentStarted'))
+      },
+      onError: (error: unknown) => {
+        Toast.error(tErrors(getErrorKey(error)))
+      },
+    })
+  }, [agent.id, startAgentMutation, t, tErrors])
+
   const handleStopAgent = useCallback(() => {
     stopAgentMutation.mutate(agent.id, {
       onSuccess: () => {
@@ -64,6 +82,9 @@ export function useAiAgentDetailPanel({
     })
   }, [agent.id, stopAgentMutation, t, tErrors])
 
+  const handleToggleAgent = isAgentOnline ? handleStopAgent : handleStartAgent
+  const isToggling = startAgentMutation.isPending || stopAgentMutation.isPending
+
   return {
     t,
     activeTab,
@@ -72,15 +93,22 @@ export function useAiAgentDetailPanel({
     setSoulMdDraft,
     toolDialogOpen,
     setToolDialogOpen,
+    sessionsOpen,
+    setSessionsOpen,
+    toolsOpen,
+    setToolsOpen,
+    soulOpen,
+    setSoulOpen,
     statusLabel,
     tierLabel,
     formattedTokens,
     formattedCost,
     formattedDate,
     handleSaveSoul,
-    handleStopAgent,
+    handleToggleAgent,
+    isAgentOnline,
     isSavingSoul: updateSoulMutation.isPending,
-    isStopping: stopAgentMutation.isPending,
+    isToggling,
     onClose,
     onEdit,
     onDelete,

@@ -2,18 +2,12 @@ import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
-    post: vi.fn(),
-    patch: vi.fn(),
-    delete: vi.fn(),
   },
 }))
 import api from '@/lib/api'
 import { systemHealthService } from '@/services/system-health.service'
 
 const mockGet = api.get as Mock
-const mockPost = api.post as Mock
-const mockPatch = api.patch as Mock
-const mockDelete = api.delete as Mock
 
 describe('systemHealthService', () => {
   afterEach(() => {
@@ -66,65 +60,6 @@ describe('systemHealthService', () => {
       mockGet.mockRejectedValue(new Error('Server error'))
 
       await expect(systemHealthService.getLatestChecks()).rejects.toThrow('Server error')
-    })
-  })
-
-  describe('createHealthCheck', () => {
-    it('should call POST /system-health/checks', async () => {
-      const check = { id: 'hc-3', service: 'elasticsearch', status: 'healthy' }
-      mockPost.mockResolvedValue({ data: { data: check } })
-
-      const input = { service: 'elasticsearch', endpoint: 'http://localhost:9200' }
-      const result = await systemHealthService.createHealthCheck(input)
-
-      expect(mockPost).toHaveBeenCalledWith('/system-health/checks', input)
-      expect(result).toEqual({ data: check })
-    })
-
-    it('should propagate API errors', async () => {
-      mockPost.mockRejectedValue(new Error('Validation failed'))
-
-      await expect(systemHealthService.createHealthCheck({ service: '' })).rejects.toThrow(
-        'Validation failed'
-      )
-    })
-  })
-
-  describe('updateHealthCheck', () => {
-    it('should call PATCH /system-health/checks/:id', async () => {
-      const check = { id: 'hc-1', service: 'database', status: 'degraded' }
-      mockPatch.mockResolvedValue({ data: { data: check } })
-
-      const input = { status: 'degraded' }
-      const result = await systemHealthService.updateHealthCheck('hc-1', input)
-
-      expect(mockPatch).toHaveBeenCalledWith('/system-health/checks/hc-1', input)
-      expect(result).toEqual({ data: check })
-    })
-
-    it('should propagate API errors', async () => {
-      mockPatch.mockRejectedValue(new Error('Forbidden'))
-
-      await expect(systemHealthService.updateHealthCheck('hc-1', { status: 'x' })).rejects.toThrow(
-        'Forbidden'
-      )
-    })
-  })
-
-  describe('deleteHealthCheck', () => {
-    it('should call DELETE /system-health/checks/:id', async () => {
-      mockDelete.mockResolvedValue({ data: { deleted: true } })
-
-      const result = await systemHealthService.deleteHealthCheck('hc-1')
-
-      expect(mockDelete).toHaveBeenCalledWith('/system-health/checks/hc-1')
-      expect(result).toEqual({ deleted: true })
-    })
-
-    it('should propagate API errors', async () => {
-      mockDelete.mockRejectedValue(new Error('Not found'))
-
-      await expect(systemHealthService.deleteHealthCheck('hc-999')).rejects.toThrow('Not found')
     })
   })
 

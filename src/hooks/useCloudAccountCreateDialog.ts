@@ -24,7 +24,7 @@ export function useCloudAccountCreateDialog({
     defaultValues: {
       provider: CloudProvider.AWS,
       accountId: '',
-      name: '',
+      alias: '',
       region: '',
     },
   })

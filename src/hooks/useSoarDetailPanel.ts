@@ -3,6 +3,7 @@ import type { SoarDetailPanelProps } from '@/types'
 
 export function useSoarDetailPanel({ playbook }: Pick<SoarDetailPanelProps, 'playbook'>) {
   const t = useTranslations('soar')
+  const tCommon = useTranslations('common')
 
   const avgDurationDisplay =
     playbook?.avgDurationSeconds !== null && playbook?.avgDurationSeconds !== undefined
@@ -11,6 +12,7 @@ export function useSoarDetailPanel({ playbook }: Pick<SoarDetailPanelProps, 'pla
 
   return {
     t,
+    tCommon,
     avgDurationDisplay,
   }
 }

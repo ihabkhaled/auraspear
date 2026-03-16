@@ -1104,6 +1104,19 @@
       "limit": {
         "invalidNumber": "Limit must be a positive integer",
         "tooLarge": "Limit must be at most 100"
+      },
+      "yamlContent": {
+        "invalid": "YAML content must be a valid string",
+        "required": "YAML content is required",
+        "tooLong": "YAML content is too long"
+      },
+      "conditions": {
+        "invalid": "Conditions must be a valid JSON object",
+        "required": "Conditions are required"
+      },
+      "source": {
+        "required": "Source is required",
+        "invalidOption": "Invalid source value"
       }
     },
     "ssrf": {
@@ -1192,6 +1205,12 @@
       "notEnabled": "AI module is not enabled.",
       "invocationFailed": "AI invocation failed.",
       "serviceUnavailable": "AI service is temporarily unavailable. Please try again later."
+    },
+    "aiAgents": {
+      "notFound": "AI Agent not found.",
+      "nameAlreadyExists": "An agent with this name already exists.",
+      "alreadyOnline": "Agent is already online.",
+      "alreadyOffline": "Agent is already offline."
     },
     "users": {
       "notFound": "User not found.",
@@ -1551,6 +1570,7 @@
     "detailCreatedAt": "Created At",
     "detailUpdatedAt": "Updated At",
     "detailLastFired": "Last Fired",
+    "detailConditions": "Conditions",
     "fieldTitle": "Title",
     "fieldTitlePlaceholder": "Enter rule title",
     "fieldDescription": "Description",
@@ -1567,7 +1587,7 @@
     "fieldYamlContent": "YAML Content",
     "fieldYamlPlaceholder": "title: My Sigma Rule\nstatus: experimental\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    CommandLine|contains: '...'",
     "fieldConditions": "Conditions (JSON)",
-    "fieldConditionsPlaceholder": "{\n  \"operator\": \"AND\",\n  \"rules\": [\n    { \"field\": \"event.action\", \"operator\": \"equals\", \"value\": \"login\" }\n  ]\n}",
+    "fieldConditionsPlaceholder": "'{'\n  \"operator\": \"AND\",\n  \"rules\": [\n    '{' \"field\": \"event.action\", \"operator\": \"equals\", \"value\": \"login\" '}'\n  ]\n'}'",
     "fieldConditionsHint": "JSON-formatted correlation conditions",
     "cancel": "Cancel",
     "creating": "Creating...",
@@ -1780,7 +1800,8 @@
     "detailCreatedBy": "Created By",
     "detailCreatedAt": "Created",
     "detailUpdatedAt": "Updated",
-    "detailResolvedAt": "Resolved"
+    "detailResolvedAt": "Resolved",
+    "linkedAlerts": "Linked Alerts"
   },
   "aiAgents": {
     "title": "AI Agent Fleet (OpenClaw)",
@@ -1816,6 +1837,7 @@
     "soulEditor": "Agent System Prompt",
     "saveSoul": "Save SOUL.md",
     "stopAgent": "Stop Agent",
+    "startAgent": "Start Agent",
     "sessionInput": "Input",
     "sessionOutput": "Output",
     "searchPlaceholder": "Search agents...",
@@ -1827,6 +1849,7 @@
     "deleteSuccess": "Agent deleted successfully",
     "soulUpdated": "SOUL.md updated successfully",
     "agentStopped": "Agent stopped successfully",
+    "agentStarted": "Agent started successfully",
     "kpiTotal": "Total Agents",
     "kpiSessions": "Total Sessions",
     "kpiTokens": "Total Tokens",
@@ -1858,6 +1881,7 @@
     "save": "Save",
     "saving": "Saving...",
     "stopping": "Stopping...",
+    "starting": "Starting...",
     "createdAt": "Created",
     "noSessions": "No sessions found",
     "noSessionsDescription": "Sessions will appear here once the agent runs tasks",
@@ -2212,12 +2236,16 @@
     "detailAvgDuration": "Avg Duration",
     "detailCreatedBy": "Created By",
     "detailLastExecuted": "Last Executed",
+    "detailRunButton": "Execute",
     "executionHistory": "Execution History",
     "execColumnStatus": "Status",
     "execColumnProgress": "Progress",
     "execColumnDuration": "Duration",
     "execColumnStarted": "Started",
-    "noExecutions": "No executions yet"
+    "noExecutions": "No executions yet",
+    "validationStepsJson": "Steps must be a valid JSON array with at least 1 item",
+    "fieldTriggerConditions": "Trigger Conditions (JSON)",
+    "fieldTriggerConditionsPlaceholder": "Enter trigger conditions as JSON object"
   },
   "compliance": {
     "title": "Compliance Frameworks",
@@ -2281,6 +2309,8 @@
       "evidence": "Evidence"
     },
     "createFramework": "Create Framework",
+    "editFramework": "Edit",
+    "deleteFramework": "Delete",
     "createTitle": "Create Framework",
     "createDescription": "Add a new compliance framework to track",
     "editTitle": "Edit Framework",
@@ -2345,7 +2375,14 @@
     "controlEvidencePlaceholder": "Provide evidence for this assessment",
     "controlNotes": "Notes",
     "controlNotesPlaceholder": "Additional notes",
-    "validationStatus": "Please select a status"
+    "validationStatus": "Please select a status",
+    "columnName": "Name",
+    "columnStandard": "Standard",
+    "columnScore": "Score",
+    "columnControls": "Controls",
+    "columnLastAssessed": "Last Assessed",
+    "columnCreated": "Created",
+    "neverAssessed": "Never assessed"
   },
   "reports": {
     "title": "Reports",
@@ -2413,8 +2450,6 @@
     "editTitle": "Edit Report",
     "editDescription": "Update report configuration",
     "kpiTotal": "Total Reports",
-    "kpiGenerated30d": "Generated (30d)",
-    "kpiPending": "Pending",
     "kpiFailed": "Failed",
     "noReports": "No reports found",
     "emptyDescription": "Generate your first security report",
@@ -2439,9 +2474,6 @@
     "fieldTypePlaceholder": "Select report type",
     "fieldFormat": "Format",
     "fieldFormatPlaceholder": "Select output format",
-    "fieldScheduled": "Enable Schedule",
-    "fieldCron": "Cron Expression",
-    "fieldCronPlaceholder": "0 0 * * 1 (every Monday at midnight)",
     "validationNameMin": "Name must be at least 3 characters",
     "validationDescriptionMin": "Description must be at least 5 characters",
     "cancelButton": "Cancel",
@@ -2465,8 +2497,21 @@
     "detailGeneratedBy": "Generated By",
     "detailFileSize": "File Size",
     "detailCreated": "Created",
-    "detailCompleted": "Completed",
-    "downloadButton": "Download Report"
+    "downloadButton": "Download Report",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "columnName": "Name",
+    "columnType": "Type",
+    "columnFormat": "Format",
+    "columnGeneratedBy": "Generated By",
+    "columnCreated": "Created",
+    "kpiCompleted": "Completed",
+    "kpiGenerating": "Generating",
+    "detailGenerated": "Generated",
+    "detailParameters": "Parameters",
+    "fieldParameters": "Parameters (JSON)",
+    "fieldParametersPlaceholder": "Enter report parameters as JSON object",
+    "validationParametersJson": "Parameters must be a valid JSON object"
   },
   "systemHealth": {
     "title": "System Health",
@@ -2657,7 +2702,9 @@
     "fieldFieldMappingsPlaceholder": "Enter field mappings JSON...",
     "validationName": "Name must be at least 3 characters",
     "validationParserConfig": "Parser config must be at least 2 characters",
+    "validationParserConfigJson": "Parser config must be valid JSON",
     "validationFieldMappings": "Field mappings must be at least 2 characters",
+    "validationFieldMappingsJson": "Field mappings must be valid JSON",
     "kpiTotalProcessed": "Total Processed",
     "detailTitle": "Pipeline Details",
     "detailDescription": "View detailed pipeline information and configuration",
@@ -2777,8 +2824,8 @@
     "fieldActions": "Actions",
     "fieldActionsPlaceholder": "Enter actions JSON...",
     "validationName": "Name must be at least 3 characters",
-    "validationConditions": "Conditions must be at least 2 characters",
-    "validationActions": "Actions must be at least 2 characters",
+    "validationConditions": "Conditions must be valid JSON",
+    "validationActions": "Actions must be valid JSON",
     "kpiFpRate": "FP Rate",
     "detailTitle": "Detection Rule Details",
     "detailDescription": "View detailed rule information, conditions, and MITRE mappings",
@@ -2800,7 +2847,8 @@
     "typeAnomaly": "Anomaly",
     "typeChain": "Chain",
     "typeScheduled": "Scheduled",
-    "statusActive": "Active"
+    "statusActive": "Active",
+    "columnFalsePositives": "False Positives"
   },
   "cloudSecurity": {
     "title": "Cloud Security",
@@ -2944,6 +2992,7 @@
     "submit": "Add Account",
     "creating": "Adding...",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "columnComplianceScore": "Compliance Score"
   }
 }

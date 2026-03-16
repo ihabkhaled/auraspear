@@ -9,8 +9,8 @@ interface SessionColumnTranslations {
 export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<AiAgentSession>[] {
   return [
     {
-      key: 'taskDescription',
-      label: t('sessionTask'),
+      key: 'input',
+      label: t('sessionInput'),
       render: (value: unknown) => (
         <span className="max-w-[200px] truncate text-sm">{String(value ?? '')}</span>
       ),

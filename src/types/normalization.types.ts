@@ -7,22 +7,22 @@ export interface NormalizationPipeline {
   description: string | null
   sourceType: NormalizationSourceType
   status: NormalizationPipelineStatus
-  eventsProcessed: number
-  errorRate: number
-  lastRunAt: string | null
-  createdBy: string
-  createdByName: string | null
+  parserConfig: Record<string, unknown>
+  fieldMappings: Record<string, unknown>
+  processedCount: number
+  errorCount: number
+  lastProcessedAt: string | null
   createdAt: string
   updatedAt: string
 }
 
 export interface NormalizationStats {
   totalPipelines: number
-  active: number
-  inactive: number
-  error: number
+  activePipelines: number
+  inactivePipelines: number
+  errorPipelines: number
   totalEventsProcessed: number
-  avgErrorRate: number
+  totalErrors: number
 }
 
 export interface NormalizationSearchParams {
@@ -88,4 +88,12 @@ export interface NormalizationDetailPanelProps {
   pipeline: NormalizationPipeline | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  onEdit?: (pipeline: NormalizationPipeline) => void
+  onDelete?: (pipeline: NormalizationPipeline) => void
+}
+
+export interface UseNormalizationDetailPanelParams {
+  pipeline: NormalizationDetailPanelProps['pipeline']
+  onEdit?: NormalizationDetailPanelProps['onEdit']
+  onDelete?: NormalizationDetailPanelProps['onDelete']
 }

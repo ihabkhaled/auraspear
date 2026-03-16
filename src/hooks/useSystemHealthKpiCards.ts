@@ -11,7 +11,7 @@ export function useSystemHealthKpiCards({ stats }: Pick<SystemHealthKpiCardsProp
 
   const uptimePercent =
     stats?.totalServices && stats.totalServices > 0
-      ? `${(((stats.totalServices - (stats.down ?? 0)) / stats.totalServices) * 100).toFixed(1)}%`
+      ? `${(((stats.totalServices - (stats.downServices ?? 0)) / stats.totalServices) * 100).toFixed(1)}%`
       : '-'
 
   return { t, avgResponseTime, uptimePercent }

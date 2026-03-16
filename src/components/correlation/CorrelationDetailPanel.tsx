@@ -48,7 +48,7 @@ export function CorrelationDetailPanel({
           <SheetDescription>{rule.ruleNumber}</SheetDescription>
         </SheetHeader>
 
-        <div className="flex flex-col gap-6 p-4">
+        <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={handleEdit}>
               <Edit className="me-1 h-3.5 w-3.5" />
@@ -176,6 +176,17 @@ export function CorrelationDetailPanel({
                 </p>
                 <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-xs">
                   <code>{rule.yamlContent}</code>
+                </pre>
+              </div>
+            )}
+
+            {rule.conditions && (
+              <div>
+                <p className="text-muted-foreground mb-1 text-xs font-medium">
+                  {t('detailConditions')}
+                </p>
+                <pre className="bg-muted overflow-x-auto rounded-lg p-4 font-mono text-xs">
+                  <code>{JSON.stringify(rule.conditions, null, 2)}</code>
                 </pre>
               </div>
             )}

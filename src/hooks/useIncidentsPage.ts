@@ -29,6 +29,7 @@ const ALL_FILTER = '__all__'
 export function useIncidentsPage() {
   const t = useTranslations('incidents')
   const tCommon = useTranslations('common')
+  const tError = useTranslations('errors')
 
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState('')
@@ -156,11 +157,11 @@ export function useIncidentsPage() {
           setCreateDialogOpen(false)
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [createMutation, t]
+    [createMutation, t, tError]
   )
 
   const handleEdit = useCallback(
@@ -199,12 +200,12 @@ export function useIncidentsPage() {
             setEditingIncident(null)
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [editingIncident, updateMutation, t]
+    [editingIncident, updateMutation, t, tError]
   )
 
   const handleDelete = useCallback(

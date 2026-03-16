@@ -1,6 +1,6 @@
 'use client'
 
-import { Download } from 'lucide-react'
+import { Download, Edit, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -22,7 +22,13 @@ import {
 import { formatRelativeTime, cn, lookup } from '@/lib/utils'
 import type { ReportDetailPanelProps } from '@/types'
 
-export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPanelProps) {
+export function ReportDetailPanel({
+  report,
+  open,
+  onOpenChange,
+  onEdit,
+  onDelete,
+}: ReportDetailPanelProps) {
   const { t, fileSizeDisplay } = useReportDetailPanel({ report })
 
   if (!report) {
@@ -35,9 +41,19 @@ export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPa
         <SheetHeader>
           <SheetTitle>{report.name}</SheetTitle>
           <SheetDescription>{report.description ?? t('noDescription')}</SheetDescription>
+          <div className="flex items-center gap-2 pt-2">
+            <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
+              <Edit className="h-3.5 w-3.5" />
+              {t('editButton')}
+            </Button>
+            <Button variant="destructive" size="sm" onClick={onDelete} className="gap-1.5">
+              <Trash2 className="h-3.5 w-3.5" />
+              {t('deleteButton')}
+            </Button>
+          </div>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-sm">{t('detailType')}:</span>
             <span
@@ -90,10 +106,21 @@ export function ReportDetailPanel({ report, open, onOpenChange }: ReportDetailPa
             <Badge variant="outline">{formatRelativeTime(report.createdAt)}</Badge>
           </div>
 
-          {report.completedAt && (
+          {report.generatedAt && (
             <div className="flex items-center gap-2">
-              <span className="text-muted-foreground text-sm">{t('detailCompleted')}:</span>
-              <Badge variant="outline">{formatRelativeTime(report.completedAt)}</Badge>
+              <span className="text-muted-foreground text-sm">{t('detailGenerated')}:</span>
+              <Badge variant="outline">{formatRelativeTime(report.generatedAt)}</Badge>
+            </div>
+          )}
+
+          {report.parameters && Object.keys(report.parameters).length > 0 && (
+            <div className="border-border border-t pt-4">
+              <h4 className="text-foreground mb-2 text-sm font-semibold">
+                {t('detailParameters')}
+              </h4>
+              <pre className="bg-muted text-muted-foreground max-h-40 overflow-auto rounded-lg p-3 text-xs">
+                {JSON.stringify(report.parameters, null, 2)}
+              </pre>
             </div>
           )}
 

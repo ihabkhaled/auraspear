@@ -152,10 +152,12 @@ export function useCompliancePage() {
 
   const openEditDialog = useCallback((framework: ComplianceFramework) => {
     setSelectedFramework(framework)
+    setDetailOpen(false)
     setEditOpen(true)
   }, [])
 
   const openDeleteDialog = useCallback((framework: ComplianceFramework) => {
+    setDetailOpen(false)
     setDeleteFrameworkId(framework.id)
     setDeleteFrameworkName(framework.name)
   }, [])

@@ -8,9 +8,9 @@ export interface UebaEntity {
   riskScore: number
   riskLevel: UebaRiskLevel
   anomalyCount: number
-  lastSeen: string
-  department: string | null
-  trend: number[]
+  topAnomaly: string | null
+  trendData: number[] | null
+  lastSeenAt: string | null
   createdAt: string
   updatedAt: string
 }
@@ -20,13 +20,13 @@ export interface UebaAnomaly {
   tenantId: string
   entityId: string
   entityName: string
-  entityType: UebaEntityType
+  entityType: string
   anomalyType: string
   description: string
   severity: UebaRiskLevel
   score: number
   detectedAt: string
-  isResolved: boolean
+  resolved: boolean
 }
 
 export interface MlModel {
@@ -45,8 +45,8 @@ export interface MlModel {
 
 export interface UebaStats {
   totalEntities: number
-  criticalRisk: number
-  highRisk: number
+  criticalRiskEntities: number
+  highRiskEntities: number
   anomalies24h: number
   activeModels: number
 }
@@ -64,8 +64,11 @@ export interface UebaEntitySearchParams {
 export interface UebaAnomalySearchParams {
   page?: number
   limit?: number
-  query?: string
   severity?: string
+  entityId?: string
+  resolved?: boolean
+  sortBy?: string
+  sortOrder?: SortOrder
 }
 
 export interface MlModelSearchParams {
@@ -79,13 +82,11 @@ export interface MlModelSearchParams {
 export interface CreateUebaEntityFormValues {
   entityName: string
   entityType: UebaEntityType
-  department: string
 }
 
 export interface EditUebaEntityFormValues {
   entityName: string
   entityType: UebaEntityType
-  department: string
 }
 
 export interface UebaEntityCreateDialogProps {

@@ -17,14 +17,14 @@ export function ReportKpiCards({ stats }: ReportKpiCardsProps) {
         accentColor="var(--primary)"
       />
       <KpiCard
-        label={t('kpiGenerated30d')}
-        value={stats?.generated30d ?? 0}
+        label={t('kpiCompleted')}
+        value={stats?.completedReports ?? 0}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
       <KpiCard
-        label={t('kpiPending')}
-        value={stats?.pendingReports ?? 0}
+        label={t('kpiGenerating')}
+        value={stats?.generatingReports ?? 0}
         icon={<Clock className="h-5 w-5" />}
         accentColor="var(--status-warning)"
       />

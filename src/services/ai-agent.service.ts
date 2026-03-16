@@ -24,6 +24,9 @@ export const aiAgentService = {
   updateSoul: (id: string, data: { soulMd: string }) =>
     api.patch<ApiResponse<AiAgent>>(`/ai-agents/${id}/soul`, data).then(r => r.data),
 
+  startAgent: (id: string) =>
+    api.post<ApiResponse<AiAgent>>(`/ai-agents/${id}/start`).then(r => r.data),
+
   stopAgent: (id: string) =>
     api.post<ApiResponse<AiAgent>>(`/ai-agents/${id}/stop`).then(r => r.data),
 

@@ -36,7 +36,7 @@ export function CloudAccountCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[calc(100vw-2rem)] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('addAccount')}</DialogTitle>
           <DialogDescription>{t('addAccountDescription')}</DialogDescription>
@@ -79,14 +79,14 @@ export function CloudAccountCreateDialog({
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="cloud-account-name">{t('fieldAlias')}</Label>
+            <Label htmlFor="cloud-account-alias">{t('fieldAlias')}</Label>
             <Input
-              id="cloud-account-name"
-              {...register('name')}
+              id="cloud-account-alias"
+              {...register('alias')}
               placeholder={t('fieldAliasPlaceholder')}
-              aria-invalid={errors.name ? true : undefined}
+              aria-invalid={errors.alias ? true : undefined}
             />
-            {errors.name && <p className="text-destructive text-xs">{t('validationAlias')}</p>}
+            {errors.alias && <p className="text-destructive text-xs">{t('validationAlias')}</p>}
           </div>
 
           <div className="flex flex-col gap-2">

@@ -6,6 +6,7 @@ import { useIncidentTimeline, useAddTimelineEntry } from './useIncidents'
 
 export function useIncidentTimelineComponent(incidentId: string) {
   const t = useTranslations('incidents')
+  const tError = useTranslations('errors')
   const { data, isLoading } = useIncidentTimeline(incidentId)
   const addEntry = useAddTimelineEntry()
 
@@ -25,11 +26,11 @@ export function useIncidentTimelineComponent(incidentId: string) {
           setNewEvent('')
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       }
     )
-  }, [addEntry, incidentId, newEvent, t])
+  }, [addEntry, incidentId, newEvent, t, tError])
 
   return {
     t,

@@ -7,7 +7,6 @@ import { NormalizationDetailPanel } from '@/components/normalization/Normalizati
 import { NormalizationEditDialog } from '@/components/normalization/NormalizationEditDialog'
 import { NormalizationFilters } from '@/components/normalization/NormalizationFilters'
 import { NormalizationKpiCards } from '@/components/normalization/NormalizationKpiCards'
-import { NormalizationSourceType } from '@/enums'
 import { useNormalizationPage } from '@/hooks/useNormalizationPage'
 
 export default function NormalizationPage() {
@@ -33,27 +32,17 @@ export default function NormalizationPage() {
     selectedPipeline,
     createLoading,
     editLoading,
+    editInitialValues,
     handleSearchChange,
     handleSourceTypeChange,
     handleStatusChange,
     handleSort,
     handleCreate,
     handleEdit,
+    handleRowClick,
+    handleOpenEdit,
+    handleOpenDelete,
   } = useNormalizationPage()
-
-  const editInitialValues = selectedPipeline
-    ? {
-        name: selectedPipeline.name,
-        sourceType: selectedPipeline.sourceType,
-        parserConfig: '{}',
-        fieldMappings: '{}',
-      }
-    : {
-        name: '',
-        sourceType: NormalizationSourceType.SYSLOG,
-        parserConfig: '{}',
-        fieldMappings: '{}',
-      }
 
   return (
     <div className="space-y-4">
@@ -82,6 +71,7 @@ export default function NormalizationPage() {
         columns={columns}
         data={data?.data ?? []}
         loading={isFetching}
+        onRowClick={handleRowClick}
         emptyMessage={t('noPipelines')}
         emptyIcon={<Layers className="h-6 w-6" />}
         emptyDescription={t('emptyDescription')}
@@ -116,6 +106,8 @@ export default function NormalizationPage() {
         pipeline={selectedPipeline}
         open={detailOpen}
         onOpenChange={setDetailOpen}
+        onEdit={handleOpenEdit}
+        onDelete={handleOpenDelete}
       />
     </div>
   )

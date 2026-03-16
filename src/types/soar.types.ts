@@ -66,6 +66,7 @@ export interface CreateSoarPlaybookFormValues {
   description: string
   triggerType: SoarTriggerType
   steps: string
+  triggerConditions?: string
   cronExpression: string
 }
 
@@ -74,6 +75,7 @@ export interface EditSoarPlaybookFormValues {
   description: string
   triggerType: SoarTriggerType
   steps: string
+  triggerConditions?: string
   cronExpression: string
 }
 
@@ -108,6 +110,9 @@ export interface SoarDetailPanelProps {
   playbook: SoarPlaybook | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  onEdit: (playbook: SoarPlaybook) => void
+  onDelete: (playbook: SoarPlaybook) => void
+  onRun: (playbook: SoarPlaybook) => void
 }
 
 export interface SoarExecutionHistoryProps {

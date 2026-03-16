@@ -73,15 +73,7 @@ export function getUebaColumns(t: UebaColumnTranslations): Column<UebaEntity>[] 
       render: (value: unknown) => <span className="text-sm font-medium">{String(value ?? 0)}</span>,
     },
     {
-      key: 'department',
-      label: t.ueba('colDepartment'),
-      className: 'w-32',
-      render: (value: unknown) => (
-        <span className="text-muted-foreground text-xs">{String(value ?? '-')}</span>
-      ),
-    },
-    {
-      key: 'lastSeen',
+      key: 'lastSeenAt',
       label: t.ueba('colLastSeen'),
       sortable: true,
       className: 'w-32',

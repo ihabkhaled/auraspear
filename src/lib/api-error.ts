@@ -3,17 +3,18 @@ import type { AxiosError } from 'axios'
 
 /**
  * Extracts the i18n messageKey from an API error response.
- * Falls back to 'errors.common.unknown' if no key is found.
+ * Falls back to 'common.unknown' if no key is found.
+ * The 'errors.' prefix is stripped so the key works with useTranslations('errors').
  */
 export function getErrorKey(error: unknown): string {
   const axiosError = error as AxiosError<ApiErrorResponse>
   const data = axiosError?.response?.data
 
   if (data?.messageKey) {
-    return data.messageKey
+    return data.messageKey.replace(/^errors\./, '')
   }
 
-  return 'errors.common.unknown'
+  return 'common.unknown'
 }
 
 /**
@@ -38,12 +39,12 @@ export function getFirstFieldError(error: unknown): string {
 
   const firstError = data?.errors?.[0]
   if (firstError) {
-    return firstError
+    return firstError.replace(/^errors\./, '')
   }
 
   if (data?.messageKey) {
-    return data.messageKey
+    return data.messageKey.replace(/^errors\./, '')
   }
 
-  return 'errors.common.unknown'
+  return 'common.unknown'
 }

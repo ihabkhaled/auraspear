@@ -24,7 +24,6 @@ export function useUebaEntityCreateDialog({
     defaultValues: {
       entityName: '',
       entityType: UebaEntityType.USER,
-      department: '',
     },
   })
 

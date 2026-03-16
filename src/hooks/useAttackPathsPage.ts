@@ -28,6 +28,7 @@ const ALL_FILTER = '__all__'
 export function useAttackPathsPage() {
   const t = useTranslations('attackPath')
   const tCommon = useTranslations('common')
+  const tError = useTranslations('errors')
 
   const [searchQuery, setSearchQuery] = useState('')
   const [severityFilter, setSeverityFilter] = useState('')
@@ -131,11 +132,11 @@ export function useAttackPathsPage() {
           setCreateDialogOpen(false)
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [createMutation, t]
+    [createMutation, t, tError]
   )
 
   const handleOpenEdit = useCallback((path: AttackPath) => {
@@ -167,12 +168,12 @@ export function useAttackPathsPage() {
             setEditingPath(null)
           },
           onError: (error: unknown) => {
-            Toast.error(t(getErrorKey(error)))
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [editingPath, updateMutation, t]
+    [editingPath, updateMutation, t, tError]
   )
 
   const handleDelete = useCallback(
@@ -190,11 +191,11 @@ export function useAttackPathsPage() {
           }
         },
         onError: (error: unknown) => {
-          Toast.error(t(getErrorKey(error)))
+          Toast.error(tError(getErrorKey(error)))
         },
       })
     },
-    [confirmDelete, deleteMutation, t, selectedPathId]
+    [confirmDelete, deleteMutation, t, tError, selectedPathId]
   )
 
   const editInitialValues: EditAttackPathFormValues | null = editingPath

@@ -108,6 +108,18 @@ export function lookup<K extends string, V>(record: Readonly<Record<K, V>>, key:
   return Reflect.get(record, key) as V
 }
 
+/**
+ * Safely parse a JSON string, returning a fallback value on failure or empty input.
+ */
+export function safeJsonParse<T>(value: string | undefined | null, fallback: T): T {
+  if (!value || value.trim() === '') return fallback
+  try {
+    return JSON.parse(value) as T
+  } catch {
+    return fallback
+  }
+}
+
 export function formatFileSize(bytes: number): string {
   if (bytes === 0) {
     return '0 B'

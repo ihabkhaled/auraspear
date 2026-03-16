@@ -28,6 +28,7 @@ export function useSoarCreateDialog({
       description: '',
       triggerType: SoarTriggerType.MANUAL,
       steps: '',
+      triggerConditions: '',
       cronExpression: '',
     },
   })

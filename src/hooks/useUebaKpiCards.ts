@@ -7,8 +7,8 @@ export function useUebaKpiCards({ stats }: UebaKpiCardsProps) {
   return {
     t,
     totalEntities: stats?.totalEntities ?? 0,
-    criticalRisk: stats?.criticalRisk ?? 0,
-    highRisk: stats?.highRisk ?? 0,
+    criticalRisk: stats?.criticalRiskEntities ?? 0,
+    highRisk: stats?.highRiskEntities ?? 0,
     anomalies24h: stats?.anomalies24h ?? 0,
     activeModels: stats?.activeModels ?? 0,
   }

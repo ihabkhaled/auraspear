@@ -1,6 +1,9 @@
 'use client'
 
+import { ChevronDown, Edit, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -21,8 +24,11 @@ export function NormalizationDetailPanel({
   pipeline,
   open,
   onOpenChange,
+  onEdit,
+  onDelete,
 }: NormalizationDetailPanelProps) {
-  const { t, tCommon, hasData } = useNormalizationDetailPanel({ pipeline })
+  const { t, tCommon, hasData, handleEdit, handleDelete, hasEditAction, hasDeleteAction } =
+    useNormalizationDetailPanel({ pipeline, onEdit, onDelete })
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -32,8 +38,25 @@ export function NormalizationDetailPanel({
           <SheetDescription>{t('detailDescription')}</SheetDescription>
         </SheetHeader>
 
+        {hasData && pipeline && (hasEditAction || hasDeleteAction) && (
+          <div className="flex items-center gap-2">
+            {hasEditAction && (
+              <Button variant="outline" size="sm" onClick={handleEdit} className="gap-1.5">
+                <Edit className="h-3.5 w-3.5" />
+                {tCommon('edit')}
+              </Button>
+            )}
+            {hasDeleteAction && (
+              <Button variant="destructive" size="sm" onClick={handleDelete} className="gap-1.5">
+                <Trash2 className="h-3.5 w-3.5" />
+                {tCommon('delete')}
+              </Button>
+            )}
+          </div>
+        )}
+
         {hasData && pipeline && (
-          <div className="mt-6 space-y-6">
+          <div className="space-y-6">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldPipelineName')}</span>
@@ -59,13 +82,13 @@ export function NormalizationDetailPanel({
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('columnEventsProcessed')}</span>
                 <span className="text-foreground text-sm font-medium">
-                  {pipeline.eventsProcessed.toLocaleString()}
+                  {pipeline.processedCount.toLocaleString()}
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('columnErrorRate')}</span>
                 <span className="text-foreground text-sm font-medium">
-                  {`${pipeline.errorRate.toFixed(1)}%`}
+                  {pipeline.errorCount.toLocaleString()}
                 </span>
               </div>
               {pipeline.description && (
@@ -76,11 +99,11 @@ export function NormalizationDetailPanel({
                   </p>
                 </div>
               )}
-              {pipeline.lastRunAt && (
+              {pipeline.lastProcessedAt && (
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">{t('lastRun')}</span>
                   <span className="text-foreground text-sm">
-                    {formatTimestamp(pipeline.lastRunAt)}
+                    {formatTimestamp(pipeline.lastProcessedAt)}
                   </span>
                 </div>
               )}
@@ -91,6 +114,30 @@ export function NormalizationDetailPanel({
                 </span>
               </div>
             </div>
+
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                <span className="text-sm font-semibold">{t('fieldParserConfig')}</span>
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <pre className="bg-muted text-foreground overflow-x-auto rounded-md p-3 font-mono text-xs">
+                  {JSON.stringify(pipeline.parserConfig, null, 2)}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible defaultOpen>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                <span className="text-sm font-semibold">{t('fieldFieldMappings')}</span>
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <pre className="bg-muted text-foreground overflow-x-auto rounded-md p-3 font-mono text-xs">
+                  {JSON.stringify(pipeline.fieldMappings, null, 2)}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
           </div>
         )}
       </SheetContent>

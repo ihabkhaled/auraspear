@@ -41,6 +41,10 @@ export default function DetectionRulesPage() {
     handleSort,
     handleCreate,
     handleEdit,
+    handleDelete,
+    handleOpenDetail,
+    handleOpenEdit,
+    deleteLoading,
   } = useDetectionRulesPage()
 
   const editInitialValues = selectedRule
@@ -49,8 +53,8 @@ export default function DetectionRulesPage() {
         ruleType: selectedRule.ruleType,
         severity: selectedRule.severity,
         status: selectedRule.status,
-        conditions: '{}',
-        actions: '{}',
+        conditions: JSON.stringify(selectedRule.conditions, null, 2),
+        actions: JSON.stringify(selectedRule.actions, null, 2),
       }
     : {
         name: '',
@@ -90,6 +94,7 @@ export default function DetectionRulesPage() {
         columns={columns}
         data={data?.data ?? []}
         loading={isFetching}
+        onRowClick={handleOpenDetail}
         emptyMessage={t('noRules')}
         emptyIcon={<ShieldCheck className="h-6 w-6" />}
         emptyDescription={t('emptyDescription')}
@@ -124,6 +129,9 @@ export default function DetectionRulesPage() {
         rule={selectedRule}
         open={detailOpen}
         onOpenChange={setDetailOpen}
+        onEdit={handleOpenEdit}
+        onDelete={handleDelete}
+        deleteLoading={deleteLoading}
       />
     </div>
   )

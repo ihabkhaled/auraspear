@@ -6,10 +6,10 @@ import { useDetectionRuleKpiCards } from '@/hooks/useDetectionRuleKpiCards'
 import type { DetectionRuleKpiCardsProps } from '@/types'
 
 export function DetectionRuleKpiCards({ stats }: DetectionRuleKpiCardsProps) {
-  const { t, fpRateDisplay } = useDetectionRuleKpiCards({ stats })
+  const { t } = useDetectionRuleKpiCards({ stats })
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-4">
       <KpiCard
         label={t('kpiTotal')}
         value={stats?.totalRules ?? 0}
@@ -18,19 +18,19 @@ export function DetectionRuleKpiCards({ stats }: DetectionRuleKpiCardsProps) {
       />
       <KpiCard
         label={t('kpiEnabled')}
-        value={stats?.enabled ?? 0}
+        value={stats?.activeRules ?? 0}
         icon={<CheckCircle2 className="h-5 w-5" />}
         accentColor="var(--status-success)"
       />
       <KpiCard
-        label={t('kpiMatches30d')}
-        value={stats?.totalMatches30d ?? 0}
+        label={t('kpiTesting')}
+        value={stats?.testingRules ?? 0}
         icon={<FlaskConical className="h-5 w-5" />}
         accentColor="var(--status-info)"
       />
       <KpiCard
-        label={t('kpiFpRate')}
-        value={fpRateDisplay}
+        label={t('kpiMatches30d')}
+        value={stats?.totalMatches ?? 0}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--status-warning)"
       />

@@ -269,6 +269,7 @@ export {
   useAiAgent,
   useAiAgentSessions,
   useUpdateSoul,
+  useStartAgent,
   useStopAgent,
   useCreateAiAgent,
   useUpdateAiAgent,
@@ -373,16 +374,10 @@ export {
   useLatestHealthChecks,
   useSystemMetrics,
   useSystemHealthStats,
-  useCreateHealthCheck,
-  useUpdateHealthCheck,
-  useDeleteHealthCheck,
 } from './useSystemHealth'
 export { useSystemHealthPage } from './useSystemHealthPage'
 export { useSystemHealthKpiCards } from './useSystemHealthKpiCards'
 export { useSystemHealthFilters } from './useSystemHealthFilters'
-export { useSystemHealthCreateDialog } from './useSystemHealthCreateDialog'
-export { useSystemHealthEditDialog } from './useSystemHealthEditDialog'
-export { useSystemHealthDeleteDialog } from './useSystemHealthDeleteDialog'
 export { useSystemHealthDetailPanel } from './useSystemHealthDetailPanel'
 export {
   useNormalizationPipelines,

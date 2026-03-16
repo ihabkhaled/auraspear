@@ -19,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
 import { ReportFormat, ReportType } from '@/enums'
 import { useReportCreateDialog } from '@/hooks/useReportCreateDialog'
@@ -33,8 +32,11 @@ export function ReportCreateDialog({
   onSubmit,
   loading = false,
 }: ReportCreateDialogProps) {
-  const { t, register, control, errors, isScheduled, onFormSubmit, handleOpenChange } =
-    useReportCreateDialog({ open, onOpenChange, onSubmit })
+  const { t, register, control, errors, onFormSubmit, handleOpenChange } = useReportCreateDialog({
+    open,
+    onOpenChange,
+    onSubmit,
+  })
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
@@ -115,31 +117,20 @@ export function ReportCreateDialog({
             />
           </div>
 
-          <div className="flex items-center gap-3">
-            <Controller
-              name="scheduled"
-              control={control}
-              render={({ field }) => (
-                <Switch
-                  checked={field.value ?? false}
-                  onCheckedChange={field.onChange}
-                  id="report-scheduled"
-                />
-              )}
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="report-parameters">{t('fieldParameters')}</Label>
+            <Textarea
+              id="report-parameters"
+              {...register('parameters')}
+              placeholder={t('fieldParametersPlaceholder')}
+              aria-invalid={errors.parameters ? true : undefined}
+              className="resize-none font-mono text-xs"
+              rows={4}
             />
-            <Label htmlFor="report-scheduled">{t('fieldScheduled')}</Label>
+            {errors.parameters && (
+              <p className="text-destructive text-xs">{t('validationParametersJson')}</p>
+            )}
           </div>
-
-          {isScheduled && (
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="report-cron">{t('fieldCron')}</Label>
-              <Input
-                id="report-cron"
-                {...register('cronExpression')}
-                placeholder={t('fieldCronPlaceholder')}
-              />
-            </div>
-          )}
 
           <DialogFooter>
             <Button

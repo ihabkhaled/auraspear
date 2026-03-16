@@ -58,7 +58,7 @@ export function getNormalizationColumns(
       },
     },
     {
-      key: 'eventsProcessed',
+      key: 'processedCount',
       label: t.normalization('columnEventsProcessed'),
       sortable: true,
       render: (value: unknown) => (
@@ -66,17 +66,12 @@ export function getNormalizationColumns(
       ),
     },
     {
-      key: 'errorRate',
+      key: 'errorCount',
       label: t.normalization('columnErrorRate'),
       sortable: true,
       render: (value: unknown) => (
-        <span className="text-muted-foreground text-xs">{`${String(value)}%`}</span>
+        <span className="text-muted-foreground text-xs">{Number(value).toLocaleString()}</span>
       ),
-    },
-    {
-      key: 'createdByName',
-      label: t.common('createdBy'),
-      render: (value: unknown) => <span className="text-sm">{value ? String(value) : '-'}</span>,
     },
     {
       key: 'createdAt',

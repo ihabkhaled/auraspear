@@ -37,7 +37,7 @@ export function CloudAccountEditDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[calc(100vw-2rem)] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('editAccount')}</DialogTitle>
           <DialogDescription>{t('editAccountDescription')}</DialogDescription>
@@ -80,14 +80,14 @@ export function CloudAccountEditDialog({
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="edit-cloud-account-name">{t('fieldAlias')}</Label>
+            <Label htmlFor="edit-cloud-account-alias">{t('fieldAlias')}</Label>
             <Input
-              id="edit-cloud-account-name"
-              {...register('name')}
+              id="edit-cloud-account-alias"
+              {...register('alias')}
               placeholder={t('fieldAliasPlaceholder')}
-              aria-invalid={errors.name ? true : undefined}
+              aria-invalid={errors.alias ? true : undefined}
             />
-            {errors.name && <p className="text-destructive text-xs">{t('validationAlias')}</p>}
+            {errors.alias && <p className="text-destructive text-xs">{t('validationAlias')}</p>}
           </div>
 
           <div className="flex flex-col gap-2">

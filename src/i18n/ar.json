@@ -1104,6 +1104,19 @@
       "limit": {
         "invalidNumber": "يجب أن يكون الحد عدداً صحيحاً موجباً",
         "tooLarge": "يجب ألا يتجاوز الحد 100"
+      },
+      "yamlContent": {
+        "invalid": "يجب أن يكون محتوى YAML نصًا صالحًا",
+        "required": "محتوى YAML مطلوب",
+        "tooLong": "محتوى YAML طويل جدًا"
+      },
+      "conditions": {
+        "invalid": "يجب أن تكون الشروط كائن JSON صالحًا",
+        "required": "الشروط مطلوبة"
+      },
+      "source": {
+        "required": "المصدر مطلوب",
+        "invalidOption": "قيمة المصدر غير صالحة"
       }
     },
     "ssrf": {
@@ -1192,6 +1205,12 @@
       "notEnabled": "وحدة الذكاء الاصطناعي غير مفعّلة.",
       "invocationFailed": "فشل استدعاء الذكاء الاصطناعي.",
       "serviceUnavailable": "خدمة الذكاء الاصطناعي غير متاحة مؤقتاً. يرجى المحاولة لاحقاً."
+    },
+    "aiAgents": {
+      "notFound": "لم يتم العثور على وكيل الذكاء الاصطناعي.",
+      "nameAlreadyExists": "يوجد وكيل بهذا الاسم بالفعل.",
+      "alreadyOnline": "الوكيل متصل بالفعل.",
+      "alreadyOffline": "الوكيل غير متصل بالفعل."
     },
     "users": {
       "notFound": "لم يتم العثور على المستخدم.",
@@ -1551,6 +1570,7 @@
     "detailCreatedAt": "Created At",
     "detailUpdatedAt": "Updated At",
     "detailLastFired": "Last Fired",
+    "detailConditions": "الشروط",
     "fieldTitle": "Title",
     "fieldTitlePlaceholder": "Enter rule title",
     "fieldDescription": "Description",
@@ -1567,7 +1587,7 @@
     "fieldYamlContent": "YAML Content",
     "fieldYamlPlaceholder": "title: My Sigma Rule\nstatus: experimental\nlogsource:\n  category: process_creation\n  product: windows\ndetection:\n  selection:\n    CommandLine|contains: '...'",
     "fieldConditions": "Conditions (JSON)",
-    "fieldConditionsPlaceholder": "{\n  \"operator\": \"AND\",\n  \"rules\": [\n    { \"field\": \"event.action\", \"operator\": \"equals\", \"value\": \"login\" }\n  ]\n}",
+    "fieldConditionsPlaceholder": "'{'\n  \"operator\": \"AND\",\n  \"rules\": [\n    '{' \"field\": \"event.action\", \"operator\": \"equals\", \"value\": \"login\" '}'\n  ]\n'}'",
     "fieldConditionsHint": "JSON-formatted correlation conditions",
     "cancel": "Cancel",
     "creating": "Creating...",
@@ -1780,7 +1800,8 @@
     "detailCreatedBy": "Created By",
     "detailCreatedAt": "Created",
     "detailUpdatedAt": "Updated",
-    "detailResolvedAt": "Resolved"
+    "detailResolvedAt": "Resolved",
+    "linkedAlerts": "التنبيهات المرتبطة"
   },
   "aiAgents": {
     "title": "أسطول وكلاء الذكاء الاصطناعي (OpenClaw)",
@@ -1816,6 +1837,7 @@
     "soulEditor": "موجه نظام الوكيل",
     "saveSoul": "حفظ SOUL.md",
     "stopAgent": "إيقاف الوكيل",
+    "startAgent": "تشغيل الوكيل",
     "sessionInput": "الإدخال",
     "sessionOutput": "الإخراج",
     "searchPlaceholder": "البحث عن وكلاء...",
@@ -1827,6 +1849,7 @@
     "deleteSuccess": "تم حذف الوكيل بنجاح",
     "soulUpdated": "تم تحديث SOUL.md بنجاح",
     "agentStopped": "تم إيقاف الوكيل بنجاح",
+    "agentStarted": "تم تشغيل الوكيل بنجاح",
     "kpiTotal": "إجمالي الوكلاء",
     "kpiSessions": "إجمالي الجلسات",
     "kpiTokens": "إجمالي الرموز",
@@ -1857,7 +1880,8 @@
     "creating": "Creating...",
     "save": "Save",
     "saving": "Saving...",
-    "stopping": "Stopping...",
+    "stopping": "جارٍ الإيقاف...",
+    "starting": "جارٍ التشغيل...",
     "createdAt": "Created",
     "noSessions": "No sessions found",
     "noSessionsDescription": "Sessions will appear here once the agent runs tasks",
@@ -2212,12 +2236,16 @@
     "detailAvgDuration": "Avg Duration",
     "detailCreatedBy": "Created By",
     "detailLastExecuted": "Last Executed",
+    "detailRunButton": "تنفيذ",
     "executionHistory": "Execution History",
     "execColumnStatus": "Status",
     "execColumnProgress": "Progress",
     "execColumnDuration": "Duration",
     "execColumnStarted": "Started",
-    "noExecutions": "No executions yet"
+    "noExecutions": "No executions yet",
+    "validationStepsJson": "يجب أن تكون الخطوات مصفوفة JSON صالحة تحتوي على عنصر واحد على الأقل",
+    "fieldTriggerConditions": "شروط التشغيل (JSON)",
+    "fieldTriggerConditionsPlaceholder": "أدخل شروط التشغيل ككائن JSON"
   },
   "compliance": {
     "title": "أطر الامتثال",
@@ -2281,6 +2309,8 @@
       "evidence": "الدليل"
     },
     "createFramework": "Create Framework",
+    "editFramework": "تعديل",
+    "deleteFramework": "حذف",
     "createTitle": "Create Framework",
     "createDescription": "Add a new compliance framework to track",
     "editTitle": "Edit Framework",
@@ -2345,7 +2375,14 @@
     "controlEvidencePlaceholder": "Provide evidence for this assessment",
     "controlNotes": "Notes",
     "controlNotesPlaceholder": "Additional notes",
-    "validationStatus": "Please select a status"
+    "validationStatus": "Please select a status",
+    "columnName": "الاسم",
+    "columnStandard": "المعيار",
+    "columnScore": "النتيجة",
+    "columnControls": "الضوابط",
+    "columnLastAssessed": "آخر تقييم",
+    "columnCreated": "تاريخ الإنشاء",
+    "neverAssessed": "لم يتم التقييم"
   },
   "reports": {
     "title": "التقارير",
@@ -2413,8 +2450,6 @@
     "editTitle": "Edit Report",
     "editDescription": "Update report configuration",
     "kpiTotal": "Total Reports",
-    "kpiGenerated30d": "Generated (30d)",
-    "kpiPending": "Pending",
     "kpiFailed": "Failed",
     "noReports": "No reports found",
     "emptyDescription": "Generate your first security report",
@@ -2439,9 +2474,6 @@
     "fieldTypePlaceholder": "Select report type",
     "fieldFormat": "Format",
     "fieldFormatPlaceholder": "Select output format",
-    "fieldScheduled": "Enable Schedule",
-    "fieldCron": "Cron Expression",
-    "fieldCronPlaceholder": "0 0 * * 1 (every Monday at midnight)",
     "validationNameMin": "Name must be at least 3 characters",
     "validationDescriptionMin": "Description must be at least 5 characters",
     "cancelButton": "Cancel",
@@ -2465,8 +2497,21 @@
     "detailGeneratedBy": "Generated By",
     "detailFileSize": "File Size",
     "detailCreated": "Created",
-    "detailCompleted": "Completed",
-    "downloadButton": "Download Report"
+    "downloadButton": "Download Report",
+    "editButton": "تعديل",
+    "deleteButton": "حذف",
+    "columnName": "الاسم",
+    "columnType": "النوع",
+    "columnFormat": "التنسيق",
+    "columnGeneratedBy": "تم الإنشاء بواسطة",
+    "columnCreated": "تاريخ الإنشاء",
+    "kpiCompleted": "مكتملة",
+    "kpiGenerating": "قيد الإنشاء",
+    "detailGenerated": "تم الإنشاء",
+    "detailParameters": "المعلمات",
+    "fieldParameters": "المعلمات (JSON)",
+    "fieldParametersPlaceholder": "أدخل معلمات التقرير ككائن JSON",
+    "validationParametersJson": "يجب أن تكون المعلمات كائن JSON صالح"
   },
   "systemHealth": {
     "title": "صحة النظام",
@@ -2657,7 +2702,9 @@
     "fieldFieldMappingsPlaceholder": "Enter field mappings JSON...",
     "validationName": "Name must be at least 3 characters",
     "validationParserConfig": "Parser config must be at least 2 characters",
+    "validationParserConfigJson": "يجب أن يكون تكوين المحلل بصيغة JSON صالحة",
     "validationFieldMappings": "Field mappings must be at least 2 characters",
+    "validationFieldMappingsJson": "يجب أن تكون تعيينات الحقول بصيغة JSON صالحة",
     "kpiTotalProcessed": "Total Processed",
     "detailTitle": "Pipeline Details",
     "detailDescription": "View detailed pipeline information and configuration",
@@ -2763,7 +2810,7 @@
     "deleteSuccess": "تم حذف القاعدة بنجاح",
     "deleteError": "فشل حذف القاعدة",
     "createRuleDescription": "Define a new detection rule with conditions and actions",
-    "editRule": "Edit Rule",
+    "editRule": "تعديل القاعدة",
     "editRuleDescription": "Update rule configuration, severity, and conditions",
     "fieldRuleName": "Rule Name",
     "fieldRuleNamePlaceholder": "Enter rule name...",
@@ -2777,8 +2824,8 @@
     "fieldActions": "Actions",
     "fieldActionsPlaceholder": "Enter actions JSON...",
     "validationName": "Name must be at least 3 characters",
-    "validationConditions": "Conditions must be at least 2 characters",
-    "validationActions": "Actions must be at least 2 characters",
+    "validationConditions": "يجب ان تكون الشروط بصيغة JSON صالحة",
+    "validationActions": "يجب ان تكون الاجراءات بصيغة JSON صالحة",
     "kpiFpRate": "FP Rate",
     "detailTitle": "Detection Rule Details",
     "detailDescription": "View detailed rule information, conditions, and MITRE mappings",
@@ -2800,7 +2847,8 @@
     "typeAnomaly": "شذوذ",
     "typeChain": "سلسلة",
     "typeScheduled": "مجدول",
-    "statusActive": "نشط"
+    "statusActive": "نشط",
+    "columnFalsePositives": "إيجابيات كاذبة"
   },
   "cloudSecurity": {
     "title": "أمان السحابة",
@@ -2944,6 +2992,7 @@
     "submit": "Add Account",
     "creating": "Adding...",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "columnComplianceScore": "نسبة الامتثال"
   }
 }

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getReportColumns } from '@/components/reports'
 import { ReportFormat, ReportType, SortOrder } from '@/enums'
+import { safeJsonParse } from '@/lib/utils'
 import type {
   Report,
   ReportSearchParams,
@@ -125,7 +126,16 @@ export function useReportsPage() {
 
   const handleCreate = useCallback(
     (formData: CreateReportFormValues) => {
-      createMutation.mutate(formData as unknown as Record<string, unknown>, {
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        description: formData.description,
+        type: formData.type,
+        format: formData.format,
+      }
+      if (formData.parameters.trim().length > 0) {
+        payload['parameters'] = safeJsonParse<Record<string, unknown>>(formData.parameters, {})
+      }
+      createMutation.mutate(payload, {
         onSuccess: () => {
           Toast.success(t('createSuccess'))
           setCreateOpen(false)
@@ -143,8 +153,17 @@ export function useReportsPage() {
       if (!selectedReport) {
         return
       }
+      const payload: Record<string, unknown> = {
+        name: formData.name,
+        description: formData.description,
+        type: formData.type,
+        format: formData.format,
+      }
+      if (formData.parameters.trim().length > 0) {
+        payload['parameters'] = safeJsonParse<Record<string, unknown>>(formData.parameters, {})
+      }
       updateMutation.mutate(
-        { id: selectedReport.id, data: formData as unknown as Record<string, unknown> },
+        { id: selectedReport.id, data: payload },
         {
           onSuccess: () => {
             Toast.success(t('updateSuccess'))
@@ -174,15 +193,22 @@ export function useReportsPage() {
     [deleteMutation, t]
   )
 
-  const openEditDialog = useCallback((report: Report) => {
-    setSelectedReport(report)
+  const openEditDialog = useCallback(() => {
+    if (!selectedReport) {
+      return
+    }
+    setDetailOpen(false)
     setEditOpen(true)
-  }, [])
+  }, [selectedReport])
 
-  const openDeleteDialog = useCallback((report: Report) => {
-    setDeleteReportId(report.id)
-    setDeleteReportName(report.name)
-  }, [])
+  const openDeleteDialog = useCallback(() => {
+    if (!selectedReport) {
+      return
+    }
+    setDetailOpen(false)
+    setDeleteReportId(selectedReport.id)
+    setDeleteReportName(selectedReport.name)
+  }, [selectedReport])
 
   const editInitialValues: EditReportFormValues = useMemo(
     () => ({
@@ -190,8 +216,9 @@ export function useReportsPage() {
       description: selectedReport?.description ?? '',
       type: selectedReport?.type ?? ReportType.EXECUTIVE,
       format: selectedReport?.format ?? ReportFormat.PDF,
-      scheduled: false,
-      cronExpression: '',
+      parameters: selectedReport?.parameters
+        ? JSON.stringify(selectedReport.parameters, null, 2)
+        : '',
     }),
     [selectedReport]
   )

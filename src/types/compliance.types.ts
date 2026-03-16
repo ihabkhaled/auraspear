@@ -93,6 +93,8 @@ export interface ComplianceDetailPanelProps {
   framework: ComplianceFramework | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  onEdit?: (framework: ComplianceFramework) => void
+  onDelete?: (framework: ComplianceFramework) => void
 }
 
 export interface ComplianceControlCardProps {

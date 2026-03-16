@@ -1,9 +1,10 @@
 'use client'
 
-import { X } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { useUebaEntityDetailPanel } from '@/hooks/useUebaEntityDetailPanel'
 import {
   UEBA_ENTITY_TYPE_LABEL_KEYS,
@@ -47,6 +48,8 @@ export function UebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPan
     )
   }
 
+  const trendValues = Array.isArray(entity.trendData) ? entity.trendData : []
+
   return (
     <div className="bg-card border-border flex flex-col gap-4 rounded-lg border p-4">
       <div className="flex items-center justify-between">
@@ -79,51 +82,58 @@ export function UebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPan
           <span className="text-sm font-medium">{entity.anomalyCount}</span>
         </div>
         <div className="flex flex-col gap-0.5">
-          <span className="text-muted-foreground text-xs">{t('colDepartment')}</span>
-          <span className="text-sm">{entity.department ?? '-'}</span>
-        </div>
-        <div className="flex flex-col gap-0.5">
           <span className="text-muted-foreground text-xs">{t('colLastSeen')}</span>
-          <span className="text-sm">{formatDate(entity.lastSeen)}</span>
+          <span className="text-sm">{entity.lastSeenAt ? formatDate(entity.lastSeenAt) : '-'}</span>
         </div>
       </div>
 
-      {entity.trend.length > 0 && (
-        <div className="flex flex-col gap-1">
-          <span className="text-muted-foreground text-xs font-medium">{t('riskTrend')}</span>
-          <div className="flex items-end gap-0.5">
-            {entity.trend.map((value, index) => (
-              <div
-                key={`trend-${String(index)}`}
-                className="bg-primary/60 w-3 rounded-t"
-                style={{ height: `${Math.max(value, 4)}px` }}
-              />
-            ))}
-          </div>
-        </div>
+      {trendValues.length > 0 && (
+        <Collapsible defaultOpen>
+          <CollapsibleTrigger className="flex w-full items-center justify-between">
+            <span className="text-muted-foreground text-xs font-medium">{t('riskTrend')}</span>
+            <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform data-[state=open]:rotate-180" />
+          </CollapsibleTrigger>
+          <CollapsibleContent>
+            <div className="flex items-end gap-0.5 pt-1.5">
+              {trendValues.map((value, index) => (
+                <div
+                  key={`trend-${String(index)}`}
+                  className="bg-primary/60 w-3 rounded-t"
+                  style={{ height: `${Math.max(Number(value), 4)}px` }}
+                />
+              ))}
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
       )}
 
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between">
+      <Collapsible defaultOpen>
+        <CollapsibleTrigger className="flex w-full items-center justify-between">
           <h4 className="text-sm font-medium">{t('anomalies')}</h4>
-          {anomaliesFetching && <Badge variant="secondary">{t('loading')}</Badge>}
-        </div>
-
-        {anomalies.length === 0 ? (
-          <p className="text-muted-foreground text-xs">{t('noAnomalies')}</p>
-        ) : (
-          <div className="flex flex-col gap-2">
-            {anomalies.map(anomaly => (
-              <UebaAnomalyCard
-                key={anomaly.id}
-                anomaly={anomaly}
-                onResolve={handleResolveAnomaly}
-                resolving={isResolving}
-              />
-            ))}
+          <div className="flex items-center gap-2">
+            {anomaliesFetching && <Badge variant="secondary">{t('loading')}</Badge>}
+            <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform data-[state=open]:rotate-180" />
           </div>
-        )}
-      </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="pt-2">
+            {anomalies.length === 0 ? (
+              <p className="text-muted-foreground text-xs">{t('noAnomalies')}</p>
+            ) : (
+              <div className="flex flex-col gap-2">
+                {anomalies.map(anomaly => (
+                  <UebaAnomalyCard
+                    key={anomaly.id}
+                    anomaly={anomaly}
+                    onResolve={handleResolveAnomaly}
+                    resolving={isResolving}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   )
 }

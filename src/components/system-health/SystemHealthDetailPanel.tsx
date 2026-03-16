@@ -1,6 +1,8 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -35,7 +37,7 @@ export function SystemHealthDetailPanel({
         </SheetHeader>
 
         {hasData && healthCheck && (
-          <div className="mt-6 space-y-6">
+          <div className="space-y-6">
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldServiceType')}</span>
@@ -68,14 +70,6 @@ export function SystemHealthDetailPanel({
                   <Badge variant="secondary">{healthCheck.version}</Badge>
                 </div>
               )}
-              {healthCheck.message && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-muted-foreground text-sm">{t('columnMessage')}</span>
-                  <p className="bg-muted text-foreground rounded-md p-2 text-sm">
-                    {healthCheck.message}
-                  </p>
-                </div>
-              )}
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('columnCheckedAt')}</span>
                 <span className="text-foreground text-sm">
@@ -84,25 +78,48 @@ export function SystemHealthDetailPanel({
               </div>
             </div>
 
+            {healthCheck.message && (
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                  <span className="text-foreground text-sm font-semibold">
+                    {t('columnMessage')}
+                  </span>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <p className="bg-muted text-foreground rounded-md p-2 text-sm">
+                    {healthCheck.message}
+                  </p>
+                </CollapsibleContent>
+              </Collapsible>
+            )}
+
             {metrics.length > 0 && (
-              <div className="space-y-3">
-                <h3 className="text-foreground text-sm font-semibold">{t('metricsHistory')}</h3>
-                <div className="space-y-2">
-                  {metrics.map(metric => (
-                    <div
-                      key={metric.id}
-                      className="bg-muted flex items-center justify-between rounded-md p-2"
-                    >
-                      <span className="text-foreground text-sm">
-                        {t(lookup(METRIC_TYPE_LABEL_KEYS, metric.metricType))}
-                      </span>
-                      <span className="text-muted-foreground text-sm">
-                        {`${metric.value} ${metric.unit}`}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                  <span className="text-foreground text-sm font-semibold">
+                    {t('metricsHistory')}
+                  </span>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="space-y-2">
+                    {metrics.map(metric => (
+                      <div
+                        key={metric.id}
+                        className="bg-muted flex items-center justify-between rounded-md p-2"
+                      >
+                        <span className="text-foreground text-sm">
+                          {t(lookup(METRIC_TYPE_LABEL_KEYS, metric.metricType))}
+                        </span>
+                        <span className="text-muted-foreground text-sm">
+                          {`${metric.value} ${metric.unit}`}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             )}
           </div>
         )}

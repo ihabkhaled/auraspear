@@ -47,6 +47,9 @@ export default function SoarPage() {
     handleEdit,
     handleDelete,
     handleExecute,
+    openEditDialog,
+    openDeleteDialog,
+    openRunDialog,
     createLoading,
     editLoading,
   } = useSoarPage()
@@ -121,7 +124,14 @@ export default function SoarPage() {
         onConfirm={handleExecute}
       />
 
-      <SoarDetailPanel playbook={selectedPlaybook} open={detailOpen} onOpenChange={setDetailOpen} />
+      <SoarDetailPanel
+        playbook={selectedPlaybook}
+        open={detailOpen}
+        onOpenChange={setDetailOpen}
+        onEdit={openEditDialog}
+        onDelete={openDeleteDialog}
+        onRun={openRunDialog}
+      />
     </div>
   )
 }

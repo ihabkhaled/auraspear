@@ -35,7 +35,7 @@ export function UebaAnomalyCard({ anomaly, onResolve, resolving }: UebaAnomalyCa
           <span className="text-muted-foreground text-xs font-medium">
             {t('score')}: {anomaly.score}
           </span>
-          {anomaly.isResolved ? (
+          {anomaly.resolved ? (
             <span className="bg-status-success inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium text-white">
               <CheckCircle className="h-3 w-3" />
               {t('resolved')}

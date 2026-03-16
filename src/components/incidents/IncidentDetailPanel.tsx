@@ -1,6 +1,8 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -38,7 +40,7 @@ export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDe
         </SheetHeader>
 
         {incident && (
-          <ScrollArea className="h-[calc(100vh-8rem)] pe-4">
+          <ScrollArea className="h-[calc(100vh-8rem)]">
             <div className="flex flex-col gap-5 pt-4">
               <div className="flex flex-wrap gap-2">
                 <span
@@ -73,7 +75,7 @@ export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDe
 
               <Separator />
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1">
                   <p className="text-muted-foreground text-xs font-medium">{tCommon('assignee')}</p>
                   <p className="text-sm">{incident.assigneeName ?? t('unassigned')}</p>
@@ -109,24 +111,58 @@ export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDe
               {incident.mitreTechniques.length > 0 && (
                 <>
                   <Separator />
-                  <div className="flex flex-col gap-2">
-                    <p className="text-muted-foreground text-xs font-medium">
-                      {t('formMitreTechniques')}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {incident.mitreTechniques.map(technique => (
-                        <Badge key={technique} variant="outline" className="font-mono text-xs">
-                          {technique}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
+                  <Collapsible defaultOpen>
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                      <p className="text-sm font-semibold">{t('formMitreTechniques')}</p>
+                      <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="flex flex-wrap gap-1.5 pt-2">
+                        {incident.mitreTechniques.map(technique => (
+                          <Badge key={technique} variant="outline" className="font-mono text-xs">
+                            {technique}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </>
+              )}
+
+              {incident.linkedAlertIds.length > 0 && (
+                <>
+                  <Separator />
+                  <Collapsible defaultOpen>
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                      <p className="text-sm font-semibold">{t('linkedAlerts')}</p>
+                      <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent>
+                      <div className="flex flex-col gap-1 pt-2">
+                        {incident.linkedAlertIds.map(alertId => (
+                          <Badge key={alertId} variant="secondary" className="font-mono text-xs">
+                            {alertId}
+                          </Badge>
+                        ))}
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
                 </>
               )}
 
               <Separator />
 
-              <IncidentTimeline incidentId={incident.id} />
+              <Collapsible defaultOpen>
+                <CollapsibleTrigger className="flex w-full items-center justify-between py-1">
+                  <p className="text-sm font-semibold">{t('incidentTimeline')}</p>
+                  <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>&]:rotate-180" />
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <div className="pt-2">
+                    <IncidentTimeline incidentId={incident.id} />
+                  </div>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
           </ScrollArea>
         )}

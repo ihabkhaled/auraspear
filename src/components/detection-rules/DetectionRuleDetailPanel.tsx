@@ -1,6 +1,9 @@
 'use client'
 
+import { ChevronDown, Pencil, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
   Sheet,
   SheetContent,
@@ -23,6 +26,9 @@ export function DetectionRuleDetailPanel({
   rule,
   open,
   onOpenChange,
+  onEdit,
+  onDelete,
+  deleteLoading,
 }: DetectionRuleDetailPanelProps) {
   const { t, tCommon, hasData } = useDetectionRuleDetailPanel({ rule })
 
@@ -35,7 +41,29 @@ export function DetectionRuleDetailPanel({
         </SheetHeader>
 
         {hasData && rule && (
-          <div className="mt-6 space-y-6">
+          <div className="space-y-6">
+            {(onEdit ?? onDelete) && (
+              <div className="flex items-center gap-2">
+                {onEdit && (
+                  <Button variant="outline" size="sm" onClick={() => onEdit(rule)}>
+                    <Pencil className="mr-1.5 h-3.5 w-3.5" />
+                    {t('editRule')}
+                  </Button>
+                )}
+                {onDelete && (
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    disabled={deleteLoading}
+                    onClick={() => onDelete(rule)}
+                  >
+                    <Trash2 className="mr-1.5 h-3.5 w-3.5" />
+                    {t('actions.delete')}
+                  </Button>
+                )}
+              </div>
+            )}
+
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('fieldRuleName')}</span>
@@ -72,13 +100,13 @@ export function DetectionRuleDetailPanel({
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground text-sm">{t('columnMatches')}</span>
                 <span className="text-foreground text-sm font-medium">
-                  {rule.matchCount.toLocaleString()}
+                  {rule.hitCount.toLocaleString()}
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-muted-foreground text-sm">{t('fpRate')}</span>
+                <span className="text-muted-foreground text-sm">{t('columnFalsePositives')}</span>
                 <span className="text-foreground text-sm font-medium">
-                  {`${rule.falsePositiveRate.toFixed(1)}%`}
+                  {rule.falsePositiveCount.toLocaleString()}
                 </span>
               </div>
               {rule.description && (
@@ -89,30 +117,35 @@ export function DetectionRuleDetailPanel({
                   </p>
                 </div>
               )}
-              {rule.mitreTactics.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-muted-foreground text-sm">{t('mitreTactics')}</span>
-                  <div className="flex flex-wrap gap-1">
-                    {rule.mitreTactics.map(tactic => (
-                      <Badge key={tactic} variant="outline">
-                        {tactic}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {rule.mitreTechniques.length > 0 && (
-                <div className="flex flex-col gap-1">
-                  <span className="text-muted-foreground text-sm">{t('mitreTechniques')}</span>
-                  <div className="flex flex-wrap gap-1">
-                    {rule.mitreTechniques.map(technique => (
-                      <Badge key={technique} variant="outline">
-                        {technique}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
+            </div>
+
+            <Collapsible>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                <span className="text-foreground text-sm font-semibold">
+                  {t('fieldConditions')}
+                </span>
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <pre className="bg-muted text-foreground overflow-auto rounded-md p-3 font-mono text-xs">
+                  {JSON.stringify(rule.conditions, null, 2)}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
+
+            <Collapsible>
+              <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
+                <span className="text-foreground text-sm font-semibold">{t('fieldActions')}</span>
+                <ChevronDown className="text-muted-foreground h-4 w-4 transition-transform [[data-state=open]>_&]:rotate-180" />
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <pre className="bg-muted text-foreground overflow-auto rounded-md p-3 font-mono text-xs">
+                  {JSON.stringify(rule.actions, null, 2)}
+                </pre>
+              </CollapsibleContent>
+            </Collapsible>
+
+            <div className="space-y-3">
               {rule.lastTriggeredAt && (
                 <div className="flex items-center justify-between">
                   <span className="text-muted-foreground text-sm">{t('lastTriggered')}</span>

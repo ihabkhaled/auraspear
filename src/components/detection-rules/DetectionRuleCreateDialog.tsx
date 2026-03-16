@@ -40,7 +40,7 @@ export function DetectionRuleCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="w-full max-w-[95vw] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('createRule')}</DialogTitle>
           <DialogDescription>{t('createRuleDescription')}</DialogDescription>
@@ -58,7 +58,7 @@ export function DetectionRuleCreateDialog({
             {errors.name && <p className="text-destructive text-xs">{t('validationName')}</p>}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
               <Label>{t('fieldRuleType')}</Label>
               <Controller
