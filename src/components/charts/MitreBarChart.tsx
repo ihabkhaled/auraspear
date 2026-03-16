@@ -48,7 +48,7 @@ export function MitreBarChart({ data }: MitreBarChartProps) {
             color: 'var(--foreground)',
             fontSize: '12px',
           }}
-          formatter={(value: number | undefined) => [value ?? 0, 'Count']}
+          formatter={value => [value ?? 0, 'Count']}
           labelFormatter={label => label}
         />
         <Bar dataKey="count" radius={[0, 4, 4, 0]} maxBarSize={24}>
