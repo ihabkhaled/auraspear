@@ -47,6 +47,8 @@ export default function CorrelationPage() {
     isCreating,
     isUpdating,
     isDeleting,
+    canCreate,
+    canDelete,
   } = useCorrelationPage()
 
   return (
@@ -54,11 +56,15 @@ export default function CorrelationPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createRule'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: handleOpenCreate,
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('createRule'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: handleOpenCreate,
+              },
+            }
+          : {})}
       />
 
       <CorrelationKpiCards stats={stats} />
@@ -120,8 +126,8 @@ export default function CorrelationPage() {
         rule={selectedRule}
         open={detailPanelOpen}
         onOpenChange={setDetailPanelOpen}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
+        onEdit={canCreate ? handleOpenEdit : undefined}
+        onDelete={canDelete ? handleOpenDelete : undefined}
       />
     </div>
   )

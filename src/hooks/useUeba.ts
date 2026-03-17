@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { uebaService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { UebaEntitySearchParams, UebaAnomalySearchParams, MlModelSearchParams } from '@/types'
 
 export function useUebaEntities(params?: UebaEntitySearchParams) {
@@ -49,51 +51,70 @@ export function useUebaStats() {
 
 export function useCreateUebaEntity() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => uebaService.createEntity(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.UEBA_CREATE)
+      return uebaService.createEntity(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats', tenantId] })
     },
   })
 }
 
 export function useUpdateUebaEntity() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      uebaService.updateEntity(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.UEBA_UPDATE)
+      return uebaService.updateEntity(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entity'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entity', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats', tenantId] })
     },
   })
 }
 
 export function useDeleteUebaEntity() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (id: string) => uebaService.deleteEntity(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.UEBA_UPDATE)
+      return uebaService.deleteEntity(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entities', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats', tenantId] })
     },
   })
 }
 
 export function useResolveAnomaly() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (id: string) => uebaService.resolveAnomaly(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.UEBA_UPDATE)
+      return uebaService.resolveAnomaly(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'anomalies'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entity'] })
-      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'anomalies', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'entity', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ueba', 'stats', tenantId] })
     },
   })
 }

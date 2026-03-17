@@ -683,6 +683,18 @@ export function IncidentKpiCards({ stats, t }: IncidentKpiCardsProps) {
 
 ---
 
+## RBAC / Permission System
+
+- **Permission enum** (`src/enums/permission.enum.ts`) must mirror the backend enum exactly. When adding a new permission to the backend, immediately add it to the frontend enum.
+- **All mutation `invalidateQueries` calls MUST include `tenantId`** in the queryKey — e.g., `queryKey: ['alerts', tenantId]` not `queryKey: ['alerts']`. This ensures tenant switching properly invalidates caches.
+- **`usePermissionSync` hook** polls `/auth/me` every 60s and includes `tenantId` in its queryKey so tenant switches trigger immediate permission refresh.
+- **`useTenantSwitcher`** must call `queryClient.invalidateQueries()` AND manually call `authService.getMe()` to immediately refresh permissions on tenant switch.
+- **`getErrorKey()` returns keys WITHOUT the `errors.` prefix** — so hooks that display error toasts must use `useTranslations('errors')`, NOT `useTranslations()`.
+- **Page hooks expose `canX` booleans** derived from `hasPermission()`. TSX files gate UI elements with `{canX && (...)}` or pass handlers as `canX ? handler : undefined`.
+- **Case owner bypass** is backend-only (`@AllowCaseOwner()` decorator). The frontend does NOT need special handling — the backend allows case owners through.
+
+---
+
 ## Testing Requirements (MANDATORY)
 
 For every module:

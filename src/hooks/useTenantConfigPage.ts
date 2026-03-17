@@ -35,7 +35,7 @@ import { usePagination } from './usePagination'
 
 export function useTenantConfigPage() {
   const t = useTranslations('admin')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const tImpersonation = useTranslations('impersonation')
   const router = useRouter()
   const queryClient = useQueryClient()

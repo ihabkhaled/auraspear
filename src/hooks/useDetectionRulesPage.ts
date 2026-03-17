@@ -4,8 +4,10 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getDetectionRuleColumns } from '@/components/detection-rules/DetectionRuleTableColumns'
-import { SortOrder } from '@/enums'
+import { Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
 import { safeJsonParse } from '@/lib/utils'
+import { useAuthStore } from '@/stores'
 import type {
   CreateDetectionRuleFormValues,
   DetectionRule,
@@ -27,6 +29,10 @@ const ALL_FILTER = '__all__'
 export function useDetectionRulesPage() {
   const t = useTranslations('detectionRules')
   const tCommon = useTranslations('common')
+  const permissions = useAuthStore(s => s.permissions)
+  const canManageRules = hasPermission(permissions, Permission.DETECTION_RULES_CREATE)
+  const canEditRule = hasPermission(permissions, Permission.DETECTION_RULES_UPDATE)
+  const canDeleteRule = hasPermission(permissions, Permission.DETECTION_RULES_DELETE)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [ruleTypeFilter, setRuleTypeFilter] = useState('')
@@ -240,5 +246,8 @@ export function useDetectionRulesPage() {
     handleDelete,
     handleOpenDetail,
     handleOpenEdit,
+    canManageRules,
+    canEditRule,
+    canDeleteRule,
   }
 }

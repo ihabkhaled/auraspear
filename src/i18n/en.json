@@ -40,7 +40,8 @@
     "threatHunting": "Threat Hunting",
     "settings": "Settings",
     "notifications": "Notifications",
-    "profile": "Profile"
+    "profile": "Profile",
+    "roleSettings": "Role Settings"
   },
   "common": {
     "search": "Search",
@@ -68,6 +69,7 @@
     "copied": "Copied to clipboard",
     "all": "All",
     "name": "Name",
+    "title": "Title",
     "status": "Status",
     "severity": "Severity",
     "timestamp": "Timestamp",
@@ -250,6 +252,7 @@
     "createCase": "Create Case",
     "caseNumber": "Case #",
     "timeline": {
+      "title": "Timeline",
       "caseCreated": "Case {caseRef} created: {title}",
       "caseDeleted": "Case {caseRef} deleted",
       "caseReopened": "Case re-opened by {actorLabel}",
@@ -3127,5 +3130,210 @@
     "save": "Save",
     "saving": "Saving...",
     "columnComplianceScore": "Compliance Score"
+  },
+  "roleSettings": {
+    "title": "Role Settings",
+    "description": "Configure permission matrix for each role",
+    "permission": "Permission",
+    "save": "Save Changes",
+    "saving": "Saving...",
+    "reset": "Reset to Defaults",
+    "resetting": "Resetting...",
+    "resetConfirm": "Are you sure you want to reset all permissions to defaults? This will overwrite all customizations.",
+    "saved": "Permissions saved successfully",
+    "resetSuccess": "Permissions reset to defaults",
+    "modules": {
+      "dashboard": "Dashboard",
+      "alerts": "Alerts",
+      "incidents": "Incidents",
+      "cases": "Cases",
+      "connectors": "Connectors",
+      "correlation": "Correlation Rules",
+      "detectionRules": "Detection Rules",
+      "hunt": "Threat Hunt",
+      "intel": "Threat Intel",
+      "explorer": "Explorer",
+      "vulnerabilities": "Vulnerabilities",
+      "ueba": "UEBA / ML Analytics",
+      "attackPaths": "Attack Paths",
+      "normalization": "Normalization",
+      "soar": "SOAR Workflows",
+      "aiAgents": "AI Agents",
+      "cloudSecurity": "Cloud Security",
+      "compliance": "Compliance",
+      "reports": "Reports",
+      "adminUsers": "Admin - Users",
+      "adminTenants": "Admin - Tenants",
+      "notifications": "Notifications",
+      "profile": "Profile",
+      "settings": "Settings",
+      "roleSettings": "Role Settings"
+    },
+    "permissions": {
+      "dashboard": {
+        "view": "View Dashboard"
+      },
+      "alerts": {
+        "view": "View Alerts",
+        "investigate": "Investigate Alerts",
+        "acknowledge": "Acknowledge Alerts",
+        "close": "Close Alerts",
+        "escalate": "Escalate Alerts"
+      },
+      "incidents": {
+        "view": "View Incidents",
+        "create": "Create Incidents",
+        "update": "Update Incidents",
+        "delete": "Delete Incidents",
+        "addTimeline": "Add Timeline Entry",
+        "changeStatus": "Change Incident Status"
+      },
+      "cases": {
+        "view": "View Cases",
+        "create": "Create Cases",
+        "update": "Update Cases",
+        "delete": "Delete Cases",
+        "assign": "Assign Cases",
+        "changeStatus": "Change Case Status",
+        "addComment": "Add Comments",
+        "deleteComment": "Delete Comments",
+        "addTask": "Add Tasks",
+        "updateTask": "Update Tasks",
+        "deleteTask": "Delete Tasks",
+        "addArtifact": "Add Artifacts",
+        "deleteArtifact": "Delete Artifacts"
+      },
+      "connectors": {
+        "view": "View Connectors",
+        "create": "Create Connectors",
+        "update": "Update Connectors",
+        "delete": "Delete Connectors",
+        "test": "Test Connectors",
+        "sync": "Sync Connectors"
+      },
+      "correlation": {
+        "view": "View Correlation Rules",
+        "create": "Create Correlation Rules",
+        "update": "Update Correlation Rules",
+        "delete": "Delete Correlation Rules",
+        "toggle": "Toggle Correlation Rules"
+      },
+      "detectionRules": {
+        "view": "View Detection Rules",
+        "create": "Create Detection Rules",
+        "update": "Update Detection Rules",
+        "delete": "Delete Detection Rules",
+        "toggle": "Toggle Detection Rules"
+      },
+      "hunt": {
+        "view": "View Hunts",
+        "create": "Create Hunts",
+        "update": "Update Hunts",
+        "delete": "Delete Hunts",
+        "execute": "Execute Hunts"
+      },
+      "intel": {
+        "view": "View Threat Intel"
+      },
+      "explorer": {
+        "view": "View Explorer",
+        "query": "Execute Queries"
+      },
+      "vulnerabilities": {
+        "view": "View Vulnerabilities",
+        "create": "Create Vulnerabilities",
+        "update": "Update Vulnerabilities",
+        "delete": "Delete Vulnerabilities"
+      },
+      "ueba": {
+        "view": "View UEBA",
+        "create": "Create UEBA Entities",
+        "update": "Update UEBA Entities",
+        "delete": "Delete UEBA Entities"
+      },
+      "attackPaths": {
+        "view": "View Attack Paths",
+        "create": "Create Attack Paths",
+        "update": "Update Attack Paths",
+        "delete": "Delete Attack Paths"
+      },
+      "normalization": {
+        "view": "View Normalization",
+        "create": "Create Pipelines",
+        "update": "Update Pipelines",
+        "delete": "Delete Pipelines"
+      },
+      "soar": {
+        "view": "View SOAR",
+        "create": "Create Playbooks",
+        "update": "Update Playbooks",
+        "delete": "Delete Playbooks",
+        "execute": "Execute Playbooks"
+      },
+      "aiAgents": {
+        "view": "View AI Agents",
+        "create": "Create AI Agents",
+        "update": "Update AI Agents",
+        "delete": "Delete AI Agents"
+      },
+      "cloudSecurity": {
+        "view": "View Cloud Security",
+        "create": "Create Cloud Accounts",
+        "update": "Update Cloud Accounts",
+        "delete": "Delete Cloud Accounts"
+      },
+      "compliance": {
+        "view": "View Compliance",
+        "create": "Create Frameworks",
+        "update": "Update Frameworks",
+        "delete": "Delete Compliance Frameworks"
+      },
+      "reports": {
+        "view": "View Reports",
+        "create": "Create Reports",
+        "update": "Update Reports",
+        "delete": "Delete Reports",
+        "export": "Export Reports"
+      },
+      "admin": {
+        "users": {
+          "view": "View Users",
+          "create": "Create Users",
+          "update": "Update Users",
+          "delete": "Delete Users",
+          "block": "Block Users",
+          "restore": "Restore Users"
+        },
+        "tenants": {
+          "view": "View Tenants",
+          "create": "Create Tenants",
+          "update": "Update Tenants",
+          "delete": "Delete Tenants"
+        }
+      },
+      "notifications": {
+        "view": "View Notifications",
+        "manage": "Manage Notifications"
+      },
+      "profile": {
+        "view": "View Profile",
+        "update": "Update Profile"
+      },
+      "settings": {
+        "view": "View Settings",
+        "update": "Update Settings"
+      },
+      "roleSettings": {
+        "view": "View Role Settings",
+        "update": "Update Role Settings"
+      }
+    },
+    "roles": {
+      "TENANT_ADMIN": "Tenant Admin",
+      "SOC_ANALYST_L2": "SOC Analyst L2",
+      "SOC_ANALYST_L1": "SOC Analyst L1",
+      "THREAT_HUNTER": "Threat Hunter",
+      "EXECUTIVE_READONLY": "Executive (Read Only)"
+    }
   }
 }

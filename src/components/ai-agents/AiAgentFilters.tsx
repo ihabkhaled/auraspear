@@ -68,10 +68,12 @@ export function AiAgentFilters(props: AiAgentFiltersProps) {
         </SelectContent>
       </Select>
 
-      <Button onClick={onCreateClick} className="gap-1.5">
-        <Plus className="h-4 w-4" />
-        {t('createAgent')}
-      </Button>
+      {onCreateClick && (
+        <Button onClick={onCreateClick} className="gap-1.5">
+          <Plus className="h-4 w-4" />
+          {t('createAgent')}
+        </Button>
+      )}
     </div>
   )
 }

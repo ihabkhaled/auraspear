@@ -34,10 +34,12 @@ export function AlertRowActions({
           <Eye className="h-4 w-4" />
           {tCommon('view')}
         </DropdownMenuItem>
-        <DropdownMenuItem className="cursor-pointer" onClick={() => onInvestigate?.(alert)}>
-          <Brain className="h-4 w-4" />
-          {t('investigate')}
-        </DropdownMenuItem>
+        {onInvestigate && (
+          <DropdownMenuItem className="cursor-pointer" onClick={() => onInvestigate(alert)}>
+            <Brain className="h-4 w-4" />
+            {t('investigate')}
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem className="cursor-pointer" onClick={() => onCreateCase?.(alert)}>
           <Briefcase className="h-4 w-4" />
           {t('createCase')}

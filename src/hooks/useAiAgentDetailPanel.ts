@@ -15,7 +15,7 @@ export function useAiAgentDetailPanel({
   onDelete,
 }: AiAgentDetailPanelProps) {
   const t = useTranslations('aiAgents')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const [activeTab, setActiveTab] = useState('overview')
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')

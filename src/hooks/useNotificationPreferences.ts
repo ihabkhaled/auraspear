@@ -32,7 +32,7 @@ const CATEGORY_TO_PREF_KEY: Record<NotificationCategory, string> = {
 
 export function useNotificationPreferences() {
   const t = useTranslations('settings')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
 

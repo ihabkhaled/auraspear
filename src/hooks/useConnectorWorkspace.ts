@@ -1,8 +1,10 @@
 'use client'
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { connectorWorkspaceService } from '@/services/connector-workspace.service'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { WorkspaceSearchRequest } from '@/types'
 
 export function useWorkspaceOverview(type: string, enabled = true) {
@@ -39,9 +41,12 @@ export function useWorkspaceEntities(type: string, page = 1, pageSize = 20, enab
 }
 
 export function useWorkspaceSearch(type: string) {
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (request: WorkspaceSearchRequest) =>
-      connectorWorkspaceService.search(type, request),
+    mutationFn: (request: WorkspaceSearchRequest) => {
+      requirePermission(permissions, Permission.CONNECTORS_VIEW)
+      return connectorWorkspaceService.search(type, request)
+    },
   })
 }
 
@@ -49,9 +54,12 @@ export function useWorkspaceAction(type: string) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
 
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: ({ action, params }: { action: string; params?: Record<string, unknown> }) =>
-      connectorWorkspaceService.executeAction(type, action, params),
+    mutationFn: ({ action, params }: { action: string; params?: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.CONNECTORS_UPDATE)
+      return connectorWorkspaceService.executeAction(type, action, params)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({
         queryKey: ['connector-workspace', tenantId, type],

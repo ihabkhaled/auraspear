@@ -1,8 +1,10 @@
 import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { ROLE_LABEL_KEYS } from '@/lib/constants/roles'
+import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import { useProfile, useUpdateProfile, useChangePassword } from './useProfile'
@@ -10,9 +12,12 @@ import { useProfile, useUpdateProfile, useChangePassword } from './useProfile'
 export function useProfilePage() {
   const t = useTranslations('profile')
   const tRoles = useTranslations('admin.roles')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const { user } = useAuthStore()
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canEditProfile = hasPermission(permissions, Permission.PROFILE_UPDATE)
   const { data: profile, isLoading } = useProfile()
   const updateProfile = useUpdateProfile()
   const changePassword = useChangePassword()
@@ -126,5 +131,6 @@ export function useProfilePage() {
     changePasswordPending: changePassword.isPending,
     handleUpdateName,
     handleChangePassword,
+    canEditProfile,
   }
 }

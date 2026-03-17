@@ -37,6 +37,8 @@ export default function UebaPage() {
     handleEditSubmit,
     editLoading,
     editInitialValues,
+    canCreate,
+    canEdit,
   } = useUebaPage()
 
   return (
@@ -44,11 +46,15 @@ export default function UebaPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createEntity'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateDialogOpen(true),
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('createEntity'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateDialogOpen(true),
+              },
+            }
+          : {})}
       />
 
       <UebaKpiCards stats={stats} />
@@ -89,20 +95,24 @@ export default function UebaPage() {
         total={pagination.total}
       />
 
-      <UebaEntityCreateDialog
-        open={createDialogOpen}
-        onOpenChange={setCreateDialogOpen}
-        onSubmit={handleCreateSubmit}
-        loading={createLoading}
-      />
+      {canCreate && (
+        <UebaEntityCreateDialog
+          open={createDialogOpen}
+          onOpenChange={setCreateDialogOpen}
+          onSubmit={handleCreateSubmit}
+          loading={createLoading}
+        />
+      )}
 
-      <UebaEntityEditDialog
-        open={editDialogOpen}
-        onOpenChange={setEditDialogOpen}
-        onSubmit={handleEditSubmit}
-        initialValues={editInitialValues}
-        loading={editLoading}
-      />
+      {canEdit && (
+        <UebaEntityEditDialog
+          open={editDialogOpen}
+          onOpenChange={setEditDialogOpen}
+          onSubmit={handleEditSubmit}
+          initialValues={editInitialValues}
+          loading={editLoading}
+        />
+      )}
     </div>
   )
 }

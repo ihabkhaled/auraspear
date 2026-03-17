@@ -3,12 +3,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { Toast } from '@/components/common'
-import { ConnectorAuthType, UserRole } from '@/enums'
+import { ConnectorAuthType, Permission } from '@/enums'
 import { useUpdateConnector } from '@/hooks/useConnectors'
 import { getErrorKey } from '@/lib/api-error'
 import { recordToFormValues } from '@/lib/connector-utils'
 import { CONNECTOR_META } from '@/lib/constants/connectors.constants'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import { useAuthStore } from '@/stores'
@@ -28,14 +28,13 @@ export function useConnectorForm({
   onCreateSubmit,
 }: UseConnectorFormParams) {
   const t = useTranslations('connectors')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const tValidation = useTranslations('validation')
-  const { user } = useAuthStore()
-  const userRole = user?.role as UserRole | undefined
+  const permissions = useAuthStore(s => s.permissions)
   const meta = lookup(CONNECTOR_META, type)
   const updateMutation = useUpdateConnector(type)
 
-  const disabled = readOnly ?? !(userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false)
+  const disabled = readOnly ?? !hasPermission(permissions, Permission.CONNECTORS_UPDATE)
 
   const {
     register,

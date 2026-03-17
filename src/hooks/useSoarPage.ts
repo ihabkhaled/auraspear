@@ -1,5 +1,8 @@
 'use client'
 
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useSoarPageCrud } from './useSoarPageCrud'
 import { useSoarPageDialogs } from './useSoarPageDialogs'
 import { useSoarPageFilters } from './useSoarPageFilters'
@@ -8,6 +11,12 @@ export function useSoarPage() {
   const filters = useSoarPageFilters()
   const dialogs = useSoarPageDialogs()
   const crud = useSoarPageCrud(dialogs)
+
+  const permissions = useAuthStore(s => s.permissions)
+  const canCreate = hasPermission(permissions, Permission.SOAR_CREATE)
+  const canEdit = hasPermission(permissions, Permission.SOAR_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.SOAR_DELETE)
+  const canExecute = hasPermission(permissions, Permission.SOAR_EXECUTE)
 
   return {
     t: filters.t,
@@ -49,5 +58,9 @@ export function useSoarPage() {
     openRunDialog: dialogs.openRunDialog,
     createLoading: crud.createLoading,
     editLoading: crud.editLoading,
+    canCreate,
+    canEdit,
+    canDelete,
+    canExecute,
   }
 }

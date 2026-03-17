@@ -110,9 +110,9 @@ export interface SoarDetailPanelProps {
   playbook: SoarPlaybook | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onEdit: (playbook: SoarPlaybook) => void
-  onDelete: (playbook: SoarPlaybook) => void
-  onRun: (playbook: SoarPlaybook) => void
+  onEdit?: ((playbook: SoarPlaybook) => void) | undefined
+  onDelete?: ((playbook: SoarPlaybook) => void) | undefined
+  onRun?: ((playbook: SoarPlaybook) => void) | undefined
 }
 
 export interface SoarExecutionHistoryProps {

@@ -46,6 +46,7 @@ export default function IncidentsPage() {
     setCreateDialogOpen,
     setEditDialogOpen,
     setDetailPanelOpen,
+    canCreate,
   } = useIncidentsPage()
 
   return (
@@ -53,11 +54,15 @@ export default function IncidentsPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createIncident'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateDialogOpen(true),
-        }}
+        action={
+          canCreate
+            ? {
+                label: t('createIncident'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateDialogOpen(true),
+              }
+            : undefined
+        }
       />
 
       <IncidentKpiCards stats={stats} isLoading={statsLoading} />

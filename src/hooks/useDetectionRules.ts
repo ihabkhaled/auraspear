@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { detectionRuleService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { DetectionRuleSearchParams } from '@/types'
 
 export function useDetectionRules(params?: DetectionRuleSearchParams) {
@@ -22,31 +24,45 @@ export function useDetectionRuleStats() {
 
 export function useCreateDetectionRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => detectionRuleService.createRule(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.DETECTION_RULES_CREATE)
+      return detectionRuleService.createRule(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['detection-rules'] })
+      void queryClient.invalidateQueries({ queryKey: ['detection-rules', tenantId] })
     },
   })
 }
 
 export function useUpdateDetectionRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      detectionRuleService.updateRule(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.DETECTION_RULES_UPDATE)
+      return detectionRuleService.updateRule(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['detection-rules'] })
+      void queryClient.invalidateQueries({ queryKey: ['detection-rules', tenantId] })
     },
   })
 }
 
 export function useDeleteDetectionRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => detectionRuleService.deleteRule(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.DETECTION_RULES_DELETE)
+      return detectionRuleService.deleteRule(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['detection-rules'] })
+      void queryClient.invalidateQueries({ queryKey: ['detection-rules', tenantId] })
     },
   })
 }

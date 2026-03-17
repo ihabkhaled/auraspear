@@ -7,7 +7,7 @@ import { usePreferences, useUpdatePreferences } from './useSettings'
 
 export function useExportImportSettings() {
   const t = useTranslations('settings')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
   const fileInputRef = useRef<HTMLInputElement>(null)

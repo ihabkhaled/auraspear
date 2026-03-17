@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { io, type Socket } from 'socket.io-client'
 import { Toast } from '@/components/common'
 import { AUTH_STORAGE_KEY } from '@/lib/constants/storage'
+import { useTenantStore } from '@/stores'
 import type { AuthStorageState } from '@/types'
 
 const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000'
@@ -29,6 +30,7 @@ function getAccessToken(): string {
 export function useNotificationSocket(): void {
   const queryClient = useQueryClient()
   const t = useTranslations('notifications')
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const socketRef = useRef<Socket | null>(null)
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export function useNotificationSocket(): void {
 
     socket.on('notification', () => {
       // Invalidate notification list so it refetches
-      void queryClient.invalidateQueries({ queryKey: ['notifications'] })
+      void queryClient.invalidateQueries({ queryKey: ['notifications', tenantId] })
       // Show toast
       Toast.info(t('newNotification'))
     })
@@ -61,5 +63,5 @@ export function useNotificationSocket(): void {
       socket.disconnect()
       socketRef.current = null
     }
-  }, [queryClient, t])
+  }, [queryClient, t, tenantId])
 }

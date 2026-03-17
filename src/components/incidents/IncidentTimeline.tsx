@@ -13,35 +13,37 @@ import { cn, formatRelativeTime, lookup } from '@/lib/utils'
 import type { IncidentTimelineProps } from '@/types'
 
 export function IncidentTimeline({ incidentId }: IncidentTimelineProps) {
-  const { t, entries, isLoading, newEvent, setNewEvent, handleAddEntry, isAdding } =
+  const { t, entries, isLoading, newEvent, setNewEvent, handleAddEntry, isAdding, canAddTimeline } =
     useIncidentTimelineComponent(incidentId)
 
   return (
     <div className="flex flex-col gap-3">
       <h3 className="text-sm font-semibold">{t('incidentTimeline')}</h3>
 
-      <div className="flex items-center gap-2">
-        <Input
-          placeholder={t('timelineEvent')}
-          value={newEvent}
-          onChange={e => setNewEvent(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              handleAddEntry()
-            }
-          }}
-          className="flex-1"
-        />
-        <Button
-          size="sm"
-          onClick={handleAddEntry}
-          disabled={isAdding || newEvent.trim().length === 0}
-        >
-          <Plus className="h-4 w-4" />
-          {t('addTimelineEntry')}
-        </Button>
-      </div>
+      {canAddTimeline && (
+        <div className="flex items-center gap-2">
+          <Input
+            placeholder={t('timelineEvent')}
+            value={newEvent}
+            onChange={e => setNewEvent(e.target.value)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') {
+                e.preventDefault()
+                handleAddEntry()
+              }
+            }}
+            className="flex-1"
+          />
+          <Button
+            size="sm"
+            onClick={handleAddEntry}
+            disabled={isAdding || newEvent.trim().length === 0}
+          >
+            <Plus className="h-4 w-4" />
+            {t('addTimelineEntry')}
+          </Button>
+        </div>
+      )}
 
       {isLoading && (
         <div className="text-muted-foreground py-4 text-center text-sm">{t('loading')}</div>

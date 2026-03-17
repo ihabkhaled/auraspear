@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { caseCycleService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { CaseCycleSearchParams, CreateCaseCycleInput, CloseCaseCycleInput } from '@/types'
 
 export function useCaseCycles(params?: CaseCycleSearchParams) {
@@ -39,57 +41,80 @@ export function useOrphanedCaseStats() {
 
 export function useCreateCaseCycle() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (data: CreateCaseCycleInput) => caseCycleService.createCycle(data),
+    mutationFn: (data: CreateCaseCycleInput) => {
+      requirePermission(permissions, Permission.CASES_CHANGE_STATUS)
+      return caseCycleService.createCycle(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles', tenantId] })
     },
   })
 }
 
 export function useCloseCaseCycle() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: CloseCaseCycleInput }) =>
-      caseCycleService.closeCycle(id, data),
+    mutationFn: ({ id, data }: { id: string; data: CloseCaseCycleInput }) => {
+      requirePermission(permissions, Permission.CASES_CHANGE_STATUS)
+      return caseCycleService.closeCycle(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles', tenantId] })
     },
   })
 }
 
 export function useUpdateCaseCycle() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Partial<CreateCaseCycleInput> }) =>
-      caseCycleService.updateCycle(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Partial<CreateCaseCycleInput> }) => {
+      requirePermission(permissions, Permission.CASES_CHANGE_STATUS)
+      return caseCycleService.updateCycle(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles', tenantId] })
     },
   })
 }
 
 export function useActivateCaseCycle() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (id: string) => caseCycleService.activateCycle(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.CASES_CHANGE_STATUS)
+      return caseCycleService.activateCycle(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles', tenantId] })
     },
   })
 }
 
 export function useDeleteCaseCycle() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (id: string) => caseCycleService.deleteCycle(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.CASES_CHANGE_STATUS)
+      return caseCycleService.deleteCycle(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['caseCycles'] })
+      void queryClient.invalidateQueries({ queryKey: ['caseCycles', tenantId] })
     },
   })
 }

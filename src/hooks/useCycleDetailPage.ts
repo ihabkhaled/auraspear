@@ -2,9 +2,9 @@ import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { UserRole } from '@/enums'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { Case } from '@/types'
 import { useCaseCycle, useCloseCaseCycle } from './useCaseCycles'
@@ -12,12 +12,11 @@ import { useCaseCycle, useCloseCaseCycle } from './useCaseCycles'
 export function useCycleDetailPage(id: string) {
   const t = useTranslations('cases.cycles')
   const tCases = useTranslations('cases')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const router = useRouter()
-  const user = useAuthStore(s => s.user)
 
-  const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
-  const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
+  const permissions = useAuthStore(s => s.permissions)
+  const isAdmin = hasPermission(permissions, Permission.CASES_CHANGE_STATUS)
 
   const { data: cycleData, isLoading } = useCaseCycle(id)
   const closeCycle = useCloseCaseCycle()

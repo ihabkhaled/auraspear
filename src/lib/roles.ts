@@ -41,16 +41,17 @@ export const ROUTE_ROLE_MAP: Record<string, UserRole> = {
   '/explorer': UserRole.SOC_ANALYST_L1,
   '/admin/tenant': UserRole.TENANT_ADMIN,
   '/admin/system': UserRole.GLOBAL_ADMIN,
+  '/admin/role-settings': UserRole.GLOBAL_ADMIN,
   '/dashboard': UserRole.EXECUTIVE_READONLY,
   '/profile': UserRole.EXECUTIVE_READONLY,
   '/settings': UserRole.EXECUTIVE_READONLY,
   '/incidents': UserRole.SOC_ANALYST_L1,
-  '/correlation': UserRole.SOC_ANALYST_L2,
+  '/correlation': UserRole.THREAT_HUNTER,
   '/attack-paths': UserRole.SOC_ANALYST_L2,
   '/ueba': UserRole.SOC_ANALYST_L2,
   '/soar': UserRole.SOC_ANALYST_L2,
   '/normalization': UserRole.TENANT_ADMIN,
-  '/detection-rules': UserRole.SOC_ANALYST_L2,
+  '/detection-rules': UserRole.THREAT_HUNTER,
   '/cloud-security': UserRole.SOC_ANALYST_L2,
   '/vulnerabilities': UserRole.SOC_ANALYST_L1,
   '/system-health': UserRole.SOC_ANALYST_L2,
@@ -82,3 +83,28 @@ export const ROLE_OPTIONS = [
   { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
   { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
 ] as const
+
+/**
+ * Custom error for client-side permission checks.
+ * Carries a messageKey compatible with the API error format
+ * so getErrorKey() can extract the i18n key.
+ */
+export class PermissionError extends Error {
+  readonly messageKey = 'errors.auth.insufficientPermissions'
+
+  constructor(requiredRoles: UserRole[]) {
+    super(`Insufficient permissions: requires ${requiredRoles.join(' | ')}`)
+    this.name = 'PermissionError'
+  }
+}
+
+/**
+ * Throws PermissionError if user lacks ALL of the required roles.
+ * Passes if the user has at least one of the roles in the array.
+ * Use in mutation hooks as a client-side guard before API calls.
+ */
+export function requireRole(userRole: UserRole | undefined, requiredRoles: UserRole[]): void {
+  if (userRole === undefined || !requiredRoles.some(role => hasRole(userRole, role))) {
+    throw new PermissionError(requiredRoles)
+  }
+}

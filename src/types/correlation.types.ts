@@ -104,8 +104,8 @@ export interface CorrelationDetailPanelProps {
   rule: CorrelationRule | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onEdit: (rule: CorrelationRule) => void
-  onDelete: (rule: CorrelationRule) => void
+  onEdit?: ((rule: CorrelationRule) => void) | undefined
+  onDelete?: ((rule: CorrelationRule) => void) | undefined
   children?: ReactNode
 }
 

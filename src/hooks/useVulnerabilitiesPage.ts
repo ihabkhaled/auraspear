@@ -3,7 +3,9 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getVulnerabilityColumns } from '@/components/vulnerabilities'
-import { SortOrder } from '@/enums'
+import { Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type { Vulnerability, VulnerabilitySearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
@@ -12,6 +14,11 @@ import { useVulnerabilityDeleteDialog } from './useVulnerabilityDeleteDialog'
 
 export function useVulnerabilitiesPage() {
   const t = useTranslations('vulnerabilities')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canCreate = hasPermission(permissions, Permission.VULNERABILITIES_CREATE)
+  const canEdit = hasPermission(permissions, Permission.VULNERABILITIES_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.VULNERABILITIES_DELETE)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [severityFilter, setSeverityFilter] = useState('')
@@ -169,5 +176,8 @@ export function useVulnerabilitiesPage() {
     handleDeleteFromDetail,
     handleOpenCreate,
     handleOpenBulkImport,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

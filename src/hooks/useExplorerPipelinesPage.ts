@@ -9,7 +9,7 @@ import { getErrorKey } from '@/lib/api-error'
 
 export function useExplorerPipelinesPage() {
   const t = useTranslations('explorer')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const [search, setSearch] = useState('')
   const [level, setLevel] = useState<string>('')

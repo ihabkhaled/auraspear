@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { soarService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { SoarPlaybookSearchParams, SoarExecutionSearchParams } from '@/types'
 
 export function usePlaybooks(params?: SoarPlaybookSearchParams) {
@@ -22,31 +24,45 @@ export function usePlaybookStats() {
 
 export function useCreatePlaybook() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => soarService.createPlaybook(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.SOAR_CREATE)
+      return soarService.createPlaybook(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['soar'] })
+      void queryClient.invalidateQueries({ queryKey: ['soar', tenantId] })
     },
   })
 }
 
 export function useUpdatePlaybook() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      soarService.updatePlaybook(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.SOAR_UPDATE)
+      return soarService.updatePlaybook(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['soar'] })
+      void queryClient.invalidateQueries({ queryKey: ['soar', tenantId] })
     },
   })
 }
 
 export function useDeletePlaybook() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => soarService.deletePlaybook(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.SOAR_DELETE)
+      return soarService.deletePlaybook(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['soar'] })
+      void queryClient.invalidateQueries({ queryKey: ['soar', tenantId] })
     },
   })
 }
@@ -62,10 +78,15 @@ export function useExecutions(params?: SoarExecutionSearchParams) {
 
 export function useExecutePlaybook() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => soarService.executePlaybook(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.SOAR_EXECUTE)
+      return soarService.executePlaybook(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['soar'] })
+      void queryClient.invalidateQueries({ queryKey: ['soar', tenantId] })
     },
   })
 }

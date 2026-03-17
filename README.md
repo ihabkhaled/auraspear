@@ -14,7 +14,7 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 - [Architecture](#architecture)
 - [Pages & Routes](#pages--routes)
 - [Connector Types](#connector-types)
-- [RBAC Roles](#rbac-roles)
+- [RBAC & Permissions](#rbac--permissions)
 - [Internationalization](#internationalization)
 - [Styling](#styling)
 - [Code Quality](#code-quality)
@@ -72,11 +72,14 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 - **Reports** — Report generation and management
 - **Admin — System** — Multi-tenant management, service health, audit logs
 - **Admin — Tenant** — User management (invite/edit/block/restore), RBAC assignment
+- **Admin — Role Settings** — Full checkbox matrix UI for configuring role permissions per tenant. Collapsible modules with sticky header. GLOBAL_ADMIN can view, edit, and reset permissions
+- **Dynamic RBAC** — Database-backed permission matrix replacing static role checks. ~70 granular permissions across all modules. Permissions auto-sync every 60 seconds via `/auth/me` polling — no logout needed when admin changes permissions
+- **Bulk Alert Actions** — Bulk acknowledge and close alerts with permission-aware checkboxes and action buttons
 - **Notifications** — Real-time WebSocket notifications with bell indicator
 - **Profile & Settings** — User profile, password change, theme, language, notification preferences
 - **Dark Mode** — Full light/dark/system theme via CSS custom properties
 - **RTL Support** — Bidirectional layout for Arabic
-- **PWA** — Installable on mobile and desktop via service worker
+- **PWA** — Progressive Web App with service worker (via @serwist/next), offline support, mobile responsiveness, and installable on mobile and desktop
 
 ---
 
@@ -234,35 +237,36 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
 
 ### Portal Pages (38 pages)
 
-| Route                | Description                       | Min Role       |
-| -------------------- | --------------------------------- | -------------- |
-| `/dashboard`         | Executive dashboard with KPIs     | All roles      |
-| `/alerts`            | Alert search and management       | SOC_ANALYST_L1 |
-| `/cases`             | Case list (Kanban + table)        | SOC_ANALYST_L1 |
-| `/cases/[id]`        | Case detail (artifacts, timeline) | SOC_ANALYST_L1 |
-| `/cases/cycles`      | Case cycle list                   | SOC_ANALYST_L1 |
-| `/hunt`              | AI-powered threat hunting         | THREAT_HUNTER  |
-| `/intel`             | Threat intelligence (IOC, MISP)   | SOC_ANALYST_L1 |
-| `/incidents`         | Incident management               | SOC_ANALYST_L1 |
-| `/connectors`        | Connector management              | TENANT_ADMIN   |
-| `/connectors/[type]` | Connector configuration           | TENANT_ADMIN   |
-| `/explorer/*`        | Data explorer (8 sub-pages)       | SOC_ANALYST_L1 |
-| `/detection-rules`   | Detection rule management         | SOC_ANALYST_L2 |
-| `/correlation`       | Correlation rule engine           | SOC_ANALYST_L2 |
-| `/normalization`     | Normalization pipelines           | SOC_ANALYST_L2 |
-| `/attack-paths`      | Attack path analysis              | SOC_ANALYST_L2 |
-| `/cloud-security`    | Cloud account findings            | SOC_ANALYST_L1 |
-| `/compliance`        | Compliance tracking               | SOC_ANALYST_L1 |
-| `/vulnerabilities`   | Vulnerability tracking            | SOC_ANALYST_L1 |
-| `/ueba`              | Behavior analytics                | SOC_ANALYST_L2 |
-| `/soar`              | SOAR playbooks                    | SOC_ANALYST_L2 |
-| `/ai-agents`         | AI agent management               | SOC_ANALYST_L2 |
-| `/reports`           | Report generation                 | SOC_ANALYST_L1 |
-| `/system-health`     | System monitoring                 | TENANT_ADMIN   |
-| `/admin/system`      | System admin (multi-tenant)       | GLOBAL_ADMIN   |
-| `/admin/tenant`      | Tenant user management            | TENANT_ADMIN   |
-| `/profile`           | User profile                      | All roles      |
-| `/settings`          | Theme, language, notifications    | All roles      |
+| Route                  | Description                       | Min Role       |
+| ---------------------- | --------------------------------- | -------------- |
+| `/dashboard`           | Executive dashboard with KPIs     | All roles      |
+| `/alerts`              | Alert search and management       | SOC_ANALYST_L1 |
+| `/cases`               | Case list (Kanban + table)        | SOC_ANALYST_L1 |
+| `/cases/[id]`          | Case detail (artifacts, timeline) | SOC_ANALYST_L1 |
+| `/cases/cycles`        | Case cycle list                   | SOC_ANALYST_L1 |
+| `/hunt`                | AI-powered threat hunting         | THREAT_HUNTER  |
+| `/intel`               | Threat intelligence (IOC, MISP)   | SOC_ANALYST_L1 |
+| `/incidents`           | Incident management               | SOC_ANALYST_L1 |
+| `/connectors`          | Connector management              | TENANT_ADMIN   |
+| `/connectors/[type]`   | Connector configuration           | TENANT_ADMIN   |
+| `/explorer/*`          | Data explorer (8 sub-pages)       | SOC_ANALYST_L1 |
+| `/detection-rules`     | Detection rule management         | SOC_ANALYST_L2 |
+| `/correlation`         | Correlation rule engine           | SOC_ANALYST_L2 |
+| `/normalization`       | Normalization pipelines           | SOC_ANALYST_L2 |
+| `/attack-paths`        | Attack path analysis              | SOC_ANALYST_L2 |
+| `/cloud-security`      | Cloud account findings            | SOC_ANALYST_L1 |
+| `/compliance`          | Compliance tracking               | SOC_ANALYST_L1 |
+| `/vulnerabilities`     | Vulnerability tracking            | SOC_ANALYST_L1 |
+| `/ueba`                | Behavior analytics                | SOC_ANALYST_L2 |
+| `/soar`                | SOAR playbooks                    | SOC_ANALYST_L2 |
+| `/ai-agents`           | AI agent management               | SOC_ANALYST_L2 |
+| `/reports`             | Report generation                 | SOC_ANALYST_L1 |
+| `/system-health`       | System monitoring                 | TENANT_ADMIN   |
+| `/admin/system`        | System admin (multi-tenant)       | GLOBAL_ADMIN   |
+| `/admin/tenant`        | Tenant user management            | TENANT_ADMIN   |
+| `/admin/role-settings` | Role permission matrix editor     | GLOBAL_ADMIN   |
+| `/profile`             | User profile                      | All roles      |
+| `/settings`            | Theme, language, notifications    | All roles      |
 
 ### Auth Pages
 
@@ -289,7 +293,9 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
 
 ---
 
-## RBAC Roles
+## RBAC & Permissions
+
+### Roles
 
 | Role                 | Level | Access                               |
 | -------------------- | ----- | ------------------------------------ |
@@ -300,7 +306,30 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
 | `SOC_ANALYST_L1`     | 5     | Basic alert/case operations          |
 | `EXECUTIVE_READONLY` | 6     | Dashboard and reports only           |
 
-Frontend enforcement via `<RoleGuard>` component and `useRoleGuard()` hook. Backend enforces the same hierarchy via `@Roles()` + `RolesGuard`.
+### Dynamic Permission System
+
+The platform uses a **database-backed permission matrix** instead of static role checks. GLOBAL_ADMIN can configure which roles can perform which actions on a per-tenant basis via the Role Settings admin page (`/admin/role-settings`).
+
+**Key characteristics:**
+
+- **~70 granular permissions** across all modules: alerts, cases, incidents, connectors, correlation, detection-rules, hunt, reports, admin, intel, SOAR, AI agents, cloud security, compliance, attack paths, UEBA, normalization, vulnerabilities, explorer, notifications, profile, settings, and role-settings
+- **Auto-refresh** — Permissions sync every 60 seconds via `/auth/me` polling. When an admin changes a user's permissions, the user sees the updated access without logging out
+- **Permission-aware UI** — All pages conditionally show/hide create, edit, and delete buttons based on the user's resolved permissions. Alert checkboxes and bulk actions are hidden when the user lacks acknowledge/close permissions. The escalate button requires both `ALERTS_ESCALATE` and `INCIDENTS_CREATE`
+- **Case owner bypass** — Case owners can edit, change status, add comments, tasks, and artifacts regardless of their role-level permissions
+- **Bulk alert actions** — Bulk acknowledge and close alerts, with visibility gated by permission checks
+
+### Role Settings Admin Page
+
+The `/admin/role-settings` page provides a full checkbox matrix where GLOBAL_ADMIN can:
+
+- View the current permission state for all roles in the selected tenant
+- Toggle individual permissions per role
+- Reset a role's permissions back to system defaults
+- Navigate collapsible module groups with a sticky header for easy scanning
+
+### Enforcement
+
+Frontend enforcement via `<RoleGuard>` component, `useRoleGuard()` hook, and the `usePermissions()` / `useHasPermission()` hooks. Backend enforces the same rules via `@Roles()` + `RolesGuard` and the permission guard middleware.
 
 ---
 

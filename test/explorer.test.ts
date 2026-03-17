@@ -33,10 +33,13 @@ vi.mock('@/services', () => ({
     triggerSync: vi.fn(),
   },
 }))
-// Mock the tenant store
+// Mock the stores
 vi.mock('@/stores', () => ({
   useTenantStore: vi.fn((selector: (s: { currentTenantId: string | null }) => unknown) =>
     selector({ currentTenantId: 'test-tenant-id' })
+  ),
+  useAuthStore: vi.fn((selector: (s: { permissions: string[] }) => unknown) =>
+    selector({ permissions: ['explorer.query', 'connectors.sync'] })
   ),
 }))
 // Mock @tanstack/react-query to capture mutation/query configs

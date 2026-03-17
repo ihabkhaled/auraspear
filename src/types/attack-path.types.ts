@@ -106,8 +106,8 @@ export interface AttackPathDeleteDialogProps {
 export interface AttackPathDetailPanelProps {
   pathId: string
   onClose: () => void
-  onEdit: (path: AttackPath) => void
-  onDelete: (path: AttackPath) => void
+  onEdit?: ((path: AttackPath) => void) | undefined
+  onDelete?: ((path: AttackPath) => void) | undefined
   t: (key: string) => string
 }
 

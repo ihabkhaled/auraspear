@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { attackPathService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { AttackPathSearchParams } from '@/types'
 
 export function useAttackPaths(params?: AttackPathSearchParams) {
@@ -31,31 +33,45 @@ export function useAttackPath(id: string) {
 
 export function useCreateAttackPath() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => attackPathService.createAttackPath(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.ATTACK_PATHS_CREATE)
+      return attackPathService.createAttackPath(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['attack-paths'] })
+      void queryClient.invalidateQueries({ queryKey: ['attack-paths', tenantId] })
     },
   })
 }
 
 export function useUpdateAttackPath() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      attackPathService.updateAttackPath(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.ATTACK_PATHS_UPDATE)
+      return attackPathService.updateAttackPath(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['attack-paths'] })
+      void queryClient.invalidateQueries({ queryKey: ['attack-paths', tenantId] })
     },
   })
 }
 
 export function useDeleteAttackPath() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => attackPathService.deleteAttackPath(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.ATTACK_PATHS_DELETE)
+      return attackPathService.deleteAttackPath(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['attack-paths'] })
+      void queryClient.invalidateQueries({ queryKey: ['attack-paths', tenantId] })
     },
   })
 }

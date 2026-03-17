@@ -7,7 +7,7 @@ import { useGraylogLogs, usePagination, useDebounce } from '@/hooks'
 
 export function useExplorerLogsPage() {
   const t = useTranslations('explorer')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState<string | undefined>()

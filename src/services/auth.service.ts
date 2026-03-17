@@ -1,9 +1,9 @@
 import api from '@/lib/api'
 import type {
   ApiResponse,
-  AuthUser,
   EndImpersonationResponse,
   LoginResponse,
+  MeResponse,
   RefreshResponse,
   TenantMembershipInfo,
 } from '@/types'
@@ -15,7 +15,7 @@ export const authService = {
   refresh: (refreshToken: string) =>
     api.post<RefreshResponse>('/auth/refresh', { refreshToken }).then(r => r.data),
 
-  getMe: () => api.get<AuthUser>('/auth/me').then(r => r.data),
+  getMe: () => api.get<MeResponse>('/auth/me').then(r => r.data),
 
   getUserTenants: () => api.get<TenantMembershipInfo[]>('/auth/tenants').then(r => r.data),
 

@@ -29,7 +29,10 @@ export function EscalateToIncidentDialog({
   open,
   onOpenChange,
 }: EscalateToIncidentDialogProps) {
-  const { t, tCommon, handleSubmit, isPending } = useEscalateToIncidentDialog(alert, onOpenChange)
+  const { t, tCommon, handleSubmit, isPending, defaultSeverity } = useEscalateToIncidentDialog(
+    alert,
+    onOpenChange
+  )
 
   if (!alert) {
     return null
@@ -82,7 +85,7 @@ export function EscalateToIncidentDialog({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>{tCommon('severity')}</Label>
-              <Select name="severity" defaultValue={alert.severity}>
+              <Select name="severity" defaultValue={defaultSeverity}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>

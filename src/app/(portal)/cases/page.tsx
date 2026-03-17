@@ -46,6 +46,7 @@ export default function CasesPage() {
     membersList,
     assigneeOptions,
     cycleOptions,
+    canCreateCase,
   } = useCasesPage()
 
   function renderCaseContent() {
@@ -88,11 +89,15 @@ export default function CasesPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createCase'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateDialogOpen(true),
-        }}
+        action={
+          canCreateCase
+            ? {
+                label: t('createCase'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateDialogOpen(true),
+              }
+            : undefined
+        }
       />
 
       <div className="flex flex-wrap items-center gap-3">

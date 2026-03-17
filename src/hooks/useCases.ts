@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { adminService, caseService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { CaseSearchParams, CreateCaseInput, UpdateCaseInput } from '@/types'
 
 export function useTenantMembers() {
@@ -31,9 +33,13 @@ export function useCase(id: string) {
 
 export function useCreateCase() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (data: CreateCaseInput) => caseService.createCase(data),
+    mutationFn: (data: CreateCaseInput) => {
+      requirePermission(permissions, Permission.CASES_CREATE)
+      return caseService.createCase(data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['cases'] })
     },
@@ -43,10 +49,13 @@ export function useCreateCase() {
 export function useUpdateCase() {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: UpdateCaseInput }) =>
-      caseService.updateCase(id, data),
+    mutationFn: ({ id, data }: { id: string; data: UpdateCaseInput }) => {
+      requirePermission(permissions, Permission.CASES_UPDATE)
+      return caseService.updateCase(id, data)
+    },
     onSuccess: (_data, { id }) => {
       void queryClient.invalidateQueries({ queryKey: ['cases'] })
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, id] })

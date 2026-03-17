@@ -88,14 +88,14 @@ export interface NormalizationDetailPanelProps {
   pipeline: NormalizationPipeline | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onEdit?: (pipeline: NormalizationPipeline) => void
-  onDelete?: (pipeline: NormalizationPipeline) => void
+  onEdit?: ((pipeline: NormalizationPipeline) => void) | undefined
+  onDelete?: ((pipeline: NormalizationPipeline) => void) | undefined
 }
 
 export interface UseNormalizationDetailPanelParams {
   pipeline: NormalizationDetailPanelProps['pipeline']
-  onEdit?: NormalizationDetailPanelProps['onEdit']
-  onDelete?: NormalizationDetailPanelProps['onDelete']
+  onEdit?: NormalizationDetailPanelProps['onEdit'] | undefined
+  onDelete?: NormalizationDetailPanelProps['onDelete'] | undefined
 }
 
 export interface NormalizationColumnTranslations {

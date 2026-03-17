@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
 import { POLLING_INTERVAL } from '@/lib/constants'
+import { requirePermission } from '@/lib/permissions'
 import { adminService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type {
   AddUserInput,
   AssignUserInput,
@@ -32,9 +34,13 @@ export function useCurrentTenant(enabled = true) {
 
 export function useCreateTenant() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (data: CreateTenantInput) => adminService.createTenant(data),
+    mutationFn: (data: CreateTenantInput) => {
+      requirePermission(permissions, Permission.ADMIN_TENANTS_CREATE)
+      return adminService.createTenant(data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
     },
@@ -52,10 +58,13 @@ export function useTenantUsers(tenantId: string, params?: TenantUserListParams) 
 
 export function useAddUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, data }: { tenantId: string; data: AddUserInput }) =>
-      adminService.addUser(tenantId, data),
+    mutationFn: ({ tenantId, data }: { tenantId: string; data: AddUserInput }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_CREATE)
+      return adminService.addUser(tenantId, data)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
@@ -84,10 +93,13 @@ export function useAuditLogs(params?: AuditLogParams) {
 
 export function useUpdateTenant() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, data }: { tenantId: string; data: { name: string } }) =>
-      adminService.updateTenant(tenantId, data),
+    mutationFn: ({ tenantId, data }: { tenantId: string; data: { name: string } }) => {
+      requirePermission(permissions, Permission.ADMIN_TENANTS_UPDATE)
+      return adminService.updateTenant(tenantId, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
     },
@@ -96,9 +108,13 @@ export function useUpdateTenant() {
 
 export function useDeleteTenant() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (tenantId: string) => adminService.deleteTenant(tenantId),
+    mutationFn: (tenantId: string) => {
+      requirePermission(permissions, Permission.ADMIN_TENANTS_DELETE)
+      return adminService.deleteTenant(tenantId)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
     },
@@ -107,6 +123,7 @@ export function useDeleteTenant() {
 
 export function useUpdateUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
     mutationFn: ({
@@ -117,7 +134,10 @@ export function useUpdateUser() {
       tenantId: string
       userId: string
       data: { name?: string; role?: string; password?: string }
-    }) => adminService.updateUser(tenantId, userId, data),
+    }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_UPDATE)
+      return adminService.updateUser(tenantId, userId, data)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
     },
@@ -126,10 +146,13 @@ export function useUpdateUser() {
 
 export function useRemoveUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
-      adminService.removeUser(tenantId, userId),
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_DELETE)
+      return adminService.removeUser(tenantId, userId)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
@@ -139,10 +162,13 @@ export function useRemoveUser() {
 
 export function useBlockUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
-      adminService.blockUser(tenantId, userId),
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_BLOCK)
+      return adminService.blockUser(tenantId, userId)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
     },
@@ -151,10 +177,13 @@ export function useBlockUser() {
 
 export function useUnblockUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
-      adminService.unblockUser(tenantId, userId),
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_BLOCK)
+      return adminService.unblockUser(tenantId, userId)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
     },
@@ -163,10 +192,13 @@ export function useUnblockUser() {
 
 export function useRestoreUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
-      adminService.restoreUser(tenantId, userId),
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_RESTORE)
+      return adminService.restoreUser(tenantId, userId)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
@@ -184,10 +216,13 @@ export function useCheckEmail(tenantId: string, email: string) {
 
 export function useAssignUser() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ tenantId, data }: { tenantId: string; data: AssignUserInput }) =>
-      adminService.assignUser(tenantId, data),
+    mutationFn: ({ tenantId, data }: { tenantId: string; data: AssignUserInput }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_CREATE)
+      return adminService.assignUser(tenantId, data)
+    },
     onSuccess: (_data, { tenantId }) => {
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants', tenantId, 'users'] })
       void queryClient.invalidateQueries({ queryKey: ['admin', 'tenants'] })
@@ -196,8 +231,12 @@ export function useAssignUser() {
 }
 
 export function useImpersonateUser() {
+  const permissions = useAuthStore(s => s.permissions)
+
   return useMutation({
-    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) =>
-      adminService.impersonateUser(tenantId, userId),
+    mutationFn: ({ tenantId, userId }: { tenantId: string; userId: string }) => {
+      requirePermission(permissions, Permission.ADMIN_USERS_UPDATE)
+      return adminService.impersonateUser(tenantId, userId)
+    },
   })
 }

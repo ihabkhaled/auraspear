@@ -40,6 +40,9 @@ export default function AttackPathsPage() {
     handleEdit,
     editLoading,
     handleDelete,
+    canCreate,
+    canEdit,
+    canDelete,
   } = useAttackPathsPage()
 
   return (
@@ -47,11 +50,15 @@ export default function AttackPathsPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createPath'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateDialogOpen(true),
-        }}
+        action={
+          canCreate
+            ? {
+                label: t('createPath'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateDialogOpen(true),
+              }
+            : undefined
+        }
       />
 
       <AttackPathKpiCards stats={stats} t={t} />
@@ -88,8 +95,8 @@ export default function AttackPathsPage() {
         <AttackPathDetailPanel
           pathId={selectedPathId}
           onClose={handleCloseDetail}
-          onEdit={handleOpenEdit}
-          onDelete={handleDelete}
+          onEdit={canEdit ? handleOpenEdit : undefined}
+          onDelete={canDelete ? handleDelete : undefined}
           t={t}
         />
       )}

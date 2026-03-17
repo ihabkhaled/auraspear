@@ -47,6 +47,12 @@ export default function AlertsPage() {
     columns,
     handleRowClick,
     handleInvestigate,
+    canInvestigate,
+    canAcknowledge,
+    canClose,
+    canEscalate,
+    canCreateCase,
+    canSelect,
     handleSearchSubmit,
     sortBy,
     sortOrder,
@@ -131,8 +137,8 @@ export default function AlertsPage() {
               sortBy={sortBy}
               sortOrder={sortOrder}
               onSort={handleSort}
-              selectedIds={selectedIds}
-              onSelectionChange={setSelectedIds}
+              selectedIds={canSelect ? selectedIds : undefined}
+              onSelectionChange={canSelect ? setSelectedIds : undefined}
             />
           )}
 
@@ -149,12 +155,16 @@ export default function AlertsPage() {
         alert={selectedAlert}
         open={drawerOpen}
         onOpenChange={setDrawerOpen}
-        onInvestigate={handleInvestigate}
-        onCreateCase={alert => {
-          setDrawerOpen(false)
-          handleCreateCase(alert)
-        }}
-        onEscalateToIncident={handleEscalateToIncident}
+        onInvestigate={canInvestigate ? handleInvestigate : undefined}
+        onCreateCase={
+          canCreateCase
+            ? alert => {
+                setDrawerOpen(false)
+                handleCreateCase(alert)
+              }
+            : undefined
+        }
+        onEscalateToIncident={canEscalate ? handleEscalateToIncident : undefined}
         onClose={() => setDrawerOpen(false)}
       />
 
@@ -178,14 +188,16 @@ export default function AlertsPage() {
         onOpenChange={setEscalateOpen}
       />
 
-      <AlertBulkActionBar
-        selectedCount={selectedIds.length}
-        onAcknowledge={handleBulkAcknowledge}
-        onClose={handleBulkClose}
-        onClear={handleClearSelection}
-        isAcknowledging={isAcknowledging}
-        isClosing={isClosing}
-      />
+      {canSelect && (
+        <AlertBulkActionBar
+          selectedCount={selectedIds.length}
+          onAcknowledge={canAcknowledge ? handleBulkAcknowledge : undefined}
+          onClose={canClose ? handleBulkClose : undefined}
+          onClear={handleClearSelection}
+          isAcknowledging={isAcknowledging}
+          isClosing={isClosing}
+        />
+      )}
     </div>
   )
 }

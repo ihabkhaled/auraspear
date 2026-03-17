@@ -4,8 +4,10 @@ import { useMemo, useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getNormalizationColumns } from '@/components/normalization/NormalizationTableColumns'
-import { NormalizationSourceType, SortOrder } from '@/enums'
+import { NormalizationSourceType, Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
 import { safeJsonParse } from '@/lib/utils'
+import { useAuthStore } from '@/stores'
 import type {
   CreateNormalizationFormValues,
   EditNormalizationFormValues,
@@ -27,6 +29,11 @@ const ALL_FILTER = '__all__'
 export function useNormalizationPage() {
   const t = useTranslations('normalization')
   const tCommon = useTranslations('common')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canCreate = hasPermission(permissions, Permission.NORMALIZATION_CREATE)
+  const canEdit = hasPermission(permissions, Permission.NORMALIZATION_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.NORMALIZATION_DELETE)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [sourceTypeFilter, setSourceTypeFilter] = useState('')
@@ -247,5 +254,8 @@ export function useNormalizationPage() {
     handleRowClick,
     handleOpenEdit,
     handleOpenDelete,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

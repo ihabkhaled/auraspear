@@ -1,5 +1,8 @@
 'use client'
 
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useAttackPathsPageCrud } from './useAttackPathsPageCrud'
 import { useAttackPathsPageDialogs } from './useAttackPathsPageDialogs'
 import { useAttackPathsPageFilters } from './useAttackPathsPageFilters'
@@ -8,6 +11,11 @@ export function useAttackPathsPage() {
   const filters = useAttackPathsPageFilters()
   const dialogs = useAttackPathsPageDialogs()
   const crud = useAttackPathsPageCrud(dialogs)
+
+  const permissions = useAuthStore(s => s.permissions)
+  const canCreate = hasPermission(permissions, Permission.ATTACK_PATHS_CREATE)
+  const canEdit = hasPermission(permissions, Permission.ATTACK_PATHS_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.ATTACK_PATHS_DELETE)
 
   return {
     t: filters.t,
@@ -41,5 +49,8 @@ export function useAttackPathsPage() {
     handleEdit: crud.handleEdit,
     editLoading: crud.editLoading,
     handleDelete: crud.handleDelete,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

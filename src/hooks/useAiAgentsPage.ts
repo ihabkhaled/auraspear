@@ -1,14 +1,22 @@
 'use client'
 
 import { useMemo } from 'react'
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useAiAgentsPageCrud } from './useAiAgentsPageCrud'
 import { useAiAgentsPageDialogs } from './useAiAgentsPageDialogs'
 import { useAiAgentsPageFilters } from './useAiAgentsPageFilters'
 
 export function useAiAgentsPage() {
+  const permissions = useAuthStore(s => s.permissions)
   const filters = useAiAgentsPageFilters()
   const dialogs = useAiAgentsPageDialogs()
   const crud = useAiAgentsPageCrud(dialogs)
+
+  const canCreate = hasPermission(permissions, Permission.AI_AGENTS_CREATE)
+  const canEdit = hasPermission(permissions, Permission.AI_AGENTS_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.AI_AGENTS_DELETE)
 
   const selectedAgent = useMemo(
     () => dialogs.findSelectedAgent(filters.data?.data),
@@ -49,5 +57,8 @@ export function useAiAgentsPage() {
     handleDeleteConfirm: crud.handleDeleteConfirm,
     isDeleting: crud.isDeleting,
     handleCloseDetail: dialogs.handleCloseDetail,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

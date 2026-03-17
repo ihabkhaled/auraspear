@@ -146,11 +146,13 @@ export interface TimeRangeSelectorProps {
 export interface PageHeaderProps {
   title: string
   description?: string
-  action?: {
-    label: string
-    icon?: ReactNode
-    onClick: () => void
-  }
+  action?:
+    | {
+        label: string
+        icon?: ReactNode
+        onClick: () => void
+      }
+    | undefined
   children?: ReactNode
 }
 

@@ -49,6 +49,7 @@ export default function ReportsPage() {
     editLoading,
     openEditDialog,
     openDeleteDialog,
+    canManageReports,
   } = useReportsPage()
 
   return (
@@ -56,11 +57,15 @@ export default function ReportsPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createReport'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        {...(canManageReports
+          ? {
+              action: {
+                label: t('createReport'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              },
+            }
+          : {})}
       />
 
       <ReportKpiCards stats={stats} />
@@ -121,8 +126,8 @@ export default function ReportsPage() {
         report={selectedReport}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onEdit={openEditDialog}
-        onDelete={openDeleteDialog}
+        onEdit={canManageReports ? openEditDialog : undefined}
+        onDelete={canManageReports ? openDeleteDialog : undefined}
       />
     </div>
   )

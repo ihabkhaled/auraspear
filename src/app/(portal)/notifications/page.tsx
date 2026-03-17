@@ -28,15 +28,18 @@ export default function NotificationsPage() {
     handleMarkAllRead,
     markAllReadPending,
     resolveMessage,
+    canManageNotifications,
   } = useNotificationsPage()
 
   return (
     <div className="space-y-4">
       <PageHeader title={t('pageTitle')} description={t('pageDescription')}>
-        <Button onClick={handleMarkAllRead} disabled={markAllReadPending}>
-          <CheckCheck className="me-1 h-4 w-4" />
-          {t('markAllRead')}
-        </Button>
+        {canManageNotifications && (
+          <Button onClick={handleMarkAllRead} disabled={markAllReadPending}>
+            <CheckCheck className="me-1 h-4 w-4" />
+            {t('markAllRead')}
+          </Button>
+        )}
       </PageHeader>
 
       <NotificationFilters

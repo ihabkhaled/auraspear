@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { explorerService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type {
   GraylogSearchParams,
   GrafanaDashboardSearchParams,
@@ -57,8 +59,12 @@ export function useGrafanaDashboards(params?: GrafanaDashboardSearchParams) {
 export function useSyncGrafana() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: () => explorerService.syncGrafana(),
+    mutationFn: () => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.syncGrafana()
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'grafana'] })
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'overview'] })
@@ -119,8 +125,12 @@ export function useLogstashLogs(params?: LogstashLogSearchParams) {
 export function useSyncLogstash() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: () => explorerService.syncLogstash(),
+    mutationFn: () => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.syncLogstash()
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'logstash'] })
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'overview'] })
@@ -149,16 +159,24 @@ export function useVelociraptorHunts(params?: VelociraptorHuntSearchParams) {
 }
 
 export function useRunVelociraptorVQL() {
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (vql: string) => explorerService.runVelociraptorVQL(vql),
+    mutationFn: (vql: string) => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.runVelociraptorVQL(vql)
+    },
   })
 }
 
 export function useSyncVelociraptor() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: () => explorerService.syncVelociraptor(),
+    mutationFn: () => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.syncVelociraptor()
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'velociraptor'] })
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'overview'] })
@@ -180,8 +198,12 @@ export function useShuffleWorkflows(params?: ShuffleWorkflowSearchParams) {
 export function useSyncShuffle() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: () => explorerService.syncShuffle(),
+    mutationFn: () => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.syncShuffle()
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'shuffle'] })
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'overview'] })
@@ -203,8 +225,12 @@ export function useSyncJobs(params?: SyncJobSearchParams) {
 export function useTriggerSync() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (input: TriggerSyncInput) => explorerService.triggerSync(input),
+    mutationFn: (input: TriggerSyncInput) => {
+      requirePermission(permissions, Permission.EXPLORER_QUERY)
+      return explorerService.triggerSync(input)
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'sync-jobs'] })
       queryClient.invalidateQueries({ queryKey: ['explorer', tenantId, 'overview'] })

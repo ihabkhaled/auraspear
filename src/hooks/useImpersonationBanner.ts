@@ -10,7 +10,7 @@ import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useImpersonationBanner() {
   const t = useTranslations('impersonation')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const router = useRouter()
   const queryClient = useQueryClient()
   const { impersonator, user, setTokens, setUser, endImpersonation } = useAuthStore()

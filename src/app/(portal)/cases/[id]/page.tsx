@@ -52,6 +52,12 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
     handleDeleteTask,
     handleAddArtifact,
     handleDeleteArtifact,
+    canEditCase,
+    canAddComment,
+    canAddTask,
+    canAddArtifact,
+    canChangeStatus,
+    canDeleteSubItems,
   } = useCaseDetailPage(id)
 
   if (isLoading) {
@@ -90,10 +96,10 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         ownerName={ownerName}
         members={members}
         cycles={cycles}
-        onEdit={handleEditClick}
-        onStatusChange={handleStatusChange}
-        onAssigneeChange={handleAssigneeChange}
-        onCycleChange={handleCycleChange}
+        onEdit={canEditCase ? handleEditClick : undefined}
+        onStatusChange={canChangeStatus ? handleStatusChange : undefined}
+        onAssigneeChange={canEditCase ? handleAssigneeChange : undefined}
+        onCycleChange={canEditCase ? handleCycleChange : undefined}
       />
 
       <EditCaseDialog
@@ -144,7 +150,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         <div className="flex flex-col gap-6 lg:col-span-2">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">{t('timeline')}</CardTitle>
+              <CardTitle className="text-base">{t('timeline.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <CaseTimeline entries={caseItem.timeline ?? []} />
@@ -158,6 +164,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 currentUserId={currentUserId}
                 isAdmin={isAdmin}
                 isCaseClosed={caseItem.status === CaseStatus.CLOSED}
+                canAddComment={canAddComment}
               />
             </CardContent>
           </Card>
@@ -200,9 +207,9 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 <CardContent className="max-h-[400px] overflow-y-auto">
                   <CaseTaskList
                     tasks={caseItem.tasks ?? []}
-                    onToggleTask={handleToggleTask}
-                    onAddTask={handleAddTask}
-                    onDeleteTask={handleDeleteTask}
+                    onToggleTask={canAddTask ? handleToggleTask : undefined}
+                    onAddTask={canAddTask ? handleAddTask : undefined}
+                    onDeleteTask={canDeleteSubItems ? handleDeleteTask : undefined}
                     addingTask={createTaskPending}
                   />
                 </CardContent>
@@ -222,8 +229,8 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 <CardContent className="max-h-[400px] overflow-y-auto">
                   <CaseArtifactPanel
                     artifacts={caseItem.artifacts ?? []}
-                    onAddArtifact={handleAddArtifact}
-                    onDeleteArtifact={handleDeleteArtifact}
+                    onAddArtifact={canAddArtifact ? handleAddArtifact : undefined}
+                    onDeleteArtifact={canDeleteSubItems ? handleDeleteArtifact : undefined}
                     addingArtifact={createArtifactPending}
                   />
                 </CardContent>

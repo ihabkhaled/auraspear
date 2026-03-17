@@ -7,11 +7,11 @@ import {
   CaseStatus,
   CaseViewMode,
   CaseSortField,
+  Permission,
   SortOrder,
-  UserRole,
 } from '@/enums'
 import type { CaseSeverity } from '@/enums'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { Case, CreateCaseFormValues } from '@/types'
 import { useActiveCycle, useCaseCycles } from './useCaseCycles'
@@ -24,10 +24,12 @@ export function useCasesPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const user = useAuthStore(s => s.user)
+  const permissions = useAuthStore(s => s.permissions)
 
   const currentUserId = user?.sub ?? ''
-  const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
-  const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
+  const isAdmin = hasPermission(permissions, Permission.ADMIN_USERS_VIEW)
+  const canCreateCase = hasPermission(permissions, Permission.CASES_CREATE)
+  const canEditCase = hasPermission(permissions, Permission.CASES_UPDATE)
 
   const initialCycleId = searchParams.get('cycleId') ?? undefined
   const urlStatus = searchParams.get('status')
@@ -161,5 +163,7 @@ export function useCasesPage() {
     membersList,
     assigneeOptions,
     cycleOptions,
+    canCreateCase,
+    canEditCase,
   }
 }

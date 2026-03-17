@@ -40,7 +40,8 @@
     "threatHunting": "Chasse aux menaces",
     "settings": "Paramètres",
     "notifications": "Notifications",
-    "profile": "Profil"
+    "profile": "Profil",
+    "roleSettings": "Paramètres des Rôles"
   },
   "common": {
     "search": "Rechercher",
@@ -68,6 +69,7 @@
     "copied": "Copie dans le presse-papiers",
     "all": "Tous",
     "name": "Nom",
+    "title": "Titre",
     "status": "Statut",
     "severity": "Severite",
     "timestamp": "Horodatage",
@@ -250,6 +252,7 @@
     "createCase": "Creer un dossier",
     "caseNumber": "Dossier n°",
     "timeline": {
+      "title": "Chronologie",
       "caseCreated": "Dossier {caseRef} créé : {title}",
       "caseDeleted": "Dossier {caseRef} supprimé",
       "caseReopened": "Dossier rouvert par {actorLabel}",
@@ -3127,5 +3130,210 @@
     "save": "Save",
     "saving": "Saving...",
     "columnComplianceScore": "Score de Conformité"
+  },
+  "roleSettings": {
+    "title": "Paramètres des Rôles",
+    "description": "Configurer la matrice des permissions pour chaque rôle",
+    "permission": "Permission",
+    "save": "Enregistrer les Modifications",
+    "saving": "Enregistrement...",
+    "reset": "Réinitialiser par Défaut",
+    "resetting": "Réinitialisation...",
+    "resetConfirm": "Êtes-vous sûr de vouloir réinitialiser toutes les permissions aux valeurs par défaut ? Cela écrasera toutes les personnalisations.",
+    "saved": "Permissions enregistrées avec succès",
+    "resetSuccess": "Permissions réinitialisées aux valeurs par défaut",
+    "modules": {
+      "dashboard": "Tableau de Bord",
+      "alerts": "Alertes",
+      "incidents": "Incidents",
+      "cases": "Dossiers",
+      "connectors": "Connecteurs",
+      "correlation": "Règles de Corrélation",
+      "detectionRules": "Règles de Détection",
+      "hunt": "Chasse aux Menaces",
+      "intel": "Renseignement sur les Menaces",
+      "explorer": "Explorateur",
+      "vulnerabilities": "Vulnérabilités",
+      "ueba": "UEBA / Analytique ML",
+      "attackPaths": "Chemins d'Attaque",
+      "normalization": "Normalisation",
+      "soar": "Flux SOAR",
+      "aiAgents": "Agents AI",
+      "cloudSecurity": "Sécurité Cloud",
+      "compliance": "Conformité",
+      "reports": "Rapports",
+      "adminUsers": "Admin - Utilisateurs",
+      "adminTenants": "Admin - Locataires",
+      "notifications": "Notifications",
+      "profile": "Profil",
+      "settings": "Paramètres",
+      "roleSettings": "Paramètres des Rôles"
+    },
+    "permissions": {
+      "dashboard": {
+        "view": "Voir le Tableau de Bord"
+      },
+      "alerts": {
+        "view": "Voir les Alertes",
+        "investigate": "Enquêter sur les Alertes",
+        "acknowledge": "Accuser Réception des Alertes",
+        "close": "Fermer les Alertes",
+        "escalate": "Escalader les Alertes"
+      },
+      "incidents": {
+        "view": "Voir les Incidents",
+        "create": "Créer des Incidents",
+        "update": "Mettre à Jour les Incidents",
+        "delete": "Supprimer les Incidents",
+        "addTimeline": "Ajouter une Entrée de Chronologie",
+        "changeStatus": "Changer le Statut de l'Incident"
+      },
+      "cases": {
+        "view": "Voir les Dossiers",
+        "create": "Créer des Dossiers",
+        "update": "Mettre à Jour les Dossiers",
+        "delete": "Supprimer les Dossiers",
+        "assign": "Assigner des Dossiers",
+        "changeStatus": "Changer le Statut du Dossier",
+        "addComment": "Ajouter des Commentaires",
+        "deleteComment": "Supprimer des Commentaires",
+        "addTask": "Ajouter des Tâches",
+        "updateTask": "Mettre à Jour les Tâches",
+        "deleteTask": "Supprimer les Tâches",
+        "addArtifact": "Ajouter des Artefacts",
+        "deleteArtifact": "Supprimer des Artefacts"
+      },
+      "connectors": {
+        "view": "Voir les Connecteurs",
+        "create": "Créer des Connecteurs",
+        "update": "Mettre à Jour les Connecteurs",
+        "delete": "Supprimer les Connecteurs",
+        "test": "Tester les Connecteurs",
+        "sync": "Synchroniser les Connecteurs"
+      },
+      "correlation": {
+        "view": "Voir les Règles de Corrélation",
+        "create": "Créer des Règles de Corrélation",
+        "update": "Mettre à Jour les Règles de Corrélation",
+        "delete": "Supprimer les Règles de Corrélation",
+        "toggle": "Activer/Désactiver les Règles de Corrélation"
+      },
+      "detectionRules": {
+        "view": "Voir les Règles de Détection",
+        "create": "Créer des Règles de Détection",
+        "update": "Mettre à Jour les Règles de Détection",
+        "delete": "Supprimer les Règles de Détection",
+        "toggle": "Activer/Désactiver les Règles de Détection"
+      },
+      "hunt": {
+        "view": "Voir les Chasses",
+        "create": "Créer des Chasses",
+        "update": "Mettre à Jour les Chasses",
+        "delete": "Supprimer les Chasses",
+        "execute": "Exécuter les Chasses"
+      },
+      "intel": {
+        "view": "Voir le Renseignement sur les Menaces"
+      },
+      "explorer": {
+        "view": "Voir l'Explorateur",
+        "query": "Exécuter des Requêtes"
+      },
+      "vulnerabilities": {
+        "view": "Voir les Vulnérabilités",
+        "create": "Créer des Vulnérabilités",
+        "update": "Mettre à Jour les Vulnérabilités",
+        "delete": "Supprimer les Vulnérabilités"
+      },
+      "ueba": {
+        "view": "Voir UEBA",
+        "create": "Créer des Entités UEBA",
+        "update": "Mettre à Jour les Entités UEBA",
+        "delete": "Supprimer les entités UEBA"
+      },
+      "attackPaths": {
+        "view": "Voir les Chemins d'Attaque",
+        "create": "Créer des Chemins d'Attaque",
+        "update": "Mettre à Jour les Chemins d'Attaque",
+        "delete": "Supprimer les Chemins d'Attaque"
+      },
+      "normalization": {
+        "view": "Voir la Normalisation",
+        "create": "Créer des Pipelines",
+        "update": "Mettre à Jour les Pipelines",
+        "delete": "Supprimer les Pipelines"
+      },
+      "soar": {
+        "view": "Voir SOAR",
+        "create": "Créer des Playbooks",
+        "update": "Mettre à Jour les Playbooks",
+        "delete": "Supprimer les Playbooks",
+        "execute": "Exécuter les Playbooks"
+      },
+      "aiAgents": {
+        "view": "Voir les Agents AI",
+        "create": "Créer des Agents AI",
+        "update": "Mettre à Jour les Agents AI",
+        "delete": "Supprimer les Agents AI"
+      },
+      "cloudSecurity": {
+        "view": "Voir la Sécurité Cloud",
+        "create": "Créer des Comptes Cloud",
+        "update": "Mettre à Jour les Comptes Cloud",
+        "delete": "Supprimer les Comptes Cloud"
+      },
+      "compliance": {
+        "view": "Voir la Conformité",
+        "create": "Créer des Cadres",
+        "update": "Mettre à Jour les Cadres",
+        "delete": "Supprimer les cadres de conformité"
+      },
+      "reports": {
+        "view": "Voir les Rapports",
+        "create": "Créer des Rapports",
+        "update": "Mettre à jour les rapports",
+        "delete": "Supprimer les Rapports",
+        "export": "Exporter les Rapports"
+      },
+      "admin": {
+        "users": {
+          "view": "Voir les Utilisateurs",
+          "create": "Créer des Utilisateurs",
+          "update": "Mettre à Jour les Utilisateurs",
+          "delete": "Supprimer les Utilisateurs",
+          "block": "Bloquer les Utilisateurs",
+          "restore": "Restaurer les Utilisateurs"
+        },
+        "tenants": {
+          "view": "Voir les Locataires",
+          "create": "Créer des Locataires",
+          "update": "Mettre à Jour les Locataires",
+          "delete": "Supprimer les Locataires"
+        }
+      },
+      "notifications": {
+        "view": "Voir les Notifications",
+        "manage": "Gérer les Notifications"
+      },
+      "profile": {
+        "view": "Voir le Profil",
+        "update": "Mettre à Jour le Profil"
+      },
+      "settings": {
+        "view": "Voir les Paramètres",
+        "update": "Mettre à Jour les Paramètres"
+      },
+      "roleSettings": {
+        "view": "Voir les Paramètres des Rôles",
+        "update": "Mettre à Jour les Paramètres des Rôles"
+      }
+    },
+    "roles": {
+      "TENANT_ADMIN": "Administrateur Locataire",
+      "SOC_ANALYST_L2": "Analyste SOC L2",
+      "SOC_ANALYST_L1": "Analyste SOC L1",
+      "THREAT_HUNTER": "Chasseur de Menaces",
+      "EXECUTIVE_READONLY": "Dirigeant (Lecture Seule)"
+    }
   }
 }

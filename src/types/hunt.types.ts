@@ -87,13 +87,13 @@ export interface HuntResultsPanelProps {
 
 export interface HuntChatPanelProps {
   messages: HuntMessage[]
-  onSend: (message: string) => void
-  disabled?: boolean
-  hasSession?: boolean
-  onNewHunt?: () => void
+  onSend?: ((message: string) => void) | undefined
+  disabled?: boolean | undefined
+  hasSession?: boolean | undefined
+  onNewHunt?: (() => void) | undefined
 }
 
 export interface HuntInputAreaProps {
-  onSend: (message: string) => void
-  disabled?: boolean
+  onSend?: ((message: string) => void) | undefined
+  disabled?: boolean | undefined
 }

@@ -4,7 +4,9 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getComplianceColumns } from '@/components/compliance'
-import { ComplianceStandard, SortOrder } from '@/enums'
+import { ComplianceStandard, Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type {
   ComplianceFramework,
   ComplianceSearchParams,
@@ -26,6 +28,10 @@ const ALL_FILTER = '__all__'
 export function useCompliancePage() {
   const t = useTranslations('compliance')
   const tCommon = useTranslations('common')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canCreate = hasPermission(permissions, Permission.COMPLIANCE_CREATE)
+  const canEdit = hasPermission(permissions, Permission.COMPLIANCE_UPDATE)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [standardFilter, setStandardFilter] = useState('')
@@ -214,5 +220,7 @@ export function useCompliancePage() {
     openDeleteDialog,
     createLoading: createMutation.isPending,
     editLoading: updateMutation.isPending,
+    canCreate,
+    canEdit,
   }
 }

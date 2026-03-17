@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { aiAgentService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { AiAgentSearchParams, AiAgentSessionSearchParams } from '@/types'
 
 export function useAiAgents(params?: AiAgentSearchParams) {
@@ -40,62 +42,90 @@ export function useAiAgentSessions(agentId: string, params?: AiAgentSessionSearc
 
 export function useUpdateSoul() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, soulMd }: { id: string; soulMd: string }) =>
-      aiAgentService.updateSoul(id, { soulMd }),
+    mutationFn: ({ id, soulMd }: { id: string; soulMd: string }) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.updateSoul(id, { soulMd })
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }
 
 export function useStartAgent() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => aiAgentService.startAgent(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.startAgent(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }
 
 export function useStopAgent() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => aiAgentService.stopAgent(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.stopAgent(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }
 
 export function useCreateAiAgent() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => aiAgentService.createAgent(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.AI_AGENTS_CREATE)
+      return aiAgentService.createAgent(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }
 
 export function useUpdateAiAgent() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      aiAgentService.updateAgent(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.updateAgent(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }
 
 export function useDeleteAiAgent() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => aiAgentService.deleteAgent(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.AI_AGENTS_DELETE)
+      return aiAgentService.deleteAgent(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-agents'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
     },
   })
 }

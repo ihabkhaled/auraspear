@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { complianceService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { ComplianceSearchParams } from '@/types'
 
 export function useComplianceFrameworks(params?: ComplianceSearchParams) {
@@ -22,31 +24,45 @@ export function useComplianceStats() {
 
 export function useCreateFramework() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => complianceService.createFramework(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.COMPLIANCE_CREATE)
+      return complianceService.createFramework(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['compliance'] })
+      void queryClient.invalidateQueries({ queryKey: ['compliance', tenantId] })
     },
   })
 }
 
 export function useUpdateFramework() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      complianceService.updateFramework(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.COMPLIANCE_UPDATE)
+      return complianceService.updateFramework(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['compliance'] })
+      void queryClient.invalidateQueries({ queryKey: ['compliance', tenantId] })
     },
   })
 }
 
 export function useDeleteFramework() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => complianceService.deleteFramework(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.COMPLIANCE_UPDATE)
+      return complianceService.deleteFramework(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['compliance'] })
+      void queryClient.invalidateQueries({ queryKey: ['compliance', tenantId] })
     },
   })
 }
@@ -62,6 +78,8 @@ export function useComplianceControls(frameworkId: string | null) {
 
 export function useUpdateControl() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
     mutationFn: ({
       frameworkId,
@@ -71,9 +89,12 @@ export function useUpdateControl() {
       frameworkId: string
       controlId: string
       data: Record<string, unknown>
-    }) => complianceService.updateControl(frameworkId, controlId, data),
+    }) => {
+      requirePermission(permissions, Permission.COMPLIANCE_UPDATE)
+      return complianceService.updateControl(frameworkId, controlId, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['compliance'] })
+      void queryClient.invalidateQueries({ queryKey: ['compliance', tenantId] })
     },
   })
 }

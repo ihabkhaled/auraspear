@@ -31,7 +31,7 @@ const RETENTION_KEY_TO_PREF: Record<keyof DataRetentionConfig, string> = {
 
 export function useDataRetention() {
   const t = useTranslations('settings')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
 

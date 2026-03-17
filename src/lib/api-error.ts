@@ -1,3 +1,4 @@
+import { PermissionError } from '@/lib/roles'
 import type { ApiErrorResponse } from '@/types'
 import type { AxiosError } from 'axios'
 
@@ -7,6 +8,10 @@ import type { AxiosError } from 'axios'
  * The 'errors.' prefix is stripped so the key works with useTranslations('errors').
  */
 export function getErrorKey(error: unknown): string {
+  if (error instanceof PermissionError) {
+    return error.messageKey.replace(/^errors\./, '')
+  }
+
   const axiosError = error as AxiosError<ApiErrorResponse>
   const data = axiosError?.response?.data
 

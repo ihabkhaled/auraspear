@@ -1,8 +1,10 @@
 'use client'
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { connectorService } from '@/services/connector.service'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useConnectors() {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -25,9 +27,13 @@ export function useConnector(type: string, enabled = true) {
 export function useUpdateConnector(type: string) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => connectorService.update(type, data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.CONNECTORS_UPDATE)
+      return connectorService.update(type, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
@@ -39,9 +45,13 @@ export function useUpdateConnector(type: string) {
 export function useDeleteConnector() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (type: string) => connectorService.remove(type),
+    mutationFn: (type: string) => {
+      requirePermission(permissions, Permission.CONNECTORS_DELETE)
+      return connectorService.remove(type)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
@@ -53,9 +63,13 @@ export function useDeleteConnector() {
 export function useTestConnector() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (type: string) => connectorService.test(type),
+    mutationFn: (type: string) => {
+      requirePermission(permissions, Permission.CONNECTORS_TEST)
+      return connectorService.test(type)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
@@ -67,6 +81,7 @@ export function useTestConnector() {
 export function useCreateConnector() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
     mutationFn: (data: {
@@ -75,7 +90,10 @@ export function useCreateConnector() {
       enabled: boolean
       authType: string
       config: Record<string, unknown>
-    }) => connectorService.create(data),
+    }) => {
+      requirePermission(permissions, Permission.CONNECTORS_CREATE)
+      return connectorService.create(data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
@@ -87,10 +105,13 @@ export function useCreateConnector() {
 export function useToggleConnector() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ type, enabled }: { type: string; enabled: boolean }) =>
-      connectorService.toggle(type, enabled),
+    mutationFn: ({ type, enabled }: { type: string; enabled: boolean }) => {
+      requirePermission(permissions, Permission.CONNECTORS_UPDATE)
+      return connectorService.toggle(type, enabled)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
@@ -102,9 +123,13 @@ export function useToggleConnector() {
 export function useSyncConnector() {
   const tenantId = useTenantStore(s => s.currentTenantId)
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (type: string) => connectorService.sync(type),
+    mutationFn: (type: string) => {
+      requirePermission(permissions, Permission.CONNECTORS_SYNC)
+      return connectorService.sync(type)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['connector-sync-status', tenantId] })

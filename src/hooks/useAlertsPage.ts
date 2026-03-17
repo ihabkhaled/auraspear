@@ -5,9 +5,10 @@ import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { getAlertColumns } from '@/components/alerts'
 import { Toast } from '@/components/common'
-import { AlertSeverity, SortOrder, TimeRange } from '@/enums'
+import { AlertSeverity, Permission, SortOrder, TimeRange } from '@/enums'
 import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
-import { useFilterStore } from '@/stores'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore, useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
 import { useAlertBulkActions } from './useAlertBulkActions'
 import { useAlerts, useInvestigateAlert } from './useAlerts'
@@ -23,6 +24,16 @@ export function useAlertsPage() {
   const tCommon = useTranslations('common')
   const urlSearchParams = useSearchParams()
   const urlAppliedRef = useRef(false)
+
+  const permissions = useAuthStore(s => s.permissions)
+  const canInvestigate = hasPermission(permissions, Permission.ALERTS_INVESTIGATE)
+  const canAcknowledge = hasPermission(permissions, Permission.ALERTS_ACKNOWLEDGE)
+  const canClose = hasPermission(permissions, Permission.ALERTS_CLOSE)
+  const canEscalate =
+    hasPermission(permissions, Permission.ALERTS_ESCALATE) &&
+    hasPermission(permissions, Permission.INCIDENTS_CREATE)
+  const canCreateCase = hasPermission(permissions, Permission.CASES_CREATE)
+  const canSelect = canAcknowledge || canClose
 
   const {
     severity: selectedSeverities,
@@ -249,12 +260,20 @@ export function useAlertsPage() {
       { alerts: t, common: tCommon },
       {
         onView: handleRowClick,
-        onInvestigate: handleInvestigate,
+        onInvestigate: canInvestigate ? handleInvestigate : undefined,
         onCreateCase: handleCreateCase,
         onCopyId: handleCopyId,
       }
     )
-  }, [t, tCommon, handleRowClick, handleInvestigate, handleCreateCase, handleCopyId])
+  }, [
+    t,
+    tCommon,
+    handleRowClick,
+    handleInvestigate,
+    handleCreateCase,
+    handleCopyId,
+    canInvestigate,
+  ])
 
   return {
     t,
@@ -292,6 +311,12 @@ export function useAlertsPage() {
     sortBy,
     sortOrder,
     handleSort,
+    canInvestigate,
+    canAcknowledge,
+    canClose,
+    canEscalate,
+    canCreateCase,
+    canSelect,
     // Bulk actions
     selectedIds: bulkActions.selectedIds,
     setSelectedIds: bulkActions.setSelectedIds,

@@ -10,7 +10,13 @@ import type { CaseCommentsProps } from '@/types'
 import { CommentComposer } from './CommentComposer'
 import { CommentItem } from './CommentItem'
 
-export function CaseComments({ caseId, currentUserId, isAdmin, isCaseClosed }: CaseCommentsProps) {
+export function CaseComments({
+  caseId,
+  currentUserId,
+  isAdmin,
+  isCaseClosed,
+  canAddComment = true,
+}: CaseCommentsProps) {
   const {
     t,
     expanded,
@@ -53,8 +59,8 @@ export function CaseComments({ caseId, currentUserId, isAdmin, isCaseClosed }: C
 
         <CollapsibleContent>
           <div className="flex flex-col gap-4">
-            {/* Comment composer — hidden when case is closed */}
-            {!isCaseClosed && (
+            {/* Comment composer — hidden when case is closed or user lacks permission */}
+            {!isCaseClosed && canAddComment && (
               <CommentComposer
                 key={composerKey}
                 caseId={caseId}

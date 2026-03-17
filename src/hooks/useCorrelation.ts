@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { correlationService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { CorrelationSearchParams } from '@/types'
 
 export function useCorrelationRules(params?: CorrelationSearchParams) {
@@ -21,37 +23,51 @@ export function useCorrelationStats() {
 
 export function useCreateRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => correlationService.createRule(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.CORRELATION_CREATE)
+      return correlationService.createRule(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['correlation'] })
-      void queryClient.invalidateQueries({ queryKey: ['correlation-stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation-stats', tenantId] })
     },
   })
 }
 
 export function useUpdateRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      correlationService.updateRule(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.CORRELATION_UPDATE)
+      return correlationService.updateRule(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['correlation'] })
-      void queryClient.invalidateQueries({ queryKey: ['correlation-stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation-stats', tenantId] })
     },
   })
 }
 
 export function useDeleteRule() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: (id: string) => correlationService.deleteRule(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.CORRELATION_DELETE)
+      return correlationService.deleteRule(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['correlation'] })
-      void queryClient.invalidateQueries({ queryKey: ['correlation-stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['correlation-stats', tenantId] })
     },
   })
 }

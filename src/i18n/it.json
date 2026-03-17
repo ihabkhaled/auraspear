@@ -40,7 +40,8 @@
     "threatHunting": "Caccia alle minacce",
     "settings": "Impostazioni",
     "notifications": "Notifiche",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "roleSettings": "Impostazioni Ruoli"
   },
   "common": {
     "search": "Cerca",
@@ -68,6 +69,7 @@
     "copied": "Copiato negli appunti",
     "all": "Tutti",
     "name": "Nome",
+    "title": "Titolo",
     "status": "Stato",
     "severity": "Gravità",
     "timestamp": "Data e ora",
@@ -250,6 +252,7 @@
     "createCase": "Crea Caso",
     "caseNumber": "Caso #",
     "timeline": {
+      "title": "Cronologia",
       "caseCreated": "Caso {caseRef} creato: {title}",
       "caseDeleted": "Caso {caseRef} eliminato",
       "caseReopened": "Caso riaperto da {actorLabel}",
@@ -3127,5 +3130,210 @@
     "save": "Save",
     "saving": "Saving...",
     "columnComplianceScore": "Punteggio di Conformità"
+  },
+  "roleSettings": {
+    "title": "Impostazioni Ruoli",
+    "description": "Configura la matrice dei permessi per ogni ruolo",
+    "permission": "Permesso",
+    "save": "Salva Modifiche",
+    "saving": "Salvataggio...",
+    "reset": "Ripristina Predefiniti",
+    "resetting": "Ripristino...",
+    "resetConfirm": "Sei sicuro di voler ripristinare tutti i permessi ai valori predefiniti? Questo sovrascriverà tutte le personalizzazioni.",
+    "saved": "Permessi salvati con successo",
+    "resetSuccess": "Permessi ripristinati ai predefiniti",
+    "modules": {
+      "dashboard": "Dashboard",
+      "alerts": "Avvisi",
+      "incidents": "Incidenti",
+      "cases": "Casi",
+      "connectors": "Connettori",
+      "correlation": "Regole di Correlazione",
+      "detectionRules": "Regole di Rilevamento",
+      "hunt": "Caccia alle Minacce",
+      "intel": "Intelligence sulle Minacce",
+      "explorer": "Esploratore",
+      "vulnerabilities": "Vulnerabilità",
+      "ueba": "UEBA / Analisi ML",
+      "attackPaths": "Percorsi di Attacco",
+      "normalization": "Normalizzazione",
+      "soar": "Flussi SOAR",
+      "aiAgents": "Agenti AI",
+      "cloudSecurity": "Sicurezza Cloud",
+      "compliance": "Conformità",
+      "reports": "Report",
+      "adminUsers": "Admin - Utenti",
+      "adminTenants": "Admin - Tenant",
+      "notifications": "Notifiche",
+      "profile": "Profilo",
+      "settings": "Impostazioni",
+      "roleSettings": "Impostazioni Ruoli"
+    },
+    "permissions": {
+      "dashboard": {
+        "view": "Visualizza Dashboard"
+      },
+      "alerts": {
+        "view": "Visualizza Avvisi",
+        "investigate": "Indaga Avvisi",
+        "acknowledge": "Conferma Avvisi",
+        "close": "Chiudi Avvisi",
+        "escalate": "Escalare Avvisi"
+      },
+      "incidents": {
+        "view": "Visualizza Incidenti",
+        "create": "Crea Incidenti",
+        "update": "Aggiorna Incidenti",
+        "delete": "Elimina Incidenti",
+        "addTimeline": "Aggiungere Voce alla Cronologia",
+        "changeStatus": "Cambiare Stato dell'Incidente"
+      },
+      "cases": {
+        "view": "Visualizza Casi",
+        "create": "Crea Casi",
+        "update": "Aggiorna Casi",
+        "delete": "Elimina Casi",
+        "assign": "Assegna Casi",
+        "changeStatus": "Cambia Stato del Caso",
+        "addComment": "Aggiungi Commenti",
+        "deleteComment": "Elimina Commenti",
+        "addTask": "Aggiungi Attività",
+        "updateTask": "Aggiorna Attività",
+        "deleteTask": "Elimina Attività",
+        "addArtifact": "Aggiungi Artefatti",
+        "deleteArtifact": "Elimina Artefatti"
+      },
+      "connectors": {
+        "view": "Visualizza Connettori",
+        "create": "Crea Connettori",
+        "update": "Aggiorna Connettori",
+        "delete": "Elimina Connettori",
+        "test": "Testa Connettori",
+        "sync": "Sincronizza Connettori"
+      },
+      "correlation": {
+        "view": "Visualizza Regole di Correlazione",
+        "create": "Crea Regole di Correlazione",
+        "update": "Aggiorna Regole di Correlazione",
+        "delete": "Elimina Regole di Correlazione",
+        "toggle": "Attiva/Disattiva Regole di Correlazione"
+      },
+      "detectionRules": {
+        "view": "Visualizza Regole di Rilevamento",
+        "create": "Crea Regole di Rilevamento",
+        "update": "Aggiorna Regole di Rilevamento",
+        "delete": "Elimina Regole di Rilevamento",
+        "toggle": "Attiva/Disattiva Regole di Rilevamento"
+      },
+      "hunt": {
+        "view": "Visualizza Cacce",
+        "create": "Crea Cacce",
+        "update": "Aggiorna Cacce",
+        "delete": "Elimina Cacce",
+        "execute": "Esegui Cacce"
+      },
+      "intel": {
+        "view": "Visualizza Intelligence sulle Minacce"
+      },
+      "explorer": {
+        "view": "Visualizza Esploratore",
+        "query": "Esegui Query"
+      },
+      "vulnerabilities": {
+        "view": "Visualizza Vulnerabilità",
+        "create": "Crea Vulnerabilità",
+        "update": "Aggiorna Vulnerabilità",
+        "delete": "Elimina Vulnerabilità"
+      },
+      "ueba": {
+        "view": "Visualizza UEBA",
+        "create": "Crea Entità UEBA",
+        "update": "Aggiorna Entità UEBA",
+        "delete": "Elimina entità UEBA"
+      },
+      "attackPaths": {
+        "view": "Visualizza Percorsi di Attacco",
+        "create": "Crea Percorsi di Attacco",
+        "update": "Aggiorna Percorsi di Attacco",
+        "delete": "Elimina Percorsi di Attacco"
+      },
+      "normalization": {
+        "view": "Visualizza Normalizzazione",
+        "create": "Crea Pipeline",
+        "update": "Aggiorna Pipeline",
+        "delete": "Elimina Pipeline"
+      },
+      "soar": {
+        "view": "Visualizza SOAR",
+        "create": "Crea Playbook",
+        "update": "Aggiorna Playbook",
+        "delete": "Elimina Playbook",
+        "execute": "Esegui Playbook"
+      },
+      "aiAgents": {
+        "view": "Visualizza Agenti AI",
+        "create": "Crea Agenti AI",
+        "update": "Aggiorna Agenti AI",
+        "delete": "Elimina Agenti AI"
+      },
+      "cloudSecurity": {
+        "view": "Visualizza Sicurezza Cloud",
+        "create": "Crea Account Cloud",
+        "update": "Aggiorna Account Cloud",
+        "delete": "Elimina Account Cloud"
+      },
+      "compliance": {
+        "view": "Visualizza Conformità",
+        "create": "Crea Framework",
+        "update": "Aggiorna Framework",
+        "delete": "Elimina framework di conformità"
+      },
+      "reports": {
+        "view": "Visualizza Report",
+        "create": "Crea Report",
+        "update": "Aggiorna report",
+        "delete": "Elimina Report",
+        "export": "Esporta Report"
+      },
+      "admin": {
+        "users": {
+          "view": "Visualizza Utenti",
+          "create": "Crea Utenti",
+          "update": "Aggiorna Utenti",
+          "delete": "Elimina Utenti",
+          "block": "Blocca Utenti",
+          "restore": "Ripristina Utenti"
+        },
+        "tenants": {
+          "view": "Visualizza Tenant",
+          "create": "Crea Tenant",
+          "update": "Aggiorna Tenant",
+          "delete": "Elimina Tenant"
+        }
+      },
+      "notifications": {
+        "view": "Visualizza Notifiche",
+        "manage": "Gestisci Notifiche"
+      },
+      "profile": {
+        "view": "Visualizza Profilo",
+        "update": "Aggiorna Profilo"
+      },
+      "settings": {
+        "view": "Visualizza Impostazioni",
+        "update": "Aggiorna Impostazioni"
+      },
+      "roleSettings": {
+        "view": "Visualizza Impostazioni Ruoli",
+        "update": "Aggiorna Impostazioni Ruoli"
+      }
+    },
+    "roles": {
+      "TENANT_ADMIN": "Amministratore Tenant",
+      "SOC_ANALYST_L2": "Analista SOC L2",
+      "SOC_ANALYST_L1": "Analista SOC L1",
+      "THREAT_HUNTER": "Cacciatore di Minacce",
+      "EXECUTIVE_READONLY": "Dirigente (Sola Lettura)"
+    }
   }
 }

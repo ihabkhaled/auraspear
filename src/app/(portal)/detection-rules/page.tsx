@@ -45,6 +45,7 @@ export default function DetectionRulesPage() {
     handleOpenDetail,
     handleOpenEdit,
     deleteLoading,
+    canManageRules,
   } = useDetectionRulesPage()
 
   const editInitialValues = selectedRule
@@ -70,11 +71,15 @@ export default function DetectionRulesPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createRule'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        {...(canManageRules
+          ? {
+              action: {
+                label: t('createRule'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              },
+            }
+          : {})}
       />
 
       <DetectionRuleKpiCards stats={stats} isLoading={statsLoading} />
@@ -129,8 +134,8 @@ export default function DetectionRulesPage() {
         rule={selectedRule}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onEdit={handleOpenEdit}
-        onDelete={handleDelete}
+        onEdit={canManageRules ? handleOpenEdit : undefined}
+        onDelete={canManageRules ? handleDelete : undefined}
         deleteLoading={deleteLoading}
       />
     </div>

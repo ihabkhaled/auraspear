@@ -15,7 +15,7 @@ import { getErrorKey } from '@/lib/api-error'
 
 export function useExplorerEndpointsPage() {
   const t = useTranslations('explorer')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const [activeTab, setActiveTab] = useState<VelociraptorTab>(VelociraptorTab.ENDPOINTS)
 
   // Endpoints state

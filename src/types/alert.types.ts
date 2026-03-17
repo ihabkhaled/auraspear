@@ -70,20 +70,20 @@ export interface AlertColumnTranslations {
 }
 
 export interface GetAlertColumnsOptions {
-  onView?: (alert: Alert) => void
-  onInvestigate?: (alert: Alert) => void
-  onCreateCase?: (alert: Alert) => void
-  onCopyId?: (id: string) => void
+  onView?: ((alert: Alert) => void) | undefined
+  onInvestigate?: ((alert: Alert) => void) | undefined
+  onCreateCase?: ((alert: Alert) => void) | undefined
+  onCopyId?: ((id: string) => void) | undefined
 }
 
 export interface AlertDetailDrawerProps {
   alert: Alert | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onInvestigate?: (alert: Alert) => void
-  onCreateCase?: (alert: Alert) => void
-  onEscalateToIncident?: (alert: Alert) => void
-  onClose?: (alert: Alert) => void
+  onInvestigate?: ((alert: Alert) => void) | undefined
+  onCreateCase?: ((alert: Alert) => void) | undefined
+  onEscalateToIncident?: ((alert: Alert) => void) | undefined
+  onClose?: ((alert: Alert) => void) | undefined
 }
 
 export interface AlertFilterSidebarProps {
@@ -149,8 +149,8 @@ export interface AlertTimelineEvent {
 
 export interface AlertBulkActionBarProps {
   selectedCount: number
-  onAcknowledge: () => void
-  onClose: () => void
+  onAcknowledge?: (() => void) | undefined
+  onClose?: (() => void) | undefined
   onClear: () => void
   isAcknowledging: boolean
   isClosing: boolean
@@ -184,8 +184,8 @@ export interface AlertColumnTranslations {
 }
 
 export interface GetAlertColumnsOptions {
-  onView?: (alert: Alert) => void
-  onInvestigate?: (alert: Alert) => void
-  onCreateCase?: (alert: Alert) => void
-  onCopyId?: (id: string) => void
+  onView?: ((alert: Alert) => void) | undefined
+  onInvestigate?: ((alert: Alert) => void) | undefined
+  onCreateCase?: ((alert: Alert) => void) | undefined
+  onCopyId?: ((id: string) => void) | undefined
 }

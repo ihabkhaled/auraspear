@@ -67,6 +67,7 @@ export { useDebounce } from './useDebounce'
 export { usePreferences, useUpdatePreferences } from './useSettings'
 export { useLoginForm } from './useLoginForm'
 export { useLogout } from './useLogout'
+export { usePermissionSync } from './usePermissionSync'
 export { usePreferencesSync } from './usePreferencesSync'
 export { useProfilePage } from './useProfilePage'
 export { useSettingsPage } from './useSettingsPage'
@@ -453,6 +454,7 @@ export { useNotificationPreferences } from './useNotificationPreferences'
 export { useDataRetention } from './useDataRetention'
 export { useExportImportSettings } from './useExportImportSettings'
 export { useRecentActivityFeed } from './useRecentActivityFeed'
+export { useRoleSettingsPage } from './useRoleSettingsPage'
 export {
   useConnectors,
   useConnector,

@@ -40,7 +40,8 @@
     "threatHunting": "Caza de amenazas",
     "settings": "Configuración",
     "notifications": "Notificaciones",
-    "profile": "Perfil"
+    "profile": "Perfil",
+    "roleSettings": "Configuración de Roles"
   },
   "common": {
     "search": "Buscar",
@@ -68,6 +69,7 @@
     "copied": "Copiado al portapapeles",
     "all": "Todos",
     "name": "Nombre",
+    "title": "Título",
     "status": "Estado",
     "severity": "Severidad",
     "timestamp": "Marca de tiempo",
@@ -250,6 +252,7 @@
     "createCase": "Crear Caso",
     "caseNumber": "Caso #",
     "timeline": {
+      "title": "Línea de tiempo",
       "caseCreated": "Caso {caseRef} creado: {title}",
       "caseDeleted": "Caso {caseRef} eliminado",
       "caseReopened": "Caso reabierto por {actorLabel}",
@@ -3127,5 +3130,210 @@
     "save": "Save",
     "saving": "Saving...",
     "columnComplianceScore": "Puntuación de Cumplimiento"
+  },
+  "roleSettings": {
+    "title": "Configuración de Roles",
+    "description": "Configurar la matriz de permisos para cada rol",
+    "permission": "Permiso",
+    "save": "Guardar Cambios",
+    "saving": "Guardando...",
+    "reset": "Restablecer a Predeterminados",
+    "resetting": "Restableciendo...",
+    "resetConfirm": "¿Está seguro de que desea restablecer todos los permisos a los predeterminados? Esto sobrescribirá todas las personalizaciones.",
+    "saved": "Permisos guardados correctamente",
+    "resetSuccess": "Permisos restablecidos a predeterminados",
+    "modules": {
+      "dashboard": "Panel de Control",
+      "alerts": "Alertas",
+      "incidents": "Incidentes",
+      "cases": "Casos",
+      "connectors": "Conectores",
+      "correlation": "Reglas de Correlación",
+      "detectionRules": "Reglas de Detección",
+      "hunt": "Caza de Amenazas",
+      "intel": "Inteligencia de Amenazas",
+      "explorer": "Explorador",
+      "vulnerabilities": "Vulnerabilidades",
+      "ueba": "UEBA / Analítica ML",
+      "attackPaths": "Rutas de Ataque",
+      "normalization": "Normalización",
+      "soar": "Flujos SOAR",
+      "aiAgents": "Agentes AI",
+      "cloudSecurity": "Seguridad en la Nube",
+      "compliance": "Cumplimiento",
+      "reports": "Informes",
+      "adminUsers": "Admin - Usuarios",
+      "adminTenants": "Admin - Inquilinos",
+      "notifications": "Notificaciones",
+      "profile": "Perfil",
+      "settings": "Configuración",
+      "roleSettings": "Configuración de Roles"
+    },
+    "permissions": {
+      "dashboard": {
+        "view": "Ver Panel de Control"
+      },
+      "alerts": {
+        "view": "Ver Alertas",
+        "investigate": "Investigar Alertas",
+        "acknowledge": "Reconocer Alertas",
+        "close": "Cerrar Alertas",
+        "escalate": "Escalar Alertas"
+      },
+      "incidents": {
+        "view": "Ver Incidentes",
+        "create": "Crear Incidentes",
+        "update": "Actualizar Incidentes",
+        "delete": "Eliminar Incidentes",
+        "addTimeline": "Agregar Entrada de Línea de Tiempo",
+        "changeStatus": "Cambiar Estado del Incidente"
+      },
+      "cases": {
+        "view": "Ver Casos",
+        "create": "Crear Casos",
+        "update": "Actualizar Casos",
+        "delete": "Eliminar Casos",
+        "assign": "Asignar Casos",
+        "changeStatus": "Cambiar Estado del Caso",
+        "addComment": "Agregar Comentarios",
+        "deleteComment": "Eliminar Comentarios",
+        "addTask": "Agregar Tareas",
+        "updateTask": "Actualizar Tareas",
+        "deleteTask": "Eliminar Tareas",
+        "addArtifact": "Agregar Artefactos",
+        "deleteArtifact": "Eliminar Artefactos"
+      },
+      "connectors": {
+        "view": "Ver Conectores",
+        "create": "Crear Conectores",
+        "update": "Actualizar Conectores",
+        "delete": "Eliminar Conectores",
+        "test": "Probar Conectores",
+        "sync": "Sincronizar Conectores"
+      },
+      "correlation": {
+        "view": "Ver Reglas de Correlación",
+        "create": "Crear Reglas de Correlación",
+        "update": "Actualizar Reglas de Correlación",
+        "delete": "Eliminar Reglas de Correlación",
+        "toggle": "Activar/Desactivar Reglas de Correlación"
+      },
+      "detectionRules": {
+        "view": "Ver Reglas de Detección",
+        "create": "Crear Reglas de Detección",
+        "update": "Actualizar Reglas de Detección",
+        "delete": "Eliminar Reglas de Detección",
+        "toggle": "Activar/Desactivar Reglas de Detección"
+      },
+      "hunt": {
+        "view": "Ver Cazas",
+        "create": "Crear Cazas",
+        "update": "Actualizar Cazas",
+        "delete": "Eliminar Cazas",
+        "execute": "Ejecutar Cazas"
+      },
+      "intel": {
+        "view": "Ver Inteligencia de Amenazas"
+      },
+      "explorer": {
+        "view": "Ver Explorador",
+        "query": "Ejecutar Consultas"
+      },
+      "vulnerabilities": {
+        "view": "Ver Vulnerabilidades",
+        "create": "Crear Vulnerabilidades",
+        "update": "Actualizar Vulnerabilidades",
+        "delete": "Eliminar Vulnerabilidades"
+      },
+      "ueba": {
+        "view": "Ver UEBA",
+        "create": "Crear Entidades UEBA",
+        "update": "Actualizar Entidades UEBA",
+        "delete": "Eliminar entidades UEBA"
+      },
+      "attackPaths": {
+        "view": "Ver Rutas de Ataque",
+        "create": "Crear Rutas de Ataque",
+        "update": "Actualizar Rutas de Ataque",
+        "delete": "Eliminar Rutas de Ataque"
+      },
+      "normalization": {
+        "view": "Ver Normalización",
+        "create": "Crear Pipelines",
+        "update": "Actualizar Pipelines",
+        "delete": "Eliminar Pipelines"
+      },
+      "soar": {
+        "view": "Ver SOAR",
+        "create": "Crear Playbooks",
+        "update": "Actualizar Playbooks",
+        "delete": "Eliminar Playbooks",
+        "execute": "Ejecutar Playbooks"
+      },
+      "aiAgents": {
+        "view": "Ver Agentes AI",
+        "create": "Crear Agentes AI",
+        "update": "Actualizar Agentes AI",
+        "delete": "Eliminar Agentes AI"
+      },
+      "cloudSecurity": {
+        "view": "Ver Seguridad en la Nube",
+        "create": "Crear Cuentas en la Nube",
+        "update": "Actualizar Cuentas en la Nube",
+        "delete": "Eliminar Cuentas en la Nube"
+      },
+      "compliance": {
+        "view": "Ver Cumplimiento",
+        "create": "Crear Marcos",
+        "update": "Actualizar Marcos",
+        "delete": "Eliminar marcos de cumplimiento"
+      },
+      "reports": {
+        "view": "Ver Informes",
+        "create": "Crear Informes",
+        "update": "Actualizar informes",
+        "delete": "Eliminar Informes",
+        "export": "Exportar Informes"
+      },
+      "admin": {
+        "users": {
+          "view": "Ver Usuarios",
+          "create": "Crear Usuarios",
+          "update": "Actualizar Usuarios",
+          "delete": "Eliminar Usuarios",
+          "block": "Bloquear Usuarios",
+          "restore": "Restaurar Usuarios"
+        },
+        "tenants": {
+          "view": "Ver Inquilinos",
+          "create": "Crear Inquilinos",
+          "update": "Actualizar Inquilinos",
+          "delete": "Eliminar Inquilinos"
+        }
+      },
+      "notifications": {
+        "view": "Ver Notificaciones",
+        "manage": "Gestionar Notificaciones"
+      },
+      "profile": {
+        "view": "Ver Perfil",
+        "update": "Actualizar Perfil"
+      },
+      "settings": {
+        "view": "Ver Configuración",
+        "update": "Actualizar Configuración"
+      },
+      "roleSettings": {
+        "view": "Ver Configuración de Roles",
+        "update": "Actualizar Configuración de Roles"
+      }
+    },
+    "roles": {
+      "TENANT_ADMIN": "Administrador de Inquilino",
+      "SOC_ANALYST_L2": "Analista SOC L2",
+      "SOC_ANALYST_L1": "Analista SOC L1",
+      "THREAT_HUNTER": "Cazador de Amenazas",
+      "EXECUTIVE_READONLY": "Ejecutivo (Solo Lectura)"
+    }
   }
 }

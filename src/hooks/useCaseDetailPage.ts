@@ -2,9 +2,9 @@ import { useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { CaseSeverity, type CaseStatus, CaseTaskStatus, SortOrder, UserRole } from '@/enums'
+import { CaseSeverity, type CaseStatus, CaseTaskStatus, Permission, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { EditCaseFormValues } from '@/types'
 import { useCreateCaseArtifact, useDeleteCaseArtifact } from './useCaseArtifacts'
@@ -31,10 +31,18 @@ export function useCaseDetailPage(id: string) {
     sortOrder: SortOrder.DESC,
   })
   const user = useAuthStore(s => s.user)
+  const permissions = useAuthStore(s => s.permissions)
   const currentUserId = user?.sub ?? ''
-  const isAdmin = user?.role ? hasRole(user.role, UserRole.TENANT_ADMIN) : false
-
+  const isAdmin = hasPermission(permissions, Permission.ADMIN_USERS_VIEW)
   const caseItem = data?.data
+  const isOwner = Boolean(caseItem && user && caseItem.ownerUserId === user.sub)
+
+  const canDeleteSubItems = hasPermission(permissions, Permission.CASES_DELETE_TASK)
+  const canEditCase = hasPermission(permissions, Permission.CASES_UPDATE) || isOwner
+  const canAddComment = hasPermission(permissions, Permission.CASES_ADD_COMMENT) || isOwner
+  const canAddTask = hasPermission(permissions, Permission.CASES_ADD_TASK) || isOwner
+  const canAddArtifact = hasPermission(permissions, Permission.CASES_ADD_ARTIFACT) || isOwner
+  const canChangeStatus = hasPermission(permissions, Permission.CASES_CHANGE_STATUS) || isOwner
   const members = membersData?.data ?? []
   const cycles = (cyclesData?.data ?? []).map(c => ({ id: c.id, name: c.name, status: c.status }))
 
@@ -260,5 +268,11 @@ export function useCaseDetailPage(id: string) {
     handleDeleteTask,
     handleAddArtifact,
     handleDeleteArtifact,
+    canDeleteSubItems,
+    canEditCase,
+    canAddComment,
+    canAddTask,
+    canAddArtifact,
+    canChangeStatus,
   }
 }

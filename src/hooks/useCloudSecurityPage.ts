@@ -4,7 +4,9 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getCloudSecurityColumns } from '@/components/cloud-security/CloudSecurityTableColumns'
 import { Toast } from '@/components/common'
-import { SortOrder } from '@/enums'
+import { Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type {
   CloudAccount,
   CloudAccountSearchParams,
@@ -28,6 +30,11 @@ const ALL_FILTER = '__all__'
 export function useCloudSecurityPage() {
   const t = useTranslations('cloudSecurity')
   const tCommon = useTranslations('common')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canCreate = hasPermission(permissions, Permission.CLOUD_SECURITY_CREATE)
+  const canEdit = hasPermission(permissions, Permission.CLOUD_SECURITY_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.CLOUD_SECURITY_DELETE)
 
   const [searchQuery, setSearchQuery] = useState('')
   const [providerFilter, setProviderFilter] = useState('')
@@ -213,5 +220,8 @@ export function useCloudSecurityPage() {
     handleDelete,
     handleRowClick,
     handleOpenEdit,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

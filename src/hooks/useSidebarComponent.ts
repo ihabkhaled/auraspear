@@ -22,6 +22,7 @@ import {
   Layers,
   ShieldCheck,
   Cloud,
+  Lock,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import type { UserRole } from '@/enums'
@@ -89,6 +90,7 @@ export function useSidebarContent() {
         { icon: BarChart3, label: t('nav.reports'), href: '/reports' },
         { icon: Settings, label: t('nav.tenantConfig'), href: '/admin/tenant' },
         { icon: Server, label: t('nav.systemAdmin'), href: '/admin/system' },
+        { icon: Lock, label: t('nav.roleSettings'), href: '/admin/role-settings' },
       ],
     },
   ]

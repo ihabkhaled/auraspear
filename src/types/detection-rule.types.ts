@@ -101,8 +101,8 @@ export interface DetectionRuleDetailPanelProps {
   rule: DetectionRule | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onEdit?: (rule: DetectionRule) => void
-  onDelete?: (rule: DetectionRule) => void
+  onEdit?: ((rule: DetectionRule) => void) | undefined
+  onDelete?: ((rule: DetectionRule) => void) | undefined
   deleteLoading?: boolean
 }
 

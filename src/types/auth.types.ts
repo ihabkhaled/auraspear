@@ -24,7 +24,13 @@ export interface LoginResponse {
   accessToken: string
   refreshToken: string
   user: AuthUser
+  permissions: string[]
   tenants: TenantMembershipInfo[]
+}
+
+export interface MeResponse {
+  user: AuthUser
+  permissions: string[]
 }
 
 export interface RefreshResponse {
@@ -42,6 +48,7 @@ export interface BackendLoginResponse {
     tenantSlug: string
     role: string
   }
+  permissions: string[]
 }
 
 export interface ImpersonationInfo {

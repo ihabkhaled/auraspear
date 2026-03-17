@@ -1,13 +1,18 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { caseService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useCreateCaseTask(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (data: { title: string; assignee?: string }) =>
-      caseService.createTask(caseId, data),
+    mutationFn: (data: { title: string; assignee?: string }) => {
+      requirePermission(permissions, Permission.CASES_ADD_TASK)
+      return caseService.createTask(caseId, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, caseId] })
     },
@@ -17,6 +22,7 @@ export function useCreateCaseTask(caseId: string) {
 export function useUpdateCaseTask(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
     mutationFn: ({
       taskId,
@@ -24,7 +30,10 @@ export function useUpdateCaseTask(caseId: string) {
     }: {
       taskId: string
       data: { title?: string; status?: string; assignee?: string | null }
-    }) => caseService.updateTask(caseId, taskId, data),
+    }) => {
+      requirePermission(permissions, Permission.CASES_UPDATE_TASK)
+      return caseService.updateTask(caseId, taskId, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, caseId] })
     },
@@ -34,8 +43,12 @@ export function useUpdateCaseTask(caseId: string) {
 export function useDeleteCaseTask(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (taskId: string) => caseService.deleteTask(caseId, taskId),
+    mutationFn: (taskId: string) => {
+      requirePermission(permissions, Permission.CASES_DELETE_TASK)
+      return caseService.deleteTask(caseId, taskId)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, caseId] })
     },

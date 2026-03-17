@@ -26,6 +26,8 @@ export default function HuntPage() {
     totalPages,
     total,
     onPageChange,
+    canCreate,
+    canExecute,
   } = useHuntPage()
 
   return (
@@ -55,10 +57,10 @@ export default function HuntPage() {
         <div className={mobileTab === 'chat' ? 'flex flex-1 lg:flex-none' : 'hidden lg:flex'}>
           <HuntChatPanel
             messages={messages}
-            onSend={handleSend}
-            disabled={isSending}
+            onSend={canExecute ? handleSend : undefined}
+            disabled={isSending || !canExecute}
             hasSession={huntId !== null}
-            onNewHunt={handleNewHunt}
+            onNewHunt={canCreate ? handleNewHunt : undefined}
           />
         </div>
 

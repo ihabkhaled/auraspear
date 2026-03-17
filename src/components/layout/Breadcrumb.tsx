@@ -18,9 +18,9 @@ const pathLabelMap: Record<string, string> = {
   hunt: 'nav.hunt',
   cases: 'nav.cases',
   intel: 'nav.intel',
-  admin: 'nav.system',
   tenant: 'nav.tenantConfig',
   system: 'nav.systemAdmin',
+  'role-settings': 'nav.roleSettings',
   notifications: 'nav.notifications',
   connectors: 'nav.connectors',
   profile: 'nav.profile',
@@ -41,6 +41,9 @@ const pathLabelMap: Record<string, string> = {
   'cloud-security': 'nav.cloudSecurity',
 }
 
+/** Segments that are route groups only — no standalone page, skip in breadcrumbs */
+const SKIP_SEGMENTS = new Set(['admin'])
+
 export function LayoutBreadcrumb() {
   const { segments, t } = useBreadcrumb()
 
@@ -57,27 +60,29 @@ export function LayoutBreadcrumb() {
           </BreadcrumbLink>
         </BreadcrumbItem>
 
-        {segments.map((segment, index) => {
-          const href = `/${segments.slice(0, index + 1).join('/')}`
-          const isLast = index === segments.length - 1
-          const labelKey = Reflect.get(pathLabelMap, segment) as string | undefined
-          const label = labelKey ? t(labelKey) : segment
+        {segments
+          .filter(segment => !SKIP_SEGMENTS.has(segment))
+          .map((segment, index, filtered) => {
+            const href = `/${segments.slice(0, segments.indexOf(segment) + 1).join('/')}`
+            const isLast = index === filtered.length - 1
+            const labelKey = Reflect.get(pathLabelMap, segment) as string | undefined
+            const label = labelKey ? t(labelKey) : segment
 
-          return (
-            <React.Fragment key={href}>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                {isLast ? (
-                  <BreadcrumbPage>{label}</BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild>
-                    <Link href={href}>{label}</Link>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-            </React.Fragment>
-          )
-        })}
+            return (
+              <React.Fragment key={href}>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  {isLast ? (
+                    <BreadcrumbPage>{label}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <Link href={href}>{label}</Link>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+              </React.Fragment>
+            )
+          })}
       </BreadcrumbList>
     </BreadcrumbRoot>
   )

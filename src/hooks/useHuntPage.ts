@@ -1,14 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { HuntStatus, MessageRole, ReasoningStepStatus } from '@/enums'
-import { useHuntStore } from '@/stores'
+import { HuntStatus, MessageRole, Permission, ReasoningStepStatus } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore, useHuntStore } from '@/stores'
 import type { HuntSession } from '@/types'
 import { useCreateHuntSession, useHuntEvents } from './useHunt'
 import { usePagination } from './usePagination'
 
 export function useHuntPage() {
   const t = useTranslations('hunt')
+  const permissions = useAuthStore(s => s.permissions)
+  const canCreate = hasPermission(permissions, Permission.HUNT_CREATE)
+  const canExecute = hasPermission(permissions, Permission.HUNT_EXECUTE)
   const [mobileTab, setMobileTab] = useState<'chat' | 'results'>('chat')
   const [session, setSession] = useState<HuntSession | null>(null)
   const {
@@ -146,5 +150,7 @@ export function useHuntPage() {
     totalPages: pagination.totalPages,
     total: pagination.total,
     onPageChange: pagination.setPage,
+    canCreate,
+    canExecute,
   }
 }

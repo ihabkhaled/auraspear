@@ -208,18 +208,24 @@ export function AlertDetailDrawer({
         </ScrollArea>
 
         <SheetFooter className="grid grid-cols-2 gap-2 sm:flex sm:flex-row">
-          <Button variant="default" size="sm" onClick={() => onInvestigate?.(alert)}>
-            <Brain className="h-4 w-4" />
-            {t('investigate')}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => onCreateCase?.(alert)}>
-            <Briefcase className="h-4 w-4" />
-            {t('createCase')}
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => onEscalateToIncident?.(alert)}>
-            <AlertTriangle className="h-4 w-4" />
-            {t('escalate')}
-          </Button>
+          {onInvestigate && (
+            <Button variant="default" size="sm" onClick={() => onInvestigate(alert)}>
+              <Brain className="h-4 w-4" />
+              {t('investigate')}
+            </Button>
+          )}
+          {onCreateCase && (
+            <Button variant="outline" size="sm" onClick={() => onCreateCase(alert)}>
+              <Briefcase className="h-4 w-4" />
+              {t('createCase')}
+            </Button>
+          )}
+          {onEscalateToIncident && (
+            <Button variant="outline" size="sm" onClick={() => onEscalateToIncident(alert)}>
+              <AlertTriangle className="h-4 w-4" />
+              {t('escalate')}
+            </Button>
+          )}
           <Button
             variant="ghost"
             size="sm"

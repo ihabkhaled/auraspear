@@ -10,7 +10,7 @@ import type { AiAgentsPageDialogsReturn } from './useAiAgentsPageDialogs'
 
 export function useAiAgentsPageCrud(dialogs: AiAgentsPageDialogsReturn) {
   const t = useTranslations('aiAgents')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const createMutation = useCreateAiAgent()
   const updateMutation = useUpdateAiAgent()

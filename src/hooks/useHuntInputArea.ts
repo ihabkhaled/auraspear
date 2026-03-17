@@ -12,7 +12,7 @@ export function useHuntInputArea({ onSend }: UseHuntInputAreaParams) {
   const handleSend = useCallback(() => {
     const trimmed = value.trim()
     if (trimmed.length === 0) return
-    onSend(trimmed)
+    onSend?.(trimmed)
     setValue('')
   }, [value, onSend])
 
@@ -29,7 +29,7 @@ export function useHuntInputArea({ onSend }: UseHuntInputAreaParams) {
   const handleQuickPrompt = useCallback(
     (key: (typeof QUICK_PROMPT_KEYS)[number]) => {
       const prompt = t(`quickPrompts.${key}`)
-      onSend(prompt)
+      onSend?.(prompt)
     },
     [onSend, t]
   )

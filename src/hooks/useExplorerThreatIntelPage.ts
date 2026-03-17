@@ -7,7 +7,7 @@ import { useMispExplorerEvents, usePagination, useDebounce } from '@/hooks'
 
 export function useExplorerThreatIntelPage() {
   const t = useTranslations('explorer')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const [search, setSearch] = useState('')
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)

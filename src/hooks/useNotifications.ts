@@ -1,6 +1,8 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { notificationService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { NotificationSearchParams } from '@/types'
 
 const NOTIFICATIONS_PAGE_SIZE = 15
@@ -45,9 +47,13 @@ export function useUnreadNotificationCount() {
 
 export function useMarkNotificationRead() {
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (id: string) => notificationService.markAsRead(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.NOTIFICATIONS_MANAGE)
+      return notificationService.markAsRead(id)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['notifications', tenantId] })
     },
@@ -56,9 +62,13 @@ export function useMarkNotificationRead() {
 
 export function useMarkAllNotificationsRead() {
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: () => notificationService.markAllAsRead(),
+    mutationFn: () => {
+      requirePermission(permissions, Permission.NOTIFICATIONS_MANAGE)
+      return notificationService.markAllAsRead()
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['notifications', tenantId] })
     },

@@ -42,16 +42,22 @@ export function ReportDetailPanel({
         <SheetHeader>
           <SheetTitle>{report.name}</SheetTitle>
           <SheetDescription>{report.description ?? t('noDescription')}</SheetDescription>
-          <div className="flex items-center gap-2 pt-2">
-            <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
-              <Edit className="h-3.5 w-3.5" />
-              {t('editButton')}
-            </Button>
-            <Button variant="destructive" size="sm" onClick={onDelete} className="gap-1.5">
-              <Trash2 className="h-3.5 w-3.5" />
-              {t('deleteButton')}
-            </Button>
-          </div>
+          {(onEdit ?? onDelete) && (
+            <div className="flex items-center gap-2 pt-2">
+              {onEdit && (
+                <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
+                  <Edit className="h-3.5 w-3.5" />
+                  {t('editButton')}
+                </Button>
+              )}
+              {onDelete && (
+                <Button variant="destructive" size="sm" onClick={onDelete} className="gap-1.5">
+                  <Trash2 className="h-3.5 w-3.5" />
+                  {t('deleteButton')}
+                </Button>
+              )}
+            </div>
+          )}
         </SheetHeader>
 
         <div className="space-y-4">

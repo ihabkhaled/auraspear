@@ -1,7 +1,10 @@
 import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useIncidentTimeline, useAddTimelineEntry } from './useIncidents'
 
 export function useIncidentTimelineComponent(incidentId: string) {
@@ -9,6 +12,8 @@ export function useIncidentTimelineComponent(incidentId: string) {
   const tError = useTranslations('errors')
   const { data, isLoading } = useIncidentTimeline(incidentId)
   const addEntry = useAddTimelineEntry()
+  const permissions = useAuthStore(s => s.permissions)
+  const canAddTimeline = hasPermission(permissions, Permission.INCIDENTS_ADD_TIMELINE)
 
   const [newEvent, setNewEvent] = useState('')
 
@@ -40,5 +45,6 @@ export function useIncidentTimelineComponent(incidentId: string) {
     setNewEvent,
     handleAddEntry,
     isAdding: addEntry.isPending,
+    canAddTimeline,
   }
 }

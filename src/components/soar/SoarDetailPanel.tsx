@@ -46,18 +46,24 @@ export function SoarDetailPanel({
 
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={() => onEdit(playbook)}>
-              <Pencil className="me-1.5 h-3.5 w-3.5" />
-              {tCommon('edit')}
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => onRun(playbook)}>
-              <Play className="me-1.5 h-3.5 w-3.5" />
-              {t('detailRunButton')}
-            </Button>
-            <Button variant="destructive" size="sm" onClick={() => onDelete(playbook)}>
-              <Trash2 className="me-1.5 h-3.5 w-3.5" />
-              {tCommon('delete')}
-            </Button>
+            {onEdit && (
+              <Button variant="outline" size="sm" onClick={() => onEdit(playbook)}>
+                <Pencil className="me-1.5 h-3.5 w-3.5" />
+                {tCommon('edit')}
+              </Button>
+            )}
+            {onRun && (
+              <Button variant="outline" size="sm" onClick={() => onRun(playbook)}>
+                <Play className="me-1.5 h-3.5 w-3.5" />
+                {t('detailRunButton')}
+              </Button>
+            )}
+            {onDelete && (
+              <Button variant="destructive" size="sm" onClick={() => onDelete(playbook)}>
+                <Trash2 className="me-1.5 h-3.5 w-3.5" />
+                {tCommon('delete')}
+              </Button>
+            )}
           </div>
 
           <div className="flex items-center gap-2">

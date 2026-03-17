@@ -41,6 +41,8 @@ export default function CloudSecurityPage() {
     handleCreate,
     handleEdit,
     handleRowClick,
+    canCreate,
+    canEdit,
   } = useCloudSecurityPage()
 
   const editInitialValues = selectedAccount
@@ -62,11 +64,15 @@ export default function CloudSecurityPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('addAccount'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('addAccount'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              },
+            }
+          : {})}
       />
 
       <CloudSecurityKpiCards stats={stats} isLoading={statsLoading} />
@@ -100,20 +106,24 @@ export default function CloudSecurityPage() {
         total={pagination.total}
       />
 
-      <CloudAccountCreateDialog
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-        onSubmit={handleCreate}
-        loading={createLoading}
-      />
+      {canCreate && (
+        <CloudAccountCreateDialog
+          open={createOpen}
+          onOpenChange={setCreateOpen}
+          onSubmit={handleCreate}
+          loading={createLoading}
+        />
+      )}
 
-      <CloudAccountEditDialog
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSubmit={handleEdit}
-        initialValues={editInitialValues}
-        loading={editLoading}
-      />
+      {canEdit && (
+        <CloudAccountEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          onSubmit={handleEdit}
+          initialValues={editInitialValues}
+          loading={editLoading}
+        />
+      )}
 
       <CloudAccountDetailPanel
         account={selectedAccount}

@@ -35,6 +35,7 @@ export default function SettingsPage() {
     handleThemeChange,
     handleLanguageChange,
     handleNotificationToggle,
+    canEditSettings,
   } = useSettingsPage()
 
   return (
@@ -64,6 +65,7 @@ export default function SettingsPage() {
                     value={currentTheme}
                     onValueChange={handleThemeChange}
                     className="grid grid-cols-1 gap-3 sm:grid-cols-3"
+                    disabled={!canEditSettings}
                   >
                     <label
                       htmlFor="theme-light"
@@ -118,7 +120,11 @@ export default function SettingsPage() {
               <div className="space-y-2">
                 <Label htmlFor="language-select">{t('languageDescription')}</Label>
                 {mounted ? (
-                  <Select value={currentLocale} onValueChange={handleLanguageChange}>
+                  <Select
+                    value={currentLocale}
+                    onValueChange={handleLanguageChange}
+                    disabled={!canEditSettings}
+                  >
                     <SelectTrigger id="language-select" className="w-full">
                       <SelectValue />
                     </SelectTrigger>
@@ -166,7 +172,7 @@ export default function SettingsPage() {
                   onCheckedChange={(checked: boolean) =>
                     handleNotificationToggle('notificationsEmail', checked)
                   }
-                  disabled={updatePreferencesPending}
+                  disabled={!canEditSettings || updatePreferencesPending}
                 />
               </div>
               <div className="bg-border h-px" />
@@ -183,7 +189,7 @@ export default function SettingsPage() {
                   onCheckedChange={(checked: boolean) =>
                     handleNotificationToggle('notificationsInApp', checked)
                   }
-                  disabled={updatePreferencesPending}
+                  disabled={!canEditSettings || updatePreferencesPending}
                 />
               </div>
             </CardContent>

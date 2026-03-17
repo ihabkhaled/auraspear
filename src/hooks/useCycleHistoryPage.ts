@@ -2,9 +2,9 @@ import { useState, useCallback, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { SortOrder, UserRole } from '@/enums'
+import { Permission, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { CaseCycle, CreateCycleFormValues, EditCycleFormValues } from '@/types'
 import {
@@ -20,12 +20,11 @@ import { usePagination } from './usePagination'
 
 export function useCycleHistoryPage() {
   const t = useTranslations('cases.cycles')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const router = useRouter()
-  const user = useAuthStore(s => s.user)
 
-  const currentUserRole = user?.role ?? UserRole.SOC_ANALYST_L1
-  const isAdmin = hasRole(currentUserRole, UserRole.TENANT_ADMIN)
+  const permissions = useAuthStore(s => s.permissions)
+  const isAdmin = hasPermission(permissions, Permission.CASES_CHANGE_STATUS)
 
   const [createDialogOpen, setCreateDialogOpen] = useState(false)
   const [editDialogOpen, setEditDialogOpen] = useState(false)

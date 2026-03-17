@@ -10,7 +10,11 @@ import { lookup } from '@/lib/utils'
 import type { AddConnectorCardProps } from '@/types'
 
 export function AddConnectorCard({ connectorType }: AddConnectorCardProps) {
-  const { router, t } = useAddConnectorCard()
+  const { router, t, canAdd } = useAddConnectorCard()
+
+  if (!canAdd) {
+    return null
+  }
 
   const iconComponent = lookup(CONNECTOR_ICONS, connectorType)
   const meta = lookup(CONNECTOR_META, connectorType)

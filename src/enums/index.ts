@@ -67,4 +67,5 @@ export {
   CloudFindingSeverity,
   CloudFindingStatus,
 } from './cloud-security.enum'
+export { Permission } from './permission.enum'
 export { NotificationCategory, RetentionPeriod } from './settings.enum'

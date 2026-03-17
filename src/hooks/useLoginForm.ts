@@ -8,14 +8,14 @@ import { authService } from '@/services/auth.service'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useLoginForm() {
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const router = useRouter()
   const queryClient = useQueryClient()
   const [isLoading, setIsLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const { setTokens, setUser } = useAuthStore()
+  const { setTokens, setUser, setPermissions } = useAuthStore()
   const { setCurrentTenant, setUserTenants } = useTenantStore()
 
   function handleSubmit(e: { preventDefault: () => void }) {
@@ -29,6 +29,7 @@ export function useLoginForm() {
       .then(data => {
         setTokens(data.accessToken, data.refreshToken)
         setUser(data.user)
+        setPermissions(data.permissions ?? [])
         setCurrentTenant(data.user.tenantId)
         setUserTenants(data.tenants)
         router.push('/dashboard')

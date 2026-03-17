@@ -76,8 +76,8 @@ export interface ReportDetailPanelProps {
   report: Report | null
   open: boolean
   onOpenChange: (open: boolean) => void
-  onEdit: () => void
-  onDelete: () => void
+  onEdit?: (() => void) | undefined
+  onDelete?: (() => void) | undefined
 }
 
 export interface ReportFiltersProps {

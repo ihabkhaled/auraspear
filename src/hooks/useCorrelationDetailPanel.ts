@@ -17,13 +17,13 @@ export function useCorrelationDetailPanel({
 
   const handleEdit = () => {
     if (rule) {
-      onEdit(rule)
+      onEdit?.(rule)
     }
   }
 
   const handleDelete = () => {
     if (rule) {
-      onDelete(rule)
+      onDelete?.(rule)
     }
   }
 

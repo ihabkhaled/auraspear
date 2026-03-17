@@ -1,7 +1,10 @@
 'use client'
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { profileService } from '@/services/profile.service'
+import { useAuthStore } from '@/stores'
 import type { ChangePasswordInput, UpdateProfileInput } from '@/types'
 
 const PROFILE_KEY = ['profile'] as const
@@ -15,9 +18,13 @@ export function useProfile() {
 
 export function useUpdateProfile() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (data: UpdateProfileInput) => profileService.updateProfile(data),
+    mutationFn: (data: UpdateProfileInput) => {
+      requirePermission(permissions, Permission.PROFILE_UPDATE)
+      return profileService.updateProfile(data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: PROFILE_KEY })
     },
@@ -25,7 +32,11 @@ export function useUpdateProfile() {
 }
 
 export function useChangePassword() {
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (data: ChangePasswordInput) => profileService.changePassword(data),
+    mutationFn: (data: ChangePasswordInput) => {
+      requirePermission(permissions, Permission.PROFILE_UPDATE)
+      return profileService.changePassword(data)
+    },
   })
 }

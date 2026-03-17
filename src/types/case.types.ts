@@ -123,12 +123,12 @@ export interface CaseDetailHeaderProps {
   ownerName?: string | undefined
   members?: TenantMember[] | undefined
   cycles?: CaseCycleOption[] | undefined
-  onEdit?: () => void
-  onDelete?: () => void
-  onEscalate?: () => void
-  onStatusChange?: (status: CaseStatus) => void
-  onAssigneeChange?: (userId: string | null) => void
-  onCycleChange?: (cycleId: string | null) => void
+  onEdit?: (() => void) | undefined
+  onDelete?: (() => void) | undefined
+  onEscalate?: (() => void) | undefined
+  onStatusChange?: ((status: CaseStatus) => void) | undefined
+  onAssigneeChange?: ((userId: string | null) => void) | undefined
+  onCycleChange?: ((cycleId: string | null) => void) | undefined
 }
 
 export interface CaseCycleOption {
@@ -218,6 +218,7 @@ export interface CaseCommentsProps {
   currentUserId: string
   isAdmin: boolean
   isCaseClosed: boolean
+  canAddComment?: boolean | undefined
 }
 
 export interface CommentItemProps {
@@ -270,18 +271,18 @@ export interface CycleHistoryTableProps {
 
 export interface CaseArtifactPanelProps {
   artifacts: CaseArtifact[]
-  onLookup?: (artifact: CaseArtifact) => void
-  onAddArtifact?: (data: { type: string; value: string; source?: string }) => void
-  onDeleteArtifact?: (artifactId: string) => void
-  addingArtifact?: boolean
+  onLookup?: ((artifact: CaseArtifact) => void) | undefined
+  onAddArtifact?: ((data: { type: string; value: string; source?: string }) => void) | undefined
+  onDeleteArtifact?: ((artifactId: string) => void) | undefined
+  addingArtifact?: boolean | undefined
 }
 
 export interface CaseTaskListProps {
   tasks: CaseTask[]
-  onToggleTask?: (taskId: string, completed: boolean) => void
-  onAddTask?: (title: string) => void
-  onDeleteTask?: (taskId: string) => void
-  addingTask?: boolean
+  onToggleTask?: ((taskId: string, completed: boolean) => void) | undefined
+  onAddTask?: ((title: string) => void) | undefined
+  onDeleteTask?: ((taskId: string) => void) | undefined
+  addingTask?: boolean | undefined
 }
 
 export interface CaseKanbanBoardProps {

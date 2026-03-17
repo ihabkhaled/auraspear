@@ -6,7 +6,7 @@ import { ConnectorCard, AddConnectorCard } from '@/components/connectors'
 import { useConnectorsPage } from '@/hooks/useConnectorsPage'
 
 export default function ConnectorsPage() {
-  const { t, list, isLoading, isFetching, unconfiguredTypes } = useConnectorsPage()
+  const { t, list, isLoading, isFetching, unconfiguredTypes, canCreate } = useConnectorsPage()
 
   if (isLoading) {
     return (
@@ -38,7 +38,7 @@ export default function ConnectorsPage() {
             </div>
           )}
 
-          {unconfiguredTypes.length > 0 && (
+          {canCreate && unconfiguredTypes.length > 0 && (
             <div className="space-y-3">
               <h2 className="text-sm font-semibold">{t('availableConnectors')}</h2>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -4,14 +4,14 @@ import { useState, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { type ConnectorType, UserRole, WorkspaceTab } from '@/enums'
+import { type ConnectorType, Permission, WorkspaceTab } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import {
   isConnectorType,
   CONNECTOR_ICONS,
   CONNECTOR_META,
 } from '@/lib/constants/connectors.constants'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import type { WorkspaceSearchRequest } from '@/types'
@@ -35,7 +35,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   const searchParams = useSearchParams()
   const t = useTranslations('connectors')
   const tWorkspace = useTranslations('connectors.workspace')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const [testing, setTesting] = useState(false)
 
   const isCreateMode = searchParams.get('create') === 'true'
@@ -46,10 +46,9 @@ export function useConnectorWorkspacePage(rawType: string) {
   const [activityPage, setActivityPage] = useState(1)
   const [entitiesPage, setEntitiesPage] = useState(1)
 
-  const { user } = useAuthStore()
-  const userRole = user?.role
-  const isEditor = userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false
-  const isAdmin = userRole ? hasRole(userRole, UserRole.TENANT_ADMIN) : false
+  const permissions = useAuthStore(s => s.permissions)
+  const isEditor = hasPermission(permissions, Permission.CONNECTORS_UPDATE)
+  const isAdmin = hasPermission(permissions, Permission.CONNECTORS_DELETE)
 
   const isValidType = isConnectorType(rawType)
   const validType = isValidType ? (rawType as ConnectorType) : undefined

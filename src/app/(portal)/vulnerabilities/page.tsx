@@ -43,6 +43,9 @@ export default function VulnerabilitiesPage() {
     handleDeleteFromDetail,
     handleOpenCreate,
     handleOpenBulkImport,
+    canCreate,
+    canEdit,
+    canDelete,
   } = useVulnerabilitiesPage()
 
   return (
@@ -50,16 +53,22 @@ export default function VulnerabilitiesPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('addVulnerability'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: handleOpenCreate,
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('addVulnerability'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: handleOpenCreate,
+              },
+            }
+          : {})}
       >
-        <Button variant="outline" size="sm" onClick={handleOpenBulkImport}>
-          <Upload className="h-4 w-4" />
-          {t('bulkImportButton')}
-        </Button>
+        {canCreate && (
+          <Button variant="outline" size="sm" onClick={handleOpenBulkImport}>
+            <Upload className="h-4 w-4" />
+            {t('bulkImportButton')}
+          </Button>
+        )}
       </PageHeader>
 
       <VulnerabilityKpiCards stats={stats} />
@@ -96,23 +105,27 @@ export default function VulnerabilitiesPage() {
         total={pagination.total}
       />
 
-      <VulnerabilityCreateDialog open={createOpen} onOpenChange={setCreateOpen} />
+      {canCreate && <VulnerabilityCreateDialog open={createOpen} onOpenChange={setCreateOpen} />}
 
-      <VulnerabilityEditDialog
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        vulnerability={selectedVulnerability}
-      />
+      {canEdit && (
+        <VulnerabilityEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          vulnerability={selectedVulnerability}
+        />
+      )}
 
       <VulnerabilityDetailPanel
         open={detailOpen}
         onOpenChange={setDetailOpen}
         vulnerability={selectedVulnerability}
-        onEdit={handleEditFromDetail}
-        onDelete={handleDeleteFromDetail}
+        onEdit={canEdit ? handleEditFromDetail : undefined}
+        onDelete={canDelete ? handleDeleteFromDetail : undefined}
       />
 
-      <VulnerabilityBulkImportDialog open={bulkImportOpen} onOpenChange={setBulkImportOpen} />
+      {canCreate && (
+        <VulnerabilityBulkImportDialog open={bulkImportOpen} onOpenChange={setBulkImportOpen} />
+      )}
     </div>
   )
 }

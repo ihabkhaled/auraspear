@@ -25,20 +25,29 @@ export function AlertBulkActionBar({
 
       <div className="bg-border h-6 w-px" />
 
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={onAcknowledge}
-        disabled={isAcknowledging || isClosing}
-      >
-        <CheckCircle className="h-4 w-4" />
-        {t('bulkAcknowledge')}
-      </Button>
+      {onAcknowledge && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onAcknowledge}
+          disabled={isAcknowledging || isClosing}
+        >
+          <CheckCircle className="h-4 w-4" />
+          {t('bulkAcknowledge')}
+        </Button>
+      )}
 
-      <Button variant="outline" size="sm" onClick={onClose} disabled={isAcknowledging || isClosing}>
-        <XCircle className="h-4 w-4" />
-        {t('bulkClose')}
-      </Button>
+      {onClose && (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onClose}
+          disabled={isAcknowledging || isClosing}
+        >
+          <XCircle className="h-4 w-4" />
+          {t('bulkClose')}
+        </Button>
+      )}
 
       <Button variant="ghost" size="sm" onClick={onClear}>
         <X className="h-4 w-4" />

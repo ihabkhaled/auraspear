@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { ConnectorStatus, type ConnectorType, UserRole } from '@/enums'
+import { ConnectorStatus, type ConnectorType, Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import {
   isConnectorType,
   CONNECTOR_ICONS,
   CONNECTOR_META,
 } from '@/lib/constants/connectors.constants'
-import { hasRole } from '@/lib/roles'
+import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import {
@@ -23,15 +23,14 @@ export function useConnectorDetailPage(rawType: string) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const t = useTranslations('connectors')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
   const [testing, setTesting] = useState(false)
 
   const isCreateMode = searchParams.get('create') === 'true'
 
-  const { user } = useAuthStore()
-  const userRole = user?.role
-  const isEditor = userRole ? hasRole(userRole, UserRole.SOC_ANALYST_L2) : false
-  const isAdmin = userRole ? hasRole(userRole, UserRole.TENANT_ADMIN) : false
+  const permissions = useAuthStore(s => s.permissions)
+  const isEditor = hasPermission(permissions, Permission.CONNECTORS_UPDATE)
+  const isAdmin = hasPermission(permissions, Permission.CONNECTORS_DELETE)
 
   const { data: connector, isLoading } = useConnector(rawType, !isCreateMode)
   const testMutation = useTestConnector()

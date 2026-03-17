@@ -3,8 +3,11 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Toast } from '@/components/common'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { getCookie } from '@/lib/cookies'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { usePreferences, useUpdatePreferences } from './useSettings'
 
 const noop = () => {}
@@ -13,7 +16,10 @@ const emptySubscribe = () => noop
 export function useSettingsPage() {
   const t = useTranslations('settings')
   const tLang = useTranslations('language')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canEditSettings = hasPermission(permissions, Permission.SETTINGS_UPDATE)
   const router = useRouter()
   const { theme, setTheme } = useTheme()
   const { data: preferences } = usePreferences()
@@ -68,5 +74,6 @@ export function useSettingsPage() {
     handleThemeChange,
     handleLanguageChange,
     handleNotificationToggle,
+    canEditSettings,
   }
 }

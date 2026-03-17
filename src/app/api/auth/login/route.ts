@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
       user: data.user,
+      permissions: data.permissions ?? [],
       tenants: data.tenants,
     })
   } catch (error) {

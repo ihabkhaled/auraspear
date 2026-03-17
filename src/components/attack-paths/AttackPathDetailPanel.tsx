@@ -54,17 +54,21 @@ export function AttackPathDetailPanel({
           <h3 className="text-lg font-semibold">{path.title}</h3>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="sm" onClick={() => onEdit(path)}>
-            <Edit className="h-4 w-4" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-destructive"
-            onClick={() => onDelete(path)}
-          >
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          {onEdit && (
+            <Button variant="ghost" size="sm" onClick={() => onEdit(path)}>
+              <Edit className="h-4 w-4" />
+            </Button>
+          )}
+          {onDelete && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-destructive"
+              onClick={() => onDelete(path)}
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          )}
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>

@@ -1,7 +1,9 @@
 import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from '@tanstack/react-query'
+import { Permission } from '@/enums'
 import { COMMENTS_PAGE_SIZE } from '@/lib/constants/cases'
+import { requirePermission } from '@/lib/permissions'
 import { caseService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { CreateCaseCommentInput, UpdateCaseCommentInput } from '@/types'
 
 export function useCaseComments(caseId: string) {
@@ -24,8 +26,12 @@ export function useCaseComments(caseId: string) {
 export function useCreateCaseComment(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (data: CreateCaseCommentInput) => caseService.createComment(caseId, data),
+    mutationFn: (data: CreateCaseCommentInput) => {
+      requirePermission(permissions, Permission.CASES_ADD_COMMENT)
+      return caseService.createComment(caseId, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, caseId] })
@@ -36,9 +42,12 @@ export function useCreateCaseComment(caseId: string) {
 export function useUpdateCaseComment(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: ({ commentId, data }: { commentId: string; data: UpdateCaseCommentInput }) =>
-      caseService.updateComment(caseId, commentId, data),
+    mutationFn: ({ commentId, data }: { commentId: string; data: UpdateCaseCommentInput }) => {
+      requirePermission(permissions, Permission.CASES_ADD_COMMENT)
+      return caseService.updateComment(caseId, commentId, data)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
     },
@@ -48,8 +57,12 @@ export function useUpdateCaseComment(caseId: string) {
 export function useDeleteCaseComment(caseId: string) {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const permissions = useAuthStore(s => s.permissions)
   return useMutation({
-    mutationFn: (commentId: string) => caseService.deleteComment(caseId, commentId),
+    mutationFn: (commentId: string) => {
+      requirePermission(permissions, Permission.CASES_DELETE_COMMENT)
+      return caseService.deleteComment(caseId, commentId)
+    },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['caseComments', tenantId, caseId] })
     },

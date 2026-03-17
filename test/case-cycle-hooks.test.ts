@@ -37,6 +37,15 @@ vi.mock('@tanstack/react-query', () => {
     }),
   }
 })
+// Mock the stores module
+vi.mock('@/stores', () => ({
+  useTenantStore: vi.fn((selector: (s: { currentTenantId: string | null }) => unknown) =>
+    selector({ currentTenantId: 'test-tenant-id' })
+  ),
+  useAuthStore: vi.fn((selector: (s: { permissions: string[] }) => unknown) =>
+    selector({ permissions: ['cases.changeStatus'] })
+  ),
+}))
 import { useUpdateCaseCycle, useActivateCaseCycle, useDeleteCaseCycle } from '@/hooks/useCaseCycles'
 import { caseCycleService } from '@/services'
 
@@ -72,7 +81,9 @@ describe('useCaseCycles hooks', () => {
 
       hook.onSuccess()
 
-      expect(mockInvalidateQueries).toHaveBeenCalledWith({ queryKey: ['caseCycles'] })
+      expect(mockInvalidateQueries).toHaveBeenCalledWith({
+        queryKey: ['caseCycles', 'test-tenant-id'],
+      })
     })
   })
 
@@ -98,7 +109,9 @@ describe('useCaseCycles hooks', () => {
 
       hook.onSuccess()
 
-      expect(mockInvalidateQueries).toHaveBeenCalledWith({ queryKey: ['caseCycles'] })
+      expect(mockInvalidateQueries).toHaveBeenCalledWith({
+        queryKey: ['caseCycles', 'test-tenant-id'],
+      })
     })
   })
 
@@ -124,7 +137,9 @@ describe('useCaseCycles hooks', () => {
 
       hook.onSuccess()
 
-      expect(mockInvalidateQueries).toHaveBeenCalledWith({ queryKey: ['caseCycles'] })
+      expect(mockInvalidateQueries).toHaveBeenCalledWith({
+        queryKey: ['caseCycles', 'test-tenant-id'],
+      })
     })
   })
 })

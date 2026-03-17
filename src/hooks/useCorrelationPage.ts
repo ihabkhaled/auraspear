@@ -1,4 +1,7 @@
 import { useMemo } from 'react'
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useCorrelationPageCrud } from './useCorrelationPageCrud'
 import { useCorrelationPageDialogs } from './useCorrelationPageDialogs'
 import { useCorrelationPageFilters } from './useCorrelationPageFilters'
@@ -12,6 +15,11 @@ export function useCorrelationPage() {
     () => dialogs.findSelectedRule(filters.data?.data),
     [dialogs, filters.data]
   )
+
+  const permissions = useAuthStore(s => s.permissions)
+  const canCreate = hasPermission(permissions, Permission.CORRELATION_CREATE)
+  const canEdit = hasPermission(permissions, Permission.CORRELATION_UPDATE)
+  const canDelete = hasPermission(permissions, Permission.CORRELATION_DELETE)
 
   return {
     t: filters.t,
@@ -51,5 +59,8 @@ export function useCorrelationPage() {
     isCreating: crud.isCreating,
     isUpdating: crud.isUpdating,
     isDeleting: crud.isDeleting,
+    canCreate,
+    canEdit,
+    canDelete,
   }
 }

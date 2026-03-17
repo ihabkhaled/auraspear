@@ -39,6 +39,9 @@ export default function AiAgentsPage() {
     isUpdating,
     handleDeleteConfirm,
     handleCloseDetail,
+    canCreate,
+    canEdit,
+    canDelete,
   } = useAiAgentsPage()
 
   return (
@@ -54,7 +57,7 @@ export default function AiAgentsPage() {
         onStatusChange={setStatusFilter}
         tierFilter={tierFilter}
         onTierChange={setTierFilter}
-        onCreateClick={() => setCreateDialogOpen(true)}
+        onCreateClick={canCreate ? () => setCreateDialogOpen(true) : undefined}
       />
 
       <DataTable
@@ -78,19 +81,21 @@ export default function AiAgentsPage() {
         <AiAgentDetailPanel
           agent={selectedAgent}
           onClose={handleCloseDetail}
-          onEdit={() => handleEditOpen(selectedAgent)}
-          onDelete={() => handleDeleteConfirm(selectedAgent.id)}
+          onEdit={canEdit ? () => handleEditOpen(selectedAgent) : undefined}
+          onDelete={canDelete ? () => handleDeleteConfirm(selectedAgent.id) : undefined}
         />
       )}
 
-      <AiAgentCreateDialog
-        open={createDialogOpen}
-        onOpenChange={setCreateDialogOpen}
-        onSubmit={handleCreateSubmit}
-        loading={isCreating}
-      />
+      {canCreate && (
+        <AiAgentCreateDialog
+          open={createDialogOpen}
+          onOpenChange={setCreateDialogOpen}
+          onSubmit={handleCreateSubmit}
+          loading={isCreating}
+        />
+      )}
 
-      {editInitialValues && (
+      {canEdit && editInitialValues && (
         <AiAgentEditDialog
           open={editDialogOpen}
           onOpenChange={setEditDialogOpen}

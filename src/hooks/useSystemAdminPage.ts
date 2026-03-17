@@ -1,6 +1,8 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { SortOrder, SystemAdminTab } from '@/enums'
+import { Permission, SortOrder, SystemAdminTab } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type { ApplicationLogEntry } from '@/types'
 import { useServiceHealth, useAuditLogs } from './useAdmin'
 import { useAppLogs } from './useAppLogs'
@@ -9,7 +11,16 @@ import { usePagination } from './usePagination'
 
 export function useSystemAdminPage() {
   const t = useTranslations('admin')
+  const permissions = useAuthStore(s => s.permissions)
   const { data: healthData, isLoading: healthLoading, isError: healthError } = useServiceHealth()
+
+  const canCreateTenant = hasPermission(permissions, Permission.ADMIN_TENANTS_CREATE)
+  const canEditTenant = hasPermission(permissions, Permission.ADMIN_TENANTS_UPDATE)
+  const canDeleteTenant = hasPermission(permissions, Permission.ADMIN_TENANTS_DELETE)
+  const canCreateUser = hasPermission(permissions, Permission.ADMIN_USERS_CREATE)
+  const canEditUser = hasPermission(permissions, Permission.ADMIN_USERS_UPDATE)
+  const canDeleteUser = hasPermission(permissions, Permission.ADMIN_USERS_DELETE)
+  const canBlockUser = hasPermission(permissions, Permission.ADMIN_USERS_BLOCK)
 
   // App log detail dialog
   const [selectedLog, setSelectedLog] = useState<ApplicationLogEntry | null>(null)
@@ -153,5 +164,14 @@ export function useSystemAdminPage() {
     appLogActorEmail,
     setAppLogActorEmail,
     resetAppLogFilters,
+
+    // Permissions
+    canCreateTenant,
+    canEditTenant,
+    canDeleteTenant,
+    canCreateUser,
+    canEditUser,
+    canDeleteUser,
+    canBlockUser,
   }
 }

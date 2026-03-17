@@ -3,8 +3,23 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { IncidentSeverity } from '@/enums'
+import { getErrorKey } from '@/lib/api-error'
+import { lookup } from '@/lib/utils'
 import type { Alert, EscalateFormValues } from '@/types'
 import { useCreateIncident } from './useIncidents'
+
+const SEVERITY_MAP: Record<string, IncidentSeverity> = {
+  critical: IncidentSeverity.CRITICAL,
+  high: IncidentSeverity.HIGH,
+  medium: IncidentSeverity.MEDIUM,
+  low: IncidentSeverity.LOW,
+  info: IncidentSeverity.LOW,
+}
+
+function mapSeverity(alertSeverity: string): IncidentSeverity {
+  return lookup(SEVERITY_MAP, alertSeverity) ?? IncidentSeverity.MEDIUM
+}
 
 export function useEscalateToIncidentDialog(
   alert: Alert | null,
@@ -12,7 +27,10 @@ export function useEscalateToIncidentDialog(
 ) {
   const t = useTranslations('alerts')
   const tCommon = useTranslations('common')
+  const tError = useTranslations('errors')
   const createIncidentMutation = useCreateIncident()
+
+  const defaultSeverity = alert ? mapSeverity(alert.severity) : IncidentSeverity.MEDIUM
 
   const handleSubmit = useCallback(
     (formData: EscalateFormValues) => {
@@ -33,13 +51,13 @@ export function useEscalateToIncidentDialog(
             Toast.success(t('escalateSuccess'))
             onOpenChange(false)
           },
-          onError: () => {
-            Toast.error(t('escalateError'))
+          onError: (error: unknown) => {
+            Toast.error(tError(getErrorKey(error)))
           },
         }
       )
     },
-    [alert, createIncidentMutation, t, onOpenChange]
+    [alert, createIncidentMutation, t, tError, onOpenChange]
   )
 
   return {
@@ -47,5 +65,6 @@ export function useEscalateToIncidentDialog(
     tCommon,
     handleSubmit,
     isPending: createIncidentMutation.isPending,
+    defaultSeverity,
   }
 }

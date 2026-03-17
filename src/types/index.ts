@@ -40,6 +40,7 @@ export type {
   ImpersonationInfo,
   ImpersonateResponse,
   EndImpersonationResponse,
+  MeResponse,
   BackendLoginWithTenants,
   BackendRefreshResponse,
 } from './auth.types'
@@ -497,6 +498,13 @@ export type {
   CloudFindingCardProps,
   CloudSecurityColumnTranslations,
 } from './cloud-security.types'
+export type {
+  PermissionDefinition,
+  PermissionGroup,
+  PermissionMatrix,
+  RoleSettingsMatrixProps,
+  RoleSettingsResponse,
+} from './role-settings.types'
 export type {
   NotificationPreference,
   DataRetentionConfig,

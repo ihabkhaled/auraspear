@@ -10,7 +10,7 @@ import { parseFluxCSV } from '@/lib/utils'
 
 export function useExplorerMetricsPage() {
   const t = useTranslations('explorer')
-  const tErrors = useTranslations()
+  const tErrors = useTranslations('errors')
 
   const [bucket, setBucket] = useState('')
   const [measurement, setMeasurement] = useState('')

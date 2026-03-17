@@ -1,5 +1,8 @@
 'use client'
 
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useReportsPageCrud } from './useReportsPageCrud'
 import { useReportsPageDialogs } from './useReportsPageDialogs'
 import { useReportsPageFilters } from './useReportsPageFilters'
@@ -8,6 +11,10 @@ export function useReportsPage() {
   const filters = useReportsPageFilters()
   const dialogs = useReportsPageDialogs()
   const crud = useReportsPageCrud(dialogs)
+
+  const permissions = useAuthStore(s => s.permissions)
+  const canManageReports = hasPermission(permissions, Permission.REPORTS_CREATE)
+  const canDeleteReport = hasPermission(permissions, Permission.REPORTS_DELETE)
 
   return {
     t: filters.t,
@@ -47,5 +54,7 @@ export function useReportsPage() {
     openDeleteDialog: dialogs.openDeleteDialog,
     createLoading: crud.createLoading,
     editLoading: crud.editLoading,
+    canManageReports,
+    canDeleteReport,
   }
 }

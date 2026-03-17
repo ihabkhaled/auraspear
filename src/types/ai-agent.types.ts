@@ -111,8 +111,8 @@ export interface AiAgentDeleteDialogProps {
 export interface AiAgentDetailPanelProps {
   agent: AiAgent
   onClose: () => void
-  onEdit: () => void
-  onDelete: () => void
+  onEdit?: (() => void) | undefined
+  onDelete?: (() => void) | undefined
 }
 
 export interface AiAgentToolDialogProps {
@@ -138,7 +138,7 @@ export interface AiAgentFiltersProps {
   onStatusChange: (value: string) => void
   tierFilter: string
   onTierChange: (value: string) => void
-  onCreateClick: () => void
+  onCreateClick?: (() => void) | undefined
 }
 
 export interface AiAgentColumnTranslations {

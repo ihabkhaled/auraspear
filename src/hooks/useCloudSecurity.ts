@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { cloudSecurityService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { CloudAccountSearchParams, CloudFindingSearchParams } from '@/types'
 
 export function useCloudAccounts(params?: CloudAccountSearchParams) {
@@ -22,31 +24,45 @@ export function useCloudSecurityStats() {
 
 export function useCreateCloudAccount() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => cloudSecurityService.createAccount(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.CLOUD_SECURITY_CREATE)
+      return cloudSecurityService.createAccount(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['cloud-security'] })
+      void queryClient.invalidateQueries({ queryKey: ['cloud-security', tenantId] })
     },
   })
 }
 
 export function useUpdateCloudAccount() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      cloudSecurityService.updateAccount(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.CLOUD_SECURITY_UPDATE)
+      return cloudSecurityService.updateAccount(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['cloud-security'] })
+      void queryClient.invalidateQueries({ queryKey: ['cloud-security', tenantId] })
     },
   })
 }
 
 export function useDeleteCloudAccount() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => cloudSecurityService.deleteAccount(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.CLOUD_SECURITY_DELETE)
+      return cloudSecurityService.deleteAccount(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['cloud-security'] })
+      void queryClient.invalidateQueries({ queryKey: ['cloud-security', tenantId] })
     },
   })
 }

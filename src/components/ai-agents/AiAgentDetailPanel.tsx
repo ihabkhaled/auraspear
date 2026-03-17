@@ -58,11 +58,13 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
-            <Edit className="h-3.5 w-3.5" />
-            <span className="hidden sm:inline">{t('editAgent')}</span>
-          </Button>
-          <AiAgentDeleteDialog agentName={agent.name} onConfirm={() => onDelete()} />
+          {onEdit && (
+            <Button variant="outline" size="sm" onClick={onEdit} className="gap-1.5">
+              <Edit className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">{t('editAgent')}</span>
+            </Button>
+          )}
+          {onDelete && <AiAgentDeleteDialog agentName={agent.name} onConfirm={() => onDelete()} />}
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>

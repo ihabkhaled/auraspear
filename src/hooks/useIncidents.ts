@@ -1,6 +1,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
+import { Permission } from '@/enums'
+import { requirePermission } from '@/lib/permissions'
 import { incidentService } from '@/services'
-import { useTenantStore } from '@/stores'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type { IncidentSearchParams } from '@/types'
 
 export function useIncidents(params?: IncidentSearchParams) {
@@ -22,31 +24,45 @@ export function useIncidentStats() {
 
 export function useCreateIncident() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => incidentService.createIncident(data),
+    mutationFn: (data: Record<string, unknown>) => {
+      requirePermission(permissions, Permission.INCIDENTS_CREATE)
+      return incidentService.createIncident(data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['incidents'] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
     },
   })
 }
 
 export function useUpdateIncident() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) =>
-      incidentService.updateIncident(id, data),
+    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+      requirePermission(permissions, Permission.INCIDENTS_UPDATE)
+      return incidentService.updateIncident(id, data)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['incidents'] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
     },
   })
 }
 
 export function useDeleteIncident() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: (id: string) => incidentService.deleteIncident(id),
+    mutationFn: (id: string) => {
+      requirePermission(permissions, Permission.INCIDENTS_DELETE)
+      return incidentService.deleteIncident(id)
+    },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['incidents'] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
     },
   })
 }
@@ -62,15 +78,19 @@ export function useIncidentTimeline(incidentId: string) {
 
 export function useAddTimelineEntry() {
   const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { event: string; actorType?: string } }) =>
-      incidentService.addTimelineEntry(id, data),
+    mutationFn: ({ id, data }: { id: string; data: { event: string; actorType?: string } }) => {
+      requirePermission(permissions, Permission.INCIDENTS_ADD_TIMELINE)
+      return incidentService.addTimelineEntry(id, data)
+    },
     onSuccess: (_result, variables) => {
       void queryClient.invalidateQueries({
-        queryKey: ['incidents', 'timeline'],
+        queryKey: ['incidents', 'timeline', tenantId],
       })
       void queryClient.invalidateQueries({
-        queryKey: ['incidents', variables.id],
+        queryKey: ['incidents', tenantId, variables.id],
       })
     },
   })

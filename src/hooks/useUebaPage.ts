@@ -1,13 +1,20 @@
 'use client'
 
+import { Permission } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import { useUebaPageCrud } from './useUebaPageCrud'
 import { useUebaPageDialogs } from './useUebaPageDialogs'
 import { useUebaPageFilters } from './useUebaPageFilters'
 
 export function useUebaPage() {
+  const permissions = useAuthStore(s => s.permissions)
   const filters = useUebaPageFilters()
   const dialogs = useUebaPageDialogs()
   const crud = useUebaPageCrud(dialogs)
+
+  const canCreate = hasPermission(permissions, Permission.UEBA_CREATE)
+  const canEdit = hasPermission(permissions, Permission.UEBA_UPDATE)
 
   return {
     t: filters.t,
@@ -42,5 +49,7 @@ export function useUebaPage() {
     editInitialValues: dialogs.editInitialValues,
     handleDeleteEntity: crud.handleDeleteEntity,
     deleteLoading: crud.deleteLoading,
+    canCreate,
+    canEdit,
   }
 }

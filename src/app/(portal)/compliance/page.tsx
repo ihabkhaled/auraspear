@@ -45,6 +45,8 @@ export default function CompliancePage() {
     openDeleteDialog,
     createLoading,
     editLoading,
+    canCreate,
+    canEdit,
   } = useCompliancePage()
 
   return (
@@ -52,11 +54,15 @@ export default function CompliancePage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createFramework'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('createFramework'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              },
+            }
+          : {})}
       />
 
       <ComplianceKpiCards stats={stats} />
@@ -88,20 +94,24 @@ export default function CompliancePage() {
         total={pagination.total}
       />
 
-      <ComplianceFrameworkCreateDialog
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-        onSubmit={handleCreate}
-        loading={createLoading}
-      />
+      {canCreate && (
+        <ComplianceFrameworkCreateDialog
+          open={createOpen}
+          onOpenChange={setCreateOpen}
+          onSubmit={handleCreate}
+          loading={createLoading}
+        />
+      )}
 
-      <ComplianceFrameworkEditDialog
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSubmit={handleEdit}
-        initialValues={editInitialValues}
-        loading={editLoading}
-      />
+      {canEdit && (
+        <ComplianceFrameworkEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          onSubmit={handleEdit}
+          initialValues={editInitialValues}
+          loading={editLoading}
+        />
+      )}
 
       <ComplianceFrameworkDeleteDialog
         frameworkId={deleteFrameworkId}
@@ -113,7 +123,7 @@ export default function CompliancePage() {
         framework={selectedFramework}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onEdit={openEditDialog}
+        onEdit={canEdit ? openEditDialog : undefined}
         onDelete={openDeleteDialog}
       />
     </div>

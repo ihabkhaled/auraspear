@@ -4,7 +4,10 @@ import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { hasPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type { NotificationItem } from '@/types'
 import { useMarkAllNotificationsRead, useMarkNotificationRead } from './useNotifications'
 import { useNotificationsPageFilters } from './useNotificationsPageFilters'
@@ -13,6 +16,9 @@ export function useNotificationsPage() {
   const filters = useNotificationsPageFilters()
   const { t } = filters
   const tError = useTranslations('errors')
+  const permissions = useAuthStore(s => s.permissions)
+
+  const canManageNotifications = hasPermission(permissions, Permission.NOTIFICATIONS_MANAGE)
   const router = useRouter()
 
   const markRead = useMarkNotificationRead()
@@ -55,5 +61,6 @@ export function useNotificationsPage() {
     handleNotificationClick,
     handleMarkAllRead,
     markAllReadPending: markAllRead.isPending,
+    canManageNotifications,
   }
 }

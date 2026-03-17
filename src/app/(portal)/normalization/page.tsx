@@ -42,6 +42,9 @@ export default function NormalizationPage() {
     handleRowClick,
     handleOpenEdit,
     handleOpenDelete,
+    canCreate,
+    canEdit,
+    canDelete,
   } = useNormalizationPage()
 
   return (
@@ -49,11 +52,15 @@ export default function NormalizationPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createPipeline'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        {...(canCreate
+          ? {
+              action: {
+                label: t('createPipeline'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              },
+            }
+          : {})}
       />
 
       <NormalizationKpiCards stats={stats} isLoading={statsLoading} />
@@ -87,27 +94,31 @@ export default function NormalizationPage() {
         total={pagination.total}
       />
 
-      <NormalizationCreateDialog
-        open={createOpen}
-        onOpenChange={setCreateOpen}
-        onSubmit={handleCreate}
-        loading={createLoading}
-      />
+      {canCreate && (
+        <NormalizationCreateDialog
+          open={createOpen}
+          onOpenChange={setCreateOpen}
+          onSubmit={handleCreate}
+          loading={createLoading}
+        />
+      )}
 
-      <NormalizationEditDialog
-        open={editOpen}
-        onOpenChange={setEditOpen}
-        onSubmit={handleEdit}
-        initialValues={editInitialValues}
-        loading={editLoading}
-      />
+      {canEdit && (
+        <NormalizationEditDialog
+          open={editOpen}
+          onOpenChange={setEditOpen}
+          onSubmit={handleEdit}
+          initialValues={editInitialValues}
+          loading={editLoading}
+        />
+      )}
 
       <NormalizationDetailPanel
         pipeline={selectedPipeline}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onEdit={handleOpenEdit}
-        onDelete={handleOpenDelete}
+        onEdit={canEdit ? handleOpenEdit : undefined}
+        onDelete={canDelete ? handleOpenDelete : undefined}
       />
     </div>
   )

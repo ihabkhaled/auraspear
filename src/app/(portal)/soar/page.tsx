@@ -52,6 +52,10 @@ export default function SoarPage() {
     openRunDialog,
     createLoading,
     editLoading,
+    canCreate,
+    canEdit,
+    canDelete,
+    canExecute,
   } = useSoarPage()
 
   return (
@@ -59,11 +63,15 @@ export default function SoarPage() {
       <PageHeader
         title={t('title')}
         description={t('description')}
-        action={{
-          label: t('createPlaybook'),
-          icon: <Plus className="h-4 w-4" />,
-          onClick: () => setCreateOpen(true),
-        }}
+        action={
+          canCreate
+            ? {
+                label: t('createPlaybook'),
+                icon: <Plus className="h-4 w-4" />,
+                onClick: () => setCreateOpen(true),
+              }
+            : undefined
+        }
       />
 
       <SoarKpiCards stats={stats} />
@@ -128,9 +136,9 @@ export default function SoarPage() {
         playbook={selectedPlaybook}
         open={detailOpen}
         onOpenChange={setDetailOpen}
-        onEdit={openEditDialog}
-        onDelete={openDeleteDialog}
-        onRun={openRunDialog}
+        onEdit={canEdit ? openEditDialog : undefined}
+        onDelete={canDelete ? openDeleteDialog : undefined}
+        onRun={canExecute ? openRunDialog : undefined}
       />
     </div>
   )

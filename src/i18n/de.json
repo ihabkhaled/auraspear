@@ -40,7 +40,8 @@
     "threatHunting": "Bedrohungssuche",
     "settings": "Einstellungen",
     "notifications": "Benachrichtigungen",
-    "profile": "Profil"
+    "profile": "Profil",
+    "roleSettings": "Rolleneinstellungen"
   },
   "common": {
     "search": "Suche",
@@ -68,6 +69,7 @@
     "copied": "In die Zwischenablage kopiert",
     "all": "Alle",
     "name": "Name",
+    "title": "Titel",
     "status": "Status",
     "severity": "Schweregrad",
     "timestamp": "Zeitstempel",
@@ -250,6 +252,7 @@
     "createCase": "Vorfall erstellen",
     "caseNumber": "Vorfall Nr.",
     "timeline": {
+      "title": "Zeitleiste",
       "caseCreated": "Fall {caseRef} erstellt: {title}",
       "caseDeleted": "Fall {caseRef} gelöscht",
       "caseReopened": "Fall wiedereröffnet von {actorLabel}",
@@ -3127,5 +3130,210 @@
     "save": "Save",
     "saving": "Saving...",
     "columnComplianceScore": "Compliance-Bewertung"
+  },
+  "roleSettings": {
+    "title": "Rolleneinstellungen",
+    "description": "Berechtigungsmatrix für jede Rolle konfigurieren",
+    "permission": "Berechtigung",
+    "save": "Änderungen Speichern",
+    "saving": "Speichern...",
+    "reset": "Auf Standard Zurücksetzen",
+    "resetting": "Zurücksetzen...",
+    "resetConfirm": "Sind Sie sicher, dass Sie alle Berechtigungen auf die Standardwerte zurücksetzen möchten? Dies überschreibt alle Anpassungen.",
+    "saved": "Berechtigungen erfolgreich gespeichert",
+    "resetSuccess": "Berechtigungen auf Standard zurückgesetzt",
+    "modules": {
+      "dashboard": "Dashboard",
+      "alerts": "Warnungen",
+      "incidents": "Vorfälle",
+      "cases": "Fälle",
+      "connectors": "Konnektoren",
+      "correlation": "Korrelationsregeln",
+      "detectionRules": "Erkennungsregeln",
+      "hunt": "Bedrohungssuche",
+      "intel": "Bedrohungsintelligenz",
+      "explorer": "Explorer",
+      "vulnerabilities": "Schwachstellen",
+      "ueba": "UEBA / ML-Analytik",
+      "attackPaths": "Angriffspfade",
+      "normalization": "Normalisierung",
+      "soar": "SOAR-Workflows",
+      "aiAgents": "AI-Agenten",
+      "cloudSecurity": "Cloud-Sicherheit",
+      "compliance": "Compliance",
+      "reports": "Berichte",
+      "adminUsers": "Admin - Benutzer",
+      "adminTenants": "Admin - Mandanten",
+      "notifications": "Benachrichtigungen",
+      "profile": "Profil",
+      "settings": "Einstellungen",
+      "roleSettings": "Rolleneinstellungen"
+    },
+    "permissions": {
+      "dashboard": {
+        "view": "Dashboard Anzeigen"
+      },
+      "alerts": {
+        "view": "Warnungen Anzeigen",
+        "investigate": "Warnungen Untersuchen",
+        "acknowledge": "Warnungen Bestätigen",
+        "close": "Warnungen Schließen",
+        "escalate": "Alarme Eskalieren"
+      },
+      "incidents": {
+        "view": "Vorfälle Anzeigen",
+        "create": "Vorfälle Erstellen",
+        "update": "Vorfälle Aktualisieren",
+        "delete": "Vorfälle Löschen",
+        "addTimeline": "Zeitleisteneintrag Hinzufügen",
+        "changeStatus": "Vorfallstatus Ändern"
+      },
+      "cases": {
+        "view": "Fälle Anzeigen",
+        "create": "Fälle Erstellen",
+        "update": "Fälle Aktualisieren",
+        "delete": "Fälle Löschen",
+        "assign": "Fälle Zuweisen",
+        "changeStatus": "Fallstatus Ändern",
+        "addComment": "Kommentare Hinzufügen",
+        "deleteComment": "Kommentare Löschen",
+        "addTask": "Aufgaben Hinzufügen",
+        "updateTask": "Aufgaben Aktualisieren",
+        "deleteTask": "Aufgaben Löschen",
+        "addArtifact": "Artefakte Hinzufügen",
+        "deleteArtifact": "Artefakte Löschen"
+      },
+      "connectors": {
+        "view": "Konnektoren Anzeigen",
+        "create": "Konnektoren Erstellen",
+        "update": "Konnektoren Aktualisieren",
+        "delete": "Konnektoren Löschen",
+        "test": "Konnektoren Testen",
+        "sync": "Konnektoren Synchronisieren"
+      },
+      "correlation": {
+        "view": "Korrelationsregeln Anzeigen",
+        "create": "Korrelationsregeln Erstellen",
+        "update": "Korrelationsregeln Aktualisieren",
+        "delete": "Korrelationsregeln Löschen",
+        "toggle": "Korrelationsregeln Aktivieren/Deaktivieren"
+      },
+      "detectionRules": {
+        "view": "Erkennungsregeln Anzeigen",
+        "create": "Erkennungsregeln Erstellen",
+        "update": "Erkennungsregeln Aktualisieren",
+        "delete": "Erkennungsregeln Löschen",
+        "toggle": "Erkennungsregeln Aktivieren/Deaktivieren"
+      },
+      "hunt": {
+        "view": "Jagden Anzeigen",
+        "create": "Jagden Erstellen",
+        "update": "Jagden Aktualisieren",
+        "delete": "Jagden Löschen",
+        "execute": "Jagden Ausführen"
+      },
+      "intel": {
+        "view": "Bedrohungsintelligenz Anzeigen"
+      },
+      "explorer": {
+        "view": "Explorer Anzeigen",
+        "query": "Abfragen Ausführen"
+      },
+      "vulnerabilities": {
+        "view": "Schwachstellen Anzeigen",
+        "create": "Schwachstellen Erstellen",
+        "update": "Schwachstellen Aktualisieren",
+        "delete": "Schwachstellen Löschen"
+      },
+      "ueba": {
+        "view": "UEBA Anzeigen",
+        "create": "UEBA-Entitäten Erstellen",
+        "update": "UEBA-Entitäten Aktualisieren",
+        "delete": "UEBA-Entitäten löschen"
+      },
+      "attackPaths": {
+        "view": "Angriffspfade Anzeigen",
+        "create": "Angriffspfade Erstellen",
+        "update": "Angriffspfade Aktualisieren",
+        "delete": "Angriffspfade Löschen"
+      },
+      "normalization": {
+        "view": "Normalisierung Anzeigen",
+        "create": "Pipelines Erstellen",
+        "update": "Pipelines Aktualisieren",
+        "delete": "Pipelines Löschen"
+      },
+      "soar": {
+        "view": "SOAR Anzeigen",
+        "create": "Playbooks Erstellen",
+        "update": "Playbooks Aktualisieren",
+        "delete": "Playbooks Löschen",
+        "execute": "Playbooks Ausführen"
+      },
+      "aiAgents": {
+        "view": "AI-Agenten Anzeigen",
+        "create": "AI-Agenten Erstellen",
+        "update": "AI-Agenten Aktualisieren",
+        "delete": "AI-Agenten Löschen"
+      },
+      "cloudSecurity": {
+        "view": "Cloud-Sicherheit Anzeigen",
+        "create": "Cloud-Konten Erstellen",
+        "update": "Cloud-Konten Aktualisieren",
+        "delete": "Cloud-Konten Löschen"
+      },
+      "compliance": {
+        "view": "Compliance Anzeigen",
+        "create": "Frameworks Erstellen",
+        "update": "Frameworks Aktualisieren",
+        "delete": "Compliance-Frameworks löschen"
+      },
+      "reports": {
+        "view": "Berichte Anzeigen",
+        "create": "Berichte Erstellen",
+        "update": "Berichte aktualisieren",
+        "delete": "Berichte Löschen",
+        "export": "Berichte Exportieren"
+      },
+      "admin": {
+        "users": {
+          "view": "Benutzer Anzeigen",
+          "create": "Benutzer Erstellen",
+          "update": "Benutzer Aktualisieren",
+          "delete": "Benutzer Löschen",
+          "block": "Benutzer Sperren",
+          "restore": "Benutzer Wiederherstellen"
+        },
+        "tenants": {
+          "view": "Mandanten Anzeigen",
+          "create": "Mandanten Erstellen",
+          "update": "Mandanten Aktualisieren",
+          "delete": "Mandanten Löschen"
+        }
+      },
+      "notifications": {
+        "view": "Benachrichtigungen Anzeigen",
+        "manage": "Benachrichtigungen Verwalten"
+      },
+      "profile": {
+        "view": "Profil Anzeigen",
+        "update": "Profil Aktualisieren"
+      },
+      "settings": {
+        "view": "Einstellungen Anzeigen",
+        "update": "Einstellungen Aktualisieren"
+      },
+      "roleSettings": {
+        "view": "Rolleneinstellungen Anzeigen",
+        "update": "Rolleneinstellungen Aktualisieren"
+      }
+    },
+    "roles": {
+      "TENANT_ADMIN": "Mandanten-Administrator",
+      "SOC_ANALYST_L2": "SOC-Analyst L2",
+      "SOC_ANALYST_L1": "SOC-Analyst L1",
+      "THREAT_HUNTER": "Bedrohungsjäger",
+      "EXECUTIVE_READONLY": "Führungskraft (Nur Lesen)"
+    }
   }
 }

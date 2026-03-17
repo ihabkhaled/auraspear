@@ -40,6 +40,7 @@ export default function ProfilePage() {
     changePasswordPending,
     handleUpdateName,
     handleChangePassword,
+    canEditProfile,
   } = useProfilePage()
 
   if (isLoading) {
@@ -155,7 +156,9 @@ export default function ProfilePage() {
                 </div>
                 <Button
                   type="submit"
-                  disabled={updateProfilePending || !name.trim() || !namePassword}
+                  disabled={
+                    !canEditProfile || updateProfilePending || !name.trim() || !namePassword
+                  }
                 >
                   {updateProfilePending ? t('updating') : t('updateName')}
                 </Button>
@@ -263,7 +266,11 @@ export default function ProfilePage() {
                 <Button
                   type="submit"
                   disabled={
-                    changePasswordPending || !currentPassword || !newPassword || !confirmPassword
+                    !canEditProfile ||
+                    changePasswordPending ||
+                    !currentPassword ||
+                    !newPassword ||
+                    !confirmPassword
                   }
                 >
                   {changePasswordPending ? t('changingPassword') : t('changePassword')}
