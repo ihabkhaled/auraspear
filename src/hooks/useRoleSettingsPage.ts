@@ -61,6 +61,7 @@ function buildLabelMap(
 
 export function useRoleSettingsPage() {
   const t = useTranslations()
+  const tErrors = useTranslations('errors')
   const queryClient = useQueryClient()
   const permissions = useAuthStore(s => s.permissions)
 
@@ -142,7 +143,7 @@ export function useRoleSettingsPage() {
       Toast.success(t('roleSettings.saved'))
     },
     onError: (error: unknown) => {
-      Toast.error(t(getErrorKey(error)))
+      Toast.error(tErrors(getErrorKey(error)))
     },
   })
 
@@ -158,7 +159,7 @@ export function useRoleSettingsPage() {
       Toast.success(t('roleSettings.resetSuccess'))
     },
     onError: (error: unknown) => {
-      Toast.error(t(getErrorKey(error)))
+      Toast.error(tErrors(getErrorKey(error)))
     },
   })
 
