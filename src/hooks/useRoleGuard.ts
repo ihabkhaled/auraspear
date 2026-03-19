@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import { canAccessRouteByPermission } from '@/lib/permissions'
+import { canAccessRouteByPermission, getFirstAccessibleRoute } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 
 export function useRoleGuard() {
@@ -12,12 +12,13 @@ export function useRoleGuard() {
   const user = useAuthStore(s => s.user)
 
   const allowed = permissions.length > 0 ? canAccessRouteByPermission(permissions, pathname) : false
+  const fallbackRoute = getFirstAccessibleRoute(permissions)
 
   useEffect(() => {
-    if (user && permissions.length > 0 && !allowed) {
-      router.replace('/dashboard')
+    if (user && permissions.length > 0 && !allowed && fallbackRoute && pathname !== fallbackRoute) {
+      router.replace(fallbackRoute)
     }
-  }, [user, permissions, allowed, router])
+  }, [allowed, fallbackRoute, pathname, permissions.length, router, user])
 
   return {
     userRole: user?.role,

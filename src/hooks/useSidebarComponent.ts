@@ -35,6 +35,7 @@ export function useSidebarContent() {
   const t = useTranslations()
   const { toggleSidebar } = useUIStore()
   const permissions = useAuthStore(s => s.permissions)
+  const user = useAuthStore(s => s.user)
   const canViewSystemHealth =
     permissions.length > 0 ? canAccessRouteByPermission(permissions, '/system-health') : false
   const { healthPercent, servicesOnline, totalServices, maxLatencyMs } =
@@ -97,15 +98,14 @@ export function useSidebarContent() {
   ]
 
   // Filter sections and items based on user permissions
-  const sections =
-    permissions.length > 0
-      ? allSections
-          .map(section => ({
-            ...section,
-            items: section.items.filter(item => canAccessRouteByPermission(permissions, item.href)),
-          }))
-          .filter(section => section.items.length > 0)
-      : allSections
+  const sections = user
+    ? allSections
+        .map(section => ({
+          ...section,
+          items: section.items.filter(item => canAccessRouteByPermission(permissions, item.href)),
+        }))
+        .filter(section => section.items.length > 0)
+    : allSections
 
   return {
     pathname,

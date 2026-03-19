@@ -7,6 +7,40 @@ const withSerwist = withSerwistInit({
   disable: process.env.NODE_ENV === 'development',
 })
 
+function buildAllowedConnectSources(): string[] {
+  const sources = new Set<string>(["'self'"])
+  const candidates = [
+    process.env['NEXT_PUBLIC_API_URL'],
+    process.env['BACKEND_API_URL'],
+    process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000',
+  ]
+
+  for (const candidate of candidates) {
+    if (!candidate || candidate.startsWith('/')) {
+      continue
+    }
+
+    try {
+      const url = new URL(candidate)
+      sources.add(url.origin)
+
+      if (url.protocol === 'http:' || url.protocol === 'https:') {
+        const wsProtocol = url.protocol === 'https:' ? 'wss:' : 'ws:'
+        sources.add(`${wsProtocol}//${url.host}`)
+      }
+
+      if (url.protocol === 'ws:' || url.protocol === 'wss:') {
+        const httpProtocol = url.protocol === 'wss:' ? 'https:' : 'http:'
+        sources.add(`${httpProtocol}//${url.host}`)
+      }
+    } catch {
+      // Ignore invalid non-URL env values and preserve the strict default set.
+    }
+  }
+
+  return [...sources]
+}
+
 /**
  * Content-Security-Policy directives.
  *
@@ -27,7 +61,7 @@ const cspDirectives = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  "connect-src 'self'",
+  `connect-src ${buildAllowedConnectSources().join(' ')}`,
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",
   "base-uri 'self'",

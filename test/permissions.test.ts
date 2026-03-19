@@ -6,6 +6,7 @@ import {
   requirePermission,
   PermissionError,
   filterAccessibleItemsByRoute,
+  getFirstAccessibleRoute,
 } from '@/lib/permissions'
 
 // ─── hasPermission ──────────────────────────────────────────────
@@ -177,5 +178,17 @@ describe('filterAccessibleItemsByRoute', () => {
       { key: 'pipelineHealth', href: '/system-health' },
       { key: 'alwaysVisible', href: undefined },
     ])
+  })
+})
+
+describe('getFirstAccessibleRoute', () => {
+  it('returns the first mapped route the permission set can access', () => {
+    expect(getFirstAccessibleRoute([Permission.DASHBOARD_VIEW, Permission.ALERTS_VIEW])).toBe(
+      '/dashboard'
+    )
+  })
+
+  it('returns null when the permission set cannot access any mapped route', () => {
+    expect(getFirstAccessibleRoute([])).toBeNull()
   })
 })

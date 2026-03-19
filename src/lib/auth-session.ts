@@ -25,6 +25,15 @@ function isAuthMeQuery(queryKey: QueryKey, tenantId: string): boolean {
   return queryKey[0] === 'auth' && queryKey[1] === 'me' && queryKey[2] === tenantId
 }
 
+export function getEffectiveTenantIdSnapshot(): string {
+  const tenantId = useTenantStore.getState().currentTenantId.trim()
+  if (tenantId.length > 0) {
+    return tenantId
+  }
+
+  return useAuthStore.getState().user?.tenantId ?? ''
+}
+
 export function hasPermissionSnapshotChanged(
   currentPermissions: string[],
   nextPermissions: string[],
@@ -74,11 +83,17 @@ export async function refreshCurrentSessionPermissions(
   queryClient: QueryClient
 ): Promise<MeResponse | null> {
   const authState = useAuthStore.getState()
-  const tenantId = useTenantStore.getState().currentTenantId
+  const tenantId = getEffectiveTenantIdSnapshot()
 
   if (!authState.isAuthenticated || tenantId.length === 0) {
     return null
   }
+
+  await queryClient.invalidateQueries({
+    queryKey: ['auth', 'me', tenantId],
+    exact: true,
+    refetchType: 'none',
+  })
 
   const snapshot = await queryClient.fetchQuery({
     queryKey: ['auth', 'me', tenantId],

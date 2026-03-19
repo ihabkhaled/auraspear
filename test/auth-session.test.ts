@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { Permission, UserRole } from '@/enums'
 import {
   applyPermissionSnapshot,
+  getEffectiveTenantIdSnapshot,
   hasPermissionSnapshotChanged,
   invalidatePermissionSensitiveQueries,
   refreshCurrentSessionPermissions,
@@ -63,6 +64,18 @@ describe('auth-session helpers', () => {
       sub: 'user-1',
       role: UserRole.SOC_ANALYST_L2,
     })
+  })
+
+  it('falls back to the auth user tenant when tenant store is empty', () => {
+    useAuthStore.getState().setUser({
+      sub: 'user-1',
+      email: 'analyst@auraspear.io',
+      tenantId: 'tenant-auth',
+      tenantSlug: 'tenant-auth',
+      role: UserRole.SOC_ANALYST_L2,
+    } as never)
+
+    expect(getEffectiveTenantIdSnapshot()).toBe('tenant-auth')
   })
 
   it('invalidates non-auth queries after permission changes', async () => {
@@ -127,5 +140,35 @@ describe('auth-session helpers', () => {
     ])
     expect(useAuthStore.getState().user?.role).toBe(UserRole.SOC_ANALYST_L2)
     expect(alertsQueryFn).toHaveBeenCalledTimes(2)
+  })
+
+  it('refreshes the current session using the auth tenant fallback when tenant storage is empty', async () => {
+    const queryClient = new QueryClient()
+    const getMeMock = vi.mocked(authService.getMe)
+
+    useAuthStore.getState().setTokens('access-token')
+    useAuthStore.getState().setUser({
+      sub: 'user-1',
+      email: 'analyst@auraspear.io',
+      tenantId: 'tenant-auth',
+      tenantSlug: 'tenant-auth',
+      role: UserRole.SOC_ANALYST_L1,
+    } as never)
+
+    getMeMock.mockResolvedValue({
+      user: {
+        sub: 'user-1',
+        email: 'analyst@auraspear.io',
+        tenantId: 'tenant-auth',
+        tenantSlug: 'tenant-auth',
+        role: UserRole.SOC_ANALYST_L2,
+      },
+      permissions: [Permission.ALERTS_VIEW],
+    })
+
+    const snapshot = await refreshCurrentSessionPermissions(queryClient)
+
+    expect(snapshot?.user.tenantId).toBe('tenant-auth')
+    expect(getMeMock).toHaveBeenCalledTimes(1)
   })
 })

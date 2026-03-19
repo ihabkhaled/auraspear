@@ -19,12 +19,14 @@ const PERMISSION_SYNC_INTERVAL = 60_000 // 60 seconds
 export function usePermissionSync() {
   const queryClient = useQueryClient()
   const isAuthenticated = useAuthStore(s => s.isAuthenticated)
-  const tenantId = useTenantStore(s => s.currentTenantId)
+  const currentTenantId = useTenantStore(s => s.currentTenantId)
+  const authTenantId = useAuthStore(s => s.user?.tenantId ?? '')
+  const tenantId = currentTenantId || authTenantId
 
   const { data } = useQuery({
     queryKey: ['auth', 'me', tenantId],
     queryFn: () => authService.getMe(),
-    enabled: isAuthenticated,
+    enabled: isAuthenticated && tenantId.length > 0,
     refetchInterval: PERMISSION_SYNC_INTERVAL,
     refetchIntervalInBackground: false,
     staleTime: PERMISSION_SYNC_INTERVAL,

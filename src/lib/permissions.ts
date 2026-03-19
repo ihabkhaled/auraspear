@@ -1,6 +1,24 @@
 import { type Permission } from '@/enums'
 import { ROUTE_PERMISSION_MAP } from '@/lib/constants/route-permissions'
 
+const PERMISSION_FALLBACK_ROUTE_ORDER = [
+  '/dashboard',
+  '/alerts',
+  '/incidents',
+  '/cases',
+  '/explorer',
+  '/hunt',
+  '/intel',
+  '/connectors',
+  '/reports',
+  '/compliance',
+  '/admin/tenant',
+  '/admin/system',
+  '/admin/role-settings',
+  '/profile',
+  '/settings',
+] as const
+
 export class PermissionError extends Error {
   readonly messageKey = 'errors.auth.insufficientPermissions'
 
@@ -50,4 +68,20 @@ export function canAccessRouteByPermission(permissions: string[], pathname: stri
     }
   }
   return true
+}
+
+export function getFirstAccessibleRoute(permissions: string[]): string | null {
+  for (const route of PERMISSION_FALLBACK_ROUTE_ORDER) {
+    if (canAccessRouteByPermission(permissions, route)) {
+      return route
+    }
+  }
+
+  for (const [route] of ROUTE_PERMISSION_MAP) {
+    if (canAccessRouteByPermission(permissions, route)) {
+      return route
+    }
+  }
+
+  return null
 }

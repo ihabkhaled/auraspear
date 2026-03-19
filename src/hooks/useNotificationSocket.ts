@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { io, type Socket } from 'socket.io-client'
@@ -17,12 +18,20 @@ const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:40
  */
 export function useNotificationSocket(): void {
   const queryClient = useQueryClient()
+  const router = useRouter()
   const t = useTranslations('notifications')
   const accessToken = useAuthStore(s => s.accessToken)
   const isAuthenticated = useAuthStore(s => s.isAuthenticated)
   const permissions = useAuthStore(s => s.permissions)
-  const tenantId = useTenantStore(s => s.currentTenantId)
+  const authTenantId = useAuthStore(s => s.user?.tenantId ?? '')
+  const currentTenantId = useTenantStore(s => s.currentTenantId)
+  const tenantId = currentTenantId || authTenantId
   const socketRef = useRef<Socket | null>(null)
+  const permissionsRef = useRef<string[]>(permissions)
+
+  useEffect(() => {
+    permissionsRef.current = permissions
+  }, [permissions])
 
   useEffect(() => {
     if (!isAuthenticated || accessToken.length === 0 || tenantId.length === 0) {
@@ -43,7 +52,7 @@ export function useNotificationSocket(): void {
       // Invalidate notification list so it refetches
       void queryClient.invalidateQueries({ queryKey: ['notifications', tenantId] })
 
-      if (permissions.includes(Permission.NOTIFICATIONS_VIEW)) {
+      if (permissionsRef.current.includes(Permission.NOTIFICATIONS_VIEW)) {
         Toast.info(t('newNotification'))
       }
     })
@@ -54,12 +63,14 @@ export function useNotificationSocket(): void {
     })
 
     socket.on('permissions-updated', () => {
-      void refreshCurrentSessionPermissions(queryClient)
+      void refreshCurrentSessionPermissions(queryClient).then(() => {
+        router.refresh()
+      })
     })
 
     return () => {
       socket.disconnect()
       socketRef.current = null
     }
-  }, [accessToken, isAuthenticated, permissions, queryClient, t, tenantId])
+  }, [accessToken, isAuthenticated, queryClient, router, t, tenantId])
 }

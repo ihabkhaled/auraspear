@@ -4,6 +4,7 @@ import { LoadingSpinner } from '@/components/common'
 import { useNotificationSocket } from '@/hooks/useNotificationSocket'
 import { usePermissionSync } from '@/hooks/usePermissionSync'
 import { usePreferencesSync } from '@/hooks/usePreferencesSync'
+import { useTenantSessionSync } from '@/hooks/useTenantSessionSync'
 import type { PortalShellProps } from '@/types'
 import { CommandPalette } from './CommandPalette'
 import { ImpersonationBanner } from './ImpersonationBanner'
@@ -12,6 +13,7 @@ import { Topbar } from './Topbar'
 
 export function PortalShell({ children }: PortalShellProps) {
   const { syncing } = usePreferencesSync()
+  useTenantSessionSync()
   usePermissionSync()
   useNotificationSocket()
 
