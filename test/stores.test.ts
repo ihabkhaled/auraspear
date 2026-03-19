@@ -19,7 +19,6 @@ describe('useAuthStore', () => {
   test('initial state has no auth', () => {
     const state = useAuthStore.getState()
     expect(state.accessToken).toBe('')
-    expect(state.refreshToken).toBe('')
     expect(state.user).toBeNull()
     expect(state.isAuthenticated).toBe(false)
     expect(state.impersonator).toBeNull()
@@ -29,7 +28,6 @@ describe('useAuthStore', () => {
     useAuthStore.getState().setTokens('access-123', 'refresh-456')
     const state = useAuthStore.getState()
     expect(state.accessToken).toBe('access-123')
-    expect(state.refreshToken).toBe('refresh-456')
     expect(state.isAuthenticated).toBe(true)
   })
 
@@ -66,7 +64,6 @@ describe('useAuthStore', () => {
 
     const state = useAuthStore.getState()
     expect(state.accessToken).toBe('')
-    expect(state.refreshToken).toBe('')
     expect(state.user).toBeNull()
     expect(state.isAuthenticated).toBe(false)
     expect(state.impersonator).toBeNull()

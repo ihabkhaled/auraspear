@@ -686,11 +686,17 @@
       "role": "Role",
       "selectRole": "Select a role",
       "globalAdmin": "Global Admin",
+      "platformOperator": "Platform Operator",
       "tenantAdmin": "Tenant Admin",
+      "detectionEngineer": "Detection Engineer",
+      "incidentResponder": "Incident Responder",
+      "threatIntelAnalyst": "Threat Intel Analyst",
+      "soarEngineer": "SOAR Engineer",
       "socAnalystL2": "SOC Analyst L2",
       "socAnalystL1": "SOC Analyst L1",
       "threatHunter": "Threat Hunter",
       "executiveReadonly": "Executive (Read-Only)",
+      "auditorReadonly": "Auditor (Read-Only)",
       "permissions": "Permissions",
       "roleRequired": "Role is required",
       "permissionsRequired": "At least one permission is required"
@@ -3329,11 +3335,17 @@
       }
     },
     "roles": {
+      "PLATFORM_OPERATOR": "Platform Operator",
       "TENANT_ADMIN": "Tenant Admin",
+      "DETECTION_ENGINEER": "Detection Engineer",
+      "INCIDENT_RESPONDER": "Incident Responder",
+      "THREAT_INTEL_ANALYST": "Threat Intel Analyst",
+      "SOAR_ENGINEER": "SOAR Engineer",
+      "THREAT_HUNTER": "Threat Hunter",
       "SOC_ANALYST_L2": "SOC Analyst L2",
       "SOC_ANALYST_L1": "SOC Analyst L1",
-      "THREAT_HUNTER": "Threat Hunter",
-      "EXECUTIVE_READONLY": "Executive (Read Only)"
+      "EXECUTIVE_READONLY": "Executive (Read Only)",
+      "AUDITOR_READONLY": "Auditor (Read-Only)"
     }
   }
 }

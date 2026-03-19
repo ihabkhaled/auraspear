@@ -5,40 +5,32 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { io, type Socket } from 'socket.io-client'
 import { Toast } from '@/components/common'
-import { AUTH_STORAGE_KEY } from '@/lib/constants/storage'
-import { useTenantStore } from '@/stores'
-import type { AuthStorageState } from '@/types'
+import { Permission } from '@/enums'
+import { refreshCurrentSessionPermissions } from '@/lib/auth-session'
+import { useAuthStore, useTenantStore } from '@/stores'
 
 const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000'
 
-function getAccessToken(): string {
-  if (typeof window === 'undefined') return ''
-  try {
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY)
-    if (!raw) return ''
-    const parsed = JSON.parse(raw) as AuthStorageState
-    return parsed.state?.accessToken ?? ''
-  } catch {
-    return ''
-  }
-}
-
 /**
- * Connects to the backend WebSocket namespace for real-time notifications.
- * Automatically invalidates React Query caches when events arrive.
+ * Connects to the backend realtime namespace and keeps the current
+ * session in sync when notification or permission changes occur.
  */
 export function useNotificationSocket(): void {
   const queryClient = useQueryClient()
   const t = useTranslations('notifications')
+  const accessToken = useAuthStore(s => s.accessToken)
+  const isAuthenticated = useAuthStore(s => s.isAuthenticated)
+  const permissions = useAuthStore(s => s.permissions)
   const tenantId = useTenantStore(s => s.currentTenantId)
   const socketRef = useRef<Socket | null>(null)
 
   useEffect(() => {
-    const token = getAccessToken()
-    if (!token) return
+    if (!isAuthenticated || accessToken.length === 0 || tenantId.length === 0) {
+      return
+    }
 
     const socket = io(`${BACKEND_WS_URL}/notifications`, {
-      auth: { token },
+      auth: { token: accessToken, tenantId },
       transports: ['websocket', 'polling'],
       reconnection: true,
       reconnectionAttempts: 10,
@@ -50,18 +42,24 @@ export function useNotificationSocket(): void {
     socket.on('notification', () => {
       // Invalidate notification list so it refetches
       void queryClient.invalidateQueries({ queryKey: ['notifications', tenantId] })
-      // Show toast
-      Toast.info(t('newNotification'))
+
+      if (permissions.includes(Permission.NOTIFICATIONS_VIEW)) {
+        Toast.info(t('newNotification'))
+      }
     })
 
     socket.on('unread-count', (data: { count: number }) => {
       // Directly update the cached unread count for instant UI update
-      queryClient.setQueryData(['notifications', 'unread-count'], { count: data.count })
+      queryClient.setQueryData(['notifications', tenantId, 'unread-count'], { count: data.count })
+    })
+
+    socket.on('permissions-updated', () => {
+      void refreshCurrentSessionPermissions(queryClient)
     })
 
     return () => {
       socket.disconnect()
       socketRef.current = null
     }
-  }, [queryClient, t, tenantId])
+  }, [accessToken, isAuthenticated, permissions, queryClient, t, tenantId])
 }

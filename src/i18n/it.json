@@ -686,11 +686,17 @@
       "role": "Ruolo",
       "selectRole": "Seleziona un ruolo",
       "globalAdmin": "Amministratore Globale",
+      "platformOperator": "Operatore Piattaforma",
       "tenantAdmin": "Amministratore Tenant",
+      "detectionEngineer": "Ingegnere di Rilevamento",
+      "incidentResponder": "Risponditore agli Incidenti",
+      "threatIntelAnalyst": "Analista di Intelligence sulle Minacce",
+      "soarEngineer": "Ingegnere SOAR",
       "socAnalystL2": "Analista SOC L2",
       "socAnalystL1": "Analista SOC L1",
       "threatHunter": "Cacciatore di Minacce",
       "executiveReadonly": "Esecutivo (Sola Lettura)",
+      "auditorReadonly": "Auditor (Sola Lettura)",
       "permissions": "Permessi",
       "roleRequired": "Il ruolo e obbligatorio",
       "permissionsRequired": "E richiesto almeno un permesso"
@@ -3329,11 +3335,17 @@
       }
     },
     "roles": {
+      "PLATFORM_OPERATOR": "Operatore Piattaforma",
       "TENANT_ADMIN": "Amministratore Tenant",
+      "DETECTION_ENGINEER": "Ingegnere di Rilevamento",
+      "INCIDENT_RESPONDER": "Risponditore agli Incidenti",
+      "THREAT_INTEL_ANALYST": "Analista di Intelligence sulle Minacce",
+      "SOAR_ENGINEER": "Ingegnere SOAR",
+      "THREAT_HUNTER": "Cacciatore di Minacce",
       "SOC_ANALYST_L2": "Analista SOC L2",
       "SOC_ANALYST_L1": "Analista SOC L1",
-      "THREAT_HUNTER": "Cacciatore di Minacce",
-      "EXECUTIVE_READONLY": "Dirigente (Sola Lettura)"
+      "EXECUTIVE_READONLY": "Dirigente (Sola Lettura)",
+      "AUDITOR_READONLY": "Auditor (Sola Lettura)"
     }
   }
 }

@@ -6,6 +6,7 @@ export interface PermissionMatrix {
 
 export interface RoleSettingsResponse {
   matrix: PermissionMatrix
+  configurableRoles: string[]
 }
 
 export interface PermissionDefinition {

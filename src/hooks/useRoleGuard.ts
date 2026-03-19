@@ -2,26 +2,25 @@
 
 import { useEffect } from 'react'
 import { usePathname, useRouter } from 'next/navigation'
-import type { UserRole } from '@/enums'
-import { canAccessRoute } from '@/lib/roles'
+import { canAccessRouteByPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 
 export function useRoleGuard() {
   const pathname = usePathname()
   const router = useRouter()
-  const { user } = useAuthStore()
+  const permissions = useAuthStore(s => s.permissions)
+  const user = useAuthStore(s => s.user)
 
-  const userRole = user?.role as UserRole | undefined
-  const allowed = userRole ? canAccessRoute(userRole, pathname) : false
+  const allowed = permissions.length > 0 ? canAccessRouteByPermission(permissions, pathname) : false
 
   useEffect(() => {
-    if (userRole && !allowed) {
+    if (user && permissions.length > 0 && !allowed) {
       router.replace('/dashboard')
     }
-  }, [userRole, allowed, router])
+  }, [user, permissions, allowed, router])
 
   return {
-    userRole,
+    userRole: user?.role,
     allowed,
   }
 }

@@ -1,16 +1,6 @@
 'use client'
 
 import {
-  LayoutDashboard,
-  Bell,
-  Crosshair,
-  Briefcase,
-  Globe,
-  Settings,
-  Server,
-  Search,
-} from 'lucide-react'
-import {
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -21,11 +11,9 @@ import {
 } from '@/components/ui/command'
 import { useCommandPalette } from '@/hooks'
 
-// PAGE_ICONS contains React component references (LucideIcon), so it must stay inline per CLAUDE.md rule 13 exception.
-const PAGE_ICONS = [LayoutDashboard, Bell, Crosshair, Briefcase, Globe, Settings, Server] as const
-
 export function CommandPalette() {
-  const { t, commandPaletteOpen, setCommandPaletteOpen, handleSelect, pages } = useCommandPalette()
+  const { t, commandPaletteOpen, setCommandPaletteOpen, handleSelect, pages, actions } =
+    useCommandPalette()
 
   return (
     <CommandDialog
@@ -38,23 +26,32 @@ export function CommandPalette() {
       <CommandList>
         <CommandEmpty>{t('layout.noResults')}</CommandEmpty>
         <CommandGroup heading={t('layout.pages')}>
-          {pages.map((page, index) => {
-            const Icon = PAGE_ICONS.at(index)
+          {pages.map(page => {
+            const Icon = page.icon
             return (
               <CommandItem key={page.href} onSelect={() => handleSelect(page.href)}>
-                {Icon ? <Icon className="h-4 w-4" /> : null}
+                <Icon className="h-4 w-4" />
                 <span>{page.label}</span>
               </CommandItem>
             )
           })}
         </CommandGroup>
-        <CommandSeparator />
-        <CommandGroup heading={t('layout.actions')}>
-          <CommandItem onSelect={() => handleSelect('/alerts')}>
-            <Search className="h-4 w-4" />
-            <span>{t('layout.searchAlerts')}</span>
-          </CommandItem>
-        </CommandGroup>
+        {actions.length > 0 ? (
+          <>
+            <CommandSeparator />
+            <CommandGroup heading={t('layout.actions')}>
+              {actions.map(action => {
+                const Icon = action.icon
+                return (
+                  <CommandItem key={action.href} onSelect={() => handleSelect(action.href)}>
+                    <Icon className="h-4 w-4" />
+                    <span>{action.label}</span>
+                  </CommandItem>
+                )
+              })}
+            </CommandGroup>
+          </>
+        ) : null}
       </CommandList>
     </CommandDialog>
   )

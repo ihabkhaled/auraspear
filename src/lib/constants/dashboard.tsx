@@ -57,7 +57,7 @@ export const EXTENDED_KPI_ROUTES: Record<string, string> = {
   openIncidents: '/incidents',
   criticalVulnerabilities: '/vulnerabilities?severity=critical',
   highRiskEntities: '/ueba',
-  activeAttackPaths: '/attack-path',
+  activeAttackPaths: '/attack-paths',
   complianceScore: '/compliance',
   soarExecutions: '/soar',
   systemHealthScore: '/system-health',

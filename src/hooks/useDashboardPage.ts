@@ -3,7 +3,10 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { isConnectorType } from '@/lib/constants/connectors.constants'
 import { EXTENDED_KPI_ROUTES } from '@/lib/constants/dashboard'
+import { formatDashboardPercentage } from '@/lib/dashboard.utils'
 import { computeHealthPercent } from '@/lib/health-utils'
+import { canAccessRouteByPermission } from '@/lib/permissions'
+import { useAuthStore } from '@/stores'
 import type { ExtendedKPIItem, ExtendedKPIStats } from '@/types'
 import { useServiceHealth } from './useAdmin'
 import {
@@ -17,22 +20,41 @@ import {
 export function useDashboardPage() {
   const t = useTranslations('dashboard')
   const router = useRouter()
+  const permissions = useAuthStore(s => s.permissions)
+  const canViewAlertAnalytics = canAccessRouteByPermission(permissions, '/alerts')
+  const canViewPipelineHealth = canAccessRouteByPermission(permissions, '/system-health')
   const { data: kpis, isLoading: kpisLoading } = useKPIs()
-  const { data: trends, isLoading: trendsLoading } = useAlertTrends()
-  const { data: mitre, isLoading: mitreLoading } = useMITREStats()
-  const { data: assets, isLoading: assetsLoading } = useAssetRisks()
-  const { data: health, isLoading: healthLoading } = useServiceHealth()
+  const { data: trends, isLoading: trendsLoading } = useAlertTrends(canViewAlertAnalytics)
+  const { data: mitre, isLoading: mitreLoading } = useMITREStats(canViewAlertAnalytics)
+  const { data: assets, isLoading: assetsLoading } = useAssetRisks(canViewAlertAnalytics)
+  const { data: health, isLoading: healthLoading } = useServiceHealth(canViewPipelineHealth)
   const { data: extendedKPIs, isLoading: extendedKPIsLoading } = useExtendedKPIs()
   const healthServices = health?.data ?? []
   const healthPercent = computeHealthPercent(healthServices)
 
+  const canAccessRoute = useCallback(
+    (route: string) => canAccessRouteByPermission(permissions, route),
+    [permissions]
+  )
+
+  const navigateToRoute = useCallback(
+    (route: string) => {
+      if (!canAccessRoute(route)) {
+        return
+      }
+      router.push(route)
+    },
+    [canAccessRoute, router]
+  )
+
   const handleServiceClick = useCallback(
     (connectorType: string) => {
-      if (isConnectorType(connectorType)) {
-        router.push(`/connectors/${connectorType}`)
+      const route = `/connectors/${connectorType}`
+      if (isConnectorType(connectorType) && canAccessRoute(route)) {
+        router.push(route)
       }
     },
-    [router]
+    [canAccessRoute, router]
   )
 
   const extendedKPIItems: ExtendedKPIItem[] = useMemo(() => {
@@ -59,11 +81,11 @@ export function useDashboardPage() {
       {
         labelKey: 'activeAttackPaths',
         value: stats.activeAttackPaths,
-        route: EXTENDED_KPI_ROUTES['activeAttackPaths'] ?? '/attack-path',
+        route: EXTENDED_KPI_ROUTES['activeAttackPaths'] ?? '/attack-paths',
       },
       {
         labelKey: 'complianceScore',
-        value: stats.complianceScore === null ? 'N/A' : `${stats.complianceScore}%`,
+        value: formatDashboardPercentage(stats.complianceScore),
         route: EXTENDED_KPI_ROUTES['complianceScore'] ?? '/compliance',
       },
       {
@@ -73,7 +95,7 @@ export function useDashboardPage() {
       },
       {
         labelKey: 'systemHealthScore',
-        value: `${stats.systemHealthScore}%`,
+        value: formatDashboardPercentage(stats.systemHealthScore),
         route: EXTENDED_KPI_ROUTES['systemHealthScore'] ?? '/system-health',
       },
     ]
@@ -93,7 +115,10 @@ export function useDashboardPage() {
     healthServices,
     healthPercent,
     handleServiceClick,
-    router,
+    canAccessRoute,
+    canViewAlertAnalytics,
+    canViewPipelineHealth,
+    navigateToRoute,
     extendedKPIItems,
     extendedKPIsLoading,
   }

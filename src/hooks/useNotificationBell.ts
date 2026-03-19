@@ -7,7 +7,6 @@ import { Toast } from '@/components/common'
 import {
   useMarkAllNotificationsRead,
   useMarkNotificationRead,
-  useNotificationSocket,
   useNotifications,
   useUnreadNotificationCount,
 } from '@/hooks'
@@ -25,9 +24,6 @@ export function useNotificationBell() {
 
   const { data: unreadData } = useUnreadNotificationCount()
   const unreadCount = unreadData?.count ?? 0
-
-  // Real-time notifications via WebSocket
-  useNotificationSocket()
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useNotifications()
 

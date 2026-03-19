@@ -6,11 +6,17 @@ import { UserRole } from '@/enums'
  */
 export const ROLE_HIERARCHY: UserRole[] = [
   UserRole.GLOBAL_ADMIN,
+  UserRole.PLATFORM_OPERATOR,
   UserRole.TENANT_ADMIN,
-  UserRole.SOC_ANALYST_L2,
+  UserRole.DETECTION_ENGINEER,
+  UserRole.INCIDENT_RESPONDER,
+  UserRole.THREAT_INTEL_ANALYST,
+  UserRole.SOAR_ENGINEER,
   UserRole.THREAT_HUNTER,
+  UserRole.SOC_ANALYST_L2,
   UserRole.SOC_ANALYST_L1,
   UserRole.EXECUTIVE_READONLY,
+  UserRole.AUDITOR_READONLY,
 ]
 
 /**
@@ -29,59 +35,21 @@ export function hasRole(userRole: UserRole, requiredRole: UserRole): boolean {
 }
 
 /**
- * Route-to-minimum-role mapping.
- * Routes not listed here are accessible to all authenticated users.
- */
-export const ROUTE_ROLE_MAP: Record<string, UserRole> = {
-  '/alerts': UserRole.SOC_ANALYST_L1,
-  '/hunt': UserRole.THREAT_HUNTER,
-  '/cases': UserRole.SOC_ANALYST_L1,
-  '/intel': UserRole.SOC_ANALYST_L1,
-  '/connectors': UserRole.SOC_ANALYST_L2,
-  '/explorer': UserRole.SOC_ANALYST_L1,
-  '/admin/tenant': UserRole.TENANT_ADMIN,
-  '/admin/system': UserRole.GLOBAL_ADMIN,
-  '/admin/role-settings': UserRole.GLOBAL_ADMIN,
-  '/dashboard': UserRole.EXECUTIVE_READONLY,
-  '/profile': UserRole.EXECUTIVE_READONLY,
-  '/settings': UserRole.EXECUTIVE_READONLY,
-  '/incidents': UserRole.SOC_ANALYST_L1,
-  '/correlation': UserRole.THREAT_HUNTER,
-  '/attack-paths': UserRole.SOC_ANALYST_L2,
-  '/ueba': UserRole.SOC_ANALYST_L2,
-  '/soar': UserRole.SOC_ANALYST_L2,
-  '/normalization': UserRole.TENANT_ADMIN,
-  '/detection-rules': UserRole.THREAT_HUNTER,
-  '/cloud-security': UserRole.SOC_ANALYST_L2,
-  '/vulnerabilities': UserRole.SOC_ANALYST_L1,
-  '/system-health': UserRole.SOC_ANALYST_L2,
-  '/ai-agents': UserRole.TENANT_ADMIN,
-  '/compliance': UserRole.EXECUTIVE_READONLY,
-  '/reports': UserRole.EXECUTIVE_READONLY,
-}
-
-/**
- * Check if `userRole` can access `pathname`.
- */
-export function canAccessRoute(userRole: UserRole, pathname: string): boolean {
-  for (const [route, requiredRole] of Object.entries(ROUTE_ROLE_MAP)) {
-    if (pathname.startsWith(route)) {
-      return hasRole(userRole, requiredRole)
-    }
-  }
-  return true
-}
-
-/**
  * Role options for select dropdowns in admin dialogs.
  */
 export const ROLE_OPTIONS = [
   { value: UserRole.GLOBAL_ADMIN, labelKey: 'roles.globalAdmin' },
+  { value: UserRole.PLATFORM_OPERATOR, labelKey: 'roles.platformOperator' },
   { value: UserRole.TENANT_ADMIN, labelKey: 'roles.tenantAdmin' },
+  { value: UserRole.DETECTION_ENGINEER, labelKey: 'roles.detectionEngineer' },
+  { value: UserRole.INCIDENT_RESPONDER, labelKey: 'roles.incidentResponder' },
+  { value: UserRole.THREAT_INTEL_ANALYST, labelKey: 'roles.threatIntelAnalyst' },
+  { value: UserRole.SOAR_ENGINEER, labelKey: 'roles.soarEngineer' },
+  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
   { value: UserRole.SOC_ANALYST_L2, labelKey: 'roles.socAnalystL2' },
   { value: UserRole.SOC_ANALYST_L1, labelKey: 'roles.socAnalystL1' },
-  { value: UserRole.THREAT_HUNTER, labelKey: 'roles.threatHunter' },
   { value: UserRole.EXECUTIVE_READONLY, labelKey: 'roles.executiveReadonly' },
+  { value: UserRole.AUDITOR_READONLY, labelKey: 'roles.auditorReadonly' },
 ] as const
 
 /**

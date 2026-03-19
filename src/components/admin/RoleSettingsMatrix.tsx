@@ -15,18 +15,6 @@ export function RoleSettingsMatrix({
 }: RoleSettingsMatrixProps) {
   return (
     <div className="space-y-4">
-      {/* Header row with role names */}
-      <div className="bg-card border-border sticky top-0 z-10 hidden rounded-lg border p-3 lg:grid lg:grid-cols-6 lg:items-center lg:gap-4">
-        <div className="text-muted-foreground text-sm font-semibold">
-          {t('roleSettings.permission')}
-        </div>
-        {configurableRoles.map(role => (
-          <div key={role} className="text-center text-xs font-semibold">
-            {t(`roleSettings.roles.${role}`)}
-          </div>
-        ))}
-      </div>
-
       {/* Permission groups */}
       {permissionGroups.map(group => (
         <Collapsible key={group.key} defaultOpen>
@@ -37,34 +25,52 @@ export function RoleSettingsMatrix({
             </CollapsibleTrigger>
 
             <CollapsibleContent>
-              <div className="divide-border divide-y">
-                {group.permissions.map(permission => (
-                  <div
-                    key={permission}
-                    className={cn(
-                      'grid grid-cols-1 items-center gap-2 p-3 lg:grid-cols-6 lg:gap-4',
-                      'hover:bg-muted/30 transition-colors'
-                    )}
-                  >
-                    <div className="text-muted-foreground text-sm">
-                      {t(String(Reflect.get(permissionLabelMap, permission) ?? permission))}
-                    </div>
-                    {configurableRoles.map(role => (
-                      <div key={role} className="flex items-center gap-2 lg:justify-center">
-                        <span className="text-muted-foreground text-xs lg:hidden">
-                          {t(`roleSettings.roles.${role}`)}:
-                        </span>
-                        <Checkbox
-                          className="cursor-pointer"
-                          checked={isChecked(role, permission)}
-                          onCheckedChange={checked => onToggle(role, permission, Boolean(checked))}
-                          disabled={disabled}
-                          aria-label={`${t(String(Reflect.get(permissionLabelMap, permission) ?? permission))} - ${t(`roleSettings.roles.${role}`)}`}
-                        />
-                      </div>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-max border-collapse">
+                  <thead>
+                    <tr className="border-border border-b">
+                      <th className="bg-card text-muted-foreground sticky left-0 z-10 px-3 py-2 text-start text-xs font-semibold">
+                        {t('roleSettings.permission')}
+                      </th>
+                      {configurableRoles.map(role => (
+                        <th
+                          key={role}
+                          className="px-2 py-2 text-center text-xs font-semibold whitespace-nowrap"
+                        >
+                          {t(`roleSettings.roles.${role}`)}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {group.permissions.map(permission => (
+                      <tr
+                        key={permission}
+                        className={cn(
+                          'border-border border-b last:border-b-0',
+                          'hover:bg-muted/30 transition-colors'
+                        )}
+                      >
+                        <td className="bg-card text-muted-foreground sticky left-0 z-10 px-3 py-2 text-sm whitespace-nowrap">
+                          {t(String(Reflect.get(permissionLabelMap, permission) ?? permission))}
+                        </td>
+                        {configurableRoles.map(role => (
+                          <td key={role} className="px-2 py-2 text-center">
+                            <Checkbox
+                              className="mx-auto cursor-pointer"
+                              checked={isChecked(role, permission)}
+                              onCheckedChange={checked =>
+                                onToggle(role, permission, Boolean(checked))
+                              }
+                              disabled={disabled}
+                              aria-label={`${t(String(Reflect.get(permissionLabelMap, permission) ?? permission))} - ${t(`roleSettings.roles.${role}`)}`}
+                            />
+                          </td>
+                        ))}
+                      </tr>
                     ))}
-                  </div>
-                ))}
+                  </tbody>
+                </table>
               </div>
             </CollapsibleContent>
           </div>

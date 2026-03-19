@@ -20,6 +20,7 @@ export default function RoleSettingsPage() {
     handleReset,
     isChecked,
     canEditRoles,
+    canResetDefaults,
   } = useRoleSettingsPage()
 
   if (isLoading) {
@@ -37,6 +38,7 @@ export default function RoleSettingsPage() {
               isDirty={isDirty}
               isSaving={isSaving}
               isResetting={isResetting}
+              showReset={canResetDefaults}
               onSave={handleSave}
               onReset={handleReset}
               t={t}

@@ -1,6 +1,7 @@
 'use client'
 
 import { LoadingSpinner } from '@/components/common'
+import { useNotificationSocket } from '@/hooks/useNotificationSocket'
 import { usePermissionSync } from '@/hooks/usePermissionSync'
 import { usePreferencesSync } from '@/hooks/usePreferencesSync'
 import type { PortalShellProps } from '@/types'
@@ -12,6 +13,7 @@ import { Topbar } from './Topbar'
 export function PortalShell({ children }: PortalShellProps) {
   const { syncing } = usePreferencesSync()
   usePermissionSync()
+  useNotificationSocket()
 
   if (syncing) {
     return (

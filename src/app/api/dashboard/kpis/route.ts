@@ -1,12 +1,13 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { fetchBackendJson } from '@/lib/backend-proxy'
+import { type NextRequest } from 'next/server'
+import { fetchBackendJson, jsonNoStore } from '@/lib/backend-proxy'
 import type { BackendSummary } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
-    const raw = (await fetchBackendJson(request, '/dashboards/summary')) as BackendSummary
+    const { data: rawData } = await fetchBackendJson(request, '/dashboards/summary')
+    const raw = rawData as BackendSummary
 
     const mttrValue = Number.parseInt(raw.meanTimeToRespond, 10) || 0
 
@@ -41,9 +42,9 @@ export async function GET(request: NextRequest) {
       },
     ]
 
-    return NextResponse.json({ data })
+    return jsonNoStore({ data })
   } catch (error) {
     console.error('[dashboard/kpis]', error)
-    return NextResponse.json({ data: null, error: 'Internal server error' }, { status: 502 })
+    return jsonNoStore({ data: null, error: 'Internal server error' }, { status: 502 })
   }
 }

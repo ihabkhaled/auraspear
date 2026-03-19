@@ -2,8 +2,8 @@ import { ServiceStatus } from '@/enums'
 import { computeHealthPercent, computeMaxLatency } from '@/lib/health-utils'
 import { useServiceHealth } from './useAdmin'
 
-export function useSidebarHealth() {
-  const { data, isLoading } = useServiceHealth()
+export function useSidebarHealth(enabled = true) {
+  const { data, isLoading } = useServiceHealth(enabled)
   const services = data?.data ?? []
 
   const healthPercent = computeHealthPercent(services)

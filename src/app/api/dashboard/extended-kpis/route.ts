@@ -1,20 +1,29 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { fetchBackendJson } from '@/lib/backend-proxy'
+import { type NextRequest } from 'next/server'
+import { fetchBackendJson, jsonNoStore } from '@/lib/backend-proxy'
 import type {
   IncidentStats,
   VulnerabilityStats,
   UebaStats,
   AttackPathStats,
-  ComplianceStats,
   SoarStats,
   SystemHealthStats,
 } from '@/types'
+
+interface DashboardComplianceStats {
+  avgComplianceScore?: number | null
+  overallComplianceScore?: number | null
+  totalFrameworks: number
+  passedControls: number
+  failedControls: number
+  notAssessedControls: number
+}
 
 export const dynamic = 'force-dynamic'
 
 async function fetchStatsSafe<T>(request: NextRequest, path: string, fallback: T): Promise<T> {
   try {
-    const result = (await fetchBackendJson(request, path)) as T
+    const { data } = await fetchBackendJson(request, path)
+    const result = data as T
     return result ?? fallback
   } catch {
     return fallback
@@ -51,9 +60,10 @@ export async function GET(request: NextRequest) {
           assetsAtRisk: 0,
           avgKillChainCoverage: 0,
         }),
-        fetchStatsSafe<ComplianceStats>(request, '/compliance/stats', {
+        fetchStatsSafe<DashboardComplianceStats>(request, '/compliance/stats', {
           totalFrameworks: 0,
           avgComplianceScore: null,
+          overallComplianceScore: null,
           passedControls: 0,
           failedControls: 0,
           notAssessedControls: 0,
@@ -77,20 +87,22 @@ export async function GET(request: NextRequest) {
 
     const totalServices = systemHealth.totalServices || 1
     const healthScore = Math.round((systemHealth.healthyServices / totalServices) * 100)
+    const complianceScore =
+      compliance.avgComplianceScore ?? compliance.overallComplianceScore ?? null
 
     const data = {
       openIncidents: incidents.open + incidents.inProgress,
       criticalVulnerabilities: vulnerabilities.critical,
       highRiskEntities: ueba.criticalRiskEntities + ueba.highRiskEntities,
       activeAttackPaths: attackPaths.activePaths,
-      complianceScore: compliance.avgComplianceScore,
+      complianceScore,
       soarExecutions: soar.totalExecutions30d,
       systemHealthScore: healthScore,
     }
 
-    return NextResponse.json({ data })
+    return jsonNoStore({ data })
   } catch (error) {
     console.error('[dashboard/extended-kpis]', error)
-    return NextResponse.json({ data: null, error: 'Internal server error' }, { status: 502 })
+    return jsonNoStore({ data: null, error: 'Internal server error' }, { status: 502 })
   }
 }

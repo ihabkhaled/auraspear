@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { UserRole } from '@/enums'
 import { useTenants } from '@/hooks'
-import { authService } from '@/services/auth.service'
+import { refreshCurrentSessionPermissions } from '@/lib/auth-session'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useTenantSwitcher() {
@@ -13,7 +13,6 @@ export function useTenantSwitcher() {
   const queryClient = useQueryClient()
   const { currentTenantId, tenants, userTenants, setCurrentTenant, setTenants } = useTenantStore()
   const user = useAuthStore(s => s.user)
-  const setPermissions = useAuthStore(s => s.setPermissions)
 
   const isGlobalAdmin = user?.role === UserRole.GLOBAL_ADMIN
 
@@ -34,15 +33,7 @@ export function useTenantSwitcher() {
     setCurrentTenant(value)
     void queryClient.invalidateQueries()
 
-    // Immediately refresh permissions for the new tenant context
-    authService
-      .getMe()
-      .then(meData => {
-        setPermissions(meData.permissions ?? [])
-      })
-      .catch(() => {
-        // Permissions refresh failed — keep existing permissions
-      })
+    void refreshCurrentSessionPermissions(queryClient)
   }
 
   return {

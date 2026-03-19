@@ -2,20 +2,17 @@ import { useState, useCallback, useMemo } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { Permission, UserRole } from '@/enums'
+import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { hasPermission, requirePermission } from '@/lib/permissions'
+import {
+  canResetRoleSettings,
+  canToggleRoleSettingsPermission,
+  filterRoleSettingsPermissionGroups,
+} from '@/lib/role-settings'
 import { roleSettingsService } from '@/services'
 import { useAuthStore } from '@/stores'
 import type { PermissionDefinition, PermissionGroup } from '@/types'
-
-const CONFIGURABLE_ROLES = [
-  UserRole.TENANT_ADMIN,
-  UserRole.SOC_ANALYST_L2,
-  UserRole.THREAT_HUNTER,
-  UserRole.SOC_ANALYST_L1,
-  UserRole.EXECUTIVE_READONLY,
-] as const
 
 /**
  * Build permission groups from the DB-backed permission definitions.
@@ -64,8 +61,10 @@ export function useRoleSettingsPage() {
   const tErrors = useTranslations('errors')
   const queryClient = useQueryClient()
   const permissions = useAuthStore(s => s.permissions)
+  const actorRole = useAuthStore(s => s.user?.role)
 
   const canEditRoles = hasPermission(permissions, Permission.ROLE_SETTINGS_UPDATE)
+  const canResetDefaults = canResetRoleSettings(actorRole, canEditRoles)
 
   const [localMatrix, setLocalMatrix] = useState<Record<string, string[]>>({})
   const [isDirty, setIsDirty] = useState(false)
@@ -77,19 +76,28 @@ export function useRoleSettingsPage() {
     select: response => response.data,
   })
 
-  // Fetch current permission matrix
+  // Fetch current permission matrix + configurable roles from backend
   const {
-    data,
+    data: matrixResponse,
     isLoading: isLoadingMatrix,
     isFetching,
   } = useQuery({
     queryKey: ['role-settings'],
     queryFn: () => roleSettingsService.getPermissionMatrix(),
-    select: response => response.data?.matrix,
+    select: response => response.data,
   })
 
+  const data = matrixResponse?.matrix
+  const configurableRoles: string[] = useMemo(
+    () => matrixResponse?.configurableRoles ?? [],
+    [matrixResponse?.configurableRoles]
+  )
+
   // Build permission groups from DB definitions
-  const permissionGroups = useMemo(() => buildGroups(definitions), [definitions])
+  const permissionGroups = useMemo(
+    () => filterRoleSettingsPermissionGroups(buildGroups(definitions), actorRole),
+    [actorRole, definitions]
+  )
 
   // Build permission key → labelKey map from DB definitions
   const permissionLabelMap = useMemo(() => buildLabelMap(definitions), [definitions])
@@ -97,7 +105,7 @@ export function useRoleSettingsPage() {
   // Initialize local matrix from server data
   const serverMatrix = data
   if (serverMatrix && !isDirty) {
-    const needsUpdate = CONFIGURABLE_ROLES.some(role => {
+    const needsUpdate = configurableRoles.some((role: string) => {
       const local = Reflect.get(localMatrix, role) as string[] | undefined
       const server = Reflect.get(serverMatrix, role) as string[] | undefined
       if (!local && server) return true
@@ -110,26 +118,33 @@ export function useRoleSettingsPage() {
     }
   }
 
-  const handleToggle = useCallback((role: string, permission: string, checked: boolean) => {
-    setLocalMatrix(prev => {
-      const existing = Reflect.get(prev, role) as string[] | undefined
-      const rolePermissions = [...(existing ?? [])]
-
-      if (checked) {
-        if (!rolePermissions.includes(permission)) {
-          rolePermissions.push(permission)
-        }
-      } else {
-        const idx = rolePermissions.indexOf(permission)
-        if (idx !== -1) {
-          rolePermissions.splice(idx, 1)
-        }
+  const handleToggle = useCallback(
+    (role: string, permission: string, checked: boolean) => {
+      if (!canToggleRoleSettingsPermission(actorRole, permission)) {
+        return
       }
 
-      return { ...prev, [role]: rolePermissions }
-    })
-    setIsDirty(true)
-  }, [])
+      setLocalMatrix(prev => {
+        const existing = Reflect.get(prev, role) as string[] | undefined
+        const rolePermissions = [...(existing ?? [])]
+
+        if (checked) {
+          if (!rolePermissions.includes(permission)) {
+            rolePermissions.push(permission)
+          }
+        } else {
+          const idx = rolePermissions.indexOf(permission)
+          if (idx !== -1) {
+            rolePermissions.splice(idx, 1)
+          }
+        }
+
+        return { ...prev, [role]: rolePermissions }
+      })
+      setIsDirty(true)
+    },
+    [actorRole]
+  )
 
   const updateMutation = useMutation({
     mutationFn: (matrix: Record<string, string[]>) => {
@@ -180,8 +195,6 @@ export function useRoleSettingsPage() {
     [localMatrix]
   )
 
-  const configurableRoles = useMemo(() => [...CONFIGURABLE_ROLES], [])
-
   return {
     t,
     isLoading: isLoadingDefs || isLoadingMatrix,
@@ -197,5 +210,6 @@ export function useRoleSettingsPage() {
     handleReset,
     isChecked,
     canEditRoles,
+    canResetDefaults,
   }
 }

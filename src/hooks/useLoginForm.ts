@@ -27,7 +27,7 @@ export function useLoginForm() {
     authService
       .login(email, password)
       .then(data => {
-        setTokens(data.accessToken, data.refreshToken)
+        setTokens(data.accessToken)
         setUser(data.user)
         setPermissions(data.permissions ?? [])
         setCurrentTenant(data.user.tenantId)

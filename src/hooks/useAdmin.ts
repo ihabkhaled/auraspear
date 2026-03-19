@@ -72,12 +72,13 @@ export function useAddUser() {
   })
 }
 
-export function useServiceHealth() {
+export function useServiceHealth(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['admin', tenantId, 'service-health'],
     queryFn: () => adminService.getServiceHealth(),
+    enabled,
     refetchInterval: POLLING_INTERVAL,
   })
 }

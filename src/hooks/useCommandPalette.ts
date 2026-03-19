@@ -2,13 +2,32 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import {
+  Bell,
+  Briefcase,
+  Crosshair,
+  Globe,
+  LayoutDashboard,
+  Search,
+  Server,
+  Settings,
+  type LucideIcon,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useUIStore } from '@/stores'
+import { canAccessRouteByPermission, filterAccessibleItemsByRoute } from '@/lib/permissions'
+import { useAuthStore, useUIStore } from '@/stores'
+
+interface CommandPaletteRouteItem {
+  label: string
+  href: string
+  icon: LucideIcon
+}
 
 export function useCommandPalette() {
   const t = useTranslations()
   const router = useRouter()
   const { commandPaletteOpen, setCommandPaletteOpen } = useUIStore()
+  const permissions = useAuthStore(s => s.permissions)
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
@@ -24,18 +43,31 @@ export function useCommandPalette() {
 
   function handleSelect(href: string) {
     setCommandPaletteOpen(false)
+    if (!canAccessRouteByPermission(permissions, href)) {
+      return
+    }
     router.push(href)
   }
 
-  const pages = [
-    { label: t('nav.dashboard'), href: '/dashboard' },
-    { label: t('nav.alerts'), href: '/alerts' },
-    { label: t('nav.hunt'), href: '/hunt' },
-    { label: t('nav.cases'), href: '/cases' },
-    { label: t('nav.intel'), href: '/intel' },
-    { label: t('nav.tenantConfig'), href: '/admin/tenant' },
-    { label: t('nav.systemAdmin'), href: '/admin/system' },
-  ]
+  const pages = filterAccessibleItemsByRoute<CommandPaletteRouteItem>(
+    permissions,
+    [
+      { label: t('nav.dashboard'), href: '/dashboard', icon: LayoutDashboard },
+      { label: t('nav.alerts'), href: '/alerts', icon: Bell },
+      { label: t('nav.hunt'), href: '/hunt', icon: Crosshair },
+      { label: t('nav.cases'), href: '/cases', icon: Briefcase },
+      { label: t('nav.intel'), href: '/intel', icon: Globe },
+      { label: t('nav.tenantConfig'), href: '/admin/tenant', icon: Settings },
+      { label: t('nav.systemAdmin'), href: '/admin/system', icon: Server },
+    ],
+    page => page.href
+  )
+
+  const actions = filterAccessibleItemsByRoute<CommandPaletteRouteItem>(
+    permissions,
+    [{ label: t('layout.searchAlerts'), href: '/alerts', icon: Search }],
+    action => action.href
+  )
 
   return {
     t,
@@ -43,5 +75,6 @@ export function useCommandPalette() {
     setCommandPaletteOpen,
     handleSelect,
     pages,
+    actions,
   }
 }

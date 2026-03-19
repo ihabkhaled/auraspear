@@ -24,6 +24,7 @@ function SidebarContent({
     servicesOnline,
     totalServices,
     maxLatencyMs,
+    canViewSystemHealth,
   } = useSidebarContent()
 
   return (
@@ -102,13 +103,15 @@ function SidebarContent({
         </div>
       </nav>
 
-      <SidebarHealthFooter
-        collapsed={collapsed}
-        healthPercent={healthPercent}
-        servicesOnline={servicesOnline}
-        totalServices={totalServices}
-        maxLatencyMs={maxLatencyMs}
-      />
+      {canViewSystemHealth && (
+        <SidebarHealthFooter
+          collapsed={collapsed}
+          healthPercent={healthPercent}
+          servicesOnline={servicesOnline}
+          totalServices={totalServices}
+          maxLatencyMs={maxLatencyMs}
+        />
+      )}
     </>
   )
 }

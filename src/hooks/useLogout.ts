@@ -8,8 +8,7 @@ import { useAuthStore, useTenantStore } from '@/stores'
 export function useLogout() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { logout, refreshToken, impersonator, setTokens, setUser, endImpersonation } =
-    useAuthStore()
+  const { logout, impersonator, setTokens, setUser, endImpersonation } = useAuthStore()
   const { setCurrentTenant } = useTenantStore()
 
   const handleLogout = useCallback(async () => {
@@ -17,7 +16,7 @@ export function useLogout() {
     if (impersonator) {
       try {
         const { data } = await authService.endImpersonation()
-        setTokens(data.accessToken, data.refreshToken)
+        setTokens(data.accessToken)
         setUser({
           sub: data.user.sub,
           email: data.user.email,
@@ -37,12 +36,16 @@ export function useLogout() {
 
     // Full logout — blacklist tokens on the backend
     try {
-      if (refreshToken) {
-        await authService.logout(refreshToken)
-      }
+      await authService.logout()
     } catch {
       // Proceed with local logout even if backend call fails
     }
+
+    // Clear service worker caches that may contain authenticated data
+    // (RSC pages, HTML pages, and any residual API responses)
+    const swCacheNames = ['apis', 'pages-rsc-prefetch', 'pages-rsc', 'pages']
+    await Promise.allSettled(swCacheNames.map(name => caches.delete(name)))
+
     queryClient.clear()
     setCurrentTenant('')
     logout()
@@ -50,7 +53,6 @@ export function useLogout() {
   }, [
     queryClient,
     logout,
-    refreshToken,
     setCurrentTenant,
     router,
     impersonator,

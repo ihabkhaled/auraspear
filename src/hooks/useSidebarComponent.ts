@@ -25,9 +25,8 @@ import {
   Lock,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import type { UserRole } from '@/enums'
 import { useSidebarHealth } from '@/hooks/useSidebarHealth'
-import { canAccessRoute } from '@/lib/roles'
+import { canAccessRouteByPermission } from '@/lib/permissions'
 import { useUIStore, useAuthStore } from '@/stores'
 import type { NavSection } from '@/types'
 
@@ -35,9 +34,11 @@ export function useSidebarContent() {
   const pathname = usePathname()
   const t = useTranslations()
   const { toggleSidebar } = useUIStore()
-  const { user } = useAuthStore()
-  const userRole = user?.role as UserRole | undefined
-  const { healthPercent, servicesOnline, totalServices, maxLatencyMs } = useSidebarHealth()
+  const permissions = useAuthStore(s => s.permissions)
+  const canViewSystemHealth =
+    permissions.length > 0 ? canAccessRouteByPermission(permissions, '/system-health') : false
+  const { healthPercent, servicesOnline, totalServices, maxLatencyMs } =
+    useSidebarHealth(canViewSystemHealth)
 
   const allSections: NavSection[] = [
     {
@@ -95,15 +96,16 @@ export function useSidebarContent() {
     },
   ]
 
-  // Filter sections and items based on user role
-  const sections = userRole
-    ? allSections
-        .map(section => ({
-          ...section,
-          items: section.items.filter(item => canAccessRoute(userRole, item.href)),
-        }))
-        .filter(section => section.items.length > 0)
-    : allSections
+  // Filter sections and items based on user permissions
+  const sections =
+    permissions.length > 0
+      ? allSections
+          .map(section => ({
+            ...section,
+            items: section.items.filter(item => canAccessRouteByPermission(permissions, item.href)),
+          }))
+          .filter(section => section.items.length > 0)
+      : allSections
 
   return {
     pathname,
@@ -114,6 +116,7 @@ export function useSidebarContent() {
     servicesOnline,
     totalServices,
     maxLatencyMs,
+    canViewSystemHealth,
   }
 }
 

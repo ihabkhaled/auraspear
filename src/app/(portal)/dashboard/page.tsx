@@ -4,7 +4,7 @@ import { Shield, BarChart3 } from 'lucide-react'
 import { AlertTrendChart } from '@/components/charts'
 import { PageHeader, KpiCard, LoadingSpinner, EmptyState } from '@/components/common'
 import {
-  DashboardCard,
+  DashboardSectionCard,
   MitreTopTechniques,
   TopTargetedAssets,
   PipelineHealthBar,
@@ -19,6 +19,8 @@ import {
   EXTENDED_KPI_ICONS,
   EXTENDED_KPI_COLORS,
 } from '@/lib/constants/dashboard'
+import { getDashboardCardGridClass } from '@/lib/dashboard.utils'
+import { cn } from '@/lib/utils'
 
 export default function DashboardPage() {
   const {
@@ -35,7 +37,10 @@ export default function DashboardPage() {
     healthServices,
     healthPercent,
     handleServiceClick,
-    router,
+    canAccessRoute,
+    canViewAlertAnalytics,
+    canViewPipelineHealth,
+    navigateToRoute,
     extendedKPIItems,
     extendedKPIsLoading,
   } = useDashboardPage()
@@ -55,6 +60,9 @@ export default function DashboardPage() {
     }
     return kpis?.data?.map((kpi, i) => {
       const route = Reflect.get(KPI_ROUTES, kpi.label) as string | undefined
+      if (route && !canAccessRoute(route)) {
+        return null
+      }
       return (
         <KpiCard
           key={kpi.label}
@@ -64,7 +72,7 @@ export default function DashboardPage() {
           trendLabel={t(kpi.trendLabel)}
           icon={KPI_ICONS.at(i) ?? KPI_ICONS.at(0) ?? <Shield className="h-5 w-5" />}
           accentColor={KPI_COLORS.at(i)}
-          onClick={route ? () => router.push(route) : undefined}
+          onClick={route ? () => navigateToRoute(route) : undefined}
         />
       )
     })
@@ -72,16 +80,19 @@ export default function DashboardPage() {
 
   function renderExtendedKPIs() {
     if (extendedKPIsLoading) return <LoadingSpinner />
-    if (extendedKPIItems.length === 0) return null
+    if (!extendedKPIItems.some(item => canAccessRoute(item.route))) return null
 
     return extendedKPIItems.map((item, i) => {
+      if (!canAccessRoute(item.route)) {
+        return null
+      }
       const icon = EXTENDED_KPI_ICONS.at(i) ?? EXTENDED_KPI_ICONS.at(0)
       const color = EXTENDED_KPI_COLORS.at(i)
       return (
         <Card
           key={item.labelKey}
           className="hover:bg-muted/50 cursor-pointer transition-colors"
-          onClick={() => router.push(item.route)}
+          onClick={() => navigateToRoute(item.route)}
         >
           <CardContent className="flex items-center gap-3 py-3">
             <div
@@ -105,60 +116,73 @@ export default function DashboardPage() {
     })
   }
 
+  const visibleKpiCount =
+    kpis?.data?.filter(kpi => {
+      const route = Reflect.get(KPI_ROUTES, kpi.label) as string | undefined
+      return !route || canAccessRoute(route)
+    }).length ?? 0
+
+  const visibleExtendedKpiCount = extendedKPIItems.filter(item => canAccessRoute(item.route)).length
+
   return (
     <div className="space-y-6">
       <PageHeader title={t('title')} description={t('description')} />
 
-      {/* KPI Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">{renderKPIs()}</div>
-
-      {/* Extended KPI Grid */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
-        {renderExtendedKPIs()}
+      <div className={cn('grid gap-4', getDashboardCardGridClass(visibleKpiCount))}>
+        {renderKPIs()}
       </div>
 
-      {/* Alert Trend Chart */}
-      <DashboardCard
-        title={t('alertTrends')}
-        action={<span className="text-muted-foreground text-xs">{t('last7Days')}</span>}
-      >
-        {trendsLoading ? <LoadingSpinner /> : <AlertTrendChart data={trends?.data ?? []} />}
-      </DashboardCard>
+      {visibleExtendedKpiCount > 0 ? (
+        <div className={cn('grid gap-3', getDashboardCardGridClass(visibleExtendedKpiCount))}>
+          {renderExtendedKPIs()}
+        </div>
+      ) : null}
 
-      {/* Two column: MITRE + Assets */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <DashboardCard title={t('mitreTopTechniques')}>
-          {mitreLoading ? (
-            <LoadingSpinner />
-          ) : (
-            <MitreTopTechniques techniques={mitre?.data ?? []} />
-          )}
-        </DashboardCard>
-        <DashboardCard title={t('topTargetedAssets')}>
-          {assetsLoading ? <LoadingSpinner /> : <TopTargetedAssets assets={assets?.data ?? []} />}
-        </DashboardCard>
-      </div>
-
-      {/* Recent Activity + Pipeline Health */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <DashboardCard title={t('recentActivity')}>
-          <RecentActivityFeed />
-        </DashboardCard>
-
-        <DashboardCard
-          title={t('pipelineHealth')}
-          action={
-            <span className="text-muted-foreground text-xs">
-              {t('systemHealth')}: {healthPercent}%
-            </span>
-          }
+      {canViewAlertAnalytics ? (
+        <DashboardSectionCard
+          title={t('alertTrends')}
+          action={<span className="text-muted-foreground text-xs">{t('last7Days')}</span>}
         >
-          {healthLoading ? (
-            <LoadingSpinner />
-          ) : (
-            <PipelineHealthBar services={healthServices} onServiceClick={handleServiceClick} />
-          )}
-        </DashboardCard>
+          {trendsLoading ? <LoadingSpinner /> : <AlertTrendChart data={trends?.data ?? []} />}
+        </DashboardSectionCard>
+      ) : null}
+
+      {canViewAlertAnalytics ? (
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+          <DashboardSectionCard title={t('mitreTopTechniques')}>
+            {mitreLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <MitreTopTechniques techniques={mitre?.data ?? []} />
+            )}
+          </DashboardSectionCard>
+          <DashboardSectionCard title={t('topTargetedAssets')}>
+            {assetsLoading ? <LoadingSpinner /> : <TopTargetedAssets assets={assets?.data ?? []} />}
+          </DashboardSectionCard>
+        </div>
+      ) : null}
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <DashboardSectionCard title={t('recentActivity')}>
+          <RecentActivityFeed />
+        </DashboardSectionCard>
+
+        {canViewPipelineHealth ? (
+          <DashboardSectionCard
+            title={t('pipelineHealth')}
+            action={
+              <span className="text-muted-foreground text-xs">
+                {t('systemHealth')}: {healthPercent}%
+              </span>
+            }
+          >
+            {healthLoading ? (
+              <LoadingSpinner />
+            ) : (
+              <PipelineHealthBar services={healthServices} onServiceClick={handleServiceClick} />
+            )}
+          </DashboardSectionCard>
+        ) : null}
       </div>
     </div>
   )

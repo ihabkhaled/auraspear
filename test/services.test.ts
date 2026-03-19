@@ -60,13 +60,13 @@ describe('authService', () => {
   })
 
   describe('refresh', () => {
-    it('should call POST /auth/refresh with refresh token', async () => {
-      const mockResponse = { accessToken: 'new-at', refreshToken: 'new-rt' }
+    it('should call POST /auth/refresh with cookie-backed session payload', async () => {
+      const mockResponse = { accessToken: 'new-at', csrfToken: 'csrf-token' }
       mockPost.mockResolvedValue({ data: mockResponse })
 
-      const result = await authService.refresh('old-rt')
+      const result = await authService.refresh()
 
-      expect(mockPost).toHaveBeenCalledWith('/auth/refresh', { refreshToken: 'old-rt' })
+      expect(mockPost).toHaveBeenCalledWith('/auth/refresh', {})
       expect(result).toEqual(mockResponse)
     })
   })
@@ -99,9 +99,9 @@ describe('authService', () => {
     it('should call POST /auth/logout', async () => {
       mockPost.mockResolvedValue({ data: { success: true } })
 
-      const result = await authService.logout('test-refresh-token')
+      const result = await authService.logout()
 
-      expect(mockPost).toHaveBeenCalledWith('/auth/logout', { refreshToken: 'test-refresh-token' })
+      expect(mockPost).toHaveBeenCalledWith('/auth/logout', {})
       expect(result).toEqual({ success: true })
     })
   })

@@ -1,15 +1,13 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { fetchBackendJson } from '@/lib/backend-proxy'
+import { type NextRequest } from 'next/server'
+import { fetchBackendJson, jsonNoStore } from '@/lib/backend-proxy'
 import type { BackendAssetsResponse } from '@/types/dashboard.types'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
-    const raw = (await fetchBackendJson(
-      request,
-      '/dashboards/top-targeted-assets'
-    )) as BackendAssetsResponse
+    const { data: rawData } = await fetchBackendJson(request, '/dashboards/top-targeted-assets')
+    const raw = rawData as BackendAssetsResponse
 
     const assets = raw.assets ?? []
 
@@ -24,9 +22,9 @@ export async function GET(request: NextRequest) {
       alertCount: asset.alertCount,
     }))
 
-    return NextResponse.json({ data })
+    return jsonNoStore({ data })
   } catch (error) {
     console.error('[dashboard/asset-risks]', error)
-    return NextResponse.json({ data: null, error: 'Internal server error' }, { status: 502 })
+    return jsonNoStore({ data: null, error: 'Internal server error' }, { status: 502 })
   }
 }

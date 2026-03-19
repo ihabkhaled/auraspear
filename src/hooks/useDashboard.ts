@@ -12,27 +12,30 @@ export function useKPIs() {
   })
 }
 
-export function useAlertTrends() {
+export function useAlertTrends(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
     queryKey: ['dashboard', tenantId, 'alert-trends'],
     queryFn: () => dashboardService.getAlertTrends(),
+    enabled,
   })
 }
 
-export function useMITREStats() {
+export function useMITREStats(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
     queryKey: ['dashboard', tenantId, 'mitre-stats'],
     queryFn: () => dashboardService.getMITREStats(),
+    enabled,
   })
 }
 
-export function useAssetRisks() {
+export function useAssetRisks(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
     queryKey: ['dashboard', tenantId, 'asset-risks'],
     queryFn: () => dashboardService.getAssetRisks(),
+    enabled,
   })
 }
 

@@ -1,4 +1,5 @@
 import { type Permission } from '@/enums'
+import { ROUTE_PERMISSION_MAP } from '@/lib/constants/route-permissions'
 
 export class PermissionError extends Error {
   readonly messageKey = 'errors.auth.insufficientPermissions'
@@ -21,4 +22,32 @@ export function requirePermission(permissions: string[], required: Permission): 
   if (!permissions.includes(required)) {
     throw new PermissionError(required)
   }
+}
+
+export function filterAccessibleItemsByRoute<T>(
+  permissions: string[],
+  items: readonly T[],
+  getRoute: (item: T) => string | null | undefined
+): T[] {
+  return items.filter(item => {
+    const route = getRoute(item)
+    if (!route) {
+      return true
+    }
+    return canAccessRouteByPermission(permissions, route)
+  })
+}
+
+/**
+ * Check if a user with the given permissions can access the given pathname.
+ * Uses the dynamic permission system instead of static role hierarchy.
+ * Routes not listed in ROUTE_PERMISSION_MAP are accessible to all authenticated users.
+ */
+export function canAccessRouteByPermission(permissions: string[], pathname: string): boolean {
+  for (const [route, requiredPermission] of ROUTE_PERMISSION_MAP) {
+    if (pathname.startsWith(route)) {
+      return permissions.includes(requiredPermission)
+    }
+  }
+  return true
 }

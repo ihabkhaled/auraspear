@@ -485,7 +485,7 @@ export function useTenantConfigPage() {
             if (!data) {
               return
             }
-            setTokens(data.accessToken, data.refreshToken)
+            setTokens(data.accessToken)
             setUser({
               sub: data.user.sub,
               email: data.user.email,

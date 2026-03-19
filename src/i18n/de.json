@@ -686,11 +686,17 @@
       "role": "Rolle",
       "selectRole": "Rolle auswaehlen",
       "globalAdmin": "Globaler Administrator",
+      "platformOperator": "Plattformbetreiber",
       "tenantAdmin": "Mandanten-Administrator",
+      "detectionEngineer": "Detection Engineer",
+      "incidentResponder": "Incident Responder",
+      "threatIntelAnalyst": "Threat-Intelligence-Analyst",
+      "soarEngineer": "SOAR-Ingenieur",
       "socAnalystL2": "SOC-Analyst L2",
       "socAnalystL1": "SOC-Analyst L1",
       "threatHunter": "Bedrohungsjager",
       "executiveReadonly": "Fuehrungskraft (Nur Lesen)",
+      "auditorReadonly": "Auditor (Nur Lesen)",
       "permissions": "Berechtigungen",
       "roleRequired": "Die Rolle ist erforderlich",
       "permissionsRequired": "Mindestens eine Berechtigung ist erforderlich"
@@ -3329,11 +3335,17 @@
       }
     },
     "roles": {
+      "PLATFORM_OPERATOR": "Plattformbetreiber",
       "TENANT_ADMIN": "Mandanten-Administrator",
+      "DETECTION_ENGINEER": "Detection Engineer",
+      "INCIDENT_RESPONDER": "Incident Responder",
+      "THREAT_INTEL_ANALYST": "Threat-Intelligence-Analyst",
+      "SOAR_ENGINEER": "SOAR-Ingenieur",
+      "THREAT_HUNTER": "Bedrohungsjäger",
       "SOC_ANALYST_L2": "SOC-Analyst L2",
       "SOC_ANALYST_L1": "SOC-Analyst L1",
-      "THREAT_HUNTER": "Bedrohungsjäger",
-      "EXECUTIVE_READONLY": "Führungskraft (Nur Lesen)"
+      "EXECUTIVE_READONLY": "Führungskraft (Nur Lesen)",
+      "AUDITOR_READONLY": "Auditor (Nur Lesen)"
     }
   }
 }

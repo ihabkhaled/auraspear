@@ -686,11 +686,17 @@
       "role": "الدور",
       "selectRole": "اختر دوراً",
       "globalAdmin": "مسؤول عام",
+      "platformOperator": "مشغل المنصة",
       "tenantAdmin": "مسؤول المستأجر",
+      "detectionEngineer": "مهندس الكشف",
+      "incidentResponder": "مستجيب للحوادث",
+      "threatIntelAnalyst": "محلل استخبارات التهديدات",
+      "soarEngineer": "مهندس SOAR",
       "socAnalystL2": "محلل SOC المستوى 2",
       "socAnalystL1": "محلل SOC المستوى 1",
       "threatHunter": "صائد التهديدات",
       "executiveReadonly": "تنفيذي (للقراءة فقط)",
+      "auditorReadonly": "مدقق (للقراءة فقط)",
       "permissions": "الصلاحيات",
       "roleRequired": "الدور مطلوب",
       "permissionsRequired": "مطلوب صلاحية واحدة على الأقل"
@@ -3329,11 +3335,17 @@
       }
     },
     "roles": {
+      "PLATFORM_OPERATOR": "مشغل المنصة",
       "TENANT_ADMIN": "مدير المستأجر",
+      "DETECTION_ENGINEER": "مهندس الكشف",
+      "INCIDENT_RESPONDER": "مستجيب للحوادث",
+      "THREAT_INTEL_ANALYST": "محلل استخبارات التهديدات",
+      "SOAR_ENGINEER": "مهندس SOAR",
+      "THREAT_HUNTER": "صائد التهديدات",
       "SOC_ANALYST_L2": "محلل SOC المستوى 2",
       "SOC_ANALYST_L1": "محلل SOC المستوى 1",
-      "THREAT_HUNTER": "صائد التهديدات",
-      "EXECUTIVE_READONLY": "تنفيذي (قراءة فقط)"
+      "EXECUTIVE_READONLY": "تنفيذي (قراءة فقط)",
+      "AUDITOR_READONLY": "مدقق (للقراءة فقط)"
     }
   }
 }

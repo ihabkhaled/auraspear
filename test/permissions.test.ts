@@ -5,6 +5,7 @@ import {
   hasAnyPermission,
   requirePermission,
   PermissionError,
+  filterAccessibleItemsByRoute,
 } from '@/lib/permissions'
 
 // ─── hasPermission ──────────────────────────────────────────────
@@ -138,5 +139,43 @@ describe('PermissionError', () => {
   it('includes the required permission in the error message', () => {
     const error = new PermissionError(Permission.HUNT_EXECUTE)
     expect(error.message).toContain(Permission.HUNT_EXECUTE)
+  })
+})
+
+describe('filterAccessibleItemsByRoute', () => {
+  const items = [
+    { key: 'dashboard', href: '/dashboard' },
+    { key: 'alerts', href: '/alerts?timeRange=7d' },
+    { key: 'attackPaths', href: '/attack-paths' },
+    { key: 'pipelineHealth', href: '/system-health' },
+    { key: 'alwaysVisible', href: undefined },
+  ]
+
+  it('keeps only routes the current permission set can access', () => {
+    const result = filterAccessibleItemsByRoute(
+      [Permission.DASHBOARD_VIEW, Permission.ALERTS_VIEW],
+      items,
+      item => item.href
+    )
+
+    expect(result).toEqual([
+      { key: 'dashboard', href: '/dashboard' },
+      { key: 'alerts', href: '/alerts?timeRange=7d' },
+      { key: 'alwaysVisible', href: undefined },
+    ])
+  })
+
+  it('supports module routes that use the same permission as their destination page', () => {
+    const result = filterAccessibleItemsByRoute(
+      [Permission.ATTACK_PATHS_VIEW, Permission.CONNECTORS_VIEW],
+      items,
+      item => item.href
+    )
+
+    expect(result).toEqual([
+      { key: 'attackPaths', href: '/attack-paths' },
+      { key: 'pipelineHealth', href: '/system-health' },
+      { key: 'alwaysVisible', href: undefined },
+    ])
   })
 })

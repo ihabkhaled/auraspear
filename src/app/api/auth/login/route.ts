@@ -1,5 +1,10 @@
-import { NextResponse, type NextRequest } from 'next/server'
-import { BackendError, fetchBackendJson } from '@/lib/backend-proxy'
+import { type NextRequest } from 'next/server'
+import {
+  BackendError,
+  buildSetCookieHeaders,
+  fetchBackendJson,
+  jsonNoStore,
+} from '@/lib/backend-proxy'
 import type { BackendLoginWithTenants } from '@/types'
 
 export const dynamic = 'force-dynamic'
@@ -7,26 +12,34 @@ export const dynamic = 'force-dynamic'
 export async function POST(request: NextRequest) {
   try {
     const body = await request.text()
-    const data = (await fetchBackendJson(request, '/auth/login', {
+    const result = await fetchBackendJson(request, '/auth/login', {
       method: 'POST',
       body,
-    })) as BackendLoginWithTenants
+    })
 
-    return NextResponse.json({
+    const data = result.data as BackendLoginWithTenants
+
+    const responseBody = {
       accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
+      csrfToken: data.csrfToken,
       user: data.user,
       permissions: data.permissions ?? [],
       tenants: data.tenants,
-    })
+    }
+
+    const cookieHeaders = buildSetCookieHeaders(result.setCookieHeaders)
+    if (cookieHeaders) {
+      return jsonNoStore(responseBody, { headers: cookieHeaders })
+    }
+    return jsonNoStore(responseBody)
   } catch (error) {
     if (error instanceof BackendError) {
-      return NextResponse.json(
+      return jsonNoStore(
         { messageKey: error.messageKey, message: error.message },
         { status: error.status }
       )
     }
-    return NextResponse.json(
+    return jsonNoStore(
       { messageKey: 'errors.common.unknown', message: 'Backend unavailable' },
       { status: 502 }
     )

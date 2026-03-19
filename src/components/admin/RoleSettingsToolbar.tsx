@@ -5,6 +5,7 @@ interface RoleSettingsToolbarProps {
   isDirty: boolean
   isSaving: boolean
   isResetting: boolean
+  showReset?: boolean | undefined
   onSave: () => void
   onReset: () => void
   t: (key: string) => string
@@ -14,22 +15,25 @@ export function RoleSettingsToolbar({
   isDirty,
   isSaving,
   isResetting,
+  showReset = true,
   onSave,
   onReset,
   t,
 }: RoleSettingsToolbarProps) {
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={onReset}
-        disabled={isResetting || isSaving}
-        className="gap-1.5"
-      >
-        <RotateCcw className="h-4 w-4" />
-        {isResetting ? t('roleSettings.resetting') : t('roleSettings.reset')}
-      </Button>
+      {showReset ? (
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={onReset}
+          disabled={isResetting || isSaving}
+          className="gap-1.5"
+        >
+          <RotateCcw className="h-4 w-4" />
+          {isResetting ? t('roleSettings.resetting') : t('roleSettings.reset')}
+        </Button>
+      ) : null}
       <Button
         size="sm"
         onClick={onSave}

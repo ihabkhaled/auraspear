@@ -1,4 +1,5 @@
 export { DashboardCard } from './DashboardCard'
+export { DashboardSectionCard } from './DashboardSectionCard'
 export { MitreTopTechniques } from './MitreTopTechniques'
 export { TopTargetedAssets } from './TopTargetedAssets'
 export { PipelineHealthBar } from './PipelineHealthBar'

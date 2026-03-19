@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { UserRole } from '@/enums'
-import { ROLE_HIERARCHY, hasRole, canAccessRoute, ROUTE_ROLE_MAP } from '@/lib/roles'
+import { Permission, UserRole } from '@/enums'
+import { ROUTE_PERMISSION_MAP } from '@/lib/constants/route-permissions'
+import { canAccessRouteByPermission } from '@/lib/permissions'
+import { ROLE_HIERARCHY, hasRole } from '@/lib/roles'
 
 // ─── ROLE_HIERARCHY ──────────────────────────────────────────────
 
@@ -9,8 +11,8 @@ describe('ROLE_HIERARCHY', () => {
     expect(ROLE_HIERARCHY[0]).toBe(UserRole.GLOBAL_ADMIN)
   })
 
-  it('should have EXECUTIVE_READONLY at last index (least privileged)', () => {
-    expect(ROLE_HIERARCHY[ROLE_HIERARCHY.length - 1]).toBe(UserRole.EXECUTIVE_READONLY)
+  it('should have AUDITOR_READONLY at last index (least privileged)', () => {
+    expect(ROLE_HIERARCHY[ROLE_HIERARCHY.length - 1]).toBe(UserRole.AUDITOR_READONLY)
   })
 
   it('should contain all UserRole enum values', () => {
@@ -62,119 +64,127 @@ describe('hasRole', () => {
     }
   })
 
-  it('EXECUTIVE_READONLY should only have access to EXECUTIVE_READONLY', () => {
+  it('EXECUTIVE_READONLY should only have access to EXECUTIVE_READONLY and AUDITOR_READONLY', () => {
     expect(hasRole(UserRole.EXECUTIVE_READONLY, UserRole.EXECUTIVE_READONLY)).toBe(true)
+    expect(hasRole(UserRole.EXECUTIVE_READONLY, UserRole.AUDITOR_READONLY)).toBe(true)
     expect(hasRole(UserRole.EXECUTIVE_READONLY, UserRole.SOC_ANALYST_L1)).toBe(false)
     expect(hasRole(UserRole.EXECUTIVE_READONLY, UserRole.TENANT_ADMIN)).toBe(false)
   })
+
+  it('AUDITOR_READONLY should only have access to AUDITOR_READONLY', () => {
+    expect(hasRole(UserRole.AUDITOR_READONLY, UserRole.AUDITOR_READONLY)).toBe(true)
+    expect(hasRole(UserRole.AUDITOR_READONLY, UserRole.EXECUTIVE_READONLY)).toBe(false)
+    expect(hasRole(UserRole.AUDITOR_READONLY, UserRole.SOC_ANALYST_L1)).toBe(false)
+    expect(hasRole(UserRole.AUDITOR_READONLY, UserRole.TENANT_ADMIN)).toBe(false)
+  })
 })
 
-// ─── canAccessRoute ──────────────────────────────────────────────
+// ─── canAccessRouteByPermission ─────────────────────────────────
 
-describe('canAccessRoute', () => {
-  describe('GLOBAL_ADMIN', () => {
-    it('should access all routes', () => {
-      const routes = Object.keys(ROUTE_ROLE_MAP)
-      for (const route of routes) {
-        expect(canAccessRoute(UserRole.GLOBAL_ADMIN, route)).toBe(true)
+describe('canAccessRouteByPermission', () => {
+  const ALL_PERMISSIONS = Object.values(Permission)
+
+  describe('user with all permissions', () => {
+    it('should access all mapped routes', () => {
+      for (const [route] of ROUTE_PERMISSION_MAP) {
+        expect(canAccessRouteByPermission(ALL_PERMISSIONS, route)).toBe(true)
       }
     })
   })
 
-  describe('EXECUTIVE_READONLY', () => {
-    it('should access /dashboard', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/dashboard')).toBe(true)
+  describe('user with no permissions', () => {
+    it('should NOT access any mapped routes', () => {
+      for (const [route] of ROUTE_PERMISSION_MAP) {
+        expect(canAccessRouteByPermission([], route)).toBe(false)
+      }
     })
 
-    it('should access /profile', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/profile')).toBe(true)
+    it('should access unlisted routes', () => {
+      expect(canAccessRouteByPermission([], '/unknown-route')).toBe(true)
+    })
+  })
+
+  describe('user with only ALERTS_VIEW', () => {
+    const perms = [Permission.ALERTS_VIEW]
+
+    it('should access /alerts', () => {
+      expect(canAccessRouteByPermission(perms, '/alerts')).toBe(true)
     })
 
-    it('should access /settings', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/settings')).toBe(true)
-    })
-
-    it('should NOT access /alerts', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/alerts')).toBe(false)
+    it('should access /alerts/123 (sub-route)', () => {
+      expect(canAccessRouteByPermission(perms, '/alerts/123')).toBe(true)
     })
 
     it('should NOT access /cases', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/cases')).toBe(false)
-    })
-
-    it('should NOT access /admin/tenant', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/admin/tenant')).toBe(false)
-    })
-
-    it('should NOT access /admin/system', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/admin/system')).toBe(false)
+      expect(canAccessRouteByPermission(perms, '/cases')).toBe(false)
     })
 
     it('should NOT access /hunt', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/hunt')).toBe(false)
+      expect(canAccessRouteByPermission(perms, '/hunt')).toBe(false)
+    })
+
+    it('should NOT access /admin/system', () => {
+      expect(canAccessRouteByPermission(perms, '/admin/system')).toBe(false)
     })
   })
 
-  describe('SOC_ANALYST_L1', () => {
+  describe('user with dashboard + profile + settings permissions', () => {
+    const perms = [Permission.DASHBOARD_VIEW, Permission.PROFILE_VIEW, Permission.SETTINGS_VIEW]
+
     it('should access /dashboard', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/dashboard')).toBe(true)
+      expect(canAccessRouteByPermission(perms, '/dashboard')).toBe(true)
     })
 
-    it('should access /alerts', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/alerts')).toBe(true)
+    it('should access /profile', () => {
+      expect(canAccessRouteByPermission(perms, '/profile')).toBe(true)
     })
 
-    it('should access /cases', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/cases')).toBe(true)
+    it('should access /settings', () => {
+      expect(canAccessRouteByPermission(perms, '/settings')).toBe(true)
     })
 
-    it('should NOT access /hunt', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/hunt')).toBe(false)
-    })
-
-    it('should NOT access /connectors', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/connectors')).toBe(false)
+    it('should NOT access /alerts', () => {
+      expect(canAccessRouteByPermission(perms, '/alerts')).toBe(false)
     })
 
     it('should NOT access /admin/tenant', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/admin/tenant')).toBe(false)
+      expect(canAccessRouteByPermission(perms, '/admin/tenant')).toBe(false)
     })
   })
 
-  describe('THREAT_HUNTER', () => {
-    it('should access /hunt', () => {
-      expect(canAccessRoute(UserRole.THREAT_HUNTER, '/hunt')).toBe(true)
+  describe('admin route permissions', () => {
+    it('/admin/system requires ADMIN_TENANTS_VIEW', () => {
+      expect(canAccessRouteByPermission([Permission.ADMIN_TENANTS_VIEW], '/admin/system')).toBe(
+        true
+      )
+      expect(canAccessRouteByPermission([Permission.ADMIN_USERS_VIEW], '/admin/system')).toBe(false)
     })
 
-    it('should access /alerts (SOC_ANALYST_L1 level)', () => {
-      expect(canAccessRoute(UserRole.THREAT_HUNTER, '/alerts')).toBe(true)
+    it('/admin/tenant requires ADMIN_USERS_VIEW', () => {
+      expect(canAccessRouteByPermission([Permission.ADMIN_USERS_VIEW], '/admin/tenant')).toBe(true)
+      expect(canAccessRouteByPermission([Permission.ALERTS_VIEW], '/admin/tenant')).toBe(false)
     })
 
-    it('should NOT access /connectors (SOC_ANALYST_L2 level)', () => {
-      expect(canAccessRoute(UserRole.THREAT_HUNTER, '/connectors')).toBe(false)
-    })
-  })
-
-  describe('TENANT_ADMIN', () => {
-    it('should access /admin/tenant', () => {
-      expect(canAccessRoute(UserRole.TENANT_ADMIN, '/admin/tenant')).toBe(true)
-    })
-
-    it('should NOT access /admin/system', () => {
-      expect(canAccessRoute(UserRole.TENANT_ADMIN, '/admin/system')).toBe(false)
+    it('/admin/role-settings requires ROLE_SETTINGS_VIEW', () => {
+      expect(
+        canAccessRouteByPermission([Permission.ROLE_SETTINGS_VIEW], '/admin/role-settings')
+      ).toBe(true)
+      expect(
+        canAccessRouteByPermission([Permission.ADMIN_USERS_VIEW], '/admin/role-settings')
+      ).toBe(false)
     })
   })
 
   describe('sub-routes', () => {
     it('should match sub-routes via startsWith', () => {
-      expect(canAccessRoute(UserRole.SOC_ANALYST_L1, '/alerts/123')).toBe(true)
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/alerts/123')).toBe(false)
+      expect(canAccessRouteByPermission([Permission.ALERTS_VIEW], '/alerts/123')).toBe(true)
+      expect(canAccessRouteByPermission([], '/alerts/123')).toBe(false)
     })
   })
 
   describe('unlisted routes', () => {
-    it('should allow access to routes not in ROUTE_ROLE_MAP', () => {
-      expect(canAccessRoute(UserRole.EXECUTIVE_READONLY, '/unknown-route')).toBe(true)
+    it('should allow access to routes not in ROUTE_PERMISSION_MAP', () => {
+      expect(canAccessRouteByPermission([], '/unknown-route')).toBe(true)
     })
   })
 })
@@ -229,9 +239,23 @@ describe('Impersonation role hierarchy (client-side)', () => {
     expect(canImpersonate(UserRole.SOC_ANALYST_L1, UserRole.EXECUTIVE_READONLY)).toBe(true)
   })
 
-  it('EXECUTIVE_READONLY cannot impersonate anyone', () => {
+  it('SOC_ANALYST_L1 can impersonate AUDITOR_READONLY', () => {
+    expect(canImpersonate(UserRole.SOC_ANALYST_L1, UserRole.AUDITOR_READONLY)).toBe(true)
+  })
+
+  it('EXECUTIVE_READONLY can impersonate AUDITOR_READONLY', () => {
+    expect(canImpersonate(UserRole.EXECUTIVE_READONLY, UserRole.AUDITOR_READONLY)).toBe(true)
+  })
+
+  it('EXECUTIVE_READONLY cannot impersonate anyone above or at same level', () => {
+    expect(canImpersonate(UserRole.EXECUTIVE_READONLY, UserRole.EXECUTIVE_READONLY)).toBe(false)
+    expect(canImpersonate(UserRole.EXECUTIVE_READONLY, UserRole.SOC_ANALYST_L1)).toBe(false)
+    expect(canImpersonate(UserRole.EXECUTIVE_READONLY, UserRole.GLOBAL_ADMIN)).toBe(false)
+  })
+
+  it('AUDITOR_READONLY cannot impersonate anyone', () => {
     for (const role of ROLE_HIERARCHY) {
-      expect(canImpersonate(UserRole.EXECUTIVE_READONLY, role)).toBe(false)
+      expect(canImpersonate(UserRole.AUDITOR_READONLY, role)).toBe(false)
     }
   })
 })

@@ -22,7 +22,7 @@ export interface TenantMembershipInfo {
 
 export interface LoginResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
   user: AuthUser
   permissions: string[]
   tenants: TenantMembershipInfo[]
@@ -35,12 +35,12 @@ export interface MeResponse {
 
 export interface RefreshResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
 }
 
 export interface BackendLoginResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
   user: {
     sub: string
     email: string
@@ -61,7 +61,7 @@ export interface ImpersonationInfo {
 
 export interface ImpersonateResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
   user: {
     sub: string
     email: string
@@ -74,7 +74,7 @@ export interface ImpersonateResponse {
 
 export interface EndImpersonationResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
   user: {
     sub: string
     email: string
@@ -90,5 +90,5 @@ export interface BackendLoginWithTenants extends BackendLoginResponse {
 
 export interface BackendRefreshResponse {
   accessToken: string
-  refreshToken: string
+  csrfToken: string
 }
