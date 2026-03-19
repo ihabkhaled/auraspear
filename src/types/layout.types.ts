@@ -7,6 +7,12 @@ export interface NavItem {
   badge?: number
 }
 
+export interface CommandPaletteRouteItem {
+  label: string
+  href: string
+  icon: LucideIcon
+}
+
 export interface NavSection {
   label: string
   items: NavItem[]

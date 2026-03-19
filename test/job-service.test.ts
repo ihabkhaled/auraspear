@@ -1,14 +1,15 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import { JobStatus } from '@/enums'
+import api from '@/lib/api'
+import { jobService } from '@/services/job.service'
+import type { JobSearchParams } from '@/types'
+
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
     post: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { jobService } from '@/services/job.service'
-import type { JobSearchParams } from '@/types'
 
 const mockGet = api.get as Mock
 const mockPost = api.post as Mock
@@ -19,10 +20,10 @@ describe('jobService', () => {
   })
 
   it('calls GET /jobs with params', async () => {
-    const jobs = [{ id: 'job-1', status: 'failed' }]
+    const jobs = [{ id: 'job-1', status: JobStatus.FAILED }]
     mockGet.mockResolvedValue({ data: { data: jobs } })
 
-    const params: JobSearchParams = { status: 'failed', page: 2, limit: 10 }
+    const params: JobSearchParams = { status: JobStatus.FAILED, page: 2, limit: 10 }
     const result = await jobService.getJobs(params)
 
     expect(mockGet).toHaveBeenCalledWith('/jobs', { params })
@@ -40,7 +41,7 @@ describe('jobService', () => {
   })
 
   it('calls POST /jobs/:id/retry', async () => {
-    const job = { id: 'job-1', status: 'pending' }
+    const job = { id: 'job-1', status: JobStatus.PENDING }
     mockPost.mockResolvedValue({ data: { data: job } })
 
     const result = await jobService.retryJob('job-1')

@@ -9,6 +9,7 @@ import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
 import { refreshCurrentSessionPermissions } from '@/lib/auth-session'
 import { useAuthStore, useTenantStore } from '@/stores'
+import type { UnreadCountResponse } from '@/types'
 
 const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000'
 
@@ -57,7 +58,7 @@ export function useNotificationSocket(): void {
       }
     })
 
-    socket.on('unread-count', (data: { count: number }) => {
+    socket.on('unread-count', (data: UnreadCountResponse) => {
       // Directly update the cached unread count for instant UI update
       queryClient.setQueryData(['notifications', tenantId, 'unread-count'], { count: data.count })
     })

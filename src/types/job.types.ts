@@ -1,14 +1,4 @@
-export type JobStatus = 'pending' | 'running' | 'completed' | 'failed' | 'retrying' | 'cancelled'
-
-export type JobType =
-  | 'connector_sync'
-  | 'detection_rule_execution'
-  | 'correlation_rule_execution'
-  | 'normalization_pipeline'
-  | 'soar_playbook'
-  | 'hunt_execution'
-  | 'ai_agent_task'
-  | 'report_generation'
+import type { JobStatus, JobType } from '@/enums'
 
 export interface JobRecord {
   id: string
@@ -37,7 +27,7 @@ export interface JobSearchParams {
 }
 
 export interface JobTypeBreakdown {
-  type: string
+  type: JobType
   count: number
 }
 
@@ -62,4 +52,8 @@ export interface AiAgentRunResult {
   queued: boolean
   jobId: string
   sessionId: string
+}
+
+export interface CancelJobResult {
+  cancelled: boolean
 }

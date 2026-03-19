@@ -1,13 +1,10 @@
 import { type NextRequest } from 'next/server'
 import { proxyToBackend } from '@/lib/backend-proxy'
-
-interface RouteContext {
-  params: Promise<{ id: string }>
-}
+import type { DynamicIdRouteContext } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
-export async function POST(request: NextRequest, context: RouteContext) {
+export async function POST(request: NextRequest, context: DynamicIdRouteContext) {
   const { id } = await context.params
   return proxyToBackend(request, { path: `/ai-agents/${id}/run` })
 }

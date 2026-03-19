@@ -1,4 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
+import { NotificationType } from '@/enums'
+import { getNotificationIcon, getNotificationIconColor } from '@/lib/notification.utils'
 
 vi.mock('lucide-react', () => ({
   Bell: 'Bell',
@@ -15,9 +17,6 @@ vi.mock('lucide-react', () => ({
   UserPlus: 'UserPlus',
   UserX: 'UserX',
 }))
-
-import { NotificationType } from '@/enums'
-import { getNotificationIcon, getNotificationIconColor } from '@/lib/notification.utils'
 
 describe('getNotificationIcon', () => {
   it('should return a defined value for each NotificationType', () => {

@@ -5,6 +5,7 @@ import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { connectorService } from '@/services/connector.service'
 import { useAuthStore, useTenantStore } from '@/stores'
+import type { CreateConnectorInput, ToggleConnectorInput } from '@/types'
 
 export function useConnectors() {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -93,13 +94,7 @@ export function useCreateConnector() {
   const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: (data: {
-      type: string
-      name: string
-      enabled: boolean
-      authType: string
-      config: Record<string, unknown>
-    }) => {
+    mutationFn: (data: CreateConnectorInput) => {
       requirePermission(permissions, Permission.CONNECTORS_CREATE)
       return connectorService.create(data)
     },
@@ -117,9 +112,9 @@ export function useToggleConnector() {
   const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
-    mutationFn: ({ type, enabled }: { type: string; enabled: boolean }) => {
+    mutationFn: ({ type, enabled }: ToggleConnectorInput) => {
       requirePermission(permissions, Permission.CONNECTORS_UPDATE)
-      return connectorService.toggle(type, enabled)
+      return connectorService.toggle({ type, enabled })
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })

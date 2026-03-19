@@ -88,6 +88,29 @@ export interface AiAgentToolFormValues {
   schema: string
 }
 
+export interface UpdateAiAgentSoulInput {
+  soulMd: string
+}
+
+export interface UpdateAiAgentSoulMutationInput {
+  id: string
+  soulMd: string
+}
+
+export interface UpdateAiAgentMutationInput {
+  id: string
+  data: Record<string, unknown>
+}
+
+export interface RunAiAgentMutationInput {
+  id: string
+  prompt: string
+}
+
+export interface DeleteAiAgentResult {
+  deleted: boolean
+}
+
 export interface AiAgentCreateDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void

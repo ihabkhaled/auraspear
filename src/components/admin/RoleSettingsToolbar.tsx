@@ -1,15 +1,6 @@
 import { RotateCcw, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
-interface RoleSettingsToolbarProps {
-  isDirty: boolean
-  isSaving: boolean
-  isResetting: boolean
-  showReset?: boolean | undefined
-  onSave: () => void
-  onReset: () => void
-  t: (key: string) => string
-}
+import type { RoleSettingsToolbarProps } from '@/types'
 
 export function RoleSettingsToolbar({
   isDirty,

@@ -1,23 +1,22 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios'
 import { AUTH_STORAGE_KEY, TENANT_STORAGE_KEY } from '@/lib/constants/storage'
 import { useAuthStore } from '@/stores'
-import type { AuthStorageState, RefreshResponse, TenantStorageState } from '@/types'
+import type {
+  ApiRetryQueueItem,
+  ApiRetryableRequest,
+  AuthRequestState,
+  AuthStorageState,
+  RefreshResponse,
+  TenantStorageState,
+} from '@/types'
 
 const API_BASE_URL = process.env['NEXT_PUBLIC_API_URL'] ?? '/api'
 const REFRESH_TIMEOUT_MS = 10_000
 
-interface RetryableRequest extends InternalAxiosRequestConfig {
-  _retry?: boolean
-}
-
 let isRefreshing = false
-let failedQueue: Array<{
-  resolve: (value: InternalAxiosRequestConfig) => void
-  reject: (error: unknown) => void
-  config: InternalAxiosRequestConfig
-}> = []
+let failedQueue: ApiRetryQueueItem[] = []
 
-function getAuthState(): { accessToken: string; tenantId: string } {
+function getAuthState(): AuthRequestState {
   const empty = { accessToken: '', tenantId: '' }
 
   if (typeof window === 'undefined') {
@@ -110,7 +109,9 @@ function isAuthRoute(url?: string): boolean {
   return url.includes('/auth/refresh') || url.includes('/auth/login')
 }
 
-async function attemptTokenRefresh(originalRequest: RetryableRequest): Promise<RetryableRequest> {
+async function attemptTokenRefresh(
+  originalRequest: ApiRetryableRequest
+): Promise<ApiRetryableRequest> {
   originalRequest._retry = true
   isRefreshing = true
 
@@ -175,7 +176,7 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   response => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as RetryableRequest | undefined
+    const originalRequest = error.config as ApiRetryableRequest | undefined
 
     if (!originalRequest || error.response?.status !== 401) {
       throw error
@@ -191,9 +192,9 @@ api.interceptors.response.use(
     }
 
     if (isRefreshing) {
-      return new Promise((resolve, reject) => {
+      return new Promise<InternalAxiosRequestConfig>((resolve, reject) => {
         failedQueue.push({ resolve, reject, config: originalRequest })
-      }).then(config => api(config as InternalAxiosRequestConfig))
+      }).then(config => api(config))
     }
 
     const refreshedConfig = await attemptTokenRefresh(originalRequest)

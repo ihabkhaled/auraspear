@@ -13,24 +13,18 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useJobsPage } from '@/hooks'
+import { JOB_STATUS_FILTER_OPTIONS, JOB_TYPE_FILTER_OPTIONS } from '@/lib/constants/jobs'
+import {
+  getJobStatusBadgeVariant,
+  isCancellableJobStatus,
+  isRetryableJobStatus,
+} from '@/lib/job.utils'
 import type { Column, JobRecord } from '@/types'
-
-function getStatusVariant(status: JobRecord['status']) {
-  switch (status) {
-    case 'failed':
-      return 'destructive' as const
-    case 'completed':
-      return 'outline' as const
-    case 'running':
-      return 'default' as const
-    default:
-      return 'secondary' as const
-  }
-}
 
 export default function JobsPage() {
   const {
     t,
+    allFilterValue,
     pagination,
     statusFilter,
     setStatusFilter,
@@ -44,6 +38,8 @@ export default function JobsPage() {
     canManage,
     handleRetry,
     handleCancel,
+    isJobStatus,
+    isJobType,
   } = useJobsPage()
 
   const columns: Column<JobRecord>[] = [
@@ -60,7 +56,9 @@ export default function JobsPage() {
       key: 'status',
       label: t('columns.status'),
       render: value => (
-        <Badge variant={getStatusVariant(value as JobRecord['status'])}>{String(value)}</Badge>
+        <Badge variant={getJobStatusBadgeVariant(value as JobRecord['status'])}>
+          {String(value)}
+        </Badge>
       ),
     },
     {
@@ -107,7 +105,7 @@ export default function JobsPage() {
       render: (_value, row) =>
         canManage ? (
           <div className="flex items-center gap-2">
-            {row.status === 'failed' || row.status === 'cancelled' ? (
+            {isRetryableJobStatus(row.status) ? (
               <Button
                 variant="outline"
                 size="sm"
@@ -119,7 +117,7 @@ export default function JobsPage() {
                 {t('retry')}
               </Button>
             ) : null}
-            {row.status === 'pending' || row.status === 'retrying' ? (
+            {isCancellableJobStatus(row.status) ? (
               <Button
                 variant="ghost"
                 size="sm"
@@ -179,46 +177,36 @@ export default function JobsPage() {
 
       <div className="flex flex-col gap-3 rounded-lg border p-4 md:flex-row">
         <Select
-          value={statusFilter || 'all'}
-          onValueChange={value => setStatusFilter(value === 'all' ? '' : value)}
+          value={statusFilter ?? allFilterValue}
+          onValueChange={value => setStatusFilter(isJobStatus(value) ? value : undefined)}
         >
           <SelectTrigger className="w-full md:w-56">
             <SelectValue placeholder={t('filters.status')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('filters.allStatuses')}</SelectItem>
-            <SelectItem value="pending">{t('status.pending')}</SelectItem>
-            <SelectItem value="running">{t('status.running')}</SelectItem>
-            <SelectItem value="retrying">{t('status.retrying')}</SelectItem>
-            <SelectItem value="failed">{t('status.failed')}</SelectItem>
-            <SelectItem value="completed">{t('status.completed')}</SelectItem>
-            <SelectItem value="cancelled">{t('status.cancelled')}</SelectItem>
+            <SelectItem value={allFilterValue}>{t('filters.allStatuses')}</SelectItem>
+            {JOB_STATUS_FILTER_OPTIONS.map(jobStatus => (
+              <SelectItem key={jobStatus} value={jobStatus}>
+                {t(`status.${jobStatus}`)}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
         <Select
-          value={typeFilter || 'all'}
-          onValueChange={value => setTypeFilter(value === 'all' ? '' : value)}
+          value={typeFilter ?? allFilterValue}
+          onValueChange={value => setTypeFilter(isJobType(value) ? value : undefined)}
         >
           <SelectTrigger className="w-full md:w-64">
             <SelectValue placeholder={t('filters.type')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">{t('filters.allTypes')}</SelectItem>
-            <SelectItem value="connector_sync">{t('types.connector_sync')}</SelectItem>
-            <SelectItem value="detection_rule_execution">
-              {t('types.detection_rule_execution')}
-            </SelectItem>
-            <SelectItem value="correlation_rule_execution">
-              {t('types.correlation_rule_execution')}
-            </SelectItem>
-            <SelectItem value="normalization_pipeline">
-              {t('types.normalization_pipeline')}
-            </SelectItem>
-            <SelectItem value="soar_playbook">{t('types.soar_playbook')}</SelectItem>
-            <SelectItem value="hunt_execution">{t('types.hunt_execution')}</SelectItem>
-            <SelectItem value="ai_agent_task">{t('types.ai_agent_task')}</SelectItem>
-            <SelectItem value="report_generation">{t('types.report_generation')}</SelectItem>
+            <SelectItem value={allFilterValue}>{t('filters.allTypes')}</SelectItem>
+            {JOB_TYPE_FILTER_OPTIONS.map(jobType => (
+              <SelectItem key={jobType} value={jobType}>
+                {t(`types.${jobType}`)}
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
       </div>

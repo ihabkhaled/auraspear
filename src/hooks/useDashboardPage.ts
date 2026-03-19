@@ -7,7 +7,7 @@ import { formatDashboardPercentage } from '@/lib/dashboard.utils'
 import { computeHealthPercent } from '@/lib/health-utils'
 import { canAccessRouteByPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
-import type { ExtendedKPIItem, ExtendedKPIStats } from '@/types'
+import type { ExtendedKpiCandidate, ExtendedKPIItem, ExtendedKPIStats } from '@/types'
 import { useServiceHealth } from './useAdmin'
 import {
   useKPIs,
@@ -16,12 +16,6 @@ import {
   useAssetRisks,
   useExtendedKPIs,
 } from './useDashboard'
-
-interface ExtendedKpiCandidate {
-  labelKey: string
-  value: number | string | null | undefined
-  route: string
-}
 
 export function useDashboardPage() {
   const t = useTranslations('dashboard')
@@ -72,22 +66,22 @@ export function useDashboardPage() {
       {
         labelKey: 'openIncidents',
         value: stats.openIncidents,
-        route: EXTENDED_KPI_ROUTES['openIncidents'] ?? '/incidents',
+        route: EXTENDED_KPI_ROUTES.openIncidents,
       },
       {
         labelKey: 'criticalVulnerabilities',
         value: stats.criticalVulnerabilities,
-        route: EXTENDED_KPI_ROUTES['criticalVulnerabilities'] ?? '/vulnerabilities',
+        route: EXTENDED_KPI_ROUTES.criticalVulnerabilities,
       },
       {
         labelKey: 'highRiskEntities',
         value: stats.highRiskEntities,
-        route: EXTENDED_KPI_ROUTES['highRiskEntities'] ?? '/ueba',
+        route: EXTENDED_KPI_ROUTES.highRiskEntities,
       },
       {
         labelKey: 'activeAttackPaths',
         value: stats.activeAttackPaths,
-        route: EXTENDED_KPI_ROUTES['activeAttackPaths'] ?? '/attack-paths',
+        route: EXTENDED_KPI_ROUTES.activeAttackPaths,
       },
       {
         labelKey: 'complianceScore',
@@ -95,12 +89,12 @@ export function useDashboardPage() {
           stats.complianceScore === undefined
             ? undefined
             : formatDashboardPercentage(stats.complianceScore),
-        route: EXTENDED_KPI_ROUTES['complianceScore'] ?? '/compliance',
+        route: EXTENDED_KPI_ROUTES.complianceScore,
       },
       {
         labelKey: 'soarExecutions',
         value: stats.soarExecutions,
-        route: EXTENDED_KPI_ROUTES['soarExecutions'] ?? '/soar',
+        route: EXTENDED_KPI_ROUTES.soarExecutions,
       },
       {
         labelKey: 'systemHealthScore',
@@ -108,22 +102,22 @@ export function useDashboardPage() {
           stats.systemHealthScore === undefined
             ? undefined
             : formatDashboardPercentage(stats.systemHealthScore),
-        route: EXTENDED_KPI_ROUTES['systemHealthScore'] ?? '/system-health',
+        route: EXTENDED_KPI_ROUTES.systemHealthScore,
       },
       {
         labelKey: 'jobBacklog',
         value: stats.jobBacklog,
-        route: EXTENDED_KPI_ROUTES['jobBacklog'] ?? '/jobs',
+        route: EXTENDED_KPI_ROUTES.jobBacklog,
       },
       {
         labelKey: 'onlineAiAgents',
         value: stats.onlineAiAgents,
-        route: EXTENDED_KPI_ROUTES['onlineAiAgents'] ?? '/ai-agents',
+        route: EXTENDED_KPI_ROUTES.onlineAiAgents,
       },
       {
         labelKey: 'failingConnectors',
         value: stats.failingConnectors,
-        route: EXTENDED_KPI_ROUTES['failingConnectors'] ?? '/connectors',
+        route: EXTENDED_KPI_ROUTES.failingConnectors,
       },
     ]
 

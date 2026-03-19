@@ -39,6 +39,15 @@ export interface ComplianceStats {
   notAssessedControls: number
 }
 
+export interface ComplianceStatsSource {
+  totalFrameworks: number
+  overallComplianceScore?: number | null
+  avgComplianceScore?: number | null
+  passedControls: number
+  failedControls: number
+  notAssessedControls: number
+}
+
 export interface ComplianceSearchParams {
   page?: number
   limit?: number

@@ -17,7 +17,7 @@ export interface TenantMembershipInfo {
   id: string
   name: string
   slug: string
-  role: string
+  role: UserRole
 }
 
 export interface LoginResponse {
@@ -46,7 +46,7 @@ export interface BackendLoginResponse {
     email: string
     tenantId: string
     tenantSlug: string
-    role: string
+    role: UserRole
   }
   permissions: string[]
 }
@@ -54,7 +54,7 @@ export interface BackendLoginResponse {
 export interface ImpersonationInfo {
   sub: string
   email: string
-  role: string
+  role: UserRole
   tenantId: string
   tenantSlug: string
 }
@@ -67,7 +67,7 @@ export interface ImpersonateResponse {
     email: string
     tenantId: string
     tenantSlug: string
-    role: string
+    role: UserRole
   }
   impersonator: ImpersonationInfo
 }
@@ -80,7 +80,7 @@ export interface EndImpersonationResponse {
     email: string
     tenantId: string
     tenantSlug: string
-    role: string
+    role: UserRole
   }
 }
 
@@ -91,4 +91,18 @@ export interface BackendLoginWithTenants extends BackendLoginResponse {
 export interface BackendRefreshResponse {
   accessToken: string
   csrfToken: string
+}
+
+export interface AuthState {
+  accessToken: string
+  user: AuthUser | null
+  isAuthenticated: boolean
+  permissions: string[]
+  impersonator: ImpersonationInfo | null
+  setTokens: (accessToken: string, refreshToken?: string) => void
+  setUser: (user: AuthUser) => void
+  setPermissions: (permissions: string[]) => void
+  startImpersonation: (impersonator: ImpersonationInfo) => void
+  endImpersonation: () => void
+  logout: () => void
 }

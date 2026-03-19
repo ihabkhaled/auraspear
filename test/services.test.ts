@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from 'vitest'
+import { ConnectorAuthType, ConnectorType } from '@/enums'
 // Mock the api module before importing any service
 vi.mock('@/lib/api', () => ({
   default: {
@@ -922,10 +923,10 @@ describe('connectorService', () => {
       mockPost.mockResolvedValue({ data: { data: connector } })
 
       const input = {
-        type: 'graylog',
+        type: ConnectorType.GRAYLOG,
         name: 'Graylog',
         enabled: true,
-        authType: 'apiKey',
+        authType: ConnectorAuthType.API_KEY,
         config: { apiKey: 'key123', url: 'https://graylog.example.com' },
       }
       const result = await connectorService.create(input)
@@ -976,7 +977,10 @@ describe('connectorService', () => {
       const connector = { id: 'c1', type: 'wazuh', enabled: false }
       mockPost.mockResolvedValue({ data: { data: connector } })
 
-      const result = await connectorService.toggle('wazuh', false)
+      const result = await connectorService.toggle({
+        type: ConnectorType.WAZUH,
+        enabled: false,
+      })
 
       expect(mockPost).toHaveBeenCalledWith('/connectors/wazuh/toggle', { enabled: false })
       expect(result).toEqual(connector)
@@ -986,7 +990,10 @@ describe('connectorService', () => {
       const connector = { id: 'c1', type: 'wazuh', enabled: true }
       mockPost.mockResolvedValue({ data: { data: connector } })
 
-      const result = await connectorService.toggle('wazuh', true)
+      const result = await connectorService.toggle({
+        type: ConnectorType.WAZUH,
+        enabled: true,
+      })
 
       expect(mockPost).toHaveBeenCalledWith('/connectors/wazuh/toggle', { enabled: true })
       expect(result).toEqual(connector)

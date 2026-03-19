@@ -1,23 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { AuthUser, ImpersonationInfo } from '@/types'
-
-interface AuthState {
-  accessToken: string
-  user: AuthUser | null
-  isAuthenticated: boolean
-  permissions: string[]
-
-  /** Present when the current session is an impersonation session. */
-  impersonator: ImpersonationInfo | null
-
-  setTokens: (accessToken: string, refreshToken?: string) => void
-  setUser: (user: AuthUser) => void
-  setPermissions: (permissions: string[]) => void
-  startImpersonation: (impersonator: ImpersonationInfo) => void
-  endImpersonation: () => void
-  logout: () => void
-}
+import type { AuthState } from '@/types'
 
 export const useAuthStore = create<AuthState>()(
   persist(

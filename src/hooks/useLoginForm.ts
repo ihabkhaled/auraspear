@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
@@ -18,7 +18,7 @@ export function useLoginForm() {
   const { setTokens, setUser, setPermissions } = useAuthStore()
   const { setCurrentTenant, setUserTenants } = useTenantStore()
 
-  function handleSubmit(e: { preventDefault: () => void }) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setIsLoading(true)
 

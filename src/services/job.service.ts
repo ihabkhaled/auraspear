@@ -1,5 +1,11 @@
 import api from '@/lib/api'
-import type { ApiResponse, JobRecord, JobRuntimeStats, JobSearchParams } from '@/types'
+import type {
+  ApiResponse,
+  CancelJobResult,
+  JobRecord,
+  JobRuntimeStats,
+  JobSearchParams,
+} from '@/types'
 
 export const jobService = {
   getJobs: (params?: JobSearchParams) =>
@@ -10,5 +16,5 @@ export const jobService = {
   retryJob: (id: string) => api.post<ApiResponse<JobRecord>>(`/jobs/${id}/retry`).then(r => r.data),
 
   cancelJob: (id: string) =>
-    api.post<ApiResponse<{ cancelled: boolean }>>(`/jobs/${id}/cancel`).then(r => r.data),
+    api.post<ApiResponse<CancelJobResult>>(`/jobs/${id}/cancel`).then(r => r.data),
 }

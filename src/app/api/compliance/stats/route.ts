@@ -1,22 +1,13 @@
 import { type NextRequest } from 'next/server'
 import { fetchBackendJson, jsonNoStore } from '@/lib/backend-proxy'
-import type { ComplianceStats } from '@/types'
-
-interface BackendComplianceStats {
-  totalFrameworks: number
-  overallComplianceScore?: number | null
-  avgComplianceScore?: number | null
-  passedControls: number
-  failedControls: number
-  notAssessedControls: number
-}
+import type { ComplianceStats, ComplianceStatsSource } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET(request: NextRequest) {
   try {
     const { data } = await fetchBackendJson(request, '/compliance/stats')
-    const compliance = (data as BackendComplianceStats | null) ?? null
+    const compliance = (data as ComplianceStatsSource | null) ?? null
 
     const normalized: ComplianceStats = {
       totalFrameworks: compliance?.totalFrameworks ?? 0,

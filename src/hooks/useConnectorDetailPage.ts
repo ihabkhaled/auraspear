@@ -12,6 +12,7 @@ import {
 import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
+import type { CreateConnectorInput } from '@/types'
 import {
   useConnector,
   useTestConnector,
@@ -82,13 +83,7 @@ export function useConnectorDetailPage(rawType: string) {
     })
   }
 
-  const handleCreate = (data: {
-    type: string
-    name: string
-    enabled: boolean
-    authType: string
-    config: Record<string, unknown>
-  }) => {
+  const handleCreate = (data: CreateConnectorInput) => {
     createMutation.mutate(data, {
       onSuccess: () => {
         Toast.success(t('connectorCreated'))

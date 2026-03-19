@@ -18,3 +18,10 @@ export enum AiAgentSessionStatus {
   FAILED = 'failed',
   CANCELLED = 'cancelled',
 }
+
+export enum AiAgentPanelTab {
+  OVERVIEW = 'overview',
+  SOUL = 'soul',
+  SESSIONS = 'sessions',
+  TOOLS = 'tools',
+}

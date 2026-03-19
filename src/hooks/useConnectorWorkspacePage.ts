@@ -14,7 +14,7 @@ import {
 import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
-import type { WorkspaceSearchRequest } from '@/types'
+import type { CreateConnectorInput, WorkspaceSearchRequest } from '@/types'
 import {
   useConnector,
   useTestConnector,
@@ -128,13 +128,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   }, [isValidType, meta, rawType, deleteMutation, t, tErrors, router])
 
   const handleCreate = useCallback(
-    (data: {
-      type: string
-      name: string
-      enabled: boolean
-      authType: string
-      config: Record<string, unknown>
-    }) => {
+    (data: CreateConnectorInput) => {
       createMutation.mutate(data, {
         onSuccess: () => {
           Toast.success(t('connectorCreated'))

@@ -2,12 +2,14 @@ import api from '@/lib/api'
 import type {
   AiAgent,
   AiAgentSearchParams,
+  AiAgentRunResult,
   AiAgentSession,
   AiAgentSessionSearchParams,
   AiAgentStats,
-  AiAgentRunResult,
   ApiResponse,
+  DeleteAiAgentResult,
   RunAiAgentInput,
+  UpdateAiAgentSoulInput,
 } from '@/types'
 
 export const aiAgentService = {
@@ -23,7 +25,7 @@ export const aiAgentService = {
       .get<ApiResponse<AiAgentSession[]>>(`/ai-agents/${agentId}/sessions`, { params })
       .then(r => r.data),
 
-  updateSoul: (id: string, data: { soulMd: string }) =>
+  updateSoul: (id: string, data: UpdateAiAgentSoulInput) =>
     api.patch<ApiResponse<AiAgent>>(`/ai-agents/${id}/soul`, data).then(r => r.data),
 
   startAgent: (id: string) =>
@@ -42,5 +44,5 @@ export const aiAgentService = {
     api.patch<ApiResponse<AiAgent>>(`/ai-agents/${id}`, data).then(r => r.data),
 
   deleteAgent: (id: string) =>
-    api.delete<ApiResponse<{ deleted: boolean }>>(`/ai-agents/${id}`).then(r => r.data),
+    api.delete<ApiResponse<DeleteAiAgentResult>>(`/ai-agents/${id}`).then(r => r.data),
 }

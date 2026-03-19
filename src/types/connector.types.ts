@@ -25,7 +25,7 @@ export interface ConnectorRecord {
 }
 
 export interface ConnectorTestResult {
-  type: string
+  type: ConnectorType
   ok: boolean
   latencyMs: number
   details: string
@@ -38,6 +38,36 @@ export interface ConnectorStats {
   healthyConnectors: number
   failingConnectors: number
   untestedConnectors: number
+}
+
+export interface CreateConnectorInput {
+  type: ConnectorType
+  name: string
+  enabled: boolean
+  authType: ConnectorAuthType
+  config: Record<string, unknown>
+}
+
+export interface ToggleConnectorInput {
+  type: ConnectorType
+  enabled: boolean
+}
+
+export interface DeleteConnectorResult {
+  deleted: boolean
+}
+
+export interface ConnectorSyncResult {
+  success: boolean
+  message: string
+  ingested?: number | undefined
+}
+
+export interface ConnectorSyncStatusRecord {
+  type: ConnectorType
+  lastSyncAt: string | null
+  syncEnabled: boolean
+  enabled: boolean
 }
 
 export interface ConnectorMeta {

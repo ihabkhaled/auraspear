@@ -1,4 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
+import { getNotificationColumns } from '@/components/notifications/getNotificationColumns'
+import { NotificationType, SortOrder } from '@/enums'
+import type { NotificationItem, NotificationSearchParams } from '@/types'
 
 vi.mock('lucide-react', () => ({
   CheckCircle2: 'CheckCircle2',
@@ -18,10 +21,6 @@ vi.mock('lucide-react', () => ({
   UserPlus: 'UserPlus',
   UserX: 'UserX',
 }))
-
-import { getNotificationColumns } from '@/components/notifications/getNotificationColumns'
-import { SortOrder, NotificationType } from '@/enums'
-import type { NotificationItem, NotificationSearchParams } from '@/types'
 
 /**
  * Tests for the Notifications page integration logic.

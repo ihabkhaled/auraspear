@@ -4,7 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
+import type { JobStatus, JobType } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { ALL_JOB_FILTER_VALUE } from '@/lib/constants/jobs'
+import { isJobStatus, isJobType } from '@/lib/job.utils'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import { useCancelJob, useJobs, useJobStats, useRetryJob } from './useJobs'
@@ -15,8 +18,8 @@ export function useJobsPage() {
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
 
-  const [statusFilter, setStatusFilter] = useState('')
-  const [typeFilter, setTypeFilter] = useState('')
+  const [statusFilter, setStatusFilter] = useState<JobStatus | undefined>()
+  const [typeFilter, setTypeFilter] = useState<JobType | undefined>()
   const pagination = usePagination({ initialPage: 1, initialLimit: 20 })
 
   const canManage = hasPermission(permissions, Permission.JOBS_MANAGE)
@@ -25,8 +28,8 @@ export function useJobsPage() {
     () => ({
       page: pagination.page,
       limit: pagination.limit,
-      ...(statusFilter ? { status: statusFilter as never } : {}),
-      ...(typeFilter ? { type: typeFilter as never } : {}),
+      ...(statusFilter ? { status: statusFilter } : {}),
+      ...(typeFilter ? { type: typeFilter } : {}),
     }),
     [pagination.limit, pagination.page, statusFilter, typeFilter]
   )
@@ -74,6 +77,7 @@ export function useJobsPage() {
 
   return {
     t,
+    allFilterValue: ALL_JOB_FILTER_VALUE,
     pagination,
     statusFilter,
     setStatusFilter,
@@ -87,5 +91,7 @@ export function useJobsPage() {
     canManage,
     handleRetry,
     handleCancel,
+    isJobStatus,
+    isJobType,
   }
 }

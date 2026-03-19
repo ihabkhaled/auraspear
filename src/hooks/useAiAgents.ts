@@ -3,7 +3,13 @@ import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { aiAgentService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { AiAgentSearchParams, AiAgentSessionSearchParams } from '@/types'
+import type {
+  AiAgentSearchParams,
+  AiAgentSessionSearchParams,
+  RunAiAgentMutationInput,
+  UpdateAiAgentMutationInput,
+  UpdateAiAgentSoulMutationInput,
+} from '@/types'
 
 export function useAiAgents(params?: AiAgentSearchParams) {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -45,7 +51,7 @@ export function useUpdateSoul() {
   const permissions = useAuthStore(s => s.permissions)
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, soulMd }: { id: string; soulMd: string }) => {
+    mutationFn: ({ id, soulMd }: UpdateAiAgentSoulMutationInput) => {
       requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
       return aiAgentService.updateSoul(id, { soulMd })
     },
@@ -105,7 +111,7 @@ export function useUpdateAiAgent() {
   const permissions = useAuthStore(s => s.permissions)
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
+    mutationFn: ({ id, data }: UpdateAiAgentMutationInput) => {
       requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
       return aiAgentService.updateAgent(id, data)
     },
@@ -136,7 +142,7 @@ export function useRunAiAgent() {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, prompt }: { id: string; prompt: string }) => {
+    mutationFn: ({ id, prompt }: RunAiAgentMutationInput) => {
       requirePermission(permissions, Permission.AI_AGENTS_EXECUTE)
       return aiAgentService.runAgent(id, { prompt })
     },

@@ -1,4 +1,4 @@
-import { AiAgentStatus, AiAgentTier } from '@/enums'
+import { AiAgentPanelTab, AiAgentStatus, AiAgentTier } from '@/enums'
 
 export const AI_AGENT_STATUS_LABEL_KEYS: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'statusOnline',
@@ -34,3 +34,10 @@ export const AI_AGENT_TIER_CLASSES: Record<AiAgentTier, string> = {
   [AiAgentTier.L2]: 'bg-severity-medium text-white',
   [AiAgentTier.L3]: 'bg-severity-critical text-white',
 }
+
+export const AI_AGENT_PANEL_TABS = [
+  AiAgentPanelTab.OVERVIEW,
+  AiAgentPanelTab.SOUL,
+  AiAgentPanelTab.SESSIONS,
+  AiAgentPanelTab.TOOLS,
+] as const

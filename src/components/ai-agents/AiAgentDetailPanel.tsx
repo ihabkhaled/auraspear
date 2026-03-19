@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
+import { AiAgentPanelTab } from '@/enums'
 import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
 import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
 import { cn, lookup } from '@/lib/utils'
@@ -17,7 +18,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
   const {
     t,
     activeTab,
-    setActiveTab,
+    handleActiveTabChange,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,
@@ -76,15 +77,15 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
+      <Tabs value={activeTab} onValueChange={handleActiveTabChange} className="flex-1">
         <TabsList className="border-border w-full justify-start overflow-x-auto rounded-none border-b px-4">
-          <TabsTrigger value="overview">{t('tabOverview')}</TabsTrigger>
-          <TabsTrigger value="soul">{t('tabSoul')}</TabsTrigger>
-          <TabsTrigger value="sessions">{t('tabSessions')}</TabsTrigger>
-          <TabsTrigger value="tools">{t('tabTools')}</TabsTrigger>
+          <TabsTrigger value={AiAgentPanelTab.OVERVIEW}>{t('tabOverview')}</TabsTrigger>
+          <TabsTrigger value={AiAgentPanelTab.SOUL}>{t('tabSoul')}</TabsTrigger>
+          <TabsTrigger value={AiAgentPanelTab.SESSIONS}>{t('tabSessions')}</TabsTrigger>
+          <TabsTrigger value={AiAgentPanelTab.TOOLS}>{t('tabTools')}</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="overview" className="p-4">
+        <TabsContent value={AiAgentPanelTab.OVERVIEW} className="p-4">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="bg-muted/50 rounded-lg p-3">
               <p className="text-muted-foreground mb-1 text-xs">{t('colStatus')}</p>
@@ -185,7 +186,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
           ) : null}
         </TabsContent>
 
-        <TabsContent value="soul" className="p-4">
+        <TabsContent value={AiAgentPanelTab.SOUL} className="p-4">
           <Collapsible open={soulOpen} onOpenChange={setSoulOpen}>
             <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
               <p className="text-muted-foreground text-sm">{t('soulEditor')}</p>
@@ -220,7 +221,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
           </Collapsible>
         </TabsContent>
 
-        <TabsContent value="sessions" className="p-4">
+        <TabsContent value={AiAgentPanelTab.SESSIONS} className="p-4">
           <Collapsible open={sessionsOpen} onOpenChange={setSessionsOpen}>
             <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
               <p className="text-foreground text-sm font-semibold">{t('tabSessions')}</p>
@@ -239,7 +240,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
           </Collapsible>
         </TabsContent>
 
-        <TabsContent value="tools" className="p-4">
+        <TabsContent value={AiAgentPanelTab.TOOLS} className="p-4">
           <Collapsible open={toolsOpen} onOpenChange={setToolsOpen}>
             <CollapsibleTrigger className="flex w-full items-center justify-between py-2">
               <p className="text-foreground text-sm font-semibold">{t('tabTools')}</p>

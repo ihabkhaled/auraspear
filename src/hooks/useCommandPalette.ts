@@ -11,17 +11,11 @@ import {
   Search,
   Server,
   Settings,
-  type LucideIcon,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { canAccessRouteByPermission, filterAccessibleItemsByRoute } from '@/lib/permissions'
 import { useAuthStore, useUIStore } from '@/stores'
-
-interface CommandPaletteRouteItem {
-  label: string
-  href: string
-  icon: LucideIcon
-}
+import type { CommandPaletteRouteItem } from '@/types'
 
 export function useCommandPalette() {
   const t = useTranslations()

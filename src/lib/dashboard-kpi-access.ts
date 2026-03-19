@@ -3,48 +3,17 @@ import type {
   AiAgentStats,
   AttackPathStats,
   ConnectorStats,
+  ComplianceStatsSource,
+  ExtendedKpiAccess,
   ExtendedKPIStats,
   IncidentStats,
   JobRuntimeStats,
   SoarStats,
+  SoarStatsSource,
   SystemHealthStats,
   UebaStats,
   VulnerabilityStats,
 } from '@/types'
-
-interface DashboardComplianceStats {
-  avgComplianceScore?: number | null
-  overallComplianceScore?: number | null
-  totalFrameworks: number
-  passedControls: number
-  failedControls: number
-  notAssessedControls: number
-}
-
-interface SoarStatsSource {
-  totalPlaybooks?: number | null
-  activePlaybooks?: number | null
-  totalExecutions30d?: number | null
-  totalExecutions?: number | null
-  successRate?: number | null
-  successfulExecutions?: number | null
-  failedExecutions?: number | null
-  avgDurationSeconds?: number | null
-  avgExecutionTimeMs?: number | null
-}
-
-export interface ExtendedKpiAccess {
-  openIncidents: boolean
-  criticalVulnerabilities: boolean
-  highRiskEntities: boolean
-  activeAttackPaths: boolean
-  complianceScore: boolean
-  soarExecutions: boolean
-  systemHealthScore: boolean
-  jobBacklog: boolean
-  onlineAiAgents: boolean
-  failingConnectors: boolean
-}
 
 export function getExtendedKpiAccess(permissions: string[]): ExtendedKpiAccess {
   const permissionSet = new Set(permissions)
@@ -99,7 +68,7 @@ export function buildExtendedKpiStats(params: {
   vulnerabilities: VulnerabilityStats
   ueba: UebaStats
   attackPaths: AttackPathStats
-  compliance: DashboardComplianceStats
+  compliance: ComplianceStatsSource
   soar: SoarStats
   systemHealth: SystemHealthStats
   jobs: JobRuntimeStats

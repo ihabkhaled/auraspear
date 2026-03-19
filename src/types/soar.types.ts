@@ -41,6 +41,18 @@ export interface SoarStats {
   avgDurationSeconds: number | null
 }
 
+export interface SoarStatsSource {
+  totalPlaybooks?: number | null
+  activePlaybooks?: number | null
+  totalExecutions30d?: number | null
+  totalExecutions?: number | null
+  successRate?: number | null
+  successfulExecutions?: number | null
+  failedExecutions?: number | null
+  avgDurationSeconds?: number | null
+  avgExecutionTimeMs?: number | null
+}
+
 export interface SoarPlaybookSearchParams {
   page?: number
   limit?: number

@@ -111,6 +111,14 @@ export interface DashboardCardProps {
   className?: string | undefined
 }
 
+export interface DashboardSectionCardProps {
+  title: string
+  action?: ReactNode | undefined
+  children: ReactNode
+  className?: string | undefined
+  defaultOpen?: boolean | undefined
+}
+
 export interface TopTargetedAssetsProps {
   assets: AssetRisk[]
 }
@@ -137,6 +145,19 @@ export interface ExtendedKPIStats {
   failingConnectors?: number | null
 }
 
+export interface ExtendedKpiAccess {
+  openIncidents: boolean
+  criticalVulnerabilities: boolean
+  highRiskEntities: boolean
+  activeAttackPaths: boolean
+  complianceScore: boolean
+  soarExecutions: boolean
+  systemHealthScore: boolean
+  jobBacklog: boolean
+  onlineAiAgents: boolean
+  failingConnectors: boolean
+}
+
 export interface RecentActivityItem {
   id: string
   type: string
@@ -155,5 +176,11 @@ export interface RecentActivityFeedProps {
 export interface ExtendedKPIItem {
   labelKey: string
   value: number | string
+  route: string
+}
+
+export interface ExtendedKpiCandidate {
+  labelKey: string
+  value: number | string | null | undefined
   route: string
 }

@@ -96,6 +96,10 @@ export interface ProxyOptions {
   params?: Record<string, string>
 }
 
+export interface DynamicIdRouteContext {
+  params: Promise<{ id: string }>
+}
+
 export interface FetchOptions {
   method?: string
   body?: string

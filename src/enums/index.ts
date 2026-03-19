@@ -1,6 +1,7 @@
 export { AlertSeverity, AlertStatus, AlertTimelineEventType } from './alert.enum'
 export { TimeRange } from './alert-filter.enum'
 export { BadgeVariant } from './badge.enum'
+export { JobStatus, JobType } from './job.enum'
 export {
   CaseStatus,
   CaseSeverity,
@@ -48,7 +49,7 @@ export {
 } from './incident.enum'
 export { RuleSource, RuleSeverity, RuleStatus } from './correlation.enum'
 export { VulnerabilitySeverity, PatchStatus } from './vulnerability.enum'
-export { AiAgentStatus, AiAgentTier, AiAgentSessionStatus } from './ai-agent.enum'
+export { AiAgentStatus, AiAgentTier, AiAgentSessionStatus, AiAgentPanelTab } from './ai-agent.enum'
 export { UebaEntityType, UebaRiskLevel, MlModelStatus, MlModelType, UebaTab } from './ueba.enum'
 export { AttackPathSeverity, AttackPathStatus } from './attack-path.enum'
 export { SoarPlaybookStatus, SoarTriggerType, SoarExecutionStatus } from './soar.enum'

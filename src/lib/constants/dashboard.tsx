@@ -30,11 +30,11 @@ export const KPI_COLORS = [
   'var(--status-success)',
 ]
 
-export const KPI_ROUTES: Record<string, string> = {
+export const KPI_ROUTES = {
   totalAlerts: '/alerts?timeRange=7d',
   criticalAlerts: '/alerts?timeRange=7d&severity=critical',
   openCases: '/cases?status=open',
-}
+} as const
 
 export const EXTENDED_KPI_ICONS: ReactNode[] = [
   <Flame key="incidents" className="h-5 w-5" />,
@@ -62,7 +62,7 @@ export const EXTENDED_KPI_COLORS = [
   'var(--severity-high)',
 ]
 
-export const EXTENDED_KPI_ROUTES: Record<string, string> = {
+export const EXTENDED_KPI_ROUTES = {
   openIncidents: '/incidents',
   criticalVulnerabilities: '/vulnerabilities?severity=critical',
   highRiskEntities: '/ueba',
@@ -73,4 +73,4 @@ export const EXTENDED_KPI_ROUTES: Record<string, string> = {
   jobBacklog: '/jobs',
   onlineAiAgents: '/ai-agents',
   failingConnectors: '/connectors',
-}
+} as const

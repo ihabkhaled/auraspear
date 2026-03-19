@@ -31,3 +31,13 @@ export interface RoleSettingsMatrixProps {
   permissionLabelMap: Record<string, string>
   t: (key: string) => string
 }
+
+export interface RoleSettingsToolbarProps {
+  isDirty: boolean
+  isSaving: boolean
+  isResetting: boolean
+  showReset?: boolean | undefined
+  onSave: () => void
+  onReset: () => void
+  t: (key: string) => string
+}

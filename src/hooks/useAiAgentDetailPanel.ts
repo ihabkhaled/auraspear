@@ -1,7 +1,8 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { AiAgentStatus, Permission } from '@/enums'
+import { AiAgentPanelTab, AiAgentStatus, Permission } from '@/enums'
+import { isAiAgentPanelTab } from '@/lib/ai-agent.utils'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { hasPermission } from '@/lib/permissions'
@@ -20,7 +21,7 @@ export function useAiAgentDetailPanel({
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
 
-  const [activeTab, setActiveTab] = useState('overview')
+  const [activeTab, setActiveTab] = useState(AiAgentPanelTab.OVERVIEW)
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
   const [runPrompt, setRunPrompt] = useState('')
   const [toolDialogOpen, setToolDialogOpen] = useState(false)
@@ -105,11 +106,16 @@ export function useAiAgentDetailPanel({
 
   const handleToggleAgent = isAgentOnline ? handleStopAgent : handleStartAgent
   const isToggling = startAgentMutation.isPending || stopAgentMutation.isPending
+  const handleActiveTabChange = useCallback((value: string) => {
+    if (isAiAgentPanelTab(value)) {
+      setActiveTab(value)
+    }
+  }, [])
 
   return {
     t,
     activeTab,
-    setActiveTab,
+    handleActiveTabChange,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,

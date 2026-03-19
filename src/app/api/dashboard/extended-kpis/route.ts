@@ -7,23 +7,17 @@ import {
 } from '@/lib/dashboard-kpi-access'
 import type {
   AiAgentStats,
+  ComplianceStatsSource,
+  ConnectorStats,
   IncidentStats,
   JobRuntimeStats,
-  ConnectorStats,
+  MeResponse,
+  SoarStatsSource,
   VulnerabilityStats,
   UebaStats,
   AttackPathStats,
   SystemHealthStats,
 } from '@/types'
-
-interface DashboardComplianceStats {
-  avgComplianceScore?: number | null
-  overallComplianceScore?: number | null
-  totalFrameworks: number
-  passedControls: number
-  failedControls: number
-  notAssessedControls: number
-}
 
 export const dynamic = 'force-dynamic'
 
@@ -40,7 +34,7 @@ async function fetchStatsSafe<T>(request: NextRequest, path: string, fallback: T
 export async function GET(request: NextRequest) {
   try {
     const { data: meData } = await fetchBackendJson(request, '/auth/me')
-    const permissions = (meData as { permissions?: string[] }).permissions ?? []
+    const permissions = (meData as MeResponse | null)?.permissions ?? []
     const access = getExtendedKpiAccess(permissions)
 
     const [
@@ -112,7 +106,7 @@ export async function GET(request: NextRequest) {
             avgKillChainCoverage: 0,
           }),
       access.complianceScore
-        ? fetchStatsSafe<DashboardComplianceStats>(request, '/compliance/stats', {
+        ? fetchStatsSafe<ComplianceStatsSource>(request, '/compliance/stats', {
             totalFrameworks: 0,
             avgComplianceScore: null,
             overallComplianceScore: null,
@@ -129,7 +123,7 @@ export async function GET(request: NextRequest) {
             notAssessedControls: 0,
           }),
       access.soarExecutions
-        ? fetchStatsSafe<Record<string, unknown>>(request, '/soar/stats', {})
+        ? fetchStatsSafe<SoarStatsSource>(request, '/soar/stats', {})
         : Promise.resolve({}),
       access.systemHealthScore
         ? fetchStatsSafe<SystemHealthStats>(request, '/system-health/stats', {

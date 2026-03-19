@@ -1,17 +1,9 @@
 'use client'
 
-import type { ReactNode } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-
-interface DashboardSectionCardProps {
-  title: string
-  action?: ReactNode | undefined
-  children: ReactNode
-  className?: string | undefined
-  defaultOpen?: boolean | undefined
-}
+import type { DashboardSectionCardProps } from '@/types'
 
 export function DashboardSectionCard({
   title,

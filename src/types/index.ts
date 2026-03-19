@@ -9,6 +9,7 @@ export type {
   PaginationProps,
   DataTableProps,
   PortalShellProps,
+  DynamicIdRouteContext,
   ProxyOptions,
   FetchOptions,
   CopyButtonProps,
@@ -32,6 +33,7 @@ export type {
 } from './common.types'
 export type {
   AuthUser,
+  AuthState,
   TenantMembershipInfo,
   LoginRequest,
   LoginResponse,
@@ -44,6 +46,7 @@ export type {
   BackendLoginWithTenants,
   BackendRefreshResponse,
 } from './auth.types'
+export type { ApiRetryQueueItem, ApiRetryableRequest, AuthRequestState } from './api.types'
 export type {
   Alert,
   AlertSearchParams,
@@ -188,10 +191,13 @@ export type {
   BackendPipeline,
   BackendPipelineResponse,
   DashboardCardProps,
+  DashboardSectionCardProps,
   TopTargetedAssetsProps,
   PipelineHealthBarProps,
   MITRETopTechniquesProps,
   ExtendedKPIStats,
+  ExtendedKpiAccess,
+  ExtendedKpiCandidate,
   RecentActivityItem,
   RecentActivityFeedProps,
   ExtendedKPIItem,
@@ -202,7 +208,12 @@ export type {
   ChangePasswordInput,
   PreferencesResponse,
 } from './profile.types'
-export type { NavItem, NavSection, SidebarHealthFooterProps } from './layout.types'
+export type {
+  CommandPaletteRouteItem,
+  NavItem,
+  NavSection,
+  SidebarHealthFooterProps,
+} from './layout.types'
 export type {
   SeverityDataPoint,
   AlertTrendChartProps,
@@ -227,6 +238,11 @@ export type {
   ConnectorRecord,
   ConnectorTestResult,
   ConnectorStats,
+  CreateConnectorInput,
+  ToggleConnectorInput,
+  DeleteConnectorResult,
+  ConnectorSyncResult,
+  ConnectorSyncStatusRecord,
   ConnectorMeta,
   SecurityPosture,
   ConnectorIcon,
@@ -353,6 +369,11 @@ export type {
   AiAgentFiltersProps,
   AiAgentColumnTranslations,
   SessionColumnTranslations,
+  UpdateAiAgentSoulInput,
+  UpdateAiAgentSoulMutationInput,
+  UpdateAiAgentMutationInput,
+  RunAiAgentMutationInput,
+  DeleteAiAgentResult,
 } from './ai-agent.types'
 export type {
   UebaEntity,
@@ -396,6 +417,7 @@ export type {
   SoarPlaybook,
   SoarExecution,
   SoarStats,
+  SoarStatsSource,
   SoarPlaybookSearchParams,
   SoarExecutionSearchParams,
   CreateSoarPlaybookFormValues,
@@ -414,6 +436,7 @@ export type {
   ComplianceFramework,
   ComplianceControl,
   ComplianceStats,
+  ComplianceStatsSource,
   ComplianceSearchParams,
   CreateComplianceFrameworkFormValues,
   EditComplianceFrameworkFormValues,
@@ -505,6 +528,7 @@ export type {
   PermissionMatrix,
   RoleSettingsMatrixProps,
   RoleSettingsResponse,
+  RoleSettingsToolbarProps,
 } from './role-settings.types'
 export type {
   NotificationPreference,
@@ -516,9 +540,8 @@ export type {
   JobRecord,
   JobRuntimeStats,
   JobSearchParams,
-  JobStatus,
-  JobType,
   JobTypeBreakdown,
   RunAiAgentInput,
   AiAgentRunResult,
+  CancelJobResult,
 } from './job.types'

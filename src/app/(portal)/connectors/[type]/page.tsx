@@ -15,7 +15,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { WorkspaceTab } from '@/enums'
+import { ConnectorAuthType, WorkspaceTab } from '@/enums'
 import { useConnectorWorkspacePage } from '@/hooks/useConnectorWorkspacePage'
 import { isSyncableConnector } from '@/lib/constants/connectors.constants'
 import type { ConnectorDetailPageProps } from '@/types'
@@ -119,22 +119,18 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                   connector={undefined}
                   readOnly={false}
                   onCreateSubmit={data => {
-                    const { name, enabled, authType, tags, notes, ...configFields } =
-                      data as Record<string, unknown>
+                    const { name, enabled, authType, tags, notes, ...configFields } = data
                     handleCreate({
                       type,
-                      name: (name as string) ?? meta.label,
+                      name: name || meta.label,
                       enabled: Boolean(enabled),
-                      authType: (authType as string) ?? 'basic',
+                      authType: authType || ConnectorAuthType.BASIC,
                       config: {
                         ...configFields,
-                        tags:
-                          typeof tags === 'string'
-                            ? tags
-                                .split(',')
-                                .map(tag => tag.trim())
-                                .filter(Boolean)
-                            : [],
+                        tags: tags
+                          .split(',')
+                          .map(tag => tag.trim())
+                          .filter(Boolean),
                         notes: notes ?? '',
                       },
                     })
