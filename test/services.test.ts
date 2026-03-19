@@ -898,6 +898,24 @@ describe('connectorService', () => {
     })
   })
 
+  describe('getStats', () => {
+    it('should call GET /connectors/stats and unwrap data.data', async () => {
+      const stats = {
+        totalConnectors: 8,
+        enabledConnectors: 6,
+        healthyConnectors: 4,
+        failingConnectors: 2,
+        untestedConnectors: 2,
+      }
+      mockGet.mockResolvedValue({ data: { data: stats } })
+
+      const result = await connectorService.getStats()
+
+      expect(mockGet).toHaveBeenCalledWith('/connectors/stats')
+      expect(result).toEqual(stats)
+    })
+  })
+
   describe('create', () => {
     it('should call POST /connectors with data and unwrap data.data', async () => {
       const connector = { id: 'c-new', type: 'graylog', name: 'Graylog' }

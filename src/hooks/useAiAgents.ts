@@ -129,3 +129,20 @@ export function useDeleteAiAgent() {
     },
   })
 }
+
+export function useRunAiAgent() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
+  return useMutation({
+    mutationFn: ({ id, prompt }: { id: string; prompt: string }) => {
+      requirePermission(permissions, Permission.AI_AGENTS_EXECUTE)
+      return aiAgentService.runAgent(id, { prompt })
+    },
+    onSuccess: (_data, { id }) => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', id, 'sessions', tenantId] })
+    },
+  })
+}

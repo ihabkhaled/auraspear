@@ -1,0 +1,13 @@
+import { type NextRequest } from 'next/server'
+import { proxyToBackend } from '@/lib/backend-proxy'
+
+interface RouteContext {
+  params: Promise<{ id: string }>
+}
+
+export const dynamic = 'force-dynamic'
+
+export async function POST(request: NextRequest, context: RouteContext) {
+  const { id } = await context.params
+  return proxyToBackend(request, { path: `/jobs/${id}/cancel` })
+}

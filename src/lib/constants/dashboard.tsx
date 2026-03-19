@@ -11,6 +11,9 @@ import {
   CheckCircle,
   Zap,
   HeartPulse,
+  Bot,
+  Workflow,
+  PlugZap,
 } from 'lucide-react'
 
 export const KPI_ICONS: ReactNode[] = [
@@ -41,6 +44,9 @@ export const EXTENDED_KPI_ICONS: ReactNode[] = [
   <CheckCircle key="compliance" className="h-5 w-5" />,
   <Zap key="soar" className="h-5 w-5" />,
   <HeartPulse key="health" className="h-5 w-5" />,
+  <Workflow key="jobs" className="h-5 w-5" />,
+  <Bot key="agents" className="h-5 w-5" />,
+  <PlugZap key="connectors" className="h-5 w-5" />,
 ]
 
 export const EXTENDED_KPI_COLORS = [
@@ -51,6 +57,9 @@ export const EXTENDED_KPI_COLORS = [
   'var(--status-success)',
   'var(--status-info)',
   'var(--primary)',
+  'var(--status-warning)',
+  'var(--primary)',
+  'var(--severity-high)',
 ]
 
 export const EXTENDED_KPI_ROUTES: Record<string, string> = {
@@ -61,4 +70,7 @@ export const EXTENDED_KPI_ROUTES: Record<string, string> = {
   complianceScore: '/compliance',
   soarExecutions: '/soar',
   systemHealthScore: '/system-health',
+  jobBacklog: '/jobs',
+  onlineAiAgents: '/ai-agents',
+  failingConnectors: '/connectors',
 }

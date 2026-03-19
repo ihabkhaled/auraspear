@@ -10,6 +10,8 @@ const PERMISSION_FALLBACK_ROUTE_ORDER = [
   '/hunt',
   '/intel',
   '/connectors',
+  '/system-health',
+  '/jobs',
   '/reports',
   '/compliance',
   '/admin/tenant',

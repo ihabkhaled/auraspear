@@ -1,12 +1,14 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { AiAgentStatus } from '@/enums'
+import { AiAgentStatus, Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
+import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
+import { useAuthStore } from '@/stores'
 import type { AiAgentDetailPanelProps } from '@/types'
-import { useUpdateSoul, useStartAgent, useStopAgent } from './useAiAgents'
+import { useUpdateSoul, useStartAgent, useStopAgent, useRunAiAgent } from './useAiAgents'
 
 export function useAiAgentDetailPanel({
   agent,
@@ -16,9 +18,11 @@ export function useAiAgentDetailPanel({
 }: AiAgentDetailPanelProps) {
   const t = useTranslations('aiAgents')
   const tErrors = useTranslations('errors')
+  const permissions = useAuthStore(s => s.permissions)
 
   const [activeTab, setActiveTab] = useState('overview')
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
+  const [runPrompt, setRunPrompt] = useState('')
   const [toolDialogOpen, setToolDialogOpen] = useState(false)
   const [sessionsOpen, setSessionsOpen] = useState(true)
   const [toolsOpen, setToolsOpen] = useState(true)
@@ -27,8 +31,10 @@ export function useAiAgentDetailPanel({
   const updateSoulMutation = useUpdateSoul()
   const startAgentMutation = useStartAgent()
   const stopAgentMutation = useStopAgent()
+  const runAgentMutation = useRunAiAgent()
 
   const isAgentOnline = agent.status === AiAgentStatus.ONLINE
+  const canExecute = hasPermission(permissions, Permission.AI_AGENTS_EXECUTE)
 
   const statusLabel = useMemo(
     () => t(lookup(AI_AGENT_STATUS_LABEL_KEYS, agent.status)),
@@ -82,6 +88,21 @@ export function useAiAgentDetailPanel({
     })
   }, [agent.id, stopAgentMutation, t, tErrors])
 
+  const handleRunAgent = useCallback(() => {
+    runAgentMutation.mutate(
+      { id: agent.id, prompt: runPrompt },
+      {
+        onSuccess: () => {
+          setRunPrompt('')
+          Toast.success(t('runQueued'))
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      }
+    )
+  }, [agent.id, runAgentMutation, runPrompt, t, tErrors])
+
   const handleToggleAgent = isAgentOnline ? handleStopAgent : handleStartAgent
   const isToggling = startAgentMutation.isPending || stopAgentMutation.isPending
 
@@ -91,6 +112,8 @@ export function useAiAgentDetailPanel({
     setActiveTab,
     soulMdDraft,
     setSoulMdDraft,
+    runPrompt,
+    setRunPrompt,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,
@@ -106,9 +129,12 @@ export function useAiAgentDetailPanel({
     formattedDate,
     handleSaveSoul,
     handleToggleAgent,
+    handleRunAgent,
     isAgentOnline,
+    canExecute,
     isSavingSoul: updateSoulMutation.isPending,
     isToggling,
+    isRunningAgent: runAgentMutation.isPending,
     onClose,
     onEdit,
     onDelete,

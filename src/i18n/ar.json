@@ -41,7 +41,8 @@
     "settings": "الإعدادات",
     "notifications": "الإشعارات",
     "profile": "الملف الشخصي",
-    "roleSettings": "إعدادات الأدوار"
+    "roleSettings": "إعدادات الأدوار",
+    "jobs": "Jobs"
   },
   "common": {
     "search": "بحث",
@@ -121,7 +122,10 @@
     "systemHealthScore": "صحة النظام",
     "recentActivity": "النشاط الأخير",
     "noRecentActivity": "لا يوجد نشاط حديث",
-    "noRecentActivityDescription": "سيظهر النشاط هنا عند حدوث الأحداث"
+    "noRecentActivityDescription": "سيظهر النشاط هنا عند حدوث الأحداث",
+    "jobBacklog": "??????? ?????????",
+    "onlineAiAgents": "????? ?????? ????????? ????????",
+    "failingConnectors": "????????? ????????"
   },
   "alerts": {
     "title": "إدارة التنبيهات",
@@ -957,6 +961,14 @@
       "searchResults": "نتائج البحث",
       "noSearchResults": "لم يتم العثور على نتائج",
       "enableConnector": "قم بتفعيل هذا الموصّل لعرض بيانات مساحة العمل"
+    },
+    "stats": {
+      "totalConnectors": "?????? ?????????",
+      "enabledConnectors": "????????? ????????",
+      "healthyConnectors": "????????? ???????",
+      "failingConnectors": "????????? ????????",
+      "untestedConnectors": "{count} ????? ??? ?????",
+      "allTested": "?? ?????? ???? ?????????"
     }
   },
   "language": {
@@ -1256,7 +1268,8 @@
       "notFound": "لم يتم العثور على وكيل الذكاء الاصطناعي.",
       "nameAlreadyExists": "يوجد وكيل بهذا الاسم بالفعل.",
       "alreadyOnline": "الوكيل متصل بالفعل.",
-      "alreadyOffline": "الوكيل غير متصل بالفعل."
+      "alreadyOffline": "الوكيل غير متصل بالفعل.",
+      "offline": "This AI agent must be online or degraded before it can run tasks."
     },
     "users": {
       "notFound": "لم يتم العثور على المستخدم.",
@@ -1338,6 +1351,11 @@
     "vulnerabilities": {
       "duplicateCve": "توجد بالفعل ثغرة بمعرّف CVE هذا.",
       "notFound": "الثغرة غير موجودة."
+    },
+    "jobs": {
+      "notFound": "Job not found.",
+      "cannotRetry": "This job cannot be retried in its current state.",
+      "cannotCancel": "This job cannot be cancelled in its current state."
     }
   },
   "profile": {
@@ -2044,7 +2062,13 @@
     "toolEnabled": "Enabled",
     "validationToolNameMin": "Tool name must be at least 2 characters",
     "validationToolDescriptionMin": "Tool description must be at least 5 characters",
-    "validationToolSchemaMin": "Schema must be at least 2 characters"
+    "validationToolSchemaMin": "Schema must be at least 2 characters",
+    "runAgent": "Run Agent",
+    "runAgentDescription": "Queue a safe assistive task for this agent and capture the result as a session.",
+    "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
+    "queueRun": "Queue Run",
+    "queueingRun": "Queueing...",
+    "runQueued": "Agent run queued successfully"
   },
   "ueba": {
     "title": "تحليلات التعلم الآلي / UEBA",
@@ -3174,7 +3198,9 @@
       "notifications": "الإشعارات",
       "profile": "الملف الشخصي",
       "settings": "الإعدادات",
-      "roleSettings": "إعدادات الأدوار"
+      "roleSettings": "إعدادات الأدوار",
+      "jobs": "Jobs",
+      "systemHealth": "System Health"
     },
     "permissions": {
       "dashboard": {
@@ -3281,7 +3307,8 @@
         "view": "عرض وكلاء AI",
         "create": "إنشاء وكلاء AI",
         "update": "تحديث وكلاء AI",
-        "delete": "حذف وكلاء AI"
+        "delete": "حذف وكلاء AI",
+        "execute": "Execute AI Agents"
       },
       "cloudSecurity": {
         "view": "عرض أمان السحابة",
@@ -3333,6 +3360,13 @@
       "roleSettings": {
         "view": "عرض إعدادات الأدوار",
         "update": "تحديث إعدادات الأدوار"
+      },
+      "jobs": {
+        "view": "View Runtime Jobs",
+        "manage": "Manage Runtime Jobs"
+      },
+      "systemHealth": {
+        "view": "View System Health"
       }
     },
     "roles": {
@@ -3347,6 +3381,57 @@
       "SOC_ANALYST_L1": "محلل SOC المستوى 1",
       "EXECUTIVE_READONLY": "تنفيذي (قراءة فقط)",
       "AUDITOR_READONLY": "مدقق (للقراءة فقط)"
+    }
+  },
+  "jobs": {
+    "title": "Runtime Jobs",
+    "description": "Monitor queued work, retries, and background runtime health",
+    "emptyTitle": "No jobs found",
+    "emptyDescription": "No runtime jobs match the selected filters",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "retrySuccess": "Job queued for retry",
+    "cancelSuccess": "Job cancelled successfully",
+    "kpis": {
+      "total": "Total Jobs",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "delayed": "Delayed"
+    },
+    "filters": {
+      "status": "Status",
+      "type": "Job Type",
+      "allStatuses": "All statuses",
+      "allTypes": "All types"
+    },
+    "columns": {
+      "type": "Type",
+      "status": "Status",
+      "attempts": "Attempts",
+      "createdBy": "Created By",
+      "createdAt": "Created",
+      "scheduledAt": "Scheduled",
+      "error": "Error",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "types": {
+      "connector_sync": "Connector Sync",
+      "detection_rule_execution": "Detection Rule Execution",
+      "correlation_rule_execution": "Correlation Rule Execution",
+      "normalization_pipeline": "Normalization Pipeline",
+      "soar_playbook": "SOAR Playbook",
+      "hunt_execution": "Hunt Execution",
+      "ai_agent_task": "AI Agent Task",
+      "report_generation": "Report Generation"
     }
   }
 }

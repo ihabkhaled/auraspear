@@ -1,3 +1,5 @@
+'use client'
+
 import { Loader2 } from 'lucide-react'
 import { useLoadingSpinner } from '@/hooks/useLoadingSpinner'
 import { cn } from '@/lib/utils'

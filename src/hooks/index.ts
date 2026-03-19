@@ -130,6 +130,7 @@ export { useTenantSwitcher } from './useTenantSwitcher'
 export { useHuntChatPanel } from './useHuntChatPanel'
 export { useAuthGuard } from './useAuthGuard'
 export { useRoleGuard } from './useRoleGuard'
+export { useJobsPage } from './useJobsPage'
 export { useCaseCommentsPanel } from './useCaseCommentsPanel'
 export { useCreateCaseDialog } from './useCreateCaseDialog'
 export { useCreateCycleDialog } from './useCreateCycleDialog'
@@ -285,6 +286,7 @@ export {
   useUpdateSoul,
   useStartAgent,
   useStopAgent,
+  useRunAiAgent,
   useCreateAiAgent,
   useUpdateAiAgent,
   useDeleteAiAgent,
@@ -455,6 +457,7 @@ export { useDataRetention } from './useDataRetention'
 export { useExportImportSettings } from './useExportImportSettings'
 export { useRecentActivityFeed } from './useRecentActivityFeed'
 export { useRoleSettingsPage } from './useRoleSettingsPage'
+export { useJobs, useJobStats, useRetryJob, useCancelJob } from './useJobs'
 export {
   useConnectors,
   useConnector,

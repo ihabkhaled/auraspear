@@ -26,6 +26,7 @@ const pathLabelMap: Record<string, string> = {
   profile: 'nav.profile',
   settings: 'nav.settings',
   incidents: 'nav.incidents',
+  jobs: 'nav.jobs',
   correlation: 'nav.correlation',
   explorer: 'nav.explorer',
   vulnerabilities: 'nav.vulnerabilities',

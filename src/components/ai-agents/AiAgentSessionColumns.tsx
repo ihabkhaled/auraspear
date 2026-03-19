@@ -18,6 +18,13 @@ export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<A
       render: (value: unknown) => <span className="text-xs capitalize">{String(value ?? '')}</span>,
     },
     {
+      key: 'output',
+      label: t('sessionOutput'),
+      render: (value: unknown) => (
+        <span className="max-w-[240px] truncate text-sm">{String(value ?? '') || '—'}</span>
+      ),
+    },
+    {
       key: 'tokensUsed',
       label: t('colTokens'),
       className: 'w-24 text-end',

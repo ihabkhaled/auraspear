@@ -15,6 +15,15 @@ export function useConnectors() {
   })
 }
 
+export function useConnectorStats() {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['connectors', tenantId, 'stats'],
+    queryFn: () => connectorService.getStats(),
+    placeholderData: keepPreviousData,
+  })
+}
+
 export function useConnector(type: string, enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({

@@ -227,4 +227,25 @@ describe('aiAgentService', () => {
       await expect(aiAgentService.deleteAgent('agent-999')).rejects.toThrow('Not found')
     })
   })
+
+  describe('runAgent', () => {
+    it('should call POST /ai-agents/:id/run with prompt data', async () => {
+      const response = { queued: true, jobId: 'job-1', sessionId: 'session-1' }
+      mockPost.mockResolvedValue({ data: { data: response } })
+
+      const input = { prompt: 'Summarize the queue backlog' }
+      const result = await aiAgentService.runAgent('agent-1', input)
+
+      expect(mockPost).toHaveBeenCalledWith('/ai-agents/agent-1/run', input)
+      expect(result.data).toEqual(response)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('Forbidden'))
+
+      await expect(
+        aiAgentService.runAgent('agent-1', { prompt: 'Investigate this alert' })
+      ).rejects.toThrow('Forbidden')
+    })
+  })
 })

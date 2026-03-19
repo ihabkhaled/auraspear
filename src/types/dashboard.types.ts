@@ -125,13 +125,16 @@ export interface MITRETopTechniquesProps {
 }
 
 export interface ExtendedKPIStats {
-  openIncidents: number
-  criticalVulnerabilities: number
-  highRiskEntities: number
-  activeAttackPaths: number
-  complianceScore: number | null
-  soarExecutions: number
-  systemHealthScore: number
+  openIncidents?: number | null
+  criticalVulnerabilities?: number | null
+  highRiskEntities?: number | null
+  activeAttackPaths?: number | null
+  complianceScore?: number | null
+  soarExecutions?: number | null
+  systemHealthScore?: number | null
+  jobBacklog?: number | null
+  onlineAiAgents?: number | null
+  failingConnectors?: number | null
 }
 
 export interface RecentActivityItem {

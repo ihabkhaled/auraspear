@@ -4,12 +4,13 @@ import { Permission } from '@/enums'
 import { CONNECTOR_TYPES } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
-import { useConnectors } from './useConnectors'
+import { useConnectors, useConnectorStats } from './useConnectors'
 
 export function useConnectorsPage() {
   const t = useTranslations('connectors')
   const permissions = useAuthStore(s => s.permissions)
   const { data: connectors, isLoading, isFetching } = useConnectors()
+  const { data: stats, isLoading: statsLoading } = useConnectorStats()
 
   const canCreate = hasPermission(permissions, Permission.CONNECTORS_CREATE)
   const canDelete = hasPermission(permissions, Permission.CONNECTORS_DELETE)
@@ -24,6 +25,8 @@ export function useConnectorsPage() {
   return {
     t,
     list,
+    stats,
+    statsLoading,
     isLoading,
     isFetching,
     unconfiguredTypes,

@@ -5,7 +5,9 @@ import type {
   AiAgentSession,
   AiAgentSessionSearchParams,
   AiAgentStats,
+  AiAgentRunResult,
   ApiResponse,
+  RunAiAgentInput,
 } from '@/types'
 
 export const aiAgentService = {
@@ -29,6 +31,9 @@ export const aiAgentService = {
 
   stopAgent: (id: string) =>
     api.post<ApiResponse<AiAgent>>(`/ai-agents/${id}/stop`).then(r => r.data),
+
+  runAgent: (id: string, data: RunAiAgentInput) =>
+    api.post<ApiResponse<AiAgentRunResult>>(`/ai-agents/${id}/run`, data).then(r => r.data),
 
   createAgent: (data: Record<string, unknown>) =>
     api.post<ApiResponse<AiAgent>>('/ai-agents', data).then(r => r.data),

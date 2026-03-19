@@ -20,6 +20,8 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     setActiveTab,
     soulMdDraft,
     setSoulMdDraft,
+    runPrompt,
+    setRunPrompt,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,
@@ -35,9 +37,12 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     formattedDate,
     handleSaveSoul,
     handleToggleAgent,
+    handleRunAgent,
     isAgentOnline,
+    canExecute,
     isSavingSoul,
     isToggling,
+    isRunningAgent,
     onClose,
     onEdit,
     onDelete,
@@ -153,6 +158,31 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
               </Button>
             )}
           </div>
+          {canExecute ? (
+            <div className="mt-4 flex flex-col gap-3 rounded-lg border p-3">
+              <div>
+                <p className="text-foreground text-sm font-semibold">{t('runAgent')}</p>
+                <p className="text-muted-foreground text-xs">{t('runAgentDescription')}</p>
+              </div>
+              <Textarea
+                value={runPrompt}
+                onChange={e => setRunPrompt(e.target.value)}
+                placeholder={t('runPromptPlaceholder')}
+                className="min-h-28 resize-none text-sm"
+              />
+              <div className="flex justify-end">
+                <Button
+                  size="sm"
+                  onClick={handleRunAgent}
+                  disabled={isRunningAgent || runPrompt.trim().length === 0}
+                  className="gap-1.5"
+                >
+                  <Play className="h-3.5 w-3.5" />
+                  {isRunningAgent ? t('queueingRun') : t('queueRun')}
+                </Button>
+              </div>
+            </div>
+          ) : null}
         </TabsContent>
 
         <TabsContent value="soul" className="p-4">

@@ -226,6 +226,7 @@ export type {
 export type {
   ConnectorRecord,
   ConnectorTestResult,
+  ConnectorStats,
   ConnectorMeta,
   SecurityPosture,
   ConnectorIcon,
@@ -511,3 +512,13 @@ export type {
   ExportedSettingsRetention,
   ExportedSettings,
 } from './settings.types'
+export type {
+  JobRecord,
+  JobRuntimeStats,
+  JobSearchParams,
+  JobStatus,
+  JobType,
+  JobTypeBreakdown,
+  RunAiAgentInput,
+  AiAgentRunResult,
+} from './job.types'

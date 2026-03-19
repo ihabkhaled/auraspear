@@ -32,6 +32,14 @@ export interface ConnectorTestResult {
   testedAt: string
 }
 
+export interface ConnectorStats {
+  totalConnectors: number
+  enabledConnectors: number
+  healthyConnectors: number
+  failingConnectors: number
+  untestedConnectors: number
+}
+
 export interface ConnectorMeta {
   label: string
   descriptionKey: string

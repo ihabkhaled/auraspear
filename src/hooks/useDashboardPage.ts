@@ -17,6 +17,12 @@ import {
   useExtendedKPIs,
 } from './useDashboard'
 
+interface ExtendedKpiCandidate {
+  labelKey: string
+  value: number | string | null | undefined
+  route: string
+}
+
 export function useDashboardPage() {
   const t = useTranslations('dashboard')
   const router = useRouter()
@@ -62,7 +68,7 @@ export function useDashboardPage() {
     if (!stats) {
       return []
     }
-    return [
+    const items: ExtendedKpiCandidate[] = [
       {
         labelKey: 'openIncidents',
         value: stats.openIncidents,
@@ -85,7 +91,10 @@ export function useDashboardPage() {
       },
       {
         labelKey: 'complianceScore',
-        value: formatDashboardPercentage(stats.complianceScore),
+        value:
+          stats.complianceScore === undefined
+            ? undefined
+            : formatDashboardPercentage(stats.complianceScore),
         route: EXTENDED_KPI_ROUTES['complianceScore'] ?? '/compliance',
       },
       {
@@ -95,10 +104,32 @@ export function useDashboardPage() {
       },
       {
         labelKey: 'systemHealthScore',
-        value: formatDashboardPercentage(stats.systemHealthScore),
+        value:
+          stats.systemHealthScore === undefined
+            ? undefined
+            : formatDashboardPercentage(stats.systemHealthScore),
         route: EXTENDED_KPI_ROUTES['systemHealthScore'] ?? '/system-health',
       },
+      {
+        labelKey: 'jobBacklog',
+        value: stats.jobBacklog,
+        route: EXTENDED_KPI_ROUTES['jobBacklog'] ?? '/jobs',
+      },
+      {
+        labelKey: 'onlineAiAgents',
+        value: stats.onlineAiAgents,
+        route: EXTENDED_KPI_ROUTES['onlineAiAgents'] ?? '/ai-agents',
+      },
+      {
+        labelKey: 'failingConnectors',
+        value: stats.failingConnectors,
+        route: EXTENDED_KPI_ROUTES['failingConnectors'] ?? '/connectors',
+      },
     ]
+
+    return items.filter(
+      (item): item is ExtendedKPIItem & { value: number | string } => item.value !== undefined
+    )
   }, [extendedKPIs?.data])
 
   return {

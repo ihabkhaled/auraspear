@@ -1,11 +1,13 @@
 import api from '@/lib/api'
-import type { ConnectorRecord, ConnectorTestResult } from '@/types'
+import type { ConnectorRecord, ConnectorStats, ConnectorTestResult } from '@/types'
 
 export const connectorService = {
   list: () => api.get<{ data: ConnectorRecord[] }>('/connectors').then(r => r.data.data),
 
   getByType: (type: string) =>
     api.get<{ data: ConnectorRecord }>(`/connectors/${type}`).then(r => r.data.data),
+
+  getStats: () => api.get<{ data: ConnectorStats }>('/connectors/stats').then(r => r.data.data),
 
   create: (data: {
     type: string

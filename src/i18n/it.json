@@ -41,7 +41,8 @@
     "settings": "Impostazioni",
     "notifications": "Notifiche",
     "profile": "Profilo",
-    "roleSettings": "Impostazioni Ruoli"
+    "roleSettings": "Impostazioni Ruoli",
+    "jobs": "Jobs"
   },
   "common": {
     "search": "Cerca",
@@ -121,7 +122,10 @@
     "systemHealthScore": "Stato del Sistema",
     "recentActivity": "Attivita Recente",
     "noRecentActivity": "Nessuna attivita recente",
-    "noRecentActivityDescription": "Le attivita appariranno qui man mano che si verificano gli eventi"
+    "noRecentActivityDescription": "Le attivita appariranno qui man mano che si verificano gli eventi",
+    "jobBacklog": "Coda dei job",
+    "onlineAiAgents": "Agenti IA online",
+    "failingConnectors": "Connettori in errore"
   },
   "alerts": {
     "title": "Gestione Avvisi",
@@ -957,6 +961,14 @@
       "searchResults": "Risultati della Ricerca",
       "noSearchResults": "Nessun risultato trovato",
       "enableConnector": "Abilita questo connettore per visualizzare i dati dell'area di lavoro"
+    },
+    "stats": {
+      "totalConnectors": "Connettori Totali",
+      "enabledConnectors": "Connettori Abilitati",
+      "healthyConnectors": "Connettori Sani",
+      "failingConnectors": "Connettori in Errore",
+      "untestedConnectors": "{count} connettori non testati",
+      "allTested": "Tutti i connettori sono stati testati"
     }
   },
   "language": {
@@ -1256,7 +1268,8 @@
       "notFound": "Agente AI non trovato.",
       "nameAlreadyExists": "Esiste già un agente con questo nome.",
       "alreadyOnline": "L'agente è già online.",
-      "alreadyOffline": "L'agente è già offline."
+      "alreadyOffline": "L'agente è già offline.",
+      "offline": "This AI agent must be online or degraded before it can run tasks."
     },
     "users": {
       "notFound": "Utente non trovato.",
@@ -1338,6 +1351,11 @@
     "vulnerabilities": {
       "duplicateCve": "Esiste già una vulnerabilità con questo ID CVE.",
       "notFound": "Vulnerabilità non trovata."
+    },
+    "jobs": {
+      "notFound": "Job not found.",
+      "cannotRetry": "This job cannot be retried in its current state.",
+      "cannotCancel": "This job cannot be cancelled in its current state."
     }
   },
   "profile": {
@@ -2044,7 +2062,13 @@
     "toolEnabled": "Enabled",
     "validationToolNameMin": "Tool name must be at least 2 characters",
     "validationToolDescriptionMin": "Tool description must be at least 5 characters",
-    "validationToolSchemaMin": "Schema must be at least 2 characters"
+    "validationToolSchemaMin": "Schema must be at least 2 characters",
+    "runAgent": "Run Agent",
+    "runAgentDescription": "Queue a safe assistive task for this agent and capture the result as a session.",
+    "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
+    "queueRun": "Queue Run",
+    "queueingRun": "Queueing...",
+    "runQueued": "Agent run queued successfully"
   },
   "ueba": {
     "title": "Analitica ML / UEBA",
@@ -3174,7 +3198,9 @@
       "notifications": "Notifiche",
       "profile": "Profilo",
       "settings": "Impostazioni",
-      "roleSettings": "Impostazioni Ruoli"
+      "roleSettings": "Impostazioni Ruoli",
+      "jobs": "Jobs",
+      "systemHealth": "System Health"
     },
     "permissions": {
       "dashboard": {
@@ -3281,7 +3307,8 @@
         "view": "Visualizza Agenti AI",
         "create": "Crea Agenti AI",
         "update": "Aggiorna Agenti AI",
-        "delete": "Elimina Agenti AI"
+        "delete": "Elimina Agenti AI",
+        "execute": "Execute AI Agents"
       },
       "cloudSecurity": {
         "view": "Visualizza Sicurezza Cloud",
@@ -3333,6 +3360,13 @@
       "roleSettings": {
         "view": "Visualizza Impostazioni Ruoli",
         "update": "Aggiorna Impostazioni Ruoli"
+      },
+      "jobs": {
+        "view": "View Runtime Jobs",
+        "manage": "Manage Runtime Jobs"
+      },
+      "systemHealth": {
+        "view": "View System Health"
       }
     },
     "roles": {
@@ -3347,6 +3381,57 @@
       "SOC_ANALYST_L1": "Analista SOC L1",
       "EXECUTIVE_READONLY": "Dirigente (Sola Lettura)",
       "AUDITOR_READONLY": "Auditor (Sola Lettura)"
+    }
+  },
+  "jobs": {
+    "title": "Runtime Jobs",
+    "description": "Monitor queued work, retries, and background runtime health",
+    "emptyTitle": "No jobs found",
+    "emptyDescription": "No runtime jobs match the selected filters",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "retrySuccess": "Job queued for retry",
+    "cancelSuccess": "Job cancelled successfully",
+    "kpis": {
+      "total": "Total Jobs",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "delayed": "Delayed"
+    },
+    "filters": {
+      "status": "Status",
+      "type": "Job Type",
+      "allStatuses": "All statuses",
+      "allTypes": "All types"
+    },
+    "columns": {
+      "type": "Type",
+      "status": "Status",
+      "attempts": "Attempts",
+      "createdBy": "Created By",
+      "createdAt": "Created",
+      "scheduledAt": "Scheduled",
+      "error": "Error",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "types": {
+      "connector_sync": "Connector Sync",
+      "detection_rule_execution": "Detection Rule Execution",
+      "correlation_rule_execution": "Correlation Rule Execution",
+      "normalization_pipeline": "Normalization Pipeline",
+      "soar_playbook": "SOAR Playbook",
+      "hunt_execution": "Hunt Execution",
+      "ai_agent_task": "AI Agent Task",
+      "report_generation": "Report Generation"
     }
   }
 }

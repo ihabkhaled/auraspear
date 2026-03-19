@@ -23,6 +23,7 @@
     "correlation": "Correlation & Sigma",
     "vulnerabilities": "Vulnerabilities",
     "systemHealth": "System Health",
+    "jobs": "Jobs",
     "aiAgents": "AI Agents",
     "compliance": "Compliance",
     "reports": "Reports",
@@ -121,7 +122,10 @@
     "systemHealthScore": "System Health",
     "recentActivity": "Recent Activity",
     "noRecentActivity": "No recent activity",
-    "noRecentActivityDescription": "Activity will appear here as events occur"
+    "noRecentActivityDescription": "Activity will appear here as events occur",
+    "jobBacklog": "Job Backlog",
+    "onlineAiAgents": "Online AI Agents",
+    "failingConnectors": "Failing Connectors"
   },
   "alerts": {
     "title": "Alerts Management",
@@ -957,6 +961,14 @@
       "searchResults": "Search Results",
       "noSearchResults": "No results found",
       "enableConnector": "Enable this connector to view workspace data"
+    },
+    "stats": {
+      "totalConnectors": "Total Connectors",
+      "enabledConnectors": "Enabled Connectors",
+      "healthyConnectors": "Healthy Connectors",
+      "failingConnectors": "Failing Connectors",
+      "untestedConnectors": "{count} untested connectors",
+      "allTested": "All connectors have been tested"
     }
   },
   "language": {
@@ -1256,7 +1268,13 @@
       "notFound": "AI Agent not found.",
       "nameAlreadyExists": "An agent with this name already exists.",
       "alreadyOnline": "Agent is already online.",
-      "alreadyOffline": "Agent is already offline."
+      "alreadyOffline": "Agent is already offline.",
+      "offline": "This AI agent must be online or degraded before it can run tasks."
+    },
+    "jobs": {
+      "notFound": "Job not found.",
+      "cannotRetry": "This job cannot be retried in its current state.",
+      "cannotCancel": "This job cannot be cancelled in its current state."
     },
     "users": {
       "notFound": "User not found.",
@@ -1983,6 +2001,12 @@
     "startAgent": "Start Agent",
     "sessionInput": "Input",
     "sessionOutput": "Output",
+    "runAgent": "Run Agent",
+    "runAgentDescription": "Queue a safe assistive task for this agent and capture the result as a session.",
+    "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
+    "queueRun": "Queue Run",
+    "queueingRun": "Queueing...",
+    "runQueued": "Agent run queued successfully",
     "searchPlaceholder": "Search agents...",
     "statusFilter": "Status",
     "tierFilter": "Tier",
@@ -2755,6 +2779,57 @@
     "metricNetwork": "Network",
     "metricQueueDepth": "Queue Depth"
   },
+  "jobs": {
+    "title": "Runtime Jobs",
+    "description": "Monitor queued work, retries, and background runtime health",
+    "emptyTitle": "No jobs found",
+    "emptyDescription": "No runtime jobs match the selected filters",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "retrySuccess": "Job queued for retry",
+    "cancelSuccess": "Job cancelled successfully",
+    "kpis": {
+      "total": "Total Jobs",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "delayed": "Delayed"
+    },
+    "filters": {
+      "status": "Status",
+      "type": "Job Type",
+      "allStatuses": "All statuses",
+      "allTypes": "All types"
+    },
+    "columns": {
+      "type": "Type",
+      "status": "Status",
+      "attempts": "Attempts",
+      "createdBy": "Created By",
+      "createdAt": "Created",
+      "scheduledAt": "Scheduled",
+      "error": "Error",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "running": "Running",
+      "retrying": "Retrying",
+      "failed": "Failed",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "types": {
+      "connector_sync": "Connector Sync",
+      "detection_rule_execution": "Detection Rule Execution",
+      "correlation_rule_execution": "Correlation Rule Execution",
+      "normalization_pipeline": "Normalization Pipeline",
+      "soar_playbook": "SOAR Playbook",
+      "hunt_execution": "Hunt Execution",
+      "ai_agent_task": "AI Agent Task",
+      "report_generation": "Report Generation"
+    }
+  },
   "normalization": {
     "title": "Normalization Pipelines",
     "description": "Manage log normalization and parsing pipelines",
@@ -3166,6 +3241,8 @@
       "normalization": "Normalization",
       "soar": "SOAR Workflows",
       "aiAgents": "AI Agents",
+      "jobs": "Jobs",
+      "systemHealth": "System Health",
       "cloudSecurity": "Cloud Security",
       "compliance": "Compliance",
       "reports": "Reports",
@@ -3279,9 +3356,17 @@
       },
       "aiAgents": {
         "view": "View AI Agents",
+        "execute": "Execute AI Agents",
         "create": "Create AI Agents",
         "update": "Update AI Agents",
         "delete": "Delete AI Agents"
+      },
+      "jobs": {
+        "view": "View Runtime Jobs",
+        "manage": "Manage Runtime Jobs"
+      },
+      "systemHealth": {
+        "view": "View System Health"
       },
       "cloudSecurity": {
         "view": "View Cloud Security",

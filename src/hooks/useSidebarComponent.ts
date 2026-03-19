@@ -14,6 +14,7 @@ import {
   Bug,
   Activity,
   Bot,
+  Clock3,
   FileCheck,
   BarChart3,
   Brain,
@@ -75,6 +76,7 @@ export function useSidebarContent() {
       items: [
         { icon: Plug, label: t('nav.connectors'), href: '/connectors' },
         { icon: Activity, label: t('nav.systemHealth'), href: '/system-health' },
+        { icon: Clock3, label: t('nav.jobs'), href: '/jobs' },
         { icon: Cloud, label: t('nav.cloudSecurity'), href: '/cloud-security' },
       ],
     },

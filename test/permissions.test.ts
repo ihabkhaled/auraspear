@@ -168,7 +168,7 @@ describe('filterAccessibleItemsByRoute', () => {
 
   it('supports module routes that use the same permission as their destination page', () => {
     const result = filterAccessibleItemsByRoute(
-      [Permission.ATTACK_PATHS_VIEW, Permission.CONNECTORS_VIEW],
+      [Permission.ATTACK_PATHS_VIEW, Permission.SYSTEM_HEALTH_VIEW],
       items,
       item => item.href
     )
