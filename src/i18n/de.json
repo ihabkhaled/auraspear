@@ -1595,6 +1595,7 @@
     "mentionedYou": "hat Sie in einem Kommentar erwähnt",
     "mention": "Erwähnung",
     "newNotification": "Sie haben eine neue Benachrichtigung",
+    "permissionsChanged": "Ihre Berechtigungen wurden geändert",
     "caseAssigned": "Fall zugewiesen",
     "caseUnassigned": "Fall abgemeldet",
     "tenantAssigned": "Mandant zugewiesen",

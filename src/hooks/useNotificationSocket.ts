@@ -64,6 +64,7 @@ export function useNotificationSocket(): void {
 
     socket.on('permissions-updated', () => {
       void refreshCurrentSessionPermissions(queryClient).then(() => {
+        Toast.info(t('permissionsChanged'))
         router.refresh()
       })
     })

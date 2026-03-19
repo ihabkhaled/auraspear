@@ -1595,6 +1595,7 @@
     "mentionedYou": "mentioned you in a comment",
     "mention": "Mention",
     "newNotification": "You have a new notification",
+    "permissionsChanged": "Your permissions have changed",
     "caseAssigned": "Case Assigned",
     "caseUnassigned": "Case Unassigned",
     "tenantAssigned": "Tenant Assigned",

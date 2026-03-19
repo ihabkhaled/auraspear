@@ -1595,6 +1595,7 @@
     "mentionedYou": "vous a mentionné dans un commentaire",
     "mention": "Mention",
     "newNotification": "Vous avez une nouvelle notification",
+    "permissionsChanged": "Vos autorisations ont été modifiées",
     "caseAssigned": "Cas assigné",
     "caseUnassigned": "Cas désassigné",
     "tenantAssigned": "Locataire assigné",
