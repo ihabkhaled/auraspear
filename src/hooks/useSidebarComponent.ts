@@ -24,6 +24,7 @@ import {
   ShieldCheck,
   Cloud,
   Lock,
+  UsersRound,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useSidebarHealth } from '@/hooks/useSidebarHealth'
@@ -95,6 +96,7 @@ export function useSidebarContent() {
         { icon: Settings, label: t('nav.tenantConfig'), href: '/admin/tenant' },
         { icon: Server, label: t('nav.systemAdmin'), href: '/admin/system' },
         { icon: Lock, label: t('nav.roleSettings'), href: '/admin/role-settings' },
+        { icon: UsersRound, label: t('nav.usersControl'), href: '/admin/users-control' },
       ],
     },
   ]

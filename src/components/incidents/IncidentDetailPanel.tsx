@@ -2,8 +2,17 @@
 
 import { ChevronDown } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Label } from '@/components/ui/label'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
@@ -25,9 +34,28 @@ import { cn, lookup } from '@/lib/utils'
 import type { IncidentDetailPanelProps } from '@/types'
 import { IncidentTimeline } from './IncidentTimeline'
 
-export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDetailPanelProps) {
-  const { t, tCommon, formattedCreatedAt, formattedUpdatedAt, formattedResolvedAt } =
-    useIncidentDetailPanel(incident)
+export function IncidentDetailPanel({
+  incident,
+  open,
+  onOpenChange,
+  canEditIncident = false,
+  canChangeStatus = false,
+  onEditIncident,
+  onChangeStatus,
+  isChangingStatus = false,
+}: IncidentDetailPanelProps) {
+  const {
+    t,
+    tCommon,
+    formattedCreatedAt,
+    formattedUpdatedAt,
+    formattedResolvedAt,
+    selectedStatus,
+    statusOptions,
+    isStatusDirty,
+    handleStatusChange,
+    handleStatusSubmit,
+  } = useIncidentDetailPanel(incident, onChangeStatus)
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -72,6 +100,46 @@ export function IncidentDetailPanel({ incident, open, onOpenChange }: IncidentDe
                   <p className="text-sm">{incident.description}</p>
                 </div>
               )}
+
+              {canEditIncident || canChangeStatus ? (
+                <div className="bg-muted/30 border-border grid gap-3 rounded-xl border p-4">
+                  {canEditIncident && onEditIncident ? (
+                    <div className="flex justify-end">
+                      <Button type="button" variant="outline" onClick={onEditIncident}>
+                        {t('editTitle')}
+                      </Button>
+                    </div>
+                  ) : null}
+
+                  {canChangeStatus ? (
+                    <div className="grid gap-3 md:grid-cols-[minmax(0,1fr)_auto] md:items-end">
+                      <div className="flex flex-col gap-2">
+                        <Label>{t('formStatus')}</Label>
+                        <Select value={selectedStatus} onValueChange={handleStatusChange}>
+                          <SelectTrigger disabled={isChangingStatus}>
+                            <SelectValue placeholder={t('formStatusPlaceholder')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {statusOptions.map(status => (
+                              <SelectItem key={status} value={status}>
+                                {t(lookup(INCIDENT_STATUS_LABEL_KEYS, status))}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <Button
+                        type="button"
+                        onClick={handleStatusSubmit}
+                        disabled={!isStatusDirty || isChangingStatus}
+                      >
+                        {isChangingStatus ? t('saving') : tCommon('save')}
+                      </Button>
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
 
               <Separator />
 

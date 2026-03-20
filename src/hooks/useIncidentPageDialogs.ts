@@ -17,6 +17,7 @@ export function useIncidentPageDialogs() {
   }, [])
 
   const handleOpenEdit = useCallback((incident: Incident) => {
+    setDetailPanelOpen(false)
     setEditingIncident(incident)
     setEditDialogOpen(true)
   }, [])

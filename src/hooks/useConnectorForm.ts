@@ -3,10 +3,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { Toast } from '@/components/common'
-import { ConnectorAuthType, Permission } from '@/enums'
+import { ConnectorAuthType, LlmMaxTokensParameter, Permission } from '@/enums'
 import { useUpdateConnector } from '@/hooks/useConnectors'
 import { getErrorKey } from '@/lib/api-error'
-import { recordToFormValues } from '@/lib/connector-utils'
+import { mapConfigForBackend, recordToFormValues } from '@/lib/connector-utils'
 import { CONNECTOR_META } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
@@ -89,6 +89,15 @@ export function useConnectorForm({
           nlHuntingEnabled: false,
           explainableAiEnabled: false,
           auditLoggingEnabled: false,
+          llmBaseUrl: '',
+          llmApiKey: '',
+          defaultModel: '',
+          organizationId: '',
+          llmTimeout: 30,
+          maxTokensParameter: LlmMaxTokensParameter.MAX_TOKENS,
+          openclawBaseUrl: '',
+          openclawApiKey: '',
+          openclawTimeout: 30,
         },
   })
 
@@ -110,6 +119,8 @@ export function useConnectorForm({
       'grafanaUrl',
       'mispUrl',
       'webhookUrl',
+      'llmBaseUrl',
+      'openclawBaseUrl',
     ] as const
     const normalizedConfig = { ...configFields }
     for (const key of urlKeys) {
@@ -126,14 +137,14 @@ export function useConnectorForm({
       }
     }
 
-    const config = {
+    const config = mapConfigForBackend(type, {
       ...cleanedConfig,
       authType: formAuthType,
       tags: tags
         .split(',')
         .map(tag => tag.trim())
         .filter(Boolean),
-    }
+    })
 
     updateMutation.mutate(
       { name, enabled, authType: formAuthType, config },

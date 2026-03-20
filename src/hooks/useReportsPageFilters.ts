@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getReportColumns } from '@/components/reports'
 import { SortOrder } from '@/enums'
+import type { ReportFormat, ReportStatus, ReportType } from '@/enums'
 import type { ReportSearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
@@ -16,9 +17,9 @@ export function useReportsPageFilters() {
   const tCommon = useTranslations('common')
 
   const [searchQuery, setSearchQuery] = useState('')
-  const [typeFilter, setTypeFilter] = useState('')
-  const [formatFilter, setFormatFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
+  const [typeFilter, setTypeFilter] = useState<ReportType | ''>('')
+  const [formatFilter, setFormatFilter] = useState<ReportFormat | ''>('')
+  const [statusFilter, setStatusFilter] = useState<ReportStatus | ''>('')
   const [sortBy, setSortBy] = useState('createdAt')
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
 
@@ -35,13 +36,13 @@ export function useReportsPageFilters() {
   if (debouncedSearch.length > 0) {
     searchParams.query = debouncedSearch
   }
-  if (typeFilter.length > 0) {
+  if (typeFilter !== '') {
     searchParams.type = typeFilter
   }
-  if (formatFilter.length > 0) {
+  if (formatFilter !== '') {
     searchParams.format = formatFilter
   }
-  if (statusFilter.length > 0) {
+  if (statusFilter !== '') {
     searchParams.status = statusFilter
   }
 
@@ -65,7 +66,7 @@ export function useReportsPageFilters() {
   const handleTypeChange = useCallback(
     (value: string) => {
       pagination.setPage(1)
-      setTypeFilter(value === ALL_FILTER ? '' : value)
+      setTypeFilter(value === ALL_FILTER ? '' : (value as ReportType))
     },
     [pagination]
   )
@@ -73,7 +74,7 @@ export function useReportsPageFilters() {
   const handleFormatChange = useCallback(
     (value: string) => {
       pagination.setPage(1)
-      setFormatFilter(value === ALL_FILTER ? '' : value)
+      setFormatFilter(value === ALL_FILTER ? '' : (value as ReportFormat))
     },
     [pagination]
   )
@@ -81,7 +82,7 @@ export function useReportsPageFilters() {
   const handleStatusChange = useCallback(
     (value: string) => {
       pagination.setPage(1)
-      setStatusFilter(value === ALL_FILTER ? '' : value)
+      setStatusFilter(value === ALL_FILTER ? '' : (value as ReportStatus))
     },
     [pagination]
   )

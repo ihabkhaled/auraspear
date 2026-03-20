@@ -88,6 +88,22 @@ export interface AiAgentToolFormValues {
   schema: string
 }
 
+export interface CreateAgentToolInput {
+  name: string
+  description: string
+  schema: Record<string, unknown>
+}
+
+export interface CreateAgentToolMutationInput {
+  agentId: string
+  data: CreateAgentToolInput
+}
+
+export interface DeleteAgentToolMutationInput {
+  agentId: string
+  toolId: string
+}
+
 export interface UpdateAiAgentSoulInput {
   soulMd: string
 }

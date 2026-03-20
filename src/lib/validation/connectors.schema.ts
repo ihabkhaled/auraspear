@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { ConnectorAuthType, ConnectorType } from '@/enums'
+import { ConnectorAuthType, ConnectorType, LlmMaxTokensParameter } from '@/enums'
 
 const BLOCKED_HOSTNAME_SUFFIXES = ['.local', '.internal', '.localhost'] as const
 
@@ -102,6 +102,17 @@ const connectorBaseSchema = z.object({
   nlHuntingEnabled: z.boolean(),
   explainableAiEnabled: z.boolean(),
   auditLoggingEnabled: z.boolean(),
+  // LLM APIs
+  llmBaseUrl: z.string(),
+  llmApiKey: z.string(),
+  defaultModel: z.string(),
+  organizationId: z.string(),
+  llmTimeout: z.number(),
+  maxTokensParameter: z.nativeEnum(LlmMaxTokensParameter),
+  // OpenClaw Gateway
+  openclawBaseUrl: z.string(),
+  openclawApiKey: z.string(),
+  openclawTimeout: z.number(),
 })
 
 export type ConnectorFormValues = z.infer<typeof connectorBaseSchema>
@@ -112,8 +123,13 @@ export function getConnectorSchema(type: ConnectorType) {
       ctx.addIssue({ code: 'custom', message: 'nameRequired', path: ['name'] })
     }
 
+    const isAiOnlyConnector =
+      type === ConnectorType.BEDROCK ||
+      type === ConnectorType.LLM_APIS ||
+      type === ConnectorType.OPENCLAW_GATEWAY
+
     if (
-      type !== ConnectorType.BEDROCK &&
+      !isAiOnlyConnector &&
       data.baseUrl &&
       !data.baseUrl.toLowerCase().startsWith('http://') &&
       !data.baseUrl.toLowerCase().startsWith('https://')
@@ -122,12 +138,7 @@ export function getConnectorSchema(type: ConnectorType) {
     }
 
     const isProduction = process.env['NEXT_PUBLIC_APP_ENV'] === 'production'
-    if (
-      isProduction &&
-      type !== ConnectorType.BEDROCK &&
-      data.baseUrl &&
-      isPrivateUrl(data.baseUrl)
-    ) {
+    if (isProduction && !isAiOnlyConnector && data.baseUrl && isPrivateUrl(data.baseUrl)) {
       ctx.addIssue({ code: 'custom', message: 'urlPrivateNetwork', path: ['baseUrl'] })
     }
 
@@ -138,10 +149,10 @@ export function getConnectorSchema(type: ConnectorType) {
       ctx.addIssue({ code: 'custom', message: 'maxTimeout', path: ['timeoutSeconds'] })
     }
 
-    const shouldValidateFields = type === ConnectorType.BEDROCK || Boolean(data.baseUrl)
+    const shouldValidateFields = isAiOnlyConnector || Boolean(data.baseUrl)
 
     if (shouldValidateFields) {
-      if (type !== ConnectorType.BEDROCK) {
+      if (!isAiOnlyConnector) {
         if (data.authType === ConnectorAuthType.API_KEY && !data.apiKey) {
           ctx.addIssue({ code: 'custom', message: 'apiKeyRequired', path: ['apiKey'] })
         }
@@ -201,6 +212,33 @@ export function getConnectorSchema(type: ConnectorType) {
         }
         if (!data.region) {
           ctx.addIssue({ code: 'custom', message: 'regionRequired', path: ['region'] })
+        }
+      }
+      if (type === ConnectorType.LLM_APIS) {
+        if (!data.llmBaseUrl) {
+          ctx.addIssue({ code: 'custom', message: 'llmBaseUrlRequired', path: ['llmBaseUrl'] })
+        }
+        if (!data.llmApiKey) {
+          ctx.addIssue({ code: 'custom', message: 'llmApiKeyRequired', path: ['llmApiKey'] })
+        }
+        if (!data.defaultModel) {
+          ctx.addIssue({ code: 'custom', message: 'defaultModelRequired', path: ['defaultModel'] })
+        }
+      }
+      if (type === ConnectorType.OPENCLAW_GATEWAY) {
+        if (!data.openclawBaseUrl) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'openclawBaseUrlRequired',
+            path: ['openclawBaseUrl'],
+          })
+        }
+        if (!data.openclawApiKey) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'openclawApiKeyRequired',
+            path: ['openclawApiKey'],
+          })
         }
       }
     }

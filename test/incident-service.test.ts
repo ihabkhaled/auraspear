@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import { IncidentStatus } from '@/enums'
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
@@ -114,6 +115,22 @@ describe('incidentService', () => {
       await expect(incidentService.updateIncident('inc-1', { status: 'resolved' })).rejects.toThrow(
         'Forbidden'
       )
+    })
+  })
+
+  // ─── changeIncidentStatus ────────────────────────────────────────────────
+
+  describe('changeIncidentStatus', () => {
+    it('should call PATCH /incidents/:id/status with the selected status', async () => {
+      const incident = { id: 'inc-1', status: 'resolved' }
+      mockPatch.mockResolvedValue({ data: { data: incident } })
+
+      const result = await incidentService.changeIncidentStatus('inc-1', IncidentStatus.RESOLVED)
+
+      expect(mockPatch).toHaveBeenCalledWith('/incidents/inc-1/status', {
+        status: 'resolved',
+      })
+      expect(result.data).toEqual(incident)
     })
   })
 

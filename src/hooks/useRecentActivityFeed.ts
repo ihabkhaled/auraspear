@@ -1,8 +1,9 @@
 import { useCallback, useMemo } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
+import { SortOrder } from '@/enums'
 import { resolveNotificationMessage } from '@/lib/constants/notifications'
 import type { RecentActivityItem } from '@/types'
-import { useRecentActivity } from './useDashboard'
+import { useNotificationsList } from './useNotifications'
 
 const DASHBOARD_ACTIVITY_LIMIT = 5
 
@@ -11,7 +12,16 @@ export function useRecentActivityFeed() {
   const tNotifications = useTranslations('notifications')
   const tMessages = useTranslations('notifications.messages')
   const locale = useLocale()
-  const { data, isLoading } = useRecentActivity()
+  const notificationParams = useMemo(
+    () => ({
+      page: 1,
+      limit: DASHBOARD_ACTIVITY_LIMIT,
+      sortBy: 'createdAt',
+      sortOrder: SortOrder.DESC,
+    }),
+    []
+  )
+  const { data, isLoading } = useNotificationsList(notificationParams)
 
   const items: RecentActivityItem[] = useMemo(() => {
     const rawItems = data?.data

@@ -55,9 +55,11 @@ function buildAllowedConnectSources(): string[] {
  *   Tailwind CSS and shadcn/ui apply inline styles for dynamic values
  *   (e.g., CSS custom properties on elements, style attributes from Radix UI).
  */
+const isDev = process.env.NODE_ENV === 'development'
+
 const cspDirectives = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
@@ -83,7 +85,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  turbopack: {},
   productionBrowserSourceMaps: false,
   async headers() {
     return [

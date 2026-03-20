@@ -1,16 +1,28 @@
-import type { ReportType, ReportFormat, ReportStatus, SortOrder } from '@/enums'
+import type {
+  ReportFormat,
+  ReportModule,
+  ReportStatus,
+  ReportTemplateKey,
+  ReportType,
+  SortOrder,
+} from '@/enums'
 
 export interface Report {
   id: string
   tenantId: string
+  templateId: string | null
   name: string
   description: string | null
   type: ReportType
+  module: ReportModule | null
+  templateKey: ReportTemplateKey | null
+  templateName: string | null
   format: ReportFormat
   status: ReportStatus
   parameters: Record<string, unknown> | null
+  filterSnapshot: Record<string, unknown> | null
   fileUrl: string | null
-  fileSize: number | null
+  fileSize: string | null
   generatedBy: string
   generatedByName: string | null
   generatedAt: string | null
@@ -22,14 +34,16 @@ export interface ReportStats {
   completedReports: number
   generatingReports: number
   failedReports: number
+  availableTemplates: number
 }
 
 export interface ReportSearchParams {
   page?: number
   limit?: number
-  type?: string
-  format?: string
-  status?: string
+  type?: ReportType
+  module?: ReportModule
+  format?: ReportFormat
+  status?: ReportStatus
   query?: string
   sortBy?: string
   sortOrder?: SortOrder
@@ -39,16 +53,48 @@ export interface CreateReportFormValues {
   name: string
   description: string
   type: ReportType
+  module?: ReportModule | undefined
+  templateKey?: ReportTemplateKey | undefined
   format: ReportFormat
   parameters: string
+  filterSnapshot?: string | undefined
 }
 
 export interface EditReportFormValues {
   name: string
   description: string
   type: ReportType
+  module?: ReportModule | undefined
+  templateKey?: ReportTemplateKey | undefined
   format: ReportFormat
   parameters: string
+  filterSnapshot?: string | undefined
+}
+
+export interface ReportTemplate {
+  id: string
+  tenantId: string | null
+  key: ReportTemplateKey
+  module: ReportModule
+  name: string
+  description: string | null
+  type: ReportType
+  defaultFormat: ReportFormat
+  parameters: Record<string, unknown> | null
+  isSystem: boolean
+  tenantName: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateReportFromTemplateInput {
+  templateKey: ReportTemplateKey
+  module: ReportModule
+  name?: string | undefined
+  description?: string | undefined
+  format?: ReportFormat | undefined
+  parameters?: Record<string, unknown> | undefined
+  filterSnapshot?: Record<string, unknown> | undefined
 }
 
 export interface ReportCreateDialogProps {
@@ -93,6 +139,14 @@ export interface ReportFiltersProps {
 
 export interface ReportKpiCardsProps {
   stats: ReportStats | undefined
+}
+
+export interface ReportTemplateGridProps {
+  templates: ReportTemplate[]
+  loading: boolean
+  generatingTemplateKey: ReportTemplateKey | null
+  onGenerate: (template: ReportTemplate) => void
+  t: (key: string) => string
 }
 
 export interface ReportColumnTranslations {

@@ -3,12 +3,14 @@ import { useTranslations } from 'next-intl'
 import { getAiAgentSessionColumns } from '@/components/ai-agents'
 import type { AiAgentSessionSearchParams, AiAgentSessionTableProps } from '@/types'
 import { useAiAgentSessions } from './useAiAgents'
+import { useAiAgentSessionDetail } from './useAiAgentSessionDetail'
 import { usePagination } from './usePagination'
 
 export function useAiAgentSessionTable({ agentId }: AiAgentSessionTableProps) {
   const t = useTranslations('aiAgents')
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
+  const sessionDetail = useAiAgentSessionDetail()
 
   const searchParams: AiAgentSessionSearchParams = {
     page: pagination.page,
@@ -31,5 +33,6 @@ export function useAiAgentSessionTable({ agentId }: AiAgentSessionTableProps) {
     isFetching,
     columns,
     pagination,
+    sessionDetail,
   }
 }

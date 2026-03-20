@@ -173,6 +173,15 @@ describe('canAccessRouteByPermission', () => {
         canAccessRouteByPermission([Permission.ADMIN_USERS_VIEW], '/admin/role-settings')
       ).toBe(false)
     })
+
+    it('/admin/users-control requires USERS_CONTROL_VIEW', () => {
+      expect(
+        canAccessRouteByPermission([Permission.USERS_CONTROL_VIEW], '/admin/users-control')
+      ).toBe(true)
+      expect(
+        canAccessRouteByPermission([Permission.ROLE_SETTINGS_VIEW], '/admin/users-control')
+      ).toBe(false)
+    })
   })
 
   describe('sub-routes', () => {

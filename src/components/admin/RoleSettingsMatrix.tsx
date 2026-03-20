@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { cn } from '@/lib/utils'
+import { cn, lookup } from '@/lib/utils'
 import type { RoleSettingsMatrixProps } from '@/types'
 
 export function RoleSettingsMatrix({
@@ -9,13 +9,15 @@ export function RoleSettingsMatrix({
   configurableRoles,
   isChecked,
   onToggle,
+  isToggleDisabled,
   disabled,
   permissionLabelMap,
   t,
 }: RoleSettingsMatrixProps) {
+  const gridTemplateColumns = `minmax(220px, 1.4fr) repeat(${configurableRoles.length}, minmax(88px, 1fr))`
+
   return (
     <div className="space-y-4">
-      {/* Permission groups */}
       {permissionGroups.map(group => (
         <Collapsible key={group.key} defaultOpen>
           <div className="border-border rounded-lg border">
@@ -25,52 +27,51 @@ export function RoleSettingsMatrix({
             </CollapsibleTrigger>
 
             <CollapsibleContent>
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-max border-collapse">
-                  <thead>
-                    <tr className="border-border border-b">
-                      <th className="bg-card text-muted-foreground sticky left-0 z-10 px-3 py-2 text-start text-xs font-semibold">
-                        {t('roleSettings.permission')}
-                      </th>
-                      {configurableRoles.map(role => (
-                        <th
-                          key={role}
-                          className="px-2 py-2 text-center text-xs font-semibold whitespace-nowrap"
-                        >
-                          {t(`roleSettings.roles.${role}`)}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {group.permissions.map(permission => (
-                      <tr
+              <div className="overflow-x-auto p-3">
+                <div className="min-w-[720px] space-y-3">
+                  <div
+                    className="text-muted-foreground grid items-center gap-3 px-3 text-xs font-semibold"
+                    style={{ gridTemplateColumns }}
+                  >
+                    <div>{t('roleSettings.permission')}</div>
+                    {configurableRoles.map(role => (
+                      <div key={role} className="text-center">
+                        {t(`roleSettings.roles.${role}`)}
+                      </div>
+                    ))}
+                  </div>
+
+                  {group.permissions.map(permission => {
+                    const labelKey = lookup(permissionLabelMap, permission) ?? permission
+
+                    return (
+                      <div
                         key={permission}
                         className={cn(
-                          'border-border border-b last:border-b-0',
+                          'border-border bg-card grid items-center gap-3 rounded-xl border px-3 py-3',
                           'hover:bg-muted/30 transition-colors'
                         )}
+                        style={{ gridTemplateColumns }}
                       >
-                        <td className="bg-card text-muted-foreground sticky left-0 z-10 px-3 py-2 text-sm whitespace-nowrap">
-                          {t(String(Reflect.get(permissionLabelMap, permission) ?? permission))}
-                        </td>
+                        <div className="text-sm font-medium">{t(labelKey)}</div>
+
                         {configurableRoles.map(role => (
-                          <td key={role} className="px-2 py-2 text-center">
+                          <div key={role} className="flex justify-center">
                             <Checkbox
-                              className="mx-auto cursor-pointer"
+                              className="cursor-pointer"
                               checked={isChecked(role, permission)}
                               onCheckedChange={checked =>
                                 onToggle(role, permission, Boolean(checked))
                               }
-                              disabled={disabled}
-                              aria-label={`${t(String(Reflect.get(permissionLabelMap, permission) ?? permission))} - ${t(`roleSettings.roles.${role}`)}`}
+                              disabled={disabled || isToggleDisabled?.(role, permission) === true}
+                              aria-label={`${t(labelKey)} - ${t(`roleSettings.roles.${role}`)}`}
                             />
-                          </td>
+                          </div>
                         ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             </CollapsibleContent>
           </div>

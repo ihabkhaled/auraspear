@@ -6,6 +6,8 @@ import { useAuthStore, useTenantStore } from '@/stores'
 import type {
   AiAgentSearchParams,
   AiAgentSessionSearchParams,
+  CreateAgentToolMutationInput,
+  DeleteAgentToolMutationInput,
   RunAiAgentMutationInput,
   UpdateAiAgentMutationInput,
   UpdateAiAgentSoulMutationInput,
@@ -129,6 +131,36 @@ export function useDeleteAiAgent() {
     mutationFn: (id: string) => {
       requirePermission(permissions, Permission.AI_AGENTS_DELETE)
       return aiAgentService.deleteAgent(id)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
+    },
+  })
+}
+
+export function useCreateAgentTool() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useMutation({
+    mutationFn: ({ agentId, data }: CreateAgentToolMutationInput) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.createTool(agentId, data)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })
+    },
+  })
+}
+
+export function useDeleteAgentTool() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useMutation({
+    mutationFn: ({ agentId, toolId }: DeleteAgentToolMutationInput) => {
+      requirePermission(permissions, Permission.AI_AGENTS_UPDATE)
+      return aiAgentService.deleteTool(agentId, toolId)
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })

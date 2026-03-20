@@ -11,9 +11,14 @@ export function DashboardSectionCard({
   children,
   className,
   defaultOpen = true,
+  open,
+  onOpenChange,
 }: DashboardSectionCardProps) {
+  const collapsibleProps =
+    open === undefined || onOpenChange === undefined ? { defaultOpen } : { open, onOpenChange }
+
   return (
-    <Collapsible defaultOpen={defaultOpen}>
+    <Collapsible {...collapsibleProps}>
       <Card className={className}>
         <CardHeader className="pb-2">
           <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between gap-3 text-left">

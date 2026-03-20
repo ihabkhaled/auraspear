@@ -33,6 +33,7 @@ export default function IncidentsPage() {
     editInitialValues,
     createLoading,
     editLoading,
+    changeStatusLoading,
     assigneeOptions,
     handleSearchChange,
     handleStatusChange,
@@ -43,10 +44,14 @@ export default function IncidentsPage() {
     handleRowClick,
     handleCreate,
     handleEdit,
+    handleChangeStatus,
     setCreateDialogOpen,
     setEditDialogOpen,
     setDetailPanelOpen,
     canCreate,
+    canEdit,
+    canChangeStatus,
+    handleOpenEdit,
   } = useIncidentsPage()
 
   return (
@@ -117,9 +122,15 @@ export default function IncidentsPage() {
       />
 
       <IncidentDetailPanel
+        key={`${detailIncident?.id ?? 'empty'}-${detailIncident?.status ?? 'empty'}`}
         incident={detailIncident}
         open={detailPanelOpen}
         onOpenChange={setDetailPanelOpen}
+        canEditIncident={canEdit}
+        canChangeStatus={canChangeStatus}
+        onEditIncident={detailIncident ? () => handleOpenEdit(detailIncident) : undefined}
+        onChangeStatus={handleChangeStatus}
+        isChangingStatus={changeStatusLoading}
       />
     </div>
   )

@@ -9,7 +9,7 @@ export function ReportKpiCards({ stats }: ReportKpiCardsProps) {
   const { t } = useReportKpiCards({ stats })
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       <KpiCard
         label={t('kpiTotal')}
         value={stats?.totalReports ?? 0}
@@ -33,6 +33,12 @@ export function ReportKpiCards({ stats }: ReportKpiCardsProps) {
         value={stats?.failedReports ?? 0}
         icon={<AlertTriangle className="h-5 w-5" />}
         accentColor="var(--status-error)"
+      />
+      <KpiCard
+        label={t('kpiTemplates')}
+        value={stats?.availableTemplates ?? 0}
+        icon={<FileText className="h-5 w-5" />}
+        accentColor="var(--status-info)"
       />
     </div>
   )

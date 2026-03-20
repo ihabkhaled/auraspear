@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers'
 import { Toaster } from 'sonner'
-import { SUPPORTED_LOCALES } from '@/lib/constants/locales'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants/locales'
 import { Providers } from './providers'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
@@ -36,7 +36,7 @@ export default async function RootLayout({
   const cookieLocale = cookieStore.get('locale')?.value ?? ''
   const locale = (SUPPORTED_LOCALES as readonly string[]).includes(cookieLocale)
     ? cookieLocale
-    : 'en'
+    : DEFAULT_LOCALE
   const dir = locale === 'ar' ? 'rtl' : 'ltr'
   const messages = (await import(`@/i18n/${locale}.json`)).default as Record<string, unknown>
 

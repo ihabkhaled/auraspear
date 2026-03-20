@@ -27,6 +27,7 @@ export interface RoleSettingsMatrixProps {
   configurableRoles: string[]
   isChecked: (role: string, permission: string) => boolean
   onToggle: (role: string, permission: string, checked: boolean) => void
+  isToggleDisabled?: ((role: string, permission: string) => boolean) | undefined
   disabled: boolean
   permissionLabelMap: Record<string, string>
   t: (key: string) => string

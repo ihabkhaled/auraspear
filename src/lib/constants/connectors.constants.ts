@@ -17,6 +17,7 @@ import {
   LayoutDashboard,
   List,
   Monitor,
+  Network,
   Radar,
   RefreshCw,
   Shield,
@@ -47,6 +48,8 @@ export const CONNECTOR_TYPES: ConnectorType[] = [
   ConnectorType.MISP,
   ConnectorType.SHUFFLE,
   ConnectorType.BEDROCK,
+  ConnectorType.LLM_APIS,
+  ConnectorType.OPENCLAW_GATEWAY,
 ]
 
 export const CONNECTOR_ICONS: Record<ConnectorType, LucideIcon> = {
@@ -59,6 +62,8 @@ export const CONNECTOR_ICONS: Record<ConnectorType, LucideIcon> = {
   [ConnectorType.MISP]: Radar,
   [ConnectorType.SHUFFLE]: Zap,
   [ConnectorType.BEDROCK]: Brain,
+  [ConnectorType.LLM_APIS]: Globe,
+  [ConnectorType.OPENCLAW_GATEWAY]: Network,
 }
 
 export const CONNECTOR_META: Record<ConnectorType, ConnectorMeta> = {
@@ -107,6 +112,16 @@ export const CONNECTOR_META: Record<ConnectorType, ConnectorMeta> = {
     descriptionKey: 'connectorDesc.bedrock',
     category: ConnectorCategory.AI,
   },
+  [ConnectorType.LLM_APIS]: {
+    label: 'LLM APIs',
+    descriptionKey: 'connectorDesc.llmApis',
+    category: ConnectorCategory.AI,
+  },
+  [ConnectorType.OPENCLAW_GATEWAY]: {
+    label: 'OpenClaw Gateway',
+    descriptionKey: 'connectorDesc.openclawGateway',
+    category: ConnectorCategory.AI,
+  },
 }
 
 export const CONNECTOR_AUTH_TYPES: ConnectorAuthType[] = [
@@ -126,6 +141,8 @@ export const SECURITY_POSTURE: Record<ConnectorType, SecurityPosture> = {
   [ConnectorType.MISP]: { mTLS: false, iam: false, encryption: true },
   [ConnectorType.SHUFFLE]: { mTLS: false, iam: false, encryption: true },
   [ConnectorType.BEDROCK]: { mTLS: true, iam: true, encryption: true },
+  [ConnectorType.LLM_APIS]: { mTLS: false, iam: false, encryption: true },
+  [ConnectorType.OPENCLAW_GATEWAY]: { mTLS: false, iam: false, encryption: true },
 }
 
 export const CONNECTOR_STATUS_STYLES: Record<ConnectorStatus, string> = {

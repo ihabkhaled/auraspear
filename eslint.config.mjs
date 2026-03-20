@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
     'node_modules/**',
     'next-env.d.ts',
     'public/mockServiceWorker.js',
+    'public/sw.js',
     'eslint-reports/**',
     'coverage/**',
     '*.config.mjs',

@@ -30,6 +30,8 @@ export type {
   SidebarNavItemProps,
   BrandLogoProps,
   ProvidersProps,
+  DynamicUserIdRouteContext,
+  DynamicUserSessionIdRouteContext,
 } from './common.types'
 export type {
   AuthUser,
@@ -198,15 +200,38 @@ export type {
   ExtendedKPIStats,
   ExtendedKpiAccess,
   ExtendedKpiCandidate,
+  DashboardAnalyticsOverview,
+  DashboardAutomationMetrics,
+  DashboardAutomationQuality,
+  DashboardCaseAgingMetrics,
+  DashboardConnectorFailureEntry,
+  DashboardConnectorSyncSummary,
+  DashboardExposureSummary,
+  DashboardGovernanceMetrics,
+  DashboardInfrastructureMetrics,
+  DashboardIncidentStatusEntry,
+  DashboardMetricBarListItem,
+  DashboardMetricBarListProps,
+  DashboardNarrativeItem,
+  DashboardNarrativeListProps,
+  DashboardOverviewMetrics,
+  DashboardOperationsOverview,
+  DashboardPanelState,
+  DashboardRulePerformanceEntry,
+  DashboardRulePerformanceSummary,
+  DashboardRuntimeBacklog,
+  DashboardThreatOperationsMetrics,
   RecentActivityItem,
   RecentActivityFeedProps,
   ExtendedKPIItem,
+  AiOperationsCanvasProps,
 } from './dashboard.types'
 export type {
   UserProfile,
   UpdateProfileInput,
   ChangePasswordInput,
   PreferencesResponse,
+  UserPreferences,
 } from './profile.types'
 export type {
   CommandPaletteRouteItem,
@@ -274,6 +299,9 @@ export type {
   AppLogSearchParams,
   AppLogTableProps,
   AppLogDetailDialogProps,
+  AppLogDetailRowProps,
+  AppLogExtractedMetadataField,
+  AppLogMetadataFieldConfig,
 } from './app-log.types'
 export type {
   ExplorerOverview,
@@ -374,6 +402,9 @@ export type {
   UpdateAiAgentMutationInput,
   RunAiAgentMutationInput,
   DeleteAiAgentResult,
+  CreateAgentToolInput,
+  CreateAgentToolMutationInput,
+  DeleteAgentToolMutationInput,
 } from './ai-agent.types'
 export type {
   UebaEntity,
@@ -455,6 +486,8 @@ export type {
   Report,
   ReportStats,
   ReportSearchParams,
+  ReportTemplate,
+  CreateReportFromTemplateInput,
   CreateReportFormValues,
   EditReportFormValues,
   ReportCreateDialogProps,
@@ -464,6 +497,7 @@ export type {
   ReportFiltersProps,
   ReportKpiCardsProps,
   ReportColumnTranslations,
+  ReportTemplateGridProps,
 } from './report.types'
 export type {
   SystemHealthCheck,
@@ -536,6 +570,22 @@ export type {
   ExportedSettingsRetention,
   ExportedSettings,
 } from './settings.types'
+export type {
+  UsersControlUser,
+  UsersControlSession,
+  UsersControlSummary,
+  UsersControlForceLogoutResult,
+  UsersControlListParams,
+  UsersControlSessionListParams,
+  UsersControlUsersParams,
+  UsersControlSessionsParams,
+  UsersControlUsersTableProps,
+  UsersControlSessionPanelProps,
+  UsersControlOverviewCardsProps,
+  UsersControlSummaryCardsProps,
+  UsersControlTableProps,
+  UserSessionsDialogProps,
+} from './users-control.types'
 export type {
   JobRecord,
   JobRuntimeStats,

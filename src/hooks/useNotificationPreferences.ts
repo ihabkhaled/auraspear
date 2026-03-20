@@ -4,6 +4,7 @@ import { Toast } from '@/components/common'
 import { NotificationCategory } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { lookup } from '@/lib/utils'
+import type { UserPreferences } from '@/types'
 import { usePreferences, useUpdatePreferences } from './useSettings'
 
 const NOTIFICATION_CATEGORIES = [
@@ -18,7 +19,7 @@ const NOTIFICATION_CATEGORIES = [
   NotificationCategory.USER_MANAGEMENT,
 ] as const
 
-const CATEGORY_TO_PREF_KEY: Record<NotificationCategory, string> = {
+const CATEGORY_TO_PREF_KEY: Record<NotificationCategory, keyof UserPreferences> = {
   [NotificationCategory.CRITICAL_ALERTS]: 'notifyCriticalAlerts',
   [NotificationCategory.HIGH_ALERTS]: 'notifyHighAlerts',
   [NotificationCategory.CASE_ASSIGNMENTS]: 'notifyCaseAssignments',

@@ -2,6 +2,7 @@
 
 import { FileText, Plus } from 'lucide-react'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
+import { DashboardSectionCard } from '@/components/dashboard'
 import {
   ReportKpiCards,
   ReportFilters,
@@ -9,6 +10,7 @@ import {
   ReportEditDialog,
   ReportDeleteDialog,
   ReportDetailPanel,
+  ReportTemplateGrid,
 } from '@/components/reports'
 import { useReportsPage } from '@/hooks/useReportsPage'
 
@@ -47,6 +49,10 @@ export default function ReportsPage() {
     handleDelete,
     createLoading,
     editLoading,
+    templates,
+    templatesLoading,
+    handleGenerateFromTemplate,
+    generatingTemplateKey,
     openEditDialog,
     openDeleteDialog,
     canManageReports,
@@ -69,6 +75,16 @@ export default function ReportsPage() {
       />
 
       <ReportKpiCards stats={stats} />
+
+      <DashboardSectionCard title={t('templatesTitle')} defaultOpen={false}>
+        <ReportTemplateGrid
+          templates={templates}
+          loading={templatesLoading}
+          generatingTemplateKey={generatingTemplateKey}
+          onGenerate={handleGenerateFromTemplate}
+          t={t}
+        />
+      </DashboardSectionCard>
 
       <ReportFilters
         searchQuery={searchQuery}

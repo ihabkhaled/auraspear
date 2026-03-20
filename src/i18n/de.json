@@ -42,7 +42,8 @@
     "notifications": "Benachrichtigungen",
     "profile": "Profil",
     "roleSettings": "Rolleneinstellungen",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "usersControl": "Benutzerkontrolle"
   },
   "common": {
     "search": "Suche",
@@ -125,7 +126,80 @@
     "noRecentActivityDescription": "Aktivitaten werden hier angezeigt, sobald Ereignisse auftreten",
     "jobBacklog": "Job-R?ckstand",
     "onlineAiAgents": "Online-KI-Agenten",
-    "failingConnectors": "Fehlgeschlagene Konnektoren"
+    "failingConnectors": "Fehlgeschlagene Konnektoren",
+    "overviewSection": "Uebersicht",
+    "threatOperationsSection": "Bedrohungsoperationen",
+    "automationSection": "Automatisierung und KI",
+    "governanceSection": "Governance",
+    "infrastructureSection": "Infrastruktur",
+    "severityDistribution": "Verteilung der Schweregrade",
+    "alertsThisWeek": "Warnungen dieser Woche",
+    "criticalAlertsThisWeek": "Kritische Warnungen dieser Woche",
+    "alertsLast24h": "Warnungen der letzten 24 Std.",
+    "resolvedLast24h": "Geloest in den letzten 24 Std.",
+    "connectedSources": "Verbundene Quellen",
+    "completedReports": "Abgeschlossene Berichte",
+    "highVulnerabilities": "Hohe Schwachstellen",
+    "passedControls": "Bestandene Kontrollen",
+    "failedControls": "Fehlgeschlagene Kontrollen",
+    "notAssessedControls": "Nicht bewertete Kontrollen",
+    "availableTemplates": "Verfuegbare Vorlagen",
+    "totalFrameworks": "Gesamte Frameworks",
+    "aiSessions24h": "KI-Sitzungen der letzten 24 Std.",
+    "pendingJobs": "Ausstehende Jobs",
+    "runningJobs": "Laufende Jobs",
+    "failedJobs": "Fehlgeschlagene Jobs",
+    "healthyConnectors": "Gesunde Konnektoren",
+    "enabledConnectors": "Aktivierte Konnektoren",
+    "totalJobs": "Gesamte Jobs",
+    "delayedJobs": "Verzoegerte Jobs",
+    "generatedReports30d": "Erstellte Berichte (30 Tage)",
+    "densityCompact": "Kompakt",
+    "densityComfortable": "Komfortabel",
+    "densityExpanded": "Erweitert",
+    "aiOrchestrationCanvas": "KI-Orchestrierungsansicht",
+    "aiOrchestrationCanvasDescription": "Live-Ansicht von Konnektoren, Agenten und Job-Durchsatz",
+    "canvasSignalIngest": "Signaleingang",
+    "canvasAiAgents": "KI-Agenten",
+    "canvasJobs": "Laufende Jobs",
+    "canvasQueueBacklog": "Warteschlangenrueckstand",
+    "reportTemplatesSection": "Berichtsvorlagen",
+    "operationsSection": "Operativer Uberblick",
+    "incidentStatusSection": "Incident-Status",
+    "caseAgingSection": "Fallalterung",
+    "rulePerformanceSection": "Regelleistung",
+    "topRulesSection": "Neueste Top-Aktive Erkennungen",
+    "noisyRulesSection": "Zuletzt ausgelöste aktive laute Regeln",
+    "hitCount": "Trefferanzahl",
+    "falsePositiveCount": "Falsch-Positiv-Anzahl",
+    "falsePositiveRate": "Falsch-Positiv-Rate",
+    "createdAt": "Erstellt",
+    "lastTriggeredAt": "Zuletzt Ausgelöst",
+    "connectorSyncSection": "Connector-Synchronisierung",
+    "runtimeBacklogSection": "Laufzeit-Ruckstau",
+    "automationQualitySection": "Automatisierungsqualitat",
+    "exposureSummarySection": "Expositionsubersicht",
+    "unassignedCases": "Nicht zugewiesene Falle",
+    "agedOverSevenDays": "Offen > 7 Tage",
+    "agedOverFourteenDays": "Offen > 14 Tage",
+    "meanOpenAgeHours": "Durchschnittliches offenes Alter (h)",
+    "completedRuns7d": "Erfolgreiche Syncs (7T)",
+    "failedRuns7d": "Fehlgeschlagene Syncs (7T)",
+    "runningSyncs": "Laufende Syncs",
+    "retryingJobs": "Wiederholte Jobs",
+    "staleRunningJobs": "Festgefahrene Jobs",
+    "queuedConnectorSyncJobs": "Geplante Connector-Sync-Jobs",
+    "queuedReportJobs": "Geplante Berichtsjobs",
+    "successfulAiSessions24h": "Erfolgreiche KI-Sitzungen (24h)",
+    "failedAiSessions24h": "Fehlgeschlagene KI-Sitzungen (24h)",
+    "averageAiDurationSeconds": "Durchschnittliche KI-Dauer (s)",
+    "completedSoarRuns30d": "Abgeschlossene SOAR-Laufe (30T)",
+    "failedSoarRuns30d": "Fehlgeschlagene SOAR-Laufe (30T)",
+    "averageSoarCompletionRate": "Durchschnittliche SOAR-Abschlussrate",
+    "exploitAvailableVulnerabilities": "Schwachstellen mit verfugbarem Exploit",
+    "openCloudFindings": "Offene Cloud-Befunde",
+    "criticalCloudFindings": "Kritische Cloud-Befunde",
+    "activeRules": "Aktive Regeln"
   },
   "alerts": {
     "title": "Alarmverwaltung",
@@ -751,7 +825,176 @@
       "httpStatusCode": "Statuscode",
       "metadata": "Metadaten",
       "stackTrace": "Fehler-Stacktrace",
-      "logDetail": "Protokolldetails"
+      "logDetail": "Protokolldetails",
+      "metadataRemoteError": "Remote-Fehler",
+      "metadataError": "Fehler",
+      "metadataConnectorType": "Connector-Typ",
+      "metadataStatus": "Antwortstatus",
+      "metadataLatency": "Latenz",
+      "metadataModel": "Modell",
+      "metadataVersion": "Version",
+      "metadataCount": "Anzahl",
+      "features": {
+        "Auth": "Authentifizierung",
+        "Users": "Benutzer",
+        "Tenants": "Mandanten",
+        "TenantMembers": "Mandantenmitglieder",
+        "Cases": "Fälle",
+        "CaseCycles": "Fallzyklen",
+        "Alerts": "Warnungen",
+        "Connectors": "Konnektoren",
+        "ConnectorWorkspaces": "Konnektor-Arbeitsbereiche",
+        "Hunts": "Jagden",
+        "Intel": "Nachrichtendienst",
+        "AI": "KI",
+        "Dashboard": "Dashboard",
+        "System": "System",
+        "Impersonation": "Identitätswechsel",
+        "Validation": "Validierung",
+        "DataExplorer": "Daten-Explorer",
+        "Notifications": "Benachrichtigungen",
+        "Correlation": "Korrelation",
+        "Incidents": "Vorfälle",
+        "Vulnerabilities": "Schwachstellen",
+        "AiAgents": "KI-Agenten",
+        "Ueba": "UEBA",
+        "AttackPaths": "Angriffspfade",
+        "Soar": "SOAR",
+        "Compliance": "Compliance",
+        "Reports": "Berichte",
+        "UsersControl": "Benutzerkontrolle",
+        "Jobs": "Aufträge",
+        "SystemHealth": "Systemgesundheit",
+        "Normalization": "Normalisierung",
+        "DetectionRules": "Erkennungsregeln",
+        "CloudSecurity": "Cloud-Sicherheit",
+        "RoleSettings": "Rolleneinstellungen"
+      }
+    },
+    "usersControl": {
+      "title": "Benutzerkontrolle",
+      "description": "Aktive Benutzer, Sitzungen und Notfallzugriffsaktionen ueberwachen",
+      "sections": {
+        "overview": "Uebersicht",
+        "users": "Benutzerverzeichnis",
+        "sessions": "Sitzungsaktivitaet"
+      },
+      "loadSummaryError": "Die Uebersicht der Benutzerkontrolle konnte nicht geladen werden.",
+      "loadUsersError": "Das Benutzerverzeichnis konnte nicht geladen werden.",
+      "loadSessionsError": "Die Benutzersitzungen konnten nicht geladen werden.",
+      "searchPlaceholder": "Benutzer nach Name oder E-Mail suchen...",
+      "scopeLabel": "Aktueller Bereich",
+      "scope": {
+        "system": "Systemweiter Bereich",
+        "currentTenant": "Aktueller Mandantenbereich"
+      },
+      "summary": {
+        "totalUsers": "Benutzer gesamt",
+        "onlineUsers": "Benutzer online",
+        "activeSessions": "Aktive Sitzungen"
+      },
+      "columns": {
+        "user": "Benutzer",
+        "scope": "Bereich",
+        "role": "Rolle",
+        "status": "Mitgliedschaftsstatus",
+        "platforms": "Plattformen",
+        "lastSeen": "Zuletzt gesehen",
+        "lastLogin": "Letzte Anmeldung",
+        "sessions": "Sitzungen"
+      },
+      "tenantCount": "{count} Mandantenmitgliedschaften",
+      "activeSessionCount": "{count} aktive Sitzungen",
+      "totalSessionCount": "{count} Sitzungen gesamt",
+      "viewSessions": "Sitzungen anzeigen",
+      "forceLogoutUser": "Abmelden erzwingen",
+      "terminateSession": "Sitzung beenden",
+      "forceLogoutAll": "Alle abmelden",
+      "forceLogoutUserSuccess": "{count} aktive Sitzungen fuer diesen Benutzer wurden widerrufen.",
+      "terminateSessionSuccess": "{count} ausgewaehlte Sitzung wurde beendet.",
+      "forceLogoutAllSuccess": "{count} aktive Sitzungen in diesem Bereich wurden widerrufen.",
+      "confirmForceLogoutUserTitle": "Diesen Benutzer zwangsweise abmelden?",
+      "confirmForceLogoutUserText": "Dadurch werden alle aktiven Sitzungen von {name} widerrufen.",
+      "confirmTerminateSessionTitle": "Diese Sitzung beenden?",
+      "confirmTerminateSessionText": "Dadurch wird die ausgewaehlte Sitzung von {name} widerrufen.",
+      "confirmForceLogoutAllTitle": "Alle Benutzer in diesem Bereich zwangsweise abmelden?",
+      "confirmForceLogoutAllText": "Dadurch werden alle aktiven Sitzungen fuer {scope} widerrufen.",
+      "noUsers": "Keine Benutzer gefunden",
+      "noUsersDescription": "Benutzer erscheinen hier, sobald Konten in diesem Bereich verfuegbar sind.",
+      "noSessions": "Keine aktiven Sitzungen gefunden",
+      "noSessionsDescription": "Dieser Benutzer hat im ausgewaehlten Bereich keine verfolgten Sitzungen.",
+      "selectUserTitle": "Benutzer auswaehlen",
+      "selectUserDescription": "Waehlen Sie einen Benutzer aus dem Verzeichnis, um seine Sitzungen zu pruefen.",
+      "sessionAccessDeniedTitle": "Sitzungszugriff nicht verfuegbar",
+      "sessionAccessDeniedDescription": "Sie haben keine Berechtigung, Sitzungsdetails anzuzeigen.",
+      "notAvailable": "Nicht verfuegbar",
+      "never": "Nie",
+      "online": "Online",
+      "offline": "Offline",
+      "membershipStatus": {
+        "active": "Aktiv",
+        "suspended": "Gesperrt",
+        "inactive": "Inaktiv",
+        "unknown": "Unbekannt"
+      },
+      "sessionStatus": {
+        "active": "Aktiv",
+        "revoked": "Widerrufen",
+        "expired": "Abgelaufen"
+      },
+      "osFamily": {
+        "windows": "Windows",
+        "macos": "macOS",
+        "linux": "Linux",
+        "ios": "iOS",
+        "android": "Android",
+        "ipados": "iPadOS",
+        "unknown": "Unbekanntes System"
+      },
+      "clientType": {
+        "desktop": "Desktop",
+        "mobile": "Mobil",
+        "tablet": "Tablet",
+        "web": "Web",
+        "unknown": "Unbekannter Client"
+      },
+      "browser": {
+        "chrome": "Chrome",
+        "edge": "Edge",
+        "firefox": "Firefox",
+        "safari": "Safari",
+        "opera": "Opera",
+        "samsungInternet": "Samsung Internet",
+        "unknown": "Unbekannter Browser"
+      },
+      "fields": {
+        "tenant": "Mandant",
+        "ipAddress": "IP-Adresse",
+        "lastSeen": "Zuletzt gesehen",
+        "lastLogin": "Letzte Anmeldung",
+        "userAgent": "User-Agent",
+        "revokeReason": "Widerrufsgrund",
+        "familyId": "Sitzungsfamilien-ID",
+        "unknownIp": "Unbekannte IP"
+      },
+      "sort": {
+        "session": {
+          "lastSeenAt": "Zuletzt gesehen",
+          "lastLoginAt": "Letzte Anmeldung",
+          "createdAt": "Erstellt am"
+        },
+        "order": {
+          "asc": "Aufsteigend",
+          "desc": "Absteigend"
+        }
+      },
+      "sessions": {
+        "title": "Benutzersitzungen",
+        "description": "Sitzungsverlauf und Live-Aktivitaet fuer {user}.",
+        "descriptionEmpty": "Waehlen Sie einen Benutzer aus, um den Sitzungsverlauf anzuzeigen.",
+        "emptyTitle": "Kein Sitzungsverlauf",
+        "emptyDescription": "Fuer diesen Benutzer wurden noch keine Sitzungen aufgezeichnet."
+      }
     }
   },
   "auth": {
@@ -804,7 +1047,9 @@
       "influxdb": "Zeitreihendatenbank",
       "misp": "Plattform für Bedrohungsinformationen",
       "shuffle": "Sicherheitsorchestrierung & Automatisierung",
-      "bedrock": "KI-gestützte Sicherheitsanalyse"
+      "bedrock": "KI-gestützte Sicherheitsanalyse",
+      "llmApis": "Multi-Anbieter LLM-API-Gateway",
+      "openclawGateway": "OpenClaw KI-Gateway für SOC-Automatisierung"
     },
     "noConnectors": "Keine Konnektoren",
     "noConnectorsDescription": "Klicken Sie auf \"Demodaten laden\", um die Standardkonnektoren wiederherzustellen.",
@@ -938,6 +1183,20 @@
       "workflowId": "Workflow-ID",
       "apiKey": "API Key (optional)"
     },
+    "llmApis": {
+      "baseUrl": "Basis-URL",
+      "apiKey": "API Key",
+      "defaultModel": "Standardmodell",
+      "defaultModelPlaceholder": "gpt-4, claude-3-sonnet, etc.",
+      "organizationId": "Organisations-ID",
+      "organizationIdHint": "Optional. Erforderlich für einige Anbieter (z.B. OpenAI).",
+      "maxTokensParameter": "Max-Tokens-Parameter",
+      "maxTokensParameterHint": "Verwenden Sie 'max_completion_tokens' für neuere OpenAI-Modelle (o1, o3, gpt-4o). Verwenden Sie 'max_tokens' für die meisten anderen Anbieter."
+    },
+    "openclawGateway": {
+      "baseUrl": "Gateway-URL",
+      "apiKey": "API Key"
+    },
     "openWorkspace": "Arbeitsbereich öffnen",
     "workspace": {
       "tabOverview": "Übersicht",
@@ -1000,6 +1259,11 @@
     "workflowIdRequired": "Workflow-ID ist erforderlich",
     "modelRequired": "Modell ist erforderlich",
     "regionRequired": "Region ist erforderlich",
+    "llmBaseUrlRequired": "Basis-URL ist erforderlich",
+    "llmApiKeyRequired": "API Key ist erforderlich",
+    "defaultModelRequired": "Standardmodell ist erforderlich",
+    "openclawBaseUrlRequired": "Gateway-URL ist erforderlich",
+    "openclawApiKeyRequired": "API Key ist erforderlich",
     "urlPrivateNetwork": "URLs, die auf private oder interne Netzwerke verweisen, sind nicht erlaubt"
   },
   "errors": {
@@ -1269,7 +1533,9 @@
       "nameAlreadyExists": "Ein Agent mit diesem Namen existiert bereits.",
       "alreadyOnline": "Agent ist bereits online.",
       "alreadyOffline": "Agent ist bereits offline.",
-      "offline": "This AI agent must be online or degraded before it can run tasks."
+      "offline": "This AI agent must be online or degraded before it can run tasks.",
+      "invalidToolSchema": "Das Tool-Schema muss gültiges JSON sein.",
+      "toolNotFound": "KI-Agent-Tool nicht gefunden."
     },
     "users": {
       "notFound": "Benutzer nicht gefunden.",
@@ -1336,7 +1602,9 @@
       "notFound": "Benachrichtigung nicht gefunden."
     },
     "reports": {
-      "notFound": "Bericht nicht gefunden."
+      "notFound": "Bericht nicht gefunden.",
+      "notCompleted": "Nur abgeschlossene Berichte koennen exportiert werden.",
+      "templateNotFound": "Berichtsvorlage wurde nicht gefunden."
     },
     "soar": {
       "playbookAlreadyExists": "Ein Playbook mit diesem Namen existiert bereits.",
@@ -1356,6 +1624,13 @@
       "notFound": "Job not found.",
       "cannotRetry": "This job cannot be retried in its current state.",
       "cannotCancel": "This job cannot be cancelled in its current state."
+    },
+    "userControl": {
+      "userNotFound": "Der angeforderte Benutzer wurde nicht gefunden.",
+      "sessionNotFound": "Die angeforderte Sitzung wurde nicht gefunden."
+    },
+    "roleSettings": {
+      "usersControlRestrictedRole": "Berechtigungen fuer die Benutzerkontrolle koennen nur globalen Administratoren oder Mandantenadministratoren zugewiesen werden."
     }
   },
   "profile": {
@@ -2047,7 +2322,11 @@
     "noSessions": "No sessions found",
     "noSessionsDescription": "Sessions will appear here once the agent runs tasks",
     "sessionTask": "Task",
-    "sessionStarted": "Started",
+    "sessionStarted": "Gestartet",
+    "sessionCompleted": "Abgeschlossen",
+    "sessionDuration": "Dauer",
+    "sessionDetailTitle": "Sitzungsdetails",
+    "sessionDetailDescription": "Vollständige Details dieser KI-Agenten-Sitzung",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",
@@ -2058,7 +2337,7 @@
     "toolDescription": "Description",
     "toolDescriptionPlaceholder": "What does this tool do?",
     "toolSchema": "JSON Schema",
-    "toolSchemaPlaceholder": "{\n  \"type\": \"object\",\n  \"properties\": { ... }\n}",
+    "toolSchemaPlaceholder": "z.B. search_logs, create_alert",
     "toolEnabled": "Enabled",
     "validationToolNameMin": "Tool name must be at least 2 characters",
     "validationToolDescriptionMin": "Tool description must be at least 5 characters",
@@ -2068,7 +2347,11 @@
     "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
     "queueRun": "Queue Run",
     "queueingRun": "Queueing...",
-    "runQueued": "Agent run queued successfully"
+    "runQueued": "Agent run queued successfully",
+    "toolCreated": "Tool erfolgreich erstellt",
+    "toolDeleted": "Tool erfolgreich gelöscht",
+    "deleteTool": "Tool löschen",
+    "confirmDeleteTool": "Sind Sie sicher, dass Sie dieses Tool löschen möchten?"
   },
   "ueba": {
     "title": "ML / UEBA-Analytik",
@@ -2678,7 +2961,33 @@
     "detailParameters": "Parameter",
     "fieldParameters": "Parameter (JSON)",
     "fieldParametersPlaceholder": "Berichtsparameter als JSON-Objekt eingeben",
-    "validationParametersJson": "Parameter muessen ein gueltiges JSON-Objekt sein"
+    "validationParametersJson": "Parameter muessen ein gueltiges JSON-Objekt sein",
+    "templatesTitle": "Berichtsvorlagen",
+    "templatesLoading": "Vorlagen werden geladen...",
+    "templatesEmpty": "Keine Vorlagen verfuegbar",
+    "templateDescriptionFallback": "Wiederverwendbare Vorlage fuer dieses Modul",
+    "templateGenerate": "Bericht erstellen",
+    "templateGenerating": "Wird erstellt...",
+    "templateGenerateSuccess": "Berichtserstellung aus Vorlage gestartet",
+    "templateGenerateError": "Bericht konnte nicht aus der Vorlage erstellt werden",
+    "kpiTemplates": "Vorlagen",
+    "moduleDashboard": "Dashboard",
+    "moduleAlerts": "Warnungen",
+    "moduleIncidents": "Vorfalle",
+    "moduleCases": "Faelle",
+    "moduleVulnerabilities": "Schwachstellen",
+    "moduleCompliance": "Compliance",
+    "moduleAiAgents": "KI-Agenten",
+    "moduleSoar": "SOAR",
+    "moduleConnectors": "Konnektoren",
+    "moduleSystemHealth": "Systemzustand",
+    "templateExecutiveOverview": "Management-Uebersicht",
+    "templateIncidentPosture": "Vorfallslage",
+    "templateThreatExposure": "Bedrohungsexposition",
+    "templateVulnerabilityExposure": "Schwachstellenexposition",
+    "templateCompliancePosture": "Compliance-Status",
+    "templateAutomationHealth": "Automatisierungszustand",
+    "templateConnectorHealth": "Konnektorzustand"
   },
   "systemHealth": {
     "title": "Systemzustand",
@@ -3015,7 +3324,8 @@
     "typeChain": "Kette",
     "typeScheduled": "Geplant",
     "statusActive": "Aktiv",
-    "columnFalsePositives": "Falsch-Positive"
+    "columnFalsePositives": "Falsch-Positive",
+    "columnLastTriggered": "Zuletzt Ausgelöst"
   },
   "cloudSecurity": {
     "title": "Cloud-Sicherheit",
@@ -3200,7 +3510,8 @@
       "settings": "Einstellungen",
       "roleSettings": "Rolleneinstellungen",
       "jobs": "Jobs",
-      "systemHealth": "System Health"
+      "systemHealth": "System Health",
+      "usersControl": "Benutzerkontrolle"
     },
     "permissions": {
       "dashboard": {
@@ -3367,6 +3678,12 @@
       },
       "systemHealth": {
         "view": "View System Health"
+      },
+      "usersControl": {
+        "view": "Benutzerkontrolle anzeigen",
+        "viewSessions": "Benutzersitzungen anzeigen",
+        "forceLogout": "Benutzer zwangsweise abmelden",
+        "forceLogoutAll": "Alle Benutzer zwangsweise abmelden"
       }
     },
     "roles": {
@@ -3380,7 +3697,8 @@
       "SOC_ANALYST_L2": "SOC-Analyst L2",
       "SOC_ANALYST_L1": "SOC-Analyst L1",
       "EXECUTIVE_READONLY": "Führungskraft (Nur Lesen)",
-      "AUDITOR_READONLY": "Auditor (Nur Lesen)"
+      "AUDITOR_READONLY": "Auditor (Nur Lesen)",
+      "GLOBAL_ADMIN": "Globaler Administrator"
     }
   },
   "jobs": {

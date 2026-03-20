@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { ConnectorType, DashboardDensity, DashboardPanelKey, IncidentStatus } from '@/enums'
 import type { ServiceHealth } from './admin.types'
 
 export interface DashboardKPI {
@@ -117,6 +118,8 @@ export interface DashboardSectionCardProps {
   children: ReactNode
   className?: string | undefined
   defaultOpen?: boolean | undefined
+  open?: boolean | undefined
+  onOpenChange?: ((open: boolean) => void) | undefined
 }
 
 export interface TopTargetedAssetsProps {
@@ -183,4 +186,184 @@ export interface ExtendedKpiCandidate {
   labelKey: string
   value: number | string | null | undefined
   route: string
+}
+
+export interface DashboardOverviewMetrics {
+  alertsLast24h: number
+  resolvedLast24h: number
+  openCases: number
+  openIncidents: number
+  criticalVulnerabilities: number
+  connectedSources: number
+  completedReports: number
+}
+
+export interface DashboardThreatOperationsMetrics {
+  totalAlerts7d: number
+  criticalAlerts7d: number
+  openCases: number
+  openIncidents: number
+  criticalVulnerabilities: number
+  highVulnerabilities: number
+  activeAttackPaths: number
+}
+
+export interface DashboardAutomationMetrics {
+  onlineAgents: number
+  aiSessions24h: number
+  pendingJobs: number
+  runningJobs: number
+  failedJobs: number
+  healthyConnectors: number
+  failingConnectors: number
+}
+
+export interface DashboardGovernanceMetrics {
+  totalFrameworks: number
+  passedControls: number
+  failedControls: number
+  notAssessedControls: number
+  complianceScore: number
+  availableTemplates: number
+}
+
+export interface DashboardInfrastructureMetrics {
+  enabledConnectors: number
+  healthyConnectors: number
+  failingConnectors: number
+  totalJobs: number
+  delayedJobs: number
+  generatedReports30d: number
+}
+
+export interface DashboardAnalyticsOverview {
+  tenantId: string
+  overview: DashboardOverviewMetrics
+  threatOperations: DashboardThreatOperationsMetrics
+  automation: DashboardAutomationMetrics
+  governance: DashboardGovernanceMetrics
+  infrastructure: DashboardInfrastructureMetrics
+}
+
+export interface DashboardIncidentStatusEntry {
+  status: IncidentStatus
+  count: number
+}
+
+export interface DashboardCaseAgingMetrics {
+  openCases: number
+  unassignedCases: number
+  agedOverSevenDays: number
+  agedOverFourteenDays: number
+  meanOpenAgeHours: number
+}
+
+export interface DashboardRulePerformanceEntry {
+  id: string
+  name: string
+  hitCount: number
+  falsePositiveCount: number
+  falsePositiveRate: number
+  lastTriggeredAt: string | null
+  createdAt: string
+}
+
+export interface DashboardRulePerformanceSummary {
+  activeRules: number
+  topRules: DashboardRulePerformanceEntry[]
+  noisyRules: DashboardRulePerformanceEntry[]
+}
+
+export interface DashboardConnectorFailureEntry {
+  connectorType: ConnectorType
+  failures: number
+}
+
+export interface DashboardConnectorSyncSummary {
+  completedRuns7d: number
+  failedRuns7d: number
+  runningSyncs: number
+  topFailingConnectors: DashboardConnectorFailureEntry[]
+}
+
+export interface DashboardRuntimeBacklog {
+  pendingJobs: number
+  retryingJobs: number
+  failedJobs: number
+  staleRunningJobs: number
+  queuedConnectorSyncJobs: number
+  queuedReportJobs: number
+}
+
+export interface DashboardAutomationQuality {
+  aiSessions24h: number
+  successfulAiSessions24h: number
+  failedAiSessions24h: number
+  averageAiDurationSeconds: number
+  completedSoarRuns30d: number
+  failedSoarRuns30d: number
+  averageSoarCompletionRate: number
+}
+
+export interface DashboardExposureSummary {
+  criticalVulnerabilities: number
+  exploitAvailableVulnerabilities: number
+  openCloudFindings: number
+  criticalCloudFindings: number
+  passedControls: number
+  failedControls: number
+}
+
+export interface DashboardOperationsOverview {
+  tenantId: string
+  incidentStatus: DashboardIncidentStatusEntry[]
+  caseAging: DashboardCaseAgingMetrics
+  rulePerformance: DashboardRulePerformanceSummary
+  connectorSync: DashboardConnectorSyncSummary
+  runtimeBacklog: DashboardRuntimeBacklog
+  automationQuality: DashboardAutomationQuality
+  exposureSummary: DashboardExposureSummary
+}
+
+export interface DashboardNarrativeItem {
+  labelKey: string
+  value: number | string
+}
+
+export interface DashboardNarrativeListProps {
+  items: DashboardNarrativeItem[]
+  t: (key: string) => string
+}
+
+export interface AiOperationsCanvasProps {
+  automation: DashboardAutomationMetrics
+  t: (key: string) => string
+}
+
+export interface DashboardMetricBarListItem {
+  id: string
+  label: string
+  value: number | string
+  progress: number
+  hitCount?: number
+  falsePositiveCount?: number
+  falsePositiveRate?: string
+  createdAt?: string | null
+  lastTriggeredAt?: string | null
+}
+
+export interface DashboardMetricBarListProps {
+  items: DashboardMetricBarListItem[]
+  emptyTitle: string
+  emptyDescription: string
+  hitCountLabel?: string
+  falsePositiveCountLabel?: string
+  falsePositiveRateLabel?: string
+  createdAtLabel?: string
+  lastTriggeredAtLabel?: string
+}
+
+export interface DashboardPanelState {
+  density: DashboardDensity
+  collapsed: DashboardPanelKey[]
 }

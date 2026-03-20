@@ -36,9 +36,7 @@ All code must follow the rules defined in [`CLAUDE.md`](./CLAUDE.md). Key highli
 2. Make your changes following the code standards above
 3. Run the full validation pipeline before pushing:
    ```bash
-   npm run validate    # typecheck + lint:strict + format:check
-   npm run test        # run tests
-   npm run build       # ensure production build succeeds
+   npm run validate:full
    ```
 4. Push your branch and open a pull request against `main`
 5. Fill in the PR template with a summary and test plan
@@ -64,6 +62,12 @@ Every feature or fix should include tests covering:
 - i18n rendering (keys resolve correctly)
 
 Run tests with: `npm test`
+
+## Contributor Docs
+
+- [`docs/dashboard-widgets.md`](./docs/dashboard-widgets.md)
+- [`docs/permissions-and-routes.md`](./docs/permissions-and-routes.md)
+- [`INSTALL.md`](./INSTALL.md)
 
 ## Internationalization (i18n)
 

@@ -42,7 +42,8 @@
     "notifications": "Notificaciones",
     "profile": "Perfil",
     "roleSettings": "Configuración de Roles",
-    "jobs": "Jobs"
+    "jobs": "Jobs",
+    "usersControl": "Control de usuarios"
   },
   "common": {
     "search": "Buscar",
@@ -125,7 +126,80 @@
     "noRecentActivityDescription": "La actividad aparecera aqui a medida que ocurran eventos",
     "jobBacklog": "Cola de trabajos",
     "onlineAiAgents": "Agentes de IA en l?nea",
-    "failingConnectors": "Conectores con fallos"
+    "failingConnectors": "Conectores con fallos",
+    "overviewSection": "Resumen",
+    "threatOperationsSection": "Operaciones de amenazas",
+    "automationSection": "Automatizacion e IA",
+    "governanceSection": "Gobernanza",
+    "infrastructureSection": "Infraestructura",
+    "severityDistribution": "Distribucion de severidad",
+    "alertsThisWeek": "Alertas de esta semana",
+    "criticalAlertsThisWeek": "Alertas criticas de esta semana",
+    "alertsLast24h": "Alertas de las ultimas 24 h",
+    "resolvedLast24h": "Resueltas en las ultimas 24 h",
+    "connectedSources": "Fuentes conectadas",
+    "completedReports": "Informes completados",
+    "highVulnerabilities": "Vulnerabilidades altas",
+    "passedControls": "Controles aprobados",
+    "failedControls": "Controles fallidos",
+    "notAssessedControls": "Controles no evaluados",
+    "availableTemplates": "Plantillas disponibles",
+    "totalFrameworks": "Marcos totales",
+    "aiSessions24h": "Sesiones de IA de las ultimas 24 h",
+    "pendingJobs": "Trabajos pendientes",
+    "runningJobs": "Trabajos en ejecucion",
+    "failedJobs": "Trabajos fallidos",
+    "healthyConnectors": "Conectores sanos",
+    "enabledConnectors": "Conectores habilitados",
+    "totalJobs": "Trabajos totales",
+    "delayedJobs": "Trabajos retrasados",
+    "generatedReports30d": "Informes generados (30 dias)",
+    "densityCompact": "Compacto",
+    "densityComfortable": "Comodo",
+    "densityExpanded": "Amplio",
+    "aiOrchestrationCanvas": "Lienzo de orquestacion de IA",
+    "aiOrchestrationCanvasDescription": "Vista en vivo de conectores, agentes y rendimiento de trabajos",
+    "canvasSignalIngest": "Ingesta de senales",
+    "canvasAiAgents": "Agentes de IA",
+    "canvasJobs": "Trabajos en ejecucion",
+    "canvasQueueBacklog": "Atraso de cola",
+    "reportTemplatesSection": "Plantillas de informes",
+    "operationsSection": "Resumen operativo",
+    "incidentStatusSection": "Estado de incidentes",
+    "caseAgingSection": "Antiguedad de casos",
+    "rulePerformanceSection": "Rendimiento de reglas",
+    "topRulesSection": "Últimas Detecciones Activas Principales",
+    "noisyRulesSection": "Últimas Reglas Ruidosas Activas",
+    "hitCount": "Conteo de Aciertos",
+    "falsePositiveCount": "Conteo de Falsos Positivos",
+    "falsePositiveRate": "Tasa de Falsos Positivos",
+    "createdAt": "Creado",
+    "lastTriggeredAt": "Último Activación",
+    "connectorSyncSection": "Sincronizacion de conectores",
+    "runtimeBacklogSection": "Cola de ejecucion",
+    "automationQualitySection": "Calidad de automatizacion",
+    "exposureSummarySection": "Resumen de exposicion",
+    "unassignedCases": "Casos sin asignar",
+    "agedOverSevenDays": "Abiertos > 7 dias",
+    "agedOverFourteenDays": "Abiertos > 14 dias",
+    "meanOpenAgeHours": "Edad media abierta (h)",
+    "completedRuns7d": "Sincronizaciones exitosas (7d)",
+    "failedRuns7d": "Sincronizaciones fallidas (7d)",
+    "runningSyncs": "Sincronizaciones en ejecucion",
+    "retryingJobs": "Trabajos reintentando",
+    "staleRunningJobs": "Trabajos estancados",
+    "queuedConnectorSyncJobs": "Sincronizaciones en cola",
+    "queuedReportJobs": "Informes en cola",
+    "successfulAiSessions24h": "Sesiones de IA exitosas (24h)",
+    "failedAiSessions24h": "Sesiones de IA fallidas (24h)",
+    "averageAiDurationSeconds": "Duracion media de IA (s)",
+    "completedSoarRuns30d": "Ejecuciones SOAR completadas (30d)",
+    "failedSoarRuns30d": "Ejecuciones SOAR fallidas (30d)",
+    "averageSoarCompletionRate": "Tasa media de finalizacion SOAR",
+    "exploitAvailableVulnerabilities": "Vulnerabilidades con exploit disponible",
+    "openCloudFindings": "Hallazgos cloud abiertos",
+    "criticalCloudFindings": "Hallazgos cloud criticos",
+    "activeRules": "Reglas activas"
   },
   "alerts": {
     "title": "Gestión de Alertas",
@@ -751,7 +825,176 @@
       "httpStatusCode": "Código de Estado",
       "metadata": "Metadatos",
       "stackTrace": "Traza de Error",
-      "logDetail": "Detalles del Registro"
+      "logDetail": "Detalles del Registro",
+      "metadataRemoteError": "Error Remoto",
+      "metadataError": "Error",
+      "metadataConnectorType": "Tipo de Conector",
+      "metadataStatus": "Estado de Respuesta",
+      "metadataLatency": "Latencia",
+      "metadataModel": "Modelo",
+      "metadataVersion": "Versión",
+      "metadataCount": "Cantidad",
+      "features": {
+        "Auth": "Autenticación",
+        "Users": "Usuarios",
+        "Tenants": "Inquilinos",
+        "TenantMembers": "Miembros del Inquilino",
+        "Cases": "Casos",
+        "CaseCycles": "Ciclos de Caso",
+        "Alerts": "Alertas",
+        "Connectors": "Conectores",
+        "ConnectorWorkspaces": "Espacios de Conectores",
+        "Hunts": "Cacerías",
+        "Intel": "Inteligencia",
+        "AI": "IA",
+        "Dashboard": "Panel de Control",
+        "System": "Sistema",
+        "Impersonation": "Suplantación",
+        "Validation": "Validación",
+        "DataExplorer": "Explorador de Datos",
+        "Notifications": "Notificaciones",
+        "Correlation": "Correlación",
+        "Incidents": "Incidentes",
+        "Vulnerabilities": "Vulnerabilidades",
+        "AiAgents": "Agentes IA",
+        "Ueba": "UEBA",
+        "AttackPaths": "Rutas de Ataque",
+        "Soar": "SOAR",
+        "Compliance": "Cumplimiento",
+        "Reports": "Informes",
+        "UsersControl": "Control de Usuarios",
+        "Jobs": "Trabajos",
+        "SystemHealth": "Salud del Sistema",
+        "Normalization": "Normalización",
+        "DetectionRules": "Reglas de Detección",
+        "CloudSecurity": "Seguridad en la Nube",
+        "RoleSettings": "Configuración de Roles"
+      }
+    },
+    "usersControl": {
+      "title": "Control de usuarios",
+      "description": "Supervisar usuarios activos, sesiones y acciones de acceso de emergencia",
+      "sections": {
+        "overview": "Resumen",
+        "users": "Directorio de usuarios",
+        "sessions": "Actividad de sesiones"
+      },
+      "loadSummaryError": "No se pudo cargar el resumen del control de usuarios.",
+      "loadUsersError": "No se pudo cargar el directorio de usuarios.",
+      "loadSessionsError": "No se pudieron cargar las sesiones del usuario.",
+      "searchPlaceholder": "Buscar usuarios por nombre o correo electronico...",
+      "scopeLabel": "Alcance actual",
+      "scope": {
+        "system": "Alcance de todo el sistema",
+        "currentTenant": "Alcance del tenant actual"
+      },
+      "summary": {
+        "totalUsers": "Usuarios totales",
+        "onlineUsers": "Usuarios en linea",
+        "activeSessions": "Sesiones activas"
+      },
+      "columns": {
+        "user": "Usuario",
+        "scope": "Alcance",
+        "role": "Rol",
+        "status": "Estado de membresia",
+        "platforms": "Plataformas",
+        "lastSeen": "Ultima actividad",
+        "lastLogin": "Ultimo acceso",
+        "sessions": "Sesiones"
+      },
+      "tenantCount": "{count} membresias de tenant",
+      "activeSessionCount": "{count} sesiones activas",
+      "totalSessionCount": "{count} sesiones totales",
+      "viewSessions": "Ver sesiones",
+      "forceLogoutUser": "Forzar cierre de sesion",
+      "terminateSession": "Terminar sesion",
+      "forceLogoutAll": "Forzar cierre de sesion de todos",
+      "forceLogoutUserSuccess": "Se revocaron {count} sesiones activas de este usuario.",
+      "terminateSessionSuccess": "Se termino {count} sesion seleccionada.",
+      "forceLogoutAllSuccess": "Se revocaron {count} sesiones activas dentro de este alcance.",
+      "confirmForceLogoutUserTitle": "Forzar cierre de sesion de este usuario?",
+      "confirmForceLogoutUserText": "Esto revocara todas las sesiones activas de {name}.",
+      "confirmTerminateSessionTitle": "Terminar esta sesion?",
+      "confirmTerminateSessionText": "Esto revocara la sesion seleccionada de {name}.",
+      "confirmForceLogoutAllTitle": "Forzar cierre de sesion de todos los usuarios en este alcance?",
+      "confirmForceLogoutAllText": "Esto revocara todas las sesiones activas de {scope}.",
+      "noUsers": "No se encontraron usuarios",
+      "noUsersDescription": "Los usuarios apareceran aqui cuando haya cuentas disponibles en este alcance.",
+      "noSessions": "No se encontraron sesiones activas",
+      "noSessionsDescription": "Este usuario no tiene sesiones registradas en el alcance seleccionado.",
+      "selectUserTitle": "Selecciona un usuario",
+      "selectUserDescription": "Elige un usuario del directorio para revisar sus sesiones.",
+      "sessionAccessDeniedTitle": "Acceso a sesiones no disponible",
+      "sessionAccessDeniedDescription": "No tienes permiso para ver detalles de sesiones.",
+      "notAvailable": "No disponible",
+      "never": "Nunca",
+      "online": "En linea",
+      "offline": "Sin conexion",
+      "membershipStatus": {
+        "active": "Activo",
+        "suspended": "Suspendido",
+        "inactive": "Inactivo",
+        "unknown": "Desconocido"
+      },
+      "sessionStatus": {
+        "active": "Activa",
+        "revoked": "Revocada",
+        "expired": "Expirada"
+      },
+      "osFamily": {
+        "windows": "Windows",
+        "macos": "macOS",
+        "linux": "Linux",
+        "ios": "iOS",
+        "android": "Android",
+        "ipados": "iPadOS",
+        "unknown": "Sistema desconocido"
+      },
+      "clientType": {
+        "desktop": "Escritorio",
+        "mobile": "Movil",
+        "tablet": "Tableta",
+        "web": "Web",
+        "unknown": "Cliente desconocido"
+      },
+      "browser": {
+        "chrome": "Chrome",
+        "edge": "Edge",
+        "firefox": "Firefox",
+        "safari": "Safari",
+        "opera": "Opera",
+        "samsungInternet": "Samsung Internet",
+        "unknown": "Navegador desconocido"
+      },
+      "fields": {
+        "tenant": "Tenant",
+        "ipAddress": "Direccion IP",
+        "lastSeen": "Ultima actividad",
+        "lastLogin": "Ultimo acceso",
+        "userAgent": "User-Agent",
+        "revokeReason": "Motivo de revocacion",
+        "familyId": "ID de familia de sesion",
+        "unknownIp": "IP desconocida"
+      },
+      "sort": {
+        "session": {
+          "lastSeenAt": "Ultima actividad",
+          "lastLoginAt": "Ultimo acceso",
+          "createdAt": "Creado el"
+        },
+        "order": {
+          "asc": "Ascendente",
+          "desc": "Descendente"
+        }
+      },
+      "sessions": {
+        "title": "Sesiones del usuario",
+        "description": "Historial de sesiones y actividad en vivo para {user}.",
+        "descriptionEmpty": "Selecciona un usuario para revisar el historial de sesiones.",
+        "emptyTitle": "Sin historial de sesiones",
+        "emptyDescription": "Este usuario aun no tiene sesiones registradas."
+      }
     }
   },
   "auth": {
@@ -804,7 +1047,9 @@
       "influxdb": "Base de datos de series temporales",
       "misp": "Plataforma de inteligencia de amenazas",
       "shuffle": "Orquestación y automatización de seguridad",
-      "bedrock": "Análisis de seguridad con IA"
+      "bedrock": "Análisis de seguridad con IA",
+      "llmApis": "Pasarela API LLM multi-proveedor",
+      "openclawGateway": "Pasarela OpenClaw AI para automatización SOC"
     },
     "noConnectors": "Sin conectores",
     "noConnectorsDescription": "Haga clic en \"Cargar Datos de Demostración\" para restaurar los conectores predeterminados.",
@@ -938,6 +1183,20 @@
       "workflowId": "ID del Flujo de Trabajo",
       "apiKey": "Clave de API (opcional)"
     },
+    "llmApis": {
+      "baseUrl": "URL Base",
+      "apiKey": "Clave de API",
+      "defaultModel": "Modelo Predeterminado",
+      "defaultModelPlaceholder": "gpt-4, claude-3-sonnet, etc.",
+      "organizationId": "ID de Organización",
+      "organizationIdHint": "Opcional. Requerido para algunos proveedores (ej. OpenAI).",
+      "maxTokensParameter": "Parámetro de tokens máximos",
+      "maxTokensParameterHint": "Use 'max_completion_tokens' para modelos OpenAI más nuevos (o1, o3, gpt-4o). Use 'max_tokens' para la mayoría de otros proveedores."
+    },
+    "openclawGateway": {
+      "baseUrl": "URL de la Pasarela",
+      "apiKey": "Clave de API"
+    },
     "openWorkspace": "Abrir Espacio de Trabajo",
     "workspace": {
       "tabOverview": "Resumen",
@@ -1000,6 +1259,11 @@
     "workflowIdRequired": "El ID del flujo de trabajo es obligatorio",
     "modelRequired": "El modelo es obligatorio",
     "regionRequired": "La región es obligatoria",
+    "llmBaseUrlRequired": "La URL base es obligatoria",
+    "llmApiKeyRequired": "La clave de API es obligatoria",
+    "defaultModelRequired": "El modelo predeterminado es obligatorio",
+    "openclawBaseUrlRequired": "La URL de la pasarela es obligatoria",
+    "openclawApiKeyRequired": "La clave de API es obligatoria",
     "urlPrivateNetwork": "No se permiten URLs que apunten a redes privadas o internas"
   },
   "errors": {
@@ -1269,7 +1533,9 @@
       "nameAlreadyExists": "Ya existe un agente con este nombre.",
       "alreadyOnline": "El agente ya está en línea.",
       "alreadyOffline": "El agente ya está fuera de línea.",
-      "offline": "This AI agent must be online or degraded before it can run tasks."
+      "offline": "This AI agent must be online or degraded before it can run tasks.",
+      "invalidToolSchema": "El esquema de la herramienta debe ser JSON válido.",
+      "toolNotFound": "Herramienta del agente de IA no encontrada."
     },
     "users": {
       "notFound": "Usuario no encontrado.",
@@ -1336,7 +1602,9 @@
       "notFound": "Notificación no encontrada."
     },
     "reports": {
-      "notFound": "Informe no encontrado."
+      "notFound": "Informe no encontrado.",
+      "notCompleted": "Solo se pueden exportar informes completados.",
+      "templateNotFound": "No se encontro la plantilla del informe."
     },
     "soar": {
       "playbookAlreadyExists": "Ya existe un playbook con este nombre.",
@@ -1356,6 +1624,13 @@
       "notFound": "Job not found.",
       "cannotRetry": "This job cannot be retried in its current state.",
       "cannotCancel": "This job cannot be cancelled in its current state."
+    },
+    "userControl": {
+      "userNotFound": "No se encontro el usuario solicitado.",
+      "sessionNotFound": "No se encontro la sesion solicitada."
+    },
+    "roleSettings": {
+      "usersControlRestrictedRole": "Los permisos de control de usuarios solo pueden asignarse a administradores globales o administradores del tenant."
     }
   },
   "profile": {
@@ -2047,7 +2322,11 @@
     "noSessions": "No sessions found",
     "noSessionsDescription": "Sessions will appear here once the agent runs tasks",
     "sessionTask": "Task",
-    "sessionStarted": "Started",
+    "sessionStarted": "Iniciado",
+    "sessionCompleted": "Completado",
+    "sessionDuration": "Duración",
+    "sessionDetailTitle": "Detalles de la sesión",
+    "sessionDetailDescription": "Detalles completos de esta ejecución del agente IA",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",
@@ -2058,7 +2337,7 @@
     "toolDescription": "Description",
     "toolDescriptionPlaceholder": "What does this tool do?",
     "toolSchema": "JSON Schema",
-    "toolSchemaPlaceholder": "{\n  \"type\": \"object\",\n  \"properties\": { ... }\n}",
+    "toolSchemaPlaceholder": "ej. search_logs, create_alert",
     "toolEnabled": "Enabled",
     "validationToolNameMin": "Tool name must be at least 2 characters",
     "validationToolDescriptionMin": "Tool description must be at least 5 characters",
@@ -2068,7 +2347,11 @@
     "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
     "queueRun": "Queue Run",
     "queueingRun": "Queueing...",
-    "runQueued": "Agent run queued successfully"
+    "runQueued": "Agent run queued successfully",
+    "toolCreated": "Herramienta creada exitosamente",
+    "toolDeleted": "Herramienta eliminada exitosamente",
+    "deleteTool": "Eliminar herramienta",
+    "confirmDeleteTool": "¿Está seguro de que desea eliminar esta herramienta?"
   },
   "ueba": {
     "title": "Analítica ML / UEBA",
@@ -2678,7 +2961,33 @@
     "detailParameters": "Parametros",
     "fieldParameters": "Parametros (JSON)",
     "fieldParametersPlaceholder": "Ingrese parametros del reporte como objeto JSON",
-    "validationParametersJson": "Los parametros deben ser un objeto JSON valido"
+    "validationParametersJson": "Los parametros deben ser un objeto JSON valido",
+    "templatesTitle": "Plantillas de informes",
+    "templatesLoading": "Cargando plantillas...",
+    "templatesEmpty": "No hay plantillas disponibles",
+    "templateDescriptionFallback": "Plantilla reutilizable para este modulo",
+    "templateGenerate": "Generar informe",
+    "templateGenerating": "Generando...",
+    "templateGenerateSuccess": "Se inicio la generacion del informe desde la plantilla",
+    "templateGenerateError": "No se pudo generar el informe desde la plantilla",
+    "kpiTemplates": "Plantillas",
+    "moduleDashboard": "Panel",
+    "moduleAlerts": "Alertas",
+    "moduleIncidents": "Incidentes",
+    "moduleCases": "Casos",
+    "moduleVulnerabilities": "Vulnerabilidades",
+    "moduleCompliance": "Cumplimiento",
+    "moduleAiAgents": "Agentes de IA",
+    "moduleSoar": "SOAR",
+    "moduleConnectors": "Conectores",
+    "moduleSystemHealth": "Salud del sistema",
+    "templateExecutiveOverview": "Resumen ejecutivo",
+    "templateIncidentPosture": "Postura de incidentes",
+    "templateThreatExposure": "Exposicion a amenazas",
+    "templateVulnerabilityExposure": "Exposicion a vulnerabilidades",
+    "templateCompliancePosture": "Postura de cumplimiento",
+    "templateAutomationHealth": "Salud de automatizacion",
+    "templateConnectorHealth": "Salud de conectores"
   },
   "systemHealth": {
     "title": "Estado del sistema",
@@ -3015,7 +3324,8 @@
     "typeChain": "Cadena",
     "typeScheduled": "Programado",
     "statusActive": "Activo",
-    "columnFalsePositives": "Falsos positivos"
+    "columnFalsePositives": "Falsos positivos",
+    "columnLastTriggered": "Último Activación"
   },
   "cloudSecurity": {
     "title": "Seguridad en la nube",
@@ -3200,7 +3510,8 @@
       "settings": "Configuración",
       "roleSettings": "Configuración de Roles",
       "jobs": "Jobs",
-      "systemHealth": "System Health"
+      "systemHealth": "System Health",
+      "usersControl": "Control de usuarios"
     },
     "permissions": {
       "dashboard": {
@@ -3367,6 +3678,12 @@
       },
       "systemHealth": {
         "view": "View System Health"
+      },
+      "usersControl": {
+        "view": "Ver control de usuarios",
+        "viewSessions": "Ver sesiones de usuarios",
+        "forceLogout": "Forzar cierre de sesion de usuarios",
+        "forceLogoutAll": "Forzar cierre de sesion de todos los usuarios"
       }
     },
     "roles": {
@@ -3380,7 +3697,8 @@
       "SOC_ANALYST_L2": "Analista SOC L2",
       "SOC_ANALYST_L1": "Analista SOC L1",
       "EXECUTIVE_READONLY": "Ejecutivo (Solo Lectura)",
-      "AUDITOR_READONLY": "Auditor (Solo Lectura)"
+      "AUDITOR_READONLY": "Auditor (Solo Lectura)",
+      "GLOBAL_ADMIN": "Administrador global"
     }
   },
   "jobs": {

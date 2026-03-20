@@ -17,6 +17,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { ConnectorAuthType, WorkspaceTab } from '@/enums'
 import { useConnectorWorkspacePage } from '@/hooks/useConnectorWorkspacePage'
+import { mapConfigForBackend } from '@/lib/connector-utils'
 import { isSyncableConnector } from '@/lib/constants/connectors.constants'
 import type { ConnectorDetailPageProps } from '@/types'
 
@@ -125,14 +126,14 @@ export default function ConnectorDetailPage({ params }: ConnectorDetailPageProps
                       name: name || meta.label,
                       enabled: Boolean(enabled),
                       authType: authType || ConnectorAuthType.BASIC,
-                      config: {
+                      config: mapConfigForBackend(type, {
                         ...configFields,
                         tags: tags
                           .split(',')
                           .map(tag => tag.trim())
                           .filter(Boolean),
                         notes: notes ?? '',
-                      },
+                      }),
                     })
                   }}
                   createPending={createPending}

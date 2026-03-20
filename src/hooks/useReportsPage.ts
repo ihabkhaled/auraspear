@@ -3,6 +3,7 @@
 import { Permission } from '@/enums'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
+import { useReportTemplates } from './useReports'
 import { useReportsPageCrud } from './useReportsPageCrud'
 import { useReportsPageDialogs } from './useReportsPageDialogs'
 import { useReportsPageFilters } from './useReportsPageFilters'
@@ -11,6 +12,7 @@ export function useReportsPage() {
   const filters = useReportsPageFilters()
   const dialogs = useReportsPageDialogs()
   const crud = useReportsPageCrud(dialogs)
+  const templates = useReportTemplates()
 
   const permissions = useAuthStore(s => s.permissions)
   const canManageReports = hasPermission(permissions, Permission.REPORTS_CREATE)
@@ -54,6 +56,10 @@ export function useReportsPage() {
     openDeleteDialog: dialogs.openDeleteDialog,
     createLoading: crud.createLoading,
     editLoading: crud.editLoading,
+    templates: templates.data?.data ?? [],
+    templatesLoading: templates.isLoading,
+    handleGenerateFromTemplate: crud.handleGenerateFromTemplate,
+    generatingTemplateKey: crud.generatingTemplateKey,
     canManageReports,
     canDeleteReport,
   }

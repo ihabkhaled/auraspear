@@ -6,7 +6,9 @@ import type {
   AiAgentSession,
   AiAgentSessionSearchParams,
   AiAgentStats,
+  AiAgentTool,
   ApiResponse,
+  CreateAgentToolInput,
   DeleteAiAgentResult,
   RunAiAgentInput,
   UpdateAiAgentSoulInput,
@@ -45,4 +47,17 @@ export const aiAgentService = {
 
   deleteAgent: (id: string) =>
     api.delete<ApiResponse<DeleteAiAgentResult>>(`/ai-agents/${id}`).then(r => r.data),
+
+  createTool: (agentId: string, data: CreateAgentToolInput) =>
+    api.post<ApiResponse<AiAgentTool>>(`/ai-agents/${agentId}/tools`, data).then(r => r.data),
+
+  updateTool: (agentId: string, toolId: string, data: CreateAgentToolInput) =>
+    api
+      .patch<ApiResponse<AiAgentTool>>(`/ai-agents/${agentId}/tools/${toolId}`, data)
+      .then(r => r.data),
+
+  deleteTool: (agentId: string, toolId: string) =>
+    api
+      .delete<ApiResponse<{ deleted: boolean }>>(`/ai-agents/${agentId}/tools/${toolId}`)
+      .then(r => r.data),
 }

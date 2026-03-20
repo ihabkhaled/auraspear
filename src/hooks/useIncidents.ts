@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
-import { Permission } from '@/enums'
+import { type IncidentStatus, Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { incidentService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
@@ -33,6 +33,7 @@ export function useCreateIncident() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', 'stats', tenantId] })
     },
   })
 }
@@ -48,6 +49,23 @@ export function useUpdateIncident() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', 'stats', tenantId] })
+    },
+  })
+}
+
+export function useChangeIncidentStatus() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useMutation({
+    mutationFn: ({ id, status }: { id: string; status: IncidentStatus }) => {
+      requirePermission(permissions, Permission.INCIDENTS_CHANGE_STATUS)
+      return incidentService.changeIncidentStatus(id, status)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', 'stats', tenantId] })
     },
   })
 }
@@ -63,6 +81,7 @@ export function useDeleteIncident() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['incidents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['incidents', 'stats', tenantId] })
     },
   })
 }

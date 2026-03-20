@@ -108,4 +108,8 @@ export enum Permission {
   SETTINGS_UPDATE = 'settings.update',
   ROLE_SETTINGS_VIEW = 'roleSettings.view',
   ROLE_SETTINGS_UPDATE = 'roleSettings.update',
+  USERS_CONTROL_VIEW = 'usersControl.view',
+  USERS_CONTROL_VIEW_SESSIONS = 'usersControl.viewSessions',
+  USERS_CONTROL_FORCE_LOGOUT = 'usersControl.forceLogout',
+  USERS_CONTROL_FORCE_LOGOUT_ALL = 'usersControl.forceLogoutAll',
 }

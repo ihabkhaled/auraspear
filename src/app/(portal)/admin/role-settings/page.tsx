@@ -19,6 +19,7 @@ export default function RoleSettingsPage() {
     handleSave,
     handleReset,
     isChecked,
+    isToggleDisabled,
     canEditRoles,
     canResetDefaults,
   } = useRoleSettingsPage()
@@ -50,6 +51,7 @@ export default function RoleSettingsPage() {
             configurableRoles={configurableRoles}
             isChecked={isChecked}
             onToggle={handleToggle}
+            isToggleDisabled={isToggleDisabled}
             disabled={!canEditRoles || isSaving || isResetting}
             permissionLabelMap={permissionLabelMap}
             t={t}

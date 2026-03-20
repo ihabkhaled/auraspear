@@ -168,6 +168,14 @@ export { useImpersonationBanner } from './useImpersonationBanner'
 export { useIocSearchBar } from './useIocSearchBar'
 export { useHuntInputArea } from './useHuntInputArea'
 export { useProviders } from './useProviders'
+export {
+  useUsersControlSummary,
+  useUsersControlUsers,
+  useUsersControlSessions,
+  useForceLogoutControlledUser,
+  useForceLogoutAllControlledUsers,
+} from './useUsersControl'
+export { useUsersControlPage } from './useUsersControlPage'
 export { useWorkspaceSearchPanel } from './useWorkspaceSearchPanel'
 export { useCaseDetailPage } from './useCaseDetailPage'
 export { useCycleDetailPage } from './useCycleDetailPage'
@@ -290,6 +298,8 @@ export {
   useCreateAiAgent,
   useUpdateAiAgent,
   useDeleteAiAgent,
+  useCreateAgentTool,
+  useDeleteAgentTool,
 } from './useAiAgents'
 export { useAiAgentKpiCards } from './useAiAgentKpiCards'
 export { useAiAgentFilters } from './useAiAgentFilters'
@@ -298,6 +308,7 @@ export { useAiAgentEditDialog } from './useAiAgentEditDialog'
 export { useAiAgentDeleteDialog } from './useAiAgentDeleteDialog'
 export { useAiAgentDetailPanel } from './useAiAgentDetailPanel'
 export { useAiAgentToolDialog } from './useAiAgentToolDialog'
+export { useAiAgentSessionDetail } from './useAiAgentSessionDetail'
 export { useAiAgentSessionTable } from './useAiAgentSessionTable'
 export {
   useUebaEntities,

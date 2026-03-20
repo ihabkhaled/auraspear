@@ -1,10 +1,15 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import type { SoarRunDialogProps } from '@/types'
 
 export function useSoarRunDialog({ playbookId, playbookName, onConfirm }: SoarRunDialogProps) {
   const t = useTranslations('soar')
+  const onConfirmRef = useRef(onConfirm)
+
+  useEffect(() => {
+    onConfirmRef.current = onConfirm
+  }, [onConfirm])
 
   const handleRun = useCallback(async () => {
     if (!playbookId) {
@@ -20,9 +25,9 @@ export function useSoarRunDialog({ playbookId, playbookName, onConfirm }: SoarRu
     })
 
     if (confirmed) {
-      onConfirm(playbookId)
+      onConfirmRef.current(playbookId)
     }
-  }, [playbookId, playbookName, onConfirm, t])
+  }, [playbookId, playbookName, t])
 
   useEffect(() => {
     if (playbookId) {

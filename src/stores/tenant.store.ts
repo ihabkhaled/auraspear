@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '@/lib/persist-storage'
 import type { Tenant, TenantMembershipInfo } from '@/types'
 
 interface TenantState {
@@ -23,6 +24,7 @@ export const useTenantStore = create<TenantState>()(
     }),
     {
       name: 'tenant-storage',
+      storage: createPersistStorage(),
     }
   )
 )

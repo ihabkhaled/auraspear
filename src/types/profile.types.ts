@@ -1,4 +1,4 @@
-import type { UserRole } from '@/enums'
+import type { DashboardDensity, DashboardPanelKey, UserRole } from '@/enums'
 
 export interface UserProfile {
   id: string
@@ -23,5 +23,27 @@ export interface ChangePasswordInput {
 }
 
 export interface PreferencesResponse {
-  data: Record<string, unknown>
+  data: UserPreferences
+}
+
+export interface UserPreferences {
+  theme: string
+  language: string
+  dashboardDensity?: DashboardDensity | undefined
+  collapsedDashboardPanels?: DashboardPanelKey[] | undefined
+  notificationsEmail?: boolean | undefined
+  notificationsInApp?: boolean | undefined
+  notifyCriticalAlerts?: boolean | undefined
+  notifyHighAlerts?: boolean | undefined
+  notifyCaseAssignments?: boolean | undefined
+  notifyIncidentUpdates?: boolean | undefined
+  notifyComplianceAlerts?: boolean | undefined
+  notifyCaseUpdates?: boolean | undefined
+  notifyCaseComments?: boolean | undefined
+  notifyCaseActivity?: boolean | undefined
+  notifyUserManagement?: boolean | undefined
+  retentionAlerts?: string | undefined
+  retentionLogs?: string | undefined
+  retentionIncidents?: string | undefined
+  retentionAuditLogs?: string | undefined
 }

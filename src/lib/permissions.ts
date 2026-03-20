@@ -1,5 +1,6 @@
 import { type Permission } from '@/enums'
 import { ROUTE_PERMISSION_MAP } from '@/lib/constants/route-permissions'
+import { USERS_CONTROL_ROUTE } from '@/lib/constants/users-control'
 
 const PERMISSION_FALLBACK_ROUTE_ORDER = [
   '/dashboard',
@@ -17,6 +18,7 @@ const PERMISSION_FALLBACK_ROUTE_ORDER = [
   '/admin/tenant',
   '/admin/system',
   '/admin/role-settings',
+  USERS_CONTROL_ROUTE,
   '/profile',
   '/settings',
 ] as const

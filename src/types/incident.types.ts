@@ -127,6 +127,11 @@ export interface IncidentDetailPanelProps {
   incident: Incident | null
   open: boolean
   onOpenChange: (open: boolean) => void
+  canEditIncident?: boolean | undefined
+  canChangeStatus?: boolean | undefined
+  onEditIncident?: (() => void) | undefined
+  onChangeStatus?: ((status: IncidentStatus) => void) | undefined
+  isChangingStatus?: boolean | undefined
 }
 
 export interface IncidentColumnTranslations {

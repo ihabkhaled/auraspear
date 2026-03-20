@@ -6,9 +6,11 @@ import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { hasPermission, requirePermission } from '@/lib/permissions'
 import {
+  canAssignRoleSettingsPermission,
   canResetRoleSettings,
   canToggleRoleSettingsPermission,
   filterRoleSettingsPermissionGroups,
+  isRoleSettingsToggleDisabled,
 } from '@/lib/role-settings'
 import { roleSettingsService } from '@/services'
 import { useAuthStore } from '@/stores'
@@ -120,7 +122,10 @@ export function useRoleSettingsPage() {
 
   const handleToggle = useCallback(
     (role: string, permission: string, checked: boolean) => {
-      if (!canToggleRoleSettingsPermission(actorRole, permission)) {
+      if (
+        !canToggleRoleSettingsPermission(actorRole, permission) ||
+        !canAssignRoleSettingsPermission(role, permission)
+      ) {
         return
       }
 
@@ -143,6 +148,12 @@ export function useRoleSettingsPage() {
       })
       setIsDirty(true)
     },
+    [actorRole]
+  )
+
+  const isToggleDisabled = useCallback(
+    (role: string, permission: string): boolean =>
+      isRoleSettingsToggleDisabled(actorRole, role, permission),
     [actorRole]
   )
 
@@ -209,6 +220,7 @@ export function useRoleSettingsPage() {
     handleSave,
     handleReset,
     isChecked,
+    isToggleDisabled,
     canEditRoles,
     canResetDefaults,
   }

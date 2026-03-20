@@ -8,11 +8,19 @@ import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/cons
 import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
-import type { AiAgentDetailPanelProps } from '@/types'
-import { useUpdateSoul, useStartAgent, useStopAgent, useRunAiAgent } from './useAiAgents'
+import type { AiAgentDetailPanelProps, AiAgentToolFormValues } from '@/types'
+import {
+  useAiAgent,
+  useUpdateSoul,
+  useStartAgent,
+  useStopAgent,
+  useRunAiAgent,
+  useCreateAgentTool,
+  useDeleteAgentTool,
+} from './useAiAgents'
 
 export function useAiAgentDetailPanel({
-  agent,
+  agent: listAgent,
   onClose,
   onEdit,
   onDelete,
@@ -20,6 +28,10 @@ export function useAiAgentDetailPanel({
   const t = useTranslations('aiAgents')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
+
+  // Fetch full agent with tools and sessions from the detail endpoint
+  const { data: fullAgentResponse } = useAiAgent(listAgent.id)
+  const agent = fullAgentResponse?.data ?? listAgent
 
   const [activeTab, setActiveTab] = useState(AiAgentPanelTab.OVERVIEW)
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
@@ -33,6 +45,8 @@ export function useAiAgentDetailPanel({
   const startAgentMutation = useStartAgent()
   const stopAgentMutation = useStopAgent()
   const runAgentMutation = useRunAiAgent()
+  const createToolMutation = useCreateAgentTool()
+  const deleteToolMutation = useDeleteAgentTool()
 
   const isAgentOnline = agent.status === AiAgentStatus.ONLINE
   const canExecute = hasPermission(permissions, Permission.AI_AGENTS_EXECUTE)
@@ -104,6 +118,55 @@ export function useAiAgentDetailPanel({
     )
   }, [agent.id, runAgentMutation, runPrompt, t, tErrors])
 
+  const handleCreateTool = useCallback(
+    (formValues: AiAgentToolFormValues) => {
+      let parsedSchema: Record<string, unknown> = {}
+      try {
+        parsedSchema = JSON.parse(formValues.schema) as Record<string, unknown>
+      } catch {
+        Toast.error(tErrors('aiAgents.invalidToolSchema'))
+        return
+      }
+      createToolMutation.mutate(
+        {
+          agentId: agent.id,
+          data: {
+            name: formValues.name,
+            description: formValues.description,
+            schema: parsedSchema,
+          },
+        },
+        {
+          onSuccess: () => {
+            setToolDialogOpen(false)
+            Toast.success(t('toolCreated'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [agent.id, createToolMutation, t, tErrors]
+  )
+
+  const handleDeleteTool = useCallback(
+    (toolId: string) => {
+      deleteToolMutation.mutate(
+        { agentId: agent.id, toolId },
+        {
+          onSuccess: () => {
+            Toast.success(t('toolDeleted'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [agent.id, deleteToolMutation, t, tErrors]
+  )
+
   const handleToggleAgent = isAgentOnline ? handleStopAgent : handleStartAgent
   const isToggling = startAgentMutation.isPending || stopAgentMutation.isPending
   const handleActiveTabChange = useCallback((value: string) => {
@@ -114,6 +177,7 @@ export function useAiAgentDetailPanel({
 
   return {
     t,
+    agent,
     activeTab,
     handleActiveTabChange,
     soulMdDraft,
@@ -136,11 +200,15 @@ export function useAiAgentDetailPanel({
     handleSaveSoul,
     handleToggleAgent,
     handleRunAgent,
+    handleCreateTool,
+    handleDeleteTool,
     isAgentOnline,
     canExecute,
     isSavingSoul: updateSoulMutation.isPending,
     isToggling,
     isRunningAgent: runAgentMutation.isPending,
+    isCreatingTool: createToolMutation.isPending,
+    isDeletingTool: deleteToolMutation.isPending,
     onClose,
     onEdit,
     onDelete,

@@ -40,7 +40,7 @@ function ActivityItem({ item, tNotifications, resolveMessage, locale }: Activity
         <p className="text-sm font-medium">{displayTitle}</p>
         <p className="text-muted-foreground line-clamp-1 text-xs">
           {item.actorName}
-          {item.message ? ` — ${resolveMessage(item.message)}` : ''}
+          {item.message ? ` - ${resolveMessage(item.message)}` : ''}
         </p>
         <div className="text-muted-foreground mt-1 flex items-center gap-1.5 text-xs">
           <Clock className="h-3 w-3" />

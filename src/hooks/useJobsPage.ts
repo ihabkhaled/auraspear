@@ -40,10 +40,12 @@ export function useJobsPage() {
   const cancelMutation = useCancelJob()
 
   useEffect(() => {
-    if (data?.pagination) {
-      pagination.setTotal(data.pagination.total)
+    const paginationData = data?.pagination ?? data
+    const total = (paginationData as Record<string, unknown> | undefined)?.['total']
+    if (typeof total === 'number') {
+      pagination.setTotal(total)
     }
-  }, [data?.pagination, pagination])
+  }, [data, pagination])
 
   const handleRetry = useCallback(
     (id: string) => {

@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import { ReportModule, ReportTemplateKey } from '@/enums'
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
@@ -88,6 +89,22 @@ describe('reportService', () => {
     })
   })
 
+  describe('createReportFromTemplate', () => {
+    it('should call POST /reports/from-template', async () => {
+      const report = { id: 'rpt-template-1', title: 'Generated from Template' }
+      mockPost.mockResolvedValue({ data: { data: report } })
+
+      const input = {
+        templateKey: ReportTemplateKey.EXECUTIVE_OVERVIEW,
+        module: ReportModule.DASHBOARD,
+      }
+      const result = await reportService.createReportFromTemplate(input)
+
+      expect(mockPost).toHaveBeenCalledWith('/reports/from-template', input)
+      expect(result).toEqual({ data: report })
+    })
+  })
+
   describe('updateReport', () => {
     it('should call PATCH /reports/:id', async () => {
       const report = { id: 'rpt-1', title: 'Updated Report' }
@@ -141,6 +158,30 @@ describe('reportService', () => {
       mockGet.mockRejectedValue(new Error('Server error'))
 
       await expect(reportService.getStats()).rejects.toThrow('Server error')
+    })
+  })
+
+  describe('getTemplates', () => {
+    it('should call GET /reports/templates without params', async () => {
+      const templates = [{ id: 'tpl-1', key: ReportTemplateKey.EXECUTIVE_OVERVIEW }]
+      mockGet.mockResolvedValue({ data: { data: templates } })
+
+      const result = await reportService.getTemplates()
+
+      expect(mockGet).toHaveBeenCalledWith('/reports/templates', { params: undefined })
+      expect(result).toEqual({ data: templates })
+    })
+
+    it('should call GET /reports/templates with module params', async () => {
+      const templates = [{ id: 'tpl-2', key: ReportTemplateKey.CONNECTOR_HEALTH }]
+      mockGet.mockResolvedValue({ data: { data: templates } })
+
+      const result = await reportService.getTemplates(ReportModule.CONNECTORS)
+
+      expect(mockGet).toHaveBeenCalledWith('/reports/templates', {
+        params: { module: ReportModule.CONNECTORS },
+      })
+      expect(result).toEqual({ data: templates })
     })
   })
 })

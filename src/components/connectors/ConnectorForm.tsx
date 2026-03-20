@@ -15,7 +15,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
 import { Textarea } from '@/components/ui/textarea'
-import { ConnectorAuthType, ConnectorType } from '@/enums'
+import { ConnectorAuthType, ConnectorType, LlmMaxTokensParameter } from '@/enums'
 import { useConnectorForm } from '@/hooks/useConnectorForm'
 import { BEDROCK_MODELS, AWS_REGIONS } from '@/lib/constants/connectors.constants'
 import type { ConnectorFormValues } from '@/lib/validation/connectors.schema'
@@ -142,125 +142,129 @@ export function ConnectorForm({
 
       <Separator />
 
-      {type !== ConnectorType.BEDROCK && (
-        <>
-          <div className="space-y-4">
-            <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              {t('connection')}
-            </h3>
+      {type !== ConnectorType.BEDROCK &&
+        type !== ConnectorType.LLM_APIS &&
+        type !== ConnectorType.OPENCLAW_GATEWAY && (
+          <>
             <div className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="baseUrl">{t('baseUrl')}</Label>
-                <Input
-                  id="baseUrl"
-                  placeholder={t('urlPlaceholder')}
-                  disabled={disabled}
-                  {...register('baseUrl')}
-                />
-                {renderError('baseUrl')}
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
+                {t('connection')}
+              </h3>
+              <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label>{t('authType')}</Label>
+                  <Label htmlFor="baseUrl">{t('baseUrl')}</Label>
+                  <Input
+                    id="baseUrl"
+                    placeholder={t('urlPlaceholder')}
+                    disabled={disabled}
+                    {...register('baseUrl')}
+                  />
+                  {renderError('baseUrl')}
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <Label>{t('authType')}</Label>
+                    <Controller
+                      control={control}
+                      name="authType"
+                      render={({ field }) => (
+                        <Select
+                          value={field.value}
+                          onValueChange={field.onChange}
+                          disabled={disabled}
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value={ConnectorAuthType.API_KEY}>
+                              {t('apiKeyAuth')}
+                            </SelectItem>
+                            <SelectItem value={ConnectorAuthType.BASIC}>
+                              {t('basicAuth')}
+                            </SelectItem>
+                            <SelectItem value={ConnectorAuthType.TOKEN}>
+                              {t('bearerToken')}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      )}
+                    />
+                  </div>
+
+                  {authType === ConnectorAuthType.API_KEY && (
+                    <div className="space-y-2">
+                      <Label htmlFor="apiKey">{t('apiKeyAuth')}</Label>
+                      {renderSecret('apiKey')}
+                      {renderError('apiKey')}
+                    </div>
+                  )}
+
+                  {authType === ConnectorAuthType.BASIC && (
+                    <>
+                      <div className="space-y-2">
+                        <Label htmlFor="username">{t('username')}</Label>
+                        <Input id="username" disabled={disabled} {...register('username')} />
+                        {renderError('username')}
+                      </div>
+                      <div className="space-y-2 sm:col-span-2">
+                        <Label htmlFor="password">{t('password')}</Label>
+                        {renderSecret('password')}
+                        {renderError('password')}
+                      </div>
+                    </>
+                  )}
+
+                  {authType === ConnectorAuthType.TOKEN && (
+                    <div className="space-y-2">
+                      <Label htmlFor="token">{t('token')}</Label>
+                      {renderSecret('token')}
+                      {renderError('token')}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-4">
+              <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
+                {t('advanced')}
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="flex items-center gap-3">
                   <Controller
                     control={control}
-                    name="authType"
+                    name="verifyTLS"
                     render={({ field }) => (
-                      <Select
-                        value={field.value}
-                        onValueChange={field.onChange}
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
                         disabled={disabled}
-                      >
-                        <SelectTrigger className="w-full">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value={ConnectorAuthType.API_KEY}>
-                            {t('apiKeyAuth')}
-                          </SelectItem>
-                          <SelectItem value={ConnectorAuthType.BASIC}>{t('basicAuth')}</SelectItem>
-                          <SelectItem value={ConnectorAuthType.TOKEN}>
-                            {t('bearerToken')}
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
+                      />
                     )}
                   />
+                  <Label>{t('verifyTLS')}</Label>
                 </div>
-
-                {authType === ConnectorAuthType.API_KEY && (
-                  <div className="space-y-2">
-                    <Label htmlFor="apiKey">{t('apiKeyAuth')}</Label>
-                    {renderSecret('apiKey')}
-                    {renderError('apiKey')}
-                  </div>
-                )}
-
-                {authType === ConnectorAuthType.BASIC && (
-                  <>
-                    <div className="space-y-2">
-                      <Label htmlFor="username">{t('username')}</Label>
-                      <Input id="username" disabled={disabled} {...register('username')} />
-                      {renderError('username')}
-                    </div>
-                    <div className="space-y-2 sm:col-span-2">
-                      <Label htmlFor="password">{t('password')}</Label>
-                      {renderSecret('password')}
-                      {renderError('password')}
-                    </div>
-                  </>
-                )}
-
-                {authType === ConnectorAuthType.TOKEN && (
-                  <div className="space-y-2">
-                    <Label htmlFor="token">{t('token')}</Label>
-                    {renderSecret('token')}
-                    {renderError('token')}
-                  </div>
-                )}
+                <div className="space-y-2">
+                  <Label htmlFor="timeoutSeconds">{t('timeout')}</Label>
+                  <Input
+                    id="timeoutSeconds"
+                    type="number"
+                    min={1}
+                    max={120}
+                    disabled={disabled}
+                    {...register('timeoutSeconds', { valueAsNumber: true })}
+                  />
+                  {renderError('timeoutSeconds')}
+                </div>
               </div>
             </div>
-          </div>
 
-          <Separator />
-
-          <div className="space-y-4">
-            <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              {t('advanced')}
-            </h3>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div className="flex items-center gap-3">
-                <Controller
-                  control={control}
-                  name="verifyTLS"
-                  render={({ field }) => (
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={disabled}
-                    />
-                  )}
-                />
-                <Label>{t('verifyTLS')}</Label>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="timeoutSeconds">{t('timeout')}</Label>
-                <Input
-                  id="timeoutSeconds"
-                  type="number"
-                  min={1}
-                  max={120}
-                  disabled={disabled}
-                  {...register('timeoutSeconds', { valueAsNumber: true })}
-                />
-                {renderError('timeoutSeconds')}
-              </div>
-            </div>
-          </div>
-
-          <Separator />
-        </>
-      )}
+            <Separator />
+          </>
+        )}
 
       {type === ConnectorType.WAZUH && (
         <>
@@ -510,6 +514,73 @@ export function ConnectorForm({
         </>
       )}
 
+      {(type === ConnectorType.BEDROCK ||
+        type === ConnectorType.LLM_APIS ||
+        type === ConnectorType.OPENCLAW_GATEWAY) && (
+        <>
+          <div className="space-y-4">
+            <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
+              {t('aiGovernance')}
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>{t('nlHunting')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('nlHuntingDescription')}</p>
+                </div>
+                <Controller
+                  control={control}
+                  name="nlHuntingEnabled"
+                  render={({ field }) => (
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={disabled}
+                    />
+                  )}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>{t('explainableAi')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('explainableAiDescription')}</p>
+                </div>
+                <Controller
+                  control={control}
+                  name="explainableAiEnabled"
+                  render={({ field }) => (
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={disabled}
+                    />
+                  )}
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <Label>{t('auditLogging')}</Label>
+                  <p className="text-muted-foreground text-xs">{t('auditLoggingDescription')}</p>
+                </div>
+                <Controller
+                  control={control}
+                  name="auditLoggingEnabled"
+                  render={({ field }) => (
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      disabled={disabled}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+          </div>
+
+          <Separator />
+        </>
+      )}
+
       {type === ConnectorType.BEDROCK && (
         <>
           <div className="space-y-4">
@@ -583,62 +654,123 @@ export function ConnectorForm({
           </div>
 
           <Separator />
+        </>
+      )}
 
+      {type === ConnectorType.LLM_APIS && (
+        <>
           <div className="space-y-4">
             <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
-              {t('aiGovernance')}
+              LLM APIs
             </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>{t('nlHunting')}</Label>
-                  <p className="text-muted-foreground text-xs">{t('nlHuntingDescription')}</p>
-                </div>
-                <Controller
-                  control={control}
-                  name="nlHuntingEnabled"
-                  render={({ field }) => (
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={disabled}
-                    />
-                  )}
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="llmBaseUrl">{t('llmApis.baseUrl')}</Label>
+                <Input
+                  id="llmBaseUrl"
+                  placeholder={t('urlPlaceholder')}
+                  disabled={disabled}
+                  {...register('llmBaseUrl')}
                 />
+                {renderError('llmBaseUrl')}
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>{t('explainableAi')}</Label>
-                  <p className="text-muted-foreground text-xs">{t('explainableAiDescription')}</p>
-                </div>
-                <Controller
-                  control={control}
-                  name="explainableAiEnabled"
-                  render={({ field }) => (
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={disabled}
-                    />
-                  )}
-                />
+              <div className="space-y-2">
+                <Label htmlFor="llmApiKey">{t('llmApis.apiKey')}</Label>
+                {renderSecret('llmApiKey')}
+                {renderError('llmApiKey')}
               </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <Label>{t('auditLogging')}</Label>
-                  <p className="text-muted-foreground text-xs">{t('auditLoggingDescription')}</p>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="defaultModel">{t('llmApis.defaultModel')}</Label>
+                <Input
+                  id="defaultModel"
+                  placeholder={t('llmApis.defaultModelPlaceholder')}
+                  disabled={disabled}
+                  {...register('defaultModel')}
+                />
+                {renderError('defaultModel')}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="organizationId">{t('llmApis.organizationId')}</Label>
+                <Input id="organizationId" disabled={disabled} {...register('organizationId')} />
+                <p className="text-muted-foreground text-xs">{t('llmApis.organizationIdHint')}</p>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="llmTimeout">{t('timeout')}</Label>
+                <Input
+                  id="llmTimeout"
+                  type="number"
+                  min={1}
+                  max={120}
+                  disabled={disabled}
+                  {...register('llmTimeout', { valueAsNumber: true })}
+                />
+                {renderError('llmTimeout')}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="maxTokensParameter">{t('llmApis.maxTokensParameter')}</Label>
                 <Controller
+                  name="maxTokensParameter"
                   control={control}
-                  name="auditLoggingEnabled"
                   render={({ field }) => (
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      disabled={disabled}
-                    />
+                    <Select value={field.value} onValueChange={field.onChange} disabled={disabled}>
+                      <SelectTrigger id="maxTokensParameter">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={LlmMaxTokensParameter.MAX_TOKENS}>
+                          {LlmMaxTokensParameter.MAX_TOKENS}
+                        </SelectItem>
+                        <SelectItem value={LlmMaxTokensParameter.MAX_COMPLETION_TOKENS}>
+                          {LlmMaxTokensParameter.MAX_COMPLETION_TOKENS}
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   )}
                 />
+                <p className="text-muted-foreground text-xs">
+                  {t('llmApis.maxTokensParameterHint')}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <Separator />
+        </>
+      )}
+
+      {type === ConnectorType.OPENCLAW_GATEWAY && (
+        <>
+          <div className="space-y-4">
+            <h3 className="text-muted-foreground text-sm font-semibold tracking-wider uppercase">
+              OpenClaw Gateway
+            </h3>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="openclawBaseUrl">{t('openclawGateway.baseUrl')}</Label>
+                <Input
+                  id="openclawBaseUrl"
+                  placeholder={t('urlPlaceholder')}
+                  disabled={disabled}
+                  {...register('openclawBaseUrl')}
+                />
+                {renderError('openclawBaseUrl')}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="openclawApiKey">{t('openclawGateway.apiKey')}</Label>
+                {renderSecret('openclawApiKey')}
+                {renderError('openclawApiKey')}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="openclawTimeout">{t('timeout')}</Label>
+                <Input
+                  id="openclawTimeout"
+                  type="number"
+                  min={1}
+                  max={120}
+                  disabled={disabled}
+                  {...register('openclawTimeout', { valueAsNumber: true })}
+                />
+                {renderError('openclawTimeout')}
               </div>
             </div>
           </div>

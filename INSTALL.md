@@ -112,7 +112,7 @@ npm run validate
 
 ```bash
 npm run dev
-# Starts: next dev --turbopack
+# Starts: next dev --webpack
 # Listening at: http://localhost:3000
 ```
 
@@ -223,13 +223,13 @@ npm start
 
 ### Development
 
-| Script       | Command                                         | Description                                    |
-| ------------ | ----------------------------------------------- | ---------------------------------------------- |
-| `dev`        | `next dev --turbopack`                          | Start dev server with Turbopack hot reload     |
-| `dev:debug`  | `NODE_OPTIONS='--inspect' next dev --turbopack` | Dev server with Node.js inspector              |
-| `build`      | `next build`                                    | Create production-optimized build in `.next/`  |
-| `start`      | `NODE_ENV=production next start`                | Run production server (requires `build` first) |
-| `start:prod` | `NODE_ENV=production next start`                | Alias for `start`                              |
+| Script       | Command                                       | Description                                    |
+| ------------ | --------------------------------------------- | ---------------------------------------------- |
+| `dev`        | `next dev --webpack`                          | Start dev server with webpack hot reload       |
+| `dev:debug`  | `NODE_OPTIONS='--inspect' next dev --webpack` | Dev server with Node.js inspector              |
+| `build`      | `next build --webpack`                        | Create production-optimized build in `.next/`  |
+| `start`      | `NODE_ENV=production next start`              | Run production server (requires `build` first) |
+| `start:prod` | `NODE_ENV=production next start`              | Alias for `start`                              |
 
 ### Code Quality
 
@@ -243,6 +243,7 @@ npm start
 | `typecheck`       | `tsc --noEmit --pretty`                    | Full TypeScript compile check (no output) |
 | `typecheck:watch` | `tsc --noEmit --pretty --watch`            | TypeScript check in watch mode            |
 | `validate`        | typecheck + lint:strict + format:check     | Full pipeline — run before every PR       |
+| `validate:full`   | validate + test + build                    | Full repo confidence check                |
 | `validate:fix`    | lint:fix + format                          | Auto-fix all fixable issues               |
 | `lint-staged`     | `lint-staged --concurrent false`           | Run linters on git staged files only      |
 

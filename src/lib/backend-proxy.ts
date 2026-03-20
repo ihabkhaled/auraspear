@@ -71,6 +71,21 @@ export async function proxyToBackend(
     headers['X-Tenant-Id'] = tenantId
   }
 
+  const userAgent = request.headers.get('user-agent')
+  if (userAgent) {
+    headers['User-Agent'] = userAgent
+  }
+
+  const forwardedFor = request.headers.get('x-forwarded-for')
+  if (forwardedFor) {
+    headers['X-Forwarded-For'] = forwardedFor
+  }
+
+  const realIp = request.headers.get('x-real-ip')
+  if (realIp) {
+    headers['X-Real-Ip'] = realIp
+  }
+
   const csrfToken = request.headers.get('x-csrf-token')
   if (csrfToken) {
     headers['X-CSRF-Token'] = csrfToken
@@ -194,6 +209,21 @@ export async function fetchBackendJson(
     headers['X-Tenant-Id'] = tenantId
   }
 
+  const userAgent = request.headers.get('user-agent')
+  if (userAgent) {
+    headers['User-Agent'] = userAgent
+  }
+
+  const forwardedFor = request.headers.get('x-forwarded-for')
+  if (forwardedFor) {
+    headers['X-Forwarded-For'] = forwardedFor
+  }
+
+  const realIp = request.headers.get('x-real-ip')
+  if (realIp) {
+    headers['X-Real-Ip'] = realIp
+  }
+
   const csrfToken = request.headers.get('x-csrf-token')
   if (csrfToken) {
     headers['X-CSRF-Token'] = csrfToken
@@ -248,7 +278,20 @@ function mapErrorToKey(status: number, message: string): string {
 }
 
 /** Keys that belong to our standard API response wrapper. */
-const API_WRAPPER_KEYS = new Set(['data', 'pagination', 'error', 'messageKey', 'errors'])
+const API_WRAPPER_KEYS = new Set([
+  'data',
+  'pagination',
+  'error',
+  'messageKey',
+  'errors',
+  'total',
+  'page',
+  'limit',
+  'totalPages',
+  'hasNext',
+  'hasPrev',
+  'meta',
+])
 
 function isAlreadyWrapped(obj: Record<string, unknown>): boolean {
   return 'data' in obj && Object.keys(obj).every(key => API_WRAPPER_KEYS.has(key))

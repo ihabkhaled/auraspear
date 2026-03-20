@@ -1,3 +1,4 @@
+import type { IncidentStatus } from '@/enums'
 import api from '@/lib/api'
 import type {
   ApiResponse,
@@ -19,6 +20,9 @@ export const incidentService = {
 
   updateIncident: (id: string, data: Record<string, unknown>) =>
     api.patch<ApiResponse<Incident>>(`/incidents/${id}`, data).then(r => r.data),
+
+  changeIncidentStatus: (id: string, status: IncidentStatus) =>
+    api.patch<ApiResponse<Incident>>(`/incidents/${id}/status`, { status }).then(r => r.data),
 
   deleteIncident: (id: string) =>
     api.delete<ApiResponse<{ deleted: boolean }>>(`/incidents/${id}`).then(r => r.data),

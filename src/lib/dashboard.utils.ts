@@ -1,3 +1,11 @@
+import { DashboardDensity } from '@/enums'
+import type { DashboardPanelKey } from '@/enums'
+import {
+  DEFAULT_COLLAPSED_DASHBOARD_PANELS,
+  DEFAULT_DASHBOARD_DENSITY,
+} from '@/lib/constants/dashboard-preferences'
+import type { DashboardPanelState, UserPreferences } from '@/types'
+
 export function getRiskBadgeClass(score: number): string {
   if (score > 80) {
     return 'bg-status-error text-status-error border-status-error'
@@ -49,4 +57,58 @@ export function formatDashboardPercentage(value: number | null | undefined): str
   }
 
   return `${value}%`
+}
+
+export function getDashboardGapClass(density: DashboardDensity): string {
+  switch (density) {
+    case DashboardDensity.COMPACT:
+      return 'gap-4'
+    case DashboardDensity.EXPANDED:
+      return 'gap-8'
+    default:
+      return 'gap-6'
+  }
+}
+
+export function getDashboardStackClass(density: DashboardDensity): string {
+  switch (density) {
+    case DashboardDensity.COMPACT:
+      return 'space-y-4'
+    case DashboardDensity.EXPANDED:
+      return 'space-y-8'
+    default:
+      return 'space-y-6'
+  }
+}
+
+export function buildDashboardPanelState(
+  preferences: UserPreferences | undefined
+): DashboardPanelState {
+  return {
+    density: preferences?.dashboardDensity ?? DEFAULT_DASHBOARD_DENSITY,
+    collapsed: preferences?.collapsedDashboardPanels ?? DEFAULT_COLLAPSED_DASHBOARD_PANELS,
+  }
+}
+
+export function isDashboardPanelOpen(
+  collapsedPanels: DashboardPanelKey[],
+  panelKey: DashboardPanelKey
+): boolean {
+  return !collapsedPanels.includes(panelKey)
+}
+
+export function toggleDashboardPanelPreference(
+  collapsedPanels: DashboardPanelKey[],
+  panelKey: DashboardPanelKey,
+  open: boolean
+): DashboardPanelKey[] {
+  if (open) {
+    return collapsedPanels.filter(key => key !== panelKey)
+  }
+
+  if (collapsedPanels.includes(panelKey)) {
+    return collapsedPanels
+  }
+
+  return [...collapsedPanels, panelKey]
 }

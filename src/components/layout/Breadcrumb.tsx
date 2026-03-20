@@ -21,6 +21,7 @@ const pathLabelMap: Record<string, string> = {
   tenant: 'nav.tenantConfig',
   system: 'nav.systemAdmin',
   'role-settings': 'nav.roleSettings',
+  'users-control': 'nav.usersControl',
   notifications: 'nav.notifications',
   connectors: 'nav.connectors',
   profile: 'nav.profile',

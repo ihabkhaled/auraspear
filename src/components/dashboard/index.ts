@@ -1,4 +1,7 @@
+export { AiOperationsCanvas } from './AiOperationsCanvas'
 export { DashboardCard } from './DashboardCard'
+export { DashboardMetricBarList } from './DashboardMetricBarList'
+export { DashboardNarrativeList } from './DashboardNarrativeList'
 export { DashboardSectionCard } from './DashboardSectionCard'
 export { MitreTopTechniques } from './MitreTopTechniques'
 export { TopTargetedAssets } from './TopTargetedAssets'

@@ -59,3 +59,23 @@ export interface AppLogDetailDialogProps {
   open: boolean
   onClose: () => void
 }
+
+export interface AppLogDetailRowProps {
+  label: string
+  value: string | null | undefined
+  isError?: boolean
+}
+
+export interface AppLogMetadataFieldConfig {
+  key: string
+  labelKey: string
+  isError?: boolean
+  suffix?: string
+}
+
+export interface AppLogExtractedMetadataField {
+  key: string
+  label: string
+  value: string
+  isError: boolean
+}

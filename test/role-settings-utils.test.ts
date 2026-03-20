@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Permission, UserRole } from '@/enums'
 import {
+  canAssignRoleSettingsPermission,
   canResetRoleSettings,
   canToggleRoleSettingsPermission,
   filterRoleSettingsPermissionGroups,
@@ -46,9 +47,30 @@ describe('role settings utilities', () => {
     expect(
       canToggleRoleSettingsPermission(UserRole.TENANT_ADMIN, Permission.ROLE_SETTINGS_UPDATE)
     ).toBe(false)
+    expect(
+      canToggleRoleSettingsPermission(UserRole.TENANT_ADMIN, Permission.USERS_CONTROL_VIEW)
+    ).toBe(false)
+    expect(
+      canToggleRoleSettingsPermission(
+        UserRole.TENANT_ADMIN,
+        Permission.USERS_CONTROL_FORCE_LOGOUT_ALL
+      )
+    ).toBe(false)
     expect(canToggleRoleSettingsPermission(UserRole.TENANT_ADMIN, Permission.ALERTS_VIEW)).toBe(
       true
     )
+  })
+
+  it('limits users control assignments to global admin and tenant admin roles', () => {
+    expect(
+      canAssignRoleSettingsPermission(UserRole.GLOBAL_ADMIN, Permission.USERS_CONTROL_VIEW)
+    ).toBe(true)
+    expect(
+      canAssignRoleSettingsPermission(UserRole.TENANT_ADMIN, Permission.USERS_CONTROL_VIEW)
+    ).toBe(true)
+    expect(
+      canAssignRoleSettingsPermission(UserRole.SOC_ANALYST_L1, Permission.USERS_CONTROL_VIEW)
+    ).toBe(false)
   })
 
   it('hides reset defaults for tenant admins while keeping save access', () => {

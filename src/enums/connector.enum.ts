@@ -8,6 +8,8 @@ export enum ConnectorType {
   MISP = 'misp',
   SHUFFLE = 'shuffle',
   BEDROCK = 'bedrock',
+  LLM_APIS = 'llm_apis',
+  OPENCLAW_GATEWAY = 'openclaw_gateway',
 }
 
 export enum ConnectorStatus {
@@ -22,6 +24,11 @@ export enum ConnectorAuthType {
   BASIC = 'basic',
   TOKEN = 'token',
   IAM = 'iam',
+}
+
+export enum LlmMaxTokensParameter {
+  MAX_TOKENS = 'max_tokens',
+  MAX_COMPLETION_TOKENS = 'max_completion_tokens',
 }
 
 export enum ConnectorCategory {

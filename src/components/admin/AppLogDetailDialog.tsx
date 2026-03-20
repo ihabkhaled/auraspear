@@ -1,85 +1,88 @@
 'use client'
 
+import { AppLogDetailRow } from '@/components/admin/AppLogDetailRow'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useAppLogDetailDialog } from '@/hooks'
 import { getLevelClasses } from '@/lib/admin.utils'
-import { formatTimestamp } from '@/lib/utils'
+import { cn, formatTimestamp } from '@/lib/utils'
 import type { AppLogDetailDialogProps } from '@/types'
 
-function DetailRow({ label, value }: { label: string; value: string | null | undefined }) {
-  if (!value) return null
-  return (
-    <div className="border-border grid grid-cols-1 gap-2 border-b py-2 text-sm sm:grid-cols-3">
-      <span className="text-muted-foreground font-medium">{label}</span>
-      <span className="col-span-2 font-mono text-xs break-all">{value}</span>
-    </div>
-  )
-}
-
 export function AppLogDetailDialog({ log, open, onClose }: AppLogDetailDialogProps) {
-  const { t } = useAppLogDetailDialog()
+  const { t, extractedFields, remainingMetadata } = useAppLogDetailDialog(log)
 
-  if (!log) return null
+  if (!log) {
+    return null
+  }
 
   return (
     <Dialog
       open={open}
       onOpenChange={isOpen => {
-        if (!isOpen) onClose()
+        if (!isOpen) {
+          onClose()
+        }
       }}
     >
       <DialogContent className="sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Badge variant="outline" className={`text-xs uppercase ${getLevelClasses(log.level)}`}>
+            <Badge
+              variant="outline"
+              className={cn('text-xs uppercase', getLevelClasses(log.level))}
+            >
               {log.level}
             </Badge>
-            <span className="truncate">{t('appLogs.logDetail')}</span>
+            <span className="truncate">{t('logDetail')}</span>
           </DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="max-h-[60vh]">
           <div className="space-y-1">
-            <DetailRow label={t('appLogs.timestamp')} value={formatTimestamp(log.createdAt)} />
-            <DetailRow label={t('appLogs.message')} value={log.message} />
-            <DetailRow label={t('appLogs.feature')} value={log.feature} />
-            <DetailRow label={t('appLogs.action')} value={log.action} />
-            <DetailRow label={t('appLogs.functionName')} value={log.functionName} />
-            <DetailRow label={t('appLogs.className')} value={log.className} />
-            <DetailRow label={t('appLogs.actorEmail')} value={log.actorEmail} />
-            <DetailRow label={t('appLogs.actorUserId')} value={log.actorUserId} />
-            <DetailRow label={t('appLogs.tenantId')} value={log.tenantId} />
-            <DetailRow label={t('appLogs.requestId')} value={log.requestId} />
-            <DetailRow label={t('appLogs.targetResource')} value={log.targetResource} />
-            <DetailRow label={t('appLogs.targetResourceId')} value={log.targetResourceId} />
-            <DetailRow label={t('appLogs.outcome')} value={log.outcome} />
-            <DetailRow label={t('appLogs.sourceType')} value={log.sourceType} />
-            <DetailRow label={t('appLogs.ipAddress')} value={log.ipAddress} />
-            <DetailRow label={t('appLogs.httpMethod')} value={log.httpMethod} />
-            <DetailRow label={t('appLogs.httpRoute')} value={log.httpRoute} />
-            <DetailRow
-              label={t('appLogs.httpStatusCode')}
+            <AppLogDetailRow label={t('timestamp')} value={formatTimestamp(log.createdAt)} />
+            <AppLogDetailRow label={t('message')} value={log.message} />
+            <AppLogDetailRow label={t('feature')} value={log.feature} />
+            <AppLogDetailRow label={t('action')} value={log.action} />
+            <AppLogDetailRow label={t('functionName')} value={log.functionName} />
+            <AppLogDetailRow label={t('className')} value={log.className} />
+            <AppLogDetailRow label={t('actorEmail')} value={log.actorEmail} />
+            <AppLogDetailRow label={t('actorUserId')} value={log.actorUserId} />
+            <AppLogDetailRow label={t('tenantId')} value={log.tenantId} />
+            <AppLogDetailRow label={t('requestId')} value={log.requestId} />
+            <AppLogDetailRow label={t('targetResource')} value={log.targetResource} />
+            <AppLogDetailRow label={t('targetResourceId')} value={log.targetResourceId} />
+            <AppLogDetailRow label={t('outcome')} value={log.outcome} />
+            <AppLogDetailRow label={t('sourceType')} value={log.sourceType} />
+            <AppLogDetailRow label={t('ipAddress')} value={log.ipAddress} />
+            <AppLogDetailRow label={t('httpMethod')} value={log.httpMethod} />
+            <AppLogDetailRow label={t('httpRoute')} value={log.httpRoute} />
+            <AppLogDetailRow
+              label={t('httpStatusCode')}
               value={log.httpStatusCode?.toString() ?? null}
             />
 
-            {log.metadata && Object.keys(log.metadata).length > 0 && (
+            {extractedFields.map(field => (
+              <AppLogDetailRow
+                key={field.key}
+                label={field.label}
+                value={field.value}
+                isError={field.isError}
+              />
+            ))}
+
+            {remainingMetadata && (
               <div className="border-border border-b py-2">
-                <span className="text-muted-foreground text-sm font-medium">
-                  {t('appLogs.metadata')}
-                </span>
+                <span className="text-muted-foreground text-sm font-medium">{t('metadata')}</span>
                 <pre className="bg-muted mt-1 overflow-x-auto rounded p-2 font-mono text-xs">
-                  {JSON.stringify(log.metadata, null, 2)}
+                  {JSON.stringify(remainingMetadata, null, 2)}
                 </pre>
               </div>
             )}
 
             {log.stackTrace && (
               <div className="border-border border-b py-2">
-                <span className="text-muted-foreground text-sm font-medium">
-                  {t('appLogs.stackTrace')}
-                </span>
+                <span className="text-muted-foreground text-sm font-medium">{t('stackTrace')}</span>
                 <pre className="bg-muted text-status-error mt-1 overflow-x-auto rounded p-2 font-mono text-xs">
                   {log.stackTrace}
                 </pre>

@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest'
-import { ConnectorAuthType, ConnectorType } from '@/enums'
+import { ConnectorAuthType, ConnectorType, LlmMaxTokensParameter } from '@/enums'
 import { getConnectorSchema } from '@/lib/validation/connectors.schema'
 
 function makeValidData(overrides: Record<string, unknown> = {}) {
@@ -46,6 +46,17 @@ function makeValidData(overrides: Record<string, unknown> = {}) {
     nlHuntingEnabled: false,
     explainableAiEnabled: false,
     auditLoggingEnabled: false,
+    // LLM APIs
+    llmBaseUrl: '',
+    llmApiKey: '',
+    defaultModel: '',
+    organizationId: '',
+    llmTimeout: 30,
+    maxTokensParameter: LlmMaxTokensParameter.MAX_TOKENS,
+    // OpenClaw Gateway
+    openclawBaseUrl: '',
+    openclawApiKey: '',
+    openclawTimeout: 30,
     ...overrides,
   }
 }

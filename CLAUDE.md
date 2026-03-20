@@ -30,6 +30,10 @@
 26. **NEVER have blank lines between import groups** — All imports must be contiguous with no empty lines separating them (`import-x/order` with `newlines-between: 'never'`).
 27. **NEVER reference loop-mutated variables inside closures** — Capture the variable in a `const` before using it in callbacks like `.find()`, `.map()`, etc. inside loops (`@typescript-eslint/no-loop-func`).
 28. **ALWAYS order `@/lib/*` imports alphabetically** — `@/lib/constants/foo` before `@/lib/utils`, `@/lib/api-error` before `@/lib/roles` (`import-x/order` with `alphabetize: asc`).
+29. **NEVER leave placeholder/mock AI responses in production** — All AI methods must route through configured connectors (Bedrock, LLM APIs, or OpenClaw Gateway). Rule-based fallbacks are acceptable ONLY when no connector is configured, and must be clearly labeled as `model: 'rule-based'` in the response.
+30. **NEVER hardcode a single AI provider** — AI routing must check all configured AI connectors (bedrock → llm_apis → openclaw_gateway) and use the first available. The `AiService.findAvailableAiConnector()` method handles this.
+31. **NEVER leave job handlers unregistered** — Every `JobType` enum value MUST have a corresponding handler registered in `JobsModule.onModuleInit()`. Unregistered handlers cause jobs to sit PENDING forever.
+32. **NEVER leave executor engines disconnected from the job system** — Normalization, correlation, and detection executors MUST be wired to their respective job handlers. Executors that exist but are never called are dead code.
 
 ---
 
@@ -458,6 +462,52 @@ Always use shadcn/ui form components, not raw HTML elements.
 
 ---
 
+## AI Connector Strategy
+
+The platform supports three AI execution paths, checked in priority order:
+
+| Connector        | Type               | Purpose                                                   |
+| ---------------- | ------------------ | --------------------------------------------------------- |
+| AWS Bedrock      | `bedrock`          | Direct cloud AI (Claude models)                           |
+| LLM APIs         | `llm_apis`         | OpenAI-compatible endpoints (GPT, Claude API, local LLMs) |
+| OpenClaw Gateway | `openclaw_gateway` | AI gateway/orchestration layer                            |
+
+### Routing
+
+- `AiService.findAvailableAiConnector(tenantId)` checks all three in priority order
+- First enabled and healthy connector is used
+- Falls back to rule-based response if none available
+- Audit log records which provider/model was used
+
+### Per-method support
+
+All AI methods (hunt, investigate, explain, agent task) work with all three connectors.
+
+### Connector config
+
+- Bedrock: region, model, AWS credentials
+- LLM APIs: baseUrl, apiKey, defaultModel, organizationId
+- OpenClaw Gateway: baseUrl, apiKey
+
+---
+
+## Job Types & Handlers
+
+Every job type MUST have a registered handler in `JobsModule`:
+
+| JobType                      | Handler                   | Status                                |
+| ---------------------------- | ------------------------- | ------------------------------------- |
+| `CONNECTOR_SYNC`             | ConnectorSyncHandler      | Active                                |
+| `DETECTION_RULE_EXECUTION`   | DetectionExecutionHandler | Active — creates alerts on match      |
+| `CORRELATION_RULE_EXECUTION` | CorrelationHandler        | Active — increments hitCount          |
+| `NORMALIZATION_PIPELINE`     | NormalizationHandler      | Active — updates pipeline metrics     |
+| `SOAR_PLAYBOOK`              | SoarPlaybookHandler       | Active                                |
+| `HUNT_EXECUTION`             | HuntExecutionHandler      | Active                                |
+| `AI_AGENT_TASK`              | AiAgentTaskHandler        | Active — routes through AI connectors |
+| `REPORT_GENERATION`          | ReportGenerationHandler   | Active                                |
+
+---
+
 ## Enums — MANDATORY Conventions
 
 **All string literal types MUST be enums. Never use string union types like `'foo' | 'bar'`.**
@@ -743,8 +793,8 @@ Before committing any module:
 
 | Script            | Command                                | Purpose                          |
 | ----------------- | -------------------------------------- | -------------------------------- |
-| `dev`             | `next dev --turbopack`                 | Start dev server with Turbopack  |
-| `build`           | `next build`                           | Production build                 |
+| `dev`             | `next dev --webpack`                   | Start dev server with webpack    |
+| `build`           | `next build --webpack`                 | Production build                 |
 | `start`           | `next start`                           | Start production server          |
 | `lint`            | `eslint .`                             | Run ESLint on all files          |
 | `lint:strict`     | `eslint . --max-warnings 0`            | Lint with zero warnings allowed  |
@@ -807,3 +857,5 @@ Before committing any module:
 ### Translations
 
 34. **Every backend `BusinessException` messageKey must have a matching `errors.*` key in ALL 6 locale files** — When adding a new error in the backend, immediately add the translation key to all frontend locale files.
+35. **Operational dashboard work MUST extend shared contracts first** — Prefer extending `analytics-overview`, `operations-overview`, or shared dashboard utilities before introducing page-local fetch shapes or placeholder math.
+36. **Feature-complete changes MUST update contributor docs and validation guidance** — If a change affects local setup, validation steps, dashboards, permissions, or contributor workflow, update the relevant `README.md`, `INSTALL.md`, docs, and Codex/GPT companion rules in the same change.

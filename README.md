@@ -26,7 +26,7 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 
 | Category        | Technology                            | Version |
 | --------------- | ------------------------------------- | ------- |
-| Framework       | Next.js (App Router, Turbopack)       | 16.1.6  |
+| Framework       | Next.js (App Router, webpack dev)     | 16.1.6  |
 | Language        | TypeScript (strict mode, all flags)   | 5       |
 | UI Library      | React + React DOM                     | 19.2.3  |
 | Styling         | Tailwind CSS v4 (CSS-first)           | 4       |
@@ -50,6 +50,7 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 
 ## Features
 
+- **Operational dashboards** â€” Query-driven operational overview panels for incident status, case aging, noisy rules, connector sync health, runtime backlog, automation quality, and exposure summary
 - **Dashboard** — Real-time KPIs (alerts, critical count, open cases, MTTR), alert trends (24h/7d/30d), MITRE ATT&CK top techniques, top assets, pipeline health, recent activity
 - **Alerts** — Full-text search, severity/status/time filtering, AI-assisted investigation, acknowledge/close workflows
 - **Cases** — Kanban and list views, case lifecycle (open → in_progress → closed), linked alerts, notes, timeline, artifacts, tasks, comments
@@ -96,7 +97,7 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 # Install dependencies
 npm install
 
-# Start development server (Turbopack)
+# Start development server (webpack, stable with Serwist)
 npm run dev
 ```
 
@@ -413,6 +414,7 @@ npm start                  # Production server
 
 # Validation (run before committing)
 npm run validate           # typecheck + lint:strict + format:check
+npm run validate:full      # validate + tests + production build
 npm run validate:fix       # lint:fix + format
 
 # Individual Checks
@@ -427,3 +429,10 @@ npm run typecheck          # TypeScript check
 npm test                   # Vitest
 npm run test:watch         # Watch mode
 ```
+
+## Contributor Guides
+
+- Dashboard widgets: [`docs/dashboard-widgets.md`](./docs/dashboard-widgets.md)
+- Permissions and route gating: [`docs/permissions-and-routes.md`](./docs/permissions-and-routes.md)
+- Contribution workflow: [`CONTRIBUTING.md`](./CONTRIBUTING.md)
+- Install and local environment: [`INSTALL.md`](./INSTALL.md)

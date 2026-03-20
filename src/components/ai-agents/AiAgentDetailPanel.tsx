@@ -1,6 +1,6 @@
 'use client'
 
-import { Bot, ChevronDown, Edit, Play, Plus, Save, Square, Wrench, X } from 'lucide-react'
+import { Bot, ChevronDown, Edit, Play, Plus, Save, Square, Trash2, Wrench, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -17,6 +17,7 @@ import { AiAgentToolDialog } from './AiAgentToolDialog'
 export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
   const {
     t,
+    agent,
     activeTab,
     handleActiveTabChange,
     soulMdDraft,
@@ -44,12 +45,14 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     isSavingSoul,
     isToggling,
     isRunningAgent,
+    isCreatingTool,
+    isDeletingTool,
+    handleCreateTool,
+    handleDeleteTool,
     onClose,
     onEdit,
     onDelete,
   } = useAiAgentDetailPanel(props)
-
-  const { agent } = props
 
   return (
     <div className="bg-card border-border flex flex-col rounded-lg border">
@@ -286,6 +289,15 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
                             )}
                           </div>
                         </div>
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteTool(tool.id)}
+                          disabled={isDeletingTool}
+                          className="text-muted-foreground hover:text-destructive h-8 w-8"
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </Button>
                       </div>
                     ))}
                   </div>
@@ -296,7 +308,8 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
           <AiAgentToolDialog
             open={toolDialogOpen}
             onOpenChange={setToolDialogOpen}
-            onSubmit={() => setToolDialogOpen(false)}
+            onSubmit={handleCreateTool}
+            loading={isCreatingTool}
           />
         </TabsContent>
       </Tabs>

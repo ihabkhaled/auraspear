@@ -5,6 +5,7 @@ import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { settingsService } from '@/services/settings.service'
 import { useAuthStore } from '@/stores'
+import type { UserPreferences } from '@/types'
 
 const PREFERENCES_BASE_KEY = 'preferences'
 
@@ -26,7 +27,7 @@ export function useUpdatePreferences() {
   const queryKey = [PREFERENCES_BASE_KEY, user?.sub ?? ''] as const
 
   return useMutation({
-    mutationFn: (data: Record<string, unknown>) => {
+    mutationFn: (data: Partial<UserPreferences>) => {
       requirePermission(permissions, Permission.SETTINGS_UPDATE)
       return settingsService.updatePreferences(data)
     },

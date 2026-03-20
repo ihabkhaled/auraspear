@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { createPersistStorage } from '@/lib/persist-storage'
 import type { AuthState } from '@/types'
 
 export const useAuthStore = create<AuthState>()(
@@ -32,6 +33,7 @@ export const useAuthStore = create<AuthState>()(
     }),
     {
       name: 'auth-storage',
+      storage: createPersistStorage(),
     }
   )
 )

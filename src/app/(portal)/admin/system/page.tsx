@@ -225,7 +225,7 @@ export default function SystemAdminPage() {
                     <SelectItem value={ALL_FEATURES}>{t('appLogs.allFeatures')}</SelectItem>
                     {Object.values(AppLogFeature).map(feature => (
                       <SelectItem key={feature} value={feature}>
-                        {feature}
+                        {t(`appLogs.features.${feature}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>

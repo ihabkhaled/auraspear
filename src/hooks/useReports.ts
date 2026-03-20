@@ -1,9 +1,10 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { Permission } from '@/enums'
+import type { ReportModule } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { reportService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { ReportSearchParams } from '@/types'
+import type { CreateReportFromTemplateInput, ReportSearchParams } from '@/types'
 
 export function useReports(params?: ReportSearchParams) {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -37,18 +38,43 @@ export function useCreateReport() {
   })
 }
 
+export function useCreateReportFromTemplate() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
+  return useMutation({
+    mutationFn: (data: CreateReportFromTemplateInput) => {
+      requirePermission(permissions, Permission.REPORTS_CREATE)
+      return reportService.createReportFromTemplate(data)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['reports', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['reports', 'stats', tenantId] })
+    },
+  })
+}
+
 export function useUpdateReport() {
   const queryClient = useQueryClient()
   const permissions = useAuthStore(s => s.permissions)
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: Record<string, unknown> }) => {
-      requirePermission(permissions, Permission.REPORTS_CREATE)
+      requirePermission(permissions, Permission.REPORTS_UPDATE)
       return reportService.updateReport(id, data)
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['reports', tenantId] })
     },
+  })
+}
+
+export function useReportTemplates(module?: ReportModule) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['reports', tenantId, 'templates', module ?? 'all'],
+    queryFn: () => reportService.getTemplates(module),
   })
 }
 

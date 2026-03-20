@@ -18,6 +18,7 @@ export {
   ConnectorStatus,
   ConnectorAuthType,
   ConnectorCategory,
+  LlmMaxTokensParameter,
 } from './connector.enum'
 export { HuntStatus, MessageRole, ReasoningStepStatus } from './hunt.enum'
 export { IntegrationStatus } from './integration-status.enum'
@@ -54,7 +55,18 @@ export { UebaEntityType, UebaRiskLevel, MlModelStatus, MlModelType, UebaTab } fr
 export { AttackPathSeverity, AttackPathStatus } from './attack-path.enum'
 export { SoarPlaybookStatus, SoarTriggerType, SoarExecutionStatus } from './soar.enum'
 export { ComplianceStandard, ComplianceControlStatus } from './compliance.enum'
-export { ReportType, ReportFormat, ReportStatus } from './report.enum'
+export {
+  DashboardDensity,
+  DashboardPanelKey,
+  DashboardRulePerformanceMetric,
+} from './dashboard.enum'
+export {
+  ReportType,
+  ReportModule,
+  ReportTemplateKey,
+  ReportFormat,
+  ReportStatus,
+} from './report.enum'
 export { ServiceType, HealthCheckStatus, MetricType } from './system-health.enum'
 export { NormalizationSourceType, NormalizationPipelineStatus } from './normalization.enum'
 export {
@@ -70,3 +82,11 @@ export {
 } from './cloud-security.enum'
 export { Permission } from './permission.enum'
 export { NotificationCategory, RetentionPeriod } from './settings.enum'
+export {
+  UsersControlSessionSortField,
+  UsersControlUserSortField,
+  UserSessionBrowser,
+  UserSessionOsFamily,
+  UserSessionClientType,
+  UserSessionStatus,
+} from './users-control.enum'

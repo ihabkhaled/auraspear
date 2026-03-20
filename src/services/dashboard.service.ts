@@ -3,11 +3,14 @@ import type {
   ApiResponse,
   DashboardKPI,
   AlertTrendPoint,
+  DashboardAnalyticsOverview,
+  DashboardOperationsOverview,
   MITRETechnique,
   AssetRisk,
   PipelineService,
   ExtendedKPIStats,
   RecentActivityItem,
+  SeverityDataPoint,
 } from '@/types'
 
 export const dashboardService = {
@@ -15,6 +18,9 @@ export const dashboardService = {
 
   getAlertTrends: () =>
     api.get<ApiResponse<AlertTrendPoint[]>>('/dashboard/alert-trends').then(r => r.data),
+
+  getSeverityDistribution: () =>
+    api.get<ApiResponse<SeverityDataPoint[]>>('/dashboard/severity-distribution').then(r => r.data),
 
   getMITREStats: () =>
     api.get<ApiResponse<MITRETechnique[]>>('/dashboard/mitre-stats').then(r => r.data),
@@ -27,6 +33,16 @@ export const dashboardService = {
 
   getExtendedKPIs: () =>
     api.get<ApiResponse<ExtendedKPIStats>>('/dashboard/extended-kpis').then(r => r.data),
+
+  getAnalyticsOverview: () =>
+    api
+      .get<ApiResponse<DashboardAnalyticsOverview>>('/dashboard/analytics-overview')
+      .then(r => r.data),
+
+  getOperationsOverview: () =>
+    api
+      .get<ApiResponse<DashboardOperationsOverview>>('/dashboard/operations-overview')
+      .then(r => r.data),
 
   getRecentActivity: (limit = 10) =>
     api

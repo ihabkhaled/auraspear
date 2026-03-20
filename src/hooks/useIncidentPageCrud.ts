@@ -7,7 +7,12 @@ import { IncidentStatus } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import type { CreateIncidentFormValues, EditIncidentFormValues, Incident } from '@/types'
 import { useIncidentDeleteDialog } from './useIncidentDeleteDialog'
-import { useCreateIncident, useUpdateIncident, useDeleteIncident } from './useIncidents'
+import {
+  useChangeIncidentStatus,
+  useCreateIncident,
+  useUpdateIncident,
+  useDeleteIncident,
+} from './useIncidents'
 import type { IncidentPageDialogsReturn } from './useIncidentPageDialogs'
 
 export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
@@ -17,6 +22,7 @@ export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
 
   const createMutation = useCreateIncident()
   const updateMutation = useUpdateIncident()
+  const changeStatusMutation = useChangeIncidentStatus()
   const deleteMutation = useDeleteIncident()
   const { confirmDelete } = useIncidentDeleteDialog()
 
@@ -120,13 +126,40 @@ export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
     [tCommon]
   )
 
+  const handleChangeStatus = useCallback(
+    (status: IncidentStatus) => {
+      if (!dialogs.detailIncident) {
+        return
+      }
+
+      changeStatusMutation.mutate(
+        { id: dialogs.detailIncident.id, status },
+        {
+          onSuccess: response => {
+            Toast.success(t('updateSuccess'))
+            dialogs.setDetailIncident(response.data)
+            if (dialogs.editingIncident?.id === response.data.id) {
+              dialogs.setEditingIncident(response.data)
+            }
+          },
+          onError: (error: unknown) => {
+            Toast.error(tError(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [changeStatusMutation, dialogs, t, tError]
+  )
+
   return {
     handleCreate,
     handleEdit,
+    handleChangeStatus,
     handleDelete,
     handleCopyId,
     createLoading: createMutation.isPending,
     editLoading: updateMutation.isPending,
+    changeStatusLoading: changeStatusMutation.isPending,
     deleteLoading: deleteMutation.isPending,
   }
 }

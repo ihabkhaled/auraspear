@@ -100,6 +100,14 @@ export interface DynamicIdRouteContext {
   params: Promise<{ id: string }>
 }
 
+export interface DynamicUserIdRouteContext {
+  params: Promise<{ userId: string }>
+}
+
+export interface DynamicUserSessionIdRouteContext {
+  params: Promise<{ userId: string; sessionId: string }>
+}
+
 export interface FetchOptions {
   method?: string
   body?: string

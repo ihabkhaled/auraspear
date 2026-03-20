@@ -1,4 +1,5 @@
 import { Permission } from '@/enums'
+import { USERS_CONTROL_ROUTE } from '@/lib/constants/users-control'
 
 /**
  * Maps route path prefixes to the permission required to access them.
@@ -11,6 +12,7 @@ export const ROUTE_PERMISSION_MAP: ReadonlyArray<readonly [string, Permission]> 
   ['/admin/system', Permission.ADMIN_TENANTS_VIEW],
   ['/admin/tenant', Permission.ADMIN_USERS_VIEW],
   ['/admin/role-settings', Permission.ROLE_SETTINGS_VIEW],
+  [USERS_CONTROL_ROUTE, Permission.USERS_CONTROL_VIEW],
   ['/alerts', Permission.ALERTS_VIEW],
   ['/attack-paths', Permission.ATTACK_PATHS_VIEW],
   ['/ai-agents', Permission.AI_AGENTS_VIEW],

@@ -98,6 +98,17 @@ export function getDetectionRuleColumns(
       ),
     },
     {
+      key: 'lastTriggeredAt',
+      label: t.detectionRules('columnLastTriggered'),
+      sortable: true,
+      defaultSortOrder: SortOrder.DESC,
+      render: (value: unknown) => (
+        <span className="text-muted-foreground text-xs whitespace-nowrap">
+          {value ? formatRelativeTime(String(value)) : '-'}
+        </span>
+      ),
+    },
+    {
       key: 'createdAt',
       label: t.common('createdAt'),
       sortable: true,

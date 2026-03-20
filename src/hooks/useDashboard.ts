@@ -21,6 +21,15 @@ export function useAlertTrends(enabled = true) {
   })
 }
 
+export function useSeverityDistribution(enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['dashboard', tenantId, 'severity-distribution'],
+    queryFn: () => dashboardService.getSeverityDistribution(),
+    enabled,
+  })
+}
+
 export function useMITREStats(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
   return useQuery({
@@ -53,6 +62,26 @@ export function useExtendedKPIs() {
   return useQuery({
     queryKey: ['dashboard', tenantId, 'extended-kpis'],
     queryFn: () => dashboardService.getExtendedKPIs(),
+    refetchInterval: POLLING_INTERVAL,
+  })
+}
+
+export function useDashboardAnalyticsOverview(enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['dashboard', tenantId, 'analytics-overview'],
+    queryFn: () => dashboardService.getAnalyticsOverview(),
+    enabled,
+    refetchInterval: POLLING_INTERVAL,
+  })
+}
+
+export function useDashboardOperationsOverview(enabled = true) {
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useQuery({
+    queryKey: ['dashboard', tenantId, 'operations-overview'],
+    queryFn: () => dashboardService.getOperationsOverview(),
+    enabled,
     refetchInterval: POLLING_INTERVAL,
   })
 }

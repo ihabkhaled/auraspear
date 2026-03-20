@@ -125,13 +125,14 @@ export function safeJsonParse<T>(value: string | undefined | null, fallback: T):
   }
 }
 
-export function formatFileSize(bytes: number): string {
-  if (bytes === 0) {
+export function formatFileSize(bytes: number | string): string {
+  const normalizedBytes = typeof bytes === 'string' ? Number(bytes) : bytes
+  if (!Number.isFinite(normalizedBytes) || normalizedBytes <= 0) {
     return '0 B'
   }
   const units = ['B', 'KB', 'MB', 'GB']
   const k = 1024
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  const size = bytes / Math.pow(k, i)
+  const i = Math.floor(Math.log(normalizedBytes) / Math.log(k))
+  const size = normalizedBytes / Math.pow(k, i)
   return `${Math.round(size * 100) / 100} ${units.at(i) ?? 'B'}`
 }
