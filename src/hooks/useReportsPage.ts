@@ -3,6 +3,7 @@
 import { Permission } from '@/enums'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
+import { useAiReport } from './useAiReport'
 import { useReportTemplates } from './useReports'
 import { useReportsPageCrud } from './useReportsPageCrud'
 import { useReportsPageDialogs } from './useReportsPageDialogs'
@@ -13,6 +14,7 @@ export function useReportsPage() {
   const dialogs = useReportsPageDialogs()
   const crud = useReportsPageCrud(dialogs)
   const templates = useReportTemplates()
+  const aiReport = useAiReport()
 
   const permissions = useAuthStore(s => s.permissions)
   const canManageReports = hasPermission(permissions, Permission.REPORTS_CREATE)
@@ -62,5 +64,10 @@ export function useReportsPage() {
     generatingTemplateKey: crud.generatingTemplateKey,
     canManageReports,
     canDeleteReport,
+    aiReport: aiReport.report,
+    aiReportTimeRange: aiReport.selectedTimeRange,
+    aiReportLoading: aiReport.isLoading,
+    handleAiTimeRangeChange: aiReport.handleTimeRangeChange,
+    handleGenerateAiReport: aiReport.generateReport,
   }
 }

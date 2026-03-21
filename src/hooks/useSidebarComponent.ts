@@ -26,6 +26,8 @@ import {
   Cable,
   Lock,
   UsersRound,
+  BookOpen,
+  Network,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useSidebarHealth } from '@/hooks/useSidebarHealth'
@@ -49,6 +51,7 @@ export function useSidebarContent() {
       label: t('nav.overview'),
       items: [
         { icon: LayoutDashboard, label: t('nav.dashboard'), href: '/dashboard' },
+        { icon: Globe, label: t('nav.msspDashboard'), href: '/dashboard/mssp' },
         { icon: Bell, label: t('nav.alerts'), href: '/alerts' },
         { icon: ShieldAlert, label: t('nav.incidents'), href: '/incidents' },
       ],
@@ -71,6 +74,7 @@ export function useSidebarContent() {
         { icon: Globe, label: t('nav.intel'), href: '/intel' },
         { icon: Briefcase, label: t('nav.cases'), href: '/cases' },
         { icon: Compass, label: t('nav.explorer'), href: '/explorer' },
+        { icon: Network, label: t('nav.entities'), href: '/entities' },
       ],
     },
     {
@@ -93,6 +97,7 @@ export function useSidebarContent() {
     {
       label: t('nav.governance'),
       items: [
+        { icon: BookOpen, label: t('nav.knowledge'), href: '/knowledge' },
         { icon: FileCheck, label: t('nav.compliance'), href: '/compliance' },
         { icon: BarChart3, label: t('nav.reports'), href: '/reports' },
         { icon: Settings, label: t('nav.tenantConfig'), href: '/admin/tenant' },

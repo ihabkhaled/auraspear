@@ -1,3 +1,4 @@
+export { AiSoarPanel } from './AiSoarPanel'
 export { getSoarPlaybookColumns } from './SoarPlaybookColumns'
 export { SoarKpiCards } from './SoarKpiCards'
 export { SoarFilters } from './SoarFilters'

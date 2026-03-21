@@ -62,3 +62,12 @@ export const REPORT_STATUS_CLASSES: Record<ReportStatus, string> = {
   [ReportStatus.COMPLETED]: 'bg-status-success text-white',
   [ReportStatus.FAILED]: 'bg-status-error text-white',
 }
+
+export const AI_TIME_RANGE_OPTIONS = ['7d', '14d', '30d', '90d'] as const
+
+export const AI_TIME_RANGE_LABEL_KEYS: Record<string, string> = {
+  '7d': 'aiLast7Days',
+  '14d': 'aiLast14Days',
+  '30d': 'aiLast30Days',
+  '90d': 'aiLast90Days',
+}

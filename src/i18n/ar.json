@@ -44,7 +44,10 @@
     "profile": "الملف الشخصي",
     "roleSettings": "إعدادات الأدوار",
     "jobs": "Jobs",
-    "usersControl": "?????? ?? ??????????"
+    "usersControl": "?????? ?? ??????????",
+    "knowledge": "قاعدة المعرفة",
+    "entities": "مخطط الكيانات",
+    "msspDashboard": "لوحة تحكم MSSP"
   },
   "common": {
     "search": "بحث",
@@ -84,7 +87,8 @@
     "of": "من",
     "rows": "صفوف",
     "darkMode": "الوضع الداكن",
-    "lightMode": "الوضع الفاتح"
+    "lightMode": "الوضع الفاتح",
+    "updatedAt": "تم التحديث في"
   },
   "dashboard": {
     "title": "لوحة المتابعة التنفيذية",
@@ -200,7 +204,15 @@
     "exploitAvailableVulnerabilities": "Exploit-Available Vulnerabilities",
     "openCloudFindings": "Open Cloud Findings",
     "criticalCloudFindings": "Critical Cloud Findings",
-    "activeRules": "Active Rules"
+    "activeRules": "Active Rules",
+    "aiInsight": "رؤية الذكاء الاصطناعي",
+    "aiDailySummary": "ملخص SOC اليومي",
+    "aiExplainAnomaly": "شرح الشذوذ",
+    "aiGenerateSummary": "إنشاء الملخص",
+    "aiLoading": "جاري التحليل...",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiDailySummaryHint": "انقر على إنشاء الملخص للحصول على نظرة عامة يومية على SOC مدعومة بالذكاء الاصطناعي"
   },
   "alerts": {
     "title": "إدارة التنبيهات",
@@ -263,7 +275,19 @@
     "escalateDescription": "إنشاء حادثة جديدة مرتبطة بهذا التنبيه",
     "escalateSuccess": "تم إنشاء الحادثة بنجاح من التنبيه",
     "escalateError": "فشل تصعيد التنبيه. يرجى المحاولة مرة أخرى.",
-    "category": "الفئة"
+    "category": "الفئة",
+    "aiTriage": "فرز الذكاء الاصطناعي",
+    "aiTriageDescription": "تحليل التنبيهات بمساعدة الذكاء الاصطناعي",
+    "aiSummarize": "تلخيص",
+    "aiExplainSeverity": "شرح الخطورة",
+    "aiFalsePositiveScore": "درجة الإيجابية الكاذبة",
+    "aiNextAction": "أفضل إجراء تالي",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiTriageLoading": "جارٍ التحليل...",
+    "aiTriageError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+    "aiNoResult": "لا توجد نتائج متاحة"
   },
   "hunt": {
     "title": "صيد التهديدات بالذكاء الاصطناعي",
@@ -533,7 +557,18 @@
     "artifactTypeIp": "IP",
     "artifactTypeHash": "تجزئة",
     "artifactTypeDomain": "نطاق",
-    "artifactTypeUrl": "URL"
+    "artifactTypeUrl": "URL",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "تحليل الحالات بمساعدة الذكاء الاصطناعي",
+    "aiSummarize": "تلخيص الحالة",
+    "aiExecutiveSummary": "ملخص تنفيذي",
+    "aiTimeline": "توليف الجدول الزمني",
+    "aiNextTasks": "اقتراح المهام التالية",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiLoading": "جارٍ التحليل...",
+    "aiError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى."
   },
   "intel": {
     "title": "استخبارات التهديدات",
@@ -622,7 +657,15 @@
       "severity": "الخطورة",
       "noMatches": "لم يتم العثور على ارتباطات",
       "noMatchesDescription": "ستظهر بيانات ربط مؤشرات الاختراق هنا عند توفرها"
-    }
+    },
+    "aiEnrich": "إثراء بالذكاء الاصطناعي",
+    "aiEnrichDescription": "إثراء معلومات التهديدات بالذكاء الاصطناعي",
+    "aiEnrichIoc": "إثراء مؤشر الاختراق",
+    "aiDraftAdvisory": "صياغة تنبيه",
+    "aiLoading": "جارٍ الإثراء...",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد"
   },
   "admin": {
     "tenant": {
@@ -1511,7 +1554,8 @@
     "intel": {
       "mispNotConfigured": "موصّل MISP غير مهيأ.",
       "mispConnectionFailed": "فشل الاتصال بخادم MISP.",
-      "syncFailed": "فشلت مزامنة استخبارات التهديدات."
+      "syncFailed": "فشلت مزامنة استخبارات التهديدات.",
+      "iocNotFound": "مؤشر الاختراق غير موجود."
     },
     "hunts": {
       "notFound": "لم يتم العثور على جلسة الصيد.",
@@ -1521,6 +1565,9 @@
       "invalidTransition": "انتقال غير صالح لحالة جلسة الصيد.",
       "invalidQuery": "استعلام صيد غير صالح أو فارغ."
     },
+    "knowledge": {
+      "notFound": "الدليل التشغيلي غير موجود."
+    },
     "health": {
       "serviceUnavailable": "خدمة الصحة غير متاحة.",
       "connectorDisabled": "هذا الموصّل معطّل."
@@ -1528,7 +1575,10 @@
     "ai": {
       "notEnabled": "وحدة الذكاء الاصطناعي غير مفعّلة.",
       "invocationFailed": "فشل استدعاء الذكاء الاصطناعي.",
-      "serviceUnavailable": "خدمة الذكاء الاصطناعي غير متاحة مؤقتاً. يرجى المحاولة لاحقاً."
+      "serviceUnavailable": "خدمة الذكاء الاصطناعي غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.",
+      "featureDisabled": "ميزة الذكاء الاصطناعي هذه معطّلة لمؤسستك.",
+      "connectorNotAvailable": "موصّل الذكاء الاصطناعي المطلوب غير متاح.",
+      "budgetExceeded": "تم تجاوز ميزانية استخدام الذكاء الاصطناعي لهذه الميزة. اتصل بمسؤولك."
     },
     "aiAgents": {
       "notFound": "لم يتم العثور على وكيل الذكاء الاصطناعي.",
@@ -1639,6 +1689,10 @@
     },
     "roleSettings": {
       "usersControlRestrictedRole": "يمكن تعيين أذونات التحكم بالمستخدمين فقط لمسؤولي النظام العام أو مسؤولي المستأجر."
+    },
+    "entities": {
+      "notFound": "الكيان غير موجود",
+      "alreadyExists": "الكيان موجود بالفعل"
     }
   },
   "profile": {
@@ -1940,7 +1994,13 @@
       "userUnblockedMessage": "{actorName} أعاد تفعيل حسابك",
       "userRemovedMessage": "{actorName} أزالك من المستأجر",
       "userRestoredMessage": "{actorName} استعاد حسابك"
-    }
+    },
+    "aiDigest": "ملخص الذكاء الاصطناعي",
+    "aiGenerateDigest": "إنشاء ملخص النشاط",
+    "aiDigestDescription": "ملخص للنشاط الأخير مُنشأ بالذكاء الاصطناعي",
+    "aiDigestLoading": "جارٍ الإنشاء...",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود"
   },
   "correlation": {
     "title": "قواعد الارتباط و Sigma",
@@ -2711,7 +2771,16 @@
     "noExecutions": "No executions yet",
     "validationStepsJson": "يجب أن تكون الخطوات مصفوفة JSON صالحة تحتوي على عنصر واحد على الأقل",
     "fieldTriggerConditions": "شروط التشغيل (JSON)",
-    "fieldTriggerConditionsPlaceholder": "أدخل شروط التشغيل ككائن JSON"
+    "fieldTriggerConditionsPlaceholder": "أدخل شروط التشغيل ككائن JSON",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "صياغة سيناريوهات التشغيل بمساعدة الذكاء الاصطناعي",
+    "aiDraftPlaybook": "صياغة سيناريو",
+    "aiDraftDescription": "صف سير عمل الاستجابة الذي تريد أتمتته...",
+    "aiGenerate": "إنشاء",
+    "aiDraftLoading": "جارٍ الصياغة...",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد"
   },
   "compliance": {
     "title": "أطر الامتثال",
@@ -3003,7 +3072,19 @@
     "templateVulnerabilityExposure": "?????? ???????",
     "templateCompliancePosture": "??? ????????",
     "templateAutomationHealth": "??? ???????",
-    "templateConnectorHealth": "??? ????????"
+    "templateConnectorHealth": "??? ????????",
+    "aiReport": "تقرير الذكاء الاصطناعي",
+    "aiExecutiveReport": "التقرير التنفيذي بالذكاء الاصطناعي",
+    "aiGenerateReport": "إنشاء التقرير",
+    "aiTimeRange": "النطاق الزمني",
+    "aiLast7Days": "آخر 7 أيام",
+    "aiLast14Days": "آخر 14 يوم",
+    "aiLast30Days": "آخر 30 يوم",
+    "aiLast90Days": "آخر 90 يوم",
+    "aiLoading": "جاري إنشاء التقرير...",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiReportHint": "حدد نطاقاً زمنياً وانقر على إنشاء التقرير للحصول على ملخص تنفيذي بالذكاء الاصطناعي"
   },
   "systemHealth": {
     "title": "صحة النظام",
@@ -3341,7 +3422,17 @@
     "typeScheduled": "مجدول",
     "statusActive": "نشط",
     "columnFalsePositives": "إيجابيات كاذبة",
-    "columnLastTriggered": "آخر تشغيل"
+    "columnLastTriggered": "آخر تشغيل",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiDraftRule": "مسودة قاعدة",
+    "aiDraftDescription": "صف ما تريد اكتشافه...",
+    "aiTuning": "اقتراحات الضبط",
+    "aiGenerate": "توليد",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiLoading": "جارٍ التوليد...",
+    "aiError": "فشل توليد الذكاء الاصطناعي. يرجى المحاولة مرة أخرى."
   },
   "cloudSecurity": {
     "title": "أمان السحابة",
@@ -3516,6 +3607,8 @@
       "normalization": "التطبيع",
       "soar": "سير عمل SOAR",
       "aiAgents": "وكلاء AI",
+      "aiAlertTriage": "فرز التنبيهات بالذكاء الاصطناعي",
+      "aiSoarCopilot": "مساعد SOAR بالذكاء الاصطناعي",
       "cloudSecurity": "أمان السحابة",
       "compliance": "الامتثال",
       "reports": "التقارير",
@@ -3528,7 +3621,12 @@
       "jobs": "Jobs",
       "systemHealth": "System Health",
       "usersControl": "?????? ?? ??????????",
-      "llmConnectors": "موصلات LLM"
+      "llmConnectors": "موصلات LLM",
+      "runbooks": "قاعدة المعرفة",
+      "aiCaseCopilot": "مساعد الذكاء الاصطناعي للحالات",
+      "aiDetectionCopilot": "مساعد الذكاء الاصطناعي للاكتشاف",
+      "entities": "رسم بياني للكيانات",
+      "msspDashboard": "لوحة تحكم MSSP"
     },
     "permissions": {
       "dashboard": {
@@ -3638,6 +3736,7 @@
         "delete": "حذف وكلاء AI",
         "execute": "Execute AI Agents"
       },
+      "aiAlertTriage": "فرز التنبيهات بالذكاء الاصطناعي",
       "cloudSecurity": {
         "view": "عرض أمان السحابة",
         "create": "إنشاء حسابات سحابية",
@@ -3709,6 +3808,23 @@
         "update": "تعديل موصلات LLM",
         "delete": "حذف موصلات LLM",
         "test": "اختبار موصلات LLM"
+      },
+      "aiCaseCopilot": "مساعد الذكاء الاصطناعي للحالات",
+      "aiDetectionCopilot": "مساعد الذكاء الاصطناعي للاكتشاف",
+      "aiSoarCopilot": "مساعد SOAR بالذكاء الاصطناعي",
+      "runbooks": {
+        "view": "عرض الأدلة التشغيلية",
+        "create": "إنشاء الأدلة التشغيلية",
+        "update": "تحديث الأدلة التشغيلية",
+        "delete": "حذف الأدلة التشغيلية"
+      },
+      "entities": {
+        "view": "عرض الكيانات",
+        "create": "إنشاء كيانات",
+        "update": "تحديث الكيانات"
+      },
+      "msspDashboard": {
+        "view": "عرض لوحة تحكم MSSP"
       }
     },
     "roles": {
@@ -3831,5 +3947,83 @@
     "creating": "جارٍ الإنشاء...",
     "save": "حفظ",
     "saving": "جارٍ الحفظ..."
+  },
+  "knowledge": {
+    "title": "قاعدة المعرفة",
+    "description": "الأدلة التشغيلية والإجراءات والمعرفة التشغيلية",
+    "createRunbook": "إنشاء دليل تشغيلي",
+    "editRunbook": "تعديل الدليل التشغيلي",
+    "deleteRunbook": "حذف الدليل التشغيلي",
+    "fieldTitle": "العنوان",
+    "fieldContent": "المحتوى",
+    "fieldCategory": "الفئة",
+    "fieldTags": "العلامات",
+    "searchPlaceholder": "البحث في الأدلة التشغيلية...",
+    "noRunbooks": "لم يتم العثور على أدلة تشغيلية",
+    "noRunbooksDescription": "أنشئ أول دليل تشغيلي لبناء المعرفة التشغيلية",
+    "runbookCreated": "تم إنشاء الدليل التشغيلي",
+    "runbookUpdated": "تم تحديث الدليل التشغيلي",
+    "runbookDeleted": "تم حذف الدليل التشغيلي",
+    "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذا الدليل التشغيلي؟",
+    "aiGenerate": "توليد بالذكاء الاصطناعي",
+    "aiGenerateDescription": "توليد دليل تشغيلي من الوصف",
+    "aiSearch": "بحث بالذكاء الاصطناعي",
+    "aiSearchDescription": "البحث في قاعدة المعرفة بالذكاء الاصطناعي",
+    "aiLoading": "جارٍ التوليد...",
+    "colTitle": "العنوان",
+    "colCategory": "الفئة",
+    "colTags": "العلامات",
+    "colCreatedBy": "أنشئ بواسطة",
+    "colActions": "الإجراءات",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "createdAt": "تاريخ الإنشاء",
+    "updatedAt": "تاريخ التحديث"
+  },
+  "entities": {
+    "title": "مخطط الكيانات",
+    "description": "تتبع وتصور العلاقات بين الكيانات",
+    "searchPlaceholder": "البحث عن كيانات...",
+    "filterType": "تصفية حسب النوع",
+    "allTypes": "جميع الأنواع",
+    "colType": "النوع",
+    "colValue": "القيمة",
+    "colRiskScore": "المخاطر",
+    "colFirstSeen": "أول ظهور",
+    "colLastSeen": "آخر ظهور",
+    "colActions": "الإجراءات",
+    "noEntities": "لم يتم العثور على كيانات",
+    "topRisky": "أكثر الكيانات خطورة",
+    "graph": "مخطط العلاقات",
+    "fieldType": "النوع",
+    "fieldValue": "القيمة",
+    "fieldRiskScore": "درجة المخاطر",
+    "fieldFirstSeen": "أول ظهور",
+    "fieldLastSeen": "آخر ظهور",
+    "typeIp": "عنوان IP",
+    "typeDomain": "نطاق",
+    "typeHostname": "اسم المضيف",
+    "typeUser": "مستخدم",
+    "typeEmail": "بريد إلكتروني",
+    "typeHash": "تجزئة",
+    "typeUrl": "رابط",
+    "typeProcess": "عملية",
+    "typeFile": "ملف",
+    "typeAsset": "أصل"
+  },
+  "msspDashboard": {
+    "title": "محفظة MSSP",
+    "description": "نظرة عامة متعددة المستأجرين للأمان المُدار",
+    "tenantHealth": "صحة المستأجر",
+    "criticalAlerts": "التنبيهات الحرجة",
+    "openCases": "الحالات المفتوحة",
+    "connectorHealth": "صحة الموصل",
+    "aiUsage": "استخدام الذكاء الاصطناعي",
+    "noTenants": "لا يوجد مستأجرون متاحون",
+    "comparison": "مقارنة المستأجرين",
+    "portfolio": "نظرة عامة على المحفظة",
+    "totalAlerts": "إجمالي التنبيهات",
+    "totalCriticalAlerts": "إجمالي التنبيهات الحرجة",
+    "totalOpenCases": "إجمالي الحالات المفتوحة"
   }
 }

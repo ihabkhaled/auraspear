@@ -4,6 +4,7 @@ import type {
   Alert,
   AlertSearchParams,
   AIInvestigation,
+  AiTriageResult,
   BulkActionResult,
   AlertTimelineEvent,
 } from '@/types'
@@ -27,4 +28,24 @@ export const alertService = {
 
   getAlertTimeline: (id: string) =>
     api.get<ApiResponse<AlertTimelineEvent[]>>(`/alerts/${id}/timeline`).then(r => r.data),
+
+  triageSummarize: (alertId: string) =>
+    api
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/summarize`)
+      .then(r => r.data.data),
+
+  triageExplainSeverity: (alertId: string) =>
+    api
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/explain-severity`)
+      .then(r => r.data.data),
+
+  triageFalsePositiveScore: (alertId: string) =>
+    api
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/false-positive-score`)
+      .then(r => r.data.data),
+
+  triageNextAction: (alertId: string) =>
+    api
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/next-action`)
+      .then(r => r.data.data),
 }

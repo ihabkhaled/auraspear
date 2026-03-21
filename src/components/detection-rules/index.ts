@@ -1,3 +1,4 @@
+export { AiDetectionCopilotPanel } from './AiDetectionCopilotPanel'
 export { getDetectionRuleColumns } from './DetectionRuleTableColumns'
 export { DetectionRuleKpiCards } from './DetectionRuleKpiCards'
 export { DetectionRuleFilters } from './DetectionRuleFilters'

@@ -128,3 +128,28 @@ export interface UseDetectionRuleDeleteDialogParams {
   ruleName: string
   onConfirm: () => void
 }
+
+export interface AiDetectionCopilotResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}
+
+export interface AiDetectionCopilotPanelProps {
+  ruleId: string | null
+  canUseCopilot: boolean
+  results: Record<string, AiDetectionCopilotResult>
+  activeTask: string | null
+  isLoading: boolean
+  draftDescription: string
+  onDraftDescriptionChange: (value: string) => void
+  onDraftRule: () => void
+  onTuning: () => void
+  t: (key: string) => string
+}

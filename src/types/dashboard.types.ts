@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { ConnectorType, DashboardDensity, DashboardPanelKey, IncidentStatus } from '@/enums'
 import type { ServiceHealth } from './admin.types'
+import type { AiResponse } from './ai.types'
 
 export interface DashboardKPI {
   label: string
@@ -383,4 +384,28 @@ export interface BackendSeverityDistributionEntry {
 export interface BackendSeverityDistributionResponse {
   tenantId: string
   distribution: BackendSeverityDistributionEntry[]
+}
+
+export interface AiDashboardInsightProps {
+  t: (key: string) => string
+}
+
+export interface AiReportPanelProps {
+  t: (key: string) => string
+}
+
+export interface AiDashboardInsightComponentProps {
+  t: (key: string) => string
+  dailySummary: AiResponse | null
+  isDailySummaryLoading: boolean
+  onGenerateSummary: () => void
+}
+
+export interface AiReportPanelComponentProps {
+  t: (key: string) => string
+  report: AiResponse | null
+  selectedTimeRange: string
+  onTimeRangeChange: (value: string) => void
+  onGenerate: () => void
+  isLoading: boolean
 }

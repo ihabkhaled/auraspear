@@ -3,6 +3,7 @@
 import { Plus, Workflow } from 'lucide-react'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
 import {
+  AiSoarPanel,
   SoarKpiCards,
   SoarFilters,
   SoarCreateDialog,
@@ -11,6 +12,7 @@ import {
   SoarRunDialog,
   SoarDetailPanel,
 } from '@/components/soar'
+import { Card, CardContent } from '@/components/ui/card'
 import { useSoarPage } from '@/hooks/useSoarPage'
 
 export default function SoarPage() {
@@ -56,6 +58,7 @@ export default function SoarPage() {
     canEdit,
     canDelete,
     canExecute,
+    aiSoar,
   } = useSoarPage()
 
   return (
@@ -75,6 +78,20 @@ export default function SoarPage() {
       />
 
       <SoarKpiCards stats={stats} />
+
+      <Card>
+        <CardContent className="pt-4">
+          <AiSoarPanel
+            canUseCopilot={aiSoar.canUseCopilot}
+            description={aiSoar.description}
+            onDescriptionChange={aiSoar.setDescription}
+            isLoading={aiSoar.isLoading}
+            draftResult={aiSoar.draftResult}
+            onDraftPlaybook={aiSoar.handleDraftPlaybook}
+            t={t}
+          />
+        </CardContent>
+      </Card>
 
       <SoarFilters
         searchQuery={searchQuery}

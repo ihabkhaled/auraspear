@@ -33,6 +33,7 @@ import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import type { ExtendedKpiCandidate, ExtendedKPIItem, ExtendedKPIStats } from '@/types'
 import { useServiceHealth } from './useAdmin'
+import { useAiDashboard } from './useAiDashboard'
 import {
   useDashboardOperationsOverview,
   useKPIs,
@@ -64,6 +65,11 @@ export function useDashboardPage() {
     useDashboardAnalyticsOverview()
   const { data: operationsOverview, isLoading: operationsOverviewLoading } =
     useDashboardOperationsOverview()
+  const {
+    dailySummary,
+    isDailySummaryLoading,
+    generateDailySummary,
+  } = useAiDashboard()
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
   const healthServices = health?.data ?? []
@@ -403,5 +409,8 @@ export function useDashboardPage() {
     isPanelOpen,
     handlePanelOpenChange,
     isUpdatingPreferences: canUpdateSettings && updatePreferences.isPending,
+    dailySummary,
+    isDailySummaryLoading,
+    generateDailySummary,
   }
 }

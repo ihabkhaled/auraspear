@@ -3,6 +3,7 @@
 import { Permission } from '@/enums'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
+import { useAiSoar } from './useAiSoar'
 import { useSoarPageCrud } from './useSoarPageCrud'
 import { useSoarPageDialogs } from './useSoarPageDialogs'
 import { useSoarPageFilters } from './useSoarPageFilters'
@@ -11,6 +12,7 @@ export function useSoarPage() {
   const filters = useSoarPageFilters()
   const dialogs = useSoarPageDialogs()
   const crud = useSoarPageCrud(dialogs)
+  const aiSoar = useAiSoar()
 
   const permissions = useAuthStore(s => s.permissions)
   const canCreate = hasPermission(permissions, Permission.SOAR_CREATE)
@@ -62,5 +64,6 @@ export function useSoarPage() {
     canEdit,
     canDelete,
     canExecute,
+    aiSoar,
   }
 }

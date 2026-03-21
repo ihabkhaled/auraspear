@@ -6,5 +6,5 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest, context: DynamicIdRouteContext) {
   const { id } = await context.params
-  return proxyToBackend(request, { path: `/ai-agents/${id}/run` })
+  return proxyToBackend(request, { path: `/ai-agents/${id}/run`, timeoutMs: 120_000 })
 }

@@ -9,6 +9,7 @@ const PERMISSION_FALLBACK_ROUTE_ORDER = [
   '/cases',
   '/explorer',
   '/hunt',
+  '/knowledge',
   '/intel',
   '/connectors',
   '/system-health',

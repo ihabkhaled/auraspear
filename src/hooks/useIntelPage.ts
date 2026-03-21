@@ -1,11 +1,13 @@
 import { useState, useCallback, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import type { SortOrder } from '@/enums'
+import { useAiIntel } from './useAiIntel'
 import { useIntelStats, useMISPEvents, useIOCSearch } from './useIntel'
 import { usePagination } from './usePagination'
 
 export function useIntelPage() {
   const t = useTranslations('intel')
+  const aiIntel = useAiIntel()
   const [iocQuery, setIocQuery] = useState('')
   const [iocType, setIocType] = useState('')
   const [iocSource, setIocSource] = useState('')
@@ -84,6 +86,9 @@ export function useIntelPage() {
     [iocPagination]
   )
 
+  const iocIds = (iocData?.data ?? []).map(ioc => ioc.id)
+  const firstIocId = iocIds.length > 0 ? iocIds.at(0) : undefined
+
   return {
     t,
     mispData,
@@ -101,5 +106,8 @@ export function useIntelPage() {
     stats,
     statsLoading,
     handleIOCSearch,
+    aiIntel,
+    selectedIocId: firstIocId,
+    selectedIocIds: iocIds,
   }
 }

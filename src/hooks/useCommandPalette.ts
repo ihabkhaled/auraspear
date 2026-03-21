@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   Bell,
+  BookOpen,
   Briefcase,
   Crosshair,
   Globe,
@@ -53,6 +54,7 @@ export function useCommandPalette() {
       { label: t('nav.intel'), href: '/intel', icon: Globe },
       { label: t('nav.tenantConfig'), href: '/admin/tenant', icon: Settings },
       { label: t('nav.systemAdmin'), href: '/admin/system', icon: Server },
+      { label: t('nav.knowledge'), href: '/knowledge', icon: BookOpen },
     ],
     page => page.href
   )

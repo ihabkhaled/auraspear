@@ -42,6 +42,19 @@ export {
   useOrphanedCaseStats,
 } from './useCaseCycles'
 export { useCreateHuntSession, useSendHuntMessage, useHuntEvents } from './useHunt'
+export {
+  useRunbooks,
+  useRunbook,
+  useCreateRunbook,
+  useUpdateRunbook,
+  useDeleteRunbook,
+  useSearchRunbooks,
+} from './useRunbooks'
+export { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
+export { useKnowledgePage } from './useKnowledgePage'
+export { useRunbookCreateDialog } from './useRunbookCreateDialog'
+export { useRunbookEditDialog } from './useRunbookEditDialog'
+export { useAiKnowledgePanel } from './useAiKnowledgePanel'
 export { useMISPEvents, useIOCSearch } from './useIntel'
 export {
   useTenants,
@@ -184,6 +197,14 @@ export { useConnectorsPage } from './useConnectorsPage'
 export { useAlertFilterSidebar } from './useAlertFilterSidebar'
 export { useAlertRowActions } from './useAlertRowActions'
 export { useKqlSearchBar } from './useKqlSearchBar'
+export { useAiAlertTriage } from './useAiAlertTriage'
+export { useAiCaseCopilot } from './useAiCaseCopilot'
+export { useAiDashboard } from './useAiDashboard'
+export { useAiReport } from './useAiReport'
+export { useAiDetectionCopilot } from './useAiDetectionCopilot'
+export { useAiIntel } from './useAiIntel'
+export { useAiNotificationDigest } from './useAiNotificationDigest'
+export { useAiSoar } from './useAiSoar'
 export { useAiInvestigationModal } from './useAiInvestigationModal'
 export { useAlertDetailDrawer } from './useAlertDetailDrawer'
 export { useAppLogDetailDialog } from './useAppLogDetailDialog'
@@ -494,3 +515,14 @@ export { useLlmConnectorsPageCrud } from './useLlmConnectorsPageCrud'
 export { useLlmConnectorsPageFilters } from './useLlmConnectorsPageFilters'
 export { useLlmConnectorCreateDialog } from './useLlmConnectorCreateDialog'
 export { useLlmConnectorEditDialog } from './useLlmConnectorEditDialog'
+export {
+  useEntities,
+  useTopRiskyEntities,
+  useCreateEntity,
+  useUpdateEntity,
+  useEntityRiskBreakdown,
+} from './useEntities'
+export { useEntityGraph } from './useEntityGraph'
+export { useEntitiesPage } from './useEntitiesPage'
+export { useMsspPortfolio, useMsspComparison } from './useMsspDashboard'
+export { useMsspDashboardPage } from './useMsspDashboardPage'

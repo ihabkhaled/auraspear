@@ -100,6 +100,8 @@ export interface ProxyOptions {
   body?: unknown
   /** Additional query params to merge */
   params?: Record<string, string>
+  /** Timeout in milliseconds (default: 30000). Increase for AI endpoints. */
+  timeoutMs?: number
 }
 
 export interface DynamicIdRouteContext {

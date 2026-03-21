@@ -1,6 +1,7 @@
 'use client'
 
 import { AlertTriangle, Brain, Briefcase, X } from 'lucide-react'
+import { AiTriagePanel } from '@/components/alerts/AiTriagePanel'
 import { AlertTimeline } from '@/components/alerts/AlertTimeline'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -39,6 +40,7 @@ export function AlertDetailDrawer({
   onCreateCase,
   onEscalateToIncident,
   onClose,
+  triageProps,
 }: AlertDetailDrawerProps) {
   const { t, tCommon, getStatusLabel } = useAlertDetailDrawer()
 
@@ -67,7 +69,7 @@ export function AlertDetailDrawer({
           </SheetDescription>
         </SheetHeader>
 
-        <ScrollArea className="flex-1 px-4">
+        <ScrollArea className="flex-1 overflow-hidden px-4">
           <Tabs defaultValue="overview" className="w-full">
             <TabsList variant="line" className="w-full">
               <TabsTrigger value="overview">{t('viewDetail')}</TabsTrigger>
@@ -157,6 +159,12 @@ export function AlertDetailDrawer({
               <DetailRow label={t('updatedAt')}>
                 <span className="text-xs">{formatTimestamp(alert.updatedAt)}</span>
               </DetailRow>
+              {triageProps && (
+                <>
+                  <Separator className="my-3" />
+                  <AiTriagePanel alertId={alert.id} t={t} {...triageProps} />
+                </>
+              )}
             </TabsContent>
 
             <TabsContent value="timeline" className="pt-4">

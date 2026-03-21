@@ -3,6 +3,7 @@
 import { Globe } from 'lucide-react'
 import { PageHeader, Pagination, LoadingSpinner, EmptyState } from '@/components/common'
 import {
+  AiIntelPanel,
   IntelStatsGrid,
   IocSearchBar,
   MispEventFeed,
@@ -28,6 +29,9 @@ export default function IntelPage() {
     handleIocSort,
     stats,
     handleIOCSearch,
+    aiIntel,
+    selectedIocId,
+    selectedIocIds,
   } = useIntelPage()
 
   function renderMISPEvents() {
@@ -57,6 +61,23 @@ export default function IntelPage() {
       <PageHeader title={t('title')} description={t('description')} />
 
       <IntelStatsGrid stats={stats} />
+
+      <Card>
+        <CardContent className="pt-4">
+          <AiIntelPanel
+            canEnrich={aiIntel.canEnrich}
+            activeTask={aiIntel.activeTask}
+            isLoading={aiIntel.isLoading}
+            enrichResult={aiIntel.enrichResult}
+            advisoryResult={aiIntel.advisoryResult}
+            selectedIocId={selectedIocId}
+            selectedIocIds={selectedIocIds}
+            onEnrichIoc={aiIntel.handleEnrichIoc}
+            onDraftAdvisory={aiIntel.handleDraftAdvisory}
+            t={t}
+          />
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

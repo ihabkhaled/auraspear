@@ -1,8 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { ErrorMessageKey } from '@/enums'
+import { backendClient, BACKEND_URL, DEFAULT_TIMEOUT_MS } from '@/lib/backend-client'
 import type { FetchOptions, ProxyOptions } from '@/types'
-
-const BACKEND_URL = process.env['BACKEND_API_URL'] ?? 'http://localhost:4000/api/v1'
 
 /** Headers to prevent caching of authenticated API responses */
 const NO_STORE_HEADERS = {
@@ -92,38 +91,51 @@ export async function proxyToBackend(
     headers['X-CSRF-Token'] = csrfToken
   }
 
-  // Build fetch options
-  const fetchOptions: RequestInit = { method, headers }
+  // Build request body
+  const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS
+  let body: string | undefined
 
   if (method !== 'GET' && method !== 'HEAD') {
     if (options.body === undefined) {
       try {
         const bodyText = await request.text()
         if (bodyText) {
-          fetchOptions.body = bodyText
+          body = bodyText
         }
       } catch {
         // No body
       }
     } else {
-      fetchOptions.body = JSON.stringify(options.body)
+      body = JSON.stringify(options.body)
     }
   }
 
   try {
-    const backendResponse = await fetch(url.toString(), fetchOptions)
-    const data: unknown = await backendResponse.json()
+    // Use axios instead of fetch — Node.js fetch (undici) has a hard 30s bodyTimeout
+    // that cannot be overridden via AbortSignal for long-running AI requests.
+    const axiosResponse = await backendClient.request({
+      url: url.toString(),
+      method: method as 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE',
+      headers,
+      data: body,
+      timeout: timeoutMs,
+      validateStatus: () => true,
+      maxContentLength: 50 * 1024 * 1024,
+      maxBodyLength: 50 * 1024 * 1024,
+    })
+
+    const data: unknown = axiosResponse.data
 
     // Wrap in ApiResponse format if the backend doesn't already
-    const wrapped = wrapResponse(data, backendResponse.ok)
+    const wrapped = wrapResponse(data, axiosResponse.status >= 200 && axiosResponse.status < 400)
 
-    const responseInit: ResponseInit = { status: backendResponse.status }
+    const responseInit: ResponseInit = { status: axiosResponse.status }
 
     // Forward Set-Cookie headers from backend to browser (HttpOnly auth cookies)
-    const setCookieHeaders = backendResponse.headers.getSetCookie()
-    if (setCookieHeaders.length > 0) {
+    const setCookieRaw = axiosResponse.headers['set-cookie']
+    if (setCookieRaw && Array.isArray(setCookieRaw) && setCookieRaw.length > 0) {
       const respHeaders = new Headers()
-      for (const cookie of setCookieHeaders) {
+      for (const cookie of setCookieRaw) {
         respHeaders.append('Set-Cookie', cookie)
       }
       responseInit.headers = respHeaders
@@ -132,6 +144,7 @@ export async function proxyToBackend(
     return jsonNoStore(wrapped, responseInit)
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Backend unavailable'
+    console.error(`[proxyToBackend] ${method} ${url.toString()} failed: ${message}`)
     return jsonNoStore(
       { data: null, error: message, messageKey: ErrorMessageKey.SERVICE_UNAVAILABLE },
       { status: 502 }
@@ -322,5 +335,64 @@ function wrapResponse(
     error: (errorData['message'] as string) ?? 'Request failed',
     messageKey: (errorData['messageKey'] as string) ?? undefined,
     errors: (errorData['errors'] as string[]) ?? undefined,
+  }
+}
+
+/**
+ * Proxies a request to the backend and streams the raw response (for file downloads).
+ * Does NOT attempt to parse the response as JSON.
+ */
+export async function streamFromBackend(
+  request: NextRequest,
+  options: ProxyOptions = {}
+): Promise<NextResponse> {
+  const targetPath = options.path ?? request.nextUrl.pathname.replace(/^\/api/, '')
+  const url = new URL(`${BACKEND_URL}${targetPath}`)
+
+  const requestHeaders: Record<string, string> = { Accept: '*/*' }
+
+  const authHeader = request.headers.get('authorization')
+  if (authHeader) {
+    requestHeaders['Authorization'] = authHeader
+  }
+
+  const cookieHeader = request.headers.get('cookie')
+  if (cookieHeader) {
+    requestHeaders['Cookie'] = cookieHeader
+  }
+
+  const tenantId = request.headers.get('x-tenant-id')
+  if (tenantId) {
+    requestHeaders['X-Tenant-Id'] = tenantId
+  }
+
+  try {
+    const axiosResponse = await backendClient.request({
+      url: url.toString(),
+      method: request.method as 'GET' | 'POST',
+      headers: requestHeaders,
+      timeout: options.timeoutMs ?? 60_000,
+      responseType: 'arraybuffer',
+    })
+
+    const responseHeaders = new Headers()
+    const contentType = axiosResponse.headers['content-type'] as string | undefined
+    if (contentType) {
+      responseHeaders.set('Content-Type', contentType)
+    }
+    const contentDisposition = axiosResponse.headers['content-disposition'] as string | undefined
+    if (contentDisposition) {
+      responseHeaders.set('Content-Disposition', contentDisposition)
+    }
+
+    return new NextResponse(axiosResponse.data as ArrayBuffer, {
+      status: axiosResponse.status,
+      headers: responseHeaders,
+    })
+  } catch {
+    return jsonNoStore(
+      { data: null, error: 'Download failed', messageKey: 'errors.serviceUnavailable' },
+      { status: 502 }
+    )
   }
 }

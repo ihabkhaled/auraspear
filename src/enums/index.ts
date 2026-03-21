@@ -87,6 +87,7 @@ export {
   CloudFindingSeverity,
   CloudFindingStatus,
 } from './cloud-security.enum'
+export { EntityType, EntityRelationType, EntitySortField } from './entity.enum'
 export { Permission } from './permission.enum'
 export { NotificationCategory, RetentionPeriod } from './settings.enum'
 export {

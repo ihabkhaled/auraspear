@@ -3,6 +3,7 @@
 import { use } from 'react'
 import { ArrowLeft, ChevronDown, ChevronUp, FileQuestion, Link } from 'lucide-react'
 import {
+  AiCaseCopilotPanel,
   CaseDetailHeader,
   CaseTimeline,
   CaseTaskList,
@@ -58,6 +59,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
     canAddArtifact,
     canChangeStatus,
     canDeleteSubItems,
+    aiCopilot,
   } = useCaseDetailPage(id)
 
   if (isLoading) {
@@ -170,8 +172,25 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
           </Card>
         </div>
 
-        {/* Tasks + Artifacts + Linked Alerts - right column */}
+        {/* AI Copilot + Tasks + Artifacts + Linked Alerts - right column */}
         <div className="flex flex-col gap-6">
+          <Card>
+            <CardContent className="pt-6">
+              <AiCaseCopilotPanel
+                caseId={id}
+                canUseCopilot={aiCopilot.canUseCopilot}
+                results={aiCopilot.results}
+                activeTask={aiCopilot.activeTask}
+                isLoading={aiCopilot.isLoading}
+                onSummarize={aiCopilot.handleSummarize}
+                onExecutiveSummary={aiCopilot.handleExecutiveSummary}
+                onTimeline={aiCopilot.handleTimeline}
+                onNextTasks={aiCopilot.handleNextTasks}
+                t={aiCopilot.t}
+              />
+            </CardContent>
+          </Card>
+
           {caseItem.linkedAlerts.length > 0 && (
             <Card>
               <CardHeader>

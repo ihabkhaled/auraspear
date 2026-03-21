@@ -51,3 +51,22 @@ export interface NotificationFiltersProps {
   onClearAll: () => void
   t: (key: string) => string
 }
+
+export interface AiNotificationDigestProps {
+  isLoading: boolean
+  digestResult: AiNotificationDigestResult | null
+  onGenerateDigest: () => void
+  t: (key: string) => string
+}
+
+export interface AiNotificationDigestResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}

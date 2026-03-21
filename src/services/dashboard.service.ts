@@ -1,14 +1,18 @@
 import api from '@/lib/api'
 import type {
+  AiResponse,
   ApiResponse,
   DashboardKPI,
   AlertTrendPoint,
   DashboardAnalyticsOverview,
   DashboardOperationsOverview,
+  ExplainAnomalyInput,
   MITRETechnique,
   AssetRisk,
   PipelineService,
   ExtendedKPIStats,
+  MsspPortfolioOverview,
+  MsspTenantComparison,
   RecentActivityItem,
   SeverityDataPoint,
 } from '@/types'
@@ -49,5 +53,21 @@ export const dashboardService = {
       .get<ApiResponse<RecentActivityItem[]>>('/dashboard/recent-activity', {
         params: { limit },
       })
+      .then(r => r.data),
+
+  aiExplainAnomaly: (data: ExplainAnomalyInput) =>
+    api.post<ApiResponse<AiResponse>>('/dashboard/ai/explain-anomaly', data).then(r => r.data.data),
+
+  aiDailySummary: () =>
+    api.post<ApiResponse<AiResponse>>('/dashboard/ai/daily-summary').then(r => r.data.data),
+
+  getMsspPortfolio: () =>
+    api
+      .get<ApiResponse<MsspPortfolioOverview>>('/dashboards/mssp/portfolio')
+      .then(r => r.data),
+
+  getMsspComparison: () =>
+    api
+      .get<ApiResponse<MsspTenantComparison>>('/dashboards/mssp/comparison')
       .then(r => r.data),
 }

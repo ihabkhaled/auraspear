@@ -69,6 +69,9 @@ export type {
   AlertTimelineProps,
   EscalateToIncidentDialogProps,
   EscalateFormValues,
+  AiTriageResult,
+  AiTriagePanelProps,
+  AiTriageExternalProps,
 } from './alert.types'
 export type {
   Case,
@@ -115,6 +118,8 @@ export type {
   UseCaseArtifactPanelParams,
   UseCaseTaskListParams,
   CommentPart,
+  AiCaseCopilotResult,
+  AiCaseCopilotPanelProps,
 } from './case.types'
 export type {
   CaseCycle,
@@ -126,7 +131,14 @@ export type {
   EditCycleDialogProps,
   EditCycleHookParams,
 } from './case-cycle.types'
-export type { AiResponse, AiTokenUsage } from './ai.types'
+export type {
+  AiMonthlyUsage,
+  AiResponse,
+  AiTokenUsage,
+  AiUsageSummary,
+  AiUsageSummaryEntry,
+  ExplainAnomalyInput,
+} from './ai.types'
 export type {
   HuntSession,
   HuntMessage,
@@ -153,6 +165,8 @@ export type {
   IntelStatsGridProps,
   IntelStats,
   MISPSearchParams,
+  AiIntelPanelProps,
+  AiIntelResult,
 } from './intel.types'
 export type {
   Tenant,
@@ -241,6 +255,10 @@ export type {
   AiOperationsCanvasProps,
   BackendSeverityDistributionEntry,
   BackendSeverityDistributionResponse,
+  AiDashboardInsightProps,
+  AiDashboardInsightComponentProps,
+  AiReportPanelProps,
+  AiReportPanelComponentProps,
 } from './dashboard.types'
 export type {
   UserProfile,
@@ -319,6 +337,8 @@ export type {
   UnreadCountResponse,
   NotificationColumnTranslations,
   NotificationFiltersProps,
+  AiNotificationDigestProps,
+  AiNotificationDigestResult,
 } from './notification.types'
 export type {
   ApplicationLogEntry,
@@ -513,6 +533,8 @@ export type {
   UseSoarCreateDialogParams,
   UseSoarEditDialogParams,
   SoarPageDialogsReturn,
+  AiSoarPanelProps,
+  AiSoarResult,
 } from './soar.types'
 export type {
   ComplianceFramework,
@@ -602,6 +624,8 @@ export type {
   UseDetectionRuleCreateDialogParams,
   UseDetectionRuleEditDialogParams,
   UseDetectionRuleDeleteDialogParams,
+  AiDetectionCopilotResult,
+  AiDetectionCopilotPanelProps,
 } from './detection-rule.types'
 export type {
   CloudAccount,
@@ -677,3 +701,41 @@ export type {
   LlmConnectorsPageDialogsReturn,
   LlmConnectorCardProps,
 } from './llm-connector.types'
+export type {
+  EntityRecord,
+  EntityRelationRecord,
+  EntityGraphNode,
+  EntityGraphEdge,
+  EntityGraphData,
+  EntitySearchParams,
+  RiskBreakdownFactor,
+  RiskBreakdownResponse,
+  EntityColumnTranslations,
+  CreateEntityInput,
+  UpdateEntityInput,
+} from './entity.types'
+export type {
+  MsspTenantSummary,
+  MsspPortfolioOverview,
+  MsspTenantComparison,
+  MsspTenantCardProps,
+  MsspPortfolioKpiProps,
+} from './mssp-dashboard.types'
+export type {
+  RunbookRecord,
+  CreateRunbookInput,
+  UpdateRunbookInput,
+  RunbookSearchParams,
+  RunbookColumnTranslations,
+  CreateRunbookFormValues,
+  EditRunbookFormValues,
+  RunbookCreateDialogProps,
+  RunbookEditDialogProps,
+  RunbookDetailPanelProps,
+  UseRunbookCreateDialogParams,
+  UseRunbookEditDialogParams,
+  KnowledgePageDialogsReturn,
+  UseAiKnowledgePanelInput,
+  UseRunbookCreateDialogInput,
+  UseRunbookEditDialogInput,
+} from './knowledge.types'

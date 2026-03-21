@@ -7,6 +7,7 @@ import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { EditCaseFormValues } from '@/types'
+import { useAiCaseCopilot } from './useAiCaseCopilot'
 import { useCreateCaseArtifact, useDeleteCaseArtifact } from './useCaseArtifacts'
 import { useCaseCycles } from './useCaseCycles'
 import { useCase, useTenantMembers, useUpdateCase } from './useCases'
@@ -36,6 +37,8 @@ export function useCaseDetailPage(id: string) {
   const isAdmin = hasPermission(permissions, Permission.ADMIN_USERS_VIEW)
   const caseItem = data?.data
   const isOwner = Boolean(caseItem && user && caseItem.ownerUserId === user.sub)
+
+  const aiCopilot = useAiCaseCopilot(id)
 
   const canDeleteSubItems = hasPermission(permissions, Permission.CASES_DELETE_TASK)
   const canEditCase = hasPermission(permissions, Permission.CASES_UPDATE) || isOwner
@@ -274,5 +277,6 @@ export function useCaseDetailPage(id: string) {
     canAddTask,
     canAddArtifact,
     canChangeStatus,
+    aiCopilot,
   }
 }

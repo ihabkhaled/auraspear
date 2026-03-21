@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiCaseCopilotResult,
   ApiResponse,
   Case,
   CaseArtifact,
@@ -66,5 +67,26 @@ export const caseService = {
       .get<{ data: MentionableUser[] }>(`/cases/${caseId}/comments/mentionable-users`, {
         params: { query, limit },
       })
+      .then(r => r.data.data),
+
+  // AI Case Copilot
+  aiSummarize: (caseId: string) =>
+    api
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/summarize`)
+      .then(r => r.data.data),
+
+  aiExecutiveSummary: (caseId: string) =>
+    api
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/executive-summary`)
+      .then(r => r.data.data),
+
+  aiTimeline: (caseId: string) =>
+    api
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/timeline`)
+      .then(r => r.data.data),
+
+  aiNextTasks: (caseId: string) =>
+    api
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/next-tasks`)
       .then(r => r.data.data),
 }

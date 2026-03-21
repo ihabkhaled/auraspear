@@ -1,3 +1,4 @@
+export { AiReportPanel } from './AiReportPanel'
 export { getReportColumns } from './ReportColumns'
 export { ReportKpiCards } from './ReportKpiCards'
 export { ReportFilters } from './ReportFilters'

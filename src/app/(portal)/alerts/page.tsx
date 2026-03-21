@@ -68,6 +68,7 @@ export default function AlertsPage() {
     setEscalateOpen,
     escalateAlert,
     handleEscalateToIncident,
+    triageProps,
   } = useAlertsPage()
 
   return (
@@ -166,6 +167,7 @@ export default function AlertsPage() {
         }
         onEscalateToIncident={canEscalate ? handleEscalateToIncident : undefined}
         onClose={() => setDrawerOpen(false)}
+        triageProps={triageProps.canTriage ? triageProps : undefined}
       />
 
       <AiInvestigationModal

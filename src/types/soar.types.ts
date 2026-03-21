@@ -183,3 +183,25 @@ export interface SoarColumnTranslations {
   soar: (key: string) => string
   common: (key: string) => string
 }
+
+export interface AiSoarPanelProps {
+  canUseCopilot: boolean
+  description: string
+  onDescriptionChange: (value: string) => void
+  isLoading: boolean
+  draftResult: AiSoarResult | null
+  onDraftPlaybook: () => void
+  t: (key: string) => string
+}
+
+export interface AiSoarResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}

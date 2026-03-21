@@ -1,3 +1,4 @@
+export { AiTriagePanel } from './AiTriagePanel'
 export { KqlSearchBar } from './KqlSearchBar'
 export { AlertFilterSidebar } from './AlertFilterSidebar'
 export { getAlertColumns } from './AlertTableColumns'

@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiResponse,
   ApiResponse,
   SoarExecution,
   SoarExecutionSearchParams,
@@ -31,4 +32,9 @@ export const soarService = {
     api.get<ApiResponse<SoarExecution[]>>('/soar/executions', { params }).then(r => r.data),
 
   getStats: () => api.get<ApiResponse<SoarStats>>('/soar/stats').then(r => r.data),
+
+  aiDraftPlaybook: (description: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/soar/ai/draft-playbook', { description })
+      .then(r => r.data.data),
 }

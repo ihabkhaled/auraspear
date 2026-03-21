@@ -1,9 +1,11 @@
 'use client'
 
 import { ChevronDown, Pencil, Trash2 } from 'lucide-react'
+import { AiDetectionCopilotPanel } from '@/components/detection-rules/AiDetectionCopilotPanel'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -30,7 +32,7 @@ export function DetectionRuleDetailPanel({
   onDelete,
   deleteLoading,
 }: DetectionRuleDetailPanelProps) {
-  const { t, tCommon, hasData } = useDetectionRuleDetailPanel({ rule })
+  const { t, tCommon, hasData, aiCopilot } = useDetectionRuleDetailPanel({ rule })
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -159,6 +161,21 @@ export function DetectionRuleDetailPanel({
                 <span className="text-foreground text-sm">{formatTimestamp(rule.createdAt)}</span>
               </div>
             </div>
+
+            <Separator />
+
+            <AiDetectionCopilotPanel
+              ruleId={rule.id}
+              canUseCopilot={aiCopilot.canUseCopilot}
+              results={aiCopilot.results}
+              activeTask={aiCopilot.activeTask}
+              isLoading={aiCopilot.isLoading}
+              draftDescription={aiCopilot.draftDescription}
+              onDraftDescriptionChange={aiCopilot.setDraftDescription}
+              onDraftRule={aiCopilot.handleDraftRule}
+              onTuning={aiCopilot.handleTuning}
+              t={aiCopilot.t}
+            />
           </div>
         )}
       </SheetContent>

@@ -4,6 +4,7 @@ import { FileText, Plus } from 'lucide-react'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
 import { DashboardSectionCard } from '@/components/dashboard'
 import {
+  AiReportPanel,
   ReportKpiCards,
   ReportFilters,
   ReportCreateDialog,
@@ -56,6 +57,11 @@ export default function ReportsPage() {
     openEditDialog,
     openDeleteDialog,
     canManageReports,
+    aiReport,
+    aiReportTimeRange,
+    aiReportLoading,
+    handleAiTimeRangeChange,
+    handleGenerateAiReport,
   } = useReportsPage()
 
   return (
@@ -75,6 +81,15 @@ export default function ReportsPage() {
       />
 
       <ReportKpiCards stats={stats} />
+
+      <AiReportPanel
+        t={t}
+        report={aiReport}
+        selectedTimeRange={aiReportTimeRange}
+        onTimeRangeChange={handleAiTimeRangeChange}
+        onGenerate={handleGenerateAiReport}
+        isLoading={aiReportLoading}
+      />
 
       <DashboardSectionCard title={t('templatesTitle')} defaultOpen={false}>
         <ReportTemplateGrid

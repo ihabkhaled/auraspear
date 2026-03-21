@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiDetectionCopilotResult,
   ApiResponse,
   DetectionRule,
   DetectionRuleStats,
@@ -24,4 +25,15 @@ export const detectionRuleService = {
 
   getStats: () =>
     api.get<ApiResponse<DetectionRuleStats>>('/detection-rules/stats').then(r => r.data),
+
+  // AI Detection Copilot
+  aiDraftRule: (description: string) =>
+    api
+      .post<ApiResponse<AiDetectionCopilotResult>>('/detection-rules/ai/draft', { description })
+      .then(r => r.data.data),
+
+  aiTuning: (ruleId: string) =>
+    api
+      .post<ApiResponse<AiDetectionCopilotResult>>(`/detection-rules/${ruleId}/ai/tuning`)
+      .then(r => r.data.data),
 }

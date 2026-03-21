@@ -77,3 +77,28 @@ export interface MISPSearchParams {
   sortBy?: string
   sortOrder?: SortOrder
 }
+
+export interface AiIntelPanelProps {
+  canEnrich: boolean
+  activeTask: string | null
+  isLoading: boolean
+  enrichResult: AiIntelResult | null
+  advisoryResult: AiIntelResult | null
+  selectedIocId?: string
+  selectedIocIds?: string[]
+  onEnrichIoc: (iocId: string) => void
+  onDraftAdvisory: (iocIds: string[]) => void
+  t: (key: string) => string
+}
+
+export interface AiIntelResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}

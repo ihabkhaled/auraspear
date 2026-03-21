@@ -1,3 +1,4 @@
+export { AiCaseCopilotPanel } from './AiCaseCopilotPanel'
 export { CaseKanbanCard } from './CaseKanbanCard'
 export { CaseKanbanBoard } from './CaseKanbanBoard'
 export { CaseListTable } from './CaseListTable'

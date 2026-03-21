@@ -84,6 +84,7 @@ export interface AlertDetailDrawerProps {
   onCreateCase?: ((alert: Alert) => void) | undefined
   onEscalateToIncident?: ((alert: Alert) => void) | undefined
   onClose?: ((alert: Alert) => void) | undefined
+  triageProps?: AiTriageExternalProps | undefined
 }
 
 export interface AlertFilterSidebarProps {
@@ -110,6 +111,42 @@ export interface AIInvestigationModalProps {
   investigation: AIInvestigation | null
   open: boolean
   onOpenChange: (open: boolean) => void
+}
+
+export interface AiTriageResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}
+
+export interface AiTriagePanelProps {
+  alertId: string
+  canTriage: boolean
+  results: Record<string, AiTriageResult>
+  activeTask: string | null
+  isLoading: boolean
+  onSummarize: () => void
+  onExplainSeverity: () => void
+  onFalsePositiveScore: () => void
+  onNextAction: () => void
+  t: (key: string) => string
+}
+
+export interface AiTriageExternalProps {
+  canTriage: boolean
+  results: Record<string, AiTriageResult>
+  activeTask: string | null
+  isLoading: boolean
+  onSummarize: () => void
+  onExplainSeverity: () => void
+  onFalsePositiveScore: () => void
+  onNextAction: () => void
 }
 
 export interface ParsedKQLQuery {

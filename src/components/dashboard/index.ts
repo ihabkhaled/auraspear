@@ -1,3 +1,4 @@
+export { AiDashboardInsight } from './AiDashboardInsight'
 export { AiOperationsCanvas } from './AiOperationsCanvas'
 export { DashboardCard } from './DashboardCard'
 export { DashboardMetricBarList } from './DashboardMetricBarList'

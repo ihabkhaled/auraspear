@@ -1,5 +1,12 @@
 import api from '@/lib/api'
-import type { ApiResponse, IntelStats, IOCCorrelation, MISPEvent, MISPSearchParams } from '@/types'
+import type {
+  AiResponse,
+  ApiResponse,
+  IntelStats,
+  IOCCorrelation,
+  MISPEvent,
+  MISPSearchParams,
+} from '@/types'
 
 export const intelService = {
   getStats: () => api.get<ApiResponse<IntelStats>>('/intel/stats').then(r => r.data.data),
@@ -21,4 +28,18 @@ export const intelService = {
         params: { value: query, type, source, page, limit, sortBy, sortOrder },
       })
       .then(r => r.data),
+
+  aiEnrichIoc: (iocId: string) => {
+    if (!iocId) {
+      return Promise.reject(new Error('IOC ID is required for enrichment'))
+    }
+    return api.post<ApiResponse<AiResponse>>(`/intel/${iocId}/ai/enrich`).then(r => r.data.data)
+  },
+
+  aiDraftAdvisory: (iocIds: string[]) => {
+    if (iocIds.length === 0) {
+      return Promise.reject(new Error('At least one IOC ID is required for advisory'))
+    }
+    return api.post<ApiResponse<AiResponse>>('/intel/ai/advisory', { iocIds }).then(r => r.data.data)
+  },
 }

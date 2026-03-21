@@ -11,6 +11,7 @@ import { VALID_SEVERITIES, VALID_TIME_RANGES } from '@/lib/constants/alerts'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore, useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
+import { useAiAlertTriage } from './useAiAlertTriage'
 import { useAlertBulkActions } from './useAlertBulkActions'
 import { useAlerts, useInvestigateAlert } from './useAlerts'
 import { useCreateCase, useTenantMembers } from './useCases'
@@ -79,6 +80,7 @@ export function useAlertsPage() {
   const [escalateAlert, setEscalateAlert] = useState<Alert | null>(null)
 
   const bulkActions = useAlertBulkActions()
+  const triage = useAiAlertTriage(selectedAlert?.id ?? '')
 
   const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
   const debouncedQuery = useDebounce(kqlQuery, 400)
@@ -328,5 +330,16 @@ export function useAlertsPage() {
     setEscalateOpen,
     escalateAlert,
     handleEscalateToIncident,
+    // AI Triage
+    triageProps: {
+      canTriage: triage.canTriage,
+      results: triage.results,
+      activeTask: triage.activeTask,
+      isLoading: triage.isLoading,
+      onSummarize: triage.handleSummarize,
+      onExplainSeverity: triage.handleExplainSeverity,
+      onFalsePositiveScore: triage.handleFalsePositiveScore,
+      onNextAction: triage.handleNextAction,
+    },
   }
 }

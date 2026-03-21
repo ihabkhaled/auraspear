@@ -42,6 +42,15 @@
 38. **NEVER include service worker files in the main TypeScript compilation** — Files like `src/app/sw.ts` with `/// <reference lib="webworker" />` MUST be in `tsconfig.json`'s `"exclude"` array. In TS 5.9+, `lib.webworker.d.ts` replaces `lib.dom.d.ts` when both are loaded, breaking all DOM types project-wide.
 39. **NEVER use literal strings in `switch/case` statements** — Use enum values instead. Write `case AlertSeverity.CRITICAL:` not `case 'critical':`. If no enum exists for the domain, create one in `src/enums/`.
 40. **NEVER return literal CSS class strings from utility functions** — Use `StatusTextClass`, `StatusBgClass`, `StatusBorderClass` enums from `@/enums` instead of literal strings like `'text-status-error'` or `'bg-status-success'`. For compound classes use template literals: `` `${StatusBgClass.ERROR} ${StatusTextClass.WHITE} ${StatusBorderClass.ERROR}` ``. ESLint enforces this in `src/lib/` files (`no-restricted-syntax`).
+41. **NEVER call AI services directly from components or page hooks** — All AI calls must go through dedicated AI hooks in `src/hooks/useAi*.ts` that handle loading, error, and permission states.
+42. **EVERY AI-enabled UI surface MUST show**: loading state, error state, confidence score (when available), provider attribution, and a "regenerate" affordance.
+43. **NEVER render raw AI output as HTML** — Always render as markdown via a safe renderer or as plain text. No `dangerouslySetInnerHTML` with AI content.
+44. **EVERY AI action category MUST be labeled**: `analysis-only`, `suggested`, `approval-required`, or `auto-allowed`. Components must visually distinguish these categories using the `AiActionCategory` enum.
+45. **AI connector selection dropdowns MUST fetch from `/api/connectors/ai-available`** — Never use static enum iteration for connector lists.
+46. **NEVER store AI responses in localStorage** — AI transcripts may contain sensitive data. Use server-side session storage only.
+47. **EVERY AI panel MUST have a dismiss/close affordance** — AI suggestions must never block analyst workflow.
+48. **EVERY new page route MUST have a corresponding Playwright test file** — At minimum: loaded state, empty state, error state, responsive breakpoints.
+49. **EVERY new AI surface MUST register in the AI feature catalog** — Before implementing an AI panel, the feature must exist in `AiFeatureKey` enum and be configured in the backend AI feature catalog.
 
 ---
 

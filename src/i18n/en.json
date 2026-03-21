@@ -44,7 +44,10 @@
     "notifications": "Notifications",
     "profile": "Profile",
     "roleSettings": "Role Settings",
-    "usersControl": "Users Control"
+    "usersControl": "Users Control",
+    "knowledge": "Knowledge Base",
+    "entities": "Entity Graph",
+    "msspDashboard": "MSSP Dashboard"
   },
   "common": {
     "search": "Search",
@@ -84,7 +87,8 @@
     "of": "of",
     "rows": "rows",
     "darkMode": "Dark mode",
-    "lightMode": "Light mode"
+    "lightMode": "Light mode",
+    "updatedAt": "Updated At"
   },
   "dashboard": {
     "title": "Executive Dashboard",
@@ -200,7 +204,15 @@
     "exploitAvailableVulnerabilities": "Exploit-Available Vulnerabilities",
     "openCloudFindings": "Open Cloud Findings",
     "criticalCloudFindings": "Critical Cloud Findings",
-    "activeRules": "Active Rules"
+    "activeRules": "Active Rules",
+    "aiInsight": "AI Insight",
+    "aiDailySummary": "Daily SOC Summary",
+    "aiExplainAnomaly": "Explain Anomaly",
+    "aiGenerateSummary": "Generate Summary",
+    "aiLoading": "Analyzing...",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiDailySummaryHint": "Click Generate Summary to get an AI-powered daily SOC overview"
   },
   "alerts": {
     "title": "Alerts Management",
@@ -263,7 +275,19 @@
     "escalateDescription": "Create a new incident linked to this alert",
     "escalateSuccess": "Incident created successfully from alert",
     "escalateError": "Failed to escalate alert. Please try again.",
-    "category": "Category"
+    "category": "Category",
+    "aiTriage": "AI Triage",
+    "aiTriageDescription": "AI-assisted alert analysis",
+    "aiSummarize": "Summarize",
+    "aiExplainSeverity": "Explain Severity",
+    "aiFalsePositiveScore": "False Positive Score",
+    "aiNextAction": "Next Best Action",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiTriageLoading": "Analyzing...",
+    "aiTriageError": "AI analysis failed. Please try again.",
+    "aiNoResult": "No result available"
   },
   "hunt": {
     "title": "AI Threat Hunting",
@@ -533,7 +557,18 @@
     "artifactTypeIp": "IP",
     "artifactTypeHash": "Hash",
     "artifactTypeDomain": "Domain",
-    "artifactTypeUrl": "URL"
+    "artifactTypeUrl": "URL",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted case analysis",
+    "aiSummarize": "Summarize Case",
+    "aiExecutiveSummary": "Executive Summary",
+    "aiTimeline": "Synthesize Timeline",
+    "aiNextTasks": "Suggest Next Tasks",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiLoading": "Analyzing...",
+    "aiError": "AI analysis failed. Please try again."
   },
   "intel": {
     "title": "Threat Intelligence",
@@ -622,7 +657,15 @@
       "severity": "Severity",
       "noMatches": "No correlations found",
       "noMatchesDescription": "IOC correlation data will appear here when available"
-    }
+    },
+    "aiEnrich": "AI Enrich",
+    "aiEnrichDescription": "AI-powered threat intelligence enrichment",
+    "aiEnrichIoc": "Enrich IOC",
+    "aiDraftAdvisory": "Draft Advisory",
+    "aiLoading": "Enriching...",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate"
   },
   "admin": {
     "tenant": {
@@ -1511,7 +1554,8 @@
     "intel": {
       "mispNotConfigured": "MISP connector is not configured.",
       "mispConnectionFailed": "Failed to connect to MISP server.",
-      "syncFailed": "Threat intel sync failed."
+      "syncFailed": "Threat intel sync failed.",
+      "iocNotFound": "IOC not found."
     },
     "hunts": {
       "notFound": "Hunt session not found.",
@@ -1521,6 +1565,9 @@
       "invalidTransition": "Invalid hunt session status transition.",
       "invalidQuery": "Invalid or empty hunt query."
     },
+    "knowledge": {
+      "notFound": "Runbook not found."
+    },
     "health": {
       "serviceUnavailable": "Health service is unavailable.",
       "connectorDisabled": "This connector is disabled."
@@ -1528,7 +1575,10 @@
     "ai": {
       "notEnabled": "AI module is not enabled.",
       "invocationFailed": "AI invocation failed.",
-      "serviceUnavailable": "AI service is temporarily unavailable. Please try again later."
+      "serviceUnavailable": "AI service is temporarily unavailable. Please try again later.",
+      "featureDisabled": "This AI feature is disabled for your tenant.",
+      "connectorNotAvailable": "The requested AI connector is not available.",
+      "budgetExceeded": "AI usage budget exceeded for this feature. Contact your administrator."
     },
     "aiAgents": {
       "notFound": "AI Agent not found.",
@@ -1639,6 +1689,10 @@
     },
     "roleSettings": {
       "usersControlRestrictedRole": "Users control permissions can only be assigned to global administrators or tenant administrators."
+    },
+    "entities": {
+      "notFound": "Entity not found",
+      "alreadyExists": "Entity already exists"
     }
   },
   "profile": {
@@ -1940,7 +1994,13 @@
       "userUnblockedMessage": "{actorName} reactivated your account",
       "userRemovedMessage": "{actorName} removed you from the tenant",
       "userRestoredMessage": "{actorName} restored your account"
-    }
+    },
+    "aiDigest": "AI Digest",
+    "aiGenerateDigest": "Generate Activity Digest",
+    "aiDigestDescription": "AI-generated summary of recent activity",
+    "aiDigestLoading": "Generating...",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider"
   },
   "correlation": {
     "title": "Correlation Rules & Sigma",
@@ -2711,7 +2771,16 @@
     "noExecutions": "No executions yet",
     "validationStepsJson": "Steps must be a valid JSON array with at least 1 item",
     "fieldTriggerConditions": "Trigger Conditions (JSON)",
-    "fieldTriggerConditionsPlaceholder": "Enter trigger conditions as JSON object"
+    "fieldTriggerConditionsPlaceholder": "Enter trigger conditions as JSON object",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted playbook drafting",
+    "aiDraftPlaybook": "Draft Playbook",
+    "aiDraftDescription": "Describe the response workflow you want to automate...",
+    "aiGenerate": "Generate",
+    "aiDraftLoading": "Drafting...",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate"
   },
   "compliance": {
     "title": "Compliance Frameworks",
@@ -3003,7 +3072,19 @@
     "templateVulnerabilityExposure": "Vulnerability Exposure",
     "templateCompliancePosture": "Compliance Posture",
     "templateAutomationHealth": "Automation Health",
-    "templateConnectorHealth": "Connector Health"
+    "templateConnectorHealth": "Connector Health",
+    "aiReport": "AI Report",
+    "aiExecutiveReport": "AI Executive Report",
+    "aiGenerateReport": "Generate Report",
+    "aiTimeRange": "Time Range",
+    "aiLast7Days": "Last 7 Days",
+    "aiLast14Days": "Last 14 Days",
+    "aiLast30Days": "Last 30 Days",
+    "aiLast90Days": "Last 90 Days",
+    "aiLoading": "Generating report...",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiReportHint": "Select a time range and click Generate Report for an AI-powered executive summary"
   },
   "systemHealth": {
     "title": "System Health",
@@ -3394,7 +3475,17 @@
     "typeScheduled": "Scheduled",
     "statusActive": "Active",
     "columnFalsePositives": "False Positives",
-    "columnLastTriggered": "Last Triggered"
+    "columnLastTriggered": "Last Triggered",
+    "aiCopilot": "AI Copilot",
+    "aiDraftRule": "Draft Rule",
+    "aiDraftDescription": "Describe what you want to detect...",
+    "aiTuning": "Tuning Suggestions",
+    "aiGenerate": "Generate",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiLoading": "Generating...",
+    "aiError": "AI generation failed. Please try again."
   },
   "cloudSecurity": {
     "title": "Cloud Security",
@@ -3569,6 +3660,8 @@
       "normalization": "Normalization",
       "soar": "SOAR Workflows",
       "aiAgents": "AI Agents",
+      "aiAlertTriage": "AI Alert Triage",
+      "aiSoarCopilot": "AI SOAR Copilot",
       "jobs": "Jobs",
       "systemHealth": "System Health",
       "cloudSecurity": "Cloud Security",
@@ -3581,7 +3674,12 @@
       "settings": "Settings",
       "roleSettings": "Role Settings",
       "usersControl": "Users Control",
-      "llmConnectors": "LLM Connectors"
+      "llmConnectors": "LLM Connectors",
+      "runbooks": "Knowledge Base",
+      "aiCaseCopilot": "AI Case Copilot",
+      "aiDetectionCopilot": "AI Detection Copilot",
+      "entities": "Entity Graph",
+      "msspDashboard": "MSSP Dashboard"
     },
     "permissions": {
       "dashboard": {
@@ -3691,6 +3789,7 @@
         "update": "Update AI Agents",
         "delete": "Delete AI Agents"
       },
+      "aiAlertTriage": "AI Alert Triage",
       "jobs": {
         "view": "View Runtime Jobs",
         "manage": "Manage Runtime Jobs",
@@ -3762,6 +3861,23 @@
         "update": "Edit LLM Connectors",
         "delete": "Delete LLM Connectors",
         "test": "Test LLM Connectors"
+      },
+      "aiCaseCopilot": "AI Case Copilot",
+      "aiDetectionCopilot": "AI Detection Copilot",
+      "aiSoarCopilot": "AI SOAR Copilot",
+      "runbooks": {
+        "view": "View Runbooks",
+        "create": "Create Runbooks",
+        "update": "Update Runbooks",
+        "delete": "Delete Runbooks"
+      },
+      "entities": {
+        "view": "View Entities",
+        "create": "Create Entities",
+        "update": "Update Entities"
+      },
+      "msspDashboard": {
+        "view": "View MSSP Dashboard"
       }
     },
     "roles": {
@@ -3831,5 +3947,83 @@
     "creating": "Creating...",
     "save": "Save",
     "saving": "Saving..."
+  },
+  "knowledge": {
+    "title": "Knowledge Base",
+    "description": "Runbooks, SOPs, and operational knowledge",
+    "createRunbook": "Create Runbook",
+    "editRunbook": "Edit Runbook",
+    "deleteRunbook": "Delete Runbook",
+    "fieldTitle": "Title",
+    "fieldContent": "Content",
+    "fieldCategory": "Category",
+    "fieldTags": "Tags",
+    "searchPlaceholder": "Search runbooks...",
+    "noRunbooks": "No runbooks found",
+    "noRunbooksDescription": "Create your first runbook to build operational knowledge",
+    "runbookCreated": "Runbook created",
+    "runbookUpdated": "Runbook updated",
+    "runbookDeleted": "Runbook deleted",
+    "deleteConfirm": "Are you sure you want to delete this runbook?",
+    "aiGenerate": "AI Generate",
+    "aiGenerateDescription": "Generate a runbook from description",
+    "aiSearch": "AI Search",
+    "aiSearchDescription": "Search knowledge base with AI",
+    "aiLoading": "Generating...",
+    "colTitle": "Title",
+    "colCategory": "Category",
+    "colTags": "Tags",
+    "colCreatedBy": "Created By",
+    "colActions": "Actions",
+    "cancel": "Cancel",
+    "close": "Close",
+    "createdAt": "Created",
+    "updatedAt": "Updated"
+  },
+  "entities": {
+    "title": "Entity Graph",
+    "description": "Track and visualize entity relationships",
+    "searchPlaceholder": "Search entities...",
+    "filterType": "Filter by type",
+    "allTypes": "All Types",
+    "colType": "Type",
+    "colValue": "Value",
+    "colRiskScore": "Risk",
+    "colFirstSeen": "First Seen",
+    "colLastSeen": "Last Seen",
+    "colActions": "Actions",
+    "noEntities": "No entities found",
+    "topRisky": "Top Risky Entities",
+    "graph": "Relationship Graph",
+    "fieldType": "Type",
+    "fieldValue": "Value",
+    "fieldRiskScore": "Risk Score",
+    "fieldFirstSeen": "First Seen",
+    "fieldLastSeen": "Last Seen",
+    "typeIp": "IP Address",
+    "typeDomain": "Domain",
+    "typeHostname": "Hostname",
+    "typeUser": "User",
+    "typeEmail": "Email",
+    "typeHash": "Hash",
+    "typeUrl": "URL",
+    "typeProcess": "Process",
+    "typeFile": "File",
+    "typeAsset": "Asset"
+  },
+  "msspDashboard": {
+    "title": "MSSP Portfolio",
+    "description": "Cross-tenant overview for managed security",
+    "tenantHealth": "Tenant Health",
+    "criticalAlerts": "Critical Alerts",
+    "openCases": "Open Cases",
+    "connectorHealth": "Connector Health",
+    "aiUsage": "AI Usage",
+    "noTenants": "No tenants available",
+    "comparison": "Tenant Comparison",
+    "portfolio": "Portfolio Overview",
+    "totalAlerts": "Total Alerts",
+    "totalCriticalAlerts": "Total Critical Alerts",
+    "totalOpenCases": "Total Open Cases"
   }
 }

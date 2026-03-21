@@ -1,3 +1,4 @@
+export { AiIntelPanel } from './AiIntelPanel'
 export { IntelStatsGrid } from './IntelStatsGrid'
 export { IocSearchBar } from './IocSearchBar'
 export { MispEventFeed } from './MispEventFeed'

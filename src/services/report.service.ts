@@ -1,6 +1,7 @@
 import type { ReportModule } from '@/enums'
 import api from '@/lib/api'
 import type {
+  AiResponse,
   ApiResponse,
   CreateReportFromTemplateInput,
   Report,
@@ -35,4 +36,7 @@ export const reportService = {
       .then(r => r.data),
 
   getStats: () => api.get<ApiResponse<ReportStats>>('/reports/stats').then(r => r.data),
+
+  aiExecutiveReport: (timeRange: string) =>
+    api.post<ApiResponse<AiResponse>>('/reports/ai/executive', { timeRange }).then(r => r.data.data),
 }

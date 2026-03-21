@@ -2,7 +2,7 @@
 
 import { Bell, CheckCheck } from 'lucide-react'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
-import { NotificationFilters, getNotificationColumns } from '@/components/notifications'
+import { AiNotificationDigest, NotificationFilters, getNotificationColumns } from '@/components/notifications'
 import { Button } from '@/components/ui/button'
 import { useNotificationsPage } from '@/hooks/useNotificationsPage'
 
@@ -29,6 +29,7 @@ export default function NotificationsPage() {
     markAllReadPending,
     resolveMessage,
     canManageNotifications,
+    aiDigest,
   } = useNotificationsPage()
 
   return (
@@ -41,6 +42,13 @@ export default function NotificationsPage() {
           </Button>
         )}
       </PageHeader>
+
+      <AiNotificationDigest
+        isLoading={aiDigest.isLoading}
+        digestResult={aiDigest.digestResult}
+        onGenerateDigest={aiDigest.handleGenerateDigest}
+        t={t}
+      />
 
       <NotificationFilters
         searchQuery={searchQuery}

@@ -44,7 +44,10 @@
     "profile": "Profil",
     "roleSettings": "Paramètres des Rôles",
     "jobs": "Jobs",
-    "usersControl": "Controle des utilisateurs"
+    "usersControl": "Controle des utilisateurs",
+    "knowledge": "Base de Connaissances",
+    "entities": "Graphe Entités",
+    "msspDashboard": "Tableau de bord MSSP"
   },
   "common": {
     "search": "Rechercher",
@@ -84,7 +87,8 @@
     "of": "sur",
     "rows": "lignes",
     "darkMode": "Mode sombre",
-    "lightMode": "Mode clair"
+    "lightMode": "Mode clair",
+    "updatedAt": "Mis à jour le"
   },
   "dashboard": {
     "title": "Tableau de bord executif",
@@ -200,7 +204,15 @@
     "exploitAvailableVulnerabilities": "Vulnerabilites avec exploit disponible",
     "openCloudFindings": "Constats cloud ouverts",
     "criticalCloudFindings": "Constats cloud critiques",
-    "activeRules": "Regles actives"
+    "activeRules": "Regles actives",
+    "aiInsight": "Apercu IA",
+    "aiDailySummary": "Resume quotidien SOC",
+    "aiExplainAnomaly": "Expliquer l'anomalie",
+    "aiGenerateSummary": "Generer le resume",
+    "aiLoading": "Analyse en cours...",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiDailySummaryHint": "Cliquez sur Generer le resume pour obtenir un apercu quotidien du SOC par IA"
   },
   "alerts": {
     "title": "Gestion des alertes",
@@ -263,7 +275,19 @@
     "escalateDescription": "Créer un nouvel incident lié à cette alerte",
     "escalateSuccess": "Incident créé avec succès à partir de l'alerte",
     "escalateError": "Échec de l'escalade de l'alerte. Veuillez réessayer.",
-    "category": "Catégorie"
+    "category": "Catégorie",
+    "aiTriage": "Triage IA",
+    "aiTriageDescription": "Analyse d'alertes assistée par IA",
+    "aiSummarize": "Résumer",
+    "aiExplainSeverity": "Expliquer la Sévérité",
+    "aiFalsePositiveScore": "Score de Faux Positif",
+    "aiNextAction": "Prochaine Meilleure Action",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiTriageLoading": "Analyse en cours...",
+    "aiTriageError": "L'analyse IA a échoué. Veuillez réessayer.",
+    "aiNoResult": "Aucun résultat disponible"
   },
   "hunt": {
     "title": "Chasse aux menaces IA",
@@ -533,7 +557,18 @@
     "artifactTypeIp": "IP",
     "artifactTypeHash": "Hash",
     "artifactTypeDomain": "Domaine",
-    "artifactTypeUrl": "URL"
+    "artifactTypeUrl": "URL",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Analyse de cas assistée par IA",
+    "aiSummarize": "Résumer le cas",
+    "aiExecutiveSummary": "Résumé exécutif",
+    "aiTimeline": "Synthétiser la chronologie",
+    "aiNextTasks": "Suggérer les prochaines tâches",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiLoading": "Analyse en cours...",
+    "aiError": "L'analyse IA a échoué. Veuillez réessayer."
   },
   "intel": {
     "title": "Renseignements sur les menaces",
@@ -622,7 +657,15 @@
       "severity": "Severite",
       "noMatches": "Aucune correlation trouvee",
       "noMatchesDescription": "Les donnees de correlation IOC apparaitront ici lorsqu'elles seront disponibles"
-    }
+    },
+    "aiEnrich": "Enrichissement IA",
+    "aiEnrichDescription": "Enrichissement de renseignements sur les menaces par IA",
+    "aiEnrichIoc": "Enrichir IOC",
+    "aiDraftAdvisory": "Rediger un Avis",
+    "aiLoading": "Enrichissement...",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Regenerer"
   },
   "admin": {
     "tenant": {
@@ -1511,7 +1554,8 @@
     "intel": {
       "mispNotConfigured": "Le connecteur MISP n'est pas configure.",
       "mispConnectionFailed": "Echec de la connexion au serveur MISP.",
-      "syncFailed": "La synchronisation des renseignements sur les menaces a echoue."
+      "syncFailed": "La synchronisation des renseignements sur les menaces a echoue.",
+      "iocNotFound": "IOC introuvable."
     },
     "hunts": {
       "notFound": "Session de chasse introuvable.",
@@ -1521,6 +1565,9 @@
       "invalidTransition": "Transition de statut de session de chasse non valide.",
       "invalidQuery": "Requete de chasse non valide ou vide."
     },
+    "knowledge": {
+      "notFound": "Runbook non trouve."
+    },
     "health": {
       "serviceUnavailable": "Le service de sante est indisponible.",
       "connectorDisabled": "Ce connecteur est desactive."
@@ -1528,7 +1575,10 @@
     "ai": {
       "notEnabled": "Le module IA n'est pas active.",
       "invocationFailed": "L'invocation de l'IA a echoue.",
-      "serviceUnavailable": "Le service d'IA est temporairement indisponible. Veuillez reessayer plus tard."
+      "serviceUnavailable": "Le service d'IA est temporairement indisponible. Veuillez reessayer plus tard.",
+      "featureDisabled": "Cette fonctionnalité IA est désactivée pour votre tenant.",
+      "connectorNotAvailable": "Le connecteur IA demandé n'est pas disponible.",
+      "budgetExceeded": "Budget d'utilisation IA dépassé pour cette fonctionnalité. Contactez votre administrateur."
     },
     "aiAgents": {
       "notFound": "Agent IA introuvable.",
@@ -1639,6 +1689,10 @@
     },
     "roleSettings": {
       "usersControlRestrictedRole": "Les autorisations de controle des utilisateurs ne peuvent etre attribuees qu aux administrateurs globaux ou aux administrateurs de tenant."
+    },
+    "entities": {
+      "notFound": "Entité introuvable",
+      "alreadyExists": "Entité déjà existante"
     }
   },
   "profile": {
@@ -1940,7 +1994,13 @@
       "userUnblockedMessage": "{actorName} a réactivé votre compte",
       "userRemovedMessage": "{actorName} vous a retiré du locataire",
       "userRestoredMessage": "{actorName} a restauré votre compte"
-    }
+    },
+    "aiDigest": "Resume IA",
+    "aiGenerateDigest": "Generer un Resume d'Activite",
+    "aiDigestDescription": "Resume de l'activite recente genere par IA",
+    "aiDigestLoading": "Generation...",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur"
   },
   "correlation": {
     "title": "Règles de corrélation et Sigma",
@@ -2711,7 +2771,16 @@
     "noExecutions": "No executions yet",
     "validationStepsJson": "Les etapes doivent etre un tableau JSON valide avec au moins 1 element",
     "fieldTriggerConditions": "Conditions de declenchement (JSON)",
-    "fieldTriggerConditionsPlaceholder": "Entrez les conditions de declenchement en objet JSON"
+    "fieldTriggerConditionsPlaceholder": "Entrez les conditions de declenchement en objet JSON",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Redaction de playbooks assistee par IA",
+    "aiDraftPlaybook": "Rediger un Playbook",
+    "aiDraftDescription": "Decrivez le flux de reponse que vous souhaitez automatiser...",
+    "aiGenerate": "Generer",
+    "aiDraftLoading": "Redaction...",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Regenerer"
   },
   "compliance": {
     "title": "Cadres de conformite",
@@ -3003,7 +3072,19 @@
     "templateVulnerabilityExposure": "Exposition aux vulnerabilites",
     "templateCompliancePosture": "Posture de conformite",
     "templateAutomationHealth": "Sante de l automatisation",
-    "templateConnectorHealth": "Sante des connecteurs"
+    "templateConnectorHealth": "Sante des connecteurs",
+    "aiReport": "Rapport IA",
+    "aiExecutiveReport": "Rapport executif IA",
+    "aiGenerateReport": "Generer le rapport",
+    "aiTimeRange": "Periode",
+    "aiLast7Days": "7 derniers jours",
+    "aiLast14Days": "14 derniers jours",
+    "aiLast30Days": "30 derniers jours",
+    "aiLast90Days": "90 derniers jours",
+    "aiLoading": "Generation du rapport...",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiReportHint": "Selectionnez une periode et cliquez sur Generer le rapport pour un resume executif par IA"
   },
   "systemHealth": {
     "title": "Sante du systeme",
@@ -3341,7 +3422,17 @@
     "typeScheduled": "Planifié",
     "statusActive": "Actif",
     "columnFalsePositives": "Faux positifs",
-    "columnLastTriggered": "Dernier Déclenchement"
+    "columnLastTriggered": "Dernier Déclenchement",
+    "aiCopilot": "Copilote IA",
+    "aiDraftRule": "Brouillon de règle",
+    "aiDraftDescription": "Décrivez ce que vous souhaitez détecter...",
+    "aiTuning": "Suggestions d'optimisation",
+    "aiGenerate": "Générer",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiLoading": "Génération en cours...",
+    "aiError": "La génération IA a échoué. Veuillez réessayer."
   },
   "cloudSecurity": {
     "title": "Securite cloud",
@@ -3516,6 +3607,8 @@
       "normalization": "Normalisation",
       "soar": "Flux SOAR",
       "aiAgents": "Agents AI",
+      "aiAlertTriage": "Triage des Alertes par IA",
+      "aiSoarCopilot": "Copilote IA SOAR",
       "cloudSecurity": "Sécurité Cloud",
       "compliance": "Conformité",
       "reports": "Rapports",
@@ -3528,7 +3621,12 @@
       "jobs": "Jobs",
       "systemHealth": "System Health",
       "usersControl": "Controle des utilisateurs",
-      "llmConnectors": "Connecteurs LLM"
+      "llmConnectors": "Connecteurs LLM",
+      "runbooks": "Base de Connaissances",
+      "aiCaseCopilot": "Copilote IA des Cas",
+      "aiDetectionCopilot": "Copilote IA de Détection",
+      "entities": "Graphe d'Entités",
+      "msspDashboard": "Tableau de Bord MSSP"
     },
     "permissions": {
       "dashboard": {
@@ -3638,6 +3736,7 @@
         "delete": "Supprimer les Agents AI",
         "execute": "Execute AI Agents"
       },
+      "aiAlertTriage": "Triage des Alertes par IA",
       "cloudSecurity": {
         "view": "Voir la Sécurité Cloud",
         "create": "Créer des Comptes Cloud",
@@ -3709,6 +3808,23 @@
         "update": "Modifier les connecteurs LLM",
         "delete": "Supprimer les connecteurs LLM",
         "test": "Tester les connecteurs LLM"
+      },
+      "aiCaseCopilot": "Copilote IA des cas",
+      "aiDetectionCopilot": "Copilote IA de détection",
+      "aiSoarCopilot": "Copilote IA SOAR",
+      "runbooks": {
+        "view": "Voir les Runbooks",
+        "create": "Creer des Runbooks",
+        "update": "Modifier des Runbooks",
+        "delete": "Supprimer des Runbooks"
+      },
+      "entities": {
+        "view": "Voir les entités",
+        "create": "Créer des entités",
+        "update": "Modifier les entités"
+      },
+      "msspDashboard": {
+        "view": "Voir le tableau de bord MSSP"
       }
     },
     "roles": {
@@ -3831,5 +3947,83 @@
     "creating": "Création...",
     "save": "Enregistrer",
     "saving": "Enregistrement..."
+  },
+  "knowledge": {
+    "title": "Base de Connaissances",
+    "description": "Runbooks, SOPs et connaissances operationnelles",
+    "createRunbook": "Creer un Runbook",
+    "editRunbook": "Modifier le Runbook",
+    "deleteRunbook": "Supprimer le Runbook",
+    "fieldTitle": "Titre",
+    "fieldContent": "Contenu",
+    "fieldCategory": "Categorie",
+    "fieldTags": "Tags",
+    "searchPlaceholder": "Rechercher des runbooks...",
+    "noRunbooks": "Aucun runbook trouve",
+    "noRunbooksDescription": "Creez votre premier runbook pour construire des connaissances operationnelles",
+    "runbookCreated": "Runbook cree",
+    "runbookUpdated": "Runbook mis a jour",
+    "runbookDeleted": "Runbook supprime",
+    "deleteConfirm": "Etes-vous sur de vouloir supprimer ce runbook ?",
+    "aiGenerate": "Generation IA",
+    "aiGenerateDescription": "Generer un runbook a partir d'une description",
+    "aiSearch": "Recherche IA",
+    "aiSearchDescription": "Rechercher dans la base de connaissances avec l'IA",
+    "aiLoading": "Generation...",
+    "colTitle": "Titre",
+    "colCategory": "Categorie",
+    "colTags": "Tags",
+    "colCreatedBy": "Cree par",
+    "colActions": "Actions",
+    "cancel": "Annuler",
+    "close": "Fermer",
+    "createdAt": "Cree",
+    "updatedAt": "Mis a jour"
+  },
+  "entities": {
+    "title": "Graphe des Entités",
+    "description": "Suivez et visualisez les relations entre entités",
+    "searchPlaceholder": "Rechercher des entités...",
+    "filterType": "Filtrer par type",
+    "allTypes": "Tous les types",
+    "colType": "Type",
+    "colValue": "Valeur",
+    "colRiskScore": "Risque",
+    "colFirstSeen": "Première vue",
+    "colLastSeen": "Dernière vue",
+    "colActions": "Actions",
+    "noEntities": "Aucune entité trouvée",
+    "topRisky": "Entités les plus risquées",
+    "graph": "Graphe des relations",
+    "fieldType": "Type",
+    "fieldValue": "Valeur",
+    "fieldRiskScore": "Score de risque",
+    "fieldFirstSeen": "Première vue",
+    "fieldLastSeen": "Dernière vue",
+    "typeIp": "Adresse IP",
+    "typeDomain": "Domaine",
+    "typeHostname": "Nom d'hôte",
+    "typeUser": "Utilisateur",
+    "typeEmail": "E-mail",
+    "typeHash": "Hash",
+    "typeUrl": "URL",
+    "typeProcess": "Processus",
+    "typeFile": "Fichier",
+    "typeAsset": "Actif"
+  },
+  "msspDashboard": {
+    "title": "Portefeuille MSSP",
+    "description": "Vue d'ensemble multi-tenant pour la sécurité gérée",
+    "tenantHealth": "Santé du tenant",
+    "criticalAlerts": "Alertes critiques",
+    "openCases": "Cas ouverts",
+    "connectorHealth": "Santé du connecteur",
+    "aiUsage": "Utilisation IA",
+    "noTenants": "Aucun tenant disponible",
+    "comparison": "Comparaison des tenants",
+    "portfolio": "Vue du portefeuille",
+    "totalAlerts": "Total des alertes",
+    "totalCriticalAlerts": "Total des alertes critiques",
+    "totalOpenCases": "Total des cas ouverts"
   }
 }

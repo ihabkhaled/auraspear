@@ -383,3 +383,28 @@ export interface CommentPart {
   type: CommentPartType
   value: string
 }
+
+export interface AiCaseCopilotResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}
+
+export interface AiCaseCopilotPanelProps {
+  caseId: string
+  canUseCopilot: boolean
+  results: Record<string, AiCaseCopilotResult>
+  activeTask: string | null
+  isLoading: boolean
+  onSummarize: () => void
+  onExecutiveSummary: () => void
+  onTimeline: () => void
+  onNextTasks: () => void
+  t: (key: string) => string
+}

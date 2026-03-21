@@ -44,7 +44,10 @@
     "profile": "Profil",
     "roleSettings": "Rolleneinstellungen",
     "jobs": "Jobs",
-    "usersControl": "Benutzerkontrolle"
+    "usersControl": "Benutzerkontrolle",
+    "knowledge": "Wissensdatenbank",
+    "entities": "Entitätsgraph",
+    "msspDashboard": "MSSP-Dashboard"
   },
   "common": {
     "search": "Suche",
@@ -84,7 +87,8 @@
     "of": "von",
     "rows": "Zeilen",
     "darkMode": "Dunkelmodus",
-    "lightMode": "Hellmodus"
+    "lightMode": "Hellmodus",
+    "updatedAt": "Aktualisiert am"
   },
   "dashboard": {
     "title": "Management-Dashboard",
@@ -200,7 +204,15 @@
     "exploitAvailableVulnerabilities": "Schwachstellen mit verfugbarem Exploit",
     "openCloudFindings": "Offene Cloud-Befunde",
     "criticalCloudFindings": "Kritische Cloud-Befunde",
-    "activeRules": "Aktive Regeln"
+    "activeRules": "Aktive Regeln",
+    "aiInsight": "KI-Einblick",
+    "aiDailySummary": "Tagliche SOC-Zusammenfassung",
+    "aiExplainAnomaly": "Anomalie erklaren",
+    "aiGenerateSummary": "Zusammenfassung generieren",
+    "aiLoading": "Analyse lauft...",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiDailySummaryHint": "Klicken Sie auf Zusammenfassung generieren fur eine KI-gestutzte tagliche SOC-Ubersicht"
   },
   "alerts": {
     "title": "Alarmverwaltung",
@@ -263,7 +275,19 @@
     "escalateDescription": "Einen neuen Vorfall erstellen, der mit diesem Alarm verknüpft ist",
     "escalateSuccess": "Vorfall erfolgreich aus dem Alarm erstellt",
     "escalateError": "Eskalation des Alarms fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "category": "Kategorie"
+    "category": "Kategorie",
+    "aiTriage": "KI-Triage",
+    "aiTriageDescription": "KI-gestützte Alarmanalyse",
+    "aiSummarize": "Zusammenfassen",
+    "aiExplainSeverity": "Schweregrad Erklären",
+    "aiFalsePositiveScore": "Falsch-Positiv-Bewertung",
+    "aiNextAction": "Nächste Beste Aktion",
+    "aiConfidence": "Konfidenz",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Regenerieren",
+    "aiTriageLoading": "Analyse läuft...",
+    "aiTriageError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiNoResult": "Kein Ergebnis verfügbar"
   },
   "hunt": {
     "title": "KI-Bedrohungssuche",
@@ -533,7 +557,18 @@
     "artifactTypeIp": "IP",
     "artifactTypeHash": "Hash",
     "artifactTypeDomain": "Domain",
-    "artifactTypeUrl": "URL"
+    "artifactTypeUrl": "URL",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestützte Fallanalyse",
+    "aiSummarize": "Fall zusammenfassen",
+    "aiExecutiveSummary": "Zusammenfassung für Führungskräfte",
+    "aiTimeline": "Zeitachse synthetisieren",
+    "aiNextTasks": "Nächste Aufgaben vorschlagen",
+    "aiConfidence": "Konfidenz",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiLoading": "Analyse läuft...",
+    "aiError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut."
   },
   "intel": {
     "title": "Bedrohungsinformationen",
@@ -622,7 +657,15 @@
       "severity": "Schweregrad",
       "noMatches": "Keine Korrelationen gefunden",
       "noMatchesDescription": "IOC-Korrelationsdaten werden hier angezeigt, sobald sie verfügbar sind"
-    }
+    },
+    "aiEnrich": "KI-Anreicherung",
+    "aiEnrichDescription": "KI-gestutzte Bedrohungsintelligenz-Anreicherung",
+    "aiEnrichIoc": "IOC anreichern",
+    "aiDraftAdvisory": "Hinweis entwerfen",
+    "aiLoading": "Anreicherung...",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Regenerieren"
   },
   "admin": {
     "tenant": {
@@ -1511,7 +1554,8 @@
     "intel": {
       "mispNotConfigured": "MISP-Konnektor ist nicht konfiguriert.",
       "mispConnectionFailed": "Verbindung zum MISP-Server fehlgeschlagen.",
-      "syncFailed": "Synchronisierung der Bedrohungsinformationen fehlgeschlagen."
+      "syncFailed": "Synchronisierung der Bedrohungsinformationen fehlgeschlagen.",
+      "iocNotFound": "IOC nicht gefunden."
     },
     "hunts": {
       "notFound": "Jagdsitzung nicht gefunden.",
@@ -1521,6 +1565,9 @@
       "invalidTransition": "Ungueltiger Statusuebergang der Jagdsitzung.",
       "invalidQuery": "Ungueltige oder leere Jagdabfrage."
     },
+    "knowledge": {
+      "notFound": "Runbook nicht gefunden."
+    },
     "health": {
       "serviceUnavailable": "Gesundheitsdienst ist nicht verfügbar.",
       "connectorDisabled": "Dieser Konnektor ist deaktiviert."
@@ -1528,7 +1575,10 @@
     "ai": {
       "notEnabled": "KI-Modul ist nicht aktiviert.",
       "invocationFailed": "KI-Aufruf fehlgeschlagen.",
-      "serviceUnavailable": "Der KI-Dienst ist voruebergehend nicht verfuegbar. Bitte versuchen Sie es spaeter erneut."
+      "serviceUnavailable": "Der KI-Dienst ist voruebergehend nicht verfuegbar. Bitte versuchen Sie es spaeter erneut.",
+      "featureDisabled": "Diese KI-Funktion ist für Ihren Tenant deaktiviert.",
+      "connectorNotAvailable": "Der angeforderte KI-Konnektor ist nicht verfügbar.",
+      "budgetExceeded": "KI-Nutzungsbudget fur diese Funktion uberschritten. Kontaktieren Sie Ihren Administrator."
     },
     "aiAgents": {
       "notFound": "KI-Agent nicht gefunden.",
@@ -1639,6 +1689,10 @@
     },
     "roleSettings": {
       "usersControlRestrictedRole": "Berechtigungen fuer die Benutzerkontrolle koennen nur globalen Administratoren oder Mandantenadministratoren zugewiesen werden."
+    },
+    "entities": {
+      "notFound": "Entität nicht gefunden",
+      "alreadyExists": "Entität existiert bereits"
     }
   },
   "profile": {
@@ -1940,7 +1994,13 @@
       "userUnblockedMessage": "{actorName} hat Ihr Konto reaktiviert",
       "userRemovedMessage": "{actorName} hat Sie vom Mandanten entfernt",
       "userRestoredMessage": "{actorName} hat Ihr Konto wiederhergestellt"
-    }
+    },
+    "aiDigest": "KI-Zusammenfassung",
+    "aiGenerateDigest": "Aktivitatszusammenfassung erstellen",
+    "aiDigestDescription": "KI-generierte Zusammenfassung der letzten Aktivitaten",
+    "aiDigestLoading": "Wird erstellt...",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter"
   },
   "correlation": {
     "title": "Korrelationsregeln und Sigma",
@@ -2711,7 +2771,16 @@
     "noExecutions": "No executions yet",
     "validationStepsJson": "Schritte muessen ein gueltiges JSON-Array mit mindestens 1 Element sein",
     "fieldTriggerConditions": "Ausloesebedingungen (JSON)",
-    "fieldTriggerConditionsPlaceholder": "Ausloesebedingungen als JSON-Objekt eingeben"
+    "fieldTriggerConditionsPlaceholder": "Ausloesebedingungen als JSON-Objekt eingeben",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestutztes Playbook-Entwurf",
+    "aiDraftPlaybook": "Playbook entwerfen",
+    "aiDraftDescription": "Beschreiben Sie den Reaktionsablauf, den Sie automatisieren mochten...",
+    "aiGenerate": "Generieren",
+    "aiDraftLoading": "Entwurf...",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Regenerieren"
   },
   "compliance": {
     "title": "Compliance-Rahmenwerke",
@@ -3003,7 +3072,19 @@
     "templateVulnerabilityExposure": "Schwachstellenexposition",
     "templateCompliancePosture": "Compliance-Status",
     "templateAutomationHealth": "Automatisierungszustand",
-    "templateConnectorHealth": "Konnektorzustand"
+    "templateConnectorHealth": "Konnektorzustand",
+    "aiReport": "KI-Bericht",
+    "aiExecutiveReport": "KI-Fuhrungsbericht",
+    "aiGenerateReport": "Bericht generieren",
+    "aiTimeRange": "Zeitraum",
+    "aiLast7Days": "Letzte 7 Tage",
+    "aiLast14Days": "Letzte 14 Tage",
+    "aiLast30Days": "Letzte 30 Tage",
+    "aiLast90Days": "Letzte 90 Tage",
+    "aiLoading": "Bericht wird generiert...",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiReportHint": "Wahlen Sie einen Zeitraum und klicken Sie auf Bericht generieren fur eine KI-gestutzte Zusammenfassung"
   },
   "systemHealth": {
     "title": "Systemzustand",
@@ -3341,7 +3422,17 @@
     "typeScheduled": "Geplant",
     "statusActive": "Aktiv",
     "columnFalsePositives": "Falsch-Positive",
-    "columnLastTriggered": "Zuletzt Ausgelöst"
+    "columnLastTriggered": "Zuletzt Ausgelöst",
+    "aiCopilot": "KI-Copilot",
+    "aiDraftRule": "Regelentwurf",
+    "aiDraftDescription": "Beschreiben Sie, was Sie erkennen möchten...",
+    "aiTuning": "Optimierungsvorschläge",
+    "aiGenerate": "Generieren",
+    "aiConfidence": "Konfidenz",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiLoading": "Generierung läuft...",
+    "aiError": "KI-Generierung fehlgeschlagen. Bitte versuchen Sie es erneut."
   },
   "cloudSecurity": {
     "title": "Cloud-Sicherheit",
@@ -3516,6 +3607,8 @@
       "normalization": "Normalisierung",
       "soar": "SOAR-Workflows",
       "aiAgents": "AI-Agenten",
+      "aiAlertTriage": "KI-Alarm-Triage",
+      "aiSoarCopilot": "KI-SOAR-Copilot",
       "cloudSecurity": "Cloud-Sicherheit",
       "compliance": "Compliance",
       "reports": "Berichte",
@@ -3528,7 +3621,12 @@
       "jobs": "Jobs",
       "systemHealth": "System Health",
       "usersControl": "Benutzerkontrolle",
-      "llmConnectors": "LLM-Konnektoren"
+      "llmConnectors": "LLM-Konnektoren",
+      "runbooks": "Wissensdatenbank",
+      "aiCaseCopilot": "KI-Fallcopilot",
+      "aiDetectionCopilot": "KI-Erkennungscopilot",
+      "entities": "Entitätsgraph",
+      "msspDashboard": "MSSP-Dashboard"
     },
     "permissions": {
       "dashboard": {
@@ -3638,6 +3736,7 @@
         "delete": "AI-Agenten Löschen",
         "execute": "Execute AI Agents"
       },
+      "aiAlertTriage": "KI-Alarm-Triage",
       "cloudSecurity": {
         "view": "Cloud-Sicherheit Anzeigen",
         "create": "Cloud-Konten Erstellen",
@@ -3709,6 +3808,23 @@
         "update": "LLM-Konnektoren bearbeiten",
         "delete": "LLM-Konnektoren loschen",
         "test": "LLM-Konnektoren testen"
+      },
+      "aiCaseCopilot": "KI-Fallcopilot",
+      "aiDetectionCopilot": "KI-Erkennungscopilot",
+      "aiSoarCopilot": "KI-SOAR-Copilot",
+      "runbooks": {
+        "view": "Runbooks Anzeigen",
+        "create": "Runbooks Erstellen",
+        "update": "Runbooks Aktualisieren",
+        "delete": "Runbooks Loeschen"
+      },
+      "entities": {
+        "view": "Entitäten anzeigen",
+        "create": "Entitäten erstellen",
+        "update": "Entitäten aktualisieren"
+      },
+      "msspDashboard": {
+        "view": "MSSP-Dashboard anzeigen"
       }
     },
     "roles": {
@@ -3831,5 +3947,83 @@
     "creating": "Wird erstellt...",
     "save": "Speichern",
     "saving": "Wird gespeichert..."
+  },
+  "knowledge": {
+    "title": "Wissensdatenbank",
+    "description": "Runbooks, SOPs und operatives Wissen",
+    "createRunbook": "Runbook Erstellen",
+    "editRunbook": "Runbook Bearbeiten",
+    "deleteRunbook": "Runbook Loeschen",
+    "fieldTitle": "Titel",
+    "fieldContent": "Inhalt",
+    "fieldCategory": "Kategorie",
+    "fieldTags": "Tags",
+    "searchPlaceholder": "Runbooks suchen...",
+    "noRunbooks": "Keine Runbooks gefunden",
+    "noRunbooksDescription": "Erstellen Sie Ihr erstes Runbook, um operatives Wissen aufzubauen",
+    "runbookCreated": "Runbook erstellt",
+    "runbookUpdated": "Runbook aktualisiert",
+    "runbookDeleted": "Runbook geloescht",
+    "deleteConfirm": "Sind Sie sicher, dass Sie dieses Runbook loeschen moechten?",
+    "aiGenerate": "KI-Generierung",
+    "aiGenerateDescription": "Runbook aus einer Beschreibung generieren",
+    "aiSearch": "KI-Suche",
+    "aiSearchDescription": "Wissensdatenbank mit KI durchsuchen",
+    "aiLoading": "Wird generiert...",
+    "colTitle": "Titel",
+    "colCategory": "Kategorie",
+    "colTags": "Tags",
+    "colCreatedBy": "Erstellt von",
+    "colActions": "Aktionen",
+    "cancel": "Abbrechen",
+    "close": "Schliessen",
+    "createdAt": "Erstellt",
+    "updatedAt": "Aktualisiert"
+  },
+  "entities": {
+    "title": "Entitätsgraph",
+    "description": "Verfolgen und visualisieren Sie Entitätsbeziehungen",
+    "searchPlaceholder": "Entitäten suchen...",
+    "filterType": "Nach Typ filtern",
+    "allTypes": "Alle Typen",
+    "colType": "Typ",
+    "colValue": "Wert",
+    "colRiskScore": "Risiko",
+    "colFirstSeen": "Zuerst gesehen",
+    "colLastSeen": "Zuletzt gesehen",
+    "colActions": "Aktionen",
+    "noEntities": "Keine Entitäten gefunden",
+    "topRisky": "Risikoreichste Entitäten",
+    "graph": "Beziehungsgraph",
+    "fieldType": "Typ",
+    "fieldValue": "Wert",
+    "fieldRiskScore": "Risikobewertung",
+    "fieldFirstSeen": "Zuerst gesehen",
+    "fieldLastSeen": "Zuletzt gesehen",
+    "typeIp": "IP-Adresse",
+    "typeDomain": "Domain",
+    "typeHostname": "Hostname",
+    "typeUser": "Benutzer",
+    "typeEmail": "E-Mail",
+    "typeHash": "Hash",
+    "typeUrl": "URL",
+    "typeProcess": "Prozess",
+    "typeFile": "Datei",
+    "typeAsset": "Asset"
+  },
+  "msspDashboard": {
+    "title": "MSSP-Portfolio",
+    "description": "Mandantenübergreifende Übersicht für verwaltete Sicherheit",
+    "tenantHealth": "Mandantengesundheit",
+    "criticalAlerts": "Kritische Alarme",
+    "openCases": "Offene Fälle",
+    "connectorHealth": "Konnektorgesundheit",
+    "aiUsage": "KI-Nutzung",
+    "noTenants": "Keine Mandanten verfügbar",
+    "comparison": "Mandantenvergleich",
+    "portfolio": "Portfolioübersicht",
+    "totalAlerts": "Gesamtalarme",
+    "totalCriticalAlerts": "Gesamtkritische Alarme",
+    "totalOpenCases": "Gesamtoffene Fälle"
   }
 }

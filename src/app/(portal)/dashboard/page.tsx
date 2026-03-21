@@ -4,6 +4,7 @@ import { Shield, BarChart3 } from 'lucide-react'
 import { AlertTrendChart, SeverityDistributionChart } from '@/components/charts'
 import { PageHeader, KpiCard, LoadingSpinner, EmptyState } from '@/components/common'
 import {
+  AiDashboardInsight,
   AiOperationsCanvas,
   DashboardMetricBarList,
   DashboardSectionCard,
@@ -77,6 +78,9 @@ export default function DashboardPage() {
     isPanelOpen,
     handlePanelOpenChange,
     isUpdatingPreferences,
+    dailySummary,
+    isDailySummaryLoading,
+    generateDailySummary,
   } = useDashboardPage()
 
   function renderKPIs() {
@@ -187,6 +191,13 @@ export default function DashboardPage() {
           {renderExtendedKPIs()}
         </div>
       ) : null}
+
+      <AiDashboardInsight
+        t={t}
+        dailySummary={dailySummary}
+        isDailySummaryLoading={isDailySummaryLoading}
+        onGenerateSummary={generateDailySummary}
+      />
 
       <DashboardSectionCard
         title={t('overviewSection')}
