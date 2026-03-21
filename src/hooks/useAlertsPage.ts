@@ -311,6 +311,7 @@ export function useAlertsPage() {
     sortBy,
     sortOrder,
     handleSort,
+    isInvestigating: investigateMutation.isPending,
     canInvestigate,
     canAcknowledge,
     canClose,

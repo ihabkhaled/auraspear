@@ -14,16 +14,13 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { useKnowledgePage } from '@/hooks/useKnowledgePage'
 import { formatDate } from '@/lib/utils'
-import type { RunbookRecord } from '@/types'
-import type { Column } from '@/components/common/DataTable'
+import type { Column, RunbookRecord } from '@/types'
 
 export default function KnowledgePage() {
   const {
     t,
-    tCommon,
     data,
     columns,
-    isLoading,
     isFetching,
     pagination,
     currentPage,
@@ -185,11 +182,7 @@ export default function KnowledgePage() {
       </Card>
 
       {detailRunbook && (
-        <RunbookDetailPanel
-          runbook={detailRunbook}
-          onClose={() => setDetailRunbook(null)}
-          t={t}
-        />
+        <RunbookDetailPanel runbook={detailRunbook} onClose={() => setDetailRunbook(null)} t={t} />
       )}
 
       <RunbookCreateDialog

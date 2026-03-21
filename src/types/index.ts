@@ -713,6 +713,8 @@ export type {
   EntityColumnTranslations,
   CreateEntityInput,
   UpdateEntityInput,
+  EntityFiltersProps,
+  RiskScoreBadgeProps,
 } from './entity.types'
 export type {
   MsspTenantSummary,
@@ -738,4 +740,5 @@ export type {
   UseAiKnowledgePanelInput,
   UseRunbookCreateDialogInput,
   UseRunbookEditDialogInput,
+  AiKnowledgePanelProps,
 } from './knowledge.types'

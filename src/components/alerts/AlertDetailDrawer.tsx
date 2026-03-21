@@ -1,6 +1,6 @@
 'use client'
 
-import { AlertTriangle, Brain, Briefcase, X } from 'lucide-react'
+import { AlertTriangle, Brain, Briefcase, Loader2, X } from 'lucide-react'
 import { AiTriagePanel } from '@/components/alerts/AiTriagePanel'
 import { AlertTimeline } from '@/components/alerts/AlertTimeline'
 import { Badge } from '@/components/ui/badge'
@@ -37,6 +37,7 @@ export function AlertDetailDrawer({
   open,
   onOpenChange,
   onInvestigate,
+  isInvestigating,
   onCreateCase,
   onEscalateToIncident,
   onClose,
@@ -217,8 +218,17 @@ export function AlertDetailDrawer({
 
         <SheetFooter className="grid grid-cols-2 gap-2 sm:flex sm:flex-row">
           {onInvestigate && (
-            <Button variant="default" size="sm" onClick={() => onInvestigate(alert)}>
-              <Brain className="h-4 w-4" />
+            <Button
+              variant="default"
+              size="sm"
+              disabled={isInvestigating}
+              onClick={() => onInvestigate(alert)}
+            >
+              {isInvestigating ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Brain className="h-4 w-4" />
+              )}
               {t('investigate')}
             </Button>
           )}

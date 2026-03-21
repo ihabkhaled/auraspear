@@ -7,10 +7,10 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-import api from '@/lib/api'
-import { alertService } from '@/services/alert.service'
 import { Permission } from '@/enums'
+import api from '@/lib/api'
 import { hasPermission } from '@/lib/permissions'
+import { alertService } from '@/services/alert.service'
 
 const mockPost = api.post as Mock
 
@@ -36,7 +36,7 @@ describe('AI Alert Triage — service calls', () => {
       const result = await alertService.triageSummarize(ALERT_ID)
 
       expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/summarize`)
-      expect(result.data).toEqual(triageResult)
+      expect(result).toEqual(triageResult)
     })
 
     it('should propagate errors for error handling in hook', async () => {
@@ -54,7 +54,7 @@ describe('AI Alert Triage — service calls', () => {
       const result = await alertService.triageExplainSeverity(ALERT_ID)
 
       expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/explain-severity`)
-      expect(result.data).toEqual(triageResult)
+      expect(result).toEqual(triageResult)
     })
   })
 
@@ -66,7 +66,7 @@ describe('AI Alert Triage — service calls', () => {
       const result = await alertService.triageFalsePositiveScore(ALERT_ID)
 
       expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/false-positive-score`)
-      expect(result.data).toEqual(triageResult)
+      expect(result).toEqual(triageResult)
     })
   })
 
@@ -78,20 +78,20 @@ describe('AI Alert Triage — service calls', () => {
       const result = await alertService.triageNextAction(ALERT_ID)
 
       expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/next-action`)
-      expect(result.data).toEqual(triageResult)
+      expect(result).toEqual(triageResult)
     })
   })
 })
 
 describe('AI Alert Triage — permission gating', () => {
   it('canTriage should be true when user has AI_ALERT_TRIAGE permission', () => {
-    const permissions = [Permission.AI_ALERT_TRIAGE, Permission.ALERT_VIEW]
+    const permissions = [Permission.AI_ALERT_TRIAGE, Permission.ALERTS_VIEW]
     const canTriage = hasPermission(permissions, Permission.AI_ALERT_TRIAGE)
     expect(canTriage).toBe(true)
   })
 
   it('canTriage should be false when user lacks AI_ALERT_TRIAGE permission', () => {
-    const permissions = [Permission.ALERT_VIEW, Permission.ALERT_UPDATE]
+    const permissions = [Permission.ALERTS_VIEW, Permission.ALERTS_ACKNOWLEDGE]
     const canTriage = hasPermission(permissions, Permission.AI_ALERT_TRIAGE)
     expect(canTriage).toBe(false)
   })

@@ -124,7 +124,7 @@ export async function proxyToBackend(
       maxBodyLength: 50 * 1024 * 1024,
     })
 
-    const data: unknown = axiosResponse.data
+    const { data } = axiosResponse as { data: unknown }
 
     // Wrap in ApiResponse format if the backend doesn't already
     const wrapped = wrapResponse(data, axiosResponse.status >= 200 && axiosResponse.status < 400)

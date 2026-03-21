@@ -5,21 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { useAiKnowledgePanel } from '@/hooks/useAiKnowledgePanel'
-import type { AiResponse } from '@/types/ai.types'
-
-interface AiKnowledgePanelProps {
-  aiGenerate: {
-    mutate: (description: string) => void
-    data: AiResponse | undefined
-    isPending: boolean
-  }
-  aiSearch: {
-    mutate: (query: string) => void
-    data: AiResponse | undefined
-    isPending: boolean
-  }
-  t: (key: string) => string
-}
+import type { AiKnowledgePanelProps } from '@/types'
 
 export function AiKnowledgePanel({ aiGenerate, aiSearch, t }: AiKnowledgePanelProps) {
   const {
@@ -58,7 +44,7 @@ export function AiKnowledgePanel({ aiGenerate, aiSearch, t }: AiKnowledgePanelPr
             {aiGenerate.isPending ? t('aiLoading') : t('aiGenerate')}
           </Button>
           {aiGenerate.data && (
-            <pre className="bg-muted max-h-[200px] overflow-auto whitespace-pre-wrap rounded-md p-2 text-xs">
+            <pre className="bg-muted max-h-[200px] overflow-auto rounded-md p-2 text-xs whitespace-pre-wrap">
               {aiGenerate.data.result}
             </pre>
           )}
@@ -90,7 +76,7 @@ export function AiKnowledgePanel({ aiGenerate, aiSearch, t }: AiKnowledgePanelPr
             {aiSearch.isPending ? t('aiLoading') : t('aiSearch')}
           </Button>
           {aiSearch.data && (
-            <pre className="bg-muted max-h-[200px] overflow-auto whitespace-pre-wrap rounded-md p-2 text-xs">
+            <pre className="bg-muted max-h-[200px] overflow-auto rounded-md p-2 text-xs whitespace-pre-wrap">
               {aiSearch.data.result}
             </pre>
           )}

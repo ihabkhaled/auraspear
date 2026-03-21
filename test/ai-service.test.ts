@@ -117,7 +117,7 @@ describe('AI-related service methods', () => {
       const explanation = { result: 'Anomaly analysis...' }
       mockPost.mockResolvedValue({ data: { data: explanation } })
 
-      const input = { metricName: 'alert_count', anomalyType: 'spike' }
+      const input = { metric: 'alert_count', value: 150, previousValue: 50, timeRange: '24h' }
       const result = await dashboardService.aiExplainAnomaly(input)
 
       expect(mockPost).toHaveBeenCalledWith('/dashboard/ai/explain-anomaly', input)

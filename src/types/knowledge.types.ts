@@ -1,3 +1,5 @@
+import type { AiResponse } from './ai.types'
+
 export interface RunbookRecord {
   id: string
   tenantId: string
@@ -14,22 +16,22 @@ export interface RunbookRecord {
 export interface CreateRunbookInput {
   title: string
   content: string
-  category?: string
-  tags?: string[]
+  category?: string | undefined
+  tags?: string[] | undefined
 }
 
 export interface UpdateRunbookInput {
   title?: string
   content?: string
-  category?: string
-  tags?: string[]
+  category?: string | undefined
+  tags?: string[] | undefined
 }
 
 export interface RunbookSearchParams {
   page?: number
   limit?: number
-  q?: string
-  category?: string
+  q?: string | undefined
+  category?: string | undefined
   sortBy?: string
   sortOrder?: string
 }
@@ -134,4 +136,18 @@ export interface UseRunbookEditDialogInput {
   onOpenChange: (open: boolean) => void
   onSubmit: (values: EditRunbookFormValues) => void
   runbook: RunbookRecord | null
+}
+
+export interface AiKnowledgePanelProps {
+  aiGenerate: {
+    mutate: (description: string) => void
+    data: AiResponse | undefined
+    isPending: boolean
+  }
+  aiSearch: {
+    mutate: (query: string) => void
+    data: AiResponse | undefined
+    isPending: boolean
+  }
+  t: (key: string) => string
 }

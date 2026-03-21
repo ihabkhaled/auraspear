@@ -88,9 +88,9 @@ describe('knowledgeService', () => {
     it('should propagate API errors', async () => {
       mockPost.mockRejectedValue(new Error('Validation failed'))
 
-      await expect(
-        knowledgeService.create({ title: '', content: '' })
-      ).rejects.toThrow('Validation failed')
+      await expect(knowledgeService.create({ title: '', content: '' })).rejects.toThrow(
+        'Validation failed'
+      )
     })
   })
 
@@ -155,7 +155,7 @@ describe('knowledgeService', () => {
   describe('aiGenerate', () => {
     it('should call POST /runbooks/ai/generate with description', async () => {
       const aiResponse = { result: '# Generated Runbook', model: 'claude-3' }
-      mockPost.mockResolvedValue({ data: aiResponse })
+      mockPost.mockResolvedValue({ data: { data: aiResponse } })
 
       const result = await knowledgeService.aiGenerate('Create a ransomware response playbook')
 
@@ -177,7 +177,7 @@ describe('knowledgeService', () => {
   describe('aiSearch', () => {
     it('should call POST /runbooks/ai/search with query', async () => {
       const aiResponse = { result: 'Relevant runbooks found', model: 'claude-3' }
-      mockPost.mockResolvedValue({ data: aiResponse })
+      mockPost.mockResolvedValue({ data: { data: aiResponse } })
 
       const result = await knowledgeService.aiSearch('how to respond to phishing')
 

@@ -7,14 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-
-interface EntityFiltersProps {
-  searchQuery: string
-  onSearchChange: (value: string) => void
-  typeFilter: string
-  onTypeChange: (value: string) => void
-  t: (key: string) => string
-}
+import type { EntityFiltersProps } from '@/types'
 
 export function EntityFilters({
   searchQuery,

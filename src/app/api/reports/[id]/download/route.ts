@@ -1,4 +1,4 @@
-import { NextResponse, type NextRequest } from 'next/server'
+import { type NextRequest } from 'next/server'
 import { streamFromBackend } from '@/lib/backend-proxy'
 
 export const dynamic = 'force-dynamic'

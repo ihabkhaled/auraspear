@@ -3,8 +3,8 @@
 import { PageHeader, LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
 import { useMsspDashboardPage } from '@/hooks/useMsspDashboardPage'
+import { cn } from '@/lib/utils'
 import type { MsspTenantSummary } from '@/types'
 
 function TenantCard({ summary, t }: { summary: MsspTenantSummary; t: (key: string) => string }) {
@@ -49,12 +49,14 @@ function TenantCard({ summary, t }: { summary: MsspTenantSummary; t: (key: strin
 export default function MsspDashboardPage() {
   const { t, portfolioData, portfolioLoading } = useMsspDashboardPage()
 
-  const portfolio = portfolioData?.data as unknown as {
-    tenants?: MsspTenantSummary[]
-    totalAlerts?: number
-    totalCriticalAlerts?: number
-    totalOpenCases?: number
-  } | undefined
+  const portfolio = portfolioData?.data as unknown as
+    | {
+        tenants?: MsspTenantSummary[]
+        totalAlerts?: number
+        totalCriticalAlerts?: number
+        totalOpenCases?: number
+      }
+    | undefined
 
   return (
     <div className="space-y-6">

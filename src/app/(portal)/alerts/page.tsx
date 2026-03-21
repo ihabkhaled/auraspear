@@ -47,6 +47,7 @@ export default function AlertsPage() {
     columns,
     handleRowClick,
     handleInvestigate,
+    isInvestigating,
     canInvestigate,
     canAcknowledge,
     canClose,
@@ -157,6 +158,7 @@ export default function AlertsPage() {
         open={drawerOpen}
         onOpenChange={setDrawerOpen}
         onInvestigate={canInvestigate ? handleInvestigate : undefined}
+        isInvestigating={isInvestigating}
         onCreateCase={
           canCreateCase
             ? alert => {

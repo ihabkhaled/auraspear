@@ -89,3 +89,15 @@ export interface UpdateEntityInput {
   displayName?: string
   metadata?: Record<string, unknown>
 }
+
+export interface EntityFiltersProps {
+  searchQuery: string
+  onSearchChange: (value: string) => void
+  typeFilter: string
+  onTypeChange: (value: string) => void
+  t: (key: string) => string
+}
+
+export interface RiskScoreBadgeProps {
+  score: number
+}

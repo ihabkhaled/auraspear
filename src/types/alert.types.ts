@@ -81,6 +81,7 @@ export interface AlertDetailDrawerProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onInvestigate?: ((alert: Alert) => void) | undefined
+  isInvestigating?: boolean | undefined
   onCreateCase?: ((alert: Alert) => void) | undefined
   onEscalateToIncident?: ((alert: Alert) => void) | undefined
   onClose?: ((alert: Alert) => void) | undefined

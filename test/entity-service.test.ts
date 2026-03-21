@@ -148,9 +148,9 @@ describe('entityService', () => {
     it('should propagate API errors', async () => {
       mockPost.mockRejectedValue(new Error('Duplicate'))
 
-      await expect(
-        entityService.create({ type: 'ip', value: '1.2.3.4' })
-      ).rejects.toThrow('Duplicate')
+      await expect(entityService.create({ type: 'ip', value: '1.2.3.4' })).rejects.toThrow(
+        'Duplicate'
+      )
     })
   })
 
@@ -179,7 +179,7 @@ describe('entityService', () => {
       const result = await entityService.aiExplainRisk('e-1')
 
       expect(mockPost).toHaveBeenCalledWith('/entities/e-1/ai/explain-risk')
-      expect(result.data).toEqual(aiResult)
+      expect(result).toEqual(aiResult)
     })
   })
 

@@ -3,31 +3,19 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
-import { Permission } from '@/enums'
+import { Permission, SortOrder } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { buildRunbookColumns } from '@/lib/knowledge.utils'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore, useTenantStore } from '@/stores'
-import { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
-import { useRunbooks, useCreateRunbook, useUpdateRunbook, useDeleteRunbook } from './useRunbooks'
 import type {
   CreateRunbookFormValues,
   EditRunbookFormValues,
   RunbookColumnTranslations,
   RunbookRecord,
 } from '@/types'
-import type { Column } from '@/components/common/DataTable'
-
-function buildColumns(
-  ct: RunbookColumnTranslations
-): Column<RunbookRecord>[] {
-  return [
-    { key: 'title', label: ct.title, sortable: true },
-    { key: 'category', label: ct.category, sortable: true },
-    { key: 'tags', label: ct.tags },
-    { key: 'createdBy', label: ct.createdBy },
-    { key: 'updatedAt', label: ct.updatedAt, sortable: true },
-  ]
-}
+import { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
+import { useRunbooks, useCreateRunbook, useUpdateRunbook, useDeleteRunbook } from './useRunbooks'
 
 export function useKnowledgePage() {
   const t = useTranslations('knowledge')
@@ -46,7 +34,7 @@ export function useKnowledgePage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState('')
   const [sortBy, setSortBy] = useState('createdAt')
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc')
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
 
   const queryParams = useMemo(
     () => ({
@@ -92,32 +80,26 @@ export function useKnowledgePage() {
     [t, tCommon]
   )
 
-  const columns = useMemo(() => buildColumns(columnTranslations), [columnTranslations])
+  const columns = useMemo(() => buildRunbookColumns(columnTranslations), [columnTranslations])
 
   // Handlers
-  const handleSearchChange = useCallback(
-    (value: string) => {
-      setSearchQuery(value)
-      setCurrentPage(1)
-    },
-    []
-  )
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchQuery(value)
+    setCurrentPage(1)
+  }, [])
 
-  const handleCategoryChange = useCallback(
-    (value: string) => {
-      setCategoryFilter(value)
-      setCurrentPage(1)
-    },
-    []
-  )
+  const handleCategoryChange = useCallback((value: string) => {
+    setCategoryFilter(value)
+    setCurrentPage(1)
+  }, [])
 
   const handleSort = useCallback(
     (field: string) => {
       if (sortBy === field) {
-        setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'))
+        setSortOrder((prev): SortOrder => (prev === SortOrder.ASC ? SortOrder.DESC : SortOrder.ASC))
       } else {
         setSortBy(field)
-        setSortOrder('desc')
+        setSortOrder(SortOrder.DESC)
       }
       setCurrentPage(1)
     },
@@ -151,7 +133,7 @@ export function useKnowledgePage() {
             Toast.success(t('runbookCreated'))
             setCreateOpen(false)
           },
-          onError: (error) => {
+          onError: error => {
             Toast.error(tErrors(getErrorKey(error)))
           },
         }
@@ -186,7 +168,7 @@ export function useKnowledgePage() {
             setEditOpen(false)
             setSelectedRunbook(null)
           },
-          onError: (error) => {
+          onError: error => {
             Toast.error(tErrors(getErrorKey(error)))
           },
         }
@@ -211,7 +193,7 @@ export function useKnowledgePage() {
             setDetailRunbook(null)
           }
         },
-        onError: (error) => {
+        onError: error => {
           Toast.error(tErrors(getErrorKey(error)))
         },
       })
@@ -219,13 +201,10 @@ export function useKnowledgePage() {
     [deleteMutation, t, tErrors, detailRunbook]
   )
 
-  const openEditDialog = useCallback(
-    (runbook: RunbookRecord) => {
-      setSelectedRunbook(runbook)
-      setEditOpen(true)
-    },
-    []
-  )
+  const openEditDialog = useCallback((runbook: RunbookRecord) => {
+    setSelectedRunbook(runbook)
+    setEditOpen(true)
+  }, [])
 
   const handleAiGenerate = useCallback(
     (description: string) => {

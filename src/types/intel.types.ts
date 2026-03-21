@@ -84,7 +84,7 @@ export interface AiIntelPanelProps {
   isLoading: boolean
   enrichResult: AiIntelResult | null
   advisoryResult: AiIntelResult | null
-  selectedIocId?: string
+  selectedIocId?: string | undefined
   selectedIocIds?: string[]
   onEnrichIoc: (iocId: string) => void
   onDraftAdvisory: (iocIds: string[]) => void

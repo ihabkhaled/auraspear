@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
@@ -19,13 +19,6 @@ export function useAiDetectionCopilot(ruleId: string | null) {
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiDetectionCopilotResult>>({})
   const [draftDescription, setDraftDescription] = useState('')
-
-  // Reset state when the selected rule changes or panel closes
-  useEffect(() => {
-    setResults({})
-    setDraftDescription('')
-    setActiveTask(null)
-  }, [ruleId])
 
   const draftRuleMutation = useMutation({
     mutationFn: () => detectionRuleService.aiDraftRule(draftDescription),
