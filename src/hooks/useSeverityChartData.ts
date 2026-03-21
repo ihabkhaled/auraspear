@@ -1,10 +1,6 @@
 import { useMemo } from 'react'
 import { getSeverityColor } from '@/lib/severity-utils'
-import type { SeverityDataPoint } from '@/types'
-
-interface ColoredDataPoint extends SeverityDataPoint {
-  fill: string
-}
+import type { ColoredDataPoint, SeverityDataPoint } from '@/types'
 
 export function useSeverityChartData(data: SeverityDataPoint[]): ColoredDataPoint[] {
   return useMemo(

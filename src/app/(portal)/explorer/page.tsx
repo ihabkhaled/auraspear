@@ -22,7 +22,7 @@ import { useExplorerOverviewPage } from '@/hooks'
 import { cn, lookup } from '@/lib/utils'
 import type { ExplorerConnectorStatus, SyncJobStatusDetail } from '@/types'
 
-const CONNECTOR_EXPLORER_MAP: Record<
+const connectorExplorerMap: Record<
   string,
   { icon: typeof FileText; label: string; href: string; color: string }
 > = {
@@ -77,7 +77,7 @@ function ConnectorCard({
   t,
 }: {
   connector: ExplorerConnectorStatus
-  meta: (typeof CONNECTOR_EXPLORER_MAP)[string]
+  meta: (typeof connectorExplorerMap)[string]
   onClick: () => void
   t: ReturnType<typeof useExplorerOverviewPage>['t']
 }) {
@@ -217,9 +217,9 @@ export default function ExplorerOverviewPage() {
         <h2 className="mb-4 text-lg font-semibold">{t('overview.connectors')}</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {connectors
-            .filter(c => c.type in CONNECTOR_EXPLORER_MAP)
+            .filter(c => c.type in connectorExplorerMap)
             .map(connector => {
-              const meta = lookup(CONNECTOR_EXPLORER_MAP, connector.type)
+              const meta = lookup(connectorExplorerMap, connector.type)
               if (!meta) return null
               return (
                 <ConnectorCard

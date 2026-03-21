@@ -59,5 +59,3 @@ export function useAiAgentsPageDialogs() {
     findSelectedAgent,
   } as const satisfies Record<string, unknown>
 }
-
-export type AiAgentsPageDialogsReturn = ReturnType<typeof useAiAgentsPageDialogs>

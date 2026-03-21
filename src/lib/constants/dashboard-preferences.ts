@@ -8,6 +8,8 @@ export const DEFAULT_COLLAPSED_DASHBOARD_PANELS: DashboardPanelKey[] = [
   DashboardPanelKey.TARGETED_ASSETS,
 ]
 
+export const DASHBOARD_ACTIVITY_LIMIT = 5
+
 export const DASHBOARD_DENSITY_LABEL_KEYS: Record<DashboardDensity, string> = {
   [DashboardDensity.COMPACT]: 'densityCompact',
   [DashboardDensity.COMFORTABLE]: 'densityComfortable',

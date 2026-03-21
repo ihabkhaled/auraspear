@@ -2,12 +2,11 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Permission } from '@/enums'
+import { PREFERENCES_BASE_KEY } from '@/lib/constants/settings'
 import { requirePermission } from '@/lib/permissions'
 import { settingsService } from '@/services/settings.service'
 import { useAuthStore } from '@/stores'
 import type { UserPreferences } from '@/types'
-
-const PREFERENCES_BASE_KEY = 'preferences'
 
 export function usePreferences() {
   const { user } = useAuthStore()

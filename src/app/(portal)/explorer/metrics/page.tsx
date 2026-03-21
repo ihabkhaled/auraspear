@@ -113,7 +113,7 @@ export default function ExplorerMetricsPage() {
               <Label>{t('metrics.measurement')}</Label>
               <Input
                 value={measurement}
-                onChange={e => handleMeasurementChange(e.target.value)}
+                onChange={e => handleMeasurementChange(e.currentTarget.value)}
                 placeholder={t('metrics.measurementPlaceholder')}
               />
             </div>
@@ -139,7 +139,7 @@ export default function ExplorerMetricsPage() {
               <Input
                 type="number"
                 value={limit}
-                onChange={e => handleLimitChange(Number(e.target.value))}
+                onChange={e => handleLimitChange(Number(e.currentTarget.value))}
                 min={1}
                 max={10000}
               />
@@ -181,7 +181,7 @@ export default function ExplorerMetricsPage() {
                   <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
                   <Input
                     value={search}
-                    onChange={e => handleSearchChange(e.target.value)}
+                    onChange={e => handleSearchChange(e.currentTarget.value)}
                     placeholder={t('metrics.searchPlaceholder')}
                     className="ps-9"
                   />

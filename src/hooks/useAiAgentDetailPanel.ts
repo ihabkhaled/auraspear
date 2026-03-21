@@ -1,8 +1,8 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { AiAgentPanelTab, AiAgentStatus, Permission } from '@/enums'
-import { isAiAgentPanelTab } from '@/lib/ai-agent.utils'
+import { AiAgentPanelTab, AiAgentStatus, AiConnectorPreference, Permission } from '@/enums'
+import { isAiAgentPanelTab, isAiConnectorPreference } from '@/lib/ai-agent.utils'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { hasPermission } from '@/lib/permissions'
@@ -36,6 +36,9 @@ export function useAiAgentDetailPanel({
   const [activeTab, setActiveTab] = useState(AiAgentPanelTab.OVERVIEW)
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
   const [runPrompt, setRunPrompt] = useState('')
+  const [selectedConnector, setSelectedConnector] = useState<AiConnectorPreference>(
+    AiConnectorPreference.DEFAULT
+  )
   const [toolDialogOpen, setToolDialogOpen] = useState(false)
   const [sessionsOpen, setSessionsOpen] = useState(true)
   const [toolsOpen, setToolsOpen] = useState(true)
@@ -104,8 +107,10 @@ export function useAiAgentDetailPanel({
   }, [agent.id, stopAgentMutation, t, tErrors])
 
   const handleRunAgent = useCallback(() => {
+    const connectorValue =
+      selectedConnector === AiConnectorPreference.DEFAULT ? undefined : selectedConnector
     runAgentMutation.mutate(
-      { id: agent.id, prompt: runPrompt },
+      { id: agent.id, prompt: runPrompt, connector: connectorValue },
       {
         onSuccess: () => {
           setRunPrompt('')
@@ -116,7 +121,7 @@ export function useAiAgentDetailPanel({
         },
       }
     )
-  }, [agent.id, runAgentMutation, runPrompt, t, tErrors])
+  }, [agent.id, runAgentMutation, runPrompt, selectedConnector, t, tErrors])
 
   const handleCreateTool = useCallback(
     (formValues: AiAgentToolFormValues) => {
@@ -175,6 +180,12 @@ export function useAiAgentDetailPanel({
     }
   }, [])
 
+  const handleConnectorChange = useCallback((value: string) => {
+    if (isAiConnectorPreference(value)) {
+      setSelectedConnector(value)
+    }
+  }, [])
+
   return {
     t,
     agent,
@@ -184,6 +195,8 @@ export function useAiAgentDetailPanel({
     setSoulMdDraft,
     runPrompt,
     setRunPrompt,
+    selectedConnector,
+    handleConnectorChange,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,

@@ -4,12 +4,11 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getUebaColumns } from '@/components/ueba'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { UebaEntitySearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 import { useUebaEntities, useUebaStats } from './useUeba'
-
-const ALL_FILTER = '__all__'
 
 export function useUebaPageFilters() {
   const t = useTranslations('ueba')

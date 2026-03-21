@@ -35,7 +35,7 @@ export function CloudSecurityFilters({
         <Input
           placeholder={t('searchPlaceholder')}
           value={searchQuery}
-          onChange={e => onSearchChange(e.target.value)}
+          onChange={e => onSearchChange(e.currentTarget.value)}
           className="ps-9"
         />
       </div>

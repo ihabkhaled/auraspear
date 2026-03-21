@@ -1,19 +1,9 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import { UebaRiskLevel } from '@/enums'
+import { BadgeVariant } from '@/enums'
+import { SEVERITY_VARIANT_MAP } from '@/lib/constants/ueba'
 import { lookup } from '@/lib/utils'
 import type { UebaAnomaly } from '@/types'
-
-const SEVERITY_VARIANT_MAP: Record<
-  UebaRiskLevel,
-  'destructive' | 'default' | 'secondary' | 'outline'
-> = {
-  [UebaRiskLevel.CRITICAL]: 'destructive',
-  [UebaRiskLevel.HIGH]: 'destructive',
-  [UebaRiskLevel.MEDIUM]: 'default',
-  [UebaRiskLevel.LOW]: 'secondary',
-  [UebaRiskLevel.NORMAL]: 'outline',
-}
 
 export function useUebaAnomalyCard({
   anomaly,
@@ -24,7 +14,7 @@ export function useUebaAnomalyCard({
 }) {
   const t = useTranslations('ueba')
 
-  const severityVariant = lookup(SEVERITY_VARIANT_MAP, anomaly.severity) ?? 'secondary'
+  const severityVariant = lookup(SEVERITY_VARIANT_MAP, anomaly.severity) ?? BadgeVariant.SECONDARY
 
   const handleResolve = useCallback(() => {
     onResolve(anomaly.id)

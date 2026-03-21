@@ -74,7 +74,7 @@ export function AttackPathStageEditor({
               <Label className="text-xs">{t('stageName')}</Label>
               <Input
                 value={stage.name}
-                onChange={e => onStageChange(index, 'name', e.target.value)}
+                onChange={e => onStageChange(index, 'name', e.currentTarget.value)}
                 placeholder={t('stageNamePlaceholder')}
                 className="h-8 text-sm"
               />
@@ -83,7 +83,7 @@ export function AttackPathStageEditor({
               <Label className="text-xs">{t('stageMitreId')}</Label>
               <Input
                 value={stage.mitreId}
-                onChange={e => onStageChange(index, 'mitreId', e.target.value)}
+                onChange={e => onStageChange(index, 'mitreId', e.currentTarget.value)}
                 placeholder={t('stageMitreIdPlaceholder')}
                 className="h-8 text-sm"
               />
@@ -94,7 +94,7 @@ export function AttackPathStageEditor({
             <Label className="text-xs">{t('stageDescription')}</Label>
             <Textarea
               value={stage.description}
-              onChange={e => onStageChange(index, 'description', e.target.value)}
+              onChange={e => onStageChange(index, 'description', e.currentTarget.value)}
               placeholder={t('stageDescriptionPlaceholder')}
               className="min-h-[60px] resize-none text-sm"
             />
@@ -108,10 +108,10 @@ export function AttackPathStageEditor({
                 onStageChange(
                   index,
                   'assets',
-                  e.target.value
+                  e.currentTarget.value
                     .split(',')
-                    .map(s => s.trim())
-                    .filter(s => s.length > 0)
+                    .map((s: string) => s.trim())
+                    .filter((s: string) => s.length > 0)
                 )
               }
               placeholder={t('stageAssetsPlaceholder')}

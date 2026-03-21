@@ -12,14 +12,7 @@ import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import { useAuthStore } from '@/stores'
-import type { ConnectorFormProps } from '@/types'
-
-interface UseConnectorFormParams {
-  type: ConnectorFormProps['type']
-  connector: ConnectorFormProps['connector']
-  readOnly: ConnectorFormProps['readOnly'] | undefined
-  onCreateSubmit: ConnectorFormProps['onCreateSubmit'] | undefined
-}
+import type { UseConnectorFormParams } from '@/types'
 
 export function useConnectorForm({
   type,

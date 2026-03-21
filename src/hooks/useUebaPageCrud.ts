@@ -4,9 +4,13 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
-import type { CreateUebaEntityFormValues, EditUebaEntityFormValues, UebaEntity } from '@/types'
+import type {
+  CreateUebaEntityFormValues,
+  EditUebaEntityFormValues,
+  UebaEntity,
+  UebaPageDialogsReturn,
+} from '@/types'
 import { useCreateUebaEntity, useUpdateUebaEntity, useDeleteUebaEntity } from './useUeba'
-import type { UebaPageDialogsReturn } from './useUebaPageDialogs'
 
 export function useUebaPageCrud(dialogs: UebaPageDialogsReturn) {
   const t = useTranslations('ueba')

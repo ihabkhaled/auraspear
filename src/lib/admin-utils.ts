@@ -1,32 +1,21 @@
-import { UserRole } from '@/enums'
+import { StatusBgClass, StatusBorderClass, StatusTextClass } from '@/enums'
+import type { UserRole } from '@/enums'
+import { ROLE_BADGE_CLASS_MAP } from '@/lib/constants/admin'
+import { lookup } from '@/lib/utils'
 
 export function getStatusDotClass(
   isActive: boolean,
   isBlocked: boolean,
   isDeleted: boolean
 ): string {
-  if (isActive) return 'bg-status-success'
-  if (isBlocked) return 'bg-status-warning'
-  if (isDeleted) return 'bg-status-error'
-  return 'bg-status-neutral'
+  if (isActive) return StatusBgClass.SUCCESS
+  if (isBlocked) return StatusBgClass.WARNING
+  if (isDeleted) return StatusBgClass.ERROR
+  return StatusBgClass.NEUTRAL
 }
 
+const DEFAULT_ROLE_BADGE_CLASS = `${StatusBgClass.MUTED} ${StatusTextClass.MUTED} ${StatusBorderClass.BORDER}`
+
 export function getRoleBadgeClass(role: UserRole): string {
-  switch (role) {
-    case UserRole.GLOBAL_ADMIN:
-    case UserRole.TENANT_ADMIN: {
-      return 'bg-primary/10 text-primary border-primary/20'
-    }
-    case UserRole.SOC_ANALYST_L2:
-    case UserRole.SOC_ANALYST_L1: {
-      return 'bg-[var(--chart-1)]/10 text-[var(--chart-1)] border-[var(--chart-1)]/20'
-    }
-    case UserRole.THREAT_HUNTER: {
-      return 'bg-[var(--chart-3)]/10 text-[var(--chart-3)] border-[var(--chart-3)]/20'
-    }
-    case UserRole.EXECUTIVE_READONLY:
-    default: {
-      return 'bg-muted text-muted-foreground border-border'
-    }
-  }
+  return lookup(ROLE_BADGE_CLASS_MAP, role) ?? DEFAULT_ROLE_BADGE_CLASS
 }

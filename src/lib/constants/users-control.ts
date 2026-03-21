@@ -6,6 +6,7 @@ import {
   UserSessionClientType,
   UserSessionOsFamily,
   UserSessionStatus,
+  UserStatus,
   UsersControlUserSortField,
 } from '@/enums'
 
@@ -61,3 +62,18 @@ export const USERS_CONTROL_BROWSER_LABEL_KEYS: Readonly<Record<UserSessionBrowse
   [UserSessionBrowser.SAMSUNG_INTERNET]: 'browser.samsungInternet',
   [UserSessionBrowser.UNKNOWN]: 'browser.unknown',
 }
+
+export const MEMBERSHIP_STATUS_LABEL_KEYS: Readonly<Record<UserStatus, string>> = {
+  [UserStatus.ACTIVE]: 'membershipStatus.active',
+  [UserStatus.SUSPENDED]: 'membershipStatus.suspended',
+  [UserStatus.INACTIVE]: 'membershipStatus.inactive',
+}
+
+export const MEMBERSHIP_STATUS_DEFAULT_LABEL_KEY = 'membershipStatus.unknown'
+
+export const PRESENCE_LABEL_KEYS: Readonly<Record<string, string>> = {
+  online: 'online',
+  offline: 'offline',
+}
+
+export const USERS_CONTROL_QUERY_KEY = ['admin', 'users-control'] as const

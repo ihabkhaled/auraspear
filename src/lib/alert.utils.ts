@@ -1,4 +1,17 @@
-import { AlertSeverity } from '@/enums'
+import {
+  AlertSeverity,
+  KqlField,
+  StatusBgClass,
+  StatusTextClass,
+  type AlertTimelineEventType,
+} from '@/enums'
+import {
+  DEFAULT_TIMELINE_COLOR,
+  DEFAULT_TIMELINE_ICON,
+  TIMELINE_EVENT_COLOR_MAP,
+  TIMELINE_EVENT_ICON_MAP,
+} from '@/lib/constants/alerts'
+import { lookup } from '@/lib/utils'
 import type { ParsedKQLQuery } from '@/types'
 
 /**
@@ -41,26 +54,26 @@ export function parseKQLQuery(input: string): ParsedKQLQuery {
     }
 
     switch (field) {
-      case 'severity': {
+      case KqlField.SEVERITY: {
         // support comma-separated values inline: severity:critical,high
         const parts = value.split(',').filter(Boolean)
         severityValues.push(...parts)
         break
       }
-      case 'status':
+      case KqlField.STATUS:
         result.status = value
         break
-      case 'agent':
-      case 'agentname':
-      case 'host':
+      case KqlField.AGENT:
+      case KqlField.AGENTNAME:
+      case KqlField.HOST:
         result.agentName = value
         break
-      case 'rule':
-      case 'rulegroup':
-      case 'rulename':
+      case KqlField.RULE:
+      case KqlField.RULEGROUP:
+      case KqlField.RULENAME:
         result.ruleGroup = value
         break
-      case 'source':
+      case KqlField.SOURCE:
         result.source = value
         break
       default:
@@ -116,15 +129,15 @@ function tokenizeKQL(input: string): string[] {
 export function getSeverityDotClass(severity: AlertSeverity): string {
   switch (severity) {
     case AlertSeverity.CRITICAL:
-      return 'bg-status-error'
+      return StatusBgClass.ERROR
     case AlertSeverity.HIGH:
-      return 'bg-status-warning'
+      return StatusBgClass.WARNING
     case AlertSeverity.MEDIUM:
-      return 'bg-status-info'
+      return StatusBgClass.INFO
     case AlertSeverity.LOW:
-      return 'bg-status-success'
+      return StatusBgClass.SUCCESS
     case AlertSeverity.INFO:
-      return 'bg-status-neutral'
+      return StatusBgClass.NEUTRAL
   }
 }
 
@@ -137,7 +150,15 @@ export const SEVERITY_ORDER = [
 ] as const
 
 export function getConfidenceColor(confidence: number): string {
-  if (confidence >= 0.8) return 'text-status-success'
-  if (confidence >= 0.5) return 'text-status-warning'
-  return 'text-status-error'
+  if (confidence >= 0.8) return StatusTextClass.SUCCESS
+  if (confidence >= 0.5) return StatusTextClass.WARNING
+  return StatusTextClass.ERROR
+}
+
+export function getTimelineEventIcon(type: AlertTimelineEventType): string {
+  return lookup(TIMELINE_EVENT_ICON_MAP, type) ?? DEFAULT_TIMELINE_ICON
+}
+
+export function getTimelineEventColor(type: AlertTimelineEventType): string {
+  return lookup(TIMELINE_EVENT_COLOR_MAP, type) ?? DEFAULT_TIMELINE_COLOR
 }

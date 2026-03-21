@@ -4,13 +4,9 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { CaseSeverity } from '@/enums'
 import { createCaseSchema } from '@/lib/validation/cases.schema'
-import type { CreateCaseDialogProps, CreateCaseFormValues } from '@/types'
+import type { CreateCaseFormValues, UseCreateCaseDialogParams } from '@/types'
 
-export function useCreateCaseDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-}: Pick<CreateCaseDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+export function useCreateCaseDialog({ open, onOpenChange, onSubmit }: UseCreateCaseDialogParams) {
   const t = useTranslations('cases')
 
   const {

@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editCloudAccountSchema } from '@/lib/validation/cloud-security.schema'
-import type { CloudAccountEditDialogProps, EditCloudAccountFormValues } from '@/types'
+import type { EditCloudAccountFormValues, UseCloudAccountEditDialogParams } from '@/types'
 
 export function useCloudAccountEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<CloudAccountEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseCloudAccountEditDialogParams) {
   const t = useTranslations('cloudSecurity')
 
   const {

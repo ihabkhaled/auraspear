@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getSystemHealthColumns } from '@/components/system-health/SystemHealthTableColumns'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { HealthCheckSearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
@@ -13,8 +14,6 @@ import {
   useSystemHealthStats,
   useSystemMetrics,
 } from './useSystemHealth'
-
-const ALL_FILTER = '__all__'
 
 export function useSystemHealthPageFilters() {
   const t = useTranslations('systemHealth')

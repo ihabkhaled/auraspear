@@ -135,3 +135,23 @@ export interface ComplianceColumnTranslations {
   compliance: (key: string) => string
   common: (key: string) => string
 }
+
+export interface UseComplianceCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateComplianceFrameworkFormValues) => void
+}
+
+export interface UseComplianceEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditComplianceFrameworkFormValues) => void
+  initialValues: EditComplianceFrameworkFormValues
+}
+
+export interface UseComplianceControlEditParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditComplianceControlFormValues) => void
+  initialValues: EditComplianceControlFormValues
+}

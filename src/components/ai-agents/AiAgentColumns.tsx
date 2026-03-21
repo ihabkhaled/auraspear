@@ -31,12 +31,14 @@ export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>
       key: 'model',
       label: t.aiAgents('colModel'),
       className: 'w-36',
+      sortable: true,
       render: (value: unknown) => <span className="font-mono text-xs">{String(value ?? '')}</span>,
     },
     {
       key: 'tier',
       label: t.aiAgents('colTier'),
       className: 'w-24',
+      sortable: true,
       render: (value: unknown) => {
         const tier = value as AiAgentTier
         const labelKey = lookup(AI_AGENT_TIER_LABEL_KEYS, tier)
@@ -54,6 +56,7 @@ export function getAiAgentColumns(t: AiAgentColumnTranslations): Column<AiAgent>
       key: 'status',
       label: t.aiAgents('colStatus'),
       className: 'w-24',
+      sortable: true,
       render: (value: unknown) => {
         const status = value as AiAgentStatus
         const labelKey = lookup(AI_AGENT_STATUS_LABEL_KEYS, status)

@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editNormalizationSchema } from '@/lib/validation/normalization.schema'
-import type { NormalizationEditDialogProps, EditNormalizationFormValues } from '@/types'
+import type { EditNormalizationFormValues, UseNormalizationEditDialogParams } from '@/types'
 
 export function useNormalizationEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<NormalizationEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseNormalizationEditDialogParams) {
   const t = useTranslations('normalization')
 
   const {

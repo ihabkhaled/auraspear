@@ -3,14 +3,7 @@ import { useTranslations } from 'next-intl'
 import { useMentionableUsers } from '@/hooks/useCaseComments'
 import { useDebounce } from '@/hooks/useDebounce'
 import { COMMENT_MAX_LENGTH, COMMENT_MENTIONS_MAX } from '@/lib/constants/cases'
-import type { MentionableUser } from '@/types'
-
-interface UseCommentComposerProps {
-  caseId: string
-  currentUserId: string
-  onSubmit: (body: string, mentionedUserIds: string[]) => void
-  loading?: boolean | undefined
-}
+import type { MentionableUser, UseCommentComposerProps } from '@/types'
 
 export function useCommentComposer({
   caseId,
@@ -45,11 +38,11 @@ export function useCommentComposer({
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      const newValue = e.target.value
+      const newValue = e.currentTarget.value
       if (newValue.length > COMMENT_MAX_LENGTH) return
       setBody(newValue)
 
-      const cursor = e.target.selectionStart ?? 0
+      const cursor = e.currentTarget.selectionStart ?? 0
       setCursorPosition(cursor)
 
       const query = extractMentionQuery(newValue, cursor)

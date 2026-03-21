@@ -26,7 +26,7 @@ export function WorkspaceSearchPanel({ onSearch, results, loading }: WorkspaceSe
               <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
               <Input
                 value={query}
-                onChange={e => setQuery(e.target.value)}
+                onChange={e => setQuery(e.currentTarget.value)}
                 placeholder={t('searchPlaceholder')}
                 className="ps-9"
               />

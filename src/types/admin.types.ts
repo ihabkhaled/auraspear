@@ -170,6 +170,12 @@ export interface AddUserDialogProps {
   callerRole?: UserRole | undefined
 }
 
+export interface UseAddUserDialogParams {
+  onSubmit: AddUserDialogProps['onSubmit']
+  onOpenChange: AddUserDialogProps['onOpenChange']
+  callerRole: AddUserDialogProps['callerRole']
+}
+
 export interface EditUserDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void

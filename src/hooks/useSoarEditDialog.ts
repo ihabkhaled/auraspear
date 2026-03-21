@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useWatch, type Resolver } from 'react-hook-form'
 import { editSoarPlaybookSchema } from '@/lib/validation/soar.schema'
-import type { SoarEditDialogProps, EditSoarPlaybookFormValues } from '@/types'
+import type { EditSoarPlaybookFormValues, UseSoarEditDialogParams } from '@/types'
 
 export function useSoarEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<SoarEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseSoarEditDialogParams) {
   const t = useTranslations('soar')
 
   const {

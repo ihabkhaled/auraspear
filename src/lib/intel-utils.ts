@@ -1,15 +1,23 @@
-import { BadgeVariant } from '@/enums'
+import { AlertSeverity, BadgeVariant } from '@/enums'
+import {
+  TAG_CLASS_APT,
+  TAG_CLASS_DEFAULT,
+  TAG_CLASS_TLP_AMBER,
+  TAG_CLASS_TLP_GREEN,
+  TAG_CLASS_TLP_RED,
+  TAG_CLASS_TLP_WHITE,
+} from '@/lib/constants/intel'
 
 export function getThreatLevelVariant(level: string): BadgeVariant {
   switch (level.toLowerCase()) {
-    case 'critical':
-    case 'high': {
+    case AlertSeverity.CRITICAL:
+    case AlertSeverity.HIGH: {
       return BadgeVariant.DESTRUCTIVE
     }
-    case 'medium': {
+    case AlertSeverity.MEDIUM: {
       return BadgeVariant.DEFAULT
     }
-    case 'low': {
+    case AlertSeverity.LOW: {
       return BadgeVariant.SECONDARY
     }
     default: {
@@ -24,23 +32,23 @@ export function truncateInfo(info: string, maxLength = 60): string {
 }
 
 export function getTagClasses(name?: string | null): string {
-  if (!name) return 'bg-secondary text-secondary-foreground border-border'
+  if (!name) return TAG_CLASS_DEFAULT
   const upper = name.toUpperCase()
 
   if (upper.startsWith('TLP:RED')) {
-    return 'bg-[var(--tag-tlp-red-bg)] text-[var(--tag-tlp-red)] border-[var(--tag-tlp-red-border)]'
+    return TAG_CLASS_TLP_RED
   }
   if (upper.startsWith('TLP:AMBER')) {
-    return 'bg-[var(--tag-tlp-amber-bg)] text-[var(--tag-tlp-amber)] border-[var(--tag-tlp-amber-border)]'
+    return TAG_CLASS_TLP_AMBER
   }
   if (upper.startsWith('TLP:GREEN')) {
-    return 'bg-[var(--tag-tlp-green-bg)] text-[var(--tag-tlp-green)] border-[var(--tag-tlp-green-border)]'
+    return TAG_CLASS_TLP_GREEN
   }
   if (upper.startsWith('TLP:WHITE') || upper.startsWith('TLP:CLEAR')) {
-    return 'bg-muted text-muted-foreground border-border'
+    return TAG_CLASS_TLP_WHITE
   }
   if (upper.startsWith('APT-') || upper.startsWith('APT ')) {
-    return 'bg-[var(--tag-apt-bg)] text-[var(--tag-apt)] border-[var(--tag-apt-border)]'
+    return TAG_CLASS_APT
   }
-  return 'bg-secondary text-secondary-foreground border-border'
+  return TAG_CLASS_DEFAULT
 }

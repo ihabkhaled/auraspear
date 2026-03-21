@@ -5,8 +5,9 @@ import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { getAlertColumns } from '@/components/alerts'
 import { Toast } from '@/components/common'
-import { AlertSeverity, Permission, SortOrder, TimeRange } from '@/enums'
+import { Permission, SortOrder, type AlertSeverity, type TimeRange } from '@/enums'
 import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
+import { VALID_SEVERITIES, VALID_TIME_RANGES } from '@/lib/constants/alerts'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore, useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
@@ -15,9 +16,6 @@ import { useAlerts, useInvestigateAlert } from './useAlerts'
 import { useCreateCase, useTenantMembers } from './useCases'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
-
-const VALID_TIME_RANGES = Object.values(TimeRange) as string[]
-const VALID_SEVERITIES = Object.values(AlertSeverity) as string[]
 
 export function useAlertsPage() {
   const t = useTranslations('alerts')

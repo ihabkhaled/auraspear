@@ -144,6 +144,41 @@ export interface SoarKpiCardsProps {
   stats: SoarStats | undefined
 }
 
+export interface UseSoarCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateSoarPlaybookFormValues) => void
+}
+
+export interface UseSoarEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditSoarPlaybookFormValues) => void
+  initialValues: EditSoarPlaybookFormValues
+}
+
+export interface SoarPageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedPlaybook: SoarPlaybook | null
+  readonly setSelectedPlaybook: React.Dispatch<React.SetStateAction<SoarPlaybook | null>>
+  readonly deletePlaybookId: string | null
+  readonly setDeletePlaybookId: React.Dispatch<React.SetStateAction<string | null>>
+  readonly deletePlaybookName: string
+  readonly runPlaybookId: string | null
+  readonly setRunPlaybookId: React.Dispatch<React.SetStateAction<string | null>>
+  readonly runPlaybookName: string
+  readonly editInitialValues: EditSoarPlaybookFormValues
+  readonly handleRowClick: (playbook: SoarPlaybook) => void
+  readonly openEditDialog: (playbook: SoarPlaybook) => void
+  readonly openDeleteDialog: (playbook: SoarPlaybook) => void
+  readonly openRunDialog: (playbook: SoarPlaybook) => void
+}
+
 export interface SoarColumnTranslations {
   soar: (key: string) => string
   common: (key: string) => string

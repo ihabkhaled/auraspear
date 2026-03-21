@@ -3,13 +3,12 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import { resolveNotificationMessage } from '@/lib/constants/notifications'
 import type { NotificationSearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { useNotificationsList } from './useNotifications'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useNotificationsPageFilters() {
   const t = useTranslations('notifications')

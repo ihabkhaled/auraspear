@@ -1,17 +1,11 @@
 import { useTranslations } from 'next-intl'
+import { formatAvgResolveHours } from '@/lib/incident.utils'
 import type { IncidentStats } from '@/types'
-
-function formatAvgResolve(hours: number | null | undefined): string {
-  if (hours === null || hours === undefined) {
-    return '-'
-  }
-  return `${Math.round(hours)}h`
-}
 
 export function useIncidentKpiCards(stats: IncidentStats | undefined) {
   const t = useTranslations('incidents')
 
-  const avgResolveDisplay = formatAvgResolve(stats?.avgResolveHours)
+  const avgResolveDisplay = formatAvgResolveHours(stats?.avgResolveHours)
 
   return {
     t,

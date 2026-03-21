@@ -140,7 +140,7 @@ export default function ExplorerEndpointsPage() {
             <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
             <Input
               value={endpointSearch}
-              onChange={e => setEndpointSearch(e.target.value)}
+              onChange={e => setEndpointSearch(e.currentTarget.value)}
               placeholder={t('endpoints.searchPlaceholder')}
               className="ps-9"
             />
@@ -177,7 +177,7 @@ export default function ExplorerEndpointsPage() {
             <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
             <Input
               value={huntSearch}
-              onChange={e => setHuntSearch(e.target.value)}
+              onChange={e => setHuntSearch(e.currentTarget.value)}
               placeholder={t('endpoints.huntSearchPlaceholder')}
               className="ps-9"
             />

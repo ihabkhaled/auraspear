@@ -1,19 +1,13 @@
 import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getCorrelationColumns } from '@/components/correlation'
-import { RuleSource, SortOrder } from '@/enums'
+import { SortOrder } from '@/enums'
+import { TAB_SOURCE_MAP } from '@/lib/constants/correlation'
 import { lookup } from '@/lib/utils'
 import type { CorrelationSearchParams } from '@/types'
 import { useCorrelationRules, useCorrelationStats } from './useCorrelation'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
-
-const TAB_SOURCE_MAP: Record<string, RuleSource | undefined> = {
-  all: undefined,
-  sigma: RuleSource.SIGMA,
-  custom: RuleSource.CUSTOM,
-  ai: RuleSource.AI_GENERATED,
-}
 
 export function useCorrelationPageFilters() {
   const t = useTranslations('correlation')

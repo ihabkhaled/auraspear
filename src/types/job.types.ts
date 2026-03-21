@@ -24,6 +24,8 @@ export interface JobSearchParams {
   limit?: number
   type?: JobType
   status?: JobStatus
+  sortBy?: string
+  sortOrder?: string
 }
 
 export interface JobTypeBreakdown {
@@ -46,6 +48,7 @@ export interface JobRuntimeStats {
 
 export interface RunAiAgentInput {
   prompt: string
+  connector?: string | undefined
 }
 
 export interface AiAgentRunResult {

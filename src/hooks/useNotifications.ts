@@ -1,11 +1,10 @@
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Permission } from '@/enums'
+import { NOTIFICATIONS_PAGE_SIZE } from '@/lib/constants/notifications'
 import { requirePermission } from '@/lib/permissions'
 import { notificationService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { NotificationSearchParams } from '@/types'
-
-const NOTIFICATIONS_PAGE_SIZE = 15
 
 export function useNotifications() {
   const tenantId = useTenantStore(s => s.currentTenantId)

@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import type { CloudAccountDeleteDialogProps } from '@/types'
+import type { UseCloudAccountDeleteDialogParams } from '@/types'
 
 export function useCloudAccountDeleteDialog({
   accountName,
   onConfirm,
-}: Pick<CloudAccountDeleteDialogProps, 'accountName' | 'onConfirm'>) {
+}: UseCloudAccountDeleteDialogParams) {
   const t = useTranslations('cloudSecurity')
   const tCommon = useTranslations('common')
 

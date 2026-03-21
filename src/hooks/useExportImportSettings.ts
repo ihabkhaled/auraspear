@@ -139,8 +139,8 @@ export function useExportImportSettings() {
       }
       reader.readAsText(file)
 
-      if (event.target) {
-        event.target.value = ''
+      if (event.currentTarget) {
+        event.currentTarget.value = ''
       }
     },
     [updatePreferences, t, tErrors]

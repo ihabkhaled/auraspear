@@ -1,5 +1,5 @@
-import { NotificationType } from '@/enums'
-import type { TranslatableMessage } from '@/types'
+import { NotificationCategory, NotificationType } from '@/enums'
+import type { TranslatableMessage, UserPreferences } from '@/types'
 
 /**
  * Resolves a notification message that may be either a plain-text string (legacy)
@@ -48,4 +48,32 @@ export const NOTIFICATION_TYPE_LABEL_MAP: Record<string, string> = {
   [NotificationType.USER_UNBLOCKED]: 'userUnblocked',
   [NotificationType.USER_REMOVED]: 'userRemoved',
   [NotificationType.USER_RESTORED]: 'userRestored',
+}
+
+export const NOTIFICATIONS_PAGE_SIZE = 15
+
+export const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000'
+
+export const NOTIFICATION_CATEGORIES = [
+  NotificationCategory.CRITICAL_ALERTS,
+  NotificationCategory.HIGH_ALERTS,
+  NotificationCategory.CASE_ASSIGNMENTS,
+  NotificationCategory.CASE_UPDATES,
+  NotificationCategory.CASE_COMMENTS,
+  NotificationCategory.CASE_ACTIVITY,
+  NotificationCategory.INCIDENT_UPDATES,
+  NotificationCategory.COMPLIANCE_ALERTS,
+  NotificationCategory.USER_MANAGEMENT,
+] as const
+
+export const CATEGORY_TO_PREF_KEY: Record<NotificationCategory, keyof UserPreferences> = {
+  [NotificationCategory.CRITICAL_ALERTS]: 'notifyCriticalAlerts',
+  [NotificationCategory.HIGH_ALERTS]: 'notifyHighAlerts',
+  [NotificationCategory.CASE_ASSIGNMENTS]: 'notifyCaseAssignments',
+  [NotificationCategory.CASE_UPDATES]: 'notifyCaseUpdates',
+  [NotificationCategory.CASE_COMMENTS]: 'notifyCaseComments',
+  [NotificationCategory.CASE_ACTIVITY]: 'notifyCaseActivity',
+  [NotificationCategory.INCIDENT_UPDATES]: 'notifyIncidentUpdates',
+  [NotificationCategory.COMPLIANCE_ALERTS]: 'notifyComplianceAlerts',
+  [NotificationCategory.USER_MANAGEMENT]: 'notifyUserManagement',
 }

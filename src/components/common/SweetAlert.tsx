@@ -1,13 +1,6 @@
 import Swal from 'sweetalert2'
+import { SweetAlertIcon } from '@/enums'
 import type { InputResult, ShowOptions, ShowWithInputOptions } from '@/types'
-
-export enum SweetAlertIcon {
-  SUCCESS = 'success',
-  ERROR = 'error',
-  WARNING = 'warning',
-  INFO = 'info',
-  QUESTION = 'question',
-}
 
 export const SweetAlertDialog = {
   show: async (options: ShowOptions): Promise<boolean> => {

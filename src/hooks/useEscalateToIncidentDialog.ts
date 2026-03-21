@@ -5,21 +5,9 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { IncidentSeverity } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { lookup } from '@/lib/utils'
+import { mapAlertSeverityToIncident } from '@/lib/incident.utils'
 import type { Alert, EscalateFormValues } from '@/types'
 import { useCreateIncident } from './useIncidents'
-
-const SEVERITY_MAP: Record<string, IncidentSeverity> = {
-  critical: IncidentSeverity.CRITICAL,
-  high: IncidentSeverity.HIGH,
-  medium: IncidentSeverity.MEDIUM,
-  low: IncidentSeverity.LOW,
-  info: IncidentSeverity.LOW,
-}
-
-function mapSeverity(alertSeverity: string): IncidentSeverity {
-  return lookup(SEVERITY_MAP, alertSeverity) ?? IncidentSeverity.MEDIUM
-}
 
 export function useEscalateToIncidentDialog(
   alert: Alert | null,
@@ -30,7 +18,9 @@ export function useEscalateToIncidentDialog(
   const tError = useTranslations('errors')
   const createIncidentMutation = useCreateIncident()
 
-  const defaultSeverity = alert ? mapSeverity(alert.severity) : IncidentSeverity.MEDIUM
+  const defaultSeverity = alert
+    ? mapAlertSeverityToIncident(alert.severity)
+    : IncidentSeverity.MEDIUM
 
   const handleSubmit = useCallback(
     (formData: EscalateFormValues) => {

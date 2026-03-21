@@ -1,11 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import type { SystemHealthCheck, SystemMetric } from '@/types'
-
-interface UseSystemHealthPageDetailOptions {
-  metricsData: { data?: SystemMetric[] } | undefined
-}
+import type { SystemHealthCheck, SystemMetric, UseSystemHealthPageDetailOptions } from '@/types'
 
 export function useSystemHealthPageDetail({ metricsData }: UseSystemHealthPageDetailOptions) {
   const [detailOpen, setDetailOpen] = useState(false)

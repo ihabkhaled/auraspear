@@ -1,4 +1,4 @@
-import { ServiceStatus } from '@/enums'
+import { ServiceStatus, StatusBgClass, StatusBorderClass, StatusTextClass } from '@/enums'
 import type { ServiceHealth } from '@/types'
 
 /**
@@ -7,15 +7,15 @@ import type { ServiceHealth } from '@/types'
 export function getStatusDotClass(status: ServiceStatus): string {
   switch (status) {
     case ServiceStatus.HEALTHY:
-      return 'bg-status-success'
+      return StatusBgClass.SUCCESS
     case ServiceStatus.DEGRADED:
-      return 'bg-status-warning'
+      return StatusBgClass.WARNING
     case ServiceStatus.DOWN:
-      return 'bg-status-error'
+      return StatusBgClass.ERROR
     case ServiceStatus.MAINTENANCE:
-      return 'bg-status-info'
+      return StatusBgClass.INFO
     default:
-      return 'bg-status-neutral'
+      return StatusBgClass.NEUTRAL
   }
 }
 
@@ -25,13 +25,13 @@ export function getStatusDotClass(status: ServiceStatus): string {
 export function getStatusBgHint(status: ServiceStatus): string {
   switch (status) {
     case ServiceStatus.HEALTHY:
-      return 'border-status-success/30'
+      return StatusBorderClass.SUCCESS_30
     case ServiceStatus.DEGRADED:
-      return 'border-status-warning/30'
+      return StatusBorderClass.WARNING_30
     case ServiceStatus.DOWN:
-      return 'border-status-error/30'
+      return StatusBorderClass.ERROR_30
     case ServiceStatus.MAINTENANCE:
-      return 'border-status-info/30'
+      return StatusBorderClass.INFO_30
     default:
       return ''
   }
@@ -60,18 +60,18 @@ export function computeMaxLatency(services: ServiceHealth[]): number {
  * Returns a text colour class for the health percentage indicator.
  */
 export function getHealthStatusClass(percent: number): string {
-  if (percent >= 90) return 'text-status-success'
-  if (percent >= 70) return 'text-status-warning'
-  return 'text-status-error'
+  if (percent >= 90) return StatusTextClass.SUCCESS
+  if (percent >= 70) return StatusTextClass.WARNING
+  return StatusTextClass.ERROR
 }
 
 /**
  * Returns a background colour class for the health percentage indicator.
  */
 export function getHealthBgClass(percent: number): string {
-  if (percent >= 90) return 'bg-status-success'
-  if (percent >= 70) return 'bg-status-warning'
-  return 'bg-status-error'
+  if (percent >= 90) return StatusBgClass.SUCCESS
+  if (percent >= 70) return StatusBgClass.WARNING
+  return StatusBgClass.ERROR
 }
 
 /**

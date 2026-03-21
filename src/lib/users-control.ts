@@ -1,5 +1,20 @@
-import { UserRole, UserSessionStatus, UserStatus, type UsersControlUserSortField } from '@/enums'
-import { USERS_CONTROL_SORT_FIELDS } from '@/lib/constants/users-control'
+import {
+  StatusBgClass,
+  StatusBorderClass,
+  StatusTextClass,
+  UserRole,
+  UserSessionStatus,
+  UserStatus,
+  type UsersControlUserSortField,
+} from '@/enums'
+import {
+  MEMBERSHIP_STATUS_DEFAULT_LABEL_KEY,
+  MEMBERSHIP_STATUS_LABEL_KEYS,
+  PRESENCE_LABEL_KEYS,
+  USERS_CONTROL_SESSION_STATUS_LABEL_KEYS,
+  USERS_CONTROL_SORT_FIELDS,
+} from '@/lib/constants/users-control'
+import { lookup } from '@/lib/utils'
 import type { UsersControlUser } from '@/types'
 
 export function isUsersControlSortField(value: string): value is UsersControlUserSortField {
@@ -8,64 +23,53 @@ export function isUsersControlSortField(value: string): value is UsersControlUse
 
 export function getUsersControlPresenceClass(isOnline: boolean): string {
   return isOnline
-    ? 'border-status-success/30 bg-status-success/10 text-status-success'
-    : 'border-border bg-muted text-muted-foreground'
+    ? `${StatusBorderClass.SUCCESS_30} ${StatusBgClass.SUCCESS_10} ${StatusTextClass.SUCCESS}`
+    : `${StatusBorderClass.BORDER} ${StatusBgClass.MUTED} ${StatusTextClass.MUTED}`
 }
 
 export function getUsersControlPresenceLabelKey(isOnline: boolean): string {
-  return isOnline ? 'online' : 'offline'
+  const key = isOnline ? 'online' : 'offline'
+  return lookup(PRESENCE_LABEL_KEYS, key)
 }
 
 export function getUsersControlMembershipStatusClass(status: UserStatus | null): string {
   switch (status) {
     case UserStatus.ACTIVE:
-      return 'border-status-success/30 bg-status-success/10 text-status-success'
+      return `${StatusBorderClass.SUCCESS_30} ${StatusBgClass.SUCCESS_10} ${StatusTextClass.SUCCESS}`
     case UserStatus.SUSPENDED:
-      return 'border-status-warning/30 bg-status-warning/10 text-status-warning'
+      return `${StatusBorderClass.WARNING_30} ${StatusBgClass.WARNING_10} ${StatusTextClass.WARNING}`
     case UserStatus.INACTIVE:
-      return 'border-status-error/30 bg-status-error/10 text-status-error'
+      return `${StatusBorderClass.ERROR_30} ${StatusBgClass.ERROR_10} ${StatusTextClass.ERROR}`
     default:
-      return 'border-border bg-muted text-muted-foreground'
+      return `${StatusBorderClass.BORDER} ${StatusBgClass.MUTED} ${StatusTextClass.MUTED}`
   }
 }
 
 export function getUsersControlMembershipStatusLabelKey(status: UserStatus | null): string {
-  switch (status) {
-    case UserStatus.ACTIVE:
-      return 'membershipStatus.active'
-    case UserStatus.SUSPENDED:
-      return 'membershipStatus.suspended'
-    case UserStatus.INACTIVE:
-      return 'membershipStatus.inactive'
-    default:
-      return 'membershipStatus.unknown'
+  if (status === null) {
+    return MEMBERSHIP_STATUS_DEFAULT_LABEL_KEY
   }
+  return lookup(MEMBERSHIP_STATUS_LABEL_KEYS, status) ?? MEMBERSHIP_STATUS_DEFAULT_LABEL_KEY
 }
 
 export function getUsersControlSessionStatusClass(status: UserSessionStatus): string {
   switch (status) {
     case UserSessionStatus.ACTIVE:
-      return 'border-status-success/30 bg-status-success/10 text-status-success'
+      return `${StatusBorderClass.SUCCESS_30} ${StatusBgClass.SUCCESS_10} ${StatusTextClass.SUCCESS}`
     case UserSessionStatus.REVOKED:
-      return 'border-status-warning/30 bg-status-warning/10 text-status-warning'
+      return `${StatusBorderClass.WARNING_30} ${StatusBgClass.WARNING_10} ${StatusTextClass.WARNING}`
     case UserSessionStatus.EXPIRED:
-      return 'border-status-error/30 bg-status-error/10 text-status-error'
+      return `${StatusBorderClass.ERROR_30} ${StatusBgClass.ERROR_10} ${StatusTextClass.ERROR}`
     default:
-      return 'border-border bg-muted text-muted-foreground'
+      return `${StatusBorderClass.BORDER} ${StatusBgClass.MUTED} ${StatusTextClass.MUTED}`
   }
 }
 
 export function getUsersControlSessionStatusLabelKey(status: UserSessionStatus): string {
-  switch (status) {
-    case UserSessionStatus.ACTIVE:
-      return 'sessionStatus.active'
-    case UserSessionStatus.REVOKED:
-      return 'sessionStatus.revoked'
-    case UserSessionStatus.EXPIRED:
-      return 'sessionStatus.expired'
-    default:
-      return 'sessionStatus.expired'
-  }
+  return (
+    lookup(USERS_CONTROL_SESSION_STATUS_LABEL_KEYS, status) ??
+    lookup(USERS_CONTROL_SESSION_STATUS_LABEL_KEYS, UserSessionStatus.EXPIRED)
+  )
 }
 
 export function canManageUsersControlTarget(

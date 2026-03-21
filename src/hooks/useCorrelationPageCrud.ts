@@ -3,9 +3,12 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
 import { safeJsonParse } from '@/lib/utils'
-import type { CorrelationCreateFormValues, CorrelationEditFormValues } from '@/types'
+import type {
+  CorrelationCreateFormValues,
+  CorrelationEditFormValues,
+  CorrelationPageDialogsReturn,
+} from '@/types'
 import { useCreateRule, useUpdateRule, useDeleteRule } from './useCorrelation'
-import type { CorrelationPageDialogsReturn } from './useCorrelationPageDialogs'
 
 export function useCorrelationPageCrud(dialogs: CorrelationPageDialogsReturn) {
   const t = useTranslations('correlation')

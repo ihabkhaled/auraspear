@@ -68,6 +68,10 @@ export interface SystemHealthDetailPanelProps {
   onOpenChange: (open: boolean) => void
 }
 
+export interface UseSystemHealthPageDetailOptions {
+  metricsData: { data?: SystemMetric[] } | undefined
+}
+
 export interface SystemHealthColumnTranslations {
   systemHealth: (key: string) => string
   common: (key: string) => string

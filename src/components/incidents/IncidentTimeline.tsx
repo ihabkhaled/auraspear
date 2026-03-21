@@ -25,7 +25,7 @@ export function IncidentTimeline({ incidentId }: IncidentTimelineProps) {
           <Input
             placeholder={t('timelineEvent')}
             value={newEvent}
-            onChange={e => setNewEvent(e.target.value)}
+            onChange={e => setNewEvent(e.currentTarget.value)}
             onKeyDown={e => {
               if (e.key === 'Enter') {
                 e.preventDefault()

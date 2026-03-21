@@ -53,5 +53,3 @@ export function useAttackPathsPageDialogs() {
     handleOpenEdit,
   } as const satisfies Record<string, unknown>
 }
-
-export type AttackPathsPageDialogsReturn = ReturnType<typeof useAttackPathsPageDialogs>

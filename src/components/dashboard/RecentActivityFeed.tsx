@@ -8,14 +8,7 @@ import { useRecentActivityFeed } from '@/hooks/useRecentActivityFeed'
 import { NOTIFICATION_TYPE_LABEL_MAP } from '@/lib/constants/notifications'
 import { getNotificationIcon, getNotificationIconColor } from '@/lib/notification.utils'
 import { cn, formatRelativeTime, lookup } from '@/lib/utils'
-import type { RecentActivityItem } from '@/types'
-
-interface ActivityItemProps {
-  item: RecentActivityItem
-  tNotifications: (key: string) => string
-  resolveMessage: (message: string) => string
-  locale: string
-}
+import type { ActivityItemProps } from '@/types'
 
 function ActivityItem({ item, tNotifications, resolveMessage, locale }: ActivityItemProps) {
   const labelKey = lookup(NOTIFICATION_TYPE_LABEL_MAP, item.type)

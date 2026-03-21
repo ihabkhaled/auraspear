@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { ErrorMessageKey } from '@/enums'
 import type { FetchOptions, ProxyOptions } from '@/types'
 
 const BACKEND_URL = process.env['BACKEND_API_URL'] ?? 'http://localhost:4000/api/v1'
@@ -132,7 +133,7 @@ export async function proxyToBackend(
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Backend unavailable'
     return jsonNoStore(
-      { data: null, error: message, messageKey: 'errors.serviceUnavailable' },
+      { data: null, error: message, messageKey: ErrorMessageKey.SERVICE_UNAVAILABLE },
       { status: 502 }
     )
   }
@@ -254,27 +255,27 @@ export async function fetchBackendJson(
   return { data, setCookieHeaders }
 }
 
-function mapErrorToKey(status: number, message: string): string {
+function mapErrorToKey(status: number, message: string): ErrorMessageKey {
   const lower = message.toLowerCase()
   if (status === 401 && lower.includes('invalid email or password')) {
-    return 'errors.auth.invalidCredentials'
+    return ErrorMessageKey.AUTH_INVALID_CREDENTIALS
   }
   if (status === 401 && lower.includes('expired')) {
-    return 'errors.auth.tokenExpired'
+    return ErrorMessageKey.AUTH_TOKEN_EXPIRED
   }
   if (status === 401) {
-    return 'errors.auth.unauthorized'
+    return ErrorMessageKey.AUTH_UNAUTHORIZED
   }
   if (status === 403) {
-    return 'errors.auth.forbidden'
+    return ErrorMessageKey.AUTH_FORBIDDEN
   }
   if (status === 404) {
-    return 'errors.common.notFound'
+    return ErrorMessageKey.COMMON_NOT_FOUND
   }
   if (status === 400) {
-    return 'errors.common.validation'
+    return ErrorMessageKey.COMMON_VALIDATION
   }
-  return 'errors.common.unknown'
+  return ErrorMessageKey.COMMON_UNKNOWN
 }
 
 /** Keys that belong to our standard API response wrapper. */

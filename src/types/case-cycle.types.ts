@@ -59,3 +59,10 @@ export interface EditCycleDialogProps {
   loading?: boolean
   cycle: CaseCycle | null
 }
+
+export interface EditCycleHookParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCycleFormValues) => void
+  cycle: CaseCycle | null
+}

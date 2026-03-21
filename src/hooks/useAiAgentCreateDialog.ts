@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { AiAgentTier } from '@/enums'
 import { createAiAgentSchema } from '@/lib/validation/ai-agents.schema'
-import type { AiAgentCreateDialogProps, CreateAiAgentFormValues } from '@/types'
+import type { CreateAiAgentFormValues, UseAiAgentCreateDialogParams } from '@/types'
 
 export function useAiAgentCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<AiAgentCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseAiAgentCreateDialogParams) {
   const t = useTranslations('aiAgents')
 
   const {

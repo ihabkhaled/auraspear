@@ -51,5 +51,3 @@ export function useIncidentPageDialogs() {
     handleOpenEdit,
   } as const satisfies Record<string, unknown>
 }
-
-export type IncidentPageDialogsReturn = ReturnType<typeof useIncidentPageDialogs>

@@ -1,19 +1,7 @@
 import { create } from 'zustand'
-import type { HuntStatus } from '@/enums'
-import type { HuntMessage } from '@/types'
+import type { HuntStoreState } from '@/types'
 
-interface HuntState {
-  messages: HuntMessage[]
-  huntStatus: HuntStatus | null
-  huntId: string | null
-  addMessage: (message: HuntMessage) => void
-  setHuntStatus: (status: HuntStatus) => void
-  setHuntId: (id: string) => void
-  resetHuntState: () => void
-  clearSession: () => void
-}
-
-export const useHuntStore = create<HuntState>(set => ({
+export const useHuntStore = create<HuntStoreState>(set => ({
   messages: [],
   huntStatus: null,
   huntId: null,

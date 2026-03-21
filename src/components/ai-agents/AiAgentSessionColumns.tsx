@@ -1,5 +1,7 @@
 'use client'
 
+import { AI_SESSION_CONNECTOR_LABELS } from '@/lib/constants/ai-agents'
+import { lookup } from '@/lib/utils'
 import type { AiAgentSession, Column, SessionColumnTranslations } from '@/types'
 
 export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<AiAgentSession>[] {
@@ -16,6 +18,22 @@ export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<A
       label: t('colStatus'),
       className: 'w-24',
       render: (value: unknown) => <span className="text-xs capitalize">{String(value ?? '')}</span>,
+    },
+    {
+      key: 'provider',
+      label: t('sessionProvider'),
+      className: 'w-36',
+      render: (value: unknown) => {
+        const raw = String(value ?? '')
+        const label = raw ? (lookup(AI_SESSION_CONNECTOR_LABELS, raw) ?? raw) : '—'
+        return <span className="text-xs font-medium">{label}</span>
+      },
+    },
+    {
+      key: 'model',
+      label: t('sessionModel'),
+      className: 'w-32',
+      render: (value: unknown) => <span className="font-mono text-xs">{String(value ?? '—')}</span>,
     },
     {
       key: 'output',

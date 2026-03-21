@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editCaseSchema } from '@/lib/validation/cases.schema'
-import type { EditCaseDialogProps, EditCaseFormValues } from '@/types'
+import type { EditCaseFormValues, EditCaseHookParams } from '@/types'
 
 export function useEditCaseDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<EditCaseDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: EditCaseHookParams) {
   const t = useTranslations('cases')
 
   const {

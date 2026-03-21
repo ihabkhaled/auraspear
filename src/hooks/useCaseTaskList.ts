@@ -1,14 +1,9 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CaseTaskStatus } from '@/enums'
-import type { CaseTaskListProps } from '@/types'
+import type { UseCaseTaskListParams } from '@/types'
 
-interface UseCaseTaskListProps {
-  tasks: CaseTaskListProps['tasks']
-  onAddTask?: ((title: string) => void) | undefined
-}
-
-export function useCaseTaskList({ tasks, onAddTask }: UseCaseTaskListProps) {
+export function useCaseTaskList({ tasks, onAddTask }: UseCaseTaskListParams) {
   const t = useTranslations('cases')
   const [newTaskTitle, setNewTaskTitle] = useState('')
 

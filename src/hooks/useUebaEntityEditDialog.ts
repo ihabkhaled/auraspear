@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editUebaEntitySchema } from '@/lib/validation/ueba.schema'
-import type { UebaEntityEditDialogProps, EditUebaEntityFormValues } from '@/types'
+import type { EditUebaEntityFormValues, UseUebaEntityEditDialogParams } from '@/types'
 
 export function useUebaEntityEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<UebaEntityEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseUebaEntityEditDialogParams) {
   const t = useTranslations('ueba')
 
   const {

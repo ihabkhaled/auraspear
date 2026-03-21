@@ -5,9 +5,7 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { UserRole } from '@/enums'
 import { ROLE_OPTIONS } from '@/lib/roles'
-import type { AddUserFormValues, AddUserDialogProps } from '@/types'
-
-type UseAddUserDialogParams = Pick<AddUserDialogProps, 'onSubmit' | 'onOpenChange' | 'callerRole'>
+import type { AddUserFormValues, UseAddUserDialogParams } from '@/types'
 
 export function useAddUserDialog({ onSubmit, onOpenChange, callerRole }: UseAddUserDialogParams) {
   const t = useTranslations('admin')

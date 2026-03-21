@@ -2,22 +2,16 @@ import { useEffect, useCallback } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useFieldArray, type Resolver } from 'react-hook-form'
+import { EMPTY_STAGE } from '@/lib/constants/attack-paths'
 import { editAttackPathSchema } from '@/lib/validation/attack-paths.schema'
-import type { AttackPathEditDialogProps, EditAttackPathFormValues } from '@/types'
-
-const EMPTY_STAGE = {
-  name: '',
-  mitreId: '',
-  description: '',
-  assets: [],
-}
+import type { EditAttackPathFormValues, UseAttackPathEditDialogParams } from '@/types'
 
 export function useAttackPathEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<AttackPathEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseAttackPathEditDialogParams) {
   const t = useTranslations('attackPath')
 
   const {

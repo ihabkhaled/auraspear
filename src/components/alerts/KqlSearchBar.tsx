@@ -23,7 +23,7 @@ export function KqlSearchBar({ value, onChange, onSubmit, onSavedSearches }: KQL
           <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
           <Input
             value={value}
-            onChange={e => onChange(e.target.value)}
+            onChange={e => onChange(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
             placeholder={t('searchPlaceholder')}
             className="ps-9 font-mono text-sm"

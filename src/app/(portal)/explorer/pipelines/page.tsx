@@ -11,24 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { BadgeVariant, SortOrder } from '@/enums'
+import { SortOrder } from '@/enums'
 import { useExplorerPipelinesPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'
+import { levelVariant } from '@/lib/explorer.utils'
 import { formatDate } from '@/lib/utils'
 import type { Column, LogstashPipelineLog } from '@/types'
-
-function levelVariant(lvl: string): BadgeVariant {
-  switch (lvl) {
-    case 'error':
-      return BadgeVariant.DESTRUCTIVE
-    case 'warn':
-      return BadgeVariant.OUTLINE
-    case 'debug':
-      return BadgeVariant.SECONDARY
-    default:
-      return BadgeVariant.DEFAULT
-  }
-}
 
 export default function ExplorerPipelinesPage() {
   const {
@@ -125,7 +113,7 @@ export default function ExplorerPipelinesPage() {
           <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
           <Input
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => setSearch(e.currentTarget.value)}
             placeholder={t('pipelines.searchPlaceholder')}
             className="ps-9"
           />

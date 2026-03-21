@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { CheckCircle2, XCircle, WifiOff } from 'lucide-react'
-import { IntegrationStatus } from '@/enums'
+import { IntegrationStatus, StatusBorderClass } from '@/enums'
 
 /**
  * Returns a border class hinting at the integration connection status.
@@ -8,9 +8,9 @@ import { IntegrationStatus } from '@/enums'
 export function getStatusBorderClass(status: IntegrationStatus): string {
   switch (status) {
     case IntegrationStatus.CONNECTED:
-      return 'border-status-success/30'
+      return StatusBorderClass.SUCCESS_30
     case IntegrationStatus.ERROR:
-      return 'border-status-error/30'
+      return StatusBorderClass.ERROR_30
     default:
       return ''
   }

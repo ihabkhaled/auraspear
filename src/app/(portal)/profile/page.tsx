@@ -123,7 +123,7 @@ export default function ProfilePage() {
                   <Input
                     id="profile-name"
                     value={name}
-                    onChange={e => setName(e.target.value)}
+                    onChange={e => setName(e.currentTarget.value)}
                     placeholder={t('namePlaceholder')}
                     required
                   />
@@ -135,7 +135,7 @@ export default function ProfilePage() {
                       id="profile-name-password"
                       type={showNamePassword ? 'text' : 'password'}
                       value={namePassword}
-                      onChange={e => setNamePassword(e.target.value)}
+                      onChange={e => setNamePassword(e.currentTarget.value)}
                       placeholder={t('confirmPasswordPlaceholder')}
                       className="pe-10"
                       required
@@ -192,7 +192,7 @@ export default function ProfilePage() {
                       id="current-password"
                       type={showCurrentPassword ? 'text' : 'password'}
                       value={currentPassword}
-                      onChange={e => setCurrentPassword(e.target.value)}
+                      onChange={e => setCurrentPassword(e.currentTarget.value)}
                       placeholder={t('currentPasswordPlaceholder')}
                       className="pe-10"
                       required
@@ -218,7 +218,7 @@ export default function ProfilePage() {
                       id="new-password"
                       type={showNewPassword ? 'text' : 'password'}
                       value={newPassword}
-                      onChange={e => setNewPassword(e.target.value)}
+                      onChange={e => setNewPassword(e.currentTarget.value)}
                       placeholder={t('newPasswordPlaceholder')}
                       className="pe-10"
                       required
@@ -244,7 +244,7 @@ export default function ProfilePage() {
                       id="confirm-new-password"
                       type={showConfirmPassword ? 'text' : 'password'}
                       value={confirmPassword}
-                      onChange={e => setConfirmPassword(e.target.value)}
+                      onChange={e => setConfirmPassword(e.currentTarget.value)}
                       placeholder={t('confirmNewPasswordPlaceholder')}
                       className="pe-10"
                       required

@@ -7,6 +7,7 @@ import type {
   CaseTaskStatus,
   CaseTimelineEntryType,
   CaseViewMode,
+  CommentPartType,
   SortOrder,
 } from '@/enums'
 import type { TenantMember } from './admin.types'
@@ -158,6 +159,13 @@ export interface EditCaseDialogProps {
   loading?: boolean
 }
 
+export interface EditCaseHookParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCaseFormValues) => void
+  initialValues: EditCaseFormValues
+}
+
 export interface CaseDetailPageProps {
   params: Promise<{ id: string }>
 }
@@ -235,6 +243,13 @@ export interface CommentComposerProps {
   onSubmit: (body: string, mentionedUserIds: string[]) => void
   loading?: boolean
   disabled?: boolean
+}
+
+export interface UseCommentComposerProps {
+  caseId: string
+  currentUserId: string
+  onSubmit: (body: string, mentionedUserIds: string[]) => void
+  loading?: boolean | undefined
 }
 
 export interface CreateCycleFormValues {
@@ -328,4 +343,43 @@ export interface CaseSearchParams {
   query?: string
   sortBy?: string
   sortOrder?: SortOrder
+}
+
+export interface UseCaseListTableParams {
+  currentUserId?: string | undefined
+  isAdmin?: boolean | undefined
+}
+
+export interface UseCreateCaseDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateCaseFormValues) => void
+}
+
+export interface UseEditCaseDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCaseFormValues) => void
+  initialValues: EditCaseFormValues
+}
+
+export interface UseCreateCycleDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateCycleFormValues) => void
+}
+
+export interface UseCaseArtifactPanelParams {
+  artifacts: CaseArtifact[]
+  onAddArtifact?: ((data: { type: string; value: string; source?: string }) => void) | undefined
+}
+
+export interface UseCaseTaskListParams {
+  tasks: CaseTaskListProps['tasks']
+  onAddTask?: ((title: string) => void) | undefined
+}
+
+export interface CommentPart {
+  type: CommentPartType
+  value: string
 }

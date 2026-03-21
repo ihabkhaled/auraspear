@@ -1,9 +1,8 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query'
+import { HEALTH_POLL_INTERVAL } from '@/lib/constants/system-health'
 import { systemHealthService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { HealthCheckSearchParams, MetricSearchParams } from '@/types'
-
-const HEALTH_POLL_INTERVAL = 30_000
 
 export function useHealthChecks(params?: HealthCheckSearchParams) {
   const tenantId = useTenantStore(s => s.currentTenantId)

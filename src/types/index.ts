@@ -85,6 +85,8 @@ export type {
   CaseKanbanCardProps,
   EditCaseFormValues,
   EditCaseDialogProps,
+  EditCaseHookParams,
+  UseEditCaseDialogParams,
   CaseDetailPageProps,
   CaseToolbarProps,
   CaseComment,
@@ -96,6 +98,7 @@ export type {
   CaseCommentsProps,
   CommentItemProps,
   CommentComposerProps,
+  UseCommentComposerProps,
   CreateCycleFormValues,
   CreateCycleDialogProps,
   CaseTimelineProps,
@@ -106,6 +109,12 @@ export type {
   CaseOwnerFilterProps,
   CycleSelectorProps,
   CycleBadgeProps,
+  UseCaseListTableParams,
+  UseCreateCaseDialogParams,
+  UseCreateCycleDialogParams,
+  UseCaseArtifactPanelParams,
+  UseCaseTaskListParams,
+  CommentPart,
 } from './case.types'
 export type {
   CaseCycle,
@@ -115,6 +124,7 @@ export type {
   CaseCycleSearchParams,
   EditCycleFormValues,
   EditCycleDialogProps,
+  EditCycleHookParams,
 } from './case-cycle.types'
 export type { AiResponse, AiTokenUsage } from './ai.types'
 export type {
@@ -130,6 +140,7 @@ export type {
   HuntResultsPanelProps,
   HuntChatPanelProps,
   HuntInputAreaProps,
+  UseHuntInputAreaParams,
 } from './hunt.types'
 export type {
   MISPEvent,
@@ -138,6 +149,7 @@ export type {
   IOCCorrelation,
   WazuhCorrelationPanelProps,
   IOCSearchBarProps,
+  UseIocSearchBarParams,
   IntelStatsGridProps,
   IntelStats,
   MISPSearchParams,
@@ -176,6 +188,7 @@ export type {
   ServiceHealthGridProps,
   IntegrationConfigPanelProps,
   ServiceHealthCardProps,
+  UseAddUserDialogParams,
 } from './admin.types'
 export type {
   DashboardKPI,
@@ -223,8 +236,11 @@ export type {
   DashboardThreatOperationsMetrics,
   RecentActivityItem,
   RecentActivityFeedProps,
+  ActivityItemProps,
   ExtendedKPIItem,
   AiOperationsCanvasProps,
+  BackendSeverityDistributionEntry,
+  BackendSeverityDistributionResponse,
 } from './dashboard.types'
 export type {
   UserProfile,
@@ -241,11 +257,19 @@ export type {
 } from './layout.types'
 export type {
   SeverityDataPoint,
+  ColoredDataPoint,
   AlertTrendChartProps,
   MitreBarChartProps,
   SeverityDistributionChartProps,
 } from './chart.types'
 export type { AuthStorageState, TenantStorageState } from './storage.types'
+export type {
+  FilterStoreState,
+  HuntStoreState,
+  NotificationUIStoreState,
+  TenantStoreState,
+  UIStoreState,
+} from './store.types'
 export type {
   WorkspaceSummaryCard,
   WorkspaceRecentItem,
@@ -281,10 +305,12 @@ export type {
   FieldErrorProps,
   WorkspaceSummaryGridProps,
   WorkspaceSearchPanelProps,
+  UseWorkspaceSearchPanelParams,
   WorkspaceRecentActivityProps,
   WorkspaceHeaderProps,
   WorkspaceActionsPanelProps,
   ConnectorDetailPageProps,
+  UseConnectorFormParams,
 } from './connector.types'
 export type {
   TranslatableMessage,
@@ -346,6 +372,9 @@ export type {
   IncidentTimelineProps,
   IncidentDetailPanelProps,
   IncidentColumnTranslations,
+  IncidentCreateHookParams,
+  IncidentEditHookParams,
+  IncidentPageDialogsReturn,
 } from './incident.types'
 export type {
   CorrelationRule,
@@ -360,6 +389,10 @@ export type {
   CorrelationDeleteDialogProps,
   CorrelationDetailPanelProps,
   CorrelationColumnTranslations,
+  UseCorrelationCreateDialogParams,
+  UseCorrelationEditDialogParams,
+  UseCorrelationDetailPanelParams,
+  CorrelationPageDialogsReturn,
 } from './correlation.types'
 export type {
   Vulnerability,
@@ -376,6 +409,8 @@ export type {
   VulnerabilityBulkImportDialogProps,
   BulkImportRow,
   VulnerabilityColumnTranslations,
+  UseVulnerabilityCreateDialogParams,
+  UseVulnerabilityEditDialogParams,
 } from './vulnerability.types'
 export type {
   AiAgent,
@@ -397,6 +432,8 @@ export type {
   AiAgentFiltersProps,
   AiAgentColumnTranslations,
   SessionColumnTranslations,
+  AiAgentSessionDetailDialogProps,
+  SessionStatusBadgeProps,
   UpdateAiAgentSoulInput,
   UpdateAiAgentSoulMutationInput,
   UpdateAiAgentMutationInput,
@@ -405,6 +442,10 @@ export type {
   CreateAgentToolInput,
   CreateAgentToolMutationInput,
   DeleteAgentToolMutationInput,
+  UseAiAgentCreateDialogParams,
+  UseAiAgentEditDialogParams,
+  UseAiAgentToolDialogParams,
+  AiAgentsPageDialogsReturn,
 } from './ai-agent.types'
 export type {
   UebaEntity,
@@ -422,9 +463,13 @@ export type {
   UebaEntityDetailPanelProps,
   UebaKpiCardsProps,
   UebaFiltersProps,
+  UseUebaFiltersInput,
   UebaAnomalyCardProps,
   UebaMlModelCardProps,
   UebaColumnTranslations,
+  UseUebaEntityCreateDialogParams,
+  UseUebaEntityEditDialogParams,
+  UebaPageDialogsReturn,
 } from './ueba.types'
 export type {
   AttackPath,
@@ -443,6 +488,9 @@ export type {
   AttackPathStageEditorProps,
   AttackPathVisualizationProps,
   AttackPathColumnTranslations,
+  UseAttackPathCreateDialogParams,
+  UseAttackPathEditDialogParams,
+  AttackPathsPageDialogsReturn,
 } from './attack-path.types'
 export type {
   SoarPlaybook,
@@ -462,6 +510,9 @@ export type {
   SoarFiltersProps,
   SoarKpiCardsProps,
   SoarColumnTranslations,
+  UseSoarCreateDialogParams,
+  UseSoarEditDialogParams,
+  SoarPageDialogsReturn,
 } from './soar.types'
 export type {
   ComplianceFramework,
@@ -481,6 +532,9 @@ export type {
   ComplianceFiltersProps,
   ComplianceKpiCardsProps,
   ComplianceColumnTranslations,
+  UseComplianceCreateDialogParams,
+  UseComplianceEditDialogParams,
+  UseComplianceControlEditParams,
 } from './compliance.types'
 export type {
   Report,
@@ -498,6 +552,9 @@ export type {
   ReportKpiCardsProps,
   ReportColumnTranslations,
   ReportTemplateGridProps,
+  UseReportCreateDialogParams,
+  UseReportEditDialogParams,
+  ReportsPageDialogsReturn,
 } from './report.types'
 export type {
   SystemHealthCheck,
@@ -509,6 +566,7 @@ export type {
   SystemHealthFiltersProps,
   SystemHealthDetailPanelProps,
   SystemHealthColumnTranslations,
+  UseSystemHealthPageDetailOptions,
 } from './system-health.types'
 export type {
   NormalizationPipeline,
@@ -524,6 +582,9 @@ export type {
   NormalizationDetailPanelProps,
   UseNormalizationDetailPanelParams,
   NormalizationColumnTranslations,
+  UseNormalizationCreateDialogParams,
+  UseNormalizationDeleteDialogParams,
+  UseNormalizationEditDialogParams,
 } from './normalization.types'
 export type {
   DetectionRule,
@@ -538,6 +599,9 @@ export type {
   DetectionRuleFiltersProps,
   DetectionRuleDetailPanelProps,
   DetectionRuleColumnTranslations,
+  UseDetectionRuleCreateDialogParams,
+  UseDetectionRuleEditDialogParams,
+  UseDetectionRuleDeleteDialogParams,
 } from './detection-rule.types'
 export type {
   CloudAccount,
@@ -555,6 +619,9 @@ export type {
   CloudAccountDetailPanelProps,
   CloudFindingCardProps,
   CloudSecurityColumnTranslations,
+  UseCloudAccountCreateDialogParams,
+  UseCloudAccountEditDialogParams,
+  UseCloudAccountDeleteDialogParams,
 } from './cloud-security.types'
 export type {
   PermissionDefinition,

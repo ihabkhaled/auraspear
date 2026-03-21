@@ -176,6 +176,13 @@ export interface RecentActivityFeedProps {
   onViewAll?: (() => void) | undefined
 }
 
+export interface ActivityItemProps {
+  item: RecentActivityItem
+  tNotifications: (key: string) => string
+  resolveMessage: (message: string) => string
+  locale: string
+}
+
 export interface ExtendedKPIItem {
   labelKey: string
   value: number | string
@@ -366,4 +373,14 @@ export interface DashboardMetricBarListProps {
 export interface DashboardPanelState {
   density: DashboardDensity
   collapsed: DashboardPanelKey[]
+}
+
+export interface BackendSeverityDistributionEntry {
+  severity: string
+  count: number
+}
+
+export interface BackendSeverityDistributionResponse {
+  tenantId: string
+  distribution: BackendSeverityDistributionEntry[]
 }

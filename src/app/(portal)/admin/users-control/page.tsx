@@ -86,7 +86,7 @@ export default function UsersControlPage() {
             <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
             <Input
               value={search}
-              onChange={event => setSearch(event.target.value)}
+              onChange={event => setSearch(event.currentTarget.value)}
               placeholder={t('searchPlaceholder')}
               className="ps-9"
             />

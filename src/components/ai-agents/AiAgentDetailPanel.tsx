@@ -3,11 +3,22 @@
 import { Bot, ChevronDown, Edit, Play, Plus, Save, Square, Trash2, Wrench, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
-import { AiAgentPanelTab } from '@/enums'
+import { AiAgentPanelTab, AiConnectorPreference } from '@/enums'
 import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
-import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
+import {
+  AI_AGENT_STATUS_CLASSES,
+  AI_AGENT_TIER_CLASSES,
+  AI_CONNECTOR_PREFERENCE_LABEL_KEYS,
+} from '@/lib/constants/ai-agents'
 import { cn, lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
 import { AiAgentDeleteDialog } from './AiAgentDeleteDialog'
@@ -24,6 +35,8 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     setSoulMdDraft,
     runPrompt,
     setRunPrompt,
+    selectedConnector,
+    handleConnectorChange,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,
@@ -168,9 +181,26 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
                 <p className="text-foreground text-sm font-semibold">{t('runAgent')}</p>
                 <p className="text-muted-foreground text-xs">{t('runAgentDescription')}</p>
               </div>
+              <div className="flex flex-col gap-1.5">
+                <label className="text-muted-foreground text-xs font-medium">
+                  {t('connectorLabel')}
+                </label>
+                <Select value={selectedConnector} onValueChange={handleConnectorChange}>
+                  <SelectTrigger className="w-full sm:w-64">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.values(AiConnectorPreference).map(preference => (
+                      <SelectItem key={preference} value={preference}>
+                        {t(lookup(AI_CONNECTOR_PREFERENCE_LABEL_KEYS, preference))}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               <Textarea
                 value={runPrompt}
-                onChange={e => setRunPrompt(e.target.value)}
+                onChange={e => setRunPrompt(e.currentTarget.value)}
                 placeholder={t('runPromptPlaceholder')}
                 className="min-h-28 resize-none text-sm"
               />
@@ -204,7 +234,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
               <div className="flex flex-col gap-3 pt-2">
                 <Textarea
                   value={soulMdDraft}
-                  onChange={e => setSoulMdDraft(e.target.value)}
+                  onChange={e => setSoulMdDraft(e.currentTarget.value)}
                   className="h-64 resize-none font-mono text-sm"
                   placeholder={t('fieldSoulMdPlaceholder')}
                 />

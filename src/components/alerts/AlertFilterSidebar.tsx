@@ -88,7 +88,7 @@ export function AlertFilterSidebar({
           <Search className="text-muted-foreground absolute start-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2" />
           <Input
             value={agentFilter}
-            onChange={e => onAgentFilterChange(e.target.value)}
+            onChange={e => onAgentFilterChange(e.currentTarget.value)}
             placeholder={tCommon('search')}
             className="ps-8 text-sm"
           />
@@ -101,7 +101,7 @@ export function AlertFilterSidebar({
         </h3>
         <Input
           value={ruleGroup}
-          onChange={e => onRuleGroupChange(e.target.value)}
+          onChange={e => onRuleGroupChange(e.currentTarget.value)}
           placeholder={tCommon('filter')}
           className="text-sm"
         />

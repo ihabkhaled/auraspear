@@ -5,10 +5,7 @@ import { DashboardDensity, DashboardRulePerformanceMetric, Permission } from '@/
 import type { DashboardPanelKey } from '@/enums'
 import { isConnectorType } from '@/lib/constants/connectors.constants'
 import { EXTENDED_KPI_ROUTES } from '@/lib/constants/dashboard'
-import {
-  DASHBOARD_DENSITY_LABEL_KEYS,
-  DASHBOARD_DENSITY_STORAGE_KEY,
-} from '@/lib/constants/dashboard-preferences'
+import { DASHBOARD_DENSITY_LABEL_KEYS } from '@/lib/constants/dashboard-preferences'
 import { INCIDENT_STATUS_LABEL_KEYS } from '@/lib/constants/incidents'
 import {
   buildDashboardAutomationQualityItems,
@@ -26,6 +23,8 @@ import {
   getDashboardGapClass,
   getDashboardStackClass,
   isDashboardPanelOpen,
+  persistDashboardDensity,
+  readStoredDashboardDensity,
   toggleDashboardPanelPreference,
 } from '@/lib/dashboard.utils'
 import { computeHealthPercent } from '@/lib/health-utils'
@@ -45,35 +44,6 @@ import {
   useExtendedKPIs,
 } from './useDashboard'
 import { usePreferences, useUpdatePreferences } from './useSettings'
-
-function isDashboardDensity(value: string | null): value is DashboardDensity {
-  return value !== null && Object.values(DashboardDensity).includes(value as DashboardDensity)
-}
-
-function readStoredDashboardDensity(): DashboardDensity | null {
-  if (typeof window === 'undefined') {
-    return null
-  }
-
-  try {
-    const value = window.localStorage.getItem(DASHBOARD_DENSITY_STORAGE_KEY)
-    return isDashboardDensity(value) ? value : null
-  } catch {
-    return null
-  }
-}
-
-function persistDashboardDensity(density: DashboardDensity): void {
-  if (typeof window === 'undefined') {
-    return
-  }
-
-  try {
-    window.localStorage.setItem(DASHBOARD_DENSITY_STORAGE_KEY, density)
-  } catch {
-    // Ignore storage failures and keep the in-memory preference.
-  }
-}
 
 export function useDashboardPage() {
   const t = useTranslations('dashboard')

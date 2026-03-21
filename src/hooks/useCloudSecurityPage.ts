@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { getCloudSecurityColumns } from '@/components/cloud-security/CloudSecurityTableColumns'
 import { Toast } from '@/components/common'
 import { Permission, SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type {
@@ -24,8 +25,6 @@ import {
 } from './useCloudSecurity'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useCloudSecurityPage() {
   const t = useTranslations('cloudSecurity')

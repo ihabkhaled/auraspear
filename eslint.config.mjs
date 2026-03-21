@@ -5,6 +5,70 @@ import security from 'eslint-plugin-security'
 import unicorn from 'eslint-plugin-unicorn'
 import importX from 'eslint-plugin-import-x'
 
+// ── Separation-of-concerns selectors (Rules #13, #14, #15, #17) ────────────
+// Composed per file scope because flat-config `no-restricted-syntax` overrides,
+// so every block must carry its full selector list.
+
+const banStringLiteralUnions = {
+  selector: 'TSUnionType > TSLiteralType[literal.type="Literal"][literal.raw=/^\'[a-z]/]',
+  message:
+    'String literal unions are not allowed. Define an enum in src/enums/ and use it instead (Rule #17).',
+}
+
+const banInlineEnum = {
+  selector: 'TSEnumDeclaration',
+  message:
+    'Enums must be defined in src/enums/. Import from @/enums instead (Rule #13).',
+}
+
+const banInlineInterface = {
+  selector: 'TSInterfaceDeclaration',
+  message:
+    'Interfaces must be defined in src/types/<domain>.types.ts. Import from @/types instead (Rule #13).',
+}
+
+const banInlineTypeAlias = {
+  selector: 'TSTypeAliasDeclaration',
+  message:
+    'Type aliases must be defined in src/types/<domain>.types.ts. Import from @/types instead (Rule #13).',
+}
+
+const banInlineConst = {
+  selector: 'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[A-Z][A-Z0-9_]+$/]',
+  message:
+    'Module-level constants (SCREAMING_CASE) must be defined in src/lib/constants/<domain>.ts (Rule #13).',
+}
+
+const banInlineHook = {
+  selector: 'FunctionDeclaration[id.name=/^use[A-Z]/]',
+  message:
+    'Custom hooks must be defined in src/hooks/ (one hook per file). Import from @/hooks instead (Rule #14).',
+}
+
+const banInlineHookArrow = {
+  selector: 'VariableDeclarator[id.name=/^use[A-Z]/] > ArrowFunctionExpression',
+  message:
+    'Custom hooks must be defined in src/hooks/ (one hook per file). Import from @/hooks instead (Rule #14).',
+}
+
+const banInlineUtilFunction = {
+  selector: 'Program > FunctionDeclaration[id.name=/^[a-z]/]:not([id.name=/^use[A-Z]/])',
+  message:
+    'Utility functions must be defined in src/lib/<domain>.utils.ts. Import from @/lib instead (Rule #15).',
+}
+
+const banLiteralStatusCssReturn = {
+  selector: 'ReturnStatement > Literal[value=/^(text-status-|bg-status-|border-status-|text-muted-foreground|bg-muted|border-border)/]',
+  message:
+    'Do not return literal CSS class strings. Use StatusTextClass, StatusBgClass, or StatusBorderClass enums from @/enums instead (Rule #40).',
+}
+
+// Selectors by scope — each later block must include all applicable selectors
+const baseSelectors = [banStringLiteralUnions]
+const defaultSelectors = [...baseSelectors, banInlineEnum]
+const typeAwareSelectors = [...defaultSelectors, banInlineInterface, banInlineTypeAlias, banInlineConst, banInlineUtilFunction]
+const componentSelectors = [...typeAwareSelectors, banInlineHook, banInlineHookArrow]
+
 const eslintConfig = defineConfig([
   // ── Next.js presets (includes @typescript-eslint, react, react-hooks, jsx-a11y) ──
   ...nextVitals,
@@ -75,6 +139,10 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-loop-func': 'error',
       // No require() imports — use ES modules
       '@typescript-eslint/no-require-imports': 'error',
+
+      // Separation-of-concerns: ban string literal unions + enums outside src/enums/
+      // (Rules #13, #17 — overridden per-scope in file-specific blocks below)
+      'no-restricted-syntax': ['error', ...defaultSelectors],
 
       // ═══════════════════════════════════════════════════════════════
       // GENERAL CODE QUALITY
@@ -322,6 +390,60 @@ const eslintConfig = defineConfig([
           ignore: ['^CLAUDE\\.md$', '^README\\.md$'],
         },
       ],
+    },
+  },
+
+  // ── Separation-of-concerns: file-scope enforcement (Rules #13, #14, #15) ──
+  // Each block overrides `no-restricted-syntax` so it must carry ALL selectors.
+
+  // src/enums/ — only ban string literal unions (enums belong here)
+  {
+    files: ['src/enums/**/*.ts'],
+    rules: {
+      'no-restricted-syntax': ['error', ...baseSelectors],
+    },
+  },
+
+  // src/types/ — ban enums (must be in src/enums/) but allow interfaces/types
+  {
+    files: ['src/types/**/*.ts'],
+    rules: {
+      'no-restricted-syntax': ['error', ...defaultSelectors],
+    },
+  },
+
+  // shadcn/ui generated files — disable separation-of-concerns selectors
+  // These files use inline interfaces, types, and string literal unions as part of their generated pattern
+  {
+    files: ['src/components/ui/**/*.tsx'],
+    rules: {
+      'no-restricted-syntax': 'off',
+    },
+  },
+
+  // Component files (.tsx) — ban inline interfaces, types, enums, hooks, utilities
+  // Exclude src/components/ui/ — auto-generated shadcn components use inline cva types
+  {
+    files: ['src/**/*.tsx'],
+    ignores: ['src/components/ui/**'],
+    rules: {
+      'no-restricted-syntax': ['error', ...componentSelectors],
+    },
+  },
+
+  // Hook, service, API route files — ban inline interfaces, types, enums
+  {
+    files: ['src/hooks/**/*.ts', 'src/services/**/*.ts', 'src/app/api/**/*.ts', 'src/stores/**/*.ts'],
+    rules: {
+      'no-restricted-syntax': ['error', ...typeAwareSelectors],
+    },
+  },
+
+  // Lib/utils files — ban literal CSS status class returns
+  {
+    files: ['src/lib/**/*.ts', 'src/lib/**/*.tsx'],
+    rules: {
+      'no-restricted-syntax': ['error', ...defaultSelectors, banLiteralStatusCssReturn],
     },
   },
 

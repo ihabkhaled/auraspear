@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { IncidentCategory, IncidentSeverity } from '@/enums'
 import { createIncidentSchema } from '@/lib/validation/incidents.schema'
-import type { CreateIncidentFormValues, IncidentCreateDialogProps } from '@/types'
+import type { CreateIncidentFormValues, IncidentCreateHookParams } from '@/types'
 
 export function useIncidentCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<IncidentCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: IncidentCreateHookParams) {
   const t = useTranslations('incidents')
 
   const {

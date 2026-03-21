@@ -25,7 +25,7 @@ export function IocSearchBar({ onSearch, loading = false }: IOCSearchBarProps) {
         <Search className="text-muted-foreground pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
         <Input
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e => setQuery(e.currentTarget.value)}
           placeholder={t('search.placeholder')}
           className="ps-9"
         />

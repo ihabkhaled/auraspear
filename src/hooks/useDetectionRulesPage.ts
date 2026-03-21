@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getDetectionRuleColumns } from '@/components/detection-rules/DetectionRuleTableColumns'
 import { Permission, SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import { hasPermission } from '@/lib/permissions'
 import { safeJsonParse } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
@@ -23,8 +24,6 @@ import {
   useDeleteDetectionRule,
 } from './useDetectionRules'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useDetectionRulesPage() {
   const t = useTranslations('detectionRules')

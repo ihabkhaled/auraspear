@@ -1,8 +1,6 @@
 import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
-import type { WorkspaceSearchPanelProps } from '@/types'
-
-type UseWorkspaceSearchPanelParams = Pick<WorkspaceSearchPanelProps, 'onSearch'>
+import type { UseWorkspaceSearchPanelParams } from '@/types'
 
 export function useWorkspaceSearchPanel({ onSearch }: UseWorkspaceSearchPanelParams) {
   const t = useTranslations('connectors.workspace')

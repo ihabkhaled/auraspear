@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { editIncidentSchema } from '@/lib/validation/incidents.schema'
-import type { EditIncidentFormValues, IncidentEditDialogProps } from '@/types'
+import type { EditIncidentFormValues, IncidentEditHookParams } from '@/types'
 
 export function useIncidentEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<IncidentEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: IncidentEditHookParams) {
   const t = useTranslations('incidents')
 
   const {

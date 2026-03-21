@@ -45,7 +45,7 @@ export function CaseTaskList({
         <div className="flex items-center gap-2">
           <Input
             value={newTaskTitle}
-            onChange={e => setNewTaskTitle(e.target.value)}
+            onChange={e => setNewTaskTitle(e.currentTarget.value)}
             onKeyDown={handleKeyDown}
             placeholder={t('addTaskPlaceholder')}
             className="h-8 text-sm"

@@ -4,9 +4,12 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
-import type { CreateAiAgentFormValues, EditAiAgentFormValues } from '@/types'
+import type {
+  AiAgentsPageDialogsReturn,
+  CreateAiAgentFormValues,
+  EditAiAgentFormValues,
+} from '@/types'
 import { useCreateAiAgent, useUpdateAiAgent, useDeleteAiAgent } from './useAiAgents'
-import type { AiAgentsPageDialogsReturn } from './useAiAgentsPageDialogs'
 
 export function useAiAgentsPageCrud(dialogs: AiAgentsPageDialogsReturn) {
   const t = useTranslations('aiAgents')

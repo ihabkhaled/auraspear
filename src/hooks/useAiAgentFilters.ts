@@ -13,7 +13,7 @@ export function useAiAgentFilters({
   const t = useTranslations('aiAgents')
 
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onSearchChange(e.target.value)
+    onSearchChange(e.currentTarget.value)
   }
 
   return {

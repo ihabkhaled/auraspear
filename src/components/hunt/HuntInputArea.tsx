@@ -17,7 +17,7 @@ export function HuntInputArea({ onSend, disabled = false }: HuntInputAreaProps) 
       <div className="flex gap-2">
         <Textarea
           value={value}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => setValue(e.currentTarget.value)}
           onKeyDown={handleKeyDown}
           placeholder={t('inputPlaceholder')}
           disabled={disabled}

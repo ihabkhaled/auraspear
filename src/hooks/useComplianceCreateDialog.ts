@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { ComplianceStandard } from '@/enums'
 import { createComplianceFrameworkSchema } from '@/lib/validation/compliance.schema'
-import type { ComplianceCreateDialogProps, CreateComplianceFrameworkFormValues } from '@/types'
+import type { CreateComplianceFrameworkFormValues, UseComplianceCreateDialogParams } from '@/types'
 
 export function useComplianceCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<ComplianceCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseComplianceCreateDialogParams) {
   const t = useTranslations('compliance')
 
   const {

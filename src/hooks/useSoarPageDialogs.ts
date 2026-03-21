@@ -71,5 +71,3 @@ export function useSoarPageDialogs() {
     openRunDialog,
   } as const satisfies Record<string, unknown>
 }
-
-export type SoarPageDialogsReturn = ReturnType<typeof useSoarPageDialogs>

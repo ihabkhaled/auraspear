@@ -5,7 +5,12 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { IncidentStatus } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import type { CreateIncidentFormValues, EditIncidentFormValues, Incident } from '@/types'
+import type {
+  CreateIncidentFormValues,
+  EditIncidentFormValues,
+  Incident,
+  IncidentPageDialogsReturn,
+} from '@/types'
 import { useIncidentDeleteDialog } from './useIncidentDeleteDialog'
 import {
   useChangeIncidentStatus,
@@ -13,7 +18,6 @@ import {
   useUpdateIncident,
   useDeleteIncident,
 } from './useIncidents'
-import type { IncidentPageDialogsReturn } from './useIncidentPageDialogs'
 
 export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
   const t = useTranslations('incidents')

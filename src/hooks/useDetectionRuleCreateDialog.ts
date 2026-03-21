@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { DetectionRuleSeverity, DetectionRuleType } from '@/enums'
 import { createDetectionRuleSchema } from '@/lib/validation/detection-rules.schema'
-import type { DetectionRuleCreateDialogProps, CreateDetectionRuleFormValues } from '@/types'
+import type { CreateDetectionRuleFormValues, UseDetectionRuleCreateDialogParams } from '@/types'
 
 export function useDetectionRuleCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<DetectionRuleCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseDetectionRuleCreateDialogParams) {
   const t = useTranslations('detectionRules')
 
   const {

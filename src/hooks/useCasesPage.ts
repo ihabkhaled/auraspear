@@ -2,22 +2,14 @@ import { useState, useCallback, useMemo } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import {
-  CaseCycleStatus,
-  CaseStatus,
-  CaseViewMode,
-  CaseSortField,
-  Permission,
-  SortOrder,
-} from '@/enums'
+import { CaseCycleStatus, CaseViewMode, CaseSortField, Permission, SortOrder } from '@/enums'
 import type { CaseSeverity } from '@/enums'
+import { VALID_CASE_STATUSES } from '@/lib/constants/cases'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type { Case, CreateCaseFormValues } from '@/types'
 import { useActiveCycle, useCaseCycles } from './useCaseCycles'
 import { useCases, useCreateCase, useTenantMembers } from './useCases'
-
-const VALID_CASE_STATUSES = Object.values(CaseStatus) as string[]
 
 export function useCasesPage() {
   const t = useTranslations('cases')

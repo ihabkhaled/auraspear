@@ -210,7 +210,7 @@ export default function TenantConfigPage() {
                 <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
                 <Input
                   value={tenantSearch}
-                  onChange={e => setTenantSearch(e.target.value)}
+                  onChange={e => setTenantSearch(e.currentTarget.value)}
                   placeholder={t('tenants.searchPlaceholder')}
                   className="ps-9"
                 />
@@ -266,7 +266,7 @@ export default function TenantConfigPage() {
                 <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
                 <Input
                   value={userSearch}
-                  onChange={e => setUserSearch(e.target.value)}
+                  onChange={e => setUserSearch(e.currentTarget.value)}
                   placeholder={t('users.searchPlaceholder')}
                   className="ps-9"
                 />

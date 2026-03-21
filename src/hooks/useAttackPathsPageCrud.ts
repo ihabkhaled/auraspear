@@ -4,10 +4,14 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
-import type { AttackPath, CreateAttackPathFormValues, EditAttackPathFormValues } from '@/types'
+import type {
+  AttackPath,
+  AttackPathsPageDialogsReturn,
+  CreateAttackPathFormValues,
+  EditAttackPathFormValues,
+} from '@/types'
 import { useAttackPathDeleteDialog } from './useAttackPathDeleteDialog'
 import { useCreateAttackPath, useUpdateAttackPath, useDeleteAttackPath } from './useAttackPaths'
-import type { AttackPathsPageDialogsReturn } from './useAttackPathsPageDialogs'
 
 export function useAttackPathsPageCrud(dialogs: AttackPathsPageDialogsReturn) {
   const t = useTranslations('attackPath')

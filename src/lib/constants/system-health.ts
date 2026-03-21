@@ -49,3 +49,5 @@ export const STATUS_DOT_SIZE_MAP: Record<StatusDotSize, string> = {
   [StatusDotSize.SM]: 'h-2 w-2',
   [StatusDotSize.MD]: 'h-3 w-3',
 }
+
+export const HEALTH_POLL_INTERVAL = 30_000

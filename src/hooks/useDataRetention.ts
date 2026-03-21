@@ -3,31 +3,14 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { RetentionPeriod } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import {
+  DEFAULT_RETENTION,
+  RETENTION_KEY_TO_PREF,
+  RETENTION_OPTIONS,
+} from '@/lib/constants/settings'
 import { lookup } from '@/lib/utils'
 import type { DataRetentionConfig } from '@/types'
 import { usePreferences, useUpdatePreferences } from './useSettings'
-
-const RETENTION_OPTIONS = [
-  RetentionPeriod.DAYS_30,
-  RetentionPeriod.DAYS_90,
-  RetentionPeriod.DAYS_180,
-  RetentionPeriod.DAYS_365,
-  RetentionPeriod.UNLIMITED,
-] as const
-
-const DEFAULT_RETENTION: DataRetentionConfig = {
-  alertRetention: RetentionPeriod.DAYS_90,
-  logRetention: RetentionPeriod.DAYS_90,
-  incidentRetention: RetentionPeriod.DAYS_365,
-  auditLogRetention: RetentionPeriod.DAYS_365,
-}
-
-const RETENTION_KEY_TO_PREF: Record<keyof DataRetentionConfig, string> = {
-  alertRetention: 'retentionAlerts',
-  logRetention: 'retentionLogs',
-  incidentRetention: 'retentionIncidents',
-  auditLogRetention: 'retentionAuditLogs',
-}
 
 export function useDataRetention() {
   const t = useTranslations('settings')

@@ -46,5 +46,3 @@ export function useUebaPageDialogs() {
     handleEditOpen,
   } as const satisfies Record<string, unknown>
 }
-
-export type UebaPageDialogsReturn = ReturnType<typeof useUebaPageDialogs>

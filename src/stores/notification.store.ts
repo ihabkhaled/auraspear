@@ -1,11 +1,7 @@
 import { create } from 'zustand'
+import type { NotificationUIStoreState } from '@/types'
 
-interface NotificationUIState {
-  panelOpen: boolean
-  setPanelOpen: (open: boolean) => void
-}
-
-export const useNotificationStore = create<NotificationUIState>(set => ({
+export const useNotificationStore = create<NotificationUIStoreState>(set => ({
   panelOpen: false,
   setPanelOpen: (panelOpen: boolean) => set({ panelOpen }),
 }))

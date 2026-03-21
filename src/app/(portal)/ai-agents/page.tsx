@@ -39,6 +39,9 @@ export default function AiAgentsPage() {
     isUpdating,
     handleDeleteConfirm,
     handleCloseDetail,
+    sortBy,
+    sortOrder,
+    handleSort,
     canCreate,
     canEdit,
     canDelete,
@@ -65,6 +68,9 @@ export default function AiAgentsPage() {
         data={data?.data ?? []}
         loading={isFetching}
         onRowClick={handleRowClick}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        onSort={handleSort}
         emptyMessage={t('noAgents')}
         emptyIcon={<Bot className="h-6 w-6" />}
         emptyDescription={t('emptyDescription')}

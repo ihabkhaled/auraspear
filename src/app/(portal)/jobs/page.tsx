@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock3, RefreshCcw, XCircle } from 'lucide-react'
+import { Ban, Clock3, RefreshCcw, XCircle } from 'lucide-react'
 import { DataTable, EmptyState, LoadingSpinner, PageHeader, Pagination } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -36,8 +36,13 @@ export default function JobsPage() {
     isFetching,
     isMutating,
     canManage,
+    canCancelAll,
+    sortBy,
+    sortOrder,
+    handleSort,
     handleRetry,
     handleCancel,
+    handleCancelAll,
     isJobStatus,
     isJobType,
   } = useJobsPage()
@@ -46,6 +51,7 @@ export default function JobsPage() {
     {
       key: 'type',
       label: t('columns.type'),
+      sortable: true,
       render: value => (
         <Badge variant="outline" className="uppercase">
           {String(value).replaceAll('_', ' ')}
@@ -55,6 +61,7 @@ export default function JobsPage() {
     {
       key: 'status',
       label: t('columns.status'),
+      sortable: true,
       render: value => (
         <Badge variant={getJobStatusBadgeVariant(value as JobRecord['status'])}>
           {String(value)}
@@ -64,6 +71,7 @@ export default function JobsPage() {
     {
       key: 'attempts',
       label: t('columns.attempts'),
+      sortable: true,
       render: (value, row) => (
         <span className="font-mono text-xs">{`${String(value)} / ${row.maxAttempts}`}</span>
       ),
@@ -71,11 +79,13 @@ export default function JobsPage() {
     {
       key: 'createdBy',
       label: t('columns.createdBy'),
+      sortable: true,
       render: value => <span className="text-xs">{String(value ?? '—')}</span>,
     },
     {
       key: 'createdAt',
       label: t('columns.createdAt'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground text-xs">
           {new Date(String(value)).toLocaleString()}
@@ -85,6 +95,7 @@ export default function JobsPage() {
     {
       key: 'scheduledAt',
       label: t('columns.scheduledAt'),
+      sortable: true,
       render: value => (
         <span className="text-muted-foreground text-xs">
           {value ? new Date(String(value)).toLocaleString() : '—'}
@@ -175,7 +186,7 @@ export default function JobsPage() {
         </Card>
       </div>
 
-      <div className="flex flex-col gap-3 rounded-lg border p-4 md:flex-row">
+      <div className="flex flex-col gap-3 rounded-lg border p-4 md:flex-row md:items-center">
         <Select
           value={statusFilter ?? allFilterValue}
           onValueChange={value => setStatusFilter(isJobStatus(value) ? value : undefined)}
@@ -209,6 +220,19 @@ export default function JobsPage() {
             ))}
           </SelectContent>
         </Select>
+
+        {canCancelAll && (
+          <Button
+            variant="destructive"
+            size="sm"
+            disabled={isMutating}
+            onClick={handleCancelAll}
+            className="ms-auto gap-1.5"
+          >
+            <Ban className="h-3.5 w-3.5" />
+            {t('cancelAll')}
+          </Button>
+        )}
       </div>
 
       {(data?.data?.length ?? 0) === 0 && !isFetching ? (
@@ -219,7 +243,14 @@ export default function JobsPage() {
         />
       ) : (
         <>
-          <DataTable columns={columns} data={data?.data ?? []} loading={isFetching} />
+          <DataTable
+            columns={columns}
+            data={data?.data ?? []}
+            loading={isFetching}
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSort={handleSort}
+          />
           <Pagination
             page={pagination.page}
             totalPages={pagination.totalPages}

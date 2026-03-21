@@ -174,9 +174,9 @@ export function useRunAiAgent() {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useMutation({
-    mutationFn: ({ id, prompt }: RunAiAgentMutationInput) => {
+    mutationFn: ({ id, prompt, connector }: RunAiAgentMutationInput) => {
       requirePermission(permissions, Permission.AI_AGENTS_EXECUTE)
-      return aiAgentService.runAgent(id, { prompt })
+      return aiAgentService.runAgent(id, { prompt, connector })
     },
     onSuccess: (_data, { id }) => {
       void queryClient.invalidateQueries({ queryKey: ['ai-agents', tenantId] })

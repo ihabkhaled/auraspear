@@ -74,7 +74,7 @@ export default function ExplorerLogsPage() {
         <Search className="text-muted-foreground absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
         <Input
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={e => setSearch(e.currentTarget.value)}
           placeholder={t('logs.searchPlaceholder')}
           className="ps-9"
         />

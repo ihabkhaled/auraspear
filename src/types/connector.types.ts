@@ -169,6 +169,17 @@ export interface WorkspaceActionsPanelProps {
   isEditor?: boolean
 }
 
+export interface UseWorkspaceSearchPanelParams {
+  onSearch: (request: WorkspaceSearchRequest) => void
+}
+
+export interface UseConnectorFormParams {
+  type: ConnectorFormProps['type']
+  connector: ConnectorFormProps['connector']
+  readOnly: ConnectorFormProps['readOnly'] | undefined
+  onCreateSubmit: ConnectorFormProps['onCreateSubmit'] | undefined
+}
+
 export interface ConnectorDetailPageProps {
   params: Promise<{ type: string }>
 }

@@ -11,9 +11,8 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { NotificationType } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { NotificationFiltersProps } from '@/types'
-
-const ALL_FILTER = '__all__'
 
 export function NotificationFilters({
   searchQuery,
@@ -34,7 +33,7 @@ export function NotificationFilters({
         <Input
           placeholder={t('searchPlaceholder')}
           value={searchQuery}
-          onChange={e => onSearchChange(e.target.value)}
+          onChange={e => onSearchChange(e.currentTarget.value)}
           className="ps-9"
         />
       </div>

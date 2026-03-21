@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editAiAgentSchema } from '@/lib/validation/ai-agents.schema'
-import type { AiAgentEditDialogProps, EditAiAgentFormValues } from '@/types'
+import type { EditAiAgentFormValues, UseAiAgentEditDialogParams } from '@/types'
 
 export function useAiAgentEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<AiAgentEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseAiAgentEditDialogParams) {
   const t = useTranslations('aiAgents')
 
   const {

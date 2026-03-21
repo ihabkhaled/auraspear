@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm, type Resolver } from 'react-hook-form'
 import { ReportType, ReportFormat } from '@/enums'
 import { createReportSchema } from '@/lib/validation/reports.schema'
-import type { ReportCreateDialogProps, CreateReportFormValues } from '@/types'
+import type { CreateReportFormValues, UseReportCreateDialogParams } from '@/types'
 
 export function useReportCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<ReportCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseReportCreateDialogParams) {
   const t = useTranslations('reports')
 
   const {

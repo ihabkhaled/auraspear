@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { UebaEntityType } from '@/enums'
 import { createUebaEntitySchema } from '@/lib/validation/ueba.schema'
-import type { UebaEntityCreateDialogProps, CreateUebaEntityFormValues } from '@/types'
+import type { CreateUebaEntityFormValues, UseUebaEntityCreateDialogParams } from '@/types'
 
 export function useUebaEntityCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<UebaEntityCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseUebaEntityCreateDialogParams) {
   const t = useTranslations('ueba')
 
   const {

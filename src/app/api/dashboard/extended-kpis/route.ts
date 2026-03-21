@@ -5,6 +5,7 @@ import {
   getExtendedKpiAccess,
   normalizeSoarStats,
 } from '@/lib/dashboard-kpi-access'
+import { fetchStatsSafe } from '@/lib/dashboard.utils'
 import type {
   AiAgentStats,
   ComplianceStatsSource,
@@ -20,16 +21,6 @@ import type {
 } from '@/types'
 
 export const dynamic = 'force-dynamic'
-
-async function fetchStatsSafe<T>(request: NextRequest, path: string, fallback: T): Promise<T> {
-  try {
-    const { data } = await fetchBackendJson(request, path)
-    const result = data as T
-    return result ?? fallback
-  } catch {
-    return fallback
-  }
-}
 
 export async function GET(request: NextRequest) {
   try {

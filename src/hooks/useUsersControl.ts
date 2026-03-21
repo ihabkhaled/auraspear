@@ -3,12 +3,11 @@
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { POLLING_INTERVAL } from '@/lib/constants'
+import { USERS_CONTROL_QUERY_KEY } from '@/lib/constants/users-control'
 import { requirePermission } from '@/lib/permissions'
 import { usersControlService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { UsersControlListParams, UsersControlSessionListParams } from '@/types'
-
-const USERS_CONTROL_QUERY_KEY = ['admin', 'users-control'] as const
 
 export function useUsersControlSummary(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)

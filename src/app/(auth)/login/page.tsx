@@ -91,7 +91,7 @@ export default function LoginPage() {
                 placeholder="admin@aura-finance.io"
                 autoComplete="email"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => setEmail(e.currentTarget.value)}
                 required
               />
             </div>
@@ -103,7 +103,7 @@ export default function LoginPage() {
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   value={password}
-                  onChange={e => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.currentTarget.value)}
                   className="pe-10"
                   required
                 />

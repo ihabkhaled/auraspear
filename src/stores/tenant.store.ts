@@ -1,18 +1,9 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { createPersistStorage } from '@/lib/persist-storage'
-import type { Tenant, TenantMembershipInfo } from '@/types'
+import type { TenantStoreState } from '@/types'
 
-interface TenantState {
-  currentTenantId: string
-  tenants: Tenant[]
-  userTenants: TenantMembershipInfo[]
-  setCurrentTenant: (id: string) => void
-  setTenants: (tenants: Tenant[]) => void
-  setUserTenants: (tenants: TenantMembershipInfo[]) => void
-}
-
-export const useTenantStore = create<TenantState>()(
+export const useTenantStore = create<TenantStoreState>()(
   persist(
     set => ({
       currentTenantId: '',

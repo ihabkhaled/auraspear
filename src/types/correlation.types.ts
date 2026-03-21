@@ -112,3 +112,44 @@ export interface CorrelationDetailPanelProps {
 export interface CorrelationColumnTranslations {
   correlation: (key: string) => string
 }
+
+export interface UseCorrelationCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CorrelationCreateFormValues) => void
+}
+
+export interface UseCorrelationEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CorrelationEditFormValues) => void
+  rule: CorrelationRule | null
+}
+
+export interface UseCorrelationDetailPanelParams {
+  rule: CorrelationRule | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onEdit?: ((rule: CorrelationRule) => void) | undefined
+  onDelete?: ((rule: CorrelationRule) => void) | undefined
+}
+
+export type CorrelationPageDialogsReturn = {
+  createDialogOpen: boolean
+  setCreateDialogOpen: (open: boolean) => void
+  editDialogOpen: boolean
+  setEditDialogOpen: (open: boolean) => void
+  editingRule: CorrelationRule | null
+  setEditingRule: (rule: CorrelationRule | null) => void
+  deletingRule: CorrelationRule | null
+  setDeletingRule: (rule: CorrelationRule | null) => void
+  detailPanelOpen: boolean
+  setDetailPanelOpen: (open: boolean) => void
+  selectedRuleId: string | null
+  setSelectedRuleId: (id: string | null) => void
+  handleOpenCreate: () => void
+  handleOpenEdit: (rule: CorrelationRule) => void
+  handleOpenDelete: (rule: CorrelationRule) => void
+  handleRowClick: (rule: CorrelationRule) => void
+  findSelectedRule: (rules: CorrelationRule[] | undefined) => CorrelationRule | null
+}

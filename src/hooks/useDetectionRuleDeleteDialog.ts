@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import type { DetectionRuleDeleteDialogProps } from '@/types'
+import type { UseDetectionRuleDeleteDialogParams } from '@/types'
 
 export function useDetectionRuleDeleteDialog({
   ruleName,
   onConfirm,
-}: Pick<DetectionRuleDeleteDialogProps, 'ruleName' | 'onConfirm'>) {
+}: UseDetectionRuleDeleteDialogParams) {
   const t = useTranslations('detectionRules')
   const tCommon = useTranslations('common')
 

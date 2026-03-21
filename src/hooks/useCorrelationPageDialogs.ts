@@ -57,5 +57,3 @@ export function useCorrelationPageDialogs() {
     findSelectedRule,
   } as const satisfies Record<string, unknown>
 }
-
-export type CorrelationPageDialogsReturn = ReturnType<typeof useCorrelationPageDialogs>

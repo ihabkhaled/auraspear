@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { RuleSeverity, RuleSource, RuleStatus } from '@/enums'
 import { createCorrelationSchema } from '@/lib/validation/correlation.schema'
-import type { CorrelationCreateDialogProps, CorrelationCreateFormValues } from '@/types'
+import type { CorrelationCreateFormValues, UseCorrelationCreateDialogParams } from '@/types'
 
 export function useCorrelationCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<CorrelationCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseCorrelationCreateDialogParams) {
   const t = useTranslations('correlation')
 
   const {

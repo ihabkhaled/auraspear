@@ -138,3 +138,32 @@ export interface IncidentColumnTranslations {
   incidents: (key: string) => string
   common: (key: string) => string
 }
+
+export interface IncidentCreateHookParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateIncidentFormValues) => void
+}
+
+export interface IncidentEditHookParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditIncidentFormValues) => void
+  initialValues: EditIncidentFormValues
+}
+
+export interface IncidentPageDialogsReturn {
+  readonly createDialogOpen: boolean
+  readonly setCreateDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editDialogOpen: boolean
+  readonly setEditDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailPanelOpen: boolean
+  readonly setDetailPanelOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editingIncident: Incident | null
+  readonly setEditingIncident: React.Dispatch<React.SetStateAction<Incident | null>>
+  readonly detailIncident: Incident | null
+  readonly setDetailIncident: React.Dispatch<React.SetStateAction<Incident | null>>
+  readonly editInitialValues: EditIncidentFormValues
+  readonly handleRowClick: (incident: Incident) => void
+  readonly handleOpenEdit: (incident: Incident) => void
+}

@@ -14,11 +14,11 @@
 10. **NEVER use string concatenation** — Use template literals (`prefer-template: warn`).
 11. **NEVER use raw HTML `<select>`, `<input>`, `<textarea>`** — Always use shadcn/ui components from `@/components/ui/`.
 12. **NEVER add `// eslint-disable-next-line`** — This rule is absolute with zero exceptions. If a rule triggers, fix the code.
-13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component, hook, service, or API route files** — Enums → `src/enums/`, Types/Interfaces → `src/types/<domain>.types.ts`, Constants → `src/lib/constants/<domain>.ts`. Exception: file-local constants (used only in that file, e.g., a small config object) are acceptable inline at the top of the file.
-14. **NEVER put custom hooks inside component files** — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`).
-15. **NEVER put utility / pure functions inside component files** — All non-React helper functions → `src/lib/utils.ts` or domain-specific `src/lib/<domain>.utils.ts`.
+13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component, hook, service, or API route files** (`no-restricted-syntax: error`) — Enums → `src/enums/`, Types/Interfaces → `src/types/<domain>.types.ts`, Constants → `src/lib/constants/<domain>.ts`. Exception: file-local constants (used only in that file, e.g., a small config object) are acceptable inline at the top of the file. ESLint enforces: `TSEnumDeclaration` banned outside `src/enums/`, `TSInterfaceDeclaration` and `TSTypeAliasDeclaration` banned in `.tsx`, `hooks/`, `services/`, `stores/`, and `app/api/` files, SCREAMING*CASE `const` declarations (`/^[A-Z]A-Z0-9*]+$/`) banned at module level in the same files.
+14. **NEVER put custom hooks inside component files** (`no-restricted-syntax: error`) — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`). ESLint enforces: `FunctionDeclaration[id.name=/^use[A-Z]/]` and arrow-function hooks banned in `.tsx` files.
+15. **NEVER put utility / pure functions inside component files** — All non-React helper functions (mappers, formatters, status resolvers, badge props builders, validators, etc.) → `src/lib/utils.ts` or domain-specific `src/lib/<domain>.utils.ts`. This includes `function` declarations at module scope inside `.tsx` files — zero tolerance.
 16. **NEVER call ANY hook directly in `.tsx` component files** — This includes `useState`, `useEffect`, `useMemo`, `useCallback`, `useRef`, `useTranslations`, `useRouter`, `usePathname`, `useTheme`, `useSearchParams`, `useSyncExternalStore`, store hooks (`useAuthStore`, etc.), and ALL other hooks. Extract ALL hook calls into custom hooks in `src/hooks/`. TSX files must contain ONLY JSX rendering and component structure — zero hook imports, zero hook calls.
-17. **NEVER use string literal unions** — All string literal types like `'foo' | 'bar'` MUST be enums in `src/enums/`. Use existing enums (e.g., `CaseCycleStatus.ACTIVE`) instead of hardcoded strings like `'active'`.
+17. **NEVER use string literal unions** (`no-restricted-syntax: error`) — All string literal types like `'foo' | 'bar'` MUST be enums in `src/enums/`. Use existing enums (e.g., `CaseCycleStatus.ACTIVE`) instead of hardcoded strings like `'active'`. ESLint enforces: `TSUnionType > TSLiteralType` with lowercase string literals is banned.
 18. **NEVER define Zod schemas inside component files** — All validation schemas → `src/lib/validation/<domain>.schema.ts`. Exception: schemas that use `t()` translations for error messages must stay inside the component since they depend on hook context.
 19. **NEVER use nested ternary expressions** — Use `if/else` with a variable or early returns instead (`no-nested-ternary: warn`).
 20. **NEVER shadow variables from outer scope** — Rename inner variables to avoid collision (`@typescript-eslint/no-shadow: warn`).
@@ -34,6 +34,14 @@
 30. **NEVER hardcode a single AI provider** — AI routing must check all configured AI connectors (bedrock → llm_apis → openclaw_gateway) and use the first available. The `AiService.findAvailableAiConnector()` method handles this.
 31. **NEVER leave job handlers unregistered** — Every `JobType` enum value MUST have a corresponding handler registered in `JobsModule.onModuleInit()`. Unregistered handlers cause jobs to sit PENDING forever.
 32. **NEVER leave executor engines disconnected from the job system** — Normalization, correlation, and detection executors MUST be wired to their respective job handlers. Executors that exist but are never called are dead code.
+33. **EVERY new backend API endpoint MUST have a matching Next.js API proxy route** — All backend endpoints accessed by the frontend go through `src/app/api/` proxy routes. When adding a new backend endpoint (e.g., `POST /jobs/cancel-all`), ALWAYS create the corresponding `src/app/api/jobs/cancel-all/route.ts` file using `proxyToBackend()`. Missing proxy routes cause 404 errors.
+34. **EVERY new permission MUST be added end-to-end in a single change** — When adding a permission (e.g., `JOBS_CANCEL_ALL`), ALL of these must be done together: (1) Backend enum, (2) `permission-definitions.ts` with labelKey + sortOrder, (3) `default-permissions.ts` for appropriate roles, (4) `@RequirePermission()` on the endpoint, (5) Prisma migration with `WHERE NOT EXISTS` (not `ON CONFLICT` — the unique constraint is compound `(tenantId, key)`), (6) Frontend permission enum (mirror), (7) Frontend API proxy route, (8) Frontend service method + hook + UI, (9) i18n keys in ALL 6 locale files (both the feature label and the `roleSettings.permissions` label), (10) `npx prisma db seed` to populate the database.
+35. **EVERY DataTable with sortable columns MUST wire `sortBy`, `sortOrder`, and `onSort` props** — If columns have `sortable: true`, the page MUST pass these three props to `<DataTable>`. The hook must manage sort state and pass it in the API query params. The backend DTO must include `sortBy` and `sortOrder` in its Zod schema with all sortable field names listed in the enum.
+36. **EVERY backend sortable field MUST be listed in the DTO's `sortBy` enum AND the `buildOrderBy` utility** — When marking a frontend column as `sortable: true`, verify the field name exists in the backend's `ListXxxQuerySchema.sortBy` enum AND in the corresponding `buildXxxOrderBy()` switch statement. Missing either causes validation errors or silent fallback to default sort.
+37. **NEVER use `e.target.value` in React event handlers** — TypeScript 5.9+ with React 19 types `e.target` as `EventTarget` (no `.value`). Always use `e.currentTarget.value` which is properly typed as the specific element (`HTMLInputElement`, `HTMLTextAreaElement`, etc.). Same applies to `.files`, `.checked`, and other element-specific properties.
+38. **NEVER include service worker files in the main TypeScript compilation** — Files like `src/app/sw.ts` with `/// <reference lib="webworker" />` MUST be in `tsconfig.json`'s `"exclude"` array. In TS 5.9+, `lib.webworker.d.ts` replaces `lib.dom.d.ts` when both are loaded, breaking all DOM types project-wide.
+39. **NEVER use literal strings in `switch/case` statements** — Use enum values instead. Write `case AlertSeverity.CRITICAL:` not `case 'critical':`. If no enum exists for the domain, create one in `src/enums/`.
+40. **NEVER return literal CSS class strings from utility functions** — Use `StatusTextClass`, `StatusBgClass`, `StatusBorderClass` enums from `@/enums` instead of literal strings like `'text-status-error'` or `'bg-status-success'`. For compound classes use template literals: `` `${StatusBgClass.ERROR} ${StatusTextClass.WHITE} ${StatusBorderClass.ERROR}` ``. ESLint enforces this in `src/lib/` files (`no-restricted-syntax`).
 
 ---
 
@@ -108,6 +116,18 @@
 | `no-useless-concat`     | **error** | No `'a' + 'b'` (just write `'ab'`)                               |
 | `no-return-assign`      | **error** | No assignment in return statements                               |
 | `no-param-reassign`     | **warn**  | Don't reassign function parameters (props allowed)               |
+
+### Separation-of-Concerns Rules (`no-restricted-syntax`)
+
+| Scope                                            | What is banned                                                                              | Level     | Rule |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------- | --------- | ---- |
+| All files except `src/enums/`                    | `TSEnumDeclaration` — enums must live in `src/enums/`                                       | **error** | #13  |
+| `.tsx`, `hooks/`, `services/`, `stores/`, `api/` | `TSInterfaceDeclaration` — interfaces must live in `src/types/`                             | **error** | #13  |
+| `.tsx`, `hooks/`, `services/`, `stores/`, `api/` | `TSTypeAliasDeclaration` — type aliases must live in `src/types/`                           | **error** | #13  |
+| `.tsx` files                                     | `FunctionDeclaration[id.name=/^use[A-Z]/]` — hooks must live in `src/hooks/`                | **error** | #14  |
+| `.tsx`, `hooks/`, `services/`, `stores/`, `api/` | SCREAMING*CASE `const` (`/^[A-Z]A-Z0-9*]+$/`) — constants must live in `src/lib/constants/` | **error** | #13  |
+| `.tsx` files                                     | Arrow-function hooks (`const useX = () => {}`) — hooks must live in `src/hooks/`            | **error** | #14  |
+| All files                                        | `TSUnionType > TSLiteralType` — string literal unions must be enums                         | **error** | #17  |
 
 ### Security Rules (Core ESLint)
 

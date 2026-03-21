@@ -35,7 +35,7 @@ export function useCreateTenantDialog({ open, onOpenChange, onSubmit }: CreateTe
   const currentName = useWatch({ control, name: 'name' })
 
   function handleNameChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const nameVal = e.target.value
+    const nameVal = e.currentTarget.value
     setValue('name', nameVal)
     if (!currentSlug || currentSlug === generateSlug(currentName)) {
       setValue('slug', generateSlug(nameVal))

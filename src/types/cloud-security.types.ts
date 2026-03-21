@@ -139,3 +139,21 @@ export interface CloudSecurityColumnTranslations {
   cloudSecurity: (key: string) => string
   common: (key: string) => string
 }
+
+export interface UseCloudAccountCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateCloudAccountFormValues) => void
+}
+
+export interface UseCloudAccountEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditCloudAccountFormValues) => void
+  initialValues: EditCloudAccountFormValues
+}
+
+export interface UseCloudAccountDeleteDialogParams {
+  accountName: string
+  onConfirm: () => void
+}

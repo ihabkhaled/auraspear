@@ -1,4 +1,4 @@
-import { AlertSeverity } from '@/enums'
+import { AlertSeverity, StatusBgClass, StatusBorderClass, StatusTextClass } from '@/enums'
 import type { CaseSeverity } from '@/enums'
 import { SEVERITY_COLORS, type SEVERITY_TEXT_CLASSES } from '@/lib/constants'
 import { lookup } from '@/lib/utils'
@@ -10,15 +10,15 @@ import { lookup } from '@/lib/utils'
 export function getSeverityVariant(severity: AlertSeverity): string {
   switch (severity) {
     case AlertSeverity.CRITICAL:
-      return 'bg-status-error text-status-error border-status-error'
+      return `${StatusBgClass.ERROR} ${StatusTextClass.ERROR} ${StatusBorderClass.ERROR}`
     case AlertSeverity.HIGH:
-      return 'bg-status-warning text-status-warning border-status-warning'
+      return `${StatusBgClass.WARNING} ${StatusTextClass.WARNING} ${StatusBorderClass.WARNING}`
     case AlertSeverity.MEDIUM:
-      return 'bg-status-info text-status-info border-status-info'
+      return `${StatusBgClass.INFO} ${StatusTextClass.INFO} ${StatusBorderClass.INFO}`
     case AlertSeverity.LOW:
-      return 'bg-status-success text-status-success border-status-success'
+      return `${StatusBgClass.SUCCESS} ${StatusTextClass.SUCCESS} ${StatusBorderClass.SUCCESS}`
     case AlertSeverity.INFO:
-      return 'bg-status-neutral text-status-neutral border-status-neutral'
+      return `${StatusBgClass.NEUTRAL} ${StatusTextClass.NEUTRAL} ${StatusBorderClass.NEUTRAL}`
   }
 }
 

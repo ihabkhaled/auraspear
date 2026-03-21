@@ -1,14 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CaseArtifactType } from '@/enums'
-import type { CaseArtifact } from '@/types'
+import type { CaseArtifact, UseCaseArtifactPanelParams } from '@/types'
 
-interface UseCaseArtifactPanelProps {
-  artifacts: CaseArtifact[]
-  onAddArtifact?: ((data: { type: string; value: string; source?: string }) => void) | undefined
-}
-
-export function useCaseArtifactPanel({ artifacts, onAddArtifact }: UseCaseArtifactPanelProps) {
+export function useCaseArtifactPanel({ artifacts, onAddArtifact }: UseCaseArtifactPanelParams) {
   const t = useTranslations('cases')
   const [artifactType, setArtifactType] = useState<CaseArtifactType>(CaseArtifactType.IP)
   const [artifactValue, setArtifactValue] = useState('')

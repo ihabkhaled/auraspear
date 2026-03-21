@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { getNormalizationColumns } from '@/components/normalization/NormalizationTableColumns'
 import { NormalizationSourceType, Permission, SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import { hasPermission } from '@/lib/permissions'
 import { safeJsonParse } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
@@ -23,8 +24,6 @@ import {
   useDeletePipeline,
 } from './useNormalization'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useNormalizationPage() {
   const t = useTranslations('normalization')

@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, type Resolver } from 'react-hook-form'
 import { editReportSchema } from '@/lib/validation/reports.schema'
-import type { ReportEditDialogProps, EditReportFormValues } from '@/types'
+import type { EditReportFormValues, UseReportEditDialogParams } from '@/types'
 
 export function useReportEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<ReportEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseReportEditDialogParams) {
   const t = useTranslations('reports')
 
   const {

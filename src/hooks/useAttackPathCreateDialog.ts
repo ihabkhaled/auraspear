@@ -3,21 +3,15 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, useFieldArray, type Resolver } from 'react-hook-form'
 import { AttackPathSeverity } from '@/enums'
+import { EMPTY_STAGE } from '@/lib/constants/attack-paths'
 import { createAttackPathSchema } from '@/lib/validation/attack-paths.schema'
-import type { AttackPathCreateDialogProps, CreateAttackPathFormValues } from '@/types'
-
-const EMPTY_STAGE = {
-  name: '',
-  mitreId: '',
-  description: '',
-  assets: [],
-}
+import type { CreateAttackPathFormValues, UseAttackPathCreateDialogParams } from '@/types'
 
 export function useAttackPathCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<AttackPathCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseAttackPathCreateDialogParams) {
   const t = useTranslations('attackPath')
 
   const {

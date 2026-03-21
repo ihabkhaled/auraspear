@@ -1,11 +1,10 @@
 import { useCallback, useMemo } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { SortOrder } from '@/enums'
+import { DASHBOARD_ACTIVITY_LIMIT } from '@/lib/constants/dashboard-preferences'
 import { resolveNotificationMessage } from '@/lib/constants/notifications'
 import type { RecentActivityItem } from '@/types'
 import { useNotificationsList } from './useNotifications'
-
-const DASHBOARD_ACTIVITY_LIMIT = 5
 
 export function useRecentActivityFeed() {
   const t = useTranslations('dashboard')

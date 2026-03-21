@@ -1,6 +1,12 @@
 import type { ReactNode } from 'react'
-import type { SweetAlertIcon } from '@/components/common/SweetAlert'
-import type { AlertSeverity, CaseSeverity, ServiceStatus, SortOrder, StatusDotSize } from '@/enums'
+import type {
+  AlertSeverity,
+  CaseSeverity,
+  ServiceStatus,
+  SortOrder,
+  StatusDotSize,
+  SweetAlertIcon,
+} from '@/enums'
 import type { LucideIcon } from 'lucide-react'
 
 export interface PaginationMeta {

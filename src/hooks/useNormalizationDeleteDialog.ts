@@ -1,11 +1,11 @@
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import type { NormalizationDeleteDialogProps } from '@/types'
+import type { UseNormalizationDeleteDialogParams } from '@/types'
 
 export function useNormalizationDeleteDialog({
   pipelineName,
   onConfirm,
-}: Pick<NormalizationDeleteDialogProps, 'pipelineName' | 'onConfirm'>) {
+}: UseNormalizationDeleteDialogParams) {
   const t = useTranslations('normalization')
   const tCommon = useTranslations('common')
 

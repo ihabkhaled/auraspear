@@ -60,7 +60,7 @@ export function AssignUserDialog(props: AssignUserDialogProps) {
                 type="email"
                 {...register('email', {
                   onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-                    setEmailInput(e.target.value),
+                    setEmailInput(e.currentTarget.value),
                 })}
                 placeholder={t('users.userEmailPlaceholder')}
                 className="pe-10"

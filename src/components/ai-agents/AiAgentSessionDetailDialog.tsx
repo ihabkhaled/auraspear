@@ -1,6 +1,6 @@
 'use client'
 
-import { Clock, Coins, Hash, Zap } from 'lucide-react'
+import { Blocks, Clock, Coins, Cpu, Hash, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import {
   Dialog,
@@ -10,38 +10,9 @@ import {
   DialogDescription,
 } from '@/components/ui/dialog'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { getSessionStatusBadgeProps } from '@/lib/ai-agent.utils'
 import { cn } from '@/lib/utils'
-import type { AiAgentSession } from '@/types'
-
-interface AiAgentSessionDetailDialogProps {
-  session: AiAgentSession | null
-  open: boolean
-  onClose: () => void
-  t: (key: string) => string
-  formattedDuration: string
-  formattedCost: string
-  formattedTokens: string
-  formattedStartedAt: string
-  formattedCompletedAt: string
-}
-
-function getStatusBadgeProps(status: string): {
-  variant: 'default' | 'destructive' | 'secondary' | 'outline'
-  className: string
-} {
-  switch (status) {
-    case 'completed':
-      return { variant: 'default', className: 'bg-status-success text-white' }
-    case 'failed':
-      return { variant: 'destructive', className: '' }
-    case 'cancelled':
-      return { variant: 'outline', className: 'border-status-warning text-status-warning' }
-    case 'running':
-      return { variant: 'secondary', className: '' }
-    default:
-      return { variant: 'outline', className: '' }
-  }
-}
+import type { AiAgentSessionDetailDialogProps } from '@/types'
 
 export function AiAgentSessionDetailDialog({
   session,
@@ -70,8 +41,8 @@ export function AiAgentSessionDetailDialog({
           <div className="flex flex-col gap-4 pe-4">
             <div className="flex items-center gap-2">
               <Badge
-                variant={getStatusBadgeProps(session.status).variant}
-                className={cn('capitalize', getStatusBadgeProps(session.status).className)}
+                variant={getSessionStatusBadgeProps(session.status).variant}
+                className={cn('capitalize', getSessionStatusBadgeProps(session.status).className)}
               >
                 {session.status}
               </Badge>
@@ -111,6 +82,42 @@ export function AiAgentSessionDetailDialog({
                 </div>
               </div>
             </div>
+
+            {(session.provider ?? session.model) && (
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {session.provider && (
+                  <div className="bg-muted/50 flex items-center gap-2 rounded-lg p-3">
+                    <Blocks className="text-muted-foreground h-4 w-4 shrink-0" />
+                    <div>
+                      <p className="text-muted-foreground text-xs">{t('sessionProvider')}</p>
+                      <p className="text-foreground text-sm font-semibold uppercase">
+                        {session.provider}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {session.model && (
+                  <div className="bg-muted/50 flex items-center gap-2 rounded-lg p-3">
+                    <Cpu className="text-muted-foreground h-4 w-4 shrink-0" />
+                    <div>
+                      <p className="text-muted-foreground text-xs">{t('colModel')}</p>
+                      <p className="text-foreground font-mono text-xs font-medium">
+                        {session.model}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {session.errorMessage && (
+              <div className="bg-status-error border-status-error flex flex-col gap-1 rounded-lg border p-3">
+                <p className="text-status-error text-sm font-semibold">{t('sessionError')}</p>
+                <p className="text-status-error text-xs whitespace-pre-wrap">
+                  {session.errorMessage}
+                </p>
+              </div>
+            )}
 
             {session.completedAt && (
               <div className="text-muted-foreground text-xs">

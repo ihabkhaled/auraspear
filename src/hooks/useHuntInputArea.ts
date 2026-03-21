@@ -1,9 +1,7 @@
 import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { type QUICK_PROMPT_KEYS } from '@/lib/constants/hunt'
-import type { HuntInputAreaProps } from '@/types'
-
-type UseHuntInputAreaParams = Pick<HuntInputAreaProps, 'onSend'>
+import type { UseHuntInputAreaParams } from '@/types'
 
 export function useHuntInputArea({ onSend }: UseHuntInputAreaParams) {
   const t = useTranslations('hunt')

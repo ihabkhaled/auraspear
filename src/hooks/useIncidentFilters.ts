@@ -1,8 +1,7 @@
 import { useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { IncidentFiltersProps } from '@/types'
-
-const ALL_FILTER = '__all__'
 
 export function useIncidentFilters(props: IncidentFiltersProps) {
   const t = useTranslations('incidents')

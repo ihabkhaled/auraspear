@@ -56,7 +56,7 @@ export function CaseArtifactPanel({
             </Select>
             <Input
               value={artifactValue}
-              onChange={e => setArtifactValue(e.target.value)}
+              onChange={e => setArtifactValue(e.currentTarget.value)}
               placeholder={t('artifactValuePlaceholder')}
               className="h-8 flex-1 text-sm"
               disabled={addingArtifact}
@@ -65,7 +65,7 @@ export function CaseArtifactPanel({
           <div className="flex items-center gap-2">
             <Input
               value={artifactSource}
-              onChange={e => setArtifactSource(e.target.value)}
+              onChange={e => setArtifactSource(e.currentTarget.value)}
               placeholder={`${t('artifactSource')} (manual)`}
               className="h-8 flex-1 text-sm"
               disabled={addingArtifact}

@@ -81,3 +81,5 @@ export const ARTIFACT_TYPE_KEYS: Record<CaseArtifactType, string> = {
   [CaseArtifactType.DOMAIN]: 'artifactDomains',
   [CaseArtifactType.URL]: 'artifactUrls',
 }
+
+export const VALID_CASE_STATUSES = Object.values(CaseStatus) as string[]

@@ -20,7 +20,7 @@ export {
   ConnectorCategory,
   LlmMaxTokensParameter,
 } from './connector.enum'
-export { HuntStatus, MessageRole, ReasoningStepStatus } from './hunt.enum'
+export { HuntMobileTab, HuntStatus, MessageRole, ReasoningStepStatus } from './hunt.enum'
 export { IntegrationStatus } from './integration-status.enum'
 export { IOCType } from './ioc-type.enum'
 export { IOCSource } from './ioc-source.enum'
@@ -50,7 +50,13 @@ export {
 } from './incident.enum'
 export { RuleSource, RuleSeverity, RuleStatus } from './correlation.enum'
 export { VulnerabilitySeverity, PatchStatus } from './vulnerability.enum'
-export { AiAgentStatus, AiAgentTier, AiAgentSessionStatus, AiAgentPanelTab } from './ai-agent.enum'
+export {
+  AiAgentStatus,
+  AiAgentTier,
+  AiAgentSessionStatus,
+  AiAgentPanelTab,
+  AiConnectorPreference,
+} from './ai-agent.enum'
 export { UebaEntityType, UebaRiskLevel, MlModelStatus, MlModelType, UebaTab } from './ueba.enum'
 export { AttackPathSeverity, AttackPathStatus } from './attack-path.enum'
 export { SoarPlaybookStatus, SoarTriggerType, SoarExecutionStatus } from './soar.enum'
@@ -90,3 +96,9 @@ export {
   UserSessionClientType,
   UserSessionStatus,
 } from './users-control.enum'
+export { ErrorMessageKey } from './error-message-key.enum'
+export { LucideIconName } from './icon.enum'
+export { KqlField } from './kql-field.enum'
+export { StatusTextClass, StatusBgClass, StatusBorderClass } from './status-class.enum'
+export { SweetAlertIcon } from './sweet-alert.enum'
+export { GridColsClass, GapClass, StackClass } from './layout-class.enum'

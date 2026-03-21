@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { NormalizationSourceType } from '@/enums'
 import { createNormalizationSchema } from '@/lib/validation/normalization.schema'
-import type { NormalizationCreateDialogProps, CreateNormalizationFormValues } from '@/types'
+import type { CreateNormalizationFormValues, UseNormalizationCreateDialogParams } from '@/types'
 
 export function useNormalizationCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<NormalizationCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseNormalizationCreateDialogParams) {
   const t = useTranslations('normalization')
 
   const {

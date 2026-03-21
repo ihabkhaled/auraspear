@@ -4,14 +4,17 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { safeJsonParse } from '@/lib/utils'
-import type { CreateSoarPlaybookFormValues, EditSoarPlaybookFormValues } from '@/types'
+import type {
+  CreateSoarPlaybookFormValues,
+  EditSoarPlaybookFormValues,
+  SoarPageDialogsReturn,
+} from '@/types'
 import {
   useCreatePlaybook,
   useUpdatePlaybook,
   useDeletePlaybook,
   useExecutePlaybook,
 } from './useSoar'
-import type { SoarPageDialogsReturn } from './useSoarPageDialogs'
 
 export function useSoarPageCrud(dialogs: SoarPageDialogsReturn) {
   const t = useTranslations('soar')

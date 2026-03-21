@@ -4,12 +4,11 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getSoarPlaybookColumns } from '@/components/soar'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { SoarPlaybookSearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
 import { usePlaybooks, usePlaybookStats } from './useSoar'
-
-const ALL_FILTER = '__all__'
 
 export function useSoarPageFilters() {
   const t = useTranslations('soar')

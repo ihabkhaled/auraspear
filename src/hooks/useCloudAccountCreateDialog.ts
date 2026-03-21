@@ -4,13 +4,13 @@ import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { CloudProvider } from '@/enums'
 import { createCloudAccountSchema } from '@/lib/validation/cloud-security.schema'
-import type { CloudAccountCreateDialogProps, CreateCloudAccountFormValues } from '@/types'
+import type { CreateCloudAccountFormValues, UseCloudAccountCreateDialogParams } from '@/types'
 
 export function useCloudAccountCreateDialog({
   open,
   onOpenChange,
   onSubmit,
-}: Pick<CloudAccountCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+}: UseCloudAccountCreateDialogParams) {
   const t = useTranslations('cloudSecurity')
 
   const {

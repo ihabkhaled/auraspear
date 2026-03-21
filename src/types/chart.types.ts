@@ -14,6 +14,10 @@ export interface MitreBarChartProps {
   data: MITRETechnique[]
 }
 
+export interface ColoredDataPoint extends SeverityDataPoint {
+  fill: string
+}
+
 export interface SeverityDistributionChartProps {
   data: SeverityDataPoint[]
 }

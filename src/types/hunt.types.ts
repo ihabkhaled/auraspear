@@ -97,3 +97,7 @@ export interface HuntInputAreaProps {
   onSend?: ((message: string) => void) | undefined
   disabled?: boolean | undefined
 }
+
+export interface UseHuntInputAreaParams {
+  onSend?: ((message: string) => void) | undefined
+}

@@ -17,4 +17,7 @@ export const jobService = {
 
   cancelJob: (id: string) =>
     api.post<ApiResponse<CancelJobResult>>(`/jobs/${id}/cancel`).then(r => r.data),
+
+  cancelAllJobs: () =>
+    api.post<ApiResponse<{ cancelled: number }>>('/jobs/cancel-all').then(r => r.data),
 }

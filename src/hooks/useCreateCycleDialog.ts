@@ -1,13 +1,9 @@
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
-import type { CreateCycleDialogProps, CreateCycleFormValues } from '@/types'
+import type { CreateCycleFormValues, UseCreateCycleDialogParams } from '@/types'
 
-export function useCreateCycleDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-}: Pick<CreateCycleDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+export function useCreateCycleDialog({ open, onOpenChange, onSubmit }: UseCreateCycleDialogParams) {
   const t = useTranslations('cases.cycles')
 
   const { register, handleSubmit, reset, formState } = useForm<CreateCycleFormValues>({

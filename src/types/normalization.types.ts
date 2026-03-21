@@ -98,6 +98,24 @@ export interface UseNormalizationDetailPanelParams {
   onDelete?: NormalizationDetailPanelProps['onDelete'] | undefined
 }
 
+export interface UseNormalizationCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateNormalizationFormValues) => void
+}
+
+export interface UseNormalizationDeleteDialogParams {
+  pipelineName: string
+  onConfirm: () => void
+}
+
+export interface UseNormalizationEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditNormalizationFormValues) => void
+  initialValues: EditNormalizationFormValues
+}
+
 export interface NormalizationColumnTranslations {
   normalization: (key: string) => string
   common: (key: string) => string

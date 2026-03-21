@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { HuntStatus, MessageRole, Permission, ReasoningStepStatus } from '@/enums'
+import { HuntMobileTab, HuntStatus, MessageRole, Permission, ReasoningStepStatus } from '@/enums'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore, useHuntStore } from '@/stores'
 import type { HuntSession } from '@/types'
@@ -13,7 +13,7 @@ export function useHuntPage() {
   const permissions = useAuthStore(s => s.permissions)
   const canCreate = hasPermission(permissions, Permission.HUNT_CREATE)
   const canExecute = hasPermission(permissions, Permission.HUNT_EXECUTE)
-  const [mobileTab, setMobileTab] = useState<'chat' | 'results'>('chat')
+  const [mobileTab, setMobileTab] = useState<HuntMobileTab>(HuntMobileTab.CHAT)
   const [session, setSession] = useState<HuntSession | null>(null)
   const {
     messages,

@@ -4,14 +4,18 @@ import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { safeJsonParse } from '@/lib/utils'
-import type { CreateReportFormValues, EditReportFormValues, ReportTemplate } from '@/types'
+import type {
+  CreateReportFormValues,
+  EditReportFormValues,
+  ReportTemplate,
+  ReportsPageDialogsReturn,
+} from '@/types'
 import {
   useCreateReport,
   useCreateReportFromTemplate,
   useDeleteReport,
   useUpdateReport,
 } from './useReports'
-import type { ReportsPageDialogsReturn } from './useReportsPageDialogs'
 
 export function useReportsPageCrud(dialogs: ReportsPageDialogsReturn) {
   const t = useTranslations('reports')

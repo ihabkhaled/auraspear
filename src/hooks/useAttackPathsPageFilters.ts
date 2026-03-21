@@ -4,12 +4,11 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getAttackPathColumns } from '@/components/attack-paths'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { AttackPathSearchParams } from '@/types'
 import { useAttackPaths, useAttackPathStats } from './useAttackPaths'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useAttackPathsPageFilters() {
   const t = useTranslations('attackPath')

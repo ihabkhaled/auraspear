@@ -129,3 +129,31 @@ export interface AttackPathVisualizationProps {
 export interface AttackPathColumnTranslations {
   attackPath: (key: string) => string
 }
+
+export interface UseAttackPathCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateAttackPathFormValues) => void
+}
+
+export interface UseAttackPathEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditAttackPathFormValues) => void
+  initialValues: EditAttackPathFormValues
+}
+
+export type AttackPathsPageDialogsReturn = {
+  selectedPathId: string | null
+  setSelectedPathId: (id: string | null) => void
+  createDialogOpen: boolean
+  setCreateDialogOpen: (open: boolean) => void
+  editDialogOpen: boolean
+  setEditDialogOpen: (open: boolean) => void
+  editingPath: AttackPath | null
+  setEditingPath: (path: AttackPath | null) => void
+  editInitialValues: EditAttackPathFormValues | null
+  handleRowClick: (path: AttackPath) => void
+  handleCloseDetail: () => void
+  handleOpenEdit: (path: AttackPath) => void
+}

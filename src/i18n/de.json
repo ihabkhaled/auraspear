@@ -1535,7 +1535,9 @@
       "alreadyOffline": "Agent ist bereits offline.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "Das Tool-Schema muss gültiges JSON sein.",
-      "toolNotFound": "KI-Agent-Tool nicht gefunden."
+      "toolNotFound": "KI-Agent-Tool nicht gefunden.",
+      "connectorNotAvailable": "Der angeforderte KI-Konnektor ist nicht konfiguriert oder verfügbar.",
+      "connectorFailed": "Der ausgewählte KI-Konnektor konnte die Anfrage nicht verarbeiten."
     },
     "users": {
       "notFound": "Benutzer nicht gefunden.",
@@ -2276,6 +2278,9 @@
     "startAgent": "Agent starten",
     "sessionInput": "Eingabe",
     "sessionOutput": "Ausgabe",
+    "sessionProvider": "Konnektor",
+    "sessionModel": "Modell",
+    "sessionError": "Fehler",
     "searchPlaceholder": "Agenten suchen...",
     "statusFilter": "Status",
     "tierFilter": "Stufe",
@@ -2351,7 +2356,12 @@
     "toolCreated": "Tool erfolgreich erstellt",
     "toolDeleted": "Tool erfolgreich gelöscht",
     "deleteTool": "Tool löschen",
-    "confirmDeleteTool": "Sind Sie sicher, dass Sie dieses Tool löschen möchten?"
+    "confirmDeleteTool": "Sind Sie sicher, dass Sie dieses Tool löschen möchten?",
+    "connectorLabel": "KI-Konnektor",
+    "connectorDefault": "Standard (Auto)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "LLM-APIs",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "ML / UEBA-Analytik",
@@ -3674,7 +3684,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "Alle Laufzeit-Aufträge abbrechen"
       },
       "systemHealth": {
         "view": "View System Health"
@@ -3710,6 +3721,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "Alle abbrechen",
+    "cancelAllSuccess": "{count} Auftrag/Aufträge abgebrochen",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",

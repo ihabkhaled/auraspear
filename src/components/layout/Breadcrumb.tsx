@@ -11,40 +11,7 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { useBreadcrumb } from '@/hooks/useBreadcrumb'
-
-const pathLabelMap: Record<string, string> = {
-  dashboard: 'nav.dashboard',
-  alerts: 'nav.alerts',
-  hunt: 'nav.hunt',
-  cases: 'nav.cases',
-  intel: 'nav.intel',
-  tenant: 'nav.tenantConfig',
-  system: 'nav.systemAdmin',
-  'role-settings': 'nav.roleSettings',
-  'users-control': 'nav.usersControl',
-  notifications: 'nav.notifications',
-  connectors: 'nav.connectors',
-  profile: 'nav.profile',
-  settings: 'nav.settings',
-  incidents: 'nav.incidents',
-  jobs: 'nav.jobs',
-  correlation: 'nav.correlation',
-  explorer: 'nav.explorer',
-  vulnerabilities: 'nav.vulnerabilities',
-  'system-health': 'nav.systemHealth',
-  'ai-agents': 'nav.aiAgents',
-  compliance: 'nav.compliance',
-  reports: 'nav.reports',
-  'attack-paths': 'nav.attackPath',
-  ueba: 'nav.ueba',
-  soar: 'nav.soar',
-  normalization: 'nav.normalization',
-  'detection-rules': 'nav.rulesEngine',
-  'cloud-security': 'nav.cloudSecurity',
-}
-
-/** Segments that are route groups only — no standalone page, skip in breadcrumbs */
-const SKIP_SEGMENTS = new Set(['admin'])
+import { PATH_LABEL_MAP, SKIP_SEGMENTS } from '@/lib/constants/breadcrumb'
 
 export function LayoutBreadcrumb() {
   const { segments, t } = useBreadcrumb()
@@ -67,7 +34,7 @@ export function LayoutBreadcrumb() {
           .map((segment, index, filtered) => {
             const href = `/${segments.slice(0, segments.indexOf(segment) + 1).join('/')}`
             const isLast = index === filtered.length - 1
-            const labelKey = Reflect.get(pathLabelMap, segment) as string | undefined
+            const labelKey = Reflect.get(PATH_LABEL_MAP, segment) as string | undefined
             const label = labelKey ? t(labelKey) : segment
 
             return (

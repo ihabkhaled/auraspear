@@ -3,7 +3,7 @@
 import { MessageSquare, BarChart3 } from 'lucide-react'
 import { HuntChatPanel, HuntResultsPanel } from '@/components/hunt'
 import { Button } from '@/components/ui/button'
-import { HuntStatus } from '@/enums'
+import { HuntMobileTab, HuntStatus } from '@/enums'
 import { useHuntPage } from '@/hooks/useHuntPage'
 
 export default function HuntPage() {
@@ -35,17 +35,17 @@ export default function HuntPage() {
       {/* Mobile tab bar */}
       <div className="border-border flex border-b lg:hidden">
         <Button
-          variant={mobileTab === 'chat' ? 'default' : 'ghost'}
+          variant={mobileTab === HuntMobileTab.CHAT ? 'default' : 'ghost'}
           className="min-h-[44px] flex-1 gap-2 rounded-none"
-          onClick={() => setMobileTab('chat')}
+          onClick={() => setMobileTab(HuntMobileTab.CHAT)}
         >
           <MessageSquare className="h-4 w-4" />
           {t('chatTitle')}
         </Button>
         <Button
-          variant={mobileTab === 'results' ? 'default' : 'ghost'}
+          variant={mobileTab === HuntMobileTab.RESULTS ? 'default' : 'ghost'}
           className="min-h-[44px] flex-1 gap-2 rounded-none"
-          onClick={() => setMobileTab('results')}
+          onClick={() => setMobileTab(HuntMobileTab.RESULTS)}
         >
           <BarChart3 className="h-4 w-4" />
           {t('resultsTitle')}
@@ -54,7 +54,11 @@ export default function HuntPage() {
 
       <div className="flex min-h-0 flex-1">
         {/* Chat panel: visible on mobile when tab=chat, always visible on desktop */}
-        <div className={mobileTab === 'chat' ? 'flex flex-1 lg:flex-none' : 'hidden lg:flex'}>
+        <div
+          className={
+            mobileTab === HuntMobileTab.CHAT ? 'flex flex-1 lg:flex-none' : 'hidden lg:flex'
+          }
+        >
           <HuntChatPanel
             messages={messages}
             onSend={canExecute ? handleSend : undefined}
@@ -65,7 +69,11 @@ export default function HuntPage() {
         </div>
 
         {/* Results panel: visible on mobile when tab=results, always visible on desktop */}
-        <div className={mobileTab === 'results' ? 'flex flex-1' : 'hidden lg:flex lg:flex-1'}>
+        <div
+          className={
+            mobileTab === HuntMobileTab.RESULTS ? 'flex flex-1' : 'hidden lg:flex lg:flex-1'
+          }
+        >
           <HuntResultsPanel
             sessionId={huntId ?? ''}
             status={huntStatus ?? HuntStatus.IDLE}

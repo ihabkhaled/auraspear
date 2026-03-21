@@ -1535,7 +1535,9 @@
       "alreadyOffline": "El agente ya está fuera de línea.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "El esquema de la herramienta debe ser JSON válido.",
-      "toolNotFound": "Herramienta del agente de IA no encontrada."
+      "toolNotFound": "Herramienta del agente de IA no encontrada.",
+      "connectorNotAvailable": "El conector de IA solicitado no está configurado o disponible.",
+      "connectorFailed": "El conector de IA seleccionado no pudo procesar la solicitud."
     },
     "users": {
       "notFound": "Usuario no encontrado.",
@@ -2276,6 +2278,9 @@
     "startAgent": "Iniciar Agente",
     "sessionInput": "Entrada",
     "sessionOutput": "Salida",
+    "sessionProvider": "Conector",
+    "sessionModel": "Modelo",
+    "sessionError": "Error",
     "searchPlaceholder": "Buscar agentes...",
     "statusFilter": "Estado",
     "tierFilter": "Nivel",
@@ -2351,7 +2356,12 @@
     "toolCreated": "Herramienta creada exitosamente",
     "toolDeleted": "Herramienta eliminada exitosamente",
     "deleteTool": "Eliminar herramienta",
-    "confirmDeleteTool": "¿Está seguro de que desea eliminar esta herramienta?"
+    "confirmDeleteTool": "¿Está seguro de que desea eliminar esta herramienta?",
+    "connectorLabel": "Conector de IA",
+    "connectorDefault": "Predeterminado (Auto)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "APIs de LLM",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "Analítica ML / UEBA",
@@ -3674,7 +3684,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "Cancelar todos los trabajos en ejecución"
       },
       "systemHealth": {
         "view": "View System Health"
@@ -3710,6 +3721,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "Cancelar todos",
+    "cancelAllSuccess": "{count} trabajo(s) cancelado(s)",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",

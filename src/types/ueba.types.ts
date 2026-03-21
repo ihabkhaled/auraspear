@@ -128,6 +128,12 @@ export interface UebaFiltersProps {
   onRiskLevelChange: (value: string) => void
 }
 
+export interface UseUebaFiltersInput {
+  onSearchChange: (value: string) => void
+  onEntityTypeChange: (value: string) => void
+  onRiskLevelChange: (value: string) => void
+}
+
 export interface UebaAnomalyCardProps {
   anomaly: UebaAnomaly
   onResolve: (id: string) => void
@@ -136,6 +142,34 @@ export interface UebaAnomalyCardProps {
 
 export interface UebaMlModelCardProps {
   model: MlModel
+}
+
+export interface UseUebaEntityCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateUebaEntityFormValues) => void
+}
+
+export interface UseUebaEntityEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditUebaEntityFormValues) => void
+  initialValues: EditUebaEntityFormValues
+}
+
+export interface UebaPageDialogsReturn {
+  readonly selectedEntityId: string | null
+  readonly setSelectedEntityId: React.Dispatch<React.SetStateAction<string | null>>
+  readonly createDialogOpen: boolean
+  readonly setCreateDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editDialogOpen: boolean
+  readonly setEditDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editingEntity: UebaEntity | null
+  readonly setEditingEntity: React.Dispatch<React.SetStateAction<UebaEntity | null>>
+  readonly editInitialValues: EditUebaEntityFormValues
+  readonly handleRowClick: (entity: UebaEntity) => void
+  readonly handleCloseDetailPanel: () => void
+  readonly handleEditOpen: (entity: UebaEntity) => void
 }
 
 export interface UebaColumnTranslations {

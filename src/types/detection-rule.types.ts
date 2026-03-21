@@ -110,3 +110,21 @@ export interface DetectionRuleColumnTranslations {
   detectionRules: (key: string) => string
   common: (key: string) => string
 }
+
+export interface UseDetectionRuleCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateDetectionRuleFormValues) => void
+}
+
+export interface UseDetectionRuleEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditDetectionRuleFormValues) => void
+  initialValues: EditDetectionRuleFormValues
+}
+
+export interface UseDetectionRuleDeleteDialogParams {
+  ruleName: string
+  onConfirm: () => void
+}

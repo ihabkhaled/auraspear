@@ -41,3 +41,10 @@ export const RULE_STATUS_CLASSES: Record<RuleStatus, string> = {
   [RuleStatus.REVIEW]: 'bg-status-warning text-white',
   [RuleStatus.DISABLED]: 'bg-muted text-muted-foreground',
 }
+
+export const TAB_SOURCE_MAP: Record<string, RuleSource | undefined> = {
+  all: undefined,
+  sigma: RuleSource.SIGMA,
+  custom: RuleSource.CUSTOM,
+  ai: RuleSource.AI_GENERATED,
+}

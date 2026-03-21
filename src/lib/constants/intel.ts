@@ -1,4 +1,26 @@
-import { IOCSource, IOCType } from '@/enums'
+import { IOCSource, IOCType, StatusBgClass, StatusBorderClass, StatusTextClass } from '@/enums'
+
+/** CSS class for the default/fallback tag styling. */
+export const TAG_CLASS_DEFAULT = 'bg-secondary text-secondary-foreground border-border'
+
+/** CSS class for TLP:RED tags. */
+export const TAG_CLASS_TLP_RED =
+  'bg-[var(--tag-tlp-red-bg)] text-[var(--tag-tlp-red)] border-[var(--tag-tlp-red-border)]'
+
+/** CSS class for TLP:AMBER tags. */
+export const TAG_CLASS_TLP_AMBER =
+  'bg-[var(--tag-tlp-amber-bg)] text-[var(--tag-tlp-amber)] border-[var(--tag-tlp-amber-border)]'
+
+/** CSS class for TLP:GREEN tags. */
+export const TAG_CLASS_TLP_GREEN =
+  'bg-[var(--tag-tlp-green-bg)] text-[var(--tag-tlp-green)] border-[var(--tag-tlp-green-border)]'
+
+/** CSS class for TLP:WHITE / TLP:CLEAR tags. */
+export const TAG_CLASS_TLP_WHITE = `${StatusBgClass.MUTED} ${StatusTextClass.MUTED} ${StatusBorderClass.BORDER}`
+
+/** CSS class for APT tags. */
+export const TAG_CLASS_APT =
+  'bg-[var(--tag-apt-bg)] text-[var(--tag-apt)] border-[var(--tag-apt-border)]'
 
 export const IOC_TYPE_OPTIONS: { value: IOCType; labelKey: string }[] = [
   { value: IOCType.IP, labelKey: 'search.typeIP' },

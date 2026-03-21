@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 import { formatDate } from '@/lib/utils'
-import type { CorrelationDetailPanelProps } from '@/types'
+import type { UseCorrelationDetailPanelParams } from '@/types'
 
 export function useCorrelationDetailPanel({
   rule,
@@ -8,7 +8,7 @@ export function useCorrelationDetailPanel({
   onOpenChange,
   onEdit,
   onDelete,
-}: Pick<CorrelationDetailPanelProps, 'rule' | 'open' | 'onOpenChange' | 'onEdit' | 'onDelete'>) {
+}: UseCorrelationDetailPanelParams) {
   const t = useTranslations('correlation')
 
   const formattedCreatedAt = rule?.createdAt ? formatDate(rule.createdAt) : '-'

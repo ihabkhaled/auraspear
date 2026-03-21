@@ -1,16 +1,6 @@
 import { type NextRequest } from 'next/server'
 import { fetchBackendJson, jsonNoStore } from '@/lib/backend-proxy'
-import type { SeverityDataPoint } from '@/types'
-
-interface BackendSeverityDistributionEntry {
-  severity: string
-  count: number
-}
-
-interface BackendSeverityDistributionResponse {
-  tenantId: string
-  distribution: BackendSeverityDistributionEntry[]
-}
+import type { BackendSeverityDistributionResponse, SeverityDataPoint } from '@/types'
 
 export const dynamic = 'force-dynamic'
 

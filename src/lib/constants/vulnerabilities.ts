@@ -30,3 +30,5 @@ export const CVSS_COLOR_THRESHOLDS = [
   { min: 4, className: 'bg-severity-medium text-white' },
   { min: 0, className: 'bg-severity-low text-white' },
 ] as const
+
+export const CVSS_DEFAULT_CLASS = 'bg-severity-low text-white'

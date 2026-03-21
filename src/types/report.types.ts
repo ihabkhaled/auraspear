@@ -149,6 +149,37 @@ export interface ReportTemplateGridProps {
   t: (key: string) => string
 }
 
+export interface UseReportCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateReportFormValues) => void
+}
+
+export interface UseReportEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditReportFormValues) => void
+  initialValues: EditReportFormValues
+}
+
+export interface ReportsPageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedReport: Report | null
+  readonly setSelectedReport: React.Dispatch<React.SetStateAction<Report | null>>
+  readonly deleteReportId: string | null
+  readonly setDeleteReportId: React.Dispatch<React.SetStateAction<string | null>>
+  readonly deleteReportName: string
+  readonly editInitialValues: EditReportFormValues
+  readonly handleRowClick: (report: Report) => void
+  readonly openEditDialog: () => void
+  readonly openDeleteDialog: () => void
+}
+
 export interface ReportColumnTranslations {
   reports: (key: string) => string
   common: (key: string) => string

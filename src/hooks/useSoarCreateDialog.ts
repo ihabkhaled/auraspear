@@ -4,13 +4,9 @@ import { useTranslations } from 'next-intl'
 import { useForm, useWatch, type Resolver } from 'react-hook-form'
 import { SoarTriggerType } from '@/enums'
 import { createSoarPlaybookSchema } from '@/lib/validation/soar.schema'
-import type { SoarCreateDialogProps, CreateSoarPlaybookFormValues } from '@/types'
+import type { CreateSoarPlaybookFormValues, UseSoarCreateDialogParams } from '@/types'
 
-export function useSoarCreateDialog({
-  open,
-  onOpenChange,
-  onSubmit,
-}: Pick<SoarCreateDialogProps, 'open' | 'onOpenChange' | 'onSubmit'>) {
+export function useSoarCreateDialog({ open, onOpenChange, onSubmit }: UseSoarCreateDialogParams) {
   const t = useTranslations('soar')
 
   const {

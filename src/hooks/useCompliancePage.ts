@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getComplianceColumns } from '@/components/compliance'
 import { ComplianceStandard, Permission, SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type {
@@ -22,8 +23,6 @@ import {
 } from './useCompliance'
 import { useDebounce } from './useDebounce'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useCompliancePage() {
   const t = useTranslations('compliance')

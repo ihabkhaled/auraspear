@@ -2,12 +2,7 @@ import { useCallback, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { CommentPartType } from '@/enums'
 import { COMMENT_COLLAPSE_HEIGHT_PX } from '@/lib/constants/cases'
-import type { CaseComment } from '@/types'
-
-interface CommentPart {
-  type: CommentPartType
-  value: string
-}
+import type { CaseComment, CommentPart } from '@/types'
 
 export function useCommentItem(comment: CaseComment) {
   const t = useTranslations('cases.comments')

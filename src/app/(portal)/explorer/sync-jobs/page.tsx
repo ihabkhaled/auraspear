@@ -3,23 +3,11 @@
 import { Clock } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
-import { SortOrder, SyncJobStatus } from '@/enums'
+import { SortOrder } from '@/enums'
 import { useExplorerSyncJobsPage } from '@/hooks'
+import { statusVariant } from '@/lib/explorer.utils'
 import { formatDate } from '@/lib/utils'
 import type { Column, SyncJob } from '@/types'
-
-function statusVariant(status: string) {
-  switch (status) {
-    case SyncJobStatus.RUNNING:
-      return 'default' as const
-    case SyncJobStatus.COMPLETED:
-      return 'outline' as const
-    case SyncJobStatus.FAILED:
-      return 'destructive' as const
-    default:
-      return 'secondary' as const
-  }
-}
 
 export default function ExplorerSyncJobsPage() {
   const { t, sortOrder, data, isLoading, isFetching, handleSort, pagination } =

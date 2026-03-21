@@ -65,5 +65,3 @@ export function useReportsPageDialogs() {
     openDeleteDialog,
   } as const satisfies Record<string, unknown>
 }
-
-export type ReportsPageDialogsReturn = ReturnType<typeof useReportsPageDialogs>

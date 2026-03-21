@@ -1,4 +1,4 @@
-import { MlModelStatus, MlModelType, UebaEntityType, UebaRiskLevel } from '@/enums'
+import { BadgeVariant, MlModelStatus, MlModelType, UebaEntityType, UebaRiskLevel } from '@/enums'
 
 export const UEBA_ENTITY_TYPE_LABEL_KEYS: Record<UebaEntityType, string> = {
   [UebaEntityType.USER]: 'entityUser',
@@ -56,4 +56,12 @@ export const ML_MODEL_TYPE_CLASSES: Record<MlModelType, string> = {
   [MlModelType.CLASSIFICATION]: 'bg-severity-info text-white',
   [MlModelType.CLUSTERING]: 'bg-severity-medium text-white',
   [MlModelType.TIME_SERIES]: 'bg-severity-low text-white',
+}
+
+export const SEVERITY_VARIANT_MAP: Record<UebaRiskLevel, BadgeVariant> = {
+  [UebaRiskLevel.CRITICAL]: BadgeVariant.DESTRUCTIVE,
+  [UebaRiskLevel.HIGH]: BadgeVariant.DESTRUCTIVE,
+  [UebaRiskLevel.MEDIUM]: BadgeVariant.DEFAULT,
+  [UebaRiskLevel.LOW]: BadgeVariant.SECONDARY,
+  [UebaRiskLevel.NORMAL]: BadgeVariant.OUTLINE,
 }

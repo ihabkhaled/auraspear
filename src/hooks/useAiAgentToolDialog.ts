@@ -2,21 +2,9 @@ import { useEffect } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { AI_AGENT_TOOL_DEFAULT_VALUES } from '@/lib/constants/ai-agents'
 import { aiAgentToolSchema } from '@/lib/validation/ai-agents.schema'
-import type { AiAgentToolFormValues } from '@/types'
-
-const DEFAULT_VALUES: AiAgentToolFormValues = {
-  name: '',
-  description: '',
-  schema: '{\n  \n}',
-}
-
-interface UseAiAgentToolDialogParams {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSubmit: (data: AiAgentToolFormValues) => void
-  initialValues: AiAgentToolFormValues | undefined
-}
+import type { AiAgentToolFormValues, UseAiAgentToolDialogParams } from '@/types'
 
 export function useAiAgentToolDialog({
   open,
@@ -33,14 +21,14 @@ export function useAiAgentToolDialog({
     formState: { errors },
   } = useForm<AiAgentToolFormValues>({
     resolver: zodResolver(aiAgentToolSchema),
-    defaultValues: initialValues ?? DEFAULT_VALUES,
+    defaultValues: initialValues ?? AI_AGENT_TOOL_DEFAULT_VALUES,
   })
 
   useEffect(() => {
     if (open) {
-      reset(initialValues ?? DEFAULT_VALUES)
+      reset(initialValues ?? AI_AGENT_TOOL_DEFAULT_VALUES)
     } else {
-      reset(DEFAULT_VALUES)
+      reset(AI_AGENT_TOOL_DEFAULT_VALUES)
     }
   }, [open, initialValues, reset])
 
@@ -52,7 +40,7 @@ export function useAiAgentToolDialog({
 
   const handleOpenChange = (nextOpen: boolean) => {
     if (!nextOpen) {
-      reset(DEFAULT_VALUES)
+      reset(AI_AGENT_TOOL_DEFAULT_VALUES)
     }
     onOpenChange(nextOpen)
   }

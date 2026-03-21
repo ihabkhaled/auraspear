@@ -52,7 +52,7 @@ export function EscalateToIncidentDialog({
         <form
           onSubmit={e => {
             e.preventDefault()
-            const formData = new FormData(e.currentTarget)
+            const formData = new FormData(e.currentTarget as unknown as HTMLFormElement)
             handleSubmit({
               title: formData.get('title') as string,
               description: formData.get('description') as string,

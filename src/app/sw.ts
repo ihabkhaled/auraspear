@@ -1,6 +1,8 @@
+/// <reference no-default-lib="true" />
+/// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-import { defaultCache } from '@serwist/next/worker'
+import { defaultCache } from '@serwist/turbopack/worker'
 import { NetworkOnly, Serwist } from 'serwist'
 import type { PrecacheEntry, RuntimeCaching, SerwistGlobalConfig } from 'serwist'
 
@@ -10,7 +12,7 @@ declare global {
   }
 }
 
-declare const self: ServiceWorkerGlobalScope & typeof globalThis
+declare const self: ServiceWorkerGlobalScope
 
 // Force all /api/* requests to bypass cache entirely (NetworkOnly).
 // This prevents authenticated API responses (alerts, cases, incidents, etc.)

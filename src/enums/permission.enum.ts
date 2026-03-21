@@ -74,6 +74,7 @@ export enum Permission {
   AI_AGENTS_EXECUTE = 'aiAgents.execute',
   JOBS_VIEW = 'jobs.view',
   JOBS_MANAGE = 'jobs.manage',
+  JOBS_CANCEL_ALL = 'jobs.cancelAll',
   CLOUD_SECURITY_VIEW = 'cloudSecurity.view',
   CLOUD_SECURITY_CREATE = 'cloudSecurity.create',
   CLOUD_SECURITY_UPDATE = 'cloudSecurity.update',

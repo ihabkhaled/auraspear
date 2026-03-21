@@ -8,8 +8,8 @@ import { lookup } from '@/lib/utils'
 import type { WorkspaceActionsPanelProps } from '@/types'
 import type { LucideIcon } from 'lucide-react'
 
-// ACTION_ICON_MAP contains React component references (LucideIcon), so it must stay inline per CLAUDE.md rule 13 exception.
-const ACTION_ICON_MAP: Record<string, LucideIcon> = {
+// actionIconMap contains React component references (LucideIcon), so it stays inline per CLAUDE.md rule 33.
+const actionIconMap: Record<string, LucideIcon> = {
   play: Play,
   'refresh-cw': RefreshCw,
   workflow: Workflow,
@@ -35,9 +35,7 @@ export function WorkspaceActionsPanel({
         ) : (
           <div className="space-y-2">
             {actions.map(action => {
-              const IconComponent = action.icon
-                ? (lookup(ACTION_ICON_MAP, action.icon) ?? Zap)
-                : Zap
+              const IconComponent = action.icon ? (lookup(actionIconMap, action.icon) ?? Zap) : Zap
 
               return (
                 <Button

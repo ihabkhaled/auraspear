@@ -1,5 +1,13 @@
 import { IncidentActorType, IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
 
+export const ALERT_SEVERITY_TO_INCIDENT: Record<string, IncidentSeverity> = {
+  critical: IncidentSeverity.CRITICAL,
+  high: IncidentSeverity.HIGH,
+  medium: IncidentSeverity.MEDIUM,
+  low: IncidentSeverity.LOW,
+  info: IncidentSeverity.LOW,
+}
+
 export const INCIDENT_STATUS_LABEL_KEYS: Record<IncidentStatus, string> = {
   [IncidentStatus.OPEN]: 'statusOpen',
   [IncidentStatus.IN_PROGRESS]: 'statusInProgress',

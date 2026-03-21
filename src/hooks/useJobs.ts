@@ -55,3 +55,19 @@ export function useCancelJob() {
     },
   })
 }
+
+export function useCancelAllJobs() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
+  return useMutation({
+    mutationFn: () => {
+      requirePermission(permissions, Permission.JOBS_CANCEL_ALL)
+      return jobService.cancelAllJobs()
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['jobs', tenantId] })
+    },
+  })
+}

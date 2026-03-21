@@ -2,6 +2,10 @@ import { BadgeVariant, CaseStatus, type CaseTimelineEntryType } from '@/enums'
 import { AVATAR_COLORS, TIMELINE_TYPE_COLORS } from '@/lib/constants/cases'
 import { lookup } from '@/lib/utils'
 
+const NON_OWNER_ROW_CLASS = 'opacity-50'
+const DEFAULT_INITIAL = 'U'
+const DEFAULT_TIMELINE_TYPE_COLOR = 'var(--muted-foreground)'
+
 export const STATUS_VARIANT_MAP: Record<CaseStatus, BadgeVariant> = {
   [CaseStatus.OPEN]: BadgeVariant.DEFAULT,
   [CaseStatus.IN_PROGRESS]: BadgeVariant.SECONDARY,
@@ -28,13 +32,13 @@ export function getCaseRowClassName(
     return ''
   }
   if (row.ownerUserId !== currentUserId) {
-    return 'opacity-50'
+    return NON_OWNER_ROW_CLASS
   }
   return ''
 }
 
 export function getInitials(name?: string | null): string {
-  if (!name) return 'U'
+  if (!name) return DEFAULT_INITIAL
   return name
     .split(' ')
     .map(part => part.at(0))
@@ -49,7 +53,7 @@ export function getAvatarColor(index: number): string {
 }
 
 export function getTypeColor(type: CaseTimelineEntryType): string {
-  return lookup(TIMELINE_TYPE_COLORS, type) ?? 'var(--muted-foreground)'
+  return lookup(TIMELINE_TYPE_COLORS, type) ?? DEFAULT_TIMELINE_TYPE_COLOR
 }
 
 /**

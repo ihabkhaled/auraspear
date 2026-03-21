@@ -17,3 +17,8 @@ export enum ReasoningStepStatus {
   COMPLETED = 'completed',
   ERROR = 'error',
 }
+
+export enum HuntMobileTab {
+  CHAT = 'chat',
+  RESULTS = 'results',
+}

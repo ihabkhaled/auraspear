@@ -25,3 +25,10 @@ export const ATTACK_PATH_STATUS_CLASSES: Record<AttackPathStatus, string> = {
   [AttackPathStatus.MITIGATED]: 'bg-status-success text-white',
   [AttackPathStatus.RESOLVED]: 'bg-status-info text-white',
 }
+
+export const EMPTY_STAGE = {
+  name: '',
+  mitreId: '',
+  description: '',
+  assets: [] as string[],
+}

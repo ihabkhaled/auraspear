@@ -30,7 +30,7 @@ export function IncidentFilters(props: IncidentFiltersProps) {
         <Input
           placeholder={t('searchPlaceholder')}
           value={props.searchQuery}
-          onChange={e => props.onSearchChange(e.target.value)}
+          onChange={e => props.onSearchChange(e.currentTarget.value)}
           className="ps-9"
         />
       </div>

@@ -1,16 +1,7 @@
 import { create } from 'zustand'
+import type { UIStoreState } from '@/types'
 
-interface UIState {
-  sidebarCollapsed: boolean
-  mobileSidebarOpen: boolean
-  commandPaletteOpen: boolean
-  toggleSidebar: () => void
-  setMobileSidebarOpen: (open: boolean) => void
-  toggleMobileSidebar: () => void
-  setCommandPaletteOpen: (open: boolean) => void
-}
-
-export const useUIStore = create<UIState>(set => ({
+export const useUIStore = create<UIStoreState>(set => ({
   sidebarCollapsed: false,
   mobileSidebarOpen: false,
   commandPaletteOpen: false,

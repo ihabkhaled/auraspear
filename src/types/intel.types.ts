@@ -50,6 +50,10 @@ export interface IOCSearchBarProps {
   loading?: boolean
 }
 
+export interface UseIocSearchBarParams {
+  onSearch: (query: string, type: string, source: string) => void
+}
+
 export interface IntelStatsGridProps {
   stats: IntelStats
 }

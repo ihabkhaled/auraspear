@@ -1,6 +1,10 @@
+import { ErrorMessageKey } from '@/enums'
 import { PermissionError } from '@/lib/roles'
 import type { ApiErrorResponse } from '@/types'
 import type { AxiosError } from 'axios'
+
+const ERROR_PREFIX = 'errors.'
+const DEFAULT_ERROR_KEY = ErrorMessageKey.COMMON_UNKNOWN.replace(ERROR_PREFIX, '')
 
 /**
  * Extracts the i18n messageKey from an API error response.
@@ -9,17 +13,17 @@ import type { AxiosError } from 'axios'
  */
 export function getErrorKey(error: unknown): string {
   if (error instanceof PermissionError) {
-    return error.messageKey.replace(/^errors\./, '')
+    return error.messageKey.replace(ERROR_PREFIX, '')
   }
 
   const axiosError = error as AxiosError<ApiErrorResponse>
   const data = axiosError?.response?.data
 
   if (data?.messageKey) {
-    return data.messageKey.replace(/^errors\./, '')
+    return data.messageKey.replace(ERROR_PREFIX, '')
   }
 
-  return 'common.unknown'
+  return DEFAULT_ERROR_KEY
 }
 
 /**
@@ -44,12 +48,12 @@ export function getFirstFieldError(error: unknown): string {
 
   const firstError = data?.errors?.[0]
   if (firstError) {
-    return firstError.replace(/^errors\./, '')
+    return firstError.replace(ERROR_PREFIX, '')
   }
 
   if (data?.messageKey) {
-    return data.messageKey.replace(/^errors\./, '')
+    return data.messageKey.replace(ERROR_PREFIX, '')
   }
 
-  return 'common.unknown'
+  return DEFAULT_ERROR_KEY
 }

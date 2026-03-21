@@ -1,4 +1,5 @@
-import { AiAgentPanelTab, AiAgentStatus, AiAgentTier } from '@/enums'
+import { AiAgentPanelTab, AiAgentStatus, AiAgentTier, AiConnectorPreference } from '@/enums'
+import type { AiAgentToolFormValues } from '@/types'
 
 export const AI_AGENT_STATUS_LABEL_KEYS: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'statusOnline',
@@ -41,3 +42,23 @@ export const AI_AGENT_PANEL_TABS = [
   AiAgentPanelTab.SESSIONS,
   AiAgentPanelTab.TOOLS,
 ] as const
+
+export const AI_CONNECTOR_PREFERENCE_LABEL_KEYS: Record<AiConnectorPreference, string> = {
+  [AiConnectorPreference.DEFAULT]: 'connectorDefault',
+  [AiConnectorPreference.BEDROCK]: 'connectorBedrock',
+  [AiConnectorPreference.LLM_APIS]: 'connectorLlmApis',
+  [AiConnectorPreference.OPENCLAW_GATEWAY]: 'connectorOpenClawGateway',
+}
+
+export const AI_SESSION_CONNECTOR_LABELS: Record<string, string> = {
+  bedrock: 'AWS Bedrock',
+  llm_apis: 'LLM APIs',
+  openclaw_gateway: 'OpenClaw Gateway',
+  'rule-based': 'Rule-Based',
+}
+
+export const AI_AGENT_TOOL_DEFAULT_VALUES: AiAgentToolFormValues = {
+  name: '',
+  description: '',
+  schema: '{\n  \n}',
+}

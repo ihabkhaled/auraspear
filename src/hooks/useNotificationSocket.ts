@@ -8,10 +8,9 @@ import { io, type Socket } from 'socket.io-client'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
 import { refreshCurrentSessionPermissions } from '@/lib/auth-session'
+import { BACKEND_WS_URL } from '@/lib/constants/notifications'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { UnreadCountResponse } from '@/types'
-
-const BACKEND_WS_URL = process.env['NEXT_PUBLIC_WS_URL'] ?? 'http://localhost:4000'
 
 /**
  * Connects to the backend realtime namespace and keeps the current

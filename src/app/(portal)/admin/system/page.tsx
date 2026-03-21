@@ -195,7 +195,7 @@ export default function SystemAdminPage() {
                 <Input
                   placeholder={t('appLogs.searchPlaceholder')}
                   value={appLogSearch}
-                  onChange={e => setAppLogSearch(e.target.value)}
+                  onChange={e => setAppLogSearch(e.currentTarget.value)}
                   className="w-full md:w-64"
                 />
                 <Select
@@ -233,7 +233,7 @@ export default function SystemAdminPage() {
                 <Input
                   placeholder={t('appLogs.actorEmailPlaceholder')}
                   value={appLogActorEmail}
-                  onChange={e => setAppLogActorEmail(e.target.value)}
+                  onChange={e => setAppLogActorEmail(e.currentTarget.value)}
                   className="w-full md:w-56"
                 />
                 {hasActiveFilters && (

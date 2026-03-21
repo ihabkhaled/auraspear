@@ -1,20 +1,8 @@
 import { create } from 'zustand'
 import { TimeRange } from '@/enums'
-import type { AlertSeverity } from '@/enums'
+import type { FilterStoreState } from '@/types'
 
-interface FilterState {
-  severity: AlertSeverity[]
-  timeRange: TimeRange
-  agents: string[]
-  kqlQuery: string
-  setSeverity: (severity: AlertSeverity[]) => void
-  setTimeRange: (timeRange: TimeRange) => void
-  setAgents: (agents: string[]) => void
-  setKqlQuery: (query: string) => void
-  resetFilters: () => void
-}
-
-export const useFilterStore = create<FilterState>(set => ({
+export const useFilterStore = create<FilterStoreState>(set => ({
   severity: [],
   timeRange: TimeRange.H24,
   agents: [],

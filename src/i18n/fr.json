@@ -1535,7 +1535,9 @@
       "alreadyOffline": "L'agent est déjà hors ligne.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "Le schéma de l'outil doit être du JSON valide.",
-      "toolNotFound": "Outil de l'agent IA introuvable."
+      "toolNotFound": "Outil de l'agent IA introuvable.",
+      "connectorNotAvailable": "Le connecteur IA demandé n'est pas configuré ou disponible.",
+      "connectorFailed": "Le connecteur IA sélectionné n'a pas pu traiter la demande."
     },
     "users": {
       "notFound": "Utilisateur introuvable.",
@@ -2276,6 +2278,9 @@
     "startAgent": "Démarrer l'Agent",
     "sessionInput": "Entrée",
     "sessionOutput": "Sortie",
+    "sessionProvider": "Connecteur",
+    "sessionModel": "Modèle",
+    "sessionError": "Erreur",
     "searchPlaceholder": "Rechercher des agents...",
     "statusFilter": "Statut",
     "tierFilter": "Niveau",
@@ -2351,7 +2356,12 @@
     "toolCreated": "Outil créé avec succès",
     "toolDeleted": "Outil supprimé avec succès",
     "deleteTool": "Supprimer l'outil",
-    "confirmDeleteTool": "Êtes-vous sûr de vouloir supprimer cet outil ?"
+    "confirmDeleteTool": "Êtes-vous sûr de vouloir supprimer cet outil ?",
+    "connectorLabel": "Connecteur IA",
+    "connectorDefault": "Par défaut (Auto)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "API LLM",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "Analytique ML / UEBA",
@@ -3674,7 +3684,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "Annuler toutes les tâches d'exécution"
       },
       "systemHealth": {
         "view": "View System Health"
@@ -3710,6 +3721,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "Tout annuler",
+    "cancelAllSuccess": "{count} tâche(s) annulée(s)",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",

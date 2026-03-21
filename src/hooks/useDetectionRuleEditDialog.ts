@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
 import { editDetectionRuleSchema } from '@/lib/validation/detection-rules.schema'
-import type { DetectionRuleEditDialogProps, EditDetectionRuleFormValues } from '@/types'
+import type { EditDetectionRuleFormValues, UseDetectionRuleEditDialogParams } from '@/types'
 
 export function useDetectionRuleEditDialog({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<DetectionRuleEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseDetectionRuleEditDialogParams) {
   const t = useTranslations('detectionRules')
 
   const {

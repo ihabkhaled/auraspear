@@ -13,7 +13,7 @@ import {
   UserPlus,
   UserX,
 } from 'lucide-react'
-import { NotificationType } from '@/enums'
+import { NotificationType, StatusBgClass, StatusTextClass } from '@/enums'
 
 export function getNotificationIcon(type: string) {
   switch (type) {
@@ -54,24 +54,24 @@ export function getNotificationIconColor(type: string): string {
   switch (type) {
     case NotificationType.USER_BLOCKED:
     case NotificationType.USER_REMOVED:
-      return 'bg-destructive/10 text-destructive'
+      return `${StatusBgClass.DESTRUCTIVE_10} ${StatusTextClass.DESTRUCTIVE}`
     case NotificationType.USER_UNBLOCKED:
     case NotificationType.USER_RESTORED:
     case NotificationType.CASE_ASSIGNED:
-      return 'bg-status-success text-status-success'
+      return `${StatusBgClass.SUCCESS} ${StatusTextClass.SUCCESS}`
     case NotificationType.CASE_STATUS_CHANGED:
-      return 'bg-status-warning text-status-warning'
+      return `${StatusBgClass.WARNING} ${StatusTextClass.WARNING}`
     case NotificationType.CASE_UNASSIGNED:
-      return 'bg-status-warning text-status-warning'
+      return `${StatusBgClass.WARNING} ${StatusTextClass.WARNING}`
     case NotificationType.TENANT_ASSIGNED:
     case NotificationType.CASE_COMMENT_ADDED:
     case NotificationType.CASE_TASK_ADDED:
     case NotificationType.CASE_ARTIFACT_ADDED:
     case NotificationType.CASE_UPDATED:
-      return 'bg-status-info text-status-info'
+      return `${StatusBgClass.INFO} ${StatusTextClass.INFO}`
     case NotificationType.ROLE_CHANGED:
-      return 'bg-status-warning text-status-warning'
+      return `${StatusBgClass.WARNING} ${StatusTextClass.WARNING}`
     default:
-      return 'bg-primary/10 text-primary'
+      return `${StatusBgClass.PRIMARY_10} ${StatusTextClass.PRIMARY}`
   }
 }

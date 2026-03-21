@@ -1,4 +1,11 @@
-import type { AiAgentSessionStatus, AiAgentStatus, AiAgentTier, SortOrder } from '@/enums'
+import type {
+  AiAgentSessionStatus,
+  AiAgentStatus,
+  AiAgentTier,
+  AiConnectorPreference,
+  BadgeVariant,
+  SortOrder,
+} from '@/enums'
 
 export interface AiAgent {
   id: string
@@ -27,9 +34,12 @@ export interface AiAgentSession {
   status: AiAgentSessionStatus
   input: string
   output: string | null
+  model: string | null
+  provider: string | null
   tokensUsed: number
   cost: number
   durationMs: number
+  errorMessage: string | null
   startedAt: string
   completedAt: string | null
 }
@@ -121,6 +131,7 @@ export interface UpdateAiAgentMutationInput {
 export interface RunAiAgentMutationInput {
   id: string
   prompt: string
+  connector?: AiConnectorPreference | undefined
 }
 
 export interface DeleteAiAgentResult {
@@ -186,4 +197,57 @@ export interface AiAgentColumnTranslations {
 
 export interface SessionColumnTranslations {
   (key: string): string
+}
+
+export interface AiAgentSessionDetailDialogProps {
+  session: AiAgentSession | null
+  open: boolean
+  onClose: () => void
+  t: (key: string) => string
+  formattedDuration: string
+  formattedCost: string
+  formattedTokens: string
+  formattedStartedAt: string
+  formattedCompletedAt: string
+}
+
+export interface SessionStatusBadgeProps {
+  variant: BadgeVariant
+  className: string
+}
+
+export interface UseAiAgentCreateDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: CreateAiAgentFormValues) => void
+}
+
+export interface UseAiAgentEditDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: EditAiAgentFormValues) => void
+  initialValues: EditAiAgentFormValues
+}
+
+export type AiAgentsPageDialogsReturn = {
+  selectedAgentId: string | null
+  setSelectedAgentId: (id: string | null) => void
+  createDialogOpen: boolean
+  setCreateDialogOpen: (open: boolean) => void
+  editDialogOpen: boolean
+  setEditDialogOpen: (open: boolean) => void
+  editAgent: AiAgent | null
+  setEditAgent: (agent: AiAgent | null) => void
+  editInitialValues: EditAiAgentFormValues | null
+  handleRowClick: (agent: AiAgent) => void
+  handleEditOpen: (agent: AiAgent) => void
+  handleCloseDetail: () => void
+  findSelectedAgent: (agents: AiAgent[] | undefined) => AiAgent | null
+}
+
+export interface UseAiAgentToolDialogParams {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onSubmit: (data: AiAgentToolFormValues) => void
+  initialValues: AiAgentToolFormValues | undefined
 }

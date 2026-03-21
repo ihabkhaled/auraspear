@@ -1,11 +1,5 @@
-import withSerwistInit from '@serwist/next'
+import { withSerwist } from '@serwist/turbopack'
 import type { NextConfig } from 'next'
-
-const withSerwist = withSerwistInit({
-  swSrc: 'src/app/sw.ts',
-  swDest: 'public/sw.js',
-  disable: process.env.NODE_ENV === 'development',
-})
 
 function buildAllowedConnectSources(): string[] {
   const sources = new Set<string>(["'self'"])
@@ -83,7 +77,7 @@ const securityHeaders = [
   { key: 'Content-Security-Policy', value: cspDirectives.join('; ') },
 ]
 
-const nextConfig: NextConfig = {
+const nextConfig: NextConfig = withSerwist({
   output: 'standalone',
   productionBrowserSourceMaps: false,
   async headers() {
@@ -94,6 +88,6 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-}
+})
 
-export default withSerwist(nextConfig)
+export default nextConfig

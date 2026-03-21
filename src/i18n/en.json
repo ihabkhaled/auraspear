@@ -1535,7 +1535,9 @@
       "alreadyOffline": "Agent is already offline.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "Tool schema must be valid JSON.",
-      "toolNotFound": "AI Agent tool not found."
+      "toolNotFound": "AI Agent tool not found.",
+      "connectorNotAvailable": "The requested AI connector is not configured or available.",
+      "connectorFailed": "The selected AI connector failed to process the request."
     },
     "jobs": {
       "notFound": "Job not found.",
@@ -2276,6 +2278,9 @@
     "startAgent": "Start Agent",
     "sessionInput": "Input",
     "sessionOutput": "Output",
+    "sessionProvider": "Connector",
+    "sessionModel": "Model",
+    "sessionError": "Error",
     "runAgent": "Run Agent",
     "runAgentDescription": "Queue a safe assistive task for this agent and capture the result as a session.",
     "runPromptPlaceholder": "Describe the triage, summary, investigation, or drafting task you want this agent to help with...",
@@ -2351,7 +2356,12 @@
     "toolCreated": "Tool created successfully",
     "toolDeleted": "Tool deleted successfully",
     "deleteTool": "Delete Tool",
-    "confirmDeleteTool": "Are you sure you want to delete this tool?"
+    "confirmDeleteTool": "Are you sure you want to delete this tool?",
+    "connectorLabel": "AI Connector",
+    "connectorDefault": "Default (Auto)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "LLM APIs",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "ML / UEBA Analytics",
@@ -3097,6 +3107,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "Cancel All",
+    "cancelAllSuccess": "{count} job(s) cancelled",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",
@@ -3674,7 +3686,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "Cancel All Runtime Jobs"
       },
       "systemHealth": {
         "view": "View System Health"

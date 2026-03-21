@@ -1535,7 +1535,9 @@
       "alreadyOffline": "L'agente è già offline.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "Lo schema dello strumento deve essere JSON valido.",
-      "toolNotFound": "Strumento dell'agente AI non trovato."
+      "toolNotFound": "Strumento dell'agente AI non trovato.",
+      "connectorNotAvailable": "Il connettore IA richiesto non è configurato o disponibile.",
+      "connectorFailed": "Il connettore IA selezionato non è riuscito a elaborare la richiesta."
     },
     "users": {
       "notFound": "Utente non trovato.",
@@ -2276,6 +2278,9 @@
     "startAgent": "Avvia Agente",
     "sessionInput": "Input",
     "sessionOutput": "Output",
+    "sessionProvider": "Connettore",
+    "sessionModel": "Modello",
+    "sessionError": "Errore",
     "searchPlaceholder": "Cerca agenti...",
     "statusFilter": "Stato",
     "tierFilter": "Livello",
@@ -2351,7 +2356,12 @@
     "toolCreated": "Strumento creato con successo",
     "toolDeleted": "Strumento eliminato con successo",
     "deleteTool": "Elimina strumento",
-    "confirmDeleteTool": "Sei sicuro di voler eliminare questo strumento?"
+    "confirmDeleteTool": "Sei sicuro di voler eliminare questo strumento?",
+    "connectorLabel": "Connettore IA",
+    "connectorDefault": "Predefinito (Auto)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "API LLM",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "Analitica ML / UEBA",
@@ -3674,7 +3684,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "Annulla tutti i lavori in esecuzione"
       },
       "systemHealth": {
         "view": "View System Health"
@@ -3710,6 +3721,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "Annulla tutti",
+    "cancelAllSuccess": "{count} lavoro/i annullato/i",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",

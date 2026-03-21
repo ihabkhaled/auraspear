@@ -3,14 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useTranslations } from 'next-intl'
 import { useForm, type Resolver } from 'react-hook-form'
 import { editComplianceControlSchema } from '@/lib/validation/compliance.schema'
-import type { ComplianceControlEditDialogProps, EditComplianceControlFormValues } from '@/types'
+import type { EditComplianceControlFormValues, UseComplianceControlEditParams } from '@/types'
 
 export function useComplianceControlEdit({
   open,
   onOpenChange,
   onSubmit,
   initialValues,
-}: Pick<ComplianceControlEditDialogProps, 'open' | 'onOpenChange' | 'onSubmit' | 'initialValues'>) {
+}: UseComplianceControlEditParams) {
   const t = useTranslations('compliance')
 
   const {

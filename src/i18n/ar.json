@@ -1535,7 +1535,9 @@
       "alreadyOffline": "الوكيل غير متصل بالفعل.",
       "offline": "This AI agent must be online or degraded before it can run tasks.",
       "invalidToolSchema": "يجب أن يكون مخطط الأداة بصيغة JSON صالحة.",
-      "toolNotFound": "لم يتم العثور على أداة وكيل الذكاء الاصطناعي."
+      "toolNotFound": "لم يتم العثور على أداة وكيل الذكاء الاصطناعي.",
+      "connectorNotAvailable": "موصل الذكاء الاصطناعي المطلوب غير مهيأ أو غير متوفر.",
+      "connectorFailed": "فشل موصل الذكاء الاصطناعي المحدد في معالجة الطلب."
     },
     "users": {
       "notFound": "لم يتم العثور على المستخدم.",
@@ -2276,6 +2278,9 @@
     "startAgent": "تشغيل الوكيل",
     "sessionInput": "الإدخال",
     "sessionOutput": "الإخراج",
+    "sessionProvider": "الموصل",
+    "sessionModel": "النموذج",
+    "sessionError": "خطأ",
     "searchPlaceholder": "البحث عن وكلاء...",
     "statusFilter": "الحالة",
     "tierFilter": "المستوى",
@@ -2351,7 +2356,12 @@
     "toolCreated": "تم إنشاء الأداة بنجاح",
     "toolDeleted": "تم حذف الأداة بنجاح",
     "deleteTool": "حذف الأداة",
-    "confirmDeleteTool": "هل أنت متأكد من رغبتك في حذف هذه الأداة؟"
+    "confirmDeleteTool": "هل أنت متأكد من رغبتك في حذف هذه الأداة؟",
+    "connectorLabel": "موصل الذكاء الاصطناعي",
+    "connectorDefault": "افتراضي (تلقائي)",
+    "connectorBedrock": "AWS Bedrock",
+    "connectorLlmApis": "واجهات LLM",
+    "connectorOpenClawGateway": "OpenClaw Gateway"
   },
   "ueba": {
     "title": "تحليلات التعلم الآلي / UEBA",
@@ -3674,7 +3684,8 @@
       },
       "jobs": {
         "view": "View Runtime Jobs",
-        "manage": "Manage Runtime Jobs"
+        "manage": "Manage Runtime Jobs",
+        "cancelAll": "إلغاء جميع وظائف التشغيل"
       },
       "systemHealth": {
         "view": "View System Health"
@@ -3710,6 +3721,8 @@
     "cancel": "Cancel",
     "retrySuccess": "Job queued for retry",
     "cancelSuccess": "Job cancelled successfully",
+    "cancelAll": "إلغاء الكل",
+    "cancelAllSuccess": "تم إلغاء {count} وظيفة(وظائف)",
     "kpis": {
       "total": "Total Jobs",
       "running": "Running",

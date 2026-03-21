@@ -4,13 +4,12 @@ import { useState, useCallback, useEffect, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { getIncidentColumns } from '@/components/incidents'
 import { SortOrder } from '@/enums'
+import { ALL_FILTER } from '@/lib/constants/filters'
 import type { IncidentSearchParams } from '@/types'
 import { useTenantMembers } from './useCases'
 import { useDebounce } from './useDebounce'
 import { useIncidents, useIncidentStats } from './useIncidents'
 import { usePagination } from './usePagination'
-
-const ALL_FILTER = '__all__'
 
 export function useIncidentPageFilters() {
   const t = useTranslations('incidents')
