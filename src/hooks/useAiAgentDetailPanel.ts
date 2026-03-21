@@ -1,14 +1,16 @@
 import { useState, useCallback, useMemo } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { AiAgentPanelTab, AiAgentStatus, AiConnectorPreference, Permission } from '@/enums'
-import { isAiAgentPanelTab, isAiConnectorPreference } from '@/lib/ai-agent.utils'
+import { AiAgentPanelTab, AiAgentStatus, AiConnectorType, Permission } from '@/enums'
+import { isAiAgentPanelTab } from '@/lib/ai-agent.utils'
 import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { hasPermission } from '@/lib/permissions'
 import { lookup } from '@/lib/utils'
+import { llmConnectorService } from '@/services/llm-connector.service'
 import { useAuthStore } from '@/stores'
-import type { AiAgentDetailPanelProps, AiAgentToolFormValues } from '@/types'
+import type { AiAgentDetailPanelProps, AiAgentToolFormValues, AvailableAiConnector } from '@/types'
 import {
   useAiAgent,
   useUpdateSoul,
@@ -33,12 +35,30 @@ export function useAiAgentDetailPanel({
   const { data: fullAgentResponse } = useAiAgent(listAgent.id)
   const agent = fullAgentResponse?.data ?? listAgent
 
+  const defaultConnectorOption: AvailableAiConnector = useMemo(
+    () => ({
+      key: 'default',
+      label: t('connectorDefault'),
+      type: AiConnectorType.SYSTEM,
+      enabled: true,
+    }),
+    [t]
+  )
+
+  const { data: fetchedConnectors } = useQuery({
+    queryKey: ['ai-connectors-available'],
+    queryFn: () => llmConnectorService.getAvailable(),
+  })
+
+  const availableConnectors = useMemo(
+    () => fetchedConnectors ?? [defaultConnectorOption],
+    [fetchedConnectors, defaultConnectorOption]
+  )
+
   const [activeTab, setActiveTab] = useState(AiAgentPanelTab.OVERVIEW)
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
   const [runPrompt, setRunPrompt] = useState('')
-  const [selectedConnector, setSelectedConnector] = useState<AiConnectorPreference>(
-    AiConnectorPreference.DEFAULT
-  )
+  const [selectedConnector, setSelectedConnector] = useState('default')
   const [toolDialogOpen, setToolDialogOpen] = useState(false)
   const [sessionsOpen, setSessionsOpen] = useState(true)
   const [toolsOpen, setToolsOpen] = useState(true)
@@ -107,8 +127,7 @@ export function useAiAgentDetailPanel({
   }, [agent.id, stopAgentMutation, t, tErrors])
 
   const handleRunAgent = useCallback(() => {
-    const connectorValue =
-      selectedConnector === AiConnectorPreference.DEFAULT ? undefined : selectedConnector
+    const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
     runAgentMutation.mutate(
       { id: agent.id, prompt: runPrompt, connector: connectorValue },
       {
@@ -181,9 +200,7 @@ export function useAiAgentDetailPanel({
   }, [])
 
   const handleConnectorChange = useCallback((value: string) => {
-    if (isAiConnectorPreference(value)) {
-      setSelectedConnector(value)
-    }
+    setSelectedConnector(value)
   }, [])
 
   return {
@@ -191,6 +208,7 @@ export function useAiAgentDetailPanel({
     agent,
     activeTab,
     handleActiveTabChange,
+    availableConnectors,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,

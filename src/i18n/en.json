@@ -33,6 +33,7 @@
     "soar": "SOAR Workflows",
     "normalization": "Normalization",
     "rulesEngine": "Rules Engine",
+    "llmConnectors": "LLM Connectors",
     "cloudSecurity": "Cloud Security",
     "socDashboard": "SOC Dashboard",
     "logExplorer": "Log Explorer",
@@ -1087,6 +1088,7 @@
     "actions": "Actions",
     "lastTested": "Last tested",
     "tested": "Tested",
+    "manage": "Manage",
     "result": "Result",
     "success": "Success",
     "failed": "Failed",
@@ -1439,7 +1441,7 @@
     },
     "ssrf": {
       "invalidUrl": "Invalid URL format.",
-      "unsupportedProtocol": "Only HTTP and HTTPS URLs are allowed.",
+      "unsupportedProtocol": "Only HTTP, HTTPS, WS, and WSS URLs are allowed.",
       "privateNetwork": "URLs pointing to private networks are not allowed.",
       "hostNotAllowed": "The specified host is not in the allowed list."
     },
@@ -1538,6 +1540,10 @@
       "toolNotFound": "AI Agent tool not found.",
       "connectorNotAvailable": "The requested AI connector is not configured or available.",
       "connectorFailed": "The selected AI connector failed to process the request."
+    },
+    "llmConnectors": {
+      "notFound": "LLM connector not found.",
+      "nameExists": "A connector with this name already exists."
     },
     "jobs": {
       "notFound": "Job not found.",
@@ -3574,7 +3580,8 @@
       "profile": "Profile",
       "settings": "Settings",
       "roleSettings": "Role Settings",
-      "usersControl": "Users Control"
+      "usersControl": "Users Control",
+      "llmConnectors": "LLM Connectors"
     },
     "permissions": {
       "dashboard": {
@@ -3748,6 +3755,13 @@
         "viewSessions": "View User Sessions",
         "forceLogout": "Force Logout Users",
         "forceLogoutAll": "Force Logout All Users"
+      },
+      "llmConnectors": {
+        "view": "View LLM Connectors",
+        "create": "Create LLM Connectors",
+        "update": "Edit LLM Connectors",
+        "delete": "Delete LLM Connectors",
+        "test": "Test LLM Connectors"
       }
     },
     "roles": {
@@ -3764,5 +3778,58 @@
       "AUDITOR_READONLY": "Auditor (Read-Only)",
       "GLOBAL_ADMIN": "Global Admin"
     }
+  },
+  "llmConnectors": {
+    "title": "LLM Connectors",
+    "description": "Manage custom LLM API connectors",
+    "createConnector": "Create LLM Connector",
+    "editConnector": "Edit LLM Connector",
+    "deleteConnector": "Delete LLM Connector",
+    "fieldName": "Connector Name",
+    "fieldBaseUrl": "Base URL",
+    "fieldApiKey": "API Key",
+    "fieldDefaultModel": "Default Model",
+    "fieldOrganizationId": "Organization ID",
+    "fieldMaxTokensParam": "Max Tokens Parameter",
+    "fieldTimeout": "Timeout (ms)",
+    "fieldEnabled": "Enabled",
+    "namePlaceholder": "e.g., OpenAI, Gemini, Claude...",
+    "baseUrlPlaceholder": "https://api.openai.com/v1",
+    "apiKeyPlaceholder": "sk-...",
+    "modelPlaceholder": "e.g., gpt-4, gemini-pro...",
+    "connectorCreated": "LLM connector created successfully",
+    "connectorUpdated": "LLM connector updated successfully",
+    "connectorDeleted": "LLM connector deleted successfully",
+    "connectorEnabled": "LLM connector enabled",
+    "connectorDisabled": "LLM connector disabled",
+    "testSuccess": "Connection test successful",
+    "testFailed": "Connection test failed",
+    "deleteConfirm": "Are you sure you want to delete this LLM connector?",
+    "noConnectors": "No LLM connectors configured",
+    "noConnectorsDescription": "Create your first LLM connector to start using AI features",
+    "nameRequired": "Connector name is required",
+    "baseUrlInvalid": "Please enter a valid URL",
+    "apiKeyRequired": "API key is required",
+    "fieldDescription": "Description",
+    "descriptionPlaceholder": "Optional description for this connector",
+    "colName": "Name",
+    "colDescription": "Description",
+    "colBaseUrl": "Base URL",
+    "colModel": "Model",
+    "colEnabled": "Enabled",
+    "colLastTest": "Last Test",
+    "colActions": "Actions",
+    "statusEnabled": "Enabled",
+    "statusDisabled": "Disabled",
+    "testPassed": "Passed",
+    "testNotTested": "Not tested",
+    "apiKeyPlaceholderEdit": "Leave empty to keep current",
+    "toggleConfirm": "Toggle connector status?",
+    "searchPlaceholder": "Search connectors...",
+    "cancel": "Cancel",
+    "submit": "Create",
+    "creating": "Creating...",
+    "save": "Save",
+    "saving": "Saving..."
   }
 }

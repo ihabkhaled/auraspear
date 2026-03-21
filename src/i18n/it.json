@@ -32,6 +32,7 @@
     "soar": "Workflow SOAR",
     "normalization": "Normalizzazione",
     "rulesEngine": "Motore di regole",
+    "llmConnectors": "Connettori LLM",
     "cloudSecurity": "Sicurezza cloud",
     "socDashboard": "Dashboard SOC",
     "logExplorer": "Esploratore dei log",
@@ -1087,6 +1088,7 @@
     "actions": "Azioni",
     "lastTested": "Ultimo test",
     "tested": "Testato",
+    "manage": "Gestisci",
     "result": "Risultato",
     "success": "Successo",
     "failed": "Fallito",
@@ -1439,7 +1441,7 @@
     },
     "ssrf": {
       "invalidUrl": "Formato URL non valido.",
-      "unsupportedProtocol": "Sono consentiti solo URL HTTP e HTTPS.",
+      "unsupportedProtocol": "Sono consentiti solo URL HTTP, HTTPS, WS e WSS.",
       "privateNetwork": "Non sono consentiti URL che puntano a reti private.",
       "hostNotAllowed": "L'host specificato non e nella lista consentita."
     },
@@ -1538,6 +1540,10 @@
       "toolNotFound": "Strumento dell'agente AI non trovato.",
       "connectorNotAvailable": "Il connettore IA richiesto non è configurato o disponibile.",
       "connectorFailed": "Il connettore IA selezionato non è riuscito a elaborare la richiesta."
+    },
+    "llmConnectors": {
+      "notFound": "Connettore LLM non trovato.",
+      "nameExists": "Esiste già un connettore con questo nome."
     },
     "users": {
       "notFound": "Utente non trovato.",
@@ -3521,7 +3527,8 @@
       "roleSettings": "Impostazioni Ruoli",
       "jobs": "Jobs",
       "systemHealth": "System Health",
-      "usersControl": "Controllo utenti"
+      "usersControl": "Controllo utenti",
+      "llmConnectors": "Connettori LLM"
     },
     "permissions": {
       "dashboard": {
@@ -3695,6 +3702,13 @@
         "viewSessions": "Visualizza sessioni utente",
         "forceLogout": "Forza logout utenti",
         "forceLogoutAll": "Forza logout di tutti gli utenti"
+      },
+      "llmConnectors": {
+        "view": "Visualizza connettori LLM",
+        "create": "Crea connettori LLM",
+        "update": "Modifica connettori LLM",
+        "delete": "Elimina connettori LLM",
+        "test": "Testa connettori LLM"
       }
     },
     "roles": {
@@ -3764,5 +3778,58 @@
       "ai_agent_task": "AI Agent Task",
       "report_generation": "Report Generation"
     }
+  },
+  "llmConnectors": {
+    "title": "Connettori LLM",
+    "description": "Gestisci connettori API LLM personalizzati",
+    "createConnector": "Crea connettore LLM",
+    "editConnector": "Modifica connettore LLM",
+    "deleteConnector": "Elimina connettore LLM",
+    "fieldName": "Nome connettore",
+    "fieldBaseUrl": "URL base",
+    "fieldApiKey": "Chiave API",
+    "fieldDefaultModel": "Modello predefinito",
+    "fieldOrganizationId": "ID organizzazione",
+    "fieldMaxTokensParam": "Parametro token massimi",
+    "fieldTimeout": "Timeout (ms)",
+    "fieldEnabled": "Abilitato",
+    "namePlaceholder": "es., OpenAI, Gemini, Claude...",
+    "baseUrlPlaceholder": "https://api.openai.com/v1",
+    "apiKeyPlaceholder": "sk-...",
+    "modelPlaceholder": "es., gpt-4, gemini-pro...",
+    "connectorCreated": "Connettore LLM creato con successo",
+    "connectorUpdated": "Connettore LLM aggiornato con successo",
+    "connectorDeleted": "Connettore LLM eliminato con successo",
+    "connectorEnabled": "Connettore LLM abilitato",
+    "connectorDisabled": "Connettore LLM disabilitato",
+    "testSuccess": "Test di connessione riuscito",
+    "testFailed": "Test di connessione fallito",
+    "deleteConfirm": "Sei sicuro di voler eliminare questo connettore LLM?",
+    "noConnectors": "Nessun connettore LLM configurato",
+    "noConnectorsDescription": "Crea il tuo primo connettore LLM per iniziare a usare le funzionalità IA",
+    "nameRequired": "Il nome del connettore è obbligatorio",
+    "baseUrlInvalid": "Inserisci un URL valido",
+    "apiKeyRequired": "La chiave API è obbligatoria",
+    "fieldDescription": "Descrizione",
+    "descriptionPlaceholder": "Descrizione facoltativa per questo connettore",
+    "colName": "Nome",
+    "colDescription": "Descrizione",
+    "colBaseUrl": "URL base",
+    "colModel": "Modello",
+    "colEnabled": "Abilitato",
+    "colLastTest": "Ultimo test",
+    "colActions": "Azioni",
+    "statusEnabled": "Abilitato",
+    "statusDisabled": "Disabilitato",
+    "testPassed": "Superato",
+    "testNotTested": "Non testato",
+    "apiKeyPlaceholderEdit": "Lascia vuoto per mantenere quello attuale",
+    "toggleConfirm": "Cambiare lo stato del connettore?",
+    "searchPlaceholder": "Cerca connettori...",
+    "cancel": "Annulla",
+    "submit": "Crea",
+    "creating": "Creazione...",
+    "save": "Salva",
+    "saving": "Salvataggio..."
   }
 }

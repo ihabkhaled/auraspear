@@ -12,13 +12,9 @@ import {
 } from '@/components/ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
-import { AiAgentPanelTab, AiConnectorPreference } from '@/enums'
+import { AiAgentPanelTab } from '@/enums'
 import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
-import {
-  AI_AGENT_STATUS_CLASSES,
-  AI_AGENT_TIER_CLASSES,
-  AI_CONNECTOR_PREFERENCE_LABEL_KEYS,
-} from '@/lib/constants/ai-agents'
+import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
 import { cn, lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
 import { AiAgentDeleteDialog } from './AiAgentDeleteDialog'
@@ -31,6 +27,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     agent,
     activeTab,
     handleActiveTabChange,
+    availableConnectors,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,
@@ -190,9 +187,9 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.values(AiConnectorPreference).map(preference => (
-                      <SelectItem key={preference} value={preference}>
-                        {t(lookup(AI_CONNECTOR_PREFERENCE_LABEL_KEYS, preference))}
+                    {availableConnectors?.map(connector => (
+                      <SelectItem key={connector.key} value={connector.key}>
+                        {connector.label}
                       </SelectItem>
                     ))}
                   </SelectContent>

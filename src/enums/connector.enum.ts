@@ -31,6 +31,12 @@ export enum LlmMaxTokensParameter {
   MAX_COMPLETION_TOKENS = 'max_completion_tokens',
 }
 
+export enum AiConnectorType {
+  SYSTEM = 'system',
+  FIXED = 'fixed',
+  DYNAMIC = 'dynamic',
+}
+
 export enum ConnectorCategory {
   SIEM = 'siem',
   EDR = 'edr',

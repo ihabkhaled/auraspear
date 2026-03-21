@@ -32,6 +32,7 @@
     "soar": "سير عمل SOAR",
     "normalization": "التطبيع",
     "rulesEngine": "محرك القواعد",
+    "llmConnectors": "موصلات LLM",
     "cloudSecurity": "أمن السحابة",
     "socDashboard": "لوحة SOC",
     "logExplorer": "مستكشف السجلات",
@@ -1087,6 +1088,7 @@
     "actions": "الإجراءات",
     "lastTested": "آخر اختبار",
     "tested": "تم الاختبار",
+    "manage": "إدارة",
     "result": "النتيجة",
     "success": "ناجح",
     "failed": "فشل",
@@ -1439,7 +1441,7 @@
     },
     "ssrf": {
       "invalidUrl": "تنسيق عنوان URL غير صالح.",
-      "unsupportedProtocol": "يُسمح فقط بعناوين HTTP و HTTPS.",
+      "unsupportedProtocol": "يُسمح فقط بعناوين HTTP و HTTPS و WS و WSS.",
       "privateNetwork": "لا يُسمح بعناوين URL التي تشير إلى شبكات خاصة.",
       "hostNotAllowed": "المضيف المحدد غير مدرج في القائمة المسموح بها."
     },
@@ -1538,6 +1540,10 @@
       "toolNotFound": "لم يتم العثور على أداة وكيل الذكاء الاصطناعي.",
       "connectorNotAvailable": "موصل الذكاء الاصطناعي المطلوب غير مهيأ أو غير متوفر.",
       "connectorFailed": "فشل موصل الذكاء الاصطناعي المحدد في معالجة الطلب."
+    },
+    "llmConnectors": {
+      "notFound": "لم يتم العثور على موصل LLM.",
+      "nameExists": "يوجد موصل بهذا الاسم بالفعل."
     },
     "users": {
       "notFound": "لم يتم العثور على المستخدم.",
@@ -3521,7 +3527,8 @@
       "roleSettings": "إعدادات الأدوار",
       "jobs": "Jobs",
       "systemHealth": "System Health",
-      "usersControl": "?????? ?? ??????????"
+      "usersControl": "?????? ?? ??????????",
+      "llmConnectors": "موصلات LLM"
     },
     "permissions": {
       "dashboard": {
@@ -3695,6 +3702,13 @@
         "viewSessions": "??? ????? ??????????",
         "forceLogout": "????? ????? ???? ??????????",
         "forceLogoutAll": "????? ????? ???? ???? ??????????"
+      },
+      "llmConnectors": {
+        "view": "عرض موصلات LLM",
+        "create": "إنشاء موصلات LLM",
+        "update": "تعديل موصلات LLM",
+        "delete": "حذف موصلات LLM",
+        "test": "اختبار موصلات LLM"
       }
     },
     "roles": {
@@ -3764,5 +3778,58 @@
       "ai_agent_task": "AI Agent Task",
       "report_generation": "Report Generation"
     }
+  },
+  "llmConnectors": {
+    "title": "موصلات LLM",
+    "description": "إدارة موصلات API LLM المخصصة",
+    "createConnector": "إنشاء موصل LLM",
+    "editConnector": "تعديل موصل LLM",
+    "deleteConnector": "حذف موصل LLM",
+    "fieldName": "اسم الموصل",
+    "fieldBaseUrl": "الرابط الأساسي",
+    "fieldApiKey": "مفتاح API",
+    "fieldDefaultModel": "النموذج الافتراضي",
+    "fieldOrganizationId": "معرّف المنظمة",
+    "fieldMaxTokensParam": "معامل الحد الأقصى للرموز",
+    "fieldTimeout": "مهلة الانتظار (مللي ثانية)",
+    "fieldEnabled": "مفعّل",
+    "namePlaceholder": "مثال: OpenAI، Gemini، Claude...",
+    "baseUrlPlaceholder": "https://api.openai.com/v1",
+    "apiKeyPlaceholder": "sk-...",
+    "modelPlaceholder": "مثال: gpt-4، gemini-pro...",
+    "connectorCreated": "تم إنشاء موصل LLM بنجاح",
+    "connectorUpdated": "تم تحديث موصل LLM بنجاح",
+    "connectorDeleted": "تم حذف موصل LLM بنجاح",
+    "connectorEnabled": "تم تفعيل موصل LLM",
+    "connectorDisabled": "تم تعطيل موصل LLM",
+    "testSuccess": "نجح اختبار الاتصال",
+    "testFailed": "فشل اختبار الاتصال",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا الموصل؟",
+    "noConnectors": "لا توجد موصلات LLM مهيأة",
+    "noConnectorsDescription": "أنشئ أول موصل LLM لبدء استخدام ميزات الذكاء الاصطناعي",
+    "nameRequired": "اسم الموصل مطلوب",
+    "baseUrlInvalid": "يرجى إدخال رابط صالح",
+    "apiKeyRequired": "مفتاح API مطلوب",
+    "fieldDescription": "الوصف",
+    "descriptionPlaceholder": "وصف اختياري لهذا الموصل",
+    "colName": "الاسم",
+    "colDescription": "الوصف",
+    "colBaseUrl": "الرابط الأساسي",
+    "colModel": "النموذج",
+    "colEnabled": "مفعّل",
+    "colLastTest": "آخر اختبار",
+    "colActions": "الإجراءات",
+    "statusEnabled": "مفعّل",
+    "statusDisabled": "معطّل",
+    "testPassed": "ناجح",
+    "testNotTested": "لم يُختبر",
+    "apiKeyPlaceholderEdit": "اتركه فارغاً للإبقاء على الحالي",
+    "toggleConfirm": "تبديل حالة الموصل؟",
+    "searchPlaceholder": "البحث عن موصلات...",
+    "cancel": "إلغاء",
+    "submit": "إنشاء",
+    "creating": "جارٍ الإنشاء...",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ..."
   }
 }

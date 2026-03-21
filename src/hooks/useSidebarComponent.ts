@@ -23,6 +23,7 @@ import {
   Layers,
   ShieldCheck,
   Cloud,
+  Cable,
   Lock,
   UsersRound,
 } from 'lucide-react'
@@ -76,6 +77,7 @@ export function useSidebarContent() {
       label: t('nav.infrastructure'),
       items: [
         { icon: Plug, label: t('nav.connectors'), href: '/connectors' },
+        { icon: Cable, label: t('nav.llmConnectors'), href: '/connectors/llm' },
         { icon: Activity, label: t('nav.systemHealth'), href: '/system-health' },
         { icon: Clock3, label: t('nav.jobs'), href: '/jobs' },
         { icon: Cloud, label: t('nav.cloudSecurity'), href: '/cloud-security' },

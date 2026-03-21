@@ -17,6 +17,7 @@ export {
   ConnectorType,
   ConnectorStatus,
   ConnectorAuthType,
+  AiConnectorType,
   ConnectorCategory,
   LlmMaxTokensParameter,
 } from './connector.enum'

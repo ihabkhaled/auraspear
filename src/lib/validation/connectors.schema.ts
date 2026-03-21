@@ -132,7 +132,9 @@ export function getConnectorSchema(type: ConnectorType) {
       !isAiOnlyConnector &&
       data.baseUrl &&
       !data.baseUrl.toLowerCase().startsWith('http://') &&
-      !data.baseUrl.toLowerCase().startsWith('https://')
+      !data.baseUrl.toLowerCase().startsWith('https://') &&
+      !data.baseUrl.toLowerCase().startsWith('ws://') &&
+      !data.baseUrl.toLowerCase().startsWith('wss://')
     ) {
       ctx.addIssue({ code: 'custom', message: 'urlFormat', path: ['baseUrl'] })
     }

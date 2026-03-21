@@ -1,13 +1,36 @@
 'use client'
 
-import { CheckCircle2, Plug, ShieldAlert, ToggleLeft, TriangleAlert } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import {
+  Cable,
+  CheckCircle2,
+  Plus,
+  Plug,
+  ShieldAlert,
+  ToggleLeft,
+  TriangleAlert,
+} from 'lucide-react'
 import { KpiCard, LoadingSpinner, PageHeader } from '@/components/common'
-import { ConnectorCard, AddConnectorCard } from '@/components/connectors'
+import { ConnectorCard, AddConnectorCard, LlmConnectorCard } from '@/components/connectors'
+import { Button } from '@/components/ui/button'
 import { useConnectorsPage } from '@/hooks/useConnectorsPage'
 
 export default function ConnectorsPage() {
-  const { t, list, stats, statsLoading, isLoading, isFetching, unconfiguredTypes, canCreate } =
-    useConnectorsPage()
+  const router = useRouter()
+  const {
+    t,
+    tLlm,
+    list,
+    llmConnectors,
+    llmFetching,
+    stats,
+    statsLoading,
+    isLoading,
+    isFetching,
+    unconfiguredTypes,
+    canCreate,
+    canCreateLlm,
+  } = useConnectorsPage()
 
   if (isLoading) {
     return (
@@ -85,6 +108,38 @@ export default function ConnectorsPage() {
           )}
         </>
       )}
+
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Cable className="text-muted-foreground h-4 w-4" />
+            <h2 className="text-sm font-semibold">{tLlm('title')}</h2>
+          </div>
+          <div className="flex items-center gap-2">
+            {canCreateLlm && (
+              <Button variant="outline" size="sm" onClick={() => router.push('/connectors/llm')}>
+                <Plus className="me-1 h-3.5 w-3.5" />
+                {tLlm('createConnector')}
+              </Button>
+            )}
+          </div>
+        </div>
+        {llmConnectors.length > 0 ? (
+          <div
+            className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ${llmFetching ? 'opacity-70' : ''}`}
+          >
+            {llmConnectors.map(c => (
+              <LlmConnectorCard key={c.id} connector={c} t={t} />
+            ))}
+          </div>
+        ) : (
+          <div className="bg-muted/50 flex flex-col items-center gap-2 rounded-lg py-8">
+            <Cable className="text-muted-foreground h-8 w-8" />
+            <p className="text-muted-foreground text-sm">{tLlm('noConnectors')}</p>
+            <p className="text-muted-foreground text-xs">{tLlm('noConnectorsDescription')}</p>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

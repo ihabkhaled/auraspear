@@ -5,17 +5,22 @@ import { CONNECTOR_TYPES } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import { useConnectors, useConnectorStats } from './useConnectors'
+import { useLlmConnectors } from './useLlmConnectors'
 
 export function useConnectorsPage() {
   const t = useTranslations('connectors')
+  const tLlm = useTranslations('llmConnectors')
   const permissions = useAuthStore(s => s.permissions)
   const { data: connectors, isLoading, isFetching } = useConnectors()
   const { data: stats, isLoading: statsLoading } = useConnectorStats()
+  const { data: llmConnectorsResponse, isFetching: llmFetching } = useLlmConnectors()
 
   const canCreate = hasPermission(permissions, Permission.CONNECTORS_CREATE)
   const canDelete = hasPermission(permissions, Permission.CONNECTORS_DELETE)
+  const canCreateLlm = hasPermission(permissions, Permission.LLM_CONNECTORS_CREATE)
 
   const list = useMemo(() => connectors ?? [], [connectors])
+  const llmConnectors = useMemo(() => llmConnectorsResponse?.data ?? [], [llmConnectorsResponse])
 
   const unconfiguredTypes = useMemo(() => {
     const configuredTypes = new Set(list.map(c => c.type))
@@ -24,7 +29,10 @@ export function useConnectorsPage() {
 
   return {
     t,
+    tLlm,
     list,
+    llmConnectors,
+    llmFetching,
     stats,
     statsLoading,
     isLoading,
@@ -32,5 +40,6 @@ export function useConnectorsPage() {
     unconfiguredTypes,
     canCreate,
     canDelete,
+    canCreateLlm,
   }
 }

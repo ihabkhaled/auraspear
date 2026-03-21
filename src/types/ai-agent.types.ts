@@ -2,7 +2,6 @@ import type {
   AiAgentSessionStatus,
   AiAgentStatus,
   AiAgentTier,
-  AiConnectorPreference,
   BadgeVariant,
   SortOrder,
 } from '@/enums'
@@ -131,7 +130,7 @@ export interface UpdateAiAgentMutationInput {
 export interface RunAiAgentMutationInput {
   id: string
   prompt: string
-  connector?: AiConnectorPreference | undefined
+  connector?: string | undefined
 }
 
 export interface DeleteAiAgentResult {

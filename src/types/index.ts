@@ -662,3 +662,18 @@ export type {
   AiAgentRunResult,
   CancelJobResult,
 } from './job.types'
+export type {
+  LlmConnectorRecord,
+  CreateLlmConnectorInput,
+  UpdateLlmConnectorInput,
+  AvailableAiConnector,
+  CreateLlmConnectorFormValues,
+  EditLlmConnectorFormValues,
+  LlmConnectorCreateDialogProps,
+  LlmConnectorEditDialogProps,
+  LlmConnectorColumnTranslations,
+  UseLlmConnectorCreateDialogParams,
+  UseLlmConnectorEditDialogParams,
+  LlmConnectorsPageDialogsReturn,
+  LlmConnectorCardProps,
+} from './llm-connector.types'
