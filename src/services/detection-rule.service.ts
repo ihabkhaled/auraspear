@@ -27,13 +27,18 @@ export const detectionRuleService = {
     api.get<ApiResponse<DetectionRuleStats>>('/detection-rules/stats').then(r => r.data),
 
   // AI Detection Copilot
-  aiDraftRule: (description: string) =>
+  aiDraftRule: (description: string, connector?: string) =>
     api
-      .post<ApiResponse<AiDetectionCopilotResult>>('/detection-rules/ai/draft', { description })
+      .post<ApiResponse<AiDetectionCopilotResult>>('/detection-rules/ai/draft', {
+        description,
+        connector,
+      })
       .then(r => r.data.data),
 
-  aiTuning: (ruleId: string) =>
+  aiTuning: (ruleId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiDetectionCopilotResult>>(`/detection-rules/${ruleId}/ai/tuning`)
+      .post<ApiResponse<AiDetectionCopilotResult>>(`/detection-rules/${ruleId}/ai/tuning`, {
+        connector,
+      })
       .then(r => r.data.data),
 }

@@ -4,6 +4,13 @@ import { Loader2, Sparkles } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import type { AiNotificationDigestProps, AiNotificationDigestResult } from '@/types'
 
 function DigestResultCard({
@@ -23,9 +30,7 @@ function DigestResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-        {result.result}
-      </p>
+      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
     </div>
   )
 }
@@ -34,6 +39,10 @@ export function AiNotificationDigest({
   isLoading,
   digestResult,
   onGenerateDigest,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiNotificationDigestProps) {
   return (
@@ -44,12 +53,22 @@ export function AiNotificationDigest({
             <Sparkles className="text-primary h-4 w-4" />
             <CardTitle className="text-sm">{t('aiDigest')}</CardTitle>
           </div>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={onGenerateDigest}
-            disabled={isLoading}
-          >
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+            <Select value={selectedConnector} onValueChange={onConnectorChange}>
+              <SelectTrigger className="h-7 w-[160px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableConnectors.map(c => (
+                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <Button variant="secondary" size="sm" onClick={onGenerateDigest} disabled={isLoading}>
             {isLoading ? (
               <Loader2 className="me-1.5 h-3.5 w-3.5 animate-spin" />
             ) : (

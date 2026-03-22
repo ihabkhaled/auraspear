@@ -186,6 +186,10 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 onExecutiveSummary={aiCopilot.handleExecutiveSummary}
                 onTimeline={aiCopilot.handleTimeline}
                 onNextTasks={aiCopilot.handleNextTasks}
+                availableConnectors={aiCopilot.availableConnectors}
+                selectedConnector={aiCopilot.selectedConnector}
+                onConnectorChange={aiCopilot.handleConnectorChange}
+                tCommon={aiCopilot.tCommon}
                 t={aiCopilot.t}
               />
             </CardContent>

@@ -2,7 +2,11 @@
 
 import { Bell, CheckCheck } from 'lucide-react'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
-import { AiNotificationDigest, NotificationFilters, getNotificationColumns } from '@/components/notifications'
+import {
+  AiNotificationDigest,
+  NotificationFilters,
+  getNotificationColumns,
+} from '@/components/notifications'
 import { Button } from '@/components/ui/button'
 import { useNotificationsPage } from '@/hooks/useNotificationsPage'
 
@@ -47,6 +51,10 @@ export default function NotificationsPage() {
         isLoading={aiDigest.isLoading}
         digestResult={aiDigest.digestResult}
         onGenerateDigest={aiDigest.handleGenerateDigest}
+        availableConnectors={aiDigest.availableConnectors}
+        selectedConnector={aiDigest.selectedConnector}
+        onConnectorChange={aiDigest.handleConnectorChange}
+        tCommon={aiDigest.tCommon}
         t={t}
       />
 

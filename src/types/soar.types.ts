@@ -1,4 +1,5 @@
 import type { SoarPlaybookStatus, SoarTriggerType, SoarExecutionStatus, SortOrder } from '@/enums'
+import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface SoarPlaybook {
   id: string
@@ -191,6 +192,10 @@ export interface AiSoarPanelProps {
   isLoading: boolean
   draftResult: AiSoarResult | null
   onDraftPlaybook: () => void
+  availableConnectors: AvailableAiConnector[]
+  selectedConnector: string
+  onConnectorChange: (value: string) => void
+  tCommon: (key: string) => string
   t: (key: string) => string
 }
 

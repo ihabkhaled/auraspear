@@ -1,6 +1,13 @@
 import { Bot, Loader2, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import type { AiDashboardInsightComponentProps } from '@/types'
 
 export function AiDashboardInsight({
@@ -8,6 +15,10 @@ export function AiDashboardInsight({
   dailySummary,
   isDailySummaryLoading,
   onGenerateSummary,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
 }: AiDashboardInsightComponentProps) {
   return (
     <Card>
@@ -17,26 +28,41 @@ export function AiDashboardInsight({
             <Bot className="h-4 w-4" />
             {t('aiInsight')}
           </CardTitle>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={onGenerateSummary}
-            disabled={isDailySummaryLoading}
-          >
-            {isDailySummaryLoading ? (
-              <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
-            ) : (
-              <Sparkles className="mr-2 h-3.5 w-3.5" />
-            )}
-            {isDailySummaryLoading ? t('aiLoading') : t('aiGenerateSummary')}
-          </Button>
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+            <Select value={selectedConnector} onValueChange={onConnectorChange}>
+              <SelectTrigger className="h-7 w-[160px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableConnectors.map(c => (
+                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onGenerateSummary}
+              disabled={isDailySummaryLoading}
+            >
+              {isDailySummaryLoading ? (
+                <Loader2 className="mr-2 h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <Sparkles className="mr-2 h-3.5 w-3.5" />
+              )}
+              {isDailySummaryLoading ? t('aiLoading') : t('aiGenerateSummary')}
+            </Button>
+          </div>
         </div>
       </CardHeader>
       <CardContent>
         {dailySummary ? (
           <div className="space-y-3">
             <div className="bg-muted/50 rounded-lg p-3">
-              <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+              <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
                 {dailySummary.result}
               </p>
             </div>

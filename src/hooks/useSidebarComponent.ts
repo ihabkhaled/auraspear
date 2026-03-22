@@ -28,6 +28,7 @@ import {
   UsersRound,
   BookOpen,
   Network,
+  Settings2,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useSidebarHealth } from '@/hooks/useSidebarHealth'
@@ -91,6 +92,7 @@ export function useSidebarContent() {
       label: t('nav.aiAutomation'),
       items: [
         { icon: Bot, label: t('nav.aiAgents'), href: '/ai-agents' },
+        { icon: Settings2, label: t('nav.aiConfig'), href: '/ai-config' },
         { icon: Workflow, label: t('nav.soar'), href: '/soar' },
       ],
     },

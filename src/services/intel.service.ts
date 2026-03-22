@@ -29,17 +29,21 @@ export const intelService = {
       })
       .then(r => r.data),
 
-  aiEnrichIoc: (iocId: string) => {
+  aiEnrichIoc: (iocId: string, connector?: string) => {
     if (!iocId) {
       return Promise.reject(new Error('IOC ID is required for enrichment'))
     }
-    return api.post<ApiResponse<AiResponse>>(`/intel/${iocId}/ai/enrich`).then(r => r.data.data)
+    return api
+      .post<ApiResponse<AiResponse>>(`/intel/${iocId}/ai/enrich`, { connector })
+      .then(r => r.data.data)
   },
 
-  aiDraftAdvisory: (iocIds: string[]) => {
+  aiDraftAdvisory: (iocIds: string[], connector?: string) => {
     if (iocIds.length === 0) {
       return Promise.reject(new Error('At least one IOC ID is required for advisory'))
     }
-    return api.post<ApiResponse<AiResponse>>('/intel/ai/advisory', { iocIds }).then(r => r.data.data)
+    return api
+      .post<ApiResponse<AiResponse>>('/intel/ai/advisory', { iocIds, connector })
+      .then(r => r.data.data)
   },
 }

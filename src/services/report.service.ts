@@ -37,6 +37,8 @@ export const reportService = {
 
   getStats: () => api.get<ApiResponse<ReportStats>>('/reports/stats').then(r => r.data),
 
-  aiExecutiveReport: (timeRange: string) =>
-    api.post<ApiResponse<AiResponse>>('/reports/ai/executive', { timeRange }).then(r => r.data.data),
+  aiExecutiveReport: (timeRange: string, connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/reports/ai/executive', { timeRange, connector })
+      .then(r => r.data.data),
 }

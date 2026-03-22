@@ -89,7 +89,9 @@
     "rows": "filas",
     "darkMode": "Modo oscuro",
     "lightMode": "Modo claro",
-    "updatedAt": "Actualizado el"
+    "updatedAt": "Actualizado el",
+    "aiConnector": "Conector IA",
+    "connectorDefault": "Predeterminado (Auto)"
   },
   "dashboard": {
     "title": "Panel Ejecutivo",

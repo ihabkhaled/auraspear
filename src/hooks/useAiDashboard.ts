@@ -7,16 +7,21 @@ import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
 import { dashboardService } from '@/services/dashboard.service'
 import type { AiResponse, ExplainAnomalyInput } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiDashboard() {
   const t = useTranslations('dashboard')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [dailySummary, setDailySummary] = useState<AiResponse | null>(null)
   const [anomalyExplanation, setAnomalyExplanation] = useState<AiResponse | null>(null)
 
   const dailySummaryMutation = useMutation({
-    mutationFn: () => dashboardService.aiDailySummary(),
+    mutationFn: () => dashboardService.aiDailySummary(connectorValue),
     onSuccess: (data: AiResponse) => {
       setDailySummary(data)
     },
@@ -26,7 +31,8 @@ export function useAiDashboard() {
   })
 
   const explainAnomalyMutation = useMutation({
-    mutationFn: (input: ExplainAnomalyInput) => dashboardService.aiExplainAnomaly(input),
+    mutationFn: (input: ExplainAnomalyInput) =>
+      dashboardService.aiExplainAnomaly(input, connectorValue),
     onSuccess: (data: AiResponse) => {
       setAnomalyExplanation(data)
     },
@@ -48,11 +54,15 @@ export function useAiDashboard() {
 
   return {
     t,
+    tCommon,
     dailySummary,
     anomalyExplanation,
     generateDailySummary,
     explainAnomaly,
     isDailySummaryLoading: dailySummaryMutation.isPending,
     isExplainAnomalyLoading: explainAnomalyMutation.isPending,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

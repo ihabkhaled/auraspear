@@ -1,4 +1,5 @@
 import type { AiResponse } from './ai.types'
+import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface RunbookRecord {
   id: string
@@ -149,5 +150,9 @@ export interface AiKnowledgePanelProps {
     data: AiResponse | undefined
     isPending: boolean
   }
+  availableConnectors: AvailableAiConnector[]
+  selectedConnector: string
+  onConnectorChange: (value: string) => void
+  tCommon: (key: string) => string
   t: (key: string) => string
 }

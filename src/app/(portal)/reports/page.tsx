@@ -62,6 +62,10 @@ export default function ReportsPage() {
     aiReportLoading,
     handleAiTimeRangeChange,
     handleGenerateAiReport,
+    aiReportTCommon,
+    aiReportAvailableConnectors,
+    aiReportSelectedConnector,
+    aiReportHandleConnectorChange,
   } = useReportsPage()
 
   return (
@@ -89,6 +93,10 @@ export default function ReportsPage() {
         onTimeRangeChange={handleAiTimeRangeChange}
         onGenerate={handleGenerateAiReport}
         isLoading={aiReportLoading}
+        availableConnectors={aiReportAvailableConnectors}
+        selectedConnector={aiReportSelectedConnector}
+        onConnectorChange={aiReportHandleConnectorChange}
+        tCommon={aiReportTCommon}
       />
 
       <DashboardSectionCard title={t('templatesTitle')} defaultOpen={false}>

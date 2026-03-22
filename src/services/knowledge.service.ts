@@ -12,8 +12,7 @@ export const knowledgeService = {
   getAll: (params?: RunbookSearchParams) =>
     api.get<ApiResponse<RunbookRecord[]>>('/runbooks', { params }).then(r => r.data),
 
-  getById: (id: string) =>
-    api.get<ApiResponse<RunbookRecord>>(`/runbooks/${id}`).then(r => r.data),
+  getById: (id: string) => api.get<ApiResponse<RunbookRecord>>(`/runbooks/${id}`).then(r => r.data),
 
   create: (data: CreateRunbookInput) =>
     api.post<ApiResponse<RunbookRecord>>('/runbooks', data).then(r => r.data),
@@ -27,9 +26,13 @@ export const knowledgeService = {
   search: (q: string) =>
     api.get<ApiResponse<RunbookRecord[]>>('/runbooks/search', { params: { q } }).then(r => r.data),
 
-  aiGenerate: (description: string) =>
-    api.post<ApiResponse<AiResponse>>('/runbooks/ai/generate', { description }).then(r => r.data.data),
+  aiGenerate: (description: string, connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/runbooks/ai/generate', { description, connector })
+      .then(r => r.data.data),
 
-  aiSearch: (query: string) =>
-    api.post<ApiResponse<AiResponse>>('/runbooks/ai/search', { query }).then(r => r.data.data),
+  aiSearch: (query: string, connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/runbooks/ai/search', { query, connector })
+      .then(r => r.data.data),
 }

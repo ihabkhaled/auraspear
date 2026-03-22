@@ -1,4 +1,5 @@
 import type { SortOrder } from '@/enums'
+import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface TranslatableMessage {
   key: string
@@ -56,6 +57,10 @@ export interface AiNotificationDigestProps {
   isLoading: boolean
   digestResult: AiNotificationDigestResult | null
   onGenerateDigest: () => void
+  availableConnectors: AvailableAiConnector[]
+  selectedConnector: string
+  onConnectorChange: (value: string) => void
+  tCommon: (key: string) => string
   t: (key: string) => string
 }
 

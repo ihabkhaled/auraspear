@@ -89,7 +89,9 @@
     "rows": "rows",
     "darkMode": "Dark mode",
     "lightMode": "Light mode",
-    "updatedAt": "Updated At"
+    "updatedAt": "Updated At",
+    "aiConnector": "AI Connector",
+    "connectorDefault": "Default (Auto)"
   },
   "dashboard": {
     "title": "Executive Dashboard",

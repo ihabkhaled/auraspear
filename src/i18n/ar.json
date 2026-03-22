@@ -89,7 +89,9 @@
     "rows": "صفوف",
     "darkMode": "الوضع الداكن",
     "lightMode": "الوضع الفاتح",
-    "updatedAt": "تم التحديث في"
+    "updatedAt": "تم التحديث في",
+    "aiConnector": "موصل الذكاء الاصطناعي",
+    "connectorDefault": "افتراضي (تلقائي)"
   },
   "dashboard": {
     "title": "لوحة المتابعة التنفيذية",

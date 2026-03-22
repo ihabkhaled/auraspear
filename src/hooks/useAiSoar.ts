@@ -10,18 +10,23 @@ import { hasPermission } from '@/lib/permissions'
 import { soarService } from '@/services/soar.service'
 import { useAuthStore } from '@/stores'
 import type { AiSoarResult } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiSoar() {
   const t = useTranslations('soar')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
   const canUseCopilot = hasPermission(permissions, Permission.AI_SOAR_COPILOT)
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [description, setDescription] = useState('')
   const [draftResult, setDraftResult] = useState<AiSoarResult | null>(null)
 
   const draftMutation = useMutation({
-    mutationFn: (desc: string) => soarService.aiDraftPlaybook(desc),
+    mutationFn: (desc: string) => soarService.aiDraftPlaybook(desc, connectorValue),
     onSuccess: (data: AiSoarResult) => {
       setDraftResult(data)
     },
@@ -39,6 +44,7 @@ export function useAiSoar() {
 
   return {
     t,
+    tCommon,
     tErrors,
     canUseCopilot,
     description,
@@ -46,5 +52,8 @@ export function useAiSoar() {
     draftResult,
     isLoading: draftMutation.isPending,
     handleDraftPlaybook,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

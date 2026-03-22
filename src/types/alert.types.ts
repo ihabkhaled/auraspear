@@ -5,6 +5,7 @@ import type {
   SortOrder,
   TimeRange,
 } from '@/enums'
+import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface Alert {
   id: string
@@ -136,6 +137,10 @@ export interface AiTriagePanelProps {
   onExplainSeverity: () => void
   onFalsePositiveScore: () => void
   onNextAction: () => void
+  availableConnectors: AvailableAiConnector[]
+  selectedConnector: string
+  onConnectorChange: (value: string) => void
+  tCommon: (key: string) => string
   t: (key: string) => string
 }
 
@@ -148,6 +153,10 @@ export interface AiTriageExternalProps {
   onExplainSeverity: () => void
   onFalsePositiveScore: () => void
   onNextAction: () => void
+  availableConnectors: AvailableAiConnector[]
+  selectedConnector: string
+  onConnectorChange: (value: string) => void
+  tCommon: (key: string) => string
 }
 
 export interface ParsedKQLQuery {

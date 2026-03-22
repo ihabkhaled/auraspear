@@ -69,5 +69,9 @@ export function useReportsPage() {
     aiReportLoading: aiReport.isLoading,
     handleAiTimeRangeChange: aiReport.handleTimeRangeChange,
     handleGenerateAiReport: aiReport.generateReport,
+    aiReportTCommon: aiReport.tCommon,
+    aiReportAvailableConnectors: aiReport.availableConnectors,
+    aiReportSelectedConnector: aiReport.selectedConnector,
+    aiReportHandleConnectorChange: aiReport.handleConnectorChange,
   }
 }

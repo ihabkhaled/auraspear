@@ -9,19 +9,24 @@ import { hasPermission } from '@/lib/permissions'
 import { detectionRuleService } from '@/services/detection-rule.service'
 import { useAuthStore } from '@/stores'
 import type { AiDetectionCopilotResult } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiDetectionCopilot(ruleId: string | null) {
   const t = useTranslations('detectionRules')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
   const canUseCopilot = hasPermission(permissions, Permission.AI_DETECTION_COPILOT)
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiDetectionCopilotResult>>({})
   const [draftDescription, setDraftDescription] = useState('')
 
   const draftRuleMutation = useMutation({
-    mutationFn: () => detectionRuleService.aiDraftRule(draftDescription),
+    mutationFn: () => detectionRuleService.aiDraftRule(draftDescription, connectorValue),
     onSuccess: (data: AiDetectionCopilotResult) => {
       setResults(prev => ({ ...prev, draftRule: data }))
       setActiveTask(null)
@@ -37,7 +42,7 @@ export function useAiDetectionCopilot(ruleId: string | null) {
       if (!ruleId) {
         return Promise.reject(new Error('No rule selected'))
       }
-      return detectionRuleService.aiTuning(ruleId)
+      return detectionRuleService.aiTuning(ruleId, connectorValue)
     },
     onSuccess: (data: AiDetectionCopilotResult) => {
       setResults(prev => ({ ...prev, tuning: data }))
@@ -75,6 +80,7 @@ export function useAiDetectionCopilot(ruleId: string | null) {
 
   return {
     t,
+    tCommon,
     tErrors,
     canUseCopilot,
     activeTask,
@@ -85,5 +91,8 @@ export function useAiDetectionCopilot(ruleId: string | null) {
     handleDraftRule,
     handleTuning,
     resetResults,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

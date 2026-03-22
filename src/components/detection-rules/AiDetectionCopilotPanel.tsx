@@ -1,20 +1,16 @@
 'use client'
 
-import {
-  ChevronDown,
-  Loader2,
-  RefreshCw,
-  Settings2,
-  Sparkles,
-  Wand2,
-} from 'lucide-react'
+import { ChevronDown, Loader2, RefreshCw, Settings2, Sparkles, Wand2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { cn } from '@/lib/utils'
@@ -37,7 +33,7 @@ function CopilotResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <pre className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+      <pre className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
         {result.result}
       </pre>
     </div>
@@ -54,6 +50,10 @@ export function AiDetectionCopilotPanel({
   onDraftDescriptionChange,
   onDraftRule,
   onTuning,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiDetectionCopilotPanelProps) {
   if (!canUseCopilot) {
@@ -75,6 +75,22 @@ export function AiDetectionCopilotPanel({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+            <Select value={selectedConnector} onValueChange={onConnectorChange}>
+              <SelectTrigger className="h-7 w-[160px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableConnectors.map(c => (
+                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Draft Rule from Description */}
           <div className="space-y-2">
             <h5 className="text-xs font-semibold">{t('aiDraftRule')}</h5>

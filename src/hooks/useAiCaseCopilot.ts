@@ -9,18 +9,23 @@ import { hasPermission } from '@/lib/permissions'
 import { caseService } from '@/services/case.service'
 import { useAuthStore } from '@/stores'
 import type { AiCaseCopilotResult } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiCaseCopilot(caseId: string) {
   const t = useTranslations('cases')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
   const canUseCopilot = hasPermission(permissions, Permission.AI_CASE_COPILOT)
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiCaseCopilotResult>>({})
 
   const summarizeMutation = useMutation({
-    mutationFn: () => caseService.aiSummarize(caseId),
+    mutationFn: () => caseService.aiSummarize(caseId, connectorValue),
     onSuccess: (data: AiCaseCopilotResult) => {
       setResults(prev => ({ ...prev, summarize: data }))
       setActiveTask(null)
@@ -32,7 +37,7 @@ export function useAiCaseCopilot(caseId: string) {
   })
 
   const executiveSummaryMutation = useMutation({
-    mutationFn: () => caseService.aiExecutiveSummary(caseId),
+    mutationFn: () => caseService.aiExecutiveSummary(caseId, connectorValue),
     onSuccess: (data: AiCaseCopilotResult) => {
       setResults(prev => ({ ...prev, executiveSummary: data }))
       setActiveTask(null)
@@ -44,7 +49,7 @@ export function useAiCaseCopilot(caseId: string) {
   })
 
   const timelineMutation = useMutation({
-    mutationFn: () => caseService.aiTimeline(caseId),
+    mutationFn: () => caseService.aiTimeline(caseId, connectorValue),
     onSuccess: (data: AiCaseCopilotResult) => {
       setResults(prev => ({ ...prev, timeline: data }))
       setActiveTask(null)
@@ -56,7 +61,7 @@ export function useAiCaseCopilot(caseId: string) {
   })
 
   const nextTasksMutation = useMutation({
-    mutationFn: () => caseService.aiNextTasks(caseId),
+    mutationFn: () => caseService.aiNextTasks(caseId, connectorValue),
     onSuccess: (data: AiCaseCopilotResult) => {
       setResults(prev => ({ ...prev, nextTasks: data }))
       setActiveTask(null)
@@ -95,6 +100,7 @@ export function useAiCaseCopilot(caseId: string) {
 
   return {
     t,
+    tCommon,
     tErrors,
     canUseCopilot,
     activeTask,
@@ -104,5 +110,8 @@ export function useAiCaseCopilot(caseId: string) {
     handleExecutiveSummary,
     handleTimeline,
     handleNextTasks,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

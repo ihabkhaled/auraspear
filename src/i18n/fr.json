@@ -89,7 +89,9 @@
     "rows": "lignes",
     "darkMode": "Mode sombre",
     "lightMode": "Mode clair",
-    "updatedAt": "Mis à jour le"
+    "updatedAt": "Mis à jour le",
+    "aiConnector": "Connecteur IA",
+    "connectorDefault": "Par défaut (Auto)"
   },
   "dashboard": {
     "title": "Tableau de bord executif",

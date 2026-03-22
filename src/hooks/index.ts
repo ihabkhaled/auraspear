@@ -50,7 +50,11 @@ export {
   useDeleteRunbook,
   useSearchRunbooks,
 } from './useRunbooks'
-export { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
+export {
+  useAiGenerateRunbook,
+  useAiKnowledgeConnector,
+  useAiSearchKnowledge,
+} from './useAiKnowledge'
 export { useKnowledgePage } from './useKnowledgePage'
 export { useRunbookCreateDialog } from './useRunbookCreateDialog'
 export { useRunbookEditDialog } from './useRunbookEditDialog'
@@ -526,3 +530,23 @@ export { useEntityGraph } from './useEntityGraph'
 export { useEntitiesPage } from './useEntitiesPage'
 export { useMsspPortfolio, useMsspComparison } from './useMsspDashboard'
 export { useMsspDashboardPage } from './useMsspDashboardPage'
+export {
+  useAgentConfigs,
+  useAgentConfig,
+  useUpdateAgentConfig,
+  useToggleAgent,
+  useResetUsage,
+} from './useAgentConfig'
+export {
+  useOsintSources,
+  useCreateOsintSource,
+  useUpdateOsintSource,
+  useDeleteOsintSource,
+  useTestOsintSource,
+} from './useOsintSources'
+export { useAiApprovals, useResolveApproval } from './useAiApprovals'
+export { useAiConfigPage } from './useAiConfigPage'
+export { useAgentConfigEditDialog } from './useAgentConfigEditDialog'
+export { useOsintSourceDialog } from './useOsintSourceDialog'
+export { useApprovalCard } from './useApprovalCard'
+export { useAvailableAiConnectors } from './useAvailableAiConnectors'

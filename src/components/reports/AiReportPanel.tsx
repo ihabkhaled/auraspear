@@ -18,6 +18,10 @@ export function AiReportPanel({
   onTimeRangeChange,
   onGenerate,
   isLoading,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
 }: AiReportPanelComponentProps) {
   return (
     <Card>
@@ -28,6 +32,19 @@ export function AiReportPanel({
             {t('aiExecutiveReport')}
           </CardTitle>
           <div className="flex items-center gap-2">
+            <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+            <Select value={selectedConnector} onValueChange={onConnectorChange}>
+              <SelectTrigger className="h-7 w-[160px] text-xs">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableConnectors.map(c => (
+                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             <Select value={selectedTimeRange} onValueChange={onTimeRangeChange}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue />
@@ -55,7 +72,7 @@ export function AiReportPanel({
         {report ? (
           <div className="space-y-3">
             <div className="bg-muted/50 rounded-lg p-4">
-              <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
+              <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
                 {report.result}
               </p>
             </div>

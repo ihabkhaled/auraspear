@@ -69,6 +69,10 @@ export function useDashboardPage() {
     dailySummary,
     isDailySummaryLoading,
     generateDailySummary,
+    tCommon: aiTCommon,
+    availableConnectors: aiAvailableConnectors,
+    selectedConnector: aiSelectedConnector,
+    handleConnectorChange: aiHandleConnectorChange,
   } = useAiDashboard()
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
@@ -412,5 +416,9 @@ export function useDashboardPage() {
     dailySummary,
     isDailySummaryLoading,
     generateDailySummary,
+    aiTCommon,
+    aiAvailableConnectors,
+    aiSelectedConnector,
+    aiHandleConnectorChange,
   }
 }

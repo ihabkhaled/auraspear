@@ -174,6 +174,10 @@ export function DetectionRuleDetailPanel({
               onDraftDescriptionChange={aiCopilot.setDraftDescription}
               onDraftRule={aiCopilot.handleDraftRule}
               onTuning={aiCopilot.handleTuning}
+              availableConnectors={aiCopilot.availableConnectors}
+              selectedConnector={aiCopilot.selectedConnector}
+              onConnectorChange={aiCopilot.handleConnectorChange}
+              tCommon={aiCopilot.tCommon}
               t={aiCopilot.t}
             />
           </div>

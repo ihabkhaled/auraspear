@@ -341,6 +341,10 @@ export function useAlertsPage() {
       onExplainSeverity: triage.handleExplainSeverity,
       onFalsePositiveScore: triage.handleFalsePositiveScore,
       onNextAction: triage.handleNextAction,
+      availableConnectors: triage.availableConnectors,
+      selectedConnector: triage.selectedConnector,
+      onConnectorChange: triage.handleConnectorChange,
+      tCommon: triage.tCommon,
     },
   }
 }

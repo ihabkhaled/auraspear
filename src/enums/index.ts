@@ -104,3 +104,11 @@ export { KqlField } from './kql-field.enum'
 export { StatusTextClass, StatusBgClass, StatusBorderClass } from './status-class.enum'
 export { SweetAlertIcon } from './sweet-alert.enum'
 export { GridColsClass, GapClass, StackClass } from './layout-class.enum'
+export {
+  AiAgentId,
+  AiTriggerMode,
+  AiOutputFormat,
+  ApprovalStatus,
+  OsintSourceType,
+  OsintAuthType,
+} from './ai-config.enum'

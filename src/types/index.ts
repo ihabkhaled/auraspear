@@ -742,3 +742,17 @@ export type {
   UseRunbookEditDialogInput,
   AiKnowledgePanelProps,
 } from './knowledge.types'
+export type {
+  TenantAgentConfig,
+  UpdateAgentConfigInput,
+  OsintSourceConfig,
+  CreateOsintSourceInput,
+  UpdateOsintSourceInput,
+  ApprovalRequest,
+  ResolveApprovalInput,
+  AgentCardProps,
+  OsintSourceCardProps,
+  ApprovalCardProps,
+  AgentConfigEditDialogProps,
+  OsintSourceDialogProps,
+} from './ai-config.types'

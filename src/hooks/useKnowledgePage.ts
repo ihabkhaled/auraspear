@@ -14,7 +14,11 @@ import type {
   RunbookColumnTranslations,
   RunbookRecord,
 } from '@/types'
-import { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
+import {
+  useAiGenerateRunbook,
+  useAiKnowledgeConnector,
+  useAiSearchKnowledge,
+} from './useAiKnowledge'
 import { useRunbooks, useCreateRunbook, useUpdateRunbook, useDeleteRunbook } from './useRunbooks'
 
 export function useKnowledgePage() {
@@ -64,8 +68,9 @@ export function useKnowledgePage() {
   const deleteMutation = useDeleteRunbook()
 
   // AI
-  const aiGenerateMutation = useAiGenerateRunbook()
-  const aiSearchMutation = useAiSearchKnowledge()
+  const aiConnector = useAiKnowledgeConnector()
+  const aiGenerateMutation = useAiGenerateRunbook(aiConnector.connectorValue)
+  const aiSearchMutation = useAiSearchKnowledge(aiConnector.connectorValue)
 
   // Columns
   const columnTranslations: RunbookColumnTranslations = useMemo(
@@ -265,5 +270,9 @@ export function useKnowledgePage() {
       data: aiSearchMutation.data,
       isPending: aiSearchMutation.isPending,
     },
+    aiConnectorTCommon: aiConnector.tCommon,
+    aiAvailableConnectors: aiConnector.availableConnectors,
+    aiSelectedConnector: aiConnector.selectedConnector,
+    aiHandleConnectorChange: aiConnector.handleConnectorChange,
   }
 }

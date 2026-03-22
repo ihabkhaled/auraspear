@@ -29,23 +29,25 @@ export const alertService = {
   getAlertTimeline: (id: string) =>
     api.get<ApiResponse<AlertTimelineEvent[]>>(`/alerts/${id}/timeline`).then(r => r.data),
 
-  triageSummarize: (alertId: string) =>
+  triageSummarize: (alertId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/summarize`)
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/summarize`, { connector })
       .then(r => r.data.data),
 
-  triageExplainSeverity: (alertId: string) =>
+  triageExplainSeverity: (alertId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/explain-severity`)
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/explain-severity`, { connector })
       .then(r => r.data.data),
 
-  triageFalsePositiveScore: (alertId: string) =>
+  triageFalsePositiveScore: (alertId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/false-positive-score`)
+      .post<
+        ApiResponse<AiTriageResult>
+      >(`/alerts/${alertId}/ai/false-positive-score`, { connector })
       .then(r => r.data.data),
 
-  triageNextAction: (alertId: string) =>
+  triageNextAction: (alertId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/next-action`)
+      .post<ApiResponse<AiTriageResult>>(`/alerts/${alertId}/ai/next-action`, { connector })
       .then(r => r.data.data),
 }

@@ -37,7 +37,7 @@ describe('AI-related service methods', () => {
 
       const result = await alertService.triageSummarize('alert-1')
 
-      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/summarize')
+      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/summarize', { connector: undefined })
       expect(result).toEqual(triageResult)
     })
 
@@ -57,7 +57,7 @@ describe('AI-related service methods', () => {
 
       const result = await alertService.triageExplainSeverity('alert-1')
 
-      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/explain-severity')
+      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/explain-severity', { connector: undefined })
       expect(result).toEqual(triageResult)
     })
   })
@@ -71,7 +71,7 @@ describe('AI-related service methods', () => {
 
       const result = await alertService.triageFalsePositiveScore('alert-1')
 
-      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/false-positive-score')
+      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/false-positive-score', { connector: undefined })
       expect(result).toEqual(triageResult)
     })
   })
@@ -85,7 +85,7 @@ describe('AI-related service methods', () => {
 
       const result = await alertService.triageNextAction('alert-1')
 
-      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/next-action')
+      expect(mockPost).toHaveBeenCalledWith('/alerts/alert-1/ai/next-action', { connector: undefined })
       expect(result).toEqual(triageResult)
     })
   })
@@ -99,7 +99,7 @@ describe('AI-related service methods', () => {
 
       const result = await dashboardService.aiDailySummary()
 
-      expect(mockPost).toHaveBeenCalledWith('/dashboard/ai/daily-summary')
+      expect(mockPost).toHaveBeenCalledWith('/dashboard/ai/daily-summary', { connector: undefined })
       expect(result).toEqual(summary)
     })
 

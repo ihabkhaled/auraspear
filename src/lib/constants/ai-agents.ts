@@ -1,5 +1,11 @@
-import { AiAgentPanelTab, AiAgentStatus, AiAgentTier, AiConnectorPreference } from '@/enums'
-import type { AiAgentToolFormValues } from '@/types'
+import {
+  AiAgentPanelTab,
+  AiAgentStatus,
+  AiAgentTier,
+  AiConnectorPreference,
+  AiConnectorType,
+} from '@/enums'
+import type { AiAgentToolFormValues, AvailableAiConnector } from '@/types'
 
 export const AI_AGENT_STATUS_LABEL_KEYS: Record<AiAgentStatus, string> = {
   [AiAgentStatus.ONLINE]: 'statusOnline',
@@ -62,3 +68,7 @@ export const AI_AGENT_TOOL_DEFAULT_VALUES: AiAgentToolFormValues = {
   description: '',
   schema: '{\n  \n}',
 }
+
+export const AI_CONNECTOR_FALLBACK: AvailableAiConnector[] = [
+  { key: 'default', label: 'Default (Auto)', type: AiConnectorType.SYSTEM, enabled: true },
+]

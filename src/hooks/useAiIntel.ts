@@ -10,19 +10,24 @@ import { hasPermission } from '@/lib/permissions'
 import { intelService } from '@/services/intel.service'
 import { useAuthStore } from '@/stores'
 import type { AiIntelResult } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiIntel() {
   const t = useTranslations('intel')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
   const canEnrich = hasPermission(permissions, Permission.INTEL_VIEW)
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [enrichResult, setEnrichResult] = useState<AiIntelResult | null>(null)
   const [advisoryResult, setAdvisoryResult] = useState<AiIntelResult | null>(null)
 
   const enrichMutation = useMutation({
-    mutationFn: (iocId: string) => intelService.aiEnrichIoc(iocId),
+    mutationFn: (iocId: string) => intelService.aiEnrichIoc(iocId, connectorValue),
     onSuccess: (data: AiIntelResult) => {
       setEnrichResult(data)
       setActiveTask(null)
@@ -34,7 +39,7 @@ export function useAiIntel() {
   })
 
   const advisoryMutation = useMutation({
-    mutationFn: (iocIds: string[]) => intelService.aiDraftAdvisory(iocIds),
+    mutationFn: (iocIds: string[]) => intelService.aiDraftAdvisory(iocIds, connectorValue),
     onSuccess: (data: AiIntelResult) => {
       setAdvisoryResult(data)
       setActiveTask(null)
@@ -65,6 +70,7 @@ export function useAiIntel() {
 
   return {
     t,
+    tCommon,
     tErrors,
     canEnrich,
     activeTask,
@@ -73,5 +79,8 @@ export function useAiIntel() {
     isLoading,
     handleEnrichIoc,
     handleDraftAdvisory,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

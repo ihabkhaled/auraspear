@@ -3,22 +3,19 @@
 import { ChevronDown, Loader2, Sparkles } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import type { AiSoarPanelProps, AiSoarResult } from '@/types'
 
-function SoarResultCard({
-  result,
-  t,
-}: {
-  result: AiSoarResult
-  t: (key: string) => string
-}) {
+function SoarResultCard({ result, t }: { result: AiSoarResult; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-2 rounded-lg p-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -29,9 +26,7 @@ function SoarResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-        {result.result}
-      </p>
+      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
     </div>
   )
 }
@@ -43,6 +38,10 @@ export function AiSoarPanel({
   isLoading,
   draftResult,
   onDraftPlaybook,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiSoarPanelProps) {
   if (!canUseCopilot) {
@@ -61,7 +60,24 @@ export function AiSoarPanel({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="space-y-3">
-          <p className="text-muted-foreground text-xs">{t('aiCopilotDescription')}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs">{t('aiCopilotDescription')}</p>
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+              <Select value={selectedConnector} onValueChange={onConnectorChange}>
+                <SelectTrigger className="h-7 w-[160px] text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableConnectors.map(c => (
+                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
           <Textarea
             placeholder={t('aiDraftDescription')}

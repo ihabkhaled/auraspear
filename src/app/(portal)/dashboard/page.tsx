@@ -81,6 +81,10 @@ export default function DashboardPage() {
     dailySummary,
     isDailySummaryLoading,
     generateDailySummary,
+    aiTCommon,
+    aiAvailableConnectors,
+    aiSelectedConnector,
+    aiHandleConnectorChange,
   } = useDashboardPage()
 
   function renderKPIs() {
@@ -197,6 +201,10 @@ export default function DashboardPage() {
         dailySummary={dailySummary}
         isDailySummaryLoading={isDailySummaryLoading}
         onGenerateSummary={generateDailySummary}
+        availableConnectors={aiAvailableConnectors}
+        selectedConnector={aiSelectedConnector}
+        onConnectorChange={aiHandleConnectorChange}
+        tCommon={aiTCommon}
       />
 
       <DashboardSectionCard

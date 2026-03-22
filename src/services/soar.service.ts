@@ -33,8 +33,8 @@ export const soarService = {
 
   getStats: () => api.get<ApiResponse<SoarStats>>('/soar/stats').then(r => r.data),
 
-  aiDraftPlaybook: (description: string) =>
+  aiDraftPlaybook: (description: string, connector?: string) =>
     api
-      .post<ApiResponse<AiResponse>>('/soar/ai/draft-playbook', { description })
+      .post<ApiResponse<AiResponse>>('/soar/ai/draft-playbook', { description, connector })
       .then(r => r.data.data),
 }

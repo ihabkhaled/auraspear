@@ -70,23 +70,25 @@ export const caseService = {
       .then(r => r.data.data),
 
   // AI Case Copilot
-  aiSummarize: (caseId: string) =>
+  aiSummarize: (caseId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/summarize`)
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/summarize`, { connector })
       .then(r => r.data.data),
 
-  aiExecutiveSummary: (caseId: string) =>
+  aiExecutiveSummary: (caseId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/executive-summary`)
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/executive-summary`, {
+        connector,
+      })
       .then(r => r.data.data),
 
-  aiTimeline: (caseId: string) =>
+  aiTimeline: (caseId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/timeline`)
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/timeline`, { connector })
       .then(r => r.data.data),
 
-  aiNextTasks: (caseId: string) =>
+  aiNextTasks: (caseId: string, connector?: string) =>
     api
-      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/next-tasks`)
+      .post<ApiResponse<AiCaseCopilotResult>>(`/cases/${caseId}/ai/next-tasks`, { connector })
       .then(r => r.data.data),
 }

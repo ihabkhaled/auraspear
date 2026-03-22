@@ -1,32 +1,21 @@
 'use client'
 
-import {
-  Brain,
-  ChevronDown,
-  Loader2,
-  RefreshCw,
-  Shield,
-  Sparkles,
-  Target,
-} from 'lucide-react'
+import { Brain, ChevronDown, Loader2, RefreshCw, Shield, Sparkles, Target } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import type { AiTriagePanelProps, AiTriageResult } from '@/types'
 
-function TriageResultCard({
-  result,
-  t,
-}: {
-  result: AiTriageResult
-  t: (key: string) => string
-}) {
+function TriageResultCard({ result, t }: { result: AiTriageResult; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-2 rounded-lg p-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -37,9 +26,7 @@ function TriageResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-        {result.result}
-      </p>
+      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
     </div>
   )
 }
@@ -67,11 +54,7 @@ function TriageActionButton({
       onClick={onClick}
       disabled={isLoading}
     >
-      {isActive && isLoading ? (
-        <Loader2 className="h-3.5 w-3.5 animate-spin" />
-      ) : (
-        icon
-      )}
+      {isActive && isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : icon}
       <span className="truncate">{label}</span>
       {hasResult && (
         <RefreshCw className={cn('ms-auto h-3 w-3', isActive && isLoading && 'animate-spin')} />
@@ -90,6 +73,10 @@ export function AiTriagePanel({
   onExplainSeverity,
   onFalsePositiveScore,
   onNextAction,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiTriagePanelProps) {
   if (!canTriage) {
@@ -113,7 +100,24 @@ export function AiTriagePanel({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="space-y-3">
-          <p className="text-muted-foreground text-xs">{t('aiTriageDescription')}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs">{t('aiTriageDescription')}</p>
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+              <Select value={selectedConnector} onValueChange={onConnectorChange}>
+                <SelectTrigger className="h-7 w-[160px] text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableConnectors.map(c => (
+                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <TriageActionButton

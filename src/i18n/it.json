@@ -89,7 +89,9 @@
     "rows": "righe",
     "darkMode": "Modalità scura",
     "lightMode": "Modalità chiara",
-    "updatedAt": "Aggiornato il"
+    "updatedAt": "Aggiornato il",
+    "aiConnector": "Connettore IA",
+    "connectorDefault": "Predefinito (Auto)"
   },
   "dashboard": {
     "title": "Dashboard Esecutiva",

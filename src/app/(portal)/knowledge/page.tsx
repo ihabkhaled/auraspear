@@ -49,6 +49,10 @@ export default function KnowledgePage() {
     canDelete,
     aiGenerate,
     aiSearch,
+    aiConnectorTCommon,
+    aiAvailableConnectors,
+    aiSelectedConnector,
+    aiHandleConnectorChange,
   } = useKnowledgePage()
 
   const enhancedColumns: Column<RunbookRecord>[] = [
@@ -144,7 +148,15 @@ export default function KnowledgePage() {
         }
       />
 
-      <AiKnowledgePanel aiGenerate={aiGenerate} aiSearch={aiSearch} t={t} />
+      <AiKnowledgePanel
+        aiGenerate={aiGenerate}
+        aiSearch={aiSearch}
+        availableConnectors={aiAvailableConnectors}
+        selectedConnector={aiSelectedConnector}
+        onConnectorChange={aiHandleConnectorChange}
+        tCommon={aiConnectorTCommon}
+        t={t}
+      />
 
       <Card className="border-border bg-card">
         <CardContent className="pt-4">

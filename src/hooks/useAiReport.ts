@@ -7,16 +7,21 @@ import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
 import { reportService } from '@/services/report.service'
 import type { AiResponse } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiReport() {
   const t = useTranslations('reports')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [report, setReport] = useState<AiResponse | null>(null)
   const [selectedTimeRange, setSelectedTimeRange] = useState('7d')
 
   const reportMutation = useMutation({
-    mutationFn: (timeRange: string) => reportService.aiExecutiveReport(timeRange),
+    mutationFn: (timeRange: string) => reportService.aiExecutiveReport(timeRange, connectorValue),
     onSuccess: (data: AiResponse) => {
       setReport(data)
     },
@@ -35,10 +40,14 @@ export function useAiReport() {
 
   return {
     t,
+    tCommon,
     report,
     selectedTimeRange,
     handleTimeRangeChange,
     generateReport,
     isLoading: reportMutation.isPending,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

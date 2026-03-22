@@ -55,19 +55,19 @@ export const dashboardService = {
       })
       .then(r => r.data),
 
-  aiExplainAnomaly: (data: ExplainAnomalyInput) =>
-    api.post<ApiResponse<AiResponse>>('/dashboard/ai/explain-anomaly', data).then(r => r.data.data),
+  aiExplainAnomaly: (data: ExplainAnomalyInput, connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/dashboard/ai/explain-anomaly', { ...data, connector })
+      .then(r => r.data.data),
 
-  aiDailySummary: () =>
-    api.post<ApiResponse<AiResponse>>('/dashboard/ai/daily-summary').then(r => r.data.data),
+  aiDailySummary: (connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>('/dashboard/ai/daily-summary', { connector })
+      .then(r => r.data.data),
 
   getMsspPortfolio: () =>
-    api
-      .get<ApiResponse<MsspPortfolioOverview>>('/dashboards/mssp/portfolio')
-      .then(r => r.data),
+    api.get<ApiResponse<MsspPortfolioOverview>>('/dashboards/mssp/portfolio').then(r => r.data),
 
   getMsspComparison: () =>
-    api
-      .get<ApiResponse<MsspTenantComparison>>('/dashboards/mssp/comparison')
-      .then(r => r.data),
+    api.get<ApiResponse<MsspTenantComparison>>('/dashboards/mssp/comparison').then(r => r.data),
 }

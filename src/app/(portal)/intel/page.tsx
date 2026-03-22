@@ -74,6 +74,10 @@ export default function IntelPage() {
             selectedIocIds={selectedIocIds}
             onEnrichIoc={aiIntel.handleEnrichIoc}
             onDraftAdvisory={aiIntel.handleDraftAdvisory}
+            availableConnectors={aiIntel.availableConnectors}
+            selectedConnector={aiIntel.selectedConnector}
+            onConnectorChange={aiIntel.handleConnectorChange}
+            tCommon={aiIntel.tCommon}
             t={t}
           />
         </CardContent>

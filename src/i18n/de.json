@@ -89,7 +89,9 @@
     "rows": "Zeilen",
     "darkMode": "Dunkelmodus",
     "lightMode": "Hellmodus",
-    "updatedAt": "Aktualisiert am"
+    "updatedAt": "Aktualisiert am",
+    "aiConnector": "KI-Konnektor",
+    "connectorDefault": "Standard (Auto)"
   },
   "dashboard": {
     "title": "Management-Dashboard",

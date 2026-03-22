@@ -9,18 +9,23 @@ import { hasPermission } from '@/lib/permissions'
 import { alertService } from '@/services/alert.service'
 import { useAuthStore } from '@/stores'
 import type { AiTriageResult } from '@/types'
+import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiAlertTriage(alertId: string) {
   const t = useTranslations('alerts')
+  const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
   const permissions = useAuthStore(s => s.permissions)
   const canTriage = hasPermission(permissions, Permission.AI_ALERT_TRIAGE)
+
+  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
+    useAvailableAiConnectors()
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiTriageResult>>({})
 
   const summarizeMutation = useMutation({
-    mutationFn: () => alertService.triageSummarize(alertId),
+    mutationFn: () => alertService.triageSummarize(alertId, connectorValue),
     onSuccess: (data: AiTriageResult) => {
       setResults(prev => ({ ...prev, summarize: data }))
       setActiveTask(null)
@@ -32,7 +37,7 @@ export function useAiAlertTriage(alertId: string) {
   })
 
   const explainSeverityMutation = useMutation({
-    mutationFn: () => alertService.triageExplainSeverity(alertId),
+    mutationFn: () => alertService.triageExplainSeverity(alertId, connectorValue),
     onSuccess: (data: AiTriageResult) => {
       setResults(prev => ({ ...prev, explainSeverity: data }))
       setActiveTask(null)
@@ -44,7 +49,7 @@ export function useAiAlertTriage(alertId: string) {
   })
 
   const falsePositiveScoreMutation = useMutation({
-    mutationFn: () => alertService.triageFalsePositiveScore(alertId),
+    mutationFn: () => alertService.triageFalsePositiveScore(alertId, connectorValue),
     onSuccess: (data: AiTriageResult) => {
       setResults(prev => ({ ...prev, falsePositiveScore: data }))
       setActiveTask(null)
@@ -56,7 +61,7 @@ export function useAiAlertTriage(alertId: string) {
   })
 
   const nextActionMutation = useMutation({
-    mutationFn: () => alertService.triageNextAction(alertId),
+    mutationFn: () => alertService.triageNextAction(alertId, connectorValue),
     onSuccess: (data: AiTriageResult) => {
       setResults(prev => ({ ...prev, nextAction: data }))
       setActiveTask(null)
@@ -95,6 +100,7 @@ export function useAiAlertTriage(alertId: string) {
 
   return {
     t,
+    tCommon,
     tErrors,
     canTriage,
     activeTask,
@@ -104,5 +110,8 @@ export function useAiAlertTriage(alertId: string) {
     handleExplainSeverity,
     handleFalsePositiveScore,
     handleNextAction,
+    availableConnectors,
+    selectedConnector,
+    handleConnectorChange: setSelectedConnector,
   }
 }

@@ -3,21 +3,18 @@
 import { ChevronDown, Loader2, RefreshCw, Search, Sparkles, FileText } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import type { AiIntelPanelProps, AiIntelResult } from '@/types'
 
-function IntelResultCard({
-  result,
-  t,
-}: {
-  result: AiIntelResult
-  t: (key: string) => string
-}) {
+function IntelResultCard({ result, t }: { result: AiIntelResult; t: (key: string) => string }) {
   return (
     <div className="bg-muted/50 space-y-2 rounded-lg p-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -28,9 +25,7 @@ function IntelResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-        {result.result}
-      </p>
+      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
     </div>
   )
 }
@@ -45,6 +40,10 @@ export function AiIntelPanel({
   selectedIocIds,
   onEnrichIoc,
   onDraftAdvisory,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiIntelPanelProps) {
   if (!canEnrich) {
@@ -63,14 +62,31 @@ export function AiIntelPanel({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="space-y-3">
-          <p className="text-muted-foreground text-xs">{t('aiEnrichDescription')}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs">{t('aiEnrichDescription')}</p>
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+              <Select value={selectedConnector} onValueChange={onConnectorChange}>
+                <SelectTrigger className="h-7 w-[160px] text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableConnectors.map(c => (
+                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Button
               variant={enrichResult ? 'outline' : 'secondary'}
               size="sm"
               className="w-full justify-start gap-2"
-              onClick={() => selectedIocId ? onEnrichIoc(selectedIocId) : undefined}
+              onClick={() => (selectedIocId ? onEnrichIoc(selectedIocId) : undefined)}
               disabled={isLoading || !selectedIocId}
             >
               {activeTask === 'enrich' && isLoading ? (
@@ -85,7 +101,11 @@ export function AiIntelPanel({
               variant={advisoryResult ? 'outline' : 'secondary'}
               size="sm"
               className="w-full justify-start gap-2"
-              onClick={() => selectedIocIds && selectedIocIds.length > 0 ? onDraftAdvisory(selectedIocIds) : undefined}
+              onClick={() =>
+                selectedIocIds && selectedIocIds.length > 0
+                  ? onDraftAdvisory(selectedIocIds)
+                  : undefined
+              }
               disabled={isLoading || !selectedIocIds || selectedIocIds.length === 0}
             >
               {activeTask === 'advisory' && isLoading ? (

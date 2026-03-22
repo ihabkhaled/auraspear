@@ -12,11 +12,14 @@ import {
 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
 import type { AiCaseCopilotPanelProps, AiCaseCopilotResult } from '@/types'
@@ -38,9 +41,7 @@ function CopilotResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground whitespace-pre-wrap text-sm leading-relaxed">
-        {result.result}
-      </p>
+      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
     </div>
   )
 }
@@ -68,11 +69,7 @@ function CopilotActionButton({
       onClick={onClick}
       disabled={isLoading}
     >
-      {isActive && isLoading ? (
-        <Loader2 className="h-3.5 w-3.5 animate-spin" />
-      ) : (
-        icon
-      )}
+      {isActive && isLoading ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : icon}
       <span className="truncate">{label}</span>
       {hasResult && (
         <RefreshCw className={cn('ms-auto h-3 w-3', isActive && isLoading && 'animate-spin')} />
@@ -91,6 +88,10 @@ export function AiCaseCopilotPanel({
   onExecutiveSummary,
   onTimeline,
   onNextTasks,
+  availableConnectors,
+  selectedConnector,
+  onConnectorChange,
+  tCommon,
   t,
 }: AiCaseCopilotPanelProps) {
   if (!canUseCopilot) {
@@ -114,7 +115,24 @@ export function AiCaseCopilotPanel({
         </CollapsibleTrigger>
 
         <CollapsibleContent className="space-y-3">
-          <p className="text-muted-foreground text-xs">{t('aiCopilotDescription')}</p>
+          <div className="flex items-center justify-between">
+            <p className="text-muted-foreground text-xs">{t('aiCopilotDescription')}</p>
+            <div className="flex items-center gap-2">
+              <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
+              <Select value={selectedConnector} onValueChange={onConnectorChange}>
+                <SelectTrigger className="h-7 w-[160px] text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableConnectors.map(c => (
+                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <CopilotActionButton
