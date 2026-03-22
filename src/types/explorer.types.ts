@@ -263,3 +263,24 @@ export interface ShuffleWorkflowSearchParams {
   sortBy?: string | undefined
   sortOrder?: string | undefined
 }
+
+// ── Explorer Component Props ────────────────────────────────────────
+
+export interface ExplorerConnectorMeta {
+  icon: React.ComponentType<{ className?: string }>
+  label: string
+  href: string
+  color: string
+}
+
+export interface ExplorerConnectorCardProps {
+  connector: ExplorerConnectorStatus
+  meta: ExplorerConnectorMeta
+  onClick: () => void
+  t: (key: string) => string
+}
+
+export interface ExplorerSyncSummaryCardsProps {
+  summary: SyncJobsSummary
+  t: (key: string) => string
+}

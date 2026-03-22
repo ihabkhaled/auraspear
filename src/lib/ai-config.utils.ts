@@ -1,5 +1,18 @@
-import { AiOutputFormat, AiTriggerMode, OsintAuthType, OsintSourceType } from '@/enums'
-import type { OsintSourceConfig, TenantAgentConfig } from '@/types'
+import {
+  AiApprovalLevel,
+  AiFeatureKey,
+  AiOutputFormat,
+  AiTriggerMode,
+  OsintAuthType,
+  OsintSourceType,
+} from '@/enums'
+import { lookupBuiltinOsintDefaults } from '@/lib/osint.utils'
+import type {
+  AiFeatureConfig,
+  AiPromptTemplate,
+  OsintSourceConfig,
+  TenantAgentConfig,
+} from '@/types'
 
 export function deriveAgentConfigState(config: TenantAgentConfig | null) {
   if (!config) {
@@ -43,16 +56,19 @@ export function deriveAgentConfigState(config: TenantAgentConfig | null) {
 
 export function deriveOsintSourceState(source: OsintSourceConfig | null) {
   if (!source) {
+    const defaultType = OsintSourceType.VIRUSTOTAL
+    const builtinDefaults = lookupBuiltinOsintDefaults(defaultType)
     return {
-      sourceType: OsintSourceType.VIRUSTOTAL,
+      sourceType: defaultType,
       name: '',
+      isEnabled: true,
       apiKey: '',
-      baseUrl: '',
-      authType: OsintAuthType.API_KEY_HEADER,
-      headerName: '',
-      queryParam: '',
-      responsePath: '',
-      requestMethod: 'GET',
+      baseUrl: builtinDefaults?.baseUrl ?? '',
+      authType: builtinDefaults?.authType ?? OsintAuthType.API_KEY_HEADER,
+      headerName: builtinDefaults?.headerName ?? '',
+      queryParam: builtinDefaults?.queryParamName ?? '',
+      responsePath: builtinDefaults?.responsePath ?? '',
+      requestMethod: builtinDefaults?.requestMethod ?? 'GET',
       timeout: '30000',
     }
   }
@@ -60,6 +76,7 @@ export function deriveOsintSourceState(source: OsintSourceConfig | null) {
   return {
     sourceType: source.sourceType,
     name: source.name,
+    isEnabled: source.isEnabled,
     apiKey: '',
     baseUrl: source.baseUrl ?? '',
     authType: source.authType,
@@ -68,5 +85,23 @@ export function deriveOsintSourceState(source: OsintSourceConfig | null) {
     responsePath: source.responsePath ?? '',
     requestMethod: source.requestMethod,
     timeout: String(source.timeout),
+  }
+}
+
+export function derivePromptState(prompt: AiPromptTemplate | null) {
+  return {
+    taskType: prompt?.taskType ?? (AiFeatureKey.ALERT_SUMMARIZE as string),
+    name: prompt?.name ?? '',
+    content: prompt?.content ?? '',
+  }
+}
+
+export function deriveFeatureState(feature: AiFeatureConfig | null) {
+  return {
+    enabled: feature?.enabled ?? false,
+    preferredProvider: feature?.preferredProvider ?? null,
+    maxTokens: feature?.maxTokens ?? 4096,
+    approvalLevel: feature?.approvalLevel ?? (AiApprovalLevel.NONE as string),
+    monthlyTokenBudget: feature?.monthlyTokenBudget ?? null,
   }
 }

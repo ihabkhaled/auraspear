@@ -266,6 +266,9 @@ export type {
   ChangePasswordInput,
   PreferencesResponse,
   UserPreferences,
+  ProfilePersonalInfoProps,
+  ProfileUpdateNameFormProps,
+  ProfileChangePasswordFormProps,
 } from './profile.types'
 export type {
   CommandPaletteRouteItem,
@@ -376,6 +379,9 @@ export type {
   ShuffleWorkflow,
   ShuffleWorkflowSearchParams,
   SyncJobStatusDetail,
+  ExplorerConnectorMeta,
+  ExplorerConnectorCardProps,
+  ExplorerSyncSummaryCardsProps,
 } from './explorer.types'
 export type {
   Incident,
@@ -557,6 +563,7 @@ export type {
   UseComplianceCreateDialogParams,
   UseComplianceEditDialogParams,
   UseComplianceControlEditParams,
+  CompliancePageDialogsReturn,
 } from './compliance.types'
 export type {
   Report,
@@ -607,6 +614,7 @@ export type {
   UseNormalizationCreateDialogParams,
   UseNormalizationDeleteDialogParams,
   UseNormalizationEditDialogParams,
+  NormalizationPageDialogsReturn,
 } from './normalization.types'
 export type {
   DetectionRule,
@@ -626,6 +634,11 @@ export type {
   UseDetectionRuleDeleteDialogParams,
   AiDetectionCopilotResult,
   AiDetectionCopilotPanelProps,
+  DetectionRulesPageDialogsReturn,
+  DetectionRuleMatch,
+  DetectionRuleSimulationResult,
+  ToggleDetectionRuleInput,
+  SimulateDetectionRuleInput,
 } from './detection-rule.types'
 export type {
   CloudAccount,
@@ -646,6 +659,7 @@ export type {
   UseCloudAccountCreateDialogParams,
   UseCloudAccountEditDialogParams,
   UseCloudAccountDeleteDialogParams,
+  CloudSecurityPageDialogsReturn,
 } from './cloud-security.types'
 export type {
   PermissionDefinition,
@@ -676,6 +690,7 @@ export type {
   UsersControlSummaryCardsProps,
   UsersControlTableProps,
   UserSessionsDialogProps,
+  UsersControlPageDialogsReturn,
 } from './users-control.types'
 export type {
   JobRecord,
@@ -685,6 +700,8 @@ export type {
   RunAiAgentInput,
   AiAgentRunResult,
   CancelJobResult,
+  JobKpiCardsProps,
+  JobFiltersProps,
 } from './job.types'
 export type {
   LlmConnectorRecord,
@@ -715,6 +732,7 @@ export type {
   UpdateEntityInput,
   EntityFiltersProps,
   RiskScoreBadgeProps,
+  EntityGraphPanelProps,
 } from './entity.types'
 export type {
   MsspTenantSummary,
@@ -755,4 +773,20 @@ export type {
   ApprovalCardProps,
   AgentConfigEditDialogProps,
   OsintSourceDialogProps,
+  OsintQueryInput,
+  OsintEnrichInput,
+  OsintQueryResult,
+  OsintEnrichmentResult,
+  BuiltinOsintSourceDefaults,
+  OsintEnrichButtonProps,
+  OsintFileUploadButtonProps,
+  AiPromptTemplate,
+  CreateAiPromptInput,
+  UpdateAiPromptInput,
+  AiFeatureConfig,
+  UpdateAiFeatureConfigInput,
+  PromptDialogProps,
+  FeatureEditDialogProps,
+  PromptTableProps,
+  FeatureTableProps,
 } from './ai-config.types'

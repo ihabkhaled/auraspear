@@ -190,3 +190,17 @@ export interface UsersControlColumnTranslations {
 }
 
 export type UsersControlTableColumn = Column<UsersControlUser>
+
+export interface UsersControlPageDialogsReturn {
+  readonly overviewOpen: boolean
+  readonly setOverviewOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly usersOpen: boolean
+  readonly setUsersOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly sessionsOpen: boolean
+  readonly setSessionsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedUser: UsersControlUser | null
+  readonly selectedUserId: string
+  readonly selectedUserStateId: string
+  readonly setSelectedUserStateId: React.Dispatch<React.SetStateAction<string>>
+  readonly sessionsSectionRef: React.RefObject<HTMLDivElement | null>
+}

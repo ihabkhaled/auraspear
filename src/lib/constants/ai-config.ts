@@ -1,4 +1,4 @@
-import { AiAgentId, AiOutputFormat, AiTriggerMode } from '@/enums'
+import { AiAgentId, AiFeatureKey, AiOutputFormat, AiTriggerMode, OsintAuthType } from '@/enums'
 
 export const AI_AGENT_LABEL_KEYS: Record<AiAgentId, string> = {
   [AiAgentId.ORCHESTRATOR]: 'aiConfig.agentOrchestrator',
@@ -31,4 +31,40 @@ export const AI_OUTPUT_FORMAT_LABEL_KEYS: Record<AiOutputFormat, string> = {
   [AiOutputFormat.STRUCTURED_JSON]: 'aiConfig.outputJson',
   [AiOutputFormat.MARKDOWN]: 'aiConfig.outputMarkdown',
   [AiOutputFormat.RICH_CARDS]: 'aiConfig.outputRichCards',
+}
+
+export const OSINT_AUTH_TYPE_LABELS: Record<OsintAuthType, string> = {
+  [OsintAuthType.NONE]: 'None',
+  [OsintAuthType.API_KEY_HEADER]: 'API Key (Header)',
+  [OsintAuthType.API_KEY_QUERY]: 'API Key (Query Param)',
+  [OsintAuthType.BEARER]: 'Bearer Token',
+  [OsintAuthType.BASIC]: 'Basic Auth (user:pass)',
+}
+
+export const AI_FEATURE_KEY_LABEL_KEYS: Record<AiFeatureKey, string> = {
+  [AiFeatureKey.ALERT_SUMMARIZE]: 'featureAlertSummarize',
+  [AiFeatureKey.ALERT_EXPLAIN_SEVERITY]: 'featureAlertExplainSeverity',
+  [AiFeatureKey.ALERT_FALSE_POSITIVE_SCORE]: 'featureAlertFalsePositive',
+  [AiFeatureKey.ALERT_NEXT_ACTION]: 'featureAlertNextAction',
+  [AiFeatureKey.CASE_SUMMARIZE]: 'featureCaseSummarize',
+  [AiFeatureKey.CASE_EXECUTIVE_SUMMARY]: 'featureCaseExecutiveSummary',
+  [AiFeatureKey.CASE_TIMELINE]: 'featureCaseTimeline',
+  [AiFeatureKey.CASE_NEXT_TASKS]: 'featureCaseNextTasks',
+  [AiFeatureKey.HUNT_HYPOTHESIS]: 'featureHuntHypothesis',
+  [AiFeatureKey.HUNT_NL_TO_QUERY]: 'featureHuntNlToQuery',
+  [AiFeatureKey.HUNT_RESULT_INTERPRET]: 'featureHuntResultInterpret',
+  [AiFeatureKey.INTEL_IOC_ENRICH]: 'featureIntelIocEnrich',
+  [AiFeatureKey.INTEL_ADVISORY_DRAFT]: 'featureIntelAdvisoryDraft',
+  [AiFeatureKey.DETECTION_RULE_DRAFT]: 'featureDetectionRuleDraft',
+  [AiFeatureKey.DETECTION_TUNING]: 'featureDetectionTuning',
+  [AiFeatureKey.REPORT_DAILY_SUMMARY]: 'featureReportDailySummary',
+  [AiFeatureKey.REPORT_EXECUTIVE]: 'featureReportExecutive',
+  [AiFeatureKey.DASHBOARD_ANOMALY]: 'featureDashboardAnomaly',
+  [AiFeatureKey.SOAR_PLAYBOOK_DRAFT]: 'featureSoarPlaybookDraft',
+  [AiFeatureKey.AGENT_TASK]: 'featureAgentTask',
+  [AiFeatureKey.KNOWLEDGE_SEARCH]: 'featureKnowledgeSearch',
+  [AiFeatureKey.KNOWLEDGE_GENERATE_RUNBOOK]: 'featureKnowledgeGenerateRunbook',
+  [AiFeatureKey.KNOWLEDGE_SUMMARIZE_INCIDENT]: 'featureKnowledgeSummarizeIncident',
+  [AiFeatureKey.ENTITY_RISK_EXPLAIN]: 'featureEntityRiskExplain',
+  [AiFeatureKey.NORMALIZATION_VERIFY]: 'featureNormalizationVerify',
 }

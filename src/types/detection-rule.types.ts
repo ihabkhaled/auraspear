@@ -104,7 +104,9 @@ export interface DetectionRuleDetailPanelProps {
   onOpenChange: (open: boolean) => void
   onEdit?: ((rule: DetectionRule) => void) | undefined
   onDelete?: ((rule: DetectionRule) => void) | undefined
+  onToggle?: ((rule: DetectionRule) => void) | undefined
   deleteLoading?: boolean
+  toggleLoading?: boolean
 }
 
 export interface DetectionRuleColumnTranslations {
@@ -130,6 +132,36 @@ export interface UseDetectionRuleDeleteDialogParams {
   onConfirm: () => void
 }
 
+export interface DetectionRuleMatch {
+  ruleId: string
+  ruleName: string
+  severity: string
+  matchedEvent: Record<string, unknown>
+  matchedAt: string
+  description: string
+}
+
+export interface DetectionRuleSimulationResult {
+  ruleId: string
+  status: string
+  matchCount: number
+  matches: DetectionRuleMatch[]
+  executedAt: string
+  durationMs: number
+  engine: string
+  error?: string
+}
+
+export interface ToggleDetectionRuleInput {
+  id: string
+  enabled: boolean
+}
+
+export interface SimulateDetectionRuleInput {
+  id: string
+  events: Record<string, unknown>[]
+}
+
 export interface AiDetectionCopilotResult {
   result: string
   reasoning: string[]
@@ -140,6 +172,19 @@ export interface AiDetectionCopilotResult {
     input: number
     output: number
   }
+}
+
+export interface DetectionRulesPageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedRule: DetectionRule | null
+  readonly setSelectedRule: React.Dispatch<React.SetStateAction<DetectionRule | null>>
+  readonly handleOpenDetail: (rule: DetectionRule) => void
+  readonly handleOpenEdit: (rule: DetectionRule) => void
 }
 
 export interface AiDetectionCopilotPanelProps {

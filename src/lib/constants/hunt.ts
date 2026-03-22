@@ -6,6 +6,14 @@ export const QUICK_PROMPT_KEYS = [
   'findLateralMovement',
   'checkDataExfiltration',
   'suspiciousProcesses',
+  'dnsTunneling',
+  'privilegeEscalation',
+  'unauthorizedRdp',
+  'malwareC2',
+  'webShellActivity',
+  'credentialDumping',
+  'unusualOutbound',
+  'registryPersistence',
 ] as const
 
 export const HUNT_STATUS_CONFIG = {

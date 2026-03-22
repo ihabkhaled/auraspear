@@ -1,3 +1,5 @@
+import type { ApiResponse } from './common.types'
+
 export interface EntityRecord {
   id: string
   tenantId: string
@@ -100,4 +102,12 @@ export interface EntityFiltersProps {
 
 export interface RiskScoreBadgeProps {
   score: number
+}
+
+export interface EntityGraphPanelProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  graphData: ApiResponse<EntityGraphData> | undefined
+  graphLoading: boolean
+  t: (key: string) => string
 }

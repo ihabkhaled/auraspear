@@ -30,13 +30,13 @@ export const IOC_TYPE_OPTIONS: { value: IOCType; labelKey: string }[] = [
   { value: IOCType.SHA1, labelKey: 'search.typeSha1' },
   { value: IOCType.SHA256, labelKey: 'search.typeSha256' },
   { value: IOCType.HASH, labelKey: 'search.typeHash' },
-  { value: IOCType.FILENAME, labelKey: 'search.typeFilename' },
+  { value: IOCType.FILE_NAME, labelKey: 'search.typeFilename' },
   { value: IOCType.CIDR, labelKey: 'search.typeCidr' },
   { value: IOCType.EMAIL, labelKey: 'search.typeEmail' },
   { value: IOCType.ASN, labelKey: 'search.typeAsn' },
   { value: IOCType.CVE, labelKey: 'search.typeCve' },
-  { value: IOCType.REGISTRY, labelKey: 'search.typeRegistry' },
-  { value: IOCType.FILEPATH, labelKey: 'search.typeFilepath' },
+  { value: IOCType.REGISTRY_KEY, labelKey: 'search.typeRegistry' },
+  { value: IOCType.FILE_PATH, labelKey: 'search.typeFilepath' },
 ]
 
 export const IOC_SOURCE_OPTIONS: { value: IOCSource; labelKey: string }[] = [

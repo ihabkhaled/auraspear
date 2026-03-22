@@ -23,7 +23,7 @@ export function recordToFormValues(record: ConnectorRecord): ConnectorFormValues
     username: String(config['username'] ?? ''),
     password: String(config['password'] ?? ''),
     token: String(config['token'] ?? ''),
-    verifyTLS: config['verifyTLS'] !== false,
+    verifyTLS: (config['verifyTLS'] ?? config['verifyTls']) !== false,
     timeoutSeconds: Number(config['timeoutSeconds'] ?? 30) || 30,
     tags: Array.isArray(config['tags']) ? (config['tags'] as string[]).join(', ') : '',
     notes: String(config['notes'] ?? ''),

@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiResponse,
   ApiResponse,
   NormalizationPipeline,
   NormalizationStats,
@@ -32,4 +33,12 @@ export const normalizationService = {
 
   getStats: () =>
     api.get<ApiResponse<NormalizationStats>>('/normalization/pipelines/stats').then(r => r.data),
+
+  aiVerifyPipeline: (pipelineId: string, sampleEvents: unknown[], connector?: string) =>
+    api
+      .post<ApiResponse<AiResponse>>(`/normalization/pipelines/${pipelineId}/ai/verify`, {
+        sampleEvents,
+        connector,
+      })
+      .then(r => r.data.data),
 }

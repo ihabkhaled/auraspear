@@ -111,4 +111,6 @@ export {
   ApprovalStatus,
   OsintSourceType,
   OsintAuthType,
+  AiFeatureKey,
+  AiApprovalLevel,
 } from './ai-config.enum'

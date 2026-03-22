@@ -60,3 +60,22 @@ export interface AiAgentRunResult {
 export interface CancelJobResult {
   cancelled: boolean
 }
+
+export interface JobKpiCardsProps {
+  stats: { data: JobRuntimeStats } | undefined
+  t: (key: string) => string
+}
+
+export interface JobFiltersProps {
+  statusFilter: JobStatus | undefined
+  typeFilter: JobType | undefined
+  allFilterValue: string
+  isMutating: boolean
+  canCancelAll: boolean
+  onStatusChange: (value: JobStatus | undefined) => void
+  onTypeChange: (value: JobType | undefined) => void
+  onCancelAll: () => void
+  isJobStatus: (value: string) => value is JobStatus
+  isJobType: (value: string) => value is JobType
+  t: (key: string) => string
+}

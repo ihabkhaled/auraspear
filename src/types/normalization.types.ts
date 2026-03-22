@@ -90,12 +90,16 @@ export interface NormalizationDetailPanelProps {
   onOpenChange: (open: boolean) => void
   onEdit?: ((pipeline: NormalizationPipeline) => void) | undefined
   onDelete?: ((pipeline: NormalizationPipeline) => void) | undefined
+  onAiVerify?: ((pipelineId: string) => void) | undefined
+  aiVerifying?: boolean | undefined
 }
 
 export interface UseNormalizationDetailPanelParams {
   pipeline: NormalizationDetailPanelProps['pipeline']
   onEdit?: NormalizationDetailPanelProps['onEdit'] | undefined
   onDelete?: NormalizationDetailPanelProps['onDelete'] | undefined
+  onAiVerify?: NormalizationDetailPanelProps['onAiVerify'] | undefined
+  aiVerifying?: NormalizationDetailPanelProps['aiVerifying'] | undefined
 }
 
 export interface UseNormalizationCreateDialogParams {
@@ -119,4 +123,19 @@ export interface UseNormalizationEditDialogParams {
 export interface NormalizationColumnTranslations {
   normalization: (key: string) => string
   common: (key: string) => string
+}
+
+export interface NormalizationPageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedPipeline: NormalizationPipeline | null
+  readonly setSelectedPipeline: React.Dispatch<React.SetStateAction<NormalizationPipeline | null>>
+  readonly editInitialValues: EditNormalizationFormValues
+  readonly handleRowClick: (pipeline: NormalizationPipeline) => void
+  readonly handleOpenEdit: (pipeline: NormalizationPipeline) => void
+  readonly handleOpenDelete: (pipeline: NormalizationPipeline) => void
 }

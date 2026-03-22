@@ -3,6 +3,7 @@ import type {
   AiDetectionCopilotResult,
   ApiResponse,
   DetectionRule,
+  DetectionRuleSimulationResult,
   DetectionRuleStats,
   DetectionRuleSearchParams,
 } from '@/types'
@@ -22,6 +23,18 @@ export const detectionRuleService = {
 
   deleteRule: (id: string) =>
     api.delete<ApiResponse<{ deleted: boolean }>>(`/detection-rules/${id}`).then(r => r.data),
+
+  toggleRule: (id: string, enabled: boolean) =>
+    api
+      .patch<ApiResponse<DetectionRule>>(`/detection-rules/${id}/toggle`, { enabled })
+      .then(r => r.data),
+
+  simulateRule: (id: string, events: Record<string, unknown>[]) =>
+    api
+      .post<ApiResponse<DetectionRuleSimulationResult>>(`/detection-rules/${id}/simulate`, {
+        events,
+      })
+      .then(r => r.data),
 
   getStats: () =>
     api.get<ApiResponse<DetectionRuleStats>>('/detection-rules/stats').then(r => r.data),

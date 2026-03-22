@@ -157,3 +157,16 @@ export interface UseCloudAccountDeleteDialogParams {
   accountName: string
   onConfirm: () => void
 }
+
+export interface CloudSecurityPageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedAccount: CloudAccount | null
+  readonly setSelectedAccount: React.Dispatch<React.SetStateAction<CloudAccount | null>>
+  readonly handleRowClick: (account: CloudAccount) => void
+  readonly handleOpenEdit: (account: CloudAccount) => void
+}

@@ -1,12 +1,21 @@
 import api from '@/lib/api'
 import type {
+  AiFeatureConfig,
+  AiPromptTemplate,
   ApiResponse,
   ApprovalRequest,
+  CreateAiPromptInput,
   CreateOsintSourceInput,
+  OsintEnrichInput,
+  OsintEnrichmentResult,
+  OsintQueryInput,
+  OsintQueryResult,
   OsintSourceConfig,
   ResolveApprovalInput,
   TenantAgentConfig,
   UpdateAgentConfigInput,
+  UpdateAiFeatureConfigInput,
+  UpdateAiPromptInput,
   UpdateOsintSourceInput,
 } from '@/types'
 
@@ -68,4 +77,51 @@ export const agentConfigService = {
     api
       .post<ApiResponse<ApprovalRequest>>(`/agent-config/approvals/${id}/resolve`, data)
       .then(r => r.data),
+
+  queryOsintSource: (input: OsintQueryInput) =>
+    api.post<ApiResponse<OsintQueryResult>>('/osint/query', input).then(r => r.data),
+
+  enrichIoc: (input: OsintEnrichInput) =>
+    api.post<ApiResponse<OsintEnrichmentResult>>('/osint/enrich', input).then(r => r.data),
+
+  uploadFileForScan: (sourceId: string, file: File) => {
+    const formData = new FormData()
+    formData.append('file', file)
+    formData.append('sourceId', sourceId)
+    return api
+      .post<ApiResponse<OsintQueryResult>>('/osint/upload-file', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then(r => r.data)
+  },
+
+  fetchVtAnalysis: (analysisUrl: string) =>
+    api.post<ApiResponse<unknown>>('/osint/fetch-analysis', { analysisUrl }).then(r => r.data),
+
+  // Prompt Registry
+  getPrompts: () => api.get<ApiResponse<AiPromptTemplate[]>>('/ai-prompts').then(r => r.data),
+
+  getPrompt: (id: string) =>
+    api.get<ApiResponse<AiPromptTemplate>>(`/ai-prompts/${id}`).then(r => r.data),
+
+  createPrompt: (data: CreateAiPromptInput) =>
+    api.post<ApiResponse<AiPromptTemplate>>('/ai-prompts', data).then(r => r.data),
+
+  updatePrompt: (id: string, data: UpdateAiPromptInput) =>
+    api.patch<ApiResponse<AiPromptTemplate>>(`/ai-prompts/${id}`, data).then(r => r.data),
+
+  activatePrompt: (id: string) =>
+    api.post<ApiResponse<AiPromptTemplate>>(`/ai-prompts/${id}/activate`).then(r => r.data),
+
+  deletePrompt: (id: string) =>
+    api.delete<ApiResponse<{ deleted: boolean }>>(`/ai-prompts/${id}`).then(r => r.data),
+
+  // Feature Catalog
+  getFeatures: () => api.get<ApiResponse<AiFeatureConfig[]>>('/ai-features').then(r => r.data),
+
+  getFeature: (featureKey: string) =>
+    api.get<ApiResponse<AiFeatureConfig>>(`/ai-features/${featureKey}`).then(r => r.data),
+
+  updateFeature: (featureKey: string, data: UpdateAiFeatureConfigInput) =>
+    api.patch<ApiResponse<AiFeatureConfig>>(`/ai-features/${featureKey}`, data).then(r => r.data),
 }

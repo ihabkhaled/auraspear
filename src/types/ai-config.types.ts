@@ -141,6 +141,7 @@ export interface OsintSourceCardProps {
   onEdit: (source: OsintSourceConfig) => void
   onDelete: (source: OsintSourceConfig) => void
   onTest: (sourceId: string) => void
+  onToggle: (sourceId: string, enabled: boolean) => void
   testLoading: boolean
   t: (key: string) => string
 }
@@ -162,11 +163,149 @@ export interface AgentConfigEditDialogProps {
   t: (key: string) => string
 }
 
+export interface OsintQueryInput {
+  sourceId: string
+  iocType: string
+  iocValue: string
+}
+
+export interface OsintEnrichInput {
+  iocType: string
+  iocValue: string
+  sourceIds: string[]
+}
+
+export interface OsintQueryResult {
+  sourceId: string
+  sourceName: string
+  sourceType: string
+  success: boolean
+  data: unknown
+  rawResponse?: unknown
+  error: string | null
+  statusCode?: number | null
+  messageKey?: string | null
+  responseTimeMs: number
+  queriedAt: string
+}
+
+export interface OsintEnrichmentResult {
+  iocType: string
+  iocValue: string
+  results: OsintQueryResult[]
+  totalSources: number
+  successCount: number
+  failureCount: number
+  enrichedAt: string
+}
+
+export interface BuiltinOsintSourceDefaults {
+  baseUrl: string
+  authType: OsintAuthType
+  headerName: string
+  queryParamName: string
+  responsePath: string
+  requestMethod: string
+  supportedIocTypes: string[]
+  rateLimitHint: string
+}
+
 export interface OsintSourceDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   source: OsintSourceConfig | null
   onSubmit: (data: CreateOsintSourceInput | UpdateOsintSourceInput) => void
   loading: boolean
+  t: (key: string) => string
+}
+
+export interface OsintEnrichButtonProps {
+  iocType: string
+  iocValue: string
+  t: (key: string) => string
+}
+
+export interface OsintFileUploadButtonProps {
+  t: (key: string) => string
+}
+
+export interface AiPromptTemplate {
+  id: string
+  tenantId: string
+  taskType: string
+  version: number
+  name: string
+  content: string
+  isActive: boolean
+  createdBy: string
+  reviewedBy: string | null
+  reviewedAt: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface CreateAiPromptInput {
+  taskType: string
+  name: string
+  content: string
+}
+
+export interface UpdateAiPromptInput {
+  name?: string
+  content?: string
+}
+
+export interface AiFeatureConfig {
+  id: string
+  tenantId: string
+  featureKey: string
+  enabled: boolean
+  preferredProvider: string | null
+  maxTokens: number
+  approvalLevel: string
+  monthlyTokenBudget: number | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface UpdateAiFeatureConfigInput {
+  enabled?: boolean
+  preferredProvider?: string | null
+  maxTokens?: number
+  approvalLevel?: string
+  monthlyTokenBudget?: number | null
+}
+
+export interface PromptDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  prompt: AiPromptTemplate | null
+  onSubmit: (data: CreateAiPromptInput | UpdateAiPromptInput) => void
+  loading: boolean
+  t: (key: string) => string
+}
+
+export interface FeatureEditDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  feature: AiFeatureConfig | null
+  onSubmit: (featureKey: string, data: UpdateAiFeatureConfigInput) => void
+  loading: boolean
+  t: (key: string) => string
+}
+
+export interface PromptTableProps {
+  prompts: AiPromptTemplate[]
+  loading: boolean
+  onEdit: (prompt: AiPromptTemplate) => void
+  onActivate: (id: string) => void
+  onDelete: (prompt: AiPromptTemplate) => void
+  t: (key: string) => string
+}
+
+export interface FeatureTableProps {
+  features: AiFeatureConfig[]
+  loading: boolean
+  onEdit: (feature: AiFeatureConfig) => void
   t: (key: string) => string
 }

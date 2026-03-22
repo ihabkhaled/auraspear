@@ -149,6 +149,24 @@ export interface UseComplianceEditDialogParams {
   initialValues: EditComplianceFrameworkFormValues
 }
 
+export interface CompliancePageDialogsReturn {
+  readonly createOpen: boolean
+  readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly editOpen: boolean
+  readonly setEditOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly detailOpen: boolean
+  readonly setDetailOpen: React.Dispatch<React.SetStateAction<boolean>>
+  readonly selectedFramework: ComplianceFramework | null
+  readonly setSelectedFramework: React.Dispatch<React.SetStateAction<ComplianceFramework | null>>
+  readonly deleteFrameworkId: string | null
+  readonly setDeleteFrameworkId: React.Dispatch<React.SetStateAction<string | null>>
+  readonly deleteFrameworkName: string
+  readonly editInitialValues: EditComplianceFrameworkFormValues
+  readonly handleRowClick: (framework: ComplianceFramework) => void
+  readonly openEditDialog: (framework: ComplianceFramework) => void
+  readonly openDeleteDialog: (framework: ComplianceFramework) => void
+}
+
 export interface UseComplianceControlEditParams {
   open: boolean
   onOpenChange: (open: boolean) => void
