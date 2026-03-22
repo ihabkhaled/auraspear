@@ -47,7 +47,8 @@
     "usersControl": "Controle des utilisateurs",
     "knowledge": "Base de Connaissances",
     "entities": "Graphe Entités",
-    "msspDashboard": "Tableau de bord MSSP"
+    "msspDashboard": "Tableau de bord MSSP",
+    "aiConfig": "Config IA"
   },
   "common": {
     "search": "Rechercher",
@@ -1347,7 +1348,8 @@
       "accountInactive": "Votre compte n'est pas actif. Veuillez contacter votre administrateur.",
       "membershipInactive": "Votre adhesion a ce locataire n'est pas active.",
       "tokenRevoked": "Ce jeton a ete revoque. Veuillez vous reconnecter.",
-      "tokenMismatch": "Le jeton de rafraichissement n'appartient pas a cet utilisateur."
+      "tokenMismatch": "Le jeton de rafraichissement n'appartient pas a cet utilisateur.",
+      "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
       "failed": "La validation a echoue. Veuillez verifier votre saisie et reessayer.",
@@ -1578,7 +1580,9 @@
       "serviceUnavailable": "Le service d'IA est temporairement indisponible. Veuillez reessayer plus tard.",
       "featureDisabled": "Cette fonctionnalité IA est désactivée pour votre tenant.",
       "connectorNotAvailable": "Le connecteur IA demandé n'est pas disponible.",
-      "budgetExceeded": "Budget d'utilisation IA dépassé pour cette fonctionnalité. Contactez votre administrateur."
+      "budgetExceeded": "Budget d'utilisation IA dépassé pour cette fonctionnalité. Contactez votre administrateur.",
+      "agentDisabled": "Cet agent IA est actuellement désactivé. Contactez votre administrateur.",
+      "agentQuotaExceeded": "Quota de tokens de l'agent IA dépassé. Réessayez plus tard ou contactez votre administrateur."
     },
     "aiAgents": {
       "notFound": "Agent IA introuvable.",
@@ -3626,7 +3630,8 @@
       "aiCaseCopilot": "Copilote IA des Cas",
       "aiDetectionCopilot": "Copilote IA de Détection",
       "entities": "Graphe d'Entités",
-      "msspDashboard": "Tableau de Bord MSSP"
+      "msspDashboard": "Tableau de Bord MSSP",
+      "aiConfig": "Configuration IA"
     },
     "permissions": {
       "dashboard": {
@@ -3825,6 +3830,19 @@
       },
       "msspDashboard": {
         "view": "Voir le tableau de bord MSSP"
+      },
+      "aiConfig": {
+        "view": "Voir la Configuration IA",
+        "edit": "Modifier la Configuration IA",
+        "managePrompts": "Gerer les Prompts IA",
+        "manageTriggers": "Gerer les Declencheurs IA",
+        "manageOsint": "Gerer les Sources OSINT"
+      },
+      "aiApprovals": {
+        "manage": "Gerer les Approbations IA"
+      },
+      "aiUsage": {
+        "view": "Voir Utilisation IA"
       }
     },
     "roles": {
@@ -4025,5 +4043,102 @@
     "totalAlerts": "Total des alertes",
     "totalCriticalAlerts": "Total des alertes critiques",
     "totalOpenCases": "Total des cas ouverts"
+  },
+  "aiConfig": {
+    "title": "Configuration IA",
+    "description": "Configurer les agents IA, fournisseurs, declencheurs et sources OSINT",
+    "tabAgents": "Agents",
+    "tabOsint": "Sources OSINT",
+    "tabApprovals": "Approbations",
+    "agentOrchestrator": "Orchestrateur",
+    "agentOrchestratorDesc": "Achemine et coordonne les taches entre tous les agents",
+    "agentL1Analyst": "Analyste L1",
+    "agentL1AnalystDesc": "Triage et classification des alertes de premiere ligne",
+    "agentL2Analyst": "Analyste L2",
+    "agentL2AnalystDesc": "Investigation approfondie et analyse des menaces",
+    "agentThreatHunter": "Chasseur de Menaces",
+    "agentThreatHunterDesc": "Chasse proactive aux menaces et generation d hypotheses",
+    "agentRulesAnalyst": "Analyste de Regles",
+    "agentRulesAnalystDesc": "Creation et ajustement des regles de detection",
+    "agentNormVerifier": "Verificateur de Normalisation",
+    "agentNormVerifierDesc": "Validation de la normalisation des donnees et controles qualite",
+    "agentDashboardBuilder": "Constructeur de Tableaux de Bord",
+    "agentDashboardBuilderDesc": "Generation de tableaux de bord et rapports",
+    "enabled": "Active",
+    "disabled": "Desactive",
+    "configure": "Configurer",
+    "provider": "Fournisseur",
+    "model": "Modele",
+    "temperature": "Temperature",
+    "maxTokens": "Tokens Maximum",
+    "triggerMode": "Mode de Declenchement",
+    "outputFormat": "Format de Sortie",
+    "tokenUsage": "Utilisation des Tokens",
+    "tokensPerHour": "Tokens/Heure",
+    "tokensPerDay": "Tokens/Jour",
+    "tokensPerMonth": "Tokens/Mois",
+    "used": "Utilise",
+    "limit": "Limite",
+    "resetUsage": "Reinitialiser Utilisation",
+    "maxConcurrent": "Maximum Concurrent",
+    "systemPrompt": "Prompt Systeme",
+    "promptSuffix": "Suffixe du Prompt",
+    "indexPatterns": "Motifs d Index",
+    "presentationSkills": "Competences de Presentation",
+    "providerInherit": "Heriter (Defaut du Locataire)",
+    "providerDirectApi": "API Directe",
+    "providerBedrock": "AWS Bedrock",
+    "providerOpenclaw": "OpenClaw",
+    "triggerManual": "Manuel Uniquement",
+    "triggerAutoAlert": "Auto sur Alerte",
+    "triggerAutoAgent": "Auto par Agent",
+    "triggerScheduled": "Programme",
+    "outputJson": "JSON Structure",
+    "outputMarkdown": "Markdown",
+    "outputRichCards": "Cartes Enrichies",
+    "configUpdated": "Configuration mise a jour",
+    "agentEnabled": "Agent active",
+    "agentDisabled": "Agent desactive",
+    "usageReset": "Compteurs reinitialises",
+    "generalTab": "General",
+    "providerTab": "Fournisseur",
+    "tokensTab": "Tokens",
+    "triggersTab": "Declencheurs",
+    "advancedTab": "Avance",
+    "addSource": "Ajouter une Source OSINT",
+    "editSource": "Modifier la Source",
+    "deleteSource": "Supprimer la Source",
+    "testConnection": "Tester la Connexion",
+    "sourceCreated": "Source creee",
+    "sourceUpdated": "Source mise a jour",
+    "sourceDeleted": "Source supprimee",
+    "deleteConfirm": "Supprimer cette source OSINT ?",
+    "noSources": "Aucune source OSINT configuree",
+    "noSourcesDesc": "Ajoutez des sources OSINT pour activer l enrichissement de la veille sur les menaces",
+    "apiKey": "Cle API",
+    "baseUrl": "URL de Base",
+    "authType": "Type d Authentification",
+    "headerName": "Nom de l En-tete",
+    "queryParam": "Parametre de Requete",
+    "responsePath": "Chemin de Reponse",
+    "requestMethod": "Methode",
+    "timeout": "Delai d Attente (ms)",
+    "sourceName": "Nom de la Source",
+    "sourceType": "Type de Source",
+    "pendingApprovals": "Approbations en Attente",
+    "allApprovals": "Toutes les Approbations",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "comment": "Commentaire",
+    "noApprovals": "Aucune approbation en attente",
+    "noApprovalsDesc": "Les actions IA necessitant une approbation apparaitront ici",
+    "approvalResolved": "Approbation resolue",
+    "riskLevel": "Niveau de Risque",
+    "requestedBy": "Demande Par",
+    "expiresAt": "Expire Le",
+    "actionType": "Type d Action",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement..."
   }
 }

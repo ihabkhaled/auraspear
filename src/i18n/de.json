@@ -47,7 +47,8 @@
     "usersControl": "Benutzerkontrolle",
     "knowledge": "Wissensdatenbank",
     "entities": "Entitätsgraph",
-    "msspDashboard": "MSSP-Dashboard"
+    "msspDashboard": "MSSP-Dashboard",
+    "aiConfig": "KI-Konfig"
   },
   "common": {
     "search": "Suche",
@@ -1347,7 +1348,8 @@
       "accountInactive": "Ihr Konto ist nicht aktiv. Bitte kontaktieren Sie Ihren Administrator.",
       "membershipInactive": "Ihre Mitgliedschaft in diesem Mandanten ist nicht aktiv.",
       "tokenRevoked": "Dieses Token wurde widerrufen. Bitte melden Sie sich erneut an.",
-      "tokenMismatch": "Das Aktualisierungstoken gehort nicht zu diesem Benutzer."
+      "tokenMismatch": "Das Aktualisierungstoken gehort nicht zu diesem Benutzer.",
+      "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
       "failed": "Validierung fehlgeschlagen. Bitte uberprufen Sie Ihre Eingabe und versuchen Sie es erneut.",
@@ -1578,7 +1580,9 @@
       "serviceUnavailable": "Der KI-Dienst ist voruebergehend nicht verfuegbar. Bitte versuchen Sie es spaeter erneut.",
       "featureDisabled": "Diese KI-Funktion ist für Ihren Tenant deaktiviert.",
       "connectorNotAvailable": "Der angeforderte KI-Konnektor ist nicht verfügbar.",
-      "budgetExceeded": "KI-Nutzungsbudget fur diese Funktion uberschritten. Kontaktieren Sie Ihren Administrator."
+      "budgetExceeded": "KI-Nutzungsbudget fur diese Funktion uberschritten. Kontaktieren Sie Ihren Administrator.",
+      "agentDisabled": "Dieser KI-Agent ist derzeit deaktiviert. Kontaktieren Sie Ihren Administrator.",
+      "agentQuotaExceeded": "Token-Kontingent des KI-Agenten uberschritten. Versuchen Sie es spater erneut oder kontaktieren Sie Ihren Administrator."
     },
     "aiAgents": {
       "notFound": "KI-Agent nicht gefunden.",
@@ -3626,7 +3630,8 @@
       "aiCaseCopilot": "KI-Fallcopilot",
       "aiDetectionCopilot": "KI-Erkennungscopilot",
       "entities": "Entitätsgraph",
-      "msspDashboard": "MSSP-Dashboard"
+      "msspDashboard": "MSSP-Dashboard",
+      "aiConfig": "KI-Konfiguration"
     },
     "permissions": {
       "dashboard": {
@@ -3825,6 +3830,19 @@
       },
       "msspDashboard": {
         "view": "MSSP-Dashboard anzeigen"
+      },
+      "aiConfig": {
+        "view": "KI-Konfiguration anzeigen",
+        "edit": "KI-Konfiguration bearbeiten",
+        "managePrompts": "KI-Prompts verwalten",
+        "manageTriggers": "KI-Ausloser verwalten",
+        "manageOsint": "OSINT-Quellen verwalten"
+      },
+      "aiApprovals": {
+        "manage": "KI-Genehmigungen verwalten"
+      },
+      "aiUsage": {
+        "view": "KI-Nutzung anzeigen"
       }
     },
     "roles": {
@@ -4025,5 +4043,102 @@
     "totalAlerts": "Gesamtalarme",
     "totalCriticalAlerts": "Gesamtkritische Alarme",
     "totalOpenCases": "Gesamtoffene Fälle"
+  },
+  "aiConfig": {
+    "title": "KI-Konfiguration",
+    "description": "KI-Agenten, Anbieter, Ausloser und OSINT-Quellen konfigurieren",
+    "tabAgents": "Agenten",
+    "tabOsint": "OSINT-Quellen",
+    "tabApprovals": "Genehmigungen",
+    "agentOrchestrator": "Orchestrator",
+    "agentOrchestratorDesc": "Leitet und koordiniert Aufgaben zwischen allen Agenten",
+    "agentL1Analyst": "L1-Analyst",
+    "agentL1AnalystDesc": "Erstlinien-Alarm-Triage und -Klassifizierung",
+    "agentL2Analyst": "L2-Analyst",
+    "agentL2AnalystDesc": "Tiefgehende Untersuchung und Bedrohungsanalyse",
+    "agentThreatHunter": "Bedrohungsjager",
+    "agentThreatHunterDesc": "Proaktive Bedrohungsjagd und Hypothesengenerierung",
+    "agentRulesAnalyst": "Regelanalyst",
+    "agentRulesAnalystDesc": "Erstellung und Optimierung von Erkennungsregeln",
+    "agentNormVerifier": "Normalisierungsprufer",
+    "agentNormVerifierDesc": "Validierung der Datennormalisierung und Qualitatsprufungen",
+    "agentDashboardBuilder": "Dashboard-Ersteller",
+    "agentDashboardBuilderDesc": "Dashboard- und Berichtgenerierung",
+    "enabled": "Aktiviert",
+    "disabled": "Deaktiviert",
+    "configure": "Konfigurieren",
+    "provider": "Anbieter",
+    "model": "Modell",
+    "temperature": "Temperatur",
+    "maxTokens": "Max. Token",
+    "triggerMode": "Auslosemodus",
+    "outputFormat": "Ausgabeformat",
+    "tokenUsage": "Token-Nutzung",
+    "tokensPerHour": "Token/Stunde",
+    "tokensPerDay": "Token/Tag",
+    "tokensPerMonth": "Token/Monat",
+    "used": "Verwendet",
+    "limit": "Limit",
+    "resetUsage": "Nutzung zurucksetzen",
+    "maxConcurrent": "Max. gleichzeitig",
+    "systemPrompt": "System-Prompt",
+    "promptSuffix": "Prompt-Suffix",
+    "indexPatterns": "Index-Muster",
+    "presentationSkills": "Prasentationsfahigkeiten",
+    "providerInherit": "Erben (Mandanten-Standard)",
+    "providerDirectApi": "Direkte API",
+    "providerBedrock": "AWS Bedrock",
+    "providerOpenclaw": "OpenClaw",
+    "triggerManual": "Nur Manuell",
+    "triggerAutoAlert": "Auto bei Alarm",
+    "triggerAutoAgent": "Auto durch Agent",
+    "triggerScheduled": "Geplant",
+    "outputJson": "Strukturiertes JSON",
+    "outputMarkdown": "Markdown",
+    "outputRichCards": "Erweiterte Karten",
+    "configUpdated": "Konfiguration aktualisiert",
+    "agentEnabled": "Agent aktiviert",
+    "agentDisabled": "Agent deaktiviert",
+    "usageReset": "Nutzungszahler zuruckgesetzt",
+    "generalTab": "Allgemein",
+    "providerTab": "Anbieter",
+    "tokensTab": "Token",
+    "triggersTab": "Ausloser",
+    "advancedTab": "Erweitert",
+    "addSource": "OSINT-Quelle hinzufugen",
+    "editSource": "Quelle bearbeiten",
+    "deleteSource": "Quelle loschen",
+    "testConnection": "Verbindung testen",
+    "sourceCreated": "Quelle erstellt",
+    "sourceUpdated": "Quelle aktualisiert",
+    "sourceDeleted": "Quelle geloscht",
+    "deleteConfirm": "Diese OSINT-Quelle loschen?",
+    "noSources": "Keine OSINT-Quellen konfiguriert",
+    "noSourcesDesc": "OSINT-Quellen hinzufugen um Bedrohungsintelligenz-Anreicherung zu aktivieren",
+    "apiKey": "API-Schlussel",
+    "baseUrl": "Basis-URL",
+    "authType": "Auth-Typ",
+    "headerName": "Header-Name",
+    "queryParam": "Abfrageparameter",
+    "responsePath": "Antwortpfad",
+    "requestMethod": "Methode",
+    "timeout": "Zeitlimit (ms)",
+    "sourceName": "Quellenname",
+    "sourceType": "Quellentyp",
+    "pendingApprovals": "Ausstehende Genehmigungen",
+    "allApprovals": "Alle Genehmigungen",
+    "approve": "Genehmigen",
+    "reject": "Ablehnen",
+    "comment": "Kommentar",
+    "noApprovals": "Keine ausstehenden Genehmigungen",
+    "noApprovalsDesc": "KI-Aktionen die eine Genehmigung erfordern werden hier angezeigt",
+    "approvalResolved": "Genehmigung gelost",
+    "riskLevel": "Risikostufe",
+    "requestedBy": "Angefordert Von",
+    "expiresAt": "Lauft Ab Am",
+    "actionType": "Aktionstyp",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "saving": "Speichern..."
   }
 }

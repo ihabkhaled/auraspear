@@ -47,7 +47,8 @@
     "usersControl": "?????? ?? ??????????",
     "knowledge": "قاعدة المعرفة",
     "entities": "مخطط الكيانات",
-    "msspDashboard": "لوحة تحكم MSSP"
+    "msspDashboard": "لوحة تحكم MSSP",
+    "aiConfig": "تهيئة الذكاء الاصطناعي"
   },
   "common": {
     "search": "بحث",
@@ -1347,7 +1348,8 @@
       "accountInactive": "حسابك غير نشط. يرجى التواصل مع المسؤول.",
       "membershipInactive": "عضويتك في هذا المستأجر غير نشطة.",
       "tokenRevoked": "تم إلغاء هذا الرمز. يرجى تسجيل الدخول مرة أخرى.",
-      "tokenMismatch": "رمز التحديث لا ينتمي إلى هذا المستخدم."
+      "tokenMismatch": "رمز التحديث لا ينتمي إلى هذا المستخدم.",
+      "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
       "failed": "فشل التحقق. يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
@@ -1578,7 +1580,9 @@
       "serviceUnavailable": "خدمة الذكاء الاصطناعي غير متاحة مؤقتاً. يرجى المحاولة لاحقاً.",
       "featureDisabled": "ميزة الذكاء الاصطناعي هذه معطّلة لمؤسستك.",
       "connectorNotAvailable": "موصّل الذكاء الاصطناعي المطلوب غير متاح.",
-      "budgetExceeded": "تم تجاوز ميزانية استخدام الذكاء الاصطناعي لهذه الميزة. اتصل بمسؤولك."
+      "budgetExceeded": "تم تجاوز ميزانية استخدام الذكاء الاصطناعي لهذه الميزة. اتصل بمسؤولك.",
+      "agentDisabled": "وكيل الذكاء الاصطناعي هذا معطل حالياً. اتصل بمسؤولك.",
+      "agentQuotaExceeded": "تم تجاوز حصة الرموز لوكيل الذكاء الاصطناعي. حاول مرة أخرى لاحقاً أو اتصل بمسؤولك."
     },
     "aiAgents": {
       "notFound": "لم يتم العثور على وكيل الذكاء الاصطناعي.",
@@ -3626,7 +3630,8 @@
       "aiCaseCopilot": "مساعد الذكاء الاصطناعي للحالات",
       "aiDetectionCopilot": "مساعد الذكاء الاصطناعي للاكتشاف",
       "entities": "رسم بياني للكيانات",
-      "msspDashboard": "لوحة تحكم MSSP"
+      "msspDashboard": "لوحة تحكم MSSP",
+      "aiConfig": "تهيئة الذكاء الاصطناعي"
     },
     "permissions": {
       "dashboard": {
@@ -3825,6 +3830,19 @@
       },
       "msspDashboard": {
         "view": "عرض لوحة تحكم MSSP"
+      },
+      "aiConfig": {
+        "view": "عرض تهيئة الذكاء الاصطناعي",
+        "edit": "تعديل تهيئة الذكاء الاصطناعي",
+        "managePrompts": "إدارة موجهات الذكاء الاصطناعي",
+        "manageTriggers": "إدارة مشغلات الذكاء الاصطناعي",
+        "manageOsint": "إدارة مصادر OSINT"
+      },
+      "aiApprovals": {
+        "manage": "إدارة موافقات الذكاء الاصطناعي"
+      },
+      "aiUsage": {
+        "view": "عرض استخدام الذكاء الاصطناعي"
       }
     },
     "roles": {
@@ -4025,5 +4043,102 @@
     "totalAlerts": "إجمالي التنبيهات",
     "totalCriticalAlerts": "إجمالي التنبيهات الحرجة",
     "totalOpenCases": "إجمالي الحالات المفتوحة"
+  },
+  "aiConfig": {
+    "title": "تهيئة الذكاء الاصطناعي",
+    "description": "تهيئة وكلاء الذكاء الاصطناعي والمزودين والمشغلات ومصادر OSINT",
+    "tabAgents": "الوكلاء",
+    "tabOsint": "مصادر OSINT",
+    "tabApprovals": "الموافقات",
+    "agentOrchestrator": "Orchestrator",
+    "agentOrchestratorDesc": "Routes and coordinates tasks across all agents",
+    "agentL1Analyst": "L1 Analyst",
+    "agentL1AnalystDesc": "First-line alert triage and classification",
+    "agentL2Analyst": "L2 Analyst",
+    "agentL2AnalystDesc": "Deep investigation and threat analysis",
+    "agentThreatHunter": "Threat Hunter",
+    "agentThreatHunterDesc": "Proactive threat hunting and hypothesis generation",
+    "agentRulesAnalyst": "Rules Analyst",
+    "agentRulesAnalystDesc": "Detection rule creation and tuning",
+    "agentNormVerifier": "Norm Verifier",
+    "agentNormVerifierDesc": "Data normalization validation and quality checks",
+    "agentDashboardBuilder": "Dashboard Builder",
+    "agentDashboardBuilderDesc": "Dashboard and report generation",
+    "enabled": "مفعل",
+    "disabled": "معطل",
+    "configure": "تهيئة",
+    "provider": "Provider",
+    "model": "Model",
+    "temperature": "Temperature",
+    "maxTokens": "Max Tokens",
+    "triggerMode": "Trigger Mode",
+    "outputFormat": "Output Format",
+    "tokenUsage": "Token Usage",
+    "tokensPerHour": "Tokens/Hour",
+    "tokensPerDay": "Tokens/Day",
+    "tokensPerMonth": "Tokens/Month",
+    "used": "Used",
+    "limit": "Limit",
+    "resetUsage": "Reset Usage",
+    "maxConcurrent": "Max Concurrent",
+    "systemPrompt": "System Prompt",
+    "promptSuffix": "Prompt Suffix",
+    "indexPatterns": "Index Patterns",
+    "presentationSkills": "Presentation Skills",
+    "providerInherit": "Inherit (Tenant Default)",
+    "providerDirectApi": "Direct API",
+    "providerBedrock": "AWS Bedrock",
+    "providerOpenclaw": "OpenClaw",
+    "triggerManual": "Manual Only",
+    "triggerAutoAlert": "Auto on Alert",
+    "triggerAutoAgent": "Auto by Agent",
+    "triggerScheduled": "Scheduled",
+    "outputJson": "Structured JSON",
+    "outputMarkdown": "Markdown",
+    "outputRichCards": "Rich Cards",
+    "configUpdated": "Configuration updated",
+    "agentEnabled": "Agent enabled",
+    "agentDisabled": "Agent disabled",
+    "usageReset": "Usage counters reset",
+    "generalTab": "General",
+    "providerTab": "Provider",
+    "tokensTab": "Tokens",
+    "triggersTab": "Triggers",
+    "advancedTab": "Advanced",
+    "addSource": "Add OSINT Source",
+    "editSource": "Edit Source",
+    "deleteSource": "Delete Source",
+    "testConnection": "Test Connection",
+    "sourceCreated": "Source created",
+    "sourceUpdated": "Source updated",
+    "sourceDeleted": "Source deleted",
+    "deleteConfirm": "Delete this OSINT source?",
+    "noSources": "No OSINT sources configured",
+    "noSourcesDesc": "Add OSINT sources to enable threat intelligence enrichment",
+    "apiKey": "API Key",
+    "baseUrl": "Base URL",
+    "authType": "Auth Type",
+    "headerName": "Header Name",
+    "queryParam": "Query Parameter",
+    "responsePath": "Response Path",
+    "requestMethod": "Method",
+    "timeout": "Timeout (ms)",
+    "sourceName": "Source Name",
+    "sourceType": "Source Type",
+    "pendingApprovals": "Pending Approvals",
+    "allApprovals": "All Approvals",
+    "approve": "موافقة",
+    "reject": "رفض",
+    "comment": "تعليق",
+    "noApprovals": "No pending approvals",
+    "noApprovalsDesc": "AI actions requiring approval will appear here",
+    "approvalResolved": "Approval resolved",
+    "riskLevel": "Risk Level",
+    "requestedBy": "Requested By",
+    "expiresAt": "Expires At",
+    "actionType": "Action Type",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "saving": "جاري الحفظ..."
   }
 }

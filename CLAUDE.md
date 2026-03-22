@@ -51,6 +51,16 @@
 47. **EVERY AI panel MUST have a dismiss/close affordance** — AI suggestions must never block analyst workflow.
 48. **EVERY new page route MUST have a corresponding Playwright test file** — At minimum: loaded state, empty state, error state, responsive breakpoints.
 49. **EVERY new AI surface MUST register in the AI feature catalog** — Before implementing an AI panel, the feature must exist in `AiFeatureKey` enum and be configured in the backend AI feature catalog.
+50. **NEVER hardcode agent IDs as string literals** — Use `AiAgentId` enum from `@/enums`. Write `AiAgentId.ORCHESTRATOR` not `'orchestrator'`.
+51. **NEVER hardcode provider modes as strings** — Use `AiProviderMode` enum. Write `AiProviderMode.DIRECT_API` not `'direct_api'`.
+52. **NEVER hardcode trigger modes as strings** — Use `AiTriggerMode` enum. Write `AiTriggerMode.AUTO_ON_ALERT` not `'auto_on_alert'`.
+53. **EVERY rich AI output block MUST use a standardized renderer component** — All structured AI output blocks (risk gauges, IOC tables, MITRE maps, timelines) must use components from `src/components/ai-renderer/`. No inline ad-hoc rendering.
+54. **EVERY OSINT/custom source form MUST validate URLs against SSRF patterns** — Use `isAllowedSourceUrl()` from `@/lib/source.utils.ts` before saving.
+55. **NEVER store OSINT API keys in frontend state or localStorage** — Keys sent to backend for encrypted storage only.
+56. **EVERY agent configuration change MUST invalidate the `agent-configs` query key** — Include tenantId.
+57. **EVERY trigger configuration form MUST use per-mode Zod schemas** — Separate schemas for manual, auto_on_alert, auto_by_agent, scheduled.
+58. **NEVER render raw AI inter-agent JSON in user-facing UI** — Transform to human-readable before rendering.
+59. **EVERY approval-required AI action MUST show approval status badge** — Pending approvals visually distinct.
 
 ---
 

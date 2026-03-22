@@ -343,6 +343,7 @@ export default function DashboardPage() {
                       falsePositiveCountLabel={t('falsePositiveCount')}
                       falsePositiveRateLabel={t('falsePositiveRate')}
                       createdAtLabel={t('createdAt')}
+                      lastTriggeredAtLabel={t('lastTriggeredAt')}
                     />
                   </div>
                   <div className="space-y-3">
@@ -356,6 +357,7 @@ export default function DashboardPage() {
                       hitCountLabel={t('hitCount')}
                       falsePositiveCountLabel={t('falsePositiveCount')}
                       falsePositiveRateLabel={t('falsePositiveRate')}
+                      createdAtLabel={t('createdAt')}
                       lastTriggeredAtLabel={t('lastTriggeredAt')}
                     />
                   </div>

@@ -47,7 +47,8 @@
     "usersControl": "Control de usuarios",
     "knowledge": "Base de Conocimiento",
     "entities": "Grafo de Entidades",
-    "msspDashboard": "Panel MSSP"
+    "msspDashboard": "Panel MSSP",
+    "aiConfig": "Config IA"
   },
   "common": {
     "search": "Buscar",
@@ -1347,7 +1348,8 @@
       "accountInactive": "Su cuenta no está activa. Por favor, contacte a su administrador.",
       "membershipInactive": "Su membresía en este inquilino no está activa.",
       "tokenRevoked": "Este token ha sido revocado. Por favor, inicie sesión nuevamente.",
-      "tokenMismatch": "El token de actualización no pertenece a este usuario."
+      "tokenMismatch": "El token de actualización no pertenece a este usuario.",
+      "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
       "failed": "La validación falló. Por favor, verifique su entrada e inténtelo de nuevo.",
@@ -1578,7 +1580,9 @@
       "serviceUnavailable": "El servicio de IA no está disponible temporalmente. Por favor, inténtelo más tarde.",
       "featureDisabled": "Esta función de IA está deshabilitada para su tenant.",
       "connectorNotAvailable": "El conector de IA solicitado no está disponible.",
-      "budgetExceeded": "Se ha excedido el presupuesto de uso de IA para esta función. Contacte a su administrador."
+      "budgetExceeded": "Se ha excedido el presupuesto de uso de IA para esta función. Contacte a su administrador.",
+      "agentDisabled": "Este agente de IA está actualmente deshabilitado. Contacte a su administrador.",
+      "agentQuotaExceeded": "Se ha excedido la cuota de tokens del agente de IA. Inténtelo más tarde o contacte a su administrador."
     },
     "aiAgents": {
       "notFound": "Agente de IA no encontrado.",
@@ -3626,7 +3630,8 @@
       "aiCaseCopilot": "Copiloto IA de Casos",
       "aiDetectionCopilot": "Copiloto IA de Detección",
       "entities": "Grafo de Entidades",
-      "msspDashboard": "Panel MSSP"
+      "msspDashboard": "Panel MSSP",
+      "aiConfig": "Configuracion de IA"
     },
     "permissions": {
       "dashboard": {
@@ -3825,6 +3830,19 @@
       },
       "msspDashboard": {
         "view": "Ver panel MSSP"
+      },
+      "aiConfig": {
+        "view": "Ver Configuracion de IA",
+        "edit": "Editar Configuracion de IA",
+        "managePrompts": "Gestionar Prompts de IA",
+        "manageTriggers": "Gestionar Disparadores de IA",
+        "manageOsint": "Gestionar Fuentes OSINT"
+      },
+      "aiApprovals": {
+        "manage": "Gestionar Aprobaciones de IA"
+      },
+      "aiUsage": {
+        "view": "Ver Uso de IA"
       }
     },
     "roles": {
@@ -4025,5 +4043,102 @@
     "totalAlerts": "Total de alertas",
     "totalCriticalAlerts": "Total de alertas críticas",
     "totalOpenCases": "Total de casos abiertos"
+  },
+  "aiConfig": {
+    "title": "Configuracion de IA",
+    "description": "Configurar agentes de IA, proveedores, disparadores y fuentes OSINT",
+    "tabAgents": "Agentes",
+    "tabOsint": "Fuentes OSINT",
+    "tabApprovals": "Aprobaciones",
+    "agentOrchestrator": "Orquestador",
+    "agentOrchestratorDesc": "Enruta y coordina tareas entre todos los agentes",
+    "agentL1Analyst": "Analista L1",
+    "agentL1AnalystDesc": "Triaje y clasificacion de alertas de primera linea",
+    "agentL2Analyst": "Analista L2",
+    "agentL2AnalystDesc": "Investigacion profunda y analisis de amenazas",
+    "agentThreatHunter": "Cazador de Amenazas",
+    "agentThreatHunterDesc": "Caza proactiva de amenazas y generacion de hipotesis",
+    "agentRulesAnalyst": "Analista de Reglas",
+    "agentRulesAnalystDesc": "Creacion y ajuste de reglas de deteccion",
+    "agentNormVerifier": "Verificador de Normalizacion",
+    "agentNormVerifierDesc": "Validacion de normalizacion de datos y controles de calidad",
+    "agentDashboardBuilder": "Constructor de Paneles",
+    "agentDashboardBuilderDesc": "Generacion de paneles e informes",
+    "enabled": "Habilitado",
+    "disabled": "Deshabilitado",
+    "configure": "Configurar",
+    "provider": "Proveedor",
+    "model": "Modelo",
+    "temperature": "Temperatura",
+    "maxTokens": "Tokens Maximos",
+    "triggerMode": "Modo de Disparo",
+    "outputFormat": "Formato de Salida",
+    "tokenUsage": "Uso de Tokens",
+    "tokensPerHour": "Tokens/Hora",
+    "tokensPerDay": "Tokens/Dia",
+    "tokensPerMonth": "Tokens/Mes",
+    "used": "Usado",
+    "limit": "Limite",
+    "resetUsage": "Restablecer Uso",
+    "maxConcurrent": "Maximo Concurrente",
+    "systemPrompt": "Prompt del Sistema",
+    "promptSuffix": "Sufijo del Prompt",
+    "indexPatterns": "Patrones de Indice",
+    "presentationSkills": "Habilidades de Presentacion",
+    "providerInherit": "Heredar (Predeterminado del Inquilino)",
+    "providerDirectApi": "API Directa",
+    "providerBedrock": "AWS Bedrock",
+    "providerOpenclaw": "OpenClaw",
+    "triggerManual": "Solo Manual",
+    "triggerAutoAlert": "Auto en Alerta",
+    "triggerAutoAgent": "Auto por Agente",
+    "triggerScheduled": "Programado",
+    "outputJson": "JSON Estructurado",
+    "outputMarkdown": "Markdown",
+    "outputRichCards": "Tarjetas Enriquecidas",
+    "configUpdated": "Configuracion actualizada",
+    "agentEnabled": "Agente habilitado",
+    "agentDisabled": "Agente deshabilitado",
+    "usageReset": "Contadores de uso restablecidos",
+    "generalTab": "General",
+    "providerTab": "Proveedor",
+    "tokensTab": "Tokens",
+    "triggersTab": "Disparadores",
+    "advancedTab": "Avanzado",
+    "addSource": "Agregar Fuente OSINT",
+    "editSource": "Editar Fuente",
+    "deleteSource": "Eliminar Fuente",
+    "testConnection": "Probar Conexion",
+    "sourceCreated": "Fuente creada",
+    "sourceUpdated": "Fuente actualizada",
+    "sourceDeleted": "Fuente eliminada",
+    "deleteConfirm": "Eliminar esta fuente OSINT?",
+    "noSources": "Sin fuentes OSINT configuradas",
+    "noSourcesDesc": "Agregue fuentes OSINT para habilitar el enriquecimiento de inteligencia de amenazas",
+    "apiKey": "Clave API",
+    "baseUrl": "URL Base",
+    "authType": "Tipo de Autenticacion",
+    "headerName": "Nombre del Encabezado",
+    "queryParam": "Parametro de Consulta",
+    "responsePath": "Ruta de Respuesta",
+    "requestMethod": "Metodo",
+    "timeout": "Tiempo de Espera (ms)",
+    "sourceName": "Nombre de Fuente",
+    "sourceType": "Tipo de Fuente",
+    "pendingApprovals": "Aprobaciones Pendientes",
+    "allApprovals": "Todas las Aprobaciones",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "comment": "Comentario",
+    "noApprovals": "Sin aprobaciones pendientes",
+    "noApprovalsDesc": "Las acciones de IA que requieren aprobacion apareceran aqui",
+    "approvalResolved": "Aprobacion resuelta",
+    "riskLevel": "Nivel de Riesgo",
+    "requestedBy": "Solicitado Por",
+    "expiresAt": "Expira El",
+    "actionType": "Tipo de Accion",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "saving": "Guardando..."
   }
 }
