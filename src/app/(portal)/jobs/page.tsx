@@ -1,19 +1,11 @@
 'use client'
 
-import { Ban, Clock3, RefreshCcw, XCircle } from 'lucide-react'
+import { Clock3, RefreshCcw, XCircle } from 'lucide-react'
 import { DataTable, EmptyState, LoadingSpinner, PageHeader, Pagination } from '@/components/common'
+import { JobFilters, JobKpiCards } from '@/components/jobs'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { useJobsPage } from '@/hooks'
-import { JOB_STATUS_FILTER_OPTIONS, JOB_TYPE_FILTER_OPTIONS } from '@/lib/constants/jobs'
 import {
   getJobStatusBadgeVariant,
   isCancellableJobStatus,
@@ -153,87 +145,21 @@ export default function JobsPage() {
     <div className="space-y-6">
       <PageHeader title={t('title')} description={t('description')} />
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">{t('kpis.total')}</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-semibold">{stats?.data.total ?? 0}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">{t('kpis.running')}</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-semibold">{stats?.data.running ?? 0}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">{t('kpis.retrying')}</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-semibold">{stats?.data.retrying ?? 0}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">{t('kpis.failed')}</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-semibold">{stats?.data.failed ?? 0}</CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm">{t('kpis.delayed')}</CardTitle>
-          </CardHeader>
-          <CardContent className="text-2xl font-semibold">{stats?.data.delayed ?? 0}</CardContent>
-        </Card>
-      </div>
+      <JobKpiCards stats={stats} t={t} />
 
-      <div className="flex flex-col gap-3 rounded-lg border p-4 md:flex-row md:items-center">
-        <Select
-          value={statusFilter ?? allFilterValue}
-          onValueChange={value => setStatusFilter(isJobStatus(value) ? value : undefined)}
-        >
-          <SelectTrigger className="w-full md:w-56">
-            <SelectValue placeholder={t('filters.status')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={allFilterValue}>{t('filters.allStatuses')}</SelectItem>
-            {JOB_STATUS_FILTER_OPTIONS.map(jobStatus => (
-              <SelectItem key={jobStatus} value={jobStatus}>
-                {t(`status.${jobStatus}`)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={typeFilter ?? allFilterValue}
-          onValueChange={value => setTypeFilter(isJobType(value) ? value : undefined)}
-        >
-          <SelectTrigger className="w-full md:w-64">
-            <SelectValue placeholder={t('filters.type')} />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={allFilterValue}>{t('filters.allTypes')}</SelectItem>
-            {JOB_TYPE_FILTER_OPTIONS.map(jobType => (
-              <SelectItem key={jobType} value={jobType}>
-                {t(`types.${jobType}`)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        {canCancelAll && (
-          <Button
-            variant="destructive"
-            size="sm"
-            disabled={isMutating}
-            onClick={handleCancelAll}
-            className="ms-auto gap-1.5"
-          >
-            <Ban className="h-3.5 w-3.5" />
-            {t('cancelAll')}
-          </Button>
-        )}
-      </div>
+      <JobFilters
+        statusFilter={statusFilter}
+        typeFilter={typeFilter}
+        allFilterValue={allFilterValue}
+        isMutating={isMutating}
+        canCancelAll={canCancelAll}
+        onStatusChange={setStatusFilter}
+        onTypeChange={setTypeFilter}
+        onCancelAll={handleCancelAll}
+        isJobStatus={isJobStatus}
+        isJobType={isJobType}
+        t={t}
+      />
 
       {(data?.data?.length ?? 0) === 0 && !isFetching ? (
         <EmptyState

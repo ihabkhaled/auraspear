@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
+import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
 import { alertService } from '@/services/alert.service'
 import { useAuthStore } from '@/stores'
@@ -30,8 +31,8 @@ export function useAiAlertTriage(alertId: string) {
       setResults(prev => ({ ...prev, summarize: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiTriageError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -42,8 +43,8 @@ export function useAiAlertTriage(alertId: string) {
       setResults(prev => ({ ...prev, explainSeverity: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiTriageError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -54,8 +55,8 @@ export function useAiAlertTriage(alertId: string) {
       setResults(prev => ({ ...prev, falsePositiveScore: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiTriageError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -66,8 +67,8 @@ export function useAiAlertTriage(alertId: string) {
       setResults(prev => ({ ...prev, nextAction: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiTriageError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })

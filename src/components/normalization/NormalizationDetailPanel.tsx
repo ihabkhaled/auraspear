@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Edit, Trash2 } from 'lucide-react'
+import { Bot, ChevronDown, Edit, Trash2 } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -26,9 +26,21 @@ export function NormalizationDetailPanel({
   onOpenChange,
   onEdit,
   onDelete,
+  onAiVerify,
+  aiVerifying,
 }: NormalizationDetailPanelProps) {
-  const { t, tCommon, hasData, handleEdit, handleDelete, hasEditAction, hasDeleteAction } =
-    useNormalizationDetailPanel({ pipeline, onEdit, onDelete })
+  const {
+    t,
+    tCommon,
+    hasData,
+    handleEdit,
+    handleDelete,
+    handleAiVerify,
+    hasEditAction,
+    hasDeleteAction,
+    hasAiVerifyAction,
+    aiVerifying: isVerifying,
+  } = useNormalizationDetailPanel({ pipeline, onEdit, onDelete, onAiVerify, aiVerifying })
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -38,8 +50,20 @@ export function NormalizationDetailPanel({
           <SheetDescription>{t('detailDescription')}</SheetDescription>
         </SheetHeader>
 
-        {hasData && pipeline && (hasEditAction || hasDeleteAction) && (
+        {hasData && pipeline && (hasEditAction || hasDeleteAction || hasAiVerifyAction) && (
           <div className="flex items-center gap-2">
+            {hasAiVerifyAction && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleAiVerify}
+                disabled={isVerifying}
+                className="gap-1.5"
+              >
+                <Bot className="h-3.5 w-3.5" />
+                {isVerifying ? t('aiVerifying') : t('aiVerify')}
+              </Button>
+            )}
             {hasEditAction && (
               <Button variant="outline" size="sm" onClick={handleEdit} className="gap-1.5">
                 <Edit className="h-3.5 w-3.5" />

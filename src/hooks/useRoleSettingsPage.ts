@@ -1,185 +1,26 @@
-import { useState, useCallback, useMemo } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
-import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
-import { hasPermission, requirePermission } from '@/lib/permissions'
-import {
-  canAssignRoleSettingsPermission,
-  canResetRoleSettings,
-  canToggleRoleSettingsPermission,
-  filterRoleSettingsPermissionGroups,
-  isRoleSettingsToggleDisabled,
-} from '@/lib/role-settings'
-import { buildPermissionGroups, buildPermissionLabelMap } from '@/lib/role-settings.utils'
-import { roleSettingsService } from '@/services'
-import { useAuthStore } from '@/stores'
+import { useRoleSettingsPageCrud } from './useRoleSettingsPageCrud'
+import { useRoleSettingsPageFilters } from './useRoleSettingsPageFilters'
 
 export function useRoleSettingsPage() {
-  const t = useTranslations()
-  const tErrors = useTranslations('errors')
-  const queryClient = useQueryClient()
-  const permissions = useAuthStore(s => s.permissions)
-  const actorRole = useAuthStore(s => s.user?.role)
-
-  const canEditRoles = hasPermission(permissions, Permission.ROLE_SETTINGS_UPDATE)
-  const canResetDefaults = canResetRoleSettings(actorRole, canEditRoles)
-
-  const [localMatrix, setLocalMatrix] = useState<Record<string, string[]>>({})
-  const [isDirty, setIsDirty] = useState(false)
-
-  // Fetch permission definitions from backend (dynamic)
-  const { data: definitions, isLoading: isLoadingDefs } = useQuery({
-    queryKey: ['role-settings', 'definitions'],
-    queryFn: () => roleSettingsService.getPermissionDefinitions(),
-    select: response => response.data,
-  })
-
-  // Fetch current permission matrix + configurable roles from backend
-  const {
-    data: matrixResponse,
-    isLoading: isLoadingMatrix,
-    isFetching,
-  } = useQuery({
-    queryKey: ['role-settings'],
-    queryFn: () => roleSettingsService.getPermissionMatrix(),
-    select: response => response.data,
-  })
-
-  const data = matrixResponse?.matrix
-  const configurableRoles: string[] = useMemo(
-    () => matrixResponse?.configurableRoles ?? [],
-    [matrixResponse?.configurableRoles]
-  )
-
-  // Build permission groups from DB definitions
-  const permissionGroups = useMemo(
-    () => filterRoleSettingsPermissionGroups(buildPermissionGroups(definitions), actorRole),
-    [actorRole, definitions]
-  )
-
-  // Build permission key → labelKey map from DB definitions
-  const permissionLabelMap = useMemo(() => buildPermissionLabelMap(definitions), [definitions])
-
-  // Initialize local matrix from server data
-  const serverMatrix = data
-  if (serverMatrix && !isDirty) {
-    const needsUpdate = configurableRoles.some((role: string) => {
-      const local = Reflect.get(localMatrix, role) as string[] | undefined
-      const server = Reflect.get(serverMatrix, role) as string[] | undefined
-      if (!local && server) return true
-      if (!local || !server) return false
-      if (local.length !== server.length) return true
-      return local.some((p, i) => p !== server.at(i))
-    })
-    if (needsUpdate) {
-      setLocalMatrix({ ...serverMatrix })
-    }
-  }
-
-  const handleToggle = useCallback(
-    (role: string, permission: string, checked: boolean) => {
-      if (
-        !canToggleRoleSettingsPermission(actorRole, permission) ||
-        !canAssignRoleSettingsPermission(role, permission)
-      ) {
-        return
-      }
-
-      setLocalMatrix(prev => {
-        const existing = Reflect.get(prev, role) as string[] | undefined
-        const rolePermissions = [...(existing ?? [])]
-
-        if (checked) {
-          if (!rolePermissions.includes(permission)) {
-            rolePermissions.push(permission)
-          }
-        } else {
-          const idx = rolePermissions.indexOf(permission)
-          if (idx !== -1) {
-            rolePermissions.splice(idx, 1)
-          }
-        }
-
-        return { ...prev, [role]: rolePermissions }
-      })
-      setIsDirty(true)
-    },
-    [actorRole]
-  )
-
-  const isToggleDisabled = useCallback(
-    (role: string, permission: string): boolean =>
-      isRoleSettingsToggleDisabled(actorRole, role, permission),
-    [actorRole]
-  )
-
-  const updateMutation = useMutation({
-    mutationFn: (matrix: Record<string, string[]>) => {
-      requirePermission(permissions, Permission.ROLE_SETTINGS_UPDATE)
-      return roleSettingsService.updatePermissionMatrix(matrix)
-    },
-    onSuccess: response => {
-      setLocalMatrix({ ...response.data.matrix })
-      setIsDirty(false)
-      void queryClient.invalidateQueries({ queryKey: ['role-settings'] })
-      Toast.success(t('roleSettings.saved'))
-    },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
-  })
-
-  const resetMutation = useMutation({
-    mutationFn: () => {
-      requirePermission(permissions, Permission.ROLE_SETTINGS_UPDATE)
-      return roleSettingsService.resetToDefaults()
-    },
-    onSuccess: response => {
-      setLocalMatrix({ ...response.data.matrix })
-      setIsDirty(false)
-      void queryClient.invalidateQueries({ queryKey: ['role-settings'] })
-      Toast.success(t('roleSettings.resetSuccess'))
-    },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
-  })
-
-  const handleSave = useCallback(() => {
-    updateMutation.mutate(localMatrix)
-  }, [localMatrix, updateMutation])
-
-  const handleReset = useCallback(() => {
-    resetMutation.mutate()
-  }, [resetMutation])
-
-  const isChecked = useCallback(
-    (role: string, permission: string): boolean => {
-      const rolePermissions = Reflect.get(localMatrix, role) as string[] | undefined
-      if (!rolePermissions) return false
-      return rolePermissions.includes(permission)
-    },
-    [localMatrix]
-  )
+  const filters = useRoleSettingsPageFilters()
+  const crud = useRoleSettingsPageCrud(filters)
 
   return {
-    t,
-    isLoading: isLoadingDefs || isLoadingMatrix,
-    isFetching,
-    isDirty,
-    isSaving: updateMutation.isPending,
-    isResetting: resetMutation.isPending,
-    permissionGroups,
-    permissionLabelMap,
-    configurableRoles,
-    handleToggle,
-    handleSave,
-    handleReset,
-    isChecked,
-    isToggleDisabled,
-    canEditRoles,
-    canResetDefaults,
+    t: filters.t,
+    isLoading: filters.isLoading,
+    isFetching: filters.isFetching,
+    isDirty: filters.isDirty,
+    isSaving: crud.isSaving,
+    isResetting: crud.isResetting,
+    permissionGroups: filters.permissionGroups,
+    permissionLabelMap: filters.permissionLabelMap,
+    configurableRoles: filters.configurableRoles,
+    handleToggle: filters.handleToggle,
+    handleSave: crud.handleSave,
+    handleReset: crud.handleReset,
+    isChecked: filters.isChecked,
+    isToggleDisabled: filters.isToggleDisabled,
+    canEditRoles: filters.canEditRoles,
+    canResetDefaults: filters.canResetDefaults,
   }
 }

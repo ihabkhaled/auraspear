@@ -3,6 +3,7 @@
 import { AlertTriangle, Brain, Briefcase, Loader2, X } from 'lucide-react'
 import { AiTriagePanel } from '@/components/alerts/AiTriagePanel'
 import { AlertTimeline } from '@/components/alerts/AlertTimeline'
+import { OsintEnrichButton } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -85,11 +86,21 @@ export function AlertDetailDrawer({
               </DetailRow>
               <Separator />
               <DetailRow label={t('sourceIp')}>
-                <span className="font-mono text-xs">{alert.sourceIp}</span>
+                <div className="flex flex-col items-end gap-1">
+                  <span className="font-mono text-xs">{alert.sourceIp}</span>
+                  {alert.sourceIp && (
+                    <OsintEnrichButton iocType="ip" iocValue={alert.sourceIp} t={tCommon} />
+                  )}
+                </div>
               </DetailRow>
               <Separator />
               <DetailRow label={t('destIp')}>
-                <span className="font-mono text-xs">{alert.destinationIp}</span>
+                <div className="flex flex-col items-end gap-1">
+                  <span className="font-mono text-xs">{alert.destinationIp}</span>
+                  {alert.destinationIp && (
+                    <OsintEnrichButton iocType="ip" iocValue={alert.destinationIp} t={tCommon} />
+                  )}
+                </div>
               </DetailRow>
               <Separator />
               <DetailRow label={t('rule')}>

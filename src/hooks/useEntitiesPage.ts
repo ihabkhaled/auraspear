@@ -8,6 +8,7 @@ import { useAuthStore } from '@/stores'
 import type { EntitySearchParams } from '@/types'
 import { useDebounce } from './useDebounce'
 import { useEntities } from './useEntities'
+import { useEntityGraphPanel } from './useEntityGraphPanel'
 import { usePagination } from './usePagination'
 
 export function useEntitiesPage() {
@@ -42,6 +43,7 @@ export function useEntitiesPage() {
   }
 
   const { data, isFetching } = useEntities(searchParams)
+  const entityGraph = useEntityGraphPanel()
 
   useEffect(() => {
     if (data?.pagination) {
@@ -93,5 +95,11 @@ export function useEntitiesPage() {
     handleTypeChange,
     handleSearchChange,
     handleSort,
+    graphOpen: entityGraph.graphOpen,
+    setGraphOpen: entityGraph.setGraphOpen,
+    graphData: entityGraph.graphData,
+    graphLoading: entityGraph.graphLoading,
+    handleOpenGraph: entityGraph.handleOpenGraph,
+    handleCloseGraph: entityGraph.handleCloseGraph,
   }
 }

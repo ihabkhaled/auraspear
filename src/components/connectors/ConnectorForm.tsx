@@ -151,16 +151,18 @@ export function ConnectorForm({
                 {t('connection')}
               </h3>
               <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="baseUrl">{t('baseUrl')}</Label>
-                  <Input
-                    id="baseUrl"
-                    placeholder={t('urlPlaceholder')}
-                    disabled={disabled}
-                    {...register('baseUrl')}
-                  />
-                  {renderError('baseUrl')}
-                </div>
+                {type !== ConnectorType.WAZUH && (
+                  <div className="space-y-2">
+                    <Label htmlFor="baseUrl">{t('baseUrl')}</Label>
+                    <Input
+                      id="baseUrl"
+                      placeholder={t('urlPlaceholder')}
+                      disabled={disabled}
+                      {...register('baseUrl')}
+                    />
+                    {renderError('baseUrl')}
+                  </div>
+                )}
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
                     <Label>{t('authType')}</Label>

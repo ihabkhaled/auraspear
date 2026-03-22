@@ -45,6 +45,9 @@ export default function NormalizationPage() {
     canCreate,
     canEdit,
     canDelete,
+    canAiVerify,
+    handleAiVerify,
+    aiVerifying,
   } = useNormalizationPage()
 
   return (
@@ -119,6 +122,10 @@ export default function NormalizationPage() {
         onOpenChange={setDetailOpen}
         onEdit={canEdit ? handleOpenEdit : undefined}
         onDelete={canDelete ? handleOpenDelete : undefined}
+        onAiVerify={
+          canAiVerify ? (pipelineId: string) => handleAiVerify(pipelineId, []) : undefined
+        }
+        aiVerifying={aiVerifying}
       />
     </div>
   )

@@ -56,6 +56,9 @@ export {
   useAiSearchKnowledge,
 } from './useAiKnowledge'
 export { useKnowledgePage } from './useKnowledgePage'
+export { useKnowledgePageFilters } from './useKnowledgePageFilters'
+export { useKnowledgePageDialogs } from './useKnowledgePageDialogs'
+export { useKnowledgePageCrud } from './useKnowledgePageCrud'
 export { useRunbookCreateDialog } from './useRunbookCreateDialog'
 export { useRunbookEditDialog } from './useRunbookEditDialog'
 export { useAiKnowledgePanel } from './useAiKnowledgePanel'
@@ -93,7 +96,6 @@ export { useCasesPage } from './useCasesPage'
 export { useCycleHistoryPage } from './useCycleHistoryPage'
 export { useHuntPage } from './useHuntPage'
 export { useIntelPage } from './useIntelPage'
-export { useConnectorDetailPage } from './useConnectorDetailPage'
 export {
   useWorkspaceOverview,
   useWorkspaceRecentActivity,
@@ -193,6 +195,9 @@ export {
   useForceLogoutAllControlledUsers,
 } from './useUsersControl'
 export { useUsersControlPage } from './useUsersControlPage'
+export { useUsersControlPageFilters } from './useUsersControlPageFilters'
+export { useUsersControlPageDialogs } from './useUsersControlPageDialogs'
+export { useUsersControlPageCrud } from './useUsersControlPageCrud'
 export { useWorkspaceSearchPanel } from './useWorkspaceSearchPanel'
 export { useCaseDetailPage } from './useCaseDetailPage'
 export { useCycleDetailPage } from './useCycleDetailPage'
@@ -253,7 +258,6 @@ export { useIntelStatsGrid } from './useIntelStatsGrid'
 export { useMispEventFeed } from './useMispEventFeed'
 export { useWazuhCorrelationPanel } from './useWazuhCorrelationPanel'
 export { useExplorerOverviewPage } from './useExplorerOverviewPage'
-export { useExplorerConnectorCard } from './useExplorerConnectorCard'
 export {
   useIncidents,
   useIncidentStats,
@@ -300,6 +304,8 @@ export {
   useDeleteVulnerability,
 } from './useVulnerabilities'
 export { useVulnerabilitiesPage } from './useVulnerabilitiesPage'
+export { useVulnerabilitiesPageFilters } from './useVulnerabilitiesPageFilters'
+export { useVulnerabilitiesPageDialogs } from './useVulnerabilitiesPageDialogs'
 export { useVulnerabilityKpiCards } from './useVulnerabilityKpiCards'
 export { useVulnerabilityFilters } from './useVulnerabilityFilters'
 export { useVulnerabilityCreateDialog } from './useVulnerabilityCreateDialog'
@@ -370,13 +376,10 @@ export { useAttackPathsPage } from './useAttackPathsPage'
 export { useAttackPathsPageDialogs } from './useAttackPathsPageDialogs'
 export { useAttackPathsPageCrud } from './useAttackPathsPageCrud'
 export { useAttackPathsPageFilters } from './useAttackPathsPageFilters'
-export { useAttackPathKpiCards } from './useAttackPathKpiCards'
-export { useAttackPathFilters } from './useAttackPathFilters'
 export { useAttackPathCreateDialog } from './useAttackPathCreateDialog'
 export { useAttackPathEditDialog } from './useAttackPathEditDialog'
 export { useAttackPathDeleteDialog } from './useAttackPathDeleteDialog'
 export { useAttackPathDetailPanel } from './useAttackPathDetailPanel'
-export { useAttackPathStageEditor } from './useAttackPathStageEditor'
 export {
   usePlaybooks,
   usePlaybookStats,
@@ -408,6 +411,9 @@ export {
   useUpdateControl,
 } from './useCompliance'
 export { useCompliancePage } from './useCompliancePage'
+export { useCompliancePageFilters } from './useCompliancePageFilters'
+export { useCompliancePageDialogs } from './useCompliancePageDialogs'
+export { useCompliancePageCrud } from './useCompliancePageCrud'
 export { useComplianceKpiCards } from './useComplianceKpiCards'
 export { useComplianceFilters } from './useComplianceFilters'
 export { useComplianceCreateDialog } from './useComplianceCreateDialog'
@@ -453,6 +459,9 @@ export {
   useDeletePipeline,
 } from './useNormalization'
 export { useNormalizationPage } from './useNormalizationPage'
+export { useNormalizationPageFilters } from './useNormalizationPageFilters'
+export { useNormalizationPageDialogs } from './useNormalizationPageDialogs'
+export { useNormalizationPageCrud } from './useNormalizationPageCrud'
 export { useNormalizationKpiCards } from './useNormalizationKpiCards'
 export { useNormalizationFilters } from './useNormalizationFilters'
 export { useNormalizationCreateDialog } from './useNormalizationCreateDialog'
@@ -465,8 +474,13 @@ export {
   useCreateDetectionRule,
   useUpdateDetectionRule,
   useDeleteDetectionRule,
+  useToggleDetectionRule,
+  useSimulateDetectionRule,
 } from './useDetectionRules'
 export { useDetectionRulesPage } from './useDetectionRulesPage'
+export { useDetectionRulesPageFilters } from './useDetectionRulesPageFilters'
+export { useDetectionRulesPageDialogs } from './useDetectionRulesPageDialogs'
+export { useDetectionRulesPageCrud } from './useDetectionRulesPageCrud'
 export { useDetectionRuleKpiCards } from './useDetectionRuleKpiCards'
 export { useDetectionRuleFilters } from './useDetectionRuleFilters'
 export { useDetectionRuleCreateDialog } from './useDetectionRuleCreateDialog'
@@ -482,6 +496,9 @@ export {
   useCloudFindings,
 } from './useCloudSecurity'
 export { useCloudSecurityPage } from './useCloudSecurityPage'
+export { useCloudSecurityPageFilters } from './useCloudSecurityPageFilters'
+export { useCloudSecurityPageDialogs } from './useCloudSecurityPageDialogs'
+export { useCloudSecurityPageCrud } from './useCloudSecurityPageCrud'
 export { useCloudSecurityKpiCards } from './useCloudSecurityKpiCards'
 export { useCloudSecurityFilters } from './useCloudSecurityFilters'
 export { useCloudAccountCreateDialog } from './useCloudAccountCreateDialog'
@@ -493,6 +510,8 @@ export { useDataRetention } from './useDataRetention'
 export { useExportImportSettings } from './useExportImportSettings'
 export { useRecentActivityFeed } from './useRecentActivityFeed'
 export { useRoleSettingsPage } from './useRoleSettingsPage'
+export { useRoleSettingsPageFilters } from './useRoleSettingsPageFilters'
+export { useRoleSettingsPageCrud } from './useRoleSettingsPageCrud'
 export { useJobs, useJobStats, useRetryJob, useCancelJob } from './useJobs'
 export {
   useConnectors,
@@ -527,6 +546,7 @@ export {
   useEntityRiskBreakdown,
 } from './useEntities'
 export { useEntityGraph } from './useEntityGraph'
+export { useEntityGraphPanel } from './useEntityGraphPanel'
 export { useEntitiesPage } from './useEntitiesPage'
 export { useMsspPortfolio, useMsspComparison } from './useMsspDashboard'
 export { useMsspDashboardPage } from './useMsspDashboardPage'
@@ -546,7 +566,22 @@ export {
 } from './useOsintSources'
 export { useAiApprovals, useResolveApproval } from './useAiApprovals'
 export { useAiConfigPage } from './useAiConfigPage'
+export {
+  useAiPrompts,
+  useCreateAiPrompt,
+  useUpdateAiPrompt,
+  useActivateAiPrompt,
+  useDeleteAiPrompt,
+} from './useAiPrompts'
+export { useAiFeatures, useUpdateAiFeature } from './useAiFeatures'
+export { usePromptDialog } from './usePromptDialog'
+export { useFeatureEditDialog } from './useFeatureEditDialog'
 export { useAgentConfigEditDialog } from './useAgentConfigEditDialog'
 export { useOsintSourceDialog } from './useOsintSourceDialog'
 export { useApprovalCard } from './useApprovalCard'
+export { useOsintEnrichment } from './useOsintEnrichment'
+export { useOsintEnrichButton } from './useOsintEnrichButton'
+export { useOsintFileUpload } from './useOsintFileUpload'
+export { useOsintAnalysisFetch } from './useOsintAnalysisFetch'
+export { useAiNormVerifier } from './useAiNormVerifier'
 export { useAvailableAiConnectors } from './useAvailableAiConnectors'

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChevronDown, Pencil, Trash2 } from 'lucide-react'
+import { ChevronDown, Pencil, Power, Trash2 } from 'lucide-react'
 import { AiDetectionCopilotPanel } from '@/components/detection-rules/AiDetectionCopilotPanel'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -30,7 +30,9 @@ export function DetectionRuleDetailPanel({
   onOpenChange,
   onEdit,
   onDelete,
+  onToggle,
   deleteLoading,
+  toggleLoading,
 }: DetectionRuleDetailPanelProps) {
   const { t, tCommon, hasData, aiCopilot } = useDetectionRuleDetailPanel({ rule })
 
@@ -44,8 +46,19 @@ export function DetectionRuleDetailPanel({
 
         {hasData && rule && (
           <div className="space-y-6">
-            {(onEdit ?? onDelete) && (
+            {(onEdit ?? onDelete ?? onToggle) && (
               <div className="flex items-center gap-2">
+                {onToggle && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    disabled={toggleLoading}
+                    onClick={() => onToggle(rule)}
+                  >
+                    <Power className="mr-1.5 h-3.5 w-3.5" />
+                    {rule.status === 'disabled' ? t('actions.enable') : t('actions.disable')}
+                  </Button>
+                )}
                 {onEdit && (
                   <Button variant="outline" size="sm" onClick={() => onEdit(rule)}>
                     <Pencil className="mr-1.5 h-3.5 w-3.5" />

@@ -33,6 +33,7 @@ export function useCase(id: string) {
 
 export function useCreateCase() {
   const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
   const permissions = useAuthStore(s => s.permissions)
 
   return useMutation({
@@ -41,7 +42,7 @@ export function useCreateCase() {
       return caseService.createCase(data)
     },
     onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['cases'] })
+      void queryClient.invalidateQueries({ queryKey: ['cases', tenantId] })
     },
   })
 }
@@ -57,7 +58,7 @@ export function useUpdateCase() {
       return caseService.updateCase(id, data)
     },
     onSuccess: (_data, { id }) => {
-      void queryClient.invalidateQueries({ queryKey: ['cases'] })
+      void queryClient.invalidateQueries({ queryKey: ['cases', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['cases', tenantId, id] })
     },
   })

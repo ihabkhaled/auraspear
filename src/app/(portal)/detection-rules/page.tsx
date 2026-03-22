@@ -46,6 +46,9 @@ export default function DetectionRulesPage() {
     handleOpenEdit,
     deleteLoading,
     canManageRules,
+    canToggleRule,
+    handleToggle,
+    toggleLoading,
   } = useDetectionRulesPage()
 
   const editInitialValues = selectedRule
@@ -136,7 +139,9 @@ export default function DetectionRulesPage() {
         onOpenChange={setDetailOpen}
         onEdit={canManageRules ? handleOpenEdit : undefined}
         onDelete={canManageRules ? handleDelete : undefined}
+        onToggle={canToggleRule ? handleToggle : undefined}
         deleteLoading={deleteLoading}
+        toggleLoading={toggleLoading}
       />
     </div>
   )

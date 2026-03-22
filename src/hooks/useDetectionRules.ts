@@ -3,7 +3,11 @@ import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
 import { detectionRuleService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { DetectionRuleSearchParams } from '@/types'
+import type {
+  DetectionRuleSearchParams,
+  ToggleDetectionRuleInput,
+  SimulateDetectionRuleInput,
+} from '@/types'
 
 export function useDetectionRules(params?: DetectionRuleSearchParams) {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -63,6 +67,31 @@ export function useDeleteDetectionRule() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['detection-rules', tenantId] })
+    },
+  })
+}
+
+export function useToggleDetectionRule() {
+  const queryClient = useQueryClient()
+  const permissions = useAuthStore(s => s.permissions)
+  const tenantId = useTenantStore(s => s.currentTenantId)
+  return useMutation({
+    mutationFn: ({ id, enabled }: ToggleDetectionRuleInput) => {
+      requirePermission(permissions, Permission.DETECTION_RULES_TOGGLE)
+      return detectionRuleService.toggleRule(id, enabled)
+    },
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: ['detection-rules', tenantId] })
+    },
+  })
+}
+
+export function useSimulateDetectionRule() {
+  const permissions = useAuthStore(s => s.permissions)
+  return useMutation({
+    mutationFn: ({ id, events }: SimulateDetectionRuleInput) => {
+      requirePermission(permissions, Permission.DETECTION_RULES_UPDATE)
+      return detectionRuleService.simulateRule(id, events)
     },
   })
 }

@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
+import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
 import { caseService } from '@/services/case.service'
 import { useAuthStore } from '@/stores'
@@ -30,8 +31,8 @@ export function useAiCaseCopilot(caseId: string) {
       setResults(prev => ({ ...prev, summarize: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -42,8 +43,8 @@ export function useAiCaseCopilot(caseId: string) {
       setResults(prev => ({ ...prev, executiveSummary: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -54,8 +55,8 @@ export function useAiCaseCopilot(caseId: string) {
       setResults(prev => ({ ...prev, timeline: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -66,8 +67,8 @@ export function useAiCaseCopilot(caseId: string) {
       setResults(prev => ({ ...prev, nextTasks: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })

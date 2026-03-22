@@ -3,6 +3,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { type OsintAuthType, OsintSourceType } from '@/enums'
 import { deriveOsintSourceState } from '@/lib/ai-config.utils'
+import { lookupBuiltinOsintDefaults } from '@/lib/osint.utils'
 import type { CreateOsintSourceInput, OsintSourceConfig, UpdateOsintSourceInput } from '@/types'
 
 export function useOsintSourceDialog(
@@ -13,8 +14,9 @@ export function useOsintSourceDialog(
   const isEdit = Boolean(source)
   const initial = useMemo(() => deriveOsintSourceState(source), [source])
 
-  const [sourceType, setSourceType] = useState<OsintSourceType>(initial.sourceType)
+  const [sourceType, setSourceTypeRaw] = useState<OsintSourceType>(initial.sourceType)
   const [name, setName] = useState(initial.name)
+  const [isEnabled, setIsEnabled] = useState(initial.isEnabled)
   const [apiKey, setApiKey] = useState(initial.apiKey)
   const [baseUrl, setBaseUrl] = useState(initial.baseUrl)
   const [authType, setAuthType] = useState<OsintAuthType>(initial.authType)
@@ -24,10 +26,33 @@ export function useOsintSourceDialog(
   const [requestMethod, setRequestMethod] = useState(initial.requestMethod)
   const [timeout, setTimeout_] = useState(initial.timeout)
 
+  const applyBuiltinDefaults = useCallback((newType: OsintSourceType) => {
+    const defaults = lookupBuiltinOsintDefaults(newType)
+    if (defaults) {
+      setBaseUrl(defaults.baseUrl)
+      setAuthType(defaults.authType as OsintAuthType)
+      setHeaderName(defaults.headerName)
+      setQueryParam(defaults.queryParamName)
+      setResponsePath(defaults.responsePath)
+      setRequestMethod(defaults.requestMethod)
+    }
+  }, [])
+
+  const handleSourceTypeChange = useCallback(
+    (newType: OsintSourceType) => {
+      setSourceTypeRaw(newType)
+      if (!isEdit && newType !== OsintSourceType.CUSTOM) {
+        applyBuiltinDefaults(newType)
+      }
+    },
+    [isEdit, applyBuiltinDefaults]
+  )
+
   const resetToSource = useCallback(() => {
     const next = deriveOsintSourceState(open ? source : null)
-    setSourceType(next.sourceType)
+    setSourceTypeRaw(next.sourceType)
     setName(next.name)
+    setIsEnabled(next.isEnabled)
     setApiKey(next.apiKey)
     setBaseUrl(next.baseUrl)
     setAuthType(next.authType)
@@ -36,14 +61,27 @@ export function useOsintSourceDialog(
     setResponsePath(next.responsePath)
     setRequestMethod(next.requestMethod)
     setTimeout_(next.timeout)
-  }, [source, open])
+
+    // When creating a new source, auto-populate defaults for the initial type
+    if (!source && next.sourceType !== OsintSourceType.CUSTOM) {
+      applyBuiltinDefaults(next.sourceType)
+    }
+  }, [source, open, applyBuiltinDefaults])
 
   const isCustom = sourceType === OsintSourceType.CUSTOM
+
+  const currentDefaults = useMemo(() => {
+    if (sourceType === OsintSourceType.CUSTOM) {
+      return null
+    }
+    return lookupBuiltinOsintDefaults(sourceType) ?? null
+  }, [sourceType])
 
   const handleSubmit = useCallback(() => {
     if (isEdit) {
       const data: UpdateOsintSourceInput = {
         name,
+        isEnabled,
         authType,
         timeout: Number.parseInt(timeout, 10),
       }
@@ -70,6 +108,7 @@ export function useOsintSourceDialog(
       const data: CreateOsintSourceInput = {
         sourceType,
         name,
+        isEnabled,
         authType,
         timeout: Number.parseInt(timeout, 10),
       }
@@ -97,6 +136,7 @@ export function useOsintSourceDialog(
     isEdit,
     sourceType,
     name,
+    isEnabled,
     apiKey,
     baseUrl,
     authType,
@@ -112,9 +152,12 @@ export function useOsintSourceDialog(
     isEdit,
     isCustom,
     sourceType,
-    setSourceType,
+    handleSourceTypeChange,
+    currentDefaults,
     name,
     setName,
+    isEnabled,
+    setIsEnabled,
     apiKey,
     setApiKey,
     baseUrl,

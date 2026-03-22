@@ -1,15 +1,26 @@
 'use client'
 
-import { PageHeader, DataTable, Pagination, LoadingSpinner } from '@/components/common'
-import { EntityFilters, RiskScoreBadge } from '@/components/entities'
+import { Network } from 'lucide-react'
+import {
+  PageHeader,
+  DataTable,
+  Pagination,
+  LoadingSpinner,
+  OsintEnrichButton,
+  OsintFileUploadButton,
+} from '@/components/common'
+import { EntityFilters, EntityGraphPanel, RiskScoreBadge } from '@/components/entities'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { useEntitiesPage } from '@/hooks/useEntitiesPage'
+import { isEnrichableEntityType, isFileOrHashType, normalizeIocType } from '@/lib/entity.utils'
 import { formatTimestamp } from '@/lib/utils'
 import type { Column, EntityRecord } from '@/types'
 
 export default function EntitiesPage() {
   const {
     t,
+    tCommon,
     searchQuery,
     typeFilter,
     sortBy,
@@ -20,6 +31,11 @@ export default function EntitiesPage() {
     handleSearchChange,
     handleTypeChange,
     handleSort,
+    graphOpen,
+    setGraphOpen,
+    graphData,
+    graphLoading,
+    handleOpenGraph,
   } = useEntitiesPage()
 
   const entities: EntityRecord[] = data?.data ?? []
@@ -29,7 +45,7 @@ export default function EntitiesPage() {
       key: 'type',
       label: t('colType'),
       sortable: true,
-      render: (value) => (
+      render: value => (
         <Badge variant="outline" className="text-xs uppercase">
           {value as string}
         </Badge>
@@ -44,19 +60,47 @@ export default function EntitiesPage() {
       key: 'riskScore',
       label: t('colRiskScore'),
       sortable: true,
-      render: (value) => <RiskScoreBadge score={value as number} />,
+      render: value => <RiskScoreBadge score={value as number} />,
     },
     {
       key: 'firstSeen',
       label: t('colFirstSeen'),
       sortable: true,
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
     },
     {
       key: 'lastSeen',
       label: t('colLastSeen'),
       sortable: true,
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
+    },
+    {
+      key: 'id',
+      label: t('colActions'),
+      render: (_value, row) => (
+        <div className="flex items-center gap-1.5">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="gap-1 px-2"
+            onClick={e => {
+              e.stopPropagation()
+              handleOpenGraph(row.id)
+            }}
+          >
+            <Network className="h-3.5 w-3.5" />
+            {t('viewGraph')}
+          </Button>
+          {isEnrichableEntityType(row.type) && (
+            <OsintEnrichButton
+              iocType={normalizeIocType(row.type)}
+              iocValue={row.value}
+              t={tCommon}
+            />
+          )}
+          {isFileOrHashType(row.type) && <OsintFileUploadButton t={tCommon} />}
+        </div>
+      ),
     },
   ]
 
@@ -92,6 +136,14 @@ export default function EntitiesPage() {
           />
         </>
       )}
+
+      <EntityGraphPanel
+        open={graphOpen}
+        onOpenChange={setGraphOpen}
+        graphData={graphData}
+        graphLoading={graphLoading}
+        t={t}
+      />
     </div>
   )
 }

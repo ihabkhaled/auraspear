@@ -6,6 +6,8 @@ export function useNormalizationDetailPanel({
   pipeline,
   onEdit,
   onDelete,
+  onAiVerify,
+  aiVerifying,
 }: UseNormalizationDetailPanelParams) {
   const t = useTranslations('normalization')
   const tCommon = useTranslations('common')
@@ -24,13 +26,22 @@ export function useNormalizationDetailPanel({
     }
   }, [pipeline, onDelete])
 
+  const handleAiVerify = useCallback(() => {
+    if (pipeline && onAiVerify) {
+      onAiVerify(pipeline.id)
+    }
+  }, [pipeline, onAiVerify])
+
   return {
     t,
     tCommon,
     hasData,
     handleEdit,
     handleDelete,
+    handleAiVerify,
     hasEditAction: Boolean(onEdit),
     hasDeleteAction: Boolean(onDelete),
+    hasAiVerifyAction: Boolean(onAiVerify),
+    aiVerifying: Boolean(aiVerifying),
   }
 }

@@ -5,6 +5,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
+import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
 import { detectionRuleService } from '@/services/detection-rule.service'
 import { useAuthStore } from '@/stores'
@@ -31,8 +32,8 @@ export function useAiDetectionCopilot(ruleId: string | null) {
       setResults(prev => ({ ...prev, draftRule: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })
@@ -48,8 +49,8 @@ export function useAiDetectionCopilot(ruleId: string | null) {
       setResults(prev => ({ ...prev, tuning: data }))
       setActiveTask(null)
     },
-    onError: () => {
-      Toast.error(t('aiError'))
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
       setActiveTask(null)
     },
   })

@@ -1,226 +1,50 @@
 'use client'
 
-import { useState, useCallback, useEffect, useMemo } from 'react'
-import { useTranslations } from 'next-intl'
-import { getCloudSecurityColumns } from '@/components/cloud-security/CloudSecurityTableColumns'
-import { Toast } from '@/components/common'
-import { Permission, SortOrder } from '@/enums'
-import { ALL_FILTER } from '@/lib/constants/filters'
-import { hasPermission } from '@/lib/permissions'
-import { useAuthStore } from '@/stores'
-import type {
-  CloudAccount,
-  CloudAccountSearchParams,
-  CloudFinding,
-  CreateCloudAccountFormValues,
-  EditCloudAccountFormValues,
-} from '@/types'
-import {
-  useCloudAccounts,
-  useCloudSecurityStats,
-  useCreateCloudAccount,
-  useUpdateCloudAccount,
-  useDeleteCloudAccount,
-  useCloudFindings,
-} from './useCloudSecurity'
-import { useDebounce } from './useDebounce'
-import { usePagination } from './usePagination'
+import { useCloudSecurityPageCrud } from './useCloudSecurityPageCrud'
+import { useCloudSecurityPageDialogs } from './useCloudSecurityPageDialogs'
+import { useCloudSecurityPageFilters } from './useCloudSecurityPageFilters'
 
 export function useCloudSecurityPage() {
-  const t = useTranslations('cloudSecurity')
-  const tCommon = useTranslations('common')
-  const permissions = useAuthStore(s => s.permissions)
-
-  const canCreate = hasPermission(permissions, Permission.CLOUD_SECURITY_CREATE)
-  const canEdit = hasPermission(permissions, Permission.CLOUD_SECURITY_UPDATE)
-  const canDelete = hasPermission(permissions, Permission.CLOUD_SECURITY_DELETE)
-
-  const [searchQuery, setSearchQuery] = useState('')
-  const [providerFilter, setProviderFilter] = useState('')
-  const [statusFilter, setStatusFilter] = useState('')
-  const [sortBy, setSortBy] = useState('createdAt')
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DESC)
-
-  const [createOpen, setCreateOpen] = useState(false)
-  const [editOpen, setEditOpen] = useState(false)
-  const [detailOpen, setDetailOpen] = useState(false)
-  const [selectedAccount, setSelectedAccount] = useState<CloudAccount | null>(null)
-
-  const pagination = usePagination({ initialPage: 1, initialLimit: 10 })
-  const debouncedSearch = useDebounce(searchQuery, 400)
-
-  const searchParams: CloudAccountSearchParams = {
-    page: pagination.page,
-    limit: pagination.limit,
-    sortBy,
-    sortOrder,
-  }
-
-  if (debouncedSearch.length > 0) {
-    searchParams.query = debouncedSearch
-  }
-  if (providerFilter.length > 0) {
-    searchParams.provider = providerFilter
-  }
-  if (statusFilter.length > 0) {
-    searchParams.status = statusFilter
-  }
-
-  const { data, isFetching } = useCloudAccounts(searchParams)
-  const { data: statsData, isLoading: statsLoading } = useCloudSecurityStats()
-
-  // Fetch findings for the selected account via backend filter
-  const { data: findingsData } = useCloudFindings(
-    selectedAccount ? { cloudAccountId: selectedAccount.id } : undefined
-  )
-
-  const accountFindings: CloudFinding[] = useMemo(() => findingsData?.data ?? [], [findingsData])
-
-  const createMutation = useCreateCloudAccount()
-  const updateMutation = useUpdateCloudAccount()
-  const deleteMutation = useDeleteCloudAccount()
-
-  useEffect(() => {
-    if (data?.pagination) {
-      pagination.setTotal(data.pagination.total)
-    }
-  }, [data?.pagination, pagination])
-
-  const handleSearchChange = useCallback(
-    (value: string) => {
-      pagination.setPage(1)
-      setSearchQuery(value)
-    },
-    [pagination]
-  )
-
-  const handleProviderChange = useCallback(
-    (value: string) => {
-      pagination.setPage(1)
-      setProviderFilter(value === ALL_FILTER ? '' : value)
-    },
-    [pagination]
-  )
-
-  const handleStatusChange = useCallback(
-    (value: string) => {
-      pagination.setPage(1)
-      setStatusFilter(value === ALL_FILTER ? '' : value)
-    },
-    [pagination]
-  )
-
-  const handleSort = useCallback(
-    (key: string, order: SortOrder) => {
-      pagination.setPage(1)
-      setSortBy(key)
-      setSortOrder(order)
-    },
-    [pagination]
-  )
-
-  const handleCreate = useCallback(
-    (formData: CreateCloudAccountFormValues) => {
-      createMutation.mutate(formData as unknown as Record<string, unknown>, {
-        onSuccess: () => {
-          Toast.success(t('createSuccess'))
-          setCreateOpen(false)
-        },
-        onError: () => {
-          Toast.error(t('createError'))
-        },
-      })
-    },
-    [createMutation, t]
-  )
-
-  const handleEdit = useCallback(
-    (formData: EditCloudAccountFormValues) => {
-      if (!selectedAccount) return
-      updateMutation.mutate(
-        { id: selectedAccount.id, data: formData as unknown as Record<string, unknown> },
-        {
-          onSuccess: () => {
-            Toast.success(t('editSuccess'))
-            setEditOpen(false)
-            setSelectedAccount(null)
-          },
-          onError: () => {
-            Toast.error(t('editError'))
-          },
-        }
-      )
-    },
-    [updateMutation, selectedAccount, t]
-  )
-
-  const handleDelete = useCallback(
-    (id: string) => {
-      deleteMutation.mutate(id, {
-        onSuccess: () => {
-          Toast.success(t('deleteSuccess'))
-        },
-        onError: () => {
-          Toast.error(t('deleteError'))
-        },
-      })
-    },
-    [deleteMutation, t]
-  )
-
-  const handleRowClick = useCallback((account: CloudAccount) => {
-    setSelectedAccount(account)
-    setDetailOpen(true)
-  }, [])
-
-  const handleOpenEdit = useCallback((account: CloudAccount) => {
-    setSelectedAccount(account)
-    setEditOpen(true)
-  }, [])
-
-  const columns = useMemo(
-    () => getCloudSecurityColumns({ cloudSecurity: t, common: tCommon }),
-    [t, tCommon]
-  )
-
-  const stats = statsData?.data
+  const filters = useCloudSecurityPageFilters()
+  const dialogs = useCloudSecurityPageDialogs()
+  const crud = useCloudSecurityPageCrud(dialogs)
 
   return {
-    t,
-    tCommon,
-    data,
-    stats,
-    statsLoading,
-    columns,
-    isFetching,
-    pagination,
-    searchQuery,
-    providerFilter: providerFilter.length > 0 ? providerFilter : ALL_FILTER,
-    statusFilter: statusFilter.length > 0 ? statusFilter : ALL_FILTER,
-    sortBy,
-    sortOrder,
-    createOpen,
-    setCreateOpen,
-    editOpen,
-    setEditOpen,
-    detailOpen,
-    setDetailOpen,
-    selectedAccount,
-    accountFindings,
-    createLoading: createMutation.isPending,
-    editLoading: updateMutation.isPending,
-    deleteLoading: deleteMutation.isPending,
-    handleSearchChange,
-    handleProviderChange,
-    handleStatusChange,
-    handleSort,
-    handleCreate,
-    handleEdit,
-    handleDelete,
-    handleRowClick,
-    handleOpenEdit,
-    canCreate,
-    canEdit,
-    canDelete,
+    t: filters.t,
+    tCommon: filters.tCommon,
+    data: filters.data,
+    stats: filters.stats,
+    statsLoading: filters.statsLoading,
+    columns: filters.columns,
+    isFetching: filters.isFetching,
+    pagination: filters.pagination,
+    searchQuery: filters.searchQuery,
+    providerFilter: filters.providerFilter,
+    statusFilter: filters.statusFilter,
+    sortBy: filters.sortBy,
+    sortOrder: filters.sortOrder,
+    createOpen: dialogs.createOpen,
+    setCreateOpen: dialogs.setCreateOpen,
+    editOpen: dialogs.editOpen,
+    setEditOpen: dialogs.setEditOpen,
+    detailOpen: dialogs.detailOpen,
+    setDetailOpen: dialogs.setDetailOpen,
+    selectedAccount: dialogs.selectedAccount,
+    accountFindings: dialogs.accountFindings,
+    createLoading: crud.createLoading,
+    editLoading: crud.editLoading,
+    deleteLoading: crud.deleteLoading,
+    handleSearchChange: filters.handleSearchChange,
+    handleProviderChange: filters.handleProviderChange,
+    handleStatusChange: filters.handleStatusChange,
+    handleSort: filters.handleSort,
+    handleCreate: crud.handleCreate,
+    handleEdit: crud.handleEdit,
+    handleDelete: crud.handleDelete,
+    handleRowClick: dialogs.handleRowClick,
+    handleOpenEdit: dialogs.handleOpenEdit,
+    canCreate: crud.canCreate,
+    canEdit: crud.canEdit,
+    canDelete: crud.canDelete,
   }
 }

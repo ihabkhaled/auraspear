@@ -2,9 +2,12 @@
 
 import { Link2 } from 'lucide-react'
 import { DataTable } from '@/components/common/DataTable'
+import { OsintEnrichButton } from '@/components/common/OsintEnrichButton'
+import { OsintFileUploadButton } from '@/components/common/OsintFileUploadButton'
 import { SeverityBadge } from '@/components/common/SeverityBadge'
 import type { AlertSeverity } from '@/enums'
 import { useWazuhCorrelationPanel } from '@/hooks'
+import { isFileOrHashType, normalizeIocType } from '@/lib/entity.utils'
 import { formatRelativeTime } from '@/lib/utils'
 import type { IOCCorrelation, WazuhCorrelationPanelProps, Column } from '@/types'
 
@@ -15,7 +18,7 @@ export function WazuhCorrelationPanel({
   sortOrder,
   onSort,
 }: WazuhCorrelationPanelProps) {
-  const { t } = useWazuhCorrelationPanel()
+  const { t, tCommon } = useWazuhCorrelationPanel()
 
   const columns: Column<IOCCorrelation>[] = [
     {
@@ -60,6 +63,24 @@ export function WazuhCorrelationPanel({
       label: t('correlation.severity'),
       sortable: true,
       render: value => <SeverityBadge severity={String(value ?? 'info') as AlertSeverity} />,
+    },
+    {
+      key: 'iocValue',
+      label: tCommon('enrichOsint'),
+      render: (_value, row) => {
+        const rawType = String(row.iocType ?? 'ip')
+        const normalized = normalizeIocType(rawType)
+        return (
+          <div className="flex items-center gap-1">
+            <OsintEnrichButton
+              iocType={normalized}
+              iocValue={String(row.iocValue ?? '')}
+              t={tCommon}
+            />
+            {isFileOrHashType(rawType) && <OsintFileUploadButton t={tCommon} />}
+          </div>
+        )
+      },
     },
   ]
 
