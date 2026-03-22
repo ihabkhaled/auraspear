@@ -171,6 +171,7 @@ export default function AiConfigPage() {
       </Tabs>
 
       <AgentConfigEditDialog
+        key={selectedConfig?.agentId ?? 'none'}
         open={editDialogOpen}
         onOpenChange={setEditDialogOpen}
         config={selectedConfig}
