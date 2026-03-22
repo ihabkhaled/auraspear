@@ -128,6 +128,101 @@ describe('detectionRuleService', () => {
     })
   })
 
+  // ─── toggleRule ─────────────────────────────────────────────────
+
+  describe('toggleRule', () => {
+    it('should call PATCH /detection-rules/:id/toggle with enabled flag', async () => {
+      const rule = { id: 'rule-1', enabled: false }
+      mockPatch.mockResolvedValue({ data: { data: rule } })
+
+      const result = await detectionRuleService.toggleRule('rule-1', false)
+
+      expect(mockPatch).toHaveBeenCalledWith('/detection-rules/rule-1/toggle', { enabled: false })
+      expect(result).toEqual({ data: rule })
+    })
+
+    it('should propagate API errors', async () => {
+      mockPatch.mockRejectedValue(new Error('Forbidden'))
+
+      await expect(detectionRuleService.toggleRule('rule-1', true)).rejects.toThrow('Forbidden')
+    })
+  })
+
+  // ─── simulateRule ─────────────────────────────────────────────
+
+  describe('simulateRule', () => {
+    it('should call POST /detection-rules/:id/simulate with events', async () => {
+      const simResult = { matches: 3, totalEvents: 10 }
+      mockPost.mockResolvedValue({ data: { data: simResult } })
+
+      const events = [{ source: 'syslog', message: 'failed login' }]
+      const result = await detectionRuleService.simulateRule('rule-1', events)
+
+      expect(mockPost).toHaveBeenCalledWith('/detection-rules/rule-1/simulate', { events })
+      expect(result).toEqual({ data: simResult })
+    })
+  })
+
+  // ─── aiDraftRule ──────────────────────────────────────────────
+
+  describe('aiDraftRule', () => {
+    it('should call POST /detection-rules/ai/draft with description and connector', async () => {
+      const aiResult = { draftRule: 'title: Brute Force', confidence: 0.9 }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const result = await detectionRuleService.aiDraftRule('Detect brute force', 'bedrock')
+
+      expect(mockPost).toHaveBeenCalledWith('/detection-rules/ai/draft', {
+        description: 'Detect brute force',
+        connector: 'bedrock',
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should call without connector when not provided', async () => {
+      const aiResult = { draftRule: 'title: Lateral Movement', confidence: 0.85 }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const result = await detectionRuleService.aiDraftRule('Detect lateral movement')
+
+      expect(mockPost).toHaveBeenCalledWith('/detection-rules/ai/draft', {
+        description: 'Detect lateral movement',
+        connector: undefined,
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('AI service unavailable'))
+
+      await expect(detectionRuleService.aiDraftRule('desc')).rejects.toThrow(
+        'AI service unavailable'
+      )
+    })
+  })
+
+  // ─── aiTuning ─────────────────────────────────────────────────
+
+  describe('aiTuning', () => {
+    it('should call POST /detection-rules/:ruleId/ai/tuning with connector', async () => {
+      const aiResult = { suggestions: ['Adjust threshold'], confidence: 0.88 }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const result = await detectionRuleService.aiTuning('rule-1', 'openai')
+
+      expect(mockPost).toHaveBeenCalledWith('/detection-rules/rule-1/ai/tuning', {
+        connector: 'openai',
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('Timeout'))
+
+      await expect(detectionRuleService.aiTuning('rule-1')).rejects.toThrow('Timeout')
+    })
+  })
+
   // ─── Stats ──────────────────────────────────────────────────────
 
   describe('getStats', () => {

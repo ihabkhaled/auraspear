@@ -128,6 +128,46 @@ describe('normalizationService', () => {
     })
   })
 
+  // ─── aiVerifyPipeline ──────────────────────────────────────────
+
+  describe('aiVerifyPipeline', () => {
+    it('should call POST /normalization/pipelines/:id/ai/verify with sample events and connector', async () => {
+      const aiResult = { text: 'Pipeline looks correct', confidence: 0.92 }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const sampleEvents = [{ source: 'syslog', message: 'test event' }]
+      const result = await normalizationService.aiVerifyPipeline('pipe-1', sampleEvents, 'bedrock')
+
+      expect(mockPost).toHaveBeenCalledWith('/normalization/pipelines/pipe-1/ai/verify', {
+        sampleEvents,
+        connector: 'bedrock',
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should call without connector when not provided', async () => {
+      const aiResult = { text: 'Verification result', confidence: 0.85 }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const sampleEvents = [{ source: 'windows', message: 'event log' }]
+      const result = await normalizationService.aiVerifyPipeline('pipe-1', sampleEvents)
+
+      expect(mockPost).toHaveBeenCalledWith('/normalization/pipelines/pipe-1/ai/verify', {
+        sampleEvents,
+        connector: undefined,
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('AI unavailable'))
+
+      await expect(normalizationService.aiVerifyPipeline('pipe-1', [])).rejects.toThrow(
+        'AI unavailable'
+      )
+    })
+  })
+
   // ─── Stats ──────────────────────────────────────────────────────
 
   describe('getStats', () => {

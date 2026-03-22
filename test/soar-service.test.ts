@@ -186,4 +186,40 @@ describe('soarService', () => {
       await expect(soarService.getStats()).rejects.toThrow('Server error')
     })
   })
+
+  // ─── AI Draft Playbook ────────────────────────────────────────
+
+  describe('aiDraftPlaybook', () => {
+    it('should call POST /soar/ai/draft-playbook with description and connector', async () => {
+      const draft = { result: 'Generated playbook YAML', confidence: 0.9 }
+      mockPost.mockResolvedValue({ data: { data: draft } })
+
+      const result = await soarService.aiDraftPlaybook('Phishing response playbook', 'bedrock')
+
+      expect(mockPost).toHaveBeenCalledWith('/soar/ai/draft-playbook', {
+        description: 'Phishing response playbook',
+        connector: 'bedrock',
+      })
+      expect(result).toEqual(draft)
+    })
+
+    it('should call without connector when not provided', async () => {
+      const draft = { result: 'Generated playbook', confidence: 0.85 }
+      mockPost.mockResolvedValue({ data: { data: draft } })
+
+      const result = await soarService.aiDraftPlaybook('Malware containment')
+
+      expect(mockPost).toHaveBeenCalledWith('/soar/ai/draft-playbook', {
+        description: 'Malware containment',
+        connector: undefined,
+      })
+      expect(result).toEqual(draft)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('AI service unavailable'))
+
+      await expect(soarService.aiDraftPlaybook('test')).rejects.toThrow('AI service unavailable')
+    })
+  })
 })

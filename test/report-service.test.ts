@@ -161,6 +161,42 @@ describe('reportService', () => {
     })
   })
 
+  // ─── aiExecutiveReport ─────────────────────────────────────────
+
+  describe('aiExecutiveReport', () => {
+    it('should call POST /reports/ai/executive with timeRange and connector', async () => {
+      const aiResult = { text: 'Executive report content', model: 'claude-3' }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const result = await reportService.aiExecutiveReport('7d', 'bedrock-connector')
+
+      expect(mockPost).toHaveBeenCalledWith('/reports/ai/executive', {
+        timeRange: '7d',
+        connector: 'bedrock-connector',
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should call without connector when not provided', async () => {
+      const aiResult = { text: 'Report', model: 'rule-based' }
+      mockPost.mockResolvedValue({ data: { data: aiResult } })
+
+      const result = await reportService.aiExecutiveReport('30d')
+
+      expect(mockPost).toHaveBeenCalledWith('/reports/ai/executive', {
+        timeRange: '30d',
+        connector: undefined,
+      })
+      expect(result).toEqual(aiResult)
+    })
+
+    it('should propagate API errors', async () => {
+      mockPost.mockRejectedValue(new Error('AI service unavailable'))
+
+      await expect(reportService.aiExecutiveReport('7d')).rejects.toThrow('AI service unavailable')
+    })
+  })
+
   describe('getTemplates', () => {
     it('should call GET /reports/templates without params', async () => {
       const templates = [{ id: 'tpl-1', key: ReportTemplateKey.EXECUTIVE_OVERVIEW }]
