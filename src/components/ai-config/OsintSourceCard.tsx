@@ -4,6 +4,10 @@ import { CheckCircle, Edit, Globe, Trash2, XCircle, Zap } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Switch } from '@/components/ui/switch'
+import { OSINT_AUTH_TYPE_LABELS } from '@/lib/constants/ai-config'
+import { lookupBuiltinOsintDefaults } from '@/lib/osint.utils'
+import { lookup } from '@/lib/utils'
 import type { OsintSourceCardProps } from '@/types'
 
 export function OsintSourceCard({
@@ -11,9 +15,12 @@ export function OsintSourceCard({
   onEdit,
   onDelete,
   onTest,
+  onToggle,
   testLoading,
   t,
 }: OsintSourceCardProps) {
+  const builtinDefaults = lookupBuiltinOsintDefaults(source.sourceType)
+
   return (
     <Card className="border-border bg-card">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -22,17 +29,37 @@ export function OsintSourceCard({
           <div>
             <h3 className="text-sm font-semibold">{source.name}</h3>
             <p className="text-muted-foreground text-xs">{source.sourceType}</p>
+            {builtinDefaults?.supportedIocTypes && builtinDefaults.supportedIocTypes.length > 0 && (
+              <div className="mt-0.5 flex flex-wrap gap-0.5">
+                {builtinDefaults.supportedIocTypes.map(ioc => (
+                  <Badge key={ioc} variant="outline" className="px-1 py-0 text-[9px]">
+                    {ioc.toUpperCase()}
+                  </Badge>
+                ))}
+              </div>
+            )}
           </div>
         </div>
-        <Badge variant={source.isEnabled ? 'success' : 'secondary'}>
-          {source.isEnabled ? t('enabled') : t('disabled')}
-        </Badge>
+        <div className="flex items-center gap-2">
+          <Badge variant={source.isEnabled ? 'success' : 'secondary'}>
+            {source.isEnabled ? t('enabled') : t('disabled')}
+          </Badge>
+          <Switch
+            checked={source.isEnabled}
+            onCheckedChange={checked => onToggle(source.id, checked)}
+            aria-label={t('enabled')}
+          />
+        </div>
       </CardHeader>
       <CardContent className="space-y-3 pt-0">
         <div className="grid grid-cols-2 gap-2 text-xs">
           <div>
             <span className="text-muted-foreground">{t('authType')}: </span>
-            <span>{source.authType}</span>
+            <span>
+              {lookup(OSINT_AUTH_TYPE_LABELS, source.authType) ?? source.authType}
+              {source.headerName ? ` (${source.headerName})` : ''}
+              {source.queryParamName ? ` (${source.queryParamName})` : ''}
+            </span>
           </div>
           <div>
             <span className="text-muted-foreground">{t('requestMethod')}: </span>
@@ -44,11 +71,11 @@ export function OsintSourceCard({
           </div>
           <div className="flex items-center gap-1">
             <span className="text-muted-foreground">{t('testConnection')}: </span>
-            {source.lastTestAt === null ? (
-              <span className="text-muted-foreground">-</span>
-            ) : source.lastTestOk ? (
+            {source.lastTestAt === null && <span className="text-muted-foreground">-</span>}
+            {source.lastTestAt !== null && source.lastTestOk && (
               <CheckCircle className="text-status-success h-3.5 w-3.5" />
-            ) : (
+            )}
+            {source.lastTestAt !== null && !source.lastTestOk && (
               <XCircle className="text-status-error h-3.5 w-3.5" />
             )}
           </div>

@@ -1,12 +1,16 @@
 'use client'
 
-import { Globe, Plus, Settings2, ShieldCheck } from 'lucide-react'
+import { BookText, Globe, Layers, Plus, Settings2, ShieldCheck } from 'lucide-react'
 import {
   AgentConfigCard,
   AgentConfigEditDialog,
   ApprovalCard,
+  FeatureEditDialog,
+  FeatureTable,
   OsintSourceCard,
   OsintSourceDialog,
+  PromptDialog,
+  PromptTable,
 } from '@/components/ai-config'
 import { LoadingSpinner, PageHeader } from '@/components/common'
 import { Button } from '@/components/ui/button'
@@ -29,6 +33,7 @@ export default function AiConfigPage() {
     canEdit,
     canManageOsint,
     canManageApprovals,
+    canManagePrompts,
     agentConfigs,
     agentConfigsLoading,
     editDialogOpen,
@@ -50,6 +55,7 @@ export default function AiConfigPage() {
     osintSubmitLoading,
     handleDeleteOsint,
     handleTestOsint,
+    handleToggleOsint,
     testOsintLoading,
     approvals,
     approvalsLoading,
@@ -57,6 +63,25 @@ export default function AiConfigPage() {
     setApprovalFilter,
     handleResolveApproval,
     resolveApprovalLoading,
+    prompts,
+    promptsLoading,
+    promptDialogOpen,
+    setPromptDialogOpen,
+    selectedPrompt,
+    handleOpenPromptCreate,
+    handleEditPrompt,
+    handlePromptSubmit,
+    promptSubmitLoading,
+    handleActivatePrompt,
+    handleDeletePrompt,
+    features,
+    featuresLoading,
+    featureDialogOpen,
+    setFeatureDialogOpen,
+    selectedFeature,
+    handleEditFeature,
+    handleUpdateFeature,
+    featureUpdateLoading,
   } = useAiConfigPage()
 
   return (
@@ -76,6 +101,14 @@ export default function AiConfigPage() {
           <TabsTrigger value="approvals">
             <ShieldCheck className="mr-1.5 h-3.5 w-3.5" />
             {t('tabApprovals')}
+          </TabsTrigger>
+          <TabsTrigger value="prompts">
+            <BookText className="mr-1.5 h-3.5 w-3.5" />
+            {t('promptsTab')}
+          </TabsTrigger>
+          <TabsTrigger value="features">
+            <Layers className="mr-1.5 h-3.5 w-3.5" />
+            {t('featuresTab')}
           </TabsTrigger>
         </TabsList>
 
@@ -108,15 +141,15 @@ export default function AiConfigPage() {
             </div>
           )}
 
-          {osintSourcesLoading ? (
-            <LoadingSpinner />
-          ) : osintSources.length === 0 ? (
+          {osintSourcesLoading && <LoadingSpinner />}
+          {!osintSourcesLoading && osintSources.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12">
               <Globe className="text-muted-foreground mb-4 h-12 w-12" />
               <p className="text-muted-foreground text-sm font-medium">{t('noSources')}</p>
               <p className="text-muted-foreground mt-1 text-xs">{t('noSourcesDesc')}</p>
             </div>
-          ) : (
+          )}
+          {!osintSourcesLoading && osintSources.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {osintSources.map(source => (
                 <OsintSourceCard
@@ -125,6 +158,7 @@ export default function AiConfigPage() {
                   onEdit={canManageOsint ? handleEditOsint : () => {}}
                   onDelete={canManageOsint ? s => void handleDeleteOsint(s) : () => {}}
                   onTest={handleTestOsint}
+                  onToggle={canManageOsint ? handleToggleOsint : () => {}}
                   testLoading={testOsintLoading}
                   t={t}
                 />
@@ -146,15 +180,15 @@ export default function AiConfigPage() {
             </Select>
           </div>
 
-          {approvalsLoading ? (
-            <LoadingSpinner />
-          ) : approvals.length === 0 ? (
+          {approvalsLoading && <LoadingSpinner />}
+          {!approvalsLoading && approvals.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12">
               <ShieldCheck className="text-muted-foreground mb-4 h-12 w-12" />
               <p className="text-muted-foreground text-sm font-medium">{t('noApprovals')}</p>
               <p className="text-muted-foreground mt-1 text-xs">{t('noApprovalsDesc')}</p>
             </div>
-          ) : (
+          )}
+          {!approvalsLoading && approvals.length > 0 && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {approvals.map(approval => (
                 <ApprovalCard
@@ -167,6 +201,35 @@ export default function AiConfigPage() {
               ))}
             </div>
           )}
+        </TabsContent>
+
+        <TabsContent value="prompts" className="mt-4">
+          {canManagePrompts && (
+            <div className="mb-4 flex justify-end">
+              <Button onClick={handleOpenPromptCreate}>
+                <Plus className="mr-1.5 h-4 w-4" />
+                {t('createPrompt')}
+              </Button>
+            </div>
+          )}
+
+          <PromptTable
+            prompts={prompts}
+            loading={promptsLoading}
+            onEdit={handleEditPrompt}
+            onActivate={handleActivatePrompt}
+            onDelete={handleDeletePrompt}
+            t={t}
+          />
+        </TabsContent>
+
+        <TabsContent value="features" className="mt-4">
+          <FeatureTable
+            features={features}
+            loading={featuresLoading}
+            onEdit={handleEditFeature}
+            t={t}
+          />
         </TabsContent>
       </Tabs>
 
@@ -187,6 +250,26 @@ export default function AiConfigPage() {
         source={selectedOsintSource}
         onSubmit={handleOsintSubmit}
         loading={osintSubmitLoading}
+        t={t}
+      />
+
+      <PromptDialog
+        key={selectedPrompt?.id ?? 'new-prompt'}
+        open={promptDialogOpen}
+        onOpenChange={setPromptDialogOpen}
+        prompt={selectedPrompt}
+        onSubmit={handlePromptSubmit}
+        loading={promptSubmitLoading}
+        t={t}
+      />
+
+      <FeatureEditDialog
+        key={selectedFeature?.id ?? 'no-feature'}
+        open={featureDialogOpen}
+        onOpenChange={setFeatureDialogOpen}
+        feature={selectedFeature}
+        onSubmit={handleUpdateFeature}
+        loading={featureUpdateLoading}
         t={t}
       />
     </div>
