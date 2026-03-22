@@ -91,7 +91,29 @@
     "lightMode": "Hellmodus",
     "updatedAt": "Aktualisiert am",
     "aiConnector": "KI-Konnektor",
-    "connectorDefault": "Standard (Auto)"
+    "connectorDefault": "Standard (Auto)",
+    "enrichOsint": "Mit OSINT anreichern",
+    "enriching": "Anreichern...",
+    "sourcesResponded": "Quellen haben geantwortet",
+    "osintOk": "OK",
+    "osintFailed": "Fehlgeschlagen",
+    "osintMs": "ms",
+    "osintDismiss": "Schließen",
+    "osintNoResults": "Keine OSINT-Ergebnisse gefunden",
+    "osintEnrichComplete": "OSINT-Anreicherung abgeschlossen",
+    "uploadFile": "Datei hochladen",
+    "uploadingFile": "Hochladen...",
+    "fileUploadComplete": "Datei zum Scannen hochgeladen",
+    "noVirusTotalSource": "Keine aktivierte VirusTotal-Quelle gefunden",
+    "fetchAnalysisResults": "Fetch Results",
+    "fetchingResults": "Fetching...",
+    "osintMalicious": "malicious",
+    "osintSuspicious": "suspicious",
+    "osintClean": "clean",
+    "osintUndetected": "undetected",
+    "osintEngines": "engines",
+    "osintReputation": "Reputation",
+    "osintRawData": "Raw Data"
   },
   "dashboard": {
     "title": "Management-Dashboard",
@@ -295,6 +317,7 @@
   "hunt": {
     "title": "KI-Bedrohungssuche",
     "description": "KI-gestützte Bedrohungserkennung und -analyse",
+    "aiAssistant": "AI Assistant",
     "inputPlaceholder": "Beschreiben Sie ein Bedrohungsszenario oder stellen Sie eine Sicherheitsfrage...",
     "send": "Senden",
     "newSession": "Neue Sitzung",
@@ -333,7 +356,15 @@
       "suspiciousProcesses": "Verdächtige Prozessausführung",
       "detectBruteForce": "Brute-Force-Angriffe erkennen",
       "findLateralMovement": "Laterale Bewegung finden",
-      "checkDataExfiltration": "Auf Datenexfiltration prüfen"
+      "checkDataExfiltration": "Auf Datenexfiltration prüfen",
+      "dnsTunneling": "DNS-Tunneling erkennen",
+      "privilegeEscalation": "Versuche der Rechteeskalation",
+      "unauthorizedRdp": "Unbefugter RDP-Zugriff",
+      "malwareC2": "Malware-C2-Kommunikation",
+      "webShellActivity": "Web-Shell-Aktivität",
+      "credentialDumping": "Credential-Dumping-Tools",
+      "unusualOutbound": "Ungewöhnlicher ausgehender Datenverkehr",
+      "registryPersistence": "Registry-Persistenzmechanismen"
     },
     "aiAnalysis": "AI Analysis",
     "sourcesCovered": "Sources Queried",
@@ -1191,7 +1222,7 @@
     "endpointHint": "Optional. Für LocalStack oder benutzerdefinierte AWS-kompatible Endpunkte. Leer lassen für echtes AWS Bedrock.",
     "wazuh": {
       "indexerUrl": "Indexer-URL",
-      "managerUrl": "Manager-URL (optional)",
+      "managerUrl": "Manager-URL",
       "indexerUsername": "Indexer-Benutzername",
       "indexerPassword": "Indexer-Passwort",
       "tenant": "Mandant (optional)"
@@ -1577,14 +1608,64 @@
       "connectorDisabled": "Dieser Konnektor ist deaktiviert."
     },
     "ai": {
-      "notEnabled": "KI-Modul ist nicht aktiviert.",
-      "invocationFailed": "KI-Aufruf fehlgeschlagen.",
-      "serviceUnavailable": "Der KI-Dienst ist voruebergehend nicht verfuegbar. Bitte versuchen Sie es spaeter erneut.",
-      "featureDisabled": "Diese KI-Funktion ist für Ihren Tenant deaktiviert.",
-      "connectorNotAvailable": "Der angeforderte KI-Konnektor ist nicht verfügbar.",
-      "budgetExceeded": "KI-Nutzungsbudget fur diese Funktion uberschritten. Kontaktieren Sie Ihren Administrator.",
-      "agentDisabled": "Dieser KI-Agent ist derzeit deaktiviert. Kontaktieren Sie Ihren Administrator.",
-      "agentQuotaExceeded": "Token-Kontingent des KI-Agenten uberschritten. Versuchen Sie es spater erneut oder kontaktieren Sie Ihren Administrator."
+      "notEnabled": "Keine KI-Konnektoren konfiguriert. Richten Sie einen unter Einstellungen → Konnektoren ein.",
+      "invocationFailed": "KI-Aufruf fehlgeschlagen. Versuchen Sie es erneut.",
+      "serviceUnavailable": "KI-Dienst vorübergehend nicht verfügbar. Versuchen Sie es später.",
+      "featureDisabled": "Diese KI-Funktion ist deaktiviert. Kontaktieren Sie Ihren Administrator.",
+      "connectorNotAvailable": "Der gewählte KI-Konnektor ist nicht verfügbar. Wählen Sie einen anderen.",
+      "budgetExceeded": "Monatliches KI-Nutzungsbudget überschritten. Kontaktieren Sie Ihren Administrator.",
+      "agentDisabled": "Der KI-Agent für diese Aufgabe ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+      "agentQuotaExceeded": "KI-Agent Token-Kontingent überschritten. Versuchen Sie es später.",
+      "quotaExceededHourly": "Stündliches Token-Limit erreicht. Warten Sie oder erhöhen Sie das Limit.",
+      "quotaExceededDaily": "Tägliches Token-Limit erreicht. Warten Sie oder erhöhen Sie das Limit.",
+      "quotaExceededMonthly": "Monatliches Token-Limit erreicht. Kontaktieren Sie Ihren Administrator.",
+      "connectorFailed": "Der KI-Konnektor ist fehlgeschlagen. Versuchen Sie einen anderen.",
+      "connectorTimeout": "Der KI-Konnektor hat das Zeitlimit überschritten.",
+      "allConnectorsFailed": "Alle KI-Konnektoren sind fehlgeschlagen. Prüfen Sie den Status.",
+      "agent": {
+        "orchestrator": {
+          "disabled": "Der KI-Agent Orchestrator ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent Orchestrator ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten Orchestrator ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten Orchestrator wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "l1_analyst": {
+          "disabled": "Der KI-Agent L1 SOC Analyst ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent L1 SOC Analyst ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten L1 SOC Analyst ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten L1 SOC Analyst wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "l2_analyst": {
+          "disabled": "Der KI-Agent L2 SOC Analyst ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent L2 SOC Analyst ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten L2 SOC Analyst ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten L2 SOC Analyst wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "threat_hunter": {
+          "disabled": "Der KI-Agent Threat Hunter ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent Threat Hunter ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten Threat Hunter ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten Threat Hunter wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "rules_analyst": {
+          "disabled": "Der KI-Agent Rules Analyst ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent Rules Analyst ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten Rules Analyst ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten Rules Analyst wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "norm_verifier": {
+          "disabled": "Der KI-Agent Normalization Verifier ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent Normalization Verifier ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten Normalization Verifier ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten Normalization Verifier wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        },
+        "dashboard_builder": {
+          "disabled": "Der KI-Agent Dashboard Builder ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
+          "notConfigured": "Der KI-Agent Dashboard Builder ist nicht konfiguriert. Richten Sie ihn in der KI-Konfiguration ein.",
+          "unreachable": "Der Konnektor des KI-Agenten Dashboard Builder ist nicht erreichbar. Prüfen Sie die Konnektor-Einstellungen.",
+          "quotaExceeded": "Das Token-Kontingent des KI-Agenten Dashboard Builder wurde überschritten. Erhöhen Sie die Limits in der KI-Konfiguration."
+        }
+      }
     },
     "aiAgents": {
       "notFound": "KI-Agent nicht gefunden.",
@@ -1699,6 +1780,26 @@
     "entities": {
       "notFound": "Entität nicht gefunden",
       "alreadyExists": "Entität existiert bereits"
+    },
+    "osint": {
+      "sourceNotFound": "OSINT-Quelle nicht gefunden oder deaktiviert.",
+      "queryFailed": "OSINT-Abfrage fehlgeschlagen. Uberprufen Sie die Quellkonfiguration und den API-Schlussel.",
+      "rateLimitExceeded": "OSINT-Quellen-Ratenlimit uberschritten. Versuchen Sie es spater erneut.",
+      "authFailed": "OSINT-Quellen-Authentifizierung fehlgeschlagen. Uberprufen Sie Ihren API-Schlussel.",
+      "forbidden": "Acceso denegado al origen OSINT. Su clave API puede carecer de permisos.",
+      "notFound": "Punto final de origen OSINT no encontrado. Verifique la URL base.",
+      "serverError": "Error del servidor de origen OSINT. El proveedor puede tener problemas.",
+      "badRequest": "El origen OSINT rechazó la solicitud. Verifique los parámetros.",
+      "unreachable": "El origen OSINT no es accesible. Verifique la URL y su conexión.",
+      "timeout": "OSINT-Quellen-Timeout. Der Anbieter ist moglicherweise langsam oder nicht erreichbar.",
+      "parseError": "Fehler beim Parsen der OSINT-Quellenantwort. Uberprufen Sie die Antwortpfad-Konfiguration.",
+      "sourceDisabled": "OSINT-Quelle ist deaktiviert.",
+      "sourceIdRequired": "Quell-ID ist erforderlich.",
+      "fileRequired": "Eine Datei ist fuer den Upload erforderlich.",
+      "analysisUrlRequired": "Analyse-URL ist erforderlich."
+    },
+    "agentConfig": {
+      "osintSourceNotFound": "OSINT-Quelle nicht gefunden."
     }
   },
   "profile": {
@@ -3298,7 +3399,11 @@
     "submit": "Create",
     "creating": "Creating...",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "aiVerify": "Mit KI verifizieren",
+    "aiVerifyDescription": "KI-gestuetzte Verifizierung der Pipeline-Feldzuordnung",
+    "aiVerifying": "Verifizierung...",
+    "aiVerifySuccess": "Verifizierung abgeschlossen"
   },
   "detectionRules": {
     "title": "Erkennungsregeln",
@@ -3438,7 +3543,21 @@
     "aiProvider": "Anbieter",
     "aiRegenerate": "Neu generieren",
     "aiLoading": "Generierung läuft...",
-    "aiError": "KI-Generierung fehlgeschlagen. Bitte versuchen Sie es erneut."
+    "aiError": "KI-Generierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "toggleSuccess": "Regel erfolgreich umgeschaltet",
+    "toggleError": "Fehler beim Umschalten der Regel",
+    "simulateRule": "Regel simulieren",
+    "simulateDescription": "Regel gegen Beispielereignisse testen",
+    "simulateEventsPlaceholder": "JSON-Array von Ereignissen eingeben...",
+    "simulateRun": "Simulation starten",
+    "simulateRunning": "Simuliere...",
+    "simulateResult": "Simulationsergebnis",
+    "simulateMatched": "Treffer",
+    "simulateNoMatch": "Kein Treffer",
+    "simulateError": "Simulation fehlgeschlagen",
+    "simulateMatchCount": "Anzahl der Treffer",
+    "simulateDuration": "Dauer",
+    "simulateEngine": "Engine"
   },
   "cloudSecurity": {
     "title": "Cloud-Sicherheit",
@@ -4029,7 +4148,16 @@
     "typeUrl": "URL",
     "typeProcess": "Prozess",
     "typeFile": "Datei",
-    "typeAsset": "Asset"
+    "typeAsset": "Asset",
+    "viewGraph": "Graph anzeigen",
+    "graphTitle": "Entitätsbeziehungen",
+    "graphDescription": "Beziehungsgraph für diese Entität",
+    "graphNoEdges": "Keine Beziehungen für diese Entität gefunden",
+    "graphLoading": "Graphdaten werden geladen...",
+    "graphRelation": "Beziehung",
+    "graphFrom": "Von",
+    "graphTo": "Nach",
+    "graphConfidence": "Vertrauen"
   },
   "msspDashboard": {
     "title": "MSSP-Portfolio",
@@ -4111,9 +4239,13 @@
     "editSource": "Quelle bearbeiten",
     "deleteSource": "Quelle loschen",
     "testConnection": "Verbindung testen",
+    "testConnectionSuccess": "Test de conexión exitoso. La fuente es accesible.",
+    "testConnectionFailed": "Test de conexión fallido. Verifique la configuración.",
     "sourceCreated": "Quelle erstellt",
     "sourceUpdated": "Quelle aktualisiert",
     "sourceDeleted": "Quelle geloscht",
+    "sourceEnabled": "Fuente OSINT habilitada",
+    "sourceDisabled": "Fuente OSINT deshabilitada",
     "deleteConfirm": "Diese OSINT-Quelle loschen?",
     "noSources": "Keine OSINT-Quellen konfiguriert",
     "noSourcesDesc": "OSINT-Quellen hinzufugen um Bedrohungsintelligenz-Anreicherung zu aktivieren",
@@ -4141,6 +4273,68 @@
     "actionType": "Aktionstyp",
     "cancel": "Abbrechen",
     "save": "Speichern",
-    "saving": "Speichern..."
+    "saving": "Speichern...",
+    "osintQuery": "Quelle abfragen",
+    "osintEnrich": "IoC anreichern",
+    "osintQuerySuccess": "OSINT-Abfrage abgeschlossen",
+    "osintEnrichSuccess": "IoC-Anreicherung abgeschlossen",
+    "osintQueryFailed": "OSINT-Abfrage fehlgeschlagen",
+    "osintNoResults": "Keine Ergebnisse von der OSINT-Quelle",
+    "osintSourcesQueried": "Quellen abgefragt",
+    "osintResponseTime": "Antwortzeit",
+    "rateLimitHint": "Ratenlimit",
+    "supportedIocTypes": "Unterstutzte IoCs",
+    "promptsTab": "Vorlagen",
+    "featuresTab": "Funktionen",
+    "promptName": "Vorlagenname",
+    "promptTaskType": "Aufgabentyp",
+    "promptContent": "Inhalt",
+    "promptVersion": "Version",
+    "promptActive": "Aktiv",
+    "promptInactive": "Inaktiv",
+    "promptCreatedBy": "Erstellt von",
+    "createdAt": "Erstellt am",
+    "createPrompt": "Vorlage erstellen",
+    "editPrompt": "Vorlage bearbeiten",
+    "deletePromptConfirm": "Diese Prompt-Vorlage loschen?",
+    "promptCreated": "Vorlage erstellt",
+    "promptUpdated": "Vorlage aktualisiert",
+    "promptActivated": "Vorlage aktiviert",
+    "promptDeleted": "Vorlage geloscht",
+    "featureKey": "Funktion",
+    "featureEnabled": "Aktiviert",
+    "featureProvider": "Bevorzugter Anbieter",
+    "featureMaxTokens": "Maximale Token",
+    "featureApproval": "Genehmigungsstufe",
+    "featureBudget": "Monatsbudget",
+    "editFeature": "Funktion bearbeiten",
+    "featureUpdated": "Funktionskonfiguration aktualisiert",
+    "noPrompts": "Keine Prompt-Vorlagen",
+    "noFeatures": "Keine Funktionskonfigurationen",
+    "featureAlertSummarize": "Alarm — Zusammenfassen",
+    "featureAlertExplainSeverity": "Alarm — Schweregrad Erklären",
+    "featureAlertFalsePositive": "Alarm — Falsch-Positiv-Bewertung",
+    "featureAlertNextAction": "Alarm — Nächste Beste Aktion",
+    "featureCaseSummarize": "Fall — Zusammenfassen",
+    "featureCaseExecutiveSummary": "Fall — Zusammenfassung für Führungskräfte",
+    "featureCaseTimeline": "Fall — Zeitleisten-Synthese",
+    "featureCaseNextTasks": "Fall — Nächste Aufgaben Vorschlagen",
+    "featureHuntHypothesis": "Jagd — Hypothese Generieren",
+    "featureHuntNlToQuery": "Jagd — Natürliche Sprache zu Abfrage",
+    "featureHuntResultInterpret": "Jagd — Ergebnisse Interpretieren",
+    "featureIntelIocEnrich": "Aufklärung — IOC-Anreicherung",
+    "featureIntelAdvisoryDraft": "Aufklärung — Hinweis Entwerfen",
+    "featureDetectionRuleDraft": "Erkennung — Regel Entwerfen",
+    "featureDetectionTuning": "Erkennung — Optimierungsvorschläge",
+    "featureReportDailySummary": "Bericht — Tägliche SOC-Zusammenfassung",
+    "featureReportExecutive": "Bericht — Führungskräfte-Bericht",
+    "featureDashboardAnomaly": "Dashboard — Anomalie-Erklärung",
+    "featureSoarPlaybookDraft": "SOAR — Playbook Entwerfen",
+    "featureAgentTask": "Agent — Allgemeine Aufgabe",
+    "featureKnowledgeSearch": "Wissen — KI-Suche",
+    "featureKnowledgeGenerateRunbook": "Wissen — Runbook Generieren",
+    "featureKnowledgeSummarizeIncident": "Wissen — Vorfall Zusammenfassen",
+    "featureEntityRiskExplain": "Entität — Risikoerklärung",
+    "featureNormalizationVerify": "Normalisierung — Pipeline-Überprüfung"
   }
 }

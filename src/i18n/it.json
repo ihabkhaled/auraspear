@@ -91,7 +91,29 @@
     "lightMode": "Modalità chiara",
     "updatedAt": "Aggiornato il",
     "aiConnector": "Connettore IA",
-    "connectorDefault": "Predefinito (Auto)"
+    "connectorDefault": "Predefinito (Auto)",
+    "enrichOsint": "Arricchisci con OSINT",
+    "enriching": "Arricchimento...",
+    "sourcesResponded": "fonti hanno risposto",
+    "osintOk": "OK",
+    "osintFailed": "Fallito",
+    "osintMs": "ms",
+    "osintDismiss": "Chiudi",
+    "osintNoResults": "Nessun risultato OSINT trovato",
+    "osintEnrichComplete": "Arricchimento OSINT completato",
+    "uploadFile": "Carica file",
+    "uploadingFile": "Caricamento...",
+    "fileUploadComplete": "File caricato per la scansione",
+    "noVirusTotalSource": "Nessuna fonte VirusTotal abilitata trovata",
+    "fetchAnalysisResults": "Fetch Results",
+    "fetchingResults": "Fetching...",
+    "osintMalicious": "malicious",
+    "osintSuspicious": "suspicious",
+    "osintClean": "clean",
+    "osintUndetected": "undetected",
+    "osintEngines": "engines",
+    "osintReputation": "Reputation",
+    "osintRawData": "Raw Data"
   },
   "dashboard": {
     "title": "Dashboard Esecutiva",
@@ -295,6 +317,7 @@
   "hunt": {
     "title": "Caccia alle Minacce con AI",
     "description": "Rilevamento e analisi delle minacce basati su AI",
+    "aiAssistant": "AI Assistant",
     "inputPlaceholder": "Descrivi uno scenario di minaccia o poni una domanda sulla sicurezza...",
     "send": "Invia",
     "newSession": "Nuova Sessione",
@@ -333,7 +356,15 @@
       "suspiciousProcesses": "Esecuzione di processi sospetti",
       "detectBruteForce": "Rileva attacchi brute force",
       "findLateralMovement": "Trova movimenti laterali",
-      "checkDataExfiltration": "Verifica esfiltrazione di dati"
+      "checkDataExfiltration": "Verifica esfiltrazione di dati",
+      "dnsTunneling": "Rilevamento tunnel DNS",
+      "privilegeEscalation": "Tentativi di escalation dei privilegi",
+      "unauthorizedRdp": "Accesso RDP non autorizzato",
+      "malwareC2": "Comunicazione C2 malware",
+      "webShellActivity": "Attività web shell",
+      "credentialDumping": "Strumenti di credential dumping",
+      "unusualOutbound": "Traffico in uscita insolito",
+      "registryPersistence": "Meccanismi di persistenza nel registro"
     },
     "aiAnalysis": "AI Analysis",
     "sourcesCovered": "Sources Queried",
@@ -1191,7 +1222,7 @@
     "endpointHint": "Opzionale. Per LocalStack o endpoint compatibili AWS. Lasciare vuoto per utilizzare AWS Bedrock reale.",
     "wazuh": {
       "indexerUrl": "URL dell'Indexer",
-      "managerUrl": "URL del Manager (opzionale)",
+      "managerUrl": "URL del Manager",
       "indexerUsername": "Username dell'Indexer",
       "indexerPassword": "Password dell'Indexer",
       "tenant": "Tenant (opzionale)"
@@ -1577,14 +1608,64 @@
       "connectorDisabled": "Questo connettore è disabilitato."
     },
     "ai": {
-      "notEnabled": "Il modulo AI non è abilitato.",
-      "invocationFailed": "Invocazione dell'AI fallita.",
-      "serviceUnavailable": "Il servizio AI è temporaneamente non disponibile. Riprova più tardi.",
-      "featureDisabled": "Questa funzione AI è disabilitata per il tuo tenant.",
-      "connectorNotAvailable": "Il connettore AI richiesto non è disponibile.",
-      "budgetExceeded": "Budget di utilizzo IA superato per questa funzione. Contatta il tuo amministratore.",
-      "agentDisabled": "Questo agente IA è attualmente disabilitato. Contatta il tuo amministratore.",
-      "agentQuotaExceeded": "Quota token dell'agente IA superata. Riprova più tardi o contatta il tuo amministratore."
+      "notEnabled": "Nessun connettore IA configurato. Configurane uno in Impostazioni → Connettori.",
+      "invocationFailed": "Invocazione IA fallita. Riprova.",
+      "serviceUnavailable": "Servizio IA temporaneamente non disponibile. Riprova più tardi.",
+      "featureDisabled": "Questa funzionalità IA è disabilitata. Contatta il tuo amministratore.",
+      "connectorNotAvailable": "Il connettore IA selezionato non è disponibile. Scegline un altro.",
+      "budgetExceeded": "Budget mensile di utilizzo IA superato. Contatta il tuo amministratore.",
+      "agentDisabled": "L'agente IA che gestisce questa attività è disabilitato. Abilitalo nella Configurazione IA.",
+      "agentQuotaExceeded": "Quota token dell'agente IA superata. Riprova più tardi.",
+      "quotaExceededHourly": "Limite orario di token raggiunto. Attendi o aumenta il limite.",
+      "quotaExceededDaily": "Limite giornaliero di token raggiunto. Attendi o aumenta il limite.",
+      "quotaExceededMonthly": "Limite mensile di token raggiunto. Contatta il tuo amministratore.",
+      "connectorFailed": "Il connettore IA ha fallito. Prova un altro connettore.",
+      "connectorTimeout": "Il connettore IA è scaduto. La richiesta potrebbe essere troppo grande.",
+      "allConnectorsFailed": "Tutti i connettori IA hanno fallito. Verifica il loro stato.",
+      "agent": {
+        "orchestrator": {
+          "disabled": "L'agente IA Orchestrator è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA Orchestrator non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA Orchestrator non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA Orchestrator superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "l1_analyst": {
+          "disabled": "L'agente IA L1 SOC Analyst è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA L1 SOC Analyst non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA L1 SOC Analyst non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA L1 SOC Analyst superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "l2_analyst": {
+          "disabled": "L'agente IA L2 SOC Analyst è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA L2 SOC Analyst non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA L2 SOC Analyst non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA L2 SOC Analyst superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "threat_hunter": {
+          "disabled": "L'agente IA Threat Hunter è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA Threat Hunter non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA Threat Hunter non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA Threat Hunter superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "rules_analyst": {
+          "disabled": "L'agente IA Rules Analyst è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA Rules Analyst non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA Rules Analyst non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA Rules Analyst superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "norm_verifier": {
+          "disabled": "L'agente IA Normalization Verifier è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA Normalization Verifier non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA Normalization Verifier non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA Normalization Verifier superata. Aumenta i limiti nella Configurazione IA."
+        },
+        "dashboard_builder": {
+          "disabled": "L'agente IA Dashboard Builder è disabilitato. Abilitalo nella Configurazione IA.",
+          "notConfigured": "L'agente IA Dashboard Builder non è configurato. Configuralo nella Configurazione IA.",
+          "unreachable": "Il connettore dell'agente IA Dashboard Builder non è raggiungibile. Verifica le impostazioni del connettore.",
+          "quotaExceeded": "Quota token dell'agente IA Dashboard Builder superata. Aumenta i limiti nella Configurazione IA."
+        }
+      }
     },
     "aiAgents": {
       "notFound": "Agente AI non trovato.",
@@ -1699,6 +1780,26 @@
     "entities": {
       "notFound": "Entità non trovata",
       "alreadyExists": "Entità già esistente"
+    },
+    "osint": {
+      "sourceNotFound": "Fonte OSINT non trovata o disabilitata.",
+      "queryFailed": "Query OSINT fallita. Verificare la configurazione della fonte e la chiave API.",
+      "rateLimitExceeded": "Limite di richieste della fonte OSINT superato. Riprovare piu tardi.",
+      "authFailed": "Autenticazione della fonte OSINT fallita. Verificare la chiave API.",
+      "forbidden": "Acceso denegado al origen OSINT. Su clave API puede carecer de permisos.",
+      "notFound": "Punto final de origen OSINT no encontrado. Verifique la URL base.",
+      "serverError": "Error del servidor de origen OSINT. El proveedor puede tener problemas.",
+      "badRequest": "El origen OSINT rechazó la solicitud. Verifique los parámetros.",
+      "unreachable": "El origen OSINT no es accesible. Verifique la URL y su conexión.",
+      "timeout": "Timeout della fonte OSINT. Il provider potrebbe essere lento o irraggiungibile.",
+      "parseError": "Impossibile analizzare la risposta della fonte OSINT. Verificare la configurazione del percorso di risposta.",
+      "sourceDisabled": "La fonte OSINT e disabilitata.",
+      "sourceIdRequired": "L'ID della fonte e obbligatorio.",
+      "fileRequired": "Un file e richiesto per il caricamento.",
+      "analysisUrlRequired": "L'URL di analisi e obbligatorio."
+    },
+    "agentConfig": {
+      "osintSourceNotFound": "Fonte OSINT non trovata."
     }
   },
   "profile": {
@@ -3298,7 +3399,11 @@
     "submit": "Create",
     "creating": "Creating...",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "aiVerify": "Verifica con IA",
+    "aiVerifyDescription": "Verifica della mappatura dei campi della pipeline tramite IA",
+    "aiVerifying": "Verifica in corso...",
+    "aiVerifySuccess": "Verifica completata"
   },
   "detectionRules": {
     "title": "Regole di rilevamento",
@@ -3438,7 +3543,21 @@
     "aiProvider": "Fornitore",
     "aiRegenerate": "Rigenera",
     "aiLoading": "Generazione in corso...",
-    "aiError": "Generazione IA fallita. Riprovare."
+    "aiError": "Generazione IA fallita. Riprovare.",
+    "toggleSuccess": "Regola commutata con successo",
+    "toggleError": "Errore nella commutazione della regola",
+    "simulateRule": "Simula regola",
+    "simulateDescription": "Testa la regola su eventi campione",
+    "simulateEventsPlaceholder": "Inserisci un array JSON di eventi...",
+    "simulateRun": "Esegui simulazione",
+    "simulateRunning": "Simulazione in corso...",
+    "simulateResult": "Risultato simulazione",
+    "simulateMatched": "Corrispondenza",
+    "simulateNoMatch": "Nessuna corrispondenza",
+    "simulateError": "Simulazione fallita",
+    "simulateMatchCount": "Numero di corrispondenze",
+    "simulateDuration": "Durata",
+    "simulateEngine": "Motore"
   },
   "cloudSecurity": {
     "title": "Sicurezza cloud",
@@ -4029,7 +4148,16 @@
     "typeUrl": "URL",
     "typeProcess": "Processo",
     "typeFile": "File",
-    "typeAsset": "Asset"
+    "typeAsset": "Asset",
+    "viewGraph": "Visualizza grafo",
+    "graphTitle": "Relazioni dell'entità",
+    "graphDescription": "Grafo delle relazioni per questa entità",
+    "graphNoEdges": "Nessuna relazione trovata per questa entità",
+    "graphLoading": "Caricamento dati del grafo...",
+    "graphRelation": "Relazione",
+    "graphFrom": "Da",
+    "graphTo": "A",
+    "graphConfidence": "Confidenza"
   },
   "msspDashboard": {
     "title": "Portafoglio MSSP",
@@ -4111,9 +4239,13 @@
     "editSource": "Modifica Fonte",
     "deleteSource": "Elimina Fonte",
     "testConnection": "Testa Connessione",
+    "testConnectionSuccess": "Test de conexión exitoso. La fuente es accesible.",
+    "testConnectionFailed": "Test de conexión fallido. Verifique la configuración.",
     "sourceCreated": "Fonte creata",
     "sourceUpdated": "Fonte aggiornata",
     "sourceDeleted": "Fonte eliminata",
+    "sourceEnabled": "Fuente OSINT habilitada",
+    "sourceDisabled": "Fuente OSINT deshabilitada",
     "deleteConfirm": "Eliminare questa fonte OSINT?",
     "noSources": "Nessuna fonte OSINT configurata",
     "noSourcesDesc": "Aggiungi fonti OSINT per abilitare l arricchimento dell intelligence sulle minacce",
@@ -4141,6 +4273,68 @@
     "actionType": "Tipo di Azione",
     "cancel": "Annulla",
     "save": "Salva",
-    "saving": "Salvataggio..."
+    "saving": "Salvataggio...",
+    "osintQuery": "Interroga Fonte",
+    "osintEnrich": "Arricchisci IoC",
+    "osintQuerySuccess": "Query OSINT completata",
+    "osintEnrichSuccess": "Arricchimento IoC completato",
+    "osintQueryFailed": "Query OSINT fallita",
+    "osintNoResults": "Nessun risultato dalla fonte OSINT",
+    "osintSourcesQueried": "fonti interrogate",
+    "osintResponseTime": "Tempo di risposta",
+    "rateLimitHint": "Limite di richieste",
+    "supportedIocTypes": "IoC supportati",
+    "promptsTab": "Modelli",
+    "featuresTab": "Funzionalita",
+    "promptName": "Nome modello",
+    "promptTaskType": "Tipo di attivita",
+    "promptContent": "Contenuto",
+    "promptVersion": "Versione",
+    "promptActive": "Attivo",
+    "promptInactive": "Inattivo",
+    "promptCreatedBy": "Creato da",
+    "createdAt": "Creato il",
+    "createPrompt": "Crea modello",
+    "editPrompt": "Modifica modello",
+    "deletePromptConfirm": "Eliminare questo modello di prompt?",
+    "promptCreated": "Modello creato",
+    "promptUpdated": "Modello aggiornato",
+    "promptActivated": "Modello attivato",
+    "promptDeleted": "Modello eliminato",
+    "featureKey": "Funzionalita",
+    "featureEnabled": "Abilitato",
+    "featureProvider": "Provider preferito",
+    "featureMaxTokens": "Token massimi",
+    "featureApproval": "Livello di approvazione",
+    "featureBudget": "Budget mensile",
+    "editFeature": "Modifica funzionalita",
+    "featureUpdated": "Configurazione funzionalita aggiornata",
+    "noPrompts": "Nessun modello di prompt",
+    "noFeatures": "Nessuna configurazione funzionalita",
+    "featureAlertSummarize": "Allarme — Riassumere",
+    "featureAlertExplainSeverity": "Allarme — Spiegare la Gravità",
+    "featureAlertFalsePositive": "Allarme — Punteggio Falso Positivo",
+    "featureAlertNextAction": "Allarme — Migliore Azione Successiva",
+    "featureCaseSummarize": "Caso — Riassumere",
+    "featureCaseExecutiveSummary": "Caso — Riepilogo Esecutivo",
+    "featureCaseTimeline": "Caso — Sintesi Cronologica",
+    "featureCaseNextTasks": "Caso — Suggerire Prossime Attività",
+    "featureHuntHypothesis": "Caccia — Generare Ipotesi",
+    "featureHuntNlToQuery": "Caccia — Linguaggio Naturale a Query",
+    "featureHuntResultInterpret": "Caccia — Interpretare Risultati",
+    "featureIntelIocEnrich": "Intelligence — Arricchimento IOC",
+    "featureIntelAdvisoryDraft": "Intelligence — Bozza di Avviso",
+    "featureDetectionRuleDraft": "Rilevamento — Bozza di Regola",
+    "featureDetectionTuning": "Rilevamento — Suggerimenti di Ottimizzazione",
+    "featureReportDailySummary": "Report — Riepilogo SOC Giornaliero",
+    "featureReportExecutive": "Report — Report Esecutivo",
+    "featureDashboardAnomaly": "Dashboard — Spiegazione dell'Anomalia",
+    "featureSoarPlaybookDraft": "SOAR — Bozza di Playbook",
+    "featureAgentTask": "Agente — Attività Generica",
+    "featureKnowledgeSearch": "Conoscenza — Ricerca IA",
+    "featureKnowledgeGenerateRunbook": "Conoscenza — Generare Runbook",
+    "featureKnowledgeSummarizeIncident": "Conoscenza — Riassumere Incidente",
+    "featureEntityRiskExplain": "Entità — Spiegazione del Rischio",
+    "featureNormalizationVerify": "Normalizzazione — Verifica Pipeline"
   }
 }

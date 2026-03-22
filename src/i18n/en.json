@@ -91,7 +91,29 @@
     "lightMode": "Light mode",
     "updatedAt": "Updated At",
     "aiConnector": "AI Connector",
-    "connectorDefault": "Default (Auto)"
+    "connectorDefault": "Default (Auto)",
+    "enrichOsint": "Enrich with OSINT",
+    "enriching": "Enriching...",
+    "sourcesResponded": "sources responded",
+    "osintOk": "OK",
+    "osintFailed": "Failed",
+    "osintMs": "ms",
+    "osintDismiss": "Dismiss",
+    "osintNoResults": "No OSINT results found",
+    "osintEnrichComplete": "OSINT enrichment complete",
+    "uploadFile": "Upload File",
+    "uploadingFile": "Uploading...",
+    "fileUploadComplete": "File uploaded for scanning",
+    "noVirusTotalSource": "No enabled VirusTotal source found",
+    "fetchAnalysisResults": "Fetch Results",
+    "fetchingResults": "Fetching...",
+    "osintMalicious": "malicious",
+    "osintSuspicious": "suspicious",
+    "osintClean": "clean",
+    "osintUndetected": "undetected",
+    "osintEngines": "engines",
+    "osintReputation": "Reputation",
+    "osintRawData": "Raw Data"
   },
   "dashboard": {
     "title": "Executive Dashboard",
@@ -295,6 +317,7 @@
   "hunt": {
     "title": "AI Threat Hunting",
     "description": "AI-powered threat detection and analysis",
+    "aiAssistant": "AI Assistant",
     "inputPlaceholder": "Describe a threat scenario or ask a security question...",
     "send": "Send",
     "newSession": "New Session",
@@ -333,7 +356,15 @@
       "suspiciousProcesses": "Suspicious process execution",
       "detectBruteForce": "Detect brute force attacks",
       "findLateralMovement": "Find lateral movement",
-      "checkDataExfiltration": "Check for data exfiltration"
+      "checkDataExfiltration": "Check for data exfiltration",
+      "dnsTunneling": "DNS tunneling detection",
+      "privilegeEscalation": "Privilege escalation attempts",
+      "unauthorizedRdp": "Unauthorized RDP access",
+      "malwareC2": "Malware C2 communication",
+      "webShellActivity": "Web shell activity",
+      "credentialDumping": "Credential dumping tools",
+      "unusualOutbound": "Unusual outbound traffic",
+      "registryPersistence": "Registry persistence mechanisms"
     },
     "aiAnalysis": "AI Analysis",
     "sourcesCovered": "Sources Queried",
@@ -1191,7 +1222,7 @@
     "endpointHint": "Optional. For LocalStack or custom AWS-compatible endpoint. Leave empty for real AWS Bedrock.",
     "wazuh": {
       "indexerUrl": "Indexer URL",
-      "managerUrl": "Manager URL (optional)",
+      "managerUrl": "Manager URL",
       "indexerUsername": "Indexer Username",
       "indexerPassword": "Indexer Password",
       "tenant": "Tenant (optional)"
@@ -1577,14 +1608,64 @@
       "connectorDisabled": "This connector is disabled."
     },
     "ai": {
-      "notEnabled": "AI module is not enabled.",
-      "invocationFailed": "AI invocation failed.",
+      "notEnabled": "No AI connectors configured. Set up a connector in Settings → Connectors.",
+      "invocationFailed": "AI invocation failed. Please try again.",
       "serviceUnavailable": "AI service is temporarily unavailable. Please try again later.",
-      "featureDisabled": "This AI feature is disabled for your tenant.",
-      "connectorNotAvailable": "The requested AI connector is not available.",
-      "budgetExceeded": "AI usage budget exceeded for this feature. Contact your administrator.",
-      "agentDisabled": "This AI agent is currently disabled. Contact your administrator.",
-      "agentQuotaExceeded": "AI agent token quota exceeded. Try again later or contact your administrator."
+      "featureDisabled": "This AI feature is disabled for your tenant. Contact your administrator.",
+      "connectorNotAvailable": "The selected AI connector is not available or not configured. Choose a different connector.",
+      "budgetExceeded": "Monthly AI usage budget exceeded for this feature. Contact your administrator.",
+      "agentDisabled": "The AI agent handling this task is disabled. Enable it in AI Configuration.",
+      "agentQuotaExceeded": "AI agent token quota exceeded. Try again later or increase limits in AI Configuration.",
+      "quotaExceededHourly": "AI agent hourly token limit reached. Wait or increase the hourly limit in AI Configuration.",
+      "quotaExceededDaily": "AI agent daily token limit reached. Wait or increase the daily limit in AI Configuration.",
+      "quotaExceededMonthly": "AI agent monthly token limit reached. Contact your administrator to increase the limit.",
+      "connectorFailed": "The selected AI connector failed to process the request. Try a different connector or use Default.",
+      "connectorTimeout": "The AI connector timed out. The request may be too large or the provider is slow.",
+      "allConnectorsFailed": "All AI connectors failed. Check connector health in Settings → Connectors.",
+      "agent": {
+        "orchestrator": {
+          "disabled": "Orchestrator AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "Orchestrator AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "Orchestrator AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "Orchestrator AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "l1_analyst": {
+          "disabled": "L1 SOC Analyst AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "L1 SOC Analyst AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "L1 SOC Analyst AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "L1 SOC Analyst AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "l2_analyst": {
+          "disabled": "L2 SOC Analyst AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "L2 SOC Analyst AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "L2 SOC Analyst AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "L2 SOC Analyst AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "threat_hunter": {
+          "disabled": "Threat Hunter AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "Threat Hunter AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "Threat Hunter AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "Threat Hunter AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "rules_analyst": {
+          "disabled": "Rules Analyst AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "Rules Analyst AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "Rules Analyst AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "Rules Analyst AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "norm_verifier": {
+          "disabled": "Normalization Verifier AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "Normalization Verifier AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "Normalization Verifier AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "Normalization Verifier AI agent token quota exceeded. Increase limits in AI Configuration."
+        },
+        "dashboard_builder": {
+          "disabled": "Dashboard Builder AI agent is disabled. Enable it in AI Configuration.",
+          "notConfigured": "Dashboard Builder AI agent is not configured. Set it up in AI Configuration.",
+          "unreachable": "Dashboard Builder AI agent connector is unreachable. Check connector settings.",
+          "quotaExceeded": "Dashboard Builder AI agent token quota exceeded. Increase limits in AI Configuration."
+        }
+      }
     },
     "aiAgents": {
       "notFound": "AI Agent not found.",
@@ -1699,6 +1780,26 @@
     "entities": {
       "notFound": "Entity not found",
       "alreadyExists": "Entity already exists"
+    },
+    "osint": {
+      "sourceNotFound": "OSINT source not found or disabled.",
+      "queryFailed": "OSINT query failed. Check source configuration and API key.",
+      "rateLimitExceeded": "OSINT source rate limit exceeded. Try again later.",
+      "authFailed": "OSINT source authentication failed. Check your API key is correct.",
+      "forbidden": "OSINT source access denied. Your API key may lack required permissions.",
+      "notFound": "OSINT source endpoint not found. Check the base URL configuration.",
+      "serverError": "OSINT source server error. The provider may be experiencing issues.",
+      "badRequest": "OSINT source rejected the request. Check query parameters and configuration.",
+      "unreachable": "OSINT source is unreachable. Check the URL and your network connection.",
+      "timeout": "OSINT source timed out. The provider may be slow or unreachable.",
+      "parseError": "Failed to parse OSINT source response. Check the response path configuration.",
+      "sourceDisabled": "OSINT source is disabled.",
+      "sourceIdRequired": "Source ID is required.",
+      "fileRequired": "File is required for upload.",
+      "analysisUrlRequired": "Analysis URL is required."
+    },
+    "agentConfig": {
+      "osintSourceNotFound": "OSINT source not found."
     }
   },
   "profile": {
@@ -3351,7 +3452,11 @@
     "submit": "Create",
     "creating": "Creating...",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "aiVerify": "Verify with AI",
+    "aiVerifyDescription": "AI-powered pipeline field mapping verification",
+    "aiVerifying": "Verifying...",
+    "aiVerifySuccess": "Verification complete"
   },
   "detectionRules": {
     "title": "Detection Rules",
@@ -3491,7 +3596,21 @@
     "aiProvider": "Provider",
     "aiRegenerate": "Regenerate",
     "aiLoading": "Generating...",
-    "aiError": "AI generation failed. Please try again."
+    "aiError": "AI generation failed. Please try again.",
+    "toggleSuccess": "Rule toggled successfully",
+    "toggleError": "Failed to toggle rule",
+    "simulateRule": "Simulate Rule",
+    "simulateDescription": "Test rule against sample events",
+    "simulateEventsPlaceholder": "Enter events JSON array...",
+    "simulateRun": "Run Simulation",
+    "simulateRunning": "Simulating...",
+    "simulateResult": "Simulation Result",
+    "simulateMatched": "Matched",
+    "simulateNoMatch": "No Match",
+    "simulateError": "Simulation failed",
+    "simulateMatchCount": "Match Count",
+    "simulateDuration": "Duration",
+    "simulateEngine": "Engine"
   },
   "cloudSecurity": {
     "title": "Cloud Security",
@@ -4029,7 +4148,16 @@
     "typeUrl": "URL",
     "typeProcess": "Process",
     "typeFile": "File",
-    "typeAsset": "Asset"
+    "typeAsset": "Asset",
+    "viewGraph": "View Graph",
+    "graphTitle": "Entity Relationships",
+    "graphDescription": "Relationship graph for this entity",
+    "graphNoEdges": "No relationships found for this entity",
+    "graphLoading": "Loading graph data...",
+    "graphRelation": "Relation",
+    "graphFrom": "From",
+    "graphTo": "To",
+    "graphConfidence": "Confidence"
   },
   "msspDashboard": {
     "title": "MSSP Portfolio",
@@ -4111,9 +4239,13 @@
     "editSource": "Edit Source",
     "deleteSource": "Delete Source",
     "testConnection": "Test Connection",
+    "testConnectionSuccess": "Connection test passed. Source is reachable and authenticated.",
+    "testConnectionFailed": "Connection test failed. Check configuration.",
     "sourceCreated": "Source created",
     "sourceUpdated": "Source updated",
     "sourceDeleted": "Source deleted",
+    "sourceEnabled": "OSINT source enabled",
+    "sourceDisabled": "OSINT source disabled",
     "deleteConfirm": "Delete this OSINT source?",
     "noSources": "No OSINT sources configured",
     "noSourcesDesc": "Add OSINT sources to enable threat intelligence enrichment",
@@ -4141,6 +4273,68 @@
     "actionType": "Action Type",
     "cancel": "Cancel",
     "save": "Save",
-    "saving": "Saving..."
+    "saving": "Saving...",
+    "osintQuery": "Query Source",
+    "osintEnrich": "Enrich IoC",
+    "osintQuerySuccess": "OSINT query completed",
+    "osintEnrichSuccess": "IoC enrichment completed",
+    "osintQueryFailed": "OSINT query failed",
+    "osintNoResults": "No results from OSINT source",
+    "osintSourcesQueried": "sources queried",
+    "osintResponseTime": "Response time",
+    "rateLimitHint": "Rate limit",
+    "supportedIocTypes": "Supported IoCs",
+    "promptsTab": "Prompts",
+    "featuresTab": "Features",
+    "promptName": "Prompt Name",
+    "promptTaskType": "Task Type",
+    "promptContent": "Content",
+    "promptVersion": "Version",
+    "promptActive": "Active",
+    "promptInactive": "Inactive",
+    "promptCreatedBy": "Created By",
+    "createdAt": "Created At",
+    "createPrompt": "Create Prompt",
+    "editPrompt": "Edit Prompt",
+    "deletePromptConfirm": "Delete this prompt template?",
+    "promptCreated": "Prompt created",
+    "promptUpdated": "Prompt updated",
+    "promptActivated": "Prompt activated",
+    "promptDeleted": "Prompt deleted",
+    "featureKey": "Feature",
+    "featureEnabled": "Enabled",
+    "featureProvider": "Preferred Provider",
+    "featureMaxTokens": "Max Tokens",
+    "featureApproval": "Approval Level",
+    "featureBudget": "Monthly Budget",
+    "editFeature": "Edit Feature",
+    "featureUpdated": "Feature config updated",
+    "noPrompts": "No prompt templates",
+    "noFeatures": "No feature configs",
+    "featureAlertSummarize": "Alert — Summarize",
+    "featureAlertExplainSeverity": "Alert — Explain Severity",
+    "featureAlertFalsePositive": "Alert — False Positive Score",
+    "featureAlertNextAction": "Alert — Next Best Action",
+    "featureCaseSummarize": "Case — Summarize",
+    "featureCaseExecutiveSummary": "Case — Executive Summary",
+    "featureCaseTimeline": "Case — Timeline Synthesis",
+    "featureCaseNextTasks": "Case — Suggest Next Tasks",
+    "featureHuntHypothesis": "Hunt — Generate Hypothesis",
+    "featureHuntNlToQuery": "Hunt — Natural Language to Query",
+    "featureHuntResultInterpret": "Hunt — Interpret Results",
+    "featureIntelIocEnrich": "Intel — IOC Enrichment",
+    "featureIntelAdvisoryDraft": "Intel — Draft Advisory",
+    "featureDetectionRuleDraft": "Detection — Draft Rule",
+    "featureDetectionTuning": "Detection — Tuning Suggestions",
+    "featureReportDailySummary": "Report — Daily SOC Summary",
+    "featureReportExecutive": "Report — Executive Report",
+    "featureDashboardAnomaly": "Dashboard — Anomaly Explanation",
+    "featureSoarPlaybookDraft": "SOAR — Draft Playbook",
+    "featureAgentTask": "Agent — Generic Task",
+    "featureKnowledgeSearch": "Knowledge — AI Search",
+    "featureKnowledgeGenerateRunbook": "Knowledge — Generate Runbook",
+    "featureKnowledgeSummarizeIncident": "Knowledge — Summarize Incident",
+    "featureEntityRiskExplain": "Entity — Risk Explanation",
+    "featureNormalizationVerify": "Normalization — Pipeline Verification"
   }
 }
