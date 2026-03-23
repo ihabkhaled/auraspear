@@ -89,7 +89,7 @@ export const agentConfigService = {
     formData.append('file', file)
     formData.append('sourceId', sourceId)
     return api
-      .post<ApiResponse<OsintQueryResult>>('/osint/upload-file', formData, {
+      .post<OsintQueryResult>('/osint/upload-file', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       })
       .then(r => r.data)

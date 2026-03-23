@@ -42,7 +42,7 @@ export function OsintEnrichButton({ iocType, iocValue, t }: OsintEnrichButtonPro
             <ChevronDown className="h-3 w-3" />
             {String(result.successCount)}/{String(result.totalSources)} {t('sourcesResponded')}
           </CollapsibleTrigger>
-          <CollapsibleContent className="mt-1 space-y-1">
+          <CollapsibleContent className="mt-1 max-h-80 space-y-1 overflow-y-auto">
             {result.results.map((r, i) => (
               <OsintResultCard
                 key={`${r.sourceId}-${String(i)}`}

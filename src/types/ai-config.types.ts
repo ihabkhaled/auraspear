@@ -229,6 +229,14 @@ export interface OsintFileUploadButtonProps {
   t: (key: string) => string
 }
 
+export interface OsintResultCardProps {
+  result: OsintQueryResult
+  t: (key: string) => string
+  fetchedData?: unknown
+  isFetchingAnalysis?: boolean
+  onFetchAnalysis?: (analysisUrl: string, sourceId: string) => void
+}
+
 export interface AiPromptTemplate {
   id: string
   tenantId: string

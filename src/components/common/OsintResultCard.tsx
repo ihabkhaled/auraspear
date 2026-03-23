@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { extractVtAnalysisUrl, extractVtSummary } from '@/lib/osint.utils'
-import type { OsintQueryResult } from '@/types'
+import type { OsintResultCardProps } from '@/types'
 
 export function OsintResultCard({
   result,
@@ -13,13 +13,7 @@ export function OsintResultCard({
   fetchedData,
   isFetchingAnalysis,
   onFetchAnalysis,
-}: {
-  result: OsintQueryResult
-  t: (key: string) => string
-  fetchedData?: unknown
-  isFetchingAnalysis?: boolean
-  onFetchAnalysis?: (analysisUrl: string, sourceId: string) => void
-}) {
+}: OsintResultCardProps) {
   const analysisUrl = result.success ? extractVtAnalysisUrl(result.rawResponse) : null
   const hasAnalysisStub = analysisUrl !== null
   const displayData = fetchedData ?? result.data
@@ -128,8 +122,8 @@ export function OsintResultCard({
               {t('osintRawData')}
             </CollapsibleTrigger>
             <CollapsibleContent>
-              <pre className="text-muted-foreground mt-0.5 max-h-32 overflow-auto text-[9px]">
-                {JSON.stringify(displayData, null, 2).slice(0, 3000)}
+              <pre className="text-muted-foreground mt-0.5 max-h-60 overflow-auto rounded bg-black/20 p-1.5 text-[9px]">
+                {JSON.stringify(displayData, null, 2)}
               </pre>
             </CollapsibleContent>
           </Collapsible>
@@ -137,10 +131,8 @@ export function OsintResultCard({
       )}
 
       {result.success && !vtSummary && displayData !== null && displayData !== undefined && (
-        <pre className="text-muted-foreground mt-1 max-h-32 overflow-auto text-[10px]">
-          {typeof displayData === 'string'
-            ? displayData
-            : JSON.stringify(displayData, null, 2).slice(0, 1000)}
+        <pre className="text-muted-foreground mt-1 max-h-60 overflow-auto rounded bg-black/20 p-1.5 text-[10px]">
+          {typeof displayData === 'string' ? displayData : JSON.stringify(displayData, null, 2)}
         </pre>
       )}
 

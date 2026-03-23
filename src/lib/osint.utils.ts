@@ -99,3 +99,62 @@ export function isVtAnalysisStub(result: OsintQueryResult): boolean {
   }
   return extractVtAnalysisUrl(result.rawResponse) !== null && result.data === null
 }
+
+/**
+ * Extract the VT GUI file URL from fetched analysis data.
+ * Analysis response has links.item = "https://www.virustotal.com/api/v3/files/{sha256}"
+ * Convert to "https://www.virustotal.com/gui/file/{sha256}"
+ */
+export function extractVtFileGuiUrl(data: unknown): string | null {
+  if (typeof data !== 'object' || data === null) {
+    return null
+  }
+
+  const record = data as Record<string, unknown>
+  const links = Reflect.get(record, 'links') as Record<string, unknown> | undefined
+  if (typeof links === 'object' && links !== null) {
+    const itemUrl = Reflect.get(links, 'item') as string | undefined
+    if (typeof itemUrl === 'string' && itemUrl.includes('/api/v3/files/')) {
+      const sha256 = itemUrl.split('/files/').pop()
+      if (sha256) {
+        return `https://www.virustotal.com/gui/file/${sha256}`
+      }
+    }
+  }
+
+  return null
+}
+
+/**
+ * Check if VT fetched analysis data is still queued.
+ * The status is inside data.attributes.status.
+ */
+export function isVtFetchedStillQueued(fetchedData: unknown): boolean {
+  if (typeof fetchedData !== 'object' || fetchedData === null) {
+    return false
+  }
+
+  const attrs = Reflect.get(fetchedData as Record<string, unknown>, 'attributes') as
+    | Record<string, unknown>
+    | undefined
+
+  return typeof attrs === 'object' && attrs !== null && Reflect.get(attrs, 'status') === 'queued'
+}
+
+/**
+ * Extract raw status and analysisUrl from an OSINT query result's rawResponse.
+ */
+export function extractUploadResultMeta(rawResponse: unknown): {
+  rawStatus: string | undefined
+  queuedAnalysisUrl: string | undefined
+} {
+  if (typeof rawResponse !== 'object' || rawResponse === null) {
+    return { rawStatus: undefined, queuedAnalysisUrl: undefined }
+  }
+
+  const record = rawResponse as Record<string, unknown>
+  return {
+    rawStatus: Reflect.get(record, 'status') as string | undefined,
+    queuedAnalysisUrl: Reflect.get(record, 'analysisUrl') as string | undefined,
+  }
+}

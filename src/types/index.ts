@@ -780,6 +780,7 @@ export type {
   BuiltinOsintSourceDefaults,
   OsintEnrichButtonProps,
   OsintFileUploadButtonProps,
+  OsintResultCardProps,
   AiPromptTemplate,
   CreateAiPromptInput,
   UpdateAiPromptInput,

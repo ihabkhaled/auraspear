@@ -43,7 +43,7 @@ export function useOsintFileUpload() {
         }
 
         const resp = await agentConfigService.uploadFileForScan(vtSource.id, file)
-        setResult(resp.data)
+        setResult(resp)
         Toast.success(tCommon('fileUploadComplete'))
       } catch (error: unknown) {
         Toast.error(tErrors(getErrorKey(error)))
