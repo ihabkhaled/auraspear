@@ -1,5 +1,7 @@
 export { AgentConfigCard } from './AgentConfigCard'
 export { AgentConfigEditDialog } from './AgentConfigEditDialog'
+export { AiScheduleEditDialog } from './AiScheduleEditDialog'
+export { AiScheduleTable } from './AiScheduleTable'
 export { OsintSourceCard } from './OsintSourceCard'
 export { OsintSourceDialog } from './OsintSourceDialog'
 export { ApprovalCard } from './ApprovalCard'

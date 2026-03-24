@@ -1,6 +1,7 @@
 import api from '@/lib/api'
 import type {
   AgentExecutionHistoryItem,
+  AiAgentSchedule,
   AiExecutionFinding,
   AiFeatureConfig,
   AiPromptTemplate,
@@ -21,6 +22,7 @@ import type {
   UpdateAiFeatureConfigInput,
   UpdateAiPromptInput,
   UpdateOsintSourceInput,
+  UpdateScheduleInput,
 } from '@/types'
 
 export const agentConfigService = {
@@ -163,4 +165,26 @@ export const agentConfigService = {
     api
       .get<ApiResponse<AiExecutionFinding[]>>(`/ai/findings/by-entity/${entityType}/${entityId}`)
       .then(r => r.data),
+
+  // Schedules
+  getSchedules: () => api.get<ApiResponse<AiAgentSchedule[]>>('/ai/schedules').then(r => r.data),
+
+  updateSchedule: (id: string, data: UpdateScheduleInput) =>
+    api.patch<ApiResponse<AiAgentSchedule>>(`/ai/schedules/${id}`, data).then(r => r.data),
+
+  toggleSchedule: (id: string, enabled: boolean) =>
+    api
+      .post<ApiResponse<AiAgentSchedule>>(`/ai/schedules/${id}/toggle`, { enabled })
+      .then(r => r.data),
+
+  pauseSchedule: (id: string, paused: boolean) =>
+    api
+      .post<ApiResponse<AiAgentSchedule>>(`/ai/schedules/${id}/pause`, { paused })
+      .then(r => r.data),
+
+  runScheduleNow: (id: string) =>
+    api.post<ApiResponse<AiAgentSchedule>>(`/ai/schedules/${id}/run-now`).then(r => r.data),
+
+  resetSchedule: (id: string) =>
+    api.post<ApiResponse<AiAgentSchedule>>(`/ai/schedules/${id}/reset`).then(r => r.data),
 }

@@ -390,3 +390,63 @@ export interface AiFindingsPanelProps {
   sourceEntityId: string
   t: (key: string) => string
 }
+
+export interface AiAgentSchedule {
+  id: string
+  tenantId: string | null
+  agentId: string
+  seedKey: string
+  module: string
+  cronExpression: string
+  timezone: string
+  isEnabled: boolean
+  isPaused: boolean
+  executionMode: string
+  riskMode: string
+  approvalMode: string
+  maxConcurrency: number
+  allowOverlap: boolean
+  providerPreference: string | null
+  modelPreference: string | null
+  isSystemDefault: boolean
+  lastRunAt: string | null
+  nextRunAt: string | null
+  lastStatus: string | null
+  lastDurationMs: number | null
+  failureStreak: number
+  successStreak: number
+  disabledReason: string | null
+  createdAt: string
+  updatedAt: string
+}
+
+export interface UpdateScheduleInput {
+  cronExpression?: string
+  timezone?: string
+  executionMode?: string
+  riskMode?: string
+  approvalMode?: string
+  maxConcurrency?: number
+  providerPreference?: string | null
+  modelPreference?: string | null
+}
+
+export interface AiScheduleTableProps {
+  schedules: AiAgentSchedule[]
+  isLoading: boolean
+  onToggle: (id: string, enabled: boolean) => void
+  onPause: (id: string, paused: boolean) => void
+  onRunNow: (id: string) => void
+  onEdit: (schedule: AiAgentSchedule) => void
+  onReset: (id: string) => void
+  t: (key: string) => string
+}
+
+export interface AiScheduleEditDialogProps {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  schedule: AiAgentSchedule | null
+  onSubmit: (id: string, data: UpdateScheduleInput) => void
+  loading: boolean
+  t: (key: string) => string
+}

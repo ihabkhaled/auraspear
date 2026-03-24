@@ -595,3 +595,12 @@ export { useAiFindingsPanel } from './useAiFindingsPanel'
 export { useAvailableAiConnectors } from './useAvailableAiConnectors'
 export { useOrchestratorStats } from './useOrchestratorStats'
 export { useAiAutomationBadge } from './useAiAutomationBadge'
+export {
+  useAiSchedules,
+  useToggleSchedule,
+  usePauseSchedule,
+  useRunScheduleNow,
+  useUpdateSchedule,
+  useResetSchedule,
+} from './useAiSchedules'
+export { useAiScheduleEditDialog } from './useAiScheduleEditDialog'

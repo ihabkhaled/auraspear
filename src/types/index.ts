@@ -804,4 +804,8 @@ export type {
   AiAutomationBadgeData,
   AiExecutionFinding,
   AiFindingsPanelProps,
+  AiAgentSchedule,
+  UpdateScheduleInput,
+  AiScheduleTableProps,
+  AiScheduleEditDialogProps,
 } from './ai-config.types'

@@ -1,9 +1,11 @@
 'use client'
 
-import { BookText, Globe, Layers, Plus, Settings2, ShieldCheck } from 'lucide-react'
+import { BookText, Calendar, Globe, Layers, Plus, Settings2, ShieldCheck } from 'lucide-react'
 import {
   AgentConfigCard,
   AgentConfigEditDialog,
+  AiScheduleEditDialog,
+  AiScheduleTable,
   ApprovalCard,
   FeatureEditDialog,
   FeatureTable,
@@ -84,6 +86,18 @@ export default function AiConfigPage() {
     handleEditFeature,
     handleUpdateFeature,
     featureUpdateLoading,
+    schedules,
+    schedulesLoading,
+    scheduleDialogOpen,
+    setScheduleDialogOpen,
+    selectedSchedule,
+    handleEditSchedule,
+    handleUpdateSchedule,
+    handleToggleSchedule,
+    handlePauseSchedule,
+    handleRunScheduleNow,
+    handleResetSchedule,
+    scheduleUpdateLoading,
   } = useAiConfigPage()
 
   return (
@@ -115,6 +129,10 @@ export default function AiConfigPage() {
           <TabsTrigger value="features">
             <Layers className="mr-1.5 h-3.5 w-3.5" />
             {t('featuresTab')}
+          </TabsTrigger>
+          <TabsTrigger value="schedules">
+            <Calendar className="mr-1.5 h-3.5 w-3.5" />
+            {t('schedules.title')}
           </TabsTrigger>
         </TabsList>
 
@@ -237,6 +255,19 @@ export default function AiConfigPage() {
             t={t}
           />
         </TabsContent>
+
+        <TabsContent value="schedules" className="mt-4">
+          <AiScheduleTable
+            schedules={schedules}
+            isLoading={schedulesLoading}
+            onToggle={handleToggleSchedule}
+            onPause={handlePauseSchedule}
+            onRunNow={handleRunScheduleNow}
+            onEdit={handleEditSchedule}
+            onReset={handleResetSchedule}
+            t={t}
+          />
+        </TabsContent>
       </Tabs>
 
       <AgentConfigEditDialog
@@ -276,6 +307,16 @@ export default function AiConfigPage() {
         feature={selectedFeature}
         onSubmit={handleUpdateFeature}
         loading={featureUpdateLoading}
+        t={t}
+      />
+
+      <AiScheduleEditDialog
+        key={selectedSchedule?.id ?? 'no-schedule'}
+        open={scheduleDialogOpen}
+        onOpenChange={setScheduleDialogOpen}
+        schedule={selectedSchedule}
+        onSubmit={handleUpdateSchedule}
+        loading={scheduleUpdateLoading}
         t={t}
       />
     </div>

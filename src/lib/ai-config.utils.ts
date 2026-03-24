@@ -169,3 +169,27 @@ export function resolveAutomationBadgeLabel(
       return t('automationBadge.off')
   }
 }
+
+export function deriveScheduleFormState(
+  schedule: {
+    cronExpression?: string
+    timezone?: string
+    executionMode?: string
+    riskMode?: string
+    approvalMode?: string
+    maxConcurrency?: number
+    providerPreference?: string | null
+    modelPreference?: string | null
+  } | null
+) {
+  return {
+    cronExpression: schedule?.cronExpression ?? '0 */6 * * *',
+    timezone: schedule?.timezone ?? 'UTC',
+    executionMode: schedule?.executionMode ?? 'sequential',
+    riskMode: schedule?.riskMode ?? 'normal',
+    approvalMode: schedule?.approvalMode ?? 'auto',
+    maxConcurrency: String(schedule?.maxConcurrency ?? 1),
+    providerPreference: schedule?.providerPreference ?? '',
+    modelPreference: schedule?.modelPreference ?? '',
+  }
+}

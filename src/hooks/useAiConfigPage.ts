@@ -8,6 +8,7 @@ import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import type {
+  AiAgentSchedule,
   AiFeatureConfig,
   AiPromptTemplate,
   CreateAiPromptInput,
@@ -19,6 +20,7 @@ import type {
   UpdateAiFeatureConfigInput,
   UpdateAiPromptInput,
   UpdateOsintSourceInput,
+  UpdateScheduleInput,
 } from '@/types'
 import { useAgentConfigs, useToggleAgent, useUpdateAgentConfig } from './useAgentConfig'
 import { useAiApprovals, useResolveApproval } from './useAiApprovals'
@@ -30,6 +32,14 @@ import {
   useDeleteAiPrompt,
   useUpdateAiPrompt,
 } from './useAiPrompts'
+import {
+  useAiSchedules,
+  usePauseSchedule,
+  useResetSchedule,
+  useRunScheduleNow,
+  useToggleSchedule,
+  useUpdateSchedule,
+} from './useAiSchedules'
 import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 import { useOrchestratorStats } from './useOrchestratorStats'
 import {
@@ -70,6 +80,10 @@ export function useAiConfigPage() {
   const [featureDialogOpen, setFeatureDialogOpen] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState<AiFeatureConfig | null>(null)
 
+  // Schedule dialog state
+  const [scheduleDialogOpen, setScheduleDialogOpen] = useState(false)
+  const [selectedSchedule, setSelectedSchedule] = useState<AiAgentSchedule | null>(null)
+
   // Orchestrator stats
   const { stats: orchestratorStats, isFetching: orchestratorStatsFetching } = useOrchestratorStats()
 
@@ -80,6 +94,7 @@ export function useAiConfigPage() {
   const approvalsQuery = useAiApprovals(approvalFilter === 'all' ? undefined : approvalFilter)
   const promptsQuery = useAiPrompts()
   const featuresQuery = useAiFeatures()
+  const schedulesQuery = useAiSchedules()
 
   // Mutations
   const updateConfigMutation = useUpdateAgentConfig()
@@ -94,6 +109,11 @@ export function useAiConfigPage() {
   const activatePromptMutation = useActivateAiPrompt()
   const deletePromptMutation = useDeleteAiPrompt()
   const updateFeatureMutation = useUpdateAiFeature()
+  const toggleScheduleMutation = useToggleSchedule()
+  const pauseScheduleMutation = usePauseSchedule()
+  const runScheduleNowMutation = useRunScheduleNow()
+  const updateScheduleMutation = useUpdateSchedule()
+  const resetScheduleMutation = useResetSchedule()
 
   // Derive selectedConfig from latest query data (always fresh after toggle/save)
   const agentConfigs: TenantAgentConfig[] = agentConfigsQuery.data?.data ?? []
@@ -348,6 +368,100 @@ export function useAiConfigPage() {
     [updateFeatureMutation, t, tErrors]
   )
 
+  // Schedule handlers
+  const handleEditSchedule = useCallback((schedule: AiAgentSchedule) => {
+    setSelectedSchedule(schedule)
+    setScheduleDialogOpen(true)
+  }, [])
+
+  const handleUpdateSchedule = useCallback(
+    (id: string, data: UpdateScheduleInput) => {
+      updateScheduleMutation.mutate(
+        { id, data },
+        {
+          onSuccess: () => {
+            Toast.success(t('schedules.updated'))
+            setScheduleDialogOpen(false)
+            setSelectedSchedule(null)
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [updateScheduleMutation, t, tErrors]
+  )
+
+  const handleToggleSchedule = useCallback(
+    (id: string, enabled: boolean) => {
+      toggleScheduleMutation.mutate(
+        { id, enabled },
+        {
+          onSuccess: () => {
+            Toast.success(enabled ? t('schedules.enabled') : t('schedules.disabled'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [toggleScheduleMutation, t, tErrors]
+  )
+
+  const handlePauseSchedule = useCallback(
+    (id: string, paused: boolean) => {
+      pauseScheduleMutation.mutate(
+        { id, paused },
+        {
+          onSuccess: () => {
+            Toast.success(paused ? t('schedules.pausedSuccess') : t('schedules.resumedSuccess'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [pauseScheduleMutation, t, tErrors]
+  )
+
+  const handleRunScheduleNow = useCallback(
+    (id: string) => {
+      runScheduleNowMutation.mutate(id, {
+        onSuccess: () => {
+          Toast.success(t('schedules.runNowSuccess'))
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      })
+    },
+    [runScheduleNowMutation, t, tErrors]
+  )
+
+  const handleResetSchedule = useCallback(
+    async (id: string) => {
+      const confirmed = await SweetAlertDialog.show({
+        text: t('schedules.resetConfirm'),
+        icon: SweetAlertIcon.QUESTION,
+      })
+      if (!confirmed) {
+        return
+      }
+      resetScheduleMutation.mutate(id, {
+        onSuccess: () => {
+          Toast.success(t('schedules.resetSuccess'))
+        },
+        onError: (error: unknown) => {
+          Toast.error(tErrors(getErrorKey(error)))
+        },
+      })
+    },
+    [resetScheduleMutation, t, tErrors]
+  )
+
   // Approval handlers
   const handleResolveApproval = useCallback(
     (id: string, data: ResolveApprovalInput) => {
@@ -431,5 +545,18 @@ export function useAiConfigPage() {
     handleEditFeature,
     handleUpdateFeature,
     featureUpdateLoading: updateFeatureMutation.isPending,
+    // Schedules
+    schedules: (schedulesQuery.data?.data ?? []) as AiAgentSchedule[],
+    schedulesLoading: schedulesQuery.isFetching,
+    scheduleDialogOpen,
+    setScheduleDialogOpen,
+    selectedSchedule,
+    handleEditSchedule,
+    handleUpdateSchedule,
+    handleToggleSchedule,
+    handlePauseSchedule,
+    handleRunScheduleNow,
+    handleResetSchedule,
+    scheduleUpdateLoading: updateScheduleMutation.isPending,
   }
 }
