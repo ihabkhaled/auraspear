@@ -4042,13 +4042,9 @@
         "edit": "Editar Configuracion de IA",
         "managePrompts": "Gestionar Prompts de IA",
         "manageTriggers": "Gestionar Disparadores de IA",
-        "manageOsint": "Gestionar Fuentes OSINT"
-      },
-      "aiApprovals": {
-        "manage": "Gestionar Aprobaciones de IA"
-      },
-      "aiUsage": {
-        "view": "Ver Uso de IA"
+        "manageOsint": "Gestionar Fuentes OSINT",
+        "manageApprovals": "Gestionar Aprobaciones IA",
+        "viewUsage": "Ver Uso de IA"
       }
     },
     "roles": {

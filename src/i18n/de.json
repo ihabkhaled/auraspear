@@ -4042,13 +4042,9 @@
         "edit": "KI-Konfiguration bearbeiten",
         "managePrompts": "KI-Prompts verwalten",
         "manageTriggers": "KI-Ausloser verwalten",
-        "manageOsint": "OSINT-Quellen verwalten"
-      },
-      "aiApprovals": {
-        "manage": "KI-Genehmigungen verwalten"
-      },
-      "aiUsage": {
-        "view": "KI-Nutzung anzeigen"
+        "manageOsint": "OSINT-Quellen verwalten",
+        "manageApprovals": "KI-Genehmigungen verwalten",
+        "viewUsage": "KI-Nutzung anzeigen"
       }
     },
     "roles": {

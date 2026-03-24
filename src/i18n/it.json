@@ -4042,13 +4042,9 @@
         "edit": "Modifica Configurazione IA",
         "managePrompts": "Gestisci Prompt IA",
         "manageTriggers": "Gestisci Trigger IA",
-        "manageOsint": "Gestisci Fonti OSINT"
-      },
-      "aiApprovals": {
-        "manage": "Gestisci Approvazioni IA"
-      },
-      "aiUsage": {
-        "view": "Visualizza Utilizzo IA"
+        "manageOsint": "Gestisci Fonti OSINT",
+        "manageApprovals": "Gestisci Approvazioni IA",
+        "viewUsage": "Visualizza Utilizzo IA"
       }
     },
     "roles": {

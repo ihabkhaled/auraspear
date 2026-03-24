@@ -4095,13 +4095,9 @@
         "edit": "Edit AI Configuration",
         "managePrompts": "Manage AI Prompts",
         "manageTriggers": "Manage AI Triggers",
-        "manageOsint": "Manage OSINT Sources"
-      },
-      "aiApprovals": {
-        "manage": "Manage AI Approvals"
-      },
-      "aiUsage": {
-        "view": "View AI Usage"
+        "manageOsint": "Manage OSINT Sources",
+        "manageApprovals": "Manage AI Approvals",
+        "viewUsage": "View AI Usage"
       }
     },
     "roles": {

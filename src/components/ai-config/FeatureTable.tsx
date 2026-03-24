@@ -45,6 +45,6 @@ export function FeatureTable({ features, loading, onEdit, t }: FeatureTableProps
   ]
 
   return (
-    <DataTable columns={columns} data={features} emptyMessage={t('noFeatures')} loading={loading} />
+    <DataTable columns={columns} data={features} emptyMessage={t('noFeatures')} loading={loading} keyField="featureKey" />
   )
 }

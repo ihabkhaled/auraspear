@@ -65,7 +65,7 @@ export function WazuhCorrelationPanel({
       render: value => <SeverityBadge severity={String(value ?? 'info') as AlertSeverity} />,
     },
     {
-      key: 'iocValue',
+      key: 'osintEnrich',
       label: tCommon('enrichOsint'),
       render: (_value, row) => {
         const rawType = String(row.iocType ?? 'ip')
