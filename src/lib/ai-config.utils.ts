@@ -1,7 +1,9 @@
 import {
+  AgentAutomationMode,
   AiApprovalLevel,
   AiFeatureKey,
   AiOutputFormat,
+  BadgeVariant,
   AiTriggerMode,
   OsintAuthType,
   OsintSourceType,
@@ -103,5 +105,67 @@ export function deriveFeatureState(feature: AiFeatureConfig | null) {
     maxTokens: feature?.maxTokens ?? 4096,
     approvalLevel: feature?.approvalLevel ?? (AiApprovalLevel.NONE as string),
     monthlyTokenBudget: feature?.monthlyTokenBudget ?? null,
+  }
+}
+
+export function resolveAutomationBadgeVariant(
+  automationMode: string,
+  isEnabled: boolean
+): BadgeVariant {
+  if (!isEnabled) {
+    return BadgeVariant.SECONDARY
+  }
+
+  switch (automationMode) {
+    case AgentAutomationMode.AUTO_LOW_RISK:
+    case AgentAutomationMode.AUTO_GOVERNED:
+    case AgentAutomationMode.EVENT_DRIVEN:
+    case AgentAutomationMode.ORCHESTRATOR_INVOKED:
+      return BadgeVariant.SUCCESS
+    case AgentAutomationMode.SUGGEST_ONLY:
+    case AgentAutomationMode.DRAFT_ONLY:
+    case AgentAutomationMode.ENRICH_ONLY:
+    case AgentAutomationMode.ANALYST_INVOKED:
+      return BadgeVariant.INFO
+    case AgentAutomationMode.APPROVAL_REQUIRED:
+    case AgentAutomationMode.SCHEDULED:
+      return BadgeVariant.WARNING
+    case AgentAutomationMode.DISABLED:
+    case AgentAutomationMode.MANUAL_ONLY:
+    default:
+      return BadgeVariant.SECONDARY
+  }
+}
+
+export function resolveAutomationBadgeLabel(
+  automationMode: string,
+  isEnabled: boolean,
+  t: (key: string) => string
+): string {
+  if (!isEnabled) {
+    return t('automationBadge.off')
+  }
+
+  switch (automationMode) {
+    case AgentAutomationMode.AUTO_LOW_RISK:
+    case AgentAutomationMode.AUTO_GOVERNED:
+    case AgentAutomationMode.EVENT_DRIVEN:
+    case AgentAutomationMode.ORCHESTRATOR_INVOKED:
+      return t('automationBadge.auto')
+    case AgentAutomationMode.SUGGEST_ONLY:
+    case AgentAutomationMode.DRAFT_ONLY:
+    case AgentAutomationMode.ENRICH_ONLY:
+    case AgentAutomationMode.ANALYST_INVOKED:
+      return t('automationBadge.suggestOnly')
+    case AgentAutomationMode.APPROVAL_REQUIRED:
+      return t('automationBadge.approvalRequired')
+    case AgentAutomationMode.SCHEDULED:
+      return t('automationBadge.scheduled')
+    case AgentAutomationMode.DISABLED:
+      return t('automationBadge.off')
+    case AgentAutomationMode.MANUAL_ONLY:
+      return t('automationBadge.manual')
+    default:
+      return t('automationBadge.off')
   }
 }

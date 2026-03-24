@@ -317,3 +317,51 @@ export interface FeatureTableProps {
   onEdit: (feature: AiFeatureConfig) => void
   t: (key: string) => string
 }
+
+export interface DispatchAgentTaskInput {
+  actionType: string
+  payload: Record<string, unknown>
+  targetId?: string
+  targetType?: string
+}
+
+export interface AgentExecutionHistoryItem {
+  id: string
+  agentId: string
+  actionType: string
+  status: string
+  startedAt: string
+  completedAt?: string
+  durationMs?: number
+  tokensUsed?: number
+  error?: string
+}
+
+export interface OrchestratorStats {
+  totalDispatches24h: number
+  successCount24h: number
+  failureCount24h: number
+  pendingApprovals: number
+  activeAgents: number
+  totalAgents: number
+}
+
+export interface AiAutomationBadgeProps {
+  agentId: string
+  agentName: string
+  automationMode: string
+  isEnabled: boolean
+  t: (key: string) => string
+}
+
+export interface OrchestratorStatsBarProps {
+  stats: OrchestratorStats
+  t: (key: string) => string
+}
+
+export interface AiAutomationBadgeData {
+  isEnabled: boolean
+  automationMode: string
+  agentName: string
+  isLoading: boolean
+}

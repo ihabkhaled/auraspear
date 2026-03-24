@@ -1,18 +1,16 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import { Cable, Settings } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { deriveConnectorStatus } from '@/lib/connectors.utils'
+import { useLlmConnectorCard } from '@/hooks/useLlmConnectorCard'
 import { formatRelativeTime } from '@/lib/utils'
 import type { LlmConnectorCardProps } from '@/types'
 import { StatusBadge } from './StatusBadge'
 
 export function LlmConnectorCard({ connector, t }: LlmConnectorCardProps) {
-  const router = useRouter()
-  const connectorStatus = deriveConnectorStatus(connector.lastTestOk)
+  const { connectorStatus, handleManage } = useLlmConnectorCard({ connector })
 
   return (
     <Card>
@@ -50,7 +48,7 @@ export function LlmConnectorCard({ connector, t }: LlmConnectorCardProps) {
             </span>
           )}
         </div>
-        <Button variant="outline" size="sm" onClick={() => router.push('/connectors/llm')}>
+        <Button variant="outline" size="sm" onClick={handleManage}>
           <Settings className="me-1 h-3.5 w-3.5" />
           {t('manage')}
         </Button>

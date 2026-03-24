@@ -5,4 +5,8 @@ export enum BadgeVariant {
   OUTLINE = 'outline',
   GHOST = 'ghost',
   LINK = 'link',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  INFO = 'info',
+  PENDING = 'pending',
 }

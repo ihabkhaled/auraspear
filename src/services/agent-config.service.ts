@@ -1,11 +1,14 @@
 import api from '@/lib/api'
 import type {
+  AgentExecutionHistoryItem,
   AiFeatureConfig,
   AiPromptTemplate,
   ApiResponse,
   ApprovalRequest,
   CreateAiPromptInput,
   CreateOsintSourceInput,
+  DispatchAgentTaskInput,
+  OrchestratorStats,
   OsintEnrichInput,
   OsintEnrichmentResult,
   OsintQueryInput,
@@ -124,4 +127,22 @@ export const agentConfigService = {
 
   updateFeature: (featureKey: string, data: UpdateAiFeatureConfigInput) =>
     api.patch<ApiResponse<AiFeatureConfig>>(`/ai-features/${featureKey}`, data).then(r => r.data),
+
+  // Orchestrator
+  dispatchAgentTask: (agentId: string, payload: DispatchAgentTaskInput) =>
+    api
+      .post<
+        ApiResponse<Record<string, unknown>>
+      >(`/agent-config/agents/${agentId}/dispatch`, payload)
+      .then(r => r.data),
+
+  getAgentExecutionHistory: (agentId: string, params?: Record<string, unknown>) =>
+    api
+      .get<
+        ApiResponse<AgentExecutionHistoryItem[]>
+      >(`/agent-config/agents/${agentId}/history`, { params })
+      .then(r => r.data),
+
+  getOrchestratorStats: () =>
+    api.get<ApiResponse<OrchestratorStats>>('/agent-config/orchestrator/stats').then(r => r.data),
 }

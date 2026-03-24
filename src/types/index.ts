@@ -790,4 +790,10 @@ export type {
   FeatureEditDialogProps,
   PromptTableProps,
   FeatureTableProps,
+  DispatchAgentTaskInput,
+  AgentExecutionHistoryItem,
+  OrchestratorStats,
+  AiAutomationBadgeProps,
+  OrchestratorStatsBarProps,
+  AiAutomationBadgeData,
 } from './ai-config.types'

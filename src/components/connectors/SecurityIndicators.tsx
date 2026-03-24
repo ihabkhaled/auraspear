@@ -33,7 +33,7 @@ export function SecurityIndicators({ type }: SecurityIndicatorsProps) {
                 variant="outline"
                 className={
                   ind.enabled
-                    ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'
+                    ? 'bg-status-success text-status-success'
                     : 'bg-muted text-muted-foreground'
                 }
               >

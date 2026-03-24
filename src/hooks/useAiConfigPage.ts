@@ -31,6 +31,7 @@ import {
   useUpdateAiPrompt,
 } from './useAiPrompts'
 import { useAvailableAiConnectors } from './useAvailableAiConnectors'
+import { useOrchestratorStats } from './useOrchestratorStats'
 import {
   useCreateOsintSource,
   useDeleteOsintSource,
@@ -68,6 +69,9 @@ export function useAiConfigPage() {
   // Feature dialog state
   const [featureDialogOpen, setFeatureDialogOpen] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState<AiFeatureConfig | null>(null)
+
+  // Orchestrator stats
+  const { stats: orchestratorStats, isFetching: orchestratorStatsFetching } = useOrchestratorStats()
 
   // Queries
   const { availableConnectors } = useAvailableAiConnectors()
@@ -370,6 +374,9 @@ export function useAiConfigPage() {
     canEdit,
     canManageOsint,
     canManageApprovals,
+    // Orchestrator stats
+    orchestratorStats,
+    orchestratorStatsFetching,
     // Agent configs
     agentConfigs,
     agentConfigsLoading: agentConfigsQuery.isFetching,

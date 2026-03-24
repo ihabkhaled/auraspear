@@ -101,28 +101,149 @@ export function isVtAnalysisStub(result: OsintQueryResult): boolean {
 }
 
 /**
- * Extract the VT GUI file URL from fetched analysis data.
- * Analysis response has links.item = "https://www.virustotal.com/api/v3/files/{sha256}"
- * Convert to "https://www.virustotal.com/gui/file/{sha256}"
+ * Extract VT GUI URL from any VT API response (file, URL, domain, IP, analysis).
+ *
+ * Strategy 1: Parse `links.item` or `links.self` API paths:
+ *   /api/v3/files/{sha256}        → /gui/file/{sha256}
+ *   /api/v3/urls/{id}             → /gui/url/{id}
+ *   /api/v3/domains/{domain}      → /gui/domain/{domain}
+ *   /api/v3/ip_addresses/{ip}     → /gui/ip-address/{ip}
+ *   /api/v3/analyses/{id}         → /gui/file-analysis/{id}
+ *
+ * Strategy 2 (fallback): Parse `data.type` + `data.id`:
+ *   type=file       → /gui/file/{id}
+ *   type=url         → /gui/url/{id}
+ *   type=domain      → /gui/domain/{id}
+ *   type=ip_address  → /gui/ip-address/{id}
+ *   type=analysis    → /gui/file-analysis/{id}
  */
-export function extractVtFileGuiUrl(data: unknown): string | null {
+export function extractVtGuiUrl(data: unknown): string | null {
   if (typeof data !== 'object' || data === null) {
     return null
   }
 
   const record = data as Record<string, unknown>
+
+  // Strategy 1: links.item (direct resource link — most reliable)
   const links = Reflect.get(record, 'links') as Record<string, unknown> | undefined
   if (typeof links === 'object' && links !== null) {
     const itemUrl = Reflect.get(links, 'item') as string | undefined
-    if (typeof itemUrl === 'string' && itemUrl.includes('/api/v3/files/')) {
-      const sha256 = itemUrl.split('/files/').pop()
-      if (sha256) {
-        return `https://www.virustotal.com/gui/file/${sha256}`
+    if (typeof itemUrl === 'string') {
+      const guiUrl = vtApiPathToGuiUrl(itemUrl)
+      if (guiUrl) {
+        return guiUrl
+      }
+    }
+  }
+
+  // Strategy 2: top-level type + id (analysis responses have this)
+  const topType = Reflect.get(record, 'type') as string | undefined
+  const topId = Reflect.get(record, 'id') as string | undefined
+  if (typeof topType === 'string' && typeof topId === 'string') {
+    return vtTypeIdToGuiUrl(topType, topId)
+  }
+
+  // Strategy 3: nested data.type + data.id
+  const nested = Reflect.get(record, 'data') as Record<string, unknown> | undefined
+  if (typeof nested === 'object' && nested !== null) {
+    const objType = Reflect.get(nested, 'type') as string | undefined
+    const objId = Reflect.get(nested, 'id') as string | undefined
+    if (typeof objType === 'string' && typeof objId === 'string') {
+      return vtTypeIdToGuiUrl(objType, objId)
+    }
+  }
+
+  // Strategy 4: links.self as fallback (less reliable — may be analysis URL)
+  if (typeof links === 'object' && links !== null) {
+    const selfUrl = Reflect.get(links, 'self') as string | undefined
+    if (typeof selfUrl === 'string') {
+      const guiUrl = vtApiPathToGuiUrl(selfUrl)
+      if (guiUrl) {
+        return guiUrl
       }
     }
   }
 
   return null
+}
+
+/** Keep backward compat — alias for callers that only expect file URLs */
+export function extractVtFileGuiUrl(data: unknown): string | null {
+  return extractVtGuiUrl(data)
+}
+
+/** Convert a VT API path to the corresponding GUI URL */
+function vtApiPathToGuiUrl(apiUrl: string): string | null {
+  const pathSegments: Array<{ pattern: string; guiPrefix: string }> = [
+    { pattern: '/api/v3/files/', guiPrefix: 'file' },
+    { pattern: '/api/v3/urls/', guiPrefix: 'url' },
+    { pattern: '/api/v3/domains/', guiPrefix: 'domain' },
+    { pattern: '/api/v3/ip_addresses/', guiPrefix: 'ip-address' },
+    { pattern: '/api/v3/analyses/', guiPrefix: 'file-analysis' },
+  ]
+
+  for (const seg of pathSegments) {
+    if (apiUrl.includes(seg.pattern)) {
+      const id = apiUrl.split(seg.pattern).pop()?.split('/').at(0)
+      if (id) {
+        return `https://www.virustotal.com/gui/${seg.guiPrefix}/${id}`
+      }
+    }
+  }
+
+  return null
+}
+
+/**
+ * Convert a VT type + id pair to the corresponding GUI URL.
+ *
+ * Special handling for analysis types:
+ * - url_analysis: id = "u-{sha256hash}-{timestamp}" → /gui/url/{sha256hash}
+ * - file_analysis / analysis: id may be raw or prefixed → /gui/file-analysis/{id}
+ */
+function vtTypeIdToGuiUrl(vtType: string, vtId: string): string | null {
+  // url_analysis: extract the URL hash from "u-{hash}-{suffix}"
+  if (vtType === 'url_analysis') {
+    const urlHash = extractUrlHashFromAnalysisId(vtId)
+    if (urlHash) {
+      return `https://www.virustotal.com/gui/url/${urlHash}`
+    }
+    return null
+  }
+
+  const typeToGuiPrefix: Record<string, string> = {
+    file: 'file',
+    file_analysis: 'file-analysis',
+    url: 'url',
+    domain: 'domain',
+    ip_address: 'ip-address',
+    analysis: 'file-analysis',
+  }
+
+  const guiPrefix = Reflect.get(typeToGuiPrefix, vtType) as string | undefined
+  if (guiPrefix) {
+    return `https://www.virustotal.com/gui/${guiPrefix}/${vtId}`
+  }
+
+  return null
+}
+
+/**
+ * Extract the URL SHA256 hash from a VT URL analysis ID.
+ * Format: "u-{sha256}-{hex_suffix}" → returns the sha256 part
+ * Example: "u-f4bdc987...13661a8-cbcf9cc6" → "f4bdc987...13661a8"
+ */
+function extractUrlHashFromAnalysisId(analysisId: string): string | null {
+  if (!analysisId.startsWith('u-')) {
+    return null
+  }
+  // Remove "u-" prefix, then split on last "-" to separate hash from timestamp suffix
+  const withoutPrefix = analysisId.slice(2)
+  const lastDash = withoutPrefix.lastIndexOf('-')
+  if (lastDash <= 0) {
+    return null
+  }
+  return withoutPrefix.slice(0, lastDash)
 }
 
 /**

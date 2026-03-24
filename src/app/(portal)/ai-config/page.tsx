@@ -12,7 +12,7 @@ import {
   PromptDialog,
   PromptTable,
 } from '@/components/ai-config'
-import { LoadingSpinner, PageHeader } from '@/components/common'
+import { LoadingSpinner, OrchestratorStatsBar, PageHeader } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -34,6 +34,8 @@ export default function AiConfigPage() {
     canManageOsint,
     canManageApprovals,
     canManagePrompts,
+    orchestratorStats,
+    orchestratorStatsFetching,
     agentConfigs,
     agentConfigsLoading,
     editDialogOpen,
@@ -87,6 +89,10 @@ export default function AiConfigPage() {
   return (
     <div className="space-y-4">
       <PageHeader title={t('title')} description={t('description')} />
+
+      {!orchestratorStatsFetching && orchestratorStats && (
+        <OrchestratorStatsBar stats={orchestratorStats} t={t} />
+      )}
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList>

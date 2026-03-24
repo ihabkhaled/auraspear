@@ -4,7 +4,7 @@ import { ChevronDown, ExternalLink, Loader2, RefreshCw } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { extractVtAnalysisUrl, extractVtSummary } from '@/lib/osint.utils'
+import { useOsintResultCard } from '@/hooks/useOsintResultCard'
 import type { OsintResultCardProps } from '@/types'
 
 export function OsintResultCard({
@@ -14,17 +14,27 @@ export function OsintResultCard({
   isFetchingAnalysis,
   onFetchAnalysis,
 }: OsintResultCardProps) {
-  const analysisUrl = result.success ? extractVtAnalysisUrl(result.rawResponse) : null
-  const hasAnalysisStub = analysisUrl !== null
-  const displayData = fetchedData ?? result.data
-  const vtSummary =
-    displayData !== null && displayData !== undefined ? extractVtSummary(displayData) : null
+  const { analysisUrl, hasAnalysisStub, displayData, vtSummary, vtGuiUrl } = useOsintResultCard(
+    result,
+    fetchedData
+  )
 
   return (
     <div className="bg-muted rounded p-2 text-xs">
       <div className="flex items-center justify-between">
         <span className="font-medium">{result.sourceName}</span>
         <div className="flex items-center gap-2">
+          {vtGuiUrl && (
+            <a
+              href={vtGuiUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-status-info inline-flex items-center gap-0.5 text-[10px] hover:underline"
+            >
+              <ExternalLink className="h-2.5 w-2.5" />
+              {t('viewOnVirusTotal')}
+            </a>
+          )}
           <span className="text-muted-foreground text-[10px]">
             {String(result.responseTimeMs)}
             {t('osintMs')}
@@ -35,13 +45,17 @@ export function OsintResultCard({
         </div>
       </div>
 
-      {hasAnalysisStub && !fetchedData && onFetchAnalysis && (
+      {hasAnalysisStub && onFetchAnalysis && (
         <div className="mt-1 flex items-center gap-2">
           <Button
             variant="outline"
             size="sm"
             className="h-5 text-[10px]"
-            onClick={() => onFetchAnalysis(analysisUrl, result.sourceId)}
+            onClick={() => {
+              if (analysisUrl) {
+                onFetchAnalysis(analysisUrl, result.sourceId)
+              }
+            }}
             disabled={isFetchingAnalysis}
           >
             {isFetchingAnalysis ? (
@@ -51,14 +65,6 @@ export function OsintResultCard({
             )}
             {isFetchingAnalysis ? t('fetchingResults') : t('fetchAnalysisResults')}
           </Button>
-          <a
-            href={analysisUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground hover:text-foreground"
-          >
-            <ExternalLink className="h-3 w-3" />
-          </a>
         </div>
       )}
 

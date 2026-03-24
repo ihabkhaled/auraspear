@@ -7,7 +7,7 @@ import { getErrorKey } from '@/lib/api-error'
 import {
   extractUploadResultMeta,
   extractVtAnalysisUrl,
-  extractVtFileGuiUrl,
+  extractVtGuiUrl,
   isVtFetchedStillQueued,
 } from '@/lib/osint.utils'
 import { agentConfigService } from '@/services/agent-config.service'
@@ -91,10 +91,16 @@ export function useOsintFileUpload() {
     const fetchUrl = analysisUrl ?? queuedAnalysisUrl
     const stillQueued = isVtFetchedStillQueued(fetchedData)
     const showFetchButton = Boolean(fetchUrl) || stillQueued
-    const vtFileGuiUrl =
-      fetchedData !== null && !stillQueued ? extractVtFileGuiUrl(fetchedData) : null
+    const vtFileGuiUrl = fetchedData !== null && !stillQueued ? extractVtGuiUrl(fetchedData) : null
 
-    return { analysisUrl, isQueued, fetchUrl, fetchedStillQueued: stillQueued, showFetchButton, vtFileGuiUrl }
+    return {
+      analysisUrl,
+      isQueued,
+      fetchUrl,
+      fetchedStillQueued: stillQueued,
+      showFetchButton,
+      vtFileGuiUrl,
+    }
   }, [result, fetchedData])
 
   return {

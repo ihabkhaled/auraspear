@@ -1,4 +1,6 @@
 import {
+  AgentAutomationMode,
+  AgentRiskLevel,
   AiAgentPanelTab,
   AiAgentStatus,
   AiAgentTier,
@@ -72,3 +74,26 @@ export const AI_AGENT_TOOL_DEFAULT_VALUES: AiAgentToolFormValues = {
 export const AI_CONNECTOR_FALLBACK: AvailableAiConnector[] = [
   { key: 'default', label: 'Default (Auto)', type: AiConnectorType.SYSTEM, enabled: true },
 ]
+
+export const AUTOMATION_MODE_LABEL_KEYS: Record<AgentAutomationMode, string> = {
+  [AgentAutomationMode.DISABLED]: 'automationModes.disabled',
+  [AgentAutomationMode.MANUAL_ONLY]: 'automationModes.manualOnly',
+  [AgentAutomationMode.SUGGEST_ONLY]: 'automationModes.suggestOnly',
+  [AgentAutomationMode.DRAFT_ONLY]: 'automationModes.draftOnly',
+  [AgentAutomationMode.ENRICH_ONLY]: 'automationModes.enrichOnly',
+  [AgentAutomationMode.APPROVAL_REQUIRED]: 'automationModes.approvalRequired',
+  [AgentAutomationMode.AUTO_LOW_RISK]: 'automationModes.autoLowRisk',
+  [AgentAutomationMode.AUTO_GOVERNED]: 'automationModes.autoGoverned',
+  [AgentAutomationMode.SCHEDULED]: 'automationModes.scheduled',
+  [AgentAutomationMode.EVENT_DRIVEN]: 'automationModes.eventDriven',
+  [AgentAutomationMode.ANALYST_INVOKED]: 'automationModes.analystInvoked',
+  [AgentAutomationMode.ORCHESTRATOR_INVOKED]: 'automationModes.orchestratorInvoked',
+}
+
+export const RISK_LEVEL_LABEL_KEYS: Record<AgentRiskLevel, string> = {
+  [AgentRiskLevel.NONE]: 'riskLevels.none',
+  [AgentRiskLevel.LOW]: 'riskLevels.low',
+  [AgentRiskLevel.MEDIUM]: 'riskLevels.medium',
+  [AgentRiskLevel.HIGH]: 'riskLevels.high',
+  [AgentRiskLevel.CRITICAL]: 'riskLevels.critical',
+}

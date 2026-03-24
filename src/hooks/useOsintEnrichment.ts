@@ -43,9 +43,29 @@ export function useOsintEnrichment() {
         setResult(enrichData)
 
         if (enrichData) {
-          Toast.success(
-            `${tCommon('osintEnrichComplete')}: ${String(enrichData.successCount)}/${String(enrichData.totalSources)}`
-          )
+          const { successCount, totalSources, failureCount, results: sourceResults } = enrichData
+
+          if (failureCount === 0) {
+            Toast.success(
+              `${tCommon('osintEnrichComplete')}: ${String(successCount)}/${String(totalSources)}`
+            )
+          } else {
+            // Toast each failed source with its translated messageKey
+            for (const sr of sourceResults) {
+              if (!sr.success && sr.messageKey) {
+                const key = sr.messageKey.replace('errors.', '')
+                Toast.error(`${sr.sourceName}: ${tErrors(key)}`)
+              } else if (!sr.success && sr.error) {
+                Toast.error(`${sr.sourceName}: ${sr.error}`)
+              }
+            }
+
+            if (successCount > 0) {
+              Toast.success(
+                `${tCommon('osintEnrichComplete')}: ${String(successCount)}/${String(totalSources)}`
+              )
+            }
+          }
         }
       } catch (error: unknown) {
         Toast.error(tErrors(getErrorKey(error)))
