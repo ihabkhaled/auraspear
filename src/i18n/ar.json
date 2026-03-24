@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "تم الاستيراد بنجاح",
     "bulkImportEmptyInput": "يرجى لصق بيانات JSON أو CSV",
     "bulkImportInvalidCve": "تم العثور على معرّفات CVE غير صالحة",
-    "bulkImportParseError": "فشل في تحليل الإدخال. تأكد من صحة تنسيق JSON أو CSV."
+    "bulkImportParseError": "فشل في تحليل الإدخال. تأكد من صحة تنسيق JSON أو CSV.",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "تحديد أولويات الثغرات بمساعدة الذكاء الاصطناعي",
+    "aiPrioritize": "تحديد الأولوية",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiCopilotLoading": "جارٍ التحليل...",
+    "aiCopilotError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+    "aiNoResult": "لا توجد نتائج متاحة"
   },
   "incidents": {
     "title": "الحوادث",
@@ -2695,7 +2704,16 @@
     "typeClustering": "التجميع",
     "entityServiceAccount": "حساب خدمة",
     "modelDegraded": "متدهور",
-    "typeTimeSeries": "سلسلة زمنية"
+    "typeTimeSeries": "سلسلة زمنية",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "شرح الحالات الشاذة بمساعدة الذكاء الاصطناعي",
+    "aiExplain": "شرح الحالة الشاذة",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiCopilotLoading": "جارٍ التحليل...",
+    "aiCopilotError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+    "aiNoResult": "لا توجد نتائج متاحة"
   },
   "attackPath": {
     "title": "تحليل مسار الهجوم",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "أصول معرضة",
     "kpiKillChain": "تغطية سلسلة القتل",
     "filterSeverity": "الشدة",
-    "filterStatus": "الحالة"
+    "filterStatus": "الحالة",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "ملخص مسار الهجوم بمساعدة الذكاء الاصطناعي",
+    "aiSummarize": "تلخيص المسار",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiCopilotLoading": "جارٍ التحليل...",
+    "aiCopilotError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+    "aiNoResult": "لا توجد نتائج متاحة"
   },
   "soar": {
     "title": "سيناريوهات SOAR",
@@ -3751,7 +3778,16 @@
     "creating": "جارٍ الإضافة...",
     "save": "حفظ",
     "saving": "جارٍ الحفظ...",
-    "columnComplianceScore": "نسبة الامتثال"
+    "columnComplianceScore": "نسبة الامتثال",
+    "aiCopilot": "مساعد الذكاء الاصطناعي",
+    "aiCopilotDescription": "فرز النتائج بمساعدة الذكاء الاصطناعي",
+    "aiTriage": "فرز النتيجة",
+    "aiConfidence": "الثقة",
+    "aiProvider": "المزود",
+    "aiRegenerate": "إعادة التوليد",
+    "aiCopilotLoading": "جارٍ التحليل...",
+    "aiCopilotError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+    "aiNoResult": "لا توجد نتائج متاحة"
   },
   "roleSettings": {
     "title": "إعدادات الأدوار",

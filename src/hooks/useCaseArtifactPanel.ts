@@ -5,6 +5,7 @@ import type { CaseArtifact, UseCaseArtifactPanelParams } from '@/types'
 
 export function useCaseArtifactPanel({ artifacts, onAddArtifact }: UseCaseArtifactPanelParams) {
   const t = useTranslations('cases')
+  const tCommon = useTranslations('common')
   const [artifactType, setArtifactType] = useState<CaseArtifactType>(CaseArtifactType.IP)
   const [artifactValue, setArtifactValue] = useState('')
   const [artifactSource, setArtifactSource] = useState('')
@@ -40,6 +41,7 @@ export function useCaseArtifactPanel({ artifacts, onAddArtifact }: UseCaseArtifa
 
   return {
     t,
+    tCommon,
     artifactType,
     setArtifactType,
     artifactValue,

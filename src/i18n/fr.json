@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "Imported successfully",
     "bulkImportEmptyInput": "Please paste JSON or CSV data",
     "bulkImportInvalidCve": "Invalid CVE IDs found",
-    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format."
+    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format.",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Priorisation des vulnérabilités assistée par IA",
+    "aiPrioritize": "Prioriser",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiCopilotLoading": "Analyse en cours...",
+    "aiCopilotError": "L'analyse IA a échoué. Veuillez réessayer.",
+    "aiNoResult": "Aucun résultat disponible"
   },
   "incidents": {
     "title": "Incidents",
@@ -2695,7 +2704,16 @@
     "typeClustering": "Clustering",
     "entityServiceAccount": "Compte de service",
     "modelDegraded": "Dégradé",
-    "typeTimeSeries": "Série temporelle"
+    "typeTimeSeries": "Série temporelle",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Explication d'anomalies assistée par IA",
+    "aiExplain": "Expliquer l'anomalie",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiCopilotLoading": "Analyse en cours...",
+    "aiCopilotError": "L'analyse IA a échoué. Veuillez réessayer.",
+    "aiNoResult": "Aucun résultat disponible"
   },
   "attackPath": {
     "title": "Analyse de Chemin d'Attaque",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "Actifs a risque",
     "kpiKillChain": "Couverture Kill Chain",
     "filterSeverity": "Severite",
-    "filterStatus": "Statut"
+    "filterStatus": "Statut",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Résumé de chemin d'attaque assisté par IA",
+    "aiSummarize": "Résumer le chemin",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiCopilotLoading": "Analyse en cours...",
+    "aiCopilotError": "L'analyse IA a échoué. Veuillez réessayer.",
+    "aiNoResult": "Aucun résultat disponible"
   },
   "soar": {
     "title": "Playbooks SOAR",
@@ -3751,7 +3778,16 @@
     "creating": "Adding...",
     "save": "Save",
     "saving": "Saving...",
-    "columnComplianceScore": "Score de Conformité"
+    "columnComplianceScore": "Score de Conformité",
+    "aiCopilot": "Copilote IA",
+    "aiCopilotDescription": "Triage de résultats assisté par IA",
+    "aiTriage": "Trier le résultat",
+    "aiConfidence": "Confiance",
+    "aiProvider": "Fournisseur",
+    "aiRegenerate": "Régénérer",
+    "aiCopilotLoading": "Analyse en cours...",
+    "aiCopilotError": "L'analyse IA a échoué. Veuillez réessayer.",
+    "aiNoResult": "Aucun résultat disponible"
   },
   "roleSettings": {
     "title": "Paramètres des Rôles",

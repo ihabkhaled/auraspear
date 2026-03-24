@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiCloudTriageResult,
   ApiResponse,
   CloudAccount,
   CloudFinding,
@@ -31,4 +32,11 @@ export const cloudSecurityService = {
 
   getStats: () =>
     api.get<ApiResponse<CloudSecurityStats>>('/cloud-security/stats').then(r => r.data),
+
+  aiTriageFinding: (findingId: string, connector?: string) =>
+    api
+      .post<
+        ApiResponse<AiCloudTriageResult>
+      >(`/cloud-security/findings/${findingId}/ai/triage`, { connector })
+      .then(r => r.data.data),
 }

@@ -1,5 +1,6 @@
 import api from '@/lib/api'
 import type {
+  AiUebaNarrativeResult,
   ApiResponse,
   MlModel,
   MlModelSearchParams,
@@ -36,4 +37,11 @@ export const uebaService = {
     api.patch<ApiResponse<UebaAnomaly>>(`/ueba/anomalies/${id}/resolve`).then(r => r.data),
 
   getStats: () => api.get<ApiResponse<UebaStats>>('/ueba/stats').then(r => r.data),
+
+  aiExplainAnomaly: (anomalyId: string, connector?: string) =>
+    api
+      .post<
+        ApiResponse<AiUebaNarrativeResult>
+      >(`/ueba/anomalies/${anomalyId}/ai/explain`, { connector })
+      .then(r => r.data.data),
 }

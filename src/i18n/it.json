@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "Imported successfully",
     "bulkImportEmptyInput": "Please paste JSON or CSV data",
     "bulkImportInvalidCve": "Invalid CVE IDs found",
-    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format."
+    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format.",
+    "aiCopilot": "Copilota IA",
+    "aiCopilotDescription": "Prioritizzazione delle vulnerabilità assistita dall'IA",
+    "aiPrioritize": "Prioritizza",
+    "aiConfidence": "Affidabilità",
+    "aiProvider": "Fornitore",
+    "aiRegenerate": "Rigenera",
+    "aiCopilotLoading": "Analisi in corso...",
+    "aiCopilotError": "Analisi IA fallita. Riprova.",
+    "aiNoResult": "Nessun risultato disponibile"
   },
   "incidents": {
     "title": "Incidenti",
@@ -2695,7 +2704,16 @@
     "typeClustering": "Clustering",
     "entityServiceAccount": "Account di servizio",
     "modelDegraded": "Degradato",
-    "typeTimeSeries": "Serie temporale"
+    "typeTimeSeries": "Serie temporale",
+    "aiCopilot": "Copilota IA",
+    "aiCopilotDescription": "Spiegazione anomalie assistita dall'IA",
+    "aiExplain": "Spiega anomalia",
+    "aiConfidence": "Affidabilità",
+    "aiProvider": "Fornitore",
+    "aiRegenerate": "Rigenera",
+    "aiCopilotLoading": "Analisi in corso...",
+    "aiCopilotError": "Analisi IA fallita. Riprova.",
+    "aiNoResult": "Nessun risultato disponibile"
   },
   "attackPath": {
     "title": "Analisi del Percorso di Attacco",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "Asset a rischio",
     "kpiKillChain": "Copertura Kill Chain",
     "filterSeverity": "Severita",
-    "filterStatus": "Stato"
+    "filterStatus": "Stato",
+    "aiCopilot": "Copilota IA",
+    "aiCopilotDescription": "Riepilogo percorso di attacco assistito dall'IA",
+    "aiSummarize": "Riassumi percorso",
+    "aiConfidence": "Affidabilità",
+    "aiProvider": "Fornitore",
+    "aiRegenerate": "Rigenera",
+    "aiCopilotLoading": "Analisi in corso...",
+    "aiCopilotError": "Analisi IA fallita. Riprova.",
+    "aiNoResult": "Nessun risultato disponibile"
   },
   "soar": {
     "title": "Playbook SOAR",
@@ -3751,7 +3778,16 @@
     "creating": "Adding...",
     "save": "Save",
     "saving": "Saving...",
-    "columnComplianceScore": "Punteggio di Conformità"
+    "columnComplianceScore": "Punteggio di Conformità",
+    "aiCopilot": "Copilota IA",
+    "aiCopilotDescription": "Triage dei risultati assistito dall'IA",
+    "aiTriage": "Triage risultato",
+    "aiConfidence": "Affidabilità",
+    "aiProvider": "Fornitore",
+    "aiRegenerate": "Rigenera",
+    "aiCopilotLoading": "Analisi in corso...",
+    "aiCopilotError": "Analisi IA fallita. Riprova.",
+    "aiNoResult": "Nessun risultato disponibile"
   },
   "roleSettings": {
     "title": "Impostazioni Ruoli",

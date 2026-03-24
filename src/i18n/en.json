@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "Imported successfully",
     "bulkImportEmptyInput": "Please paste JSON or CSV data",
     "bulkImportInvalidCve": "Invalid CVE IDs found",
-    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format."
+    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format.",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted vulnerability prioritization",
+    "aiPrioritize": "Prioritize",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiCopilotLoading": "Analyzing...",
+    "aiCopilotError": "AI analysis failed. Please try again.",
+    "aiNoResult": "No result available"
   },
   "incidents": {
     "title": "Incidents",
@@ -2695,7 +2704,16 @@
     "typeClustering": "Clustering",
     "entityServiceAccount": "Service Account",
     "modelDegraded": "Degraded",
-    "typeTimeSeries": "Time Series"
+    "typeTimeSeries": "Time Series",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted anomaly explanation",
+    "aiExplain": "Explain Anomaly",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiCopilotLoading": "Analyzing...",
+    "aiCopilotError": "AI analysis failed. Please try again.",
+    "aiNoResult": "No result available"
   },
   "attackPath": {
     "title": "Attack Path Analysis",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "Assets at Risk",
     "kpiKillChain": "Kill Chain Coverage",
     "filterSeverity": "Severity",
-    "filterStatus": "Status"
+    "filterStatus": "Status",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted attack path summary",
+    "aiSummarize": "Summarize Path",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiCopilotLoading": "Analyzing...",
+    "aiCopilotError": "AI analysis failed. Please try again.",
+    "aiNoResult": "No result available"
   },
   "soar": {
     "title": "SOAR Playbooks",
@@ -3804,7 +3831,16 @@
     "creating": "Adding...",
     "save": "Save",
     "saving": "Saving...",
-    "columnComplianceScore": "Compliance Score"
+    "columnComplianceScore": "Compliance Score",
+    "aiCopilot": "AI Copilot",
+    "aiCopilotDescription": "AI-assisted finding triage",
+    "aiTriage": "Triage Finding",
+    "aiConfidence": "Confidence",
+    "aiProvider": "Provider",
+    "aiRegenerate": "Regenerate",
+    "aiCopilotLoading": "Analyzing...",
+    "aiCopilotError": "AI analysis failed. Please try again.",
+    "aiNoResult": "No result available"
   },
   "roleSettings": {
     "title": "Role Settings",

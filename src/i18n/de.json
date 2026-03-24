@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "Imported successfully",
     "bulkImportEmptyInput": "Please paste JSON or CSV data",
     "bulkImportInvalidCve": "Invalid CVE IDs found",
-    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format."
+    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format.",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestützte Schwachstellenpriorisierung",
+    "aiPrioritize": "Priorisieren",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiCopilotLoading": "Analysiere...",
+    "aiCopilotError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiNoResult": "Kein Ergebnis verfügbar"
   },
   "incidents": {
     "title": "Vorfälle",
@@ -2695,7 +2704,16 @@
     "typeClustering": "Clustering",
     "entityServiceAccount": "Dienstkonto",
     "modelDegraded": "Beeinträchtigt",
-    "typeTimeSeries": "Zeitreihe"
+    "typeTimeSeries": "Zeitreihe",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestützte Anomalieerklärung",
+    "aiExplain": "Anomalie erklären",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiCopilotLoading": "Analysiere...",
+    "aiCopilotError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiNoResult": "Kein Ergebnis verfügbar"
   },
   "attackPath": {
     "title": "Angriffspfadanalyse",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "Gefaehrdete Assets",
     "kpiKillChain": "Kill-Chain-Abdeckung",
     "filterSeverity": "Schweregrad",
-    "filterStatus": "Status"
+    "filterStatus": "Status",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestützte Angriffspfadzusammenfassung",
+    "aiSummarize": "Pfad zusammenfassen",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiCopilotLoading": "Analysiere...",
+    "aiCopilotError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiNoResult": "Kein Ergebnis verfügbar"
   },
   "soar": {
     "title": "SOAR-Playbooks",
@@ -3751,7 +3778,16 @@
     "creating": "Adding...",
     "save": "Save",
     "saving": "Saving...",
-    "columnComplianceScore": "Compliance-Bewertung"
+    "columnComplianceScore": "Compliance-Bewertung",
+    "aiCopilot": "KI-Copilot",
+    "aiCopilotDescription": "KI-gestützte Befundtriage",
+    "aiTriage": "Befund triagieren",
+    "aiConfidence": "Vertrauen",
+    "aiProvider": "Anbieter",
+    "aiRegenerate": "Neu generieren",
+    "aiCopilotLoading": "Analysiere...",
+    "aiCopilotError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "aiNoResult": "Kein Ergebnis verfügbar"
   },
   "roleSettings": {
     "title": "Rolleneinstellungen",

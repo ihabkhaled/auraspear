@@ -1,5 +1,11 @@
 import api from '@/lib/api'
-import type { ApiResponse, AttackPath, AttackPathSearchParams, AttackPathStats } from '@/types'
+import type {
+  AiAttackPathSummaryResult,
+  ApiResponse,
+  AttackPath,
+  AttackPathSearchParams,
+  AttackPathStats,
+} from '@/types'
 
 export const attackPathService = {
   getAttackPaths: (params?: AttackPathSearchParams) =>
@@ -19,4 +25,11 @@ export const attackPathService = {
 
   deleteAttackPath: (id: string) =>
     api.delete<ApiResponse<{ deleted: boolean }>>(`/attack-paths/${id}`).then(r => r.data),
+
+  aiSummarize: (pathId: string, connector?: string) =>
+    api
+      .post<
+        ApiResponse<AiAttackPathSummaryResult>
+      >(`/attack-paths/${pathId}/ai/summarize`, { connector })
+      .then(r => r.data.data),
 }

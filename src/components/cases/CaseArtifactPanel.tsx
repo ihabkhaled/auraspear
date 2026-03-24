@@ -1,6 +1,7 @@
 'use client'
 
 import { Copy, ExternalLink, Globe, Plus, Trash2 } from 'lucide-react'
+import { OsintEnrichButton, OsintFileUploadButton } from '@/components/common'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -13,6 +14,7 @@ import {
 import { CaseArtifactType } from '@/enums'
 import { useCaseArtifactPanel } from '@/hooks'
 import { ARTIFACT_TYPE_ICONS, ARTIFACT_TYPE_KEYS } from '@/lib/constants/cases'
+import { isFileOrHashType, normalizeIocType } from '@/lib/entity.utils'
 import { copyToClipboard, lookup } from '@/lib/utils'
 import type { CaseArtifactPanelProps } from '@/types'
 
@@ -25,6 +27,7 @@ export function CaseArtifactPanel({
 }: CaseArtifactPanelProps) {
   const {
     t,
+    tCommon,
     artifactType,
     setArtifactType,
     artifactValue,
@@ -115,6 +118,12 @@ export function CaseArtifactPanel({
                   </div>
 
                   <div className="flex items-center gap-1">
+                    <OsintEnrichButton
+                      iocType={normalizeIocType(artifact.type)}
+                      iocValue={artifact.value}
+                      t={tCommon}
+                    />
+                    {isFileOrHashType(artifact.type) && <OsintFileUploadButton t={tCommon} />}
                     <Button
                       variant="ghost"
                       size="icon-xs"

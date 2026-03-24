@@ -437,6 +437,7 @@ export type {
   VulnerabilityColumnTranslations,
   UseVulnerabilityCreateDialogParams,
   UseVulnerabilityEditDialogParams,
+  AiVulnerabilityCopilotResult,
 } from './vulnerability.types'
 export type {
   AiAgent,
@@ -493,6 +494,7 @@ export type {
   UebaAnomalyCardProps,
   UebaMlModelCardProps,
   UebaColumnTranslations,
+  AiUebaNarrativeResult,
   UseUebaEntityCreateDialogParams,
   UseUebaEntityEditDialogParams,
   UebaPageDialogsReturn,
@@ -514,6 +516,7 @@ export type {
   AttackPathStageEditorProps,
   AttackPathVisualizationProps,
   AttackPathColumnTranslations,
+  AiAttackPathSummaryResult,
   UseAttackPathCreateDialogParams,
   UseAttackPathEditDialogParams,
   AttackPathsPageDialogsReturn,
@@ -660,6 +663,7 @@ export type {
   UseCloudAccountEditDialogParams,
   UseCloudAccountDeleteDialogParams,
   CloudSecurityPageDialogsReturn,
+  AiCloudTriageResult,
 } from './cloud-security.types'
 export type {
   PermissionDefinition,

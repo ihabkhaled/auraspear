@@ -175,3 +175,15 @@ export interface UebaPageDialogsReturn {
 export interface UebaColumnTranslations {
   ueba: (key: string) => string
 }
+
+export interface AiUebaNarrativeResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}

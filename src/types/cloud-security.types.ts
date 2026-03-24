@@ -158,6 +158,18 @@ export interface UseCloudAccountDeleteDialogParams {
   onConfirm: () => void
 }
 
+export interface AiCloudTriageResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}
+
 export interface CloudSecurityPageDialogsReturn {
   readonly createOpen: boolean
   readonly setCreateOpen: React.Dispatch<React.SetStateAction<boolean>>

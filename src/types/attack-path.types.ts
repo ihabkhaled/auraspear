@@ -143,6 +143,18 @@ export interface UseAttackPathEditDialogParams {
   initialValues: EditAttackPathFormValues
 }
 
+export interface AiAttackPathSummaryResult {
+  result: string
+  reasoning: string[]
+  confidence: number
+  model: string
+  provider: string
+  tokensUsed: {
+    input: number
+    output: number
+  }
+}
+
 export type AttackPathsPageDialogsReturn = {
   selectedPathId: string | null
   setSelectedPathId: (id: string | null) => void

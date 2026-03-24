@@ -2324,7 +2324,16 @@
     "bulkImportSuccess": "Imported successfully",
     "bulkImportEmptyInput": "Please paste JSON or CSV data",
     "bulkImportInvalidCve": "Invalid CVE IDs found",
-    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format."
+    "bulkImportParseError": "Failed to parse input. Ensure valid JSON array or CSV format.",
+    "aiCopilot": "Copiloto IA",
+    "aiCopilotDescription": "Priorización de vulnerabilidades asistida por IA",
+    "aiPrioritize": "Priorizar",
+    "aiConfidence": "Confianza",
+    "aiProvider": "Proveedor",
+    "aiRegenerate": "Regenerar",
+    "aiCopilotLoading": "Analizando...",
+    "aiCopilotError": "El análisis de IA falló. Inténtelo de nuevo.",
+    "aiNoResult": "Sin resultado disponible"
   },
   "incidents": {
     "title": "Incidentes",
@@ -2695,7 +2704,16 @@
     "typeClustering": "Agrupamiento",
     "entityServiceAccount": "Cuenta de servicio",
     "modelDegraded": "Degradado",
-    "typeTimeSeries": "Serie temporal"
+    "typeTimeSeries": "Serie temporal",
+    "aiCopilot": "Copiloto IA",
+    "aiCopilotDescription": "Explicación de anomalías asistida por IA",
+    "aiExplain": "Explicar anomalía",
+    "aiConfidence": "Confianza",
+    "aiProvider": "Proveedor",
+    "aiRegenerate": "Regenerar",
+    "aiCopilotLoading": "Analizando...",
+    "aiCopilotError": "El análisis de IA falló. Inténtelo de nuevo.",
+    "aiNoResult": "Sin resultado disponible"
   },
   "attackPath": {
     "title": "Análisis de Ruta de Ataque",
@@ -2782,7 +2800,16 @@
     "kpiAssets": "Activos en riesgo",
     "kpiKillChain": "Cobertura Kill Chain",
     "filterSeverity": "Severidad",
-    "filterStatus": "Estado"
+    "filterStatus": "Estado",
+    "aiCopilot": "Copiloto IA",
+    "aiCopilotDescription": "Resumen de ruta de ataque asistido por IA",
+    "aiSummarize": "Resumir ruta",
+    "aiConfidence": "Confianza",
+    "aiProvider": "Proveedor",
+    "aiRegenerate": "Regenerar",
+    "aiCopilotLoading": "Analizando...",
+    "aiCopilotError": "El análisis de IA falló. Inténtelo de nuevo.",
+    "aiNoResult": "Sin resultado disponible"
   },
   "soar": {
     "title": "Playbooks SOAR",
@@ -3751,7 +3778,16 @@
     "creating": "Adding...",
     "save": "Save",
     "saving": "Saving...",
-    "columnComplianceScore": "Puntuación de Cumplimiento"
+    "columnComplianceScore": "Puntuación de Cumplimiento",
+    "aiCopilot": "Copiloto IA",
+    "aiCopilotDescription": "Triaje de hallazgos asistido por IA",
+    "aiTriage": "Triaje de hallazgo",
+    "aiConfidence": "Confianza",
+    "aiProvider": "Proveedor",
+    "aiRegenerate": "Regenerar",
+    "aiCopilotLoading": "Analizando...",
+    "aiCopilotError": "El análisis de IA falló. Inténtelo de nuevo.",
+    "aiNoResult": "Sin resultado disponible"
   },
   "roleSettings": {
     "title": "Configuración de Roles",

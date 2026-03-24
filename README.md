@@ -430,7 +430,16 @@ npm test                   # Vitest
 npm run test:watch         # Watch mode
 ```
 
-## Contributor Guides
+## Documentation
+
+### Architecture and Design
+
+- **Frontend architecture**: [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) -- Tech stack, project structure, key patterns, state management, auth, i18n, styling
+- **AI copilot surfaces**: [`docs/AI-SURFACES.md`](./docs/AI-SURFACES.md) -- All 10+ AI hooks, connector selection, feature catalog, agent IDs, supporting components
+- **OSINT enrichment**: [`docs/OSINT-ENRICHMENT.md`](./docs/OSINT-ENRICHMENT.md) -- Enrichment surfaces, IOC normalization, VirusTotal analysis flow, file upload, components
+- **Development rules**: [`CLAUDE.md`](./CLAUDE.md) -- 59 absolute rules, ESLint config, formatting, separation of concerns, security
+
+### Contributor Guides
 
 - Dashboard widgets: [`docs/dashboard-widgets.md`](./docs/dashboard-widgets.md)
 - Permissions and route gating: [`docs/permissions-and-routes.md`](./docs/permissions-and-routes.md)
