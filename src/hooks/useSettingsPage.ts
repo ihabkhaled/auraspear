@@ -5,7 +5,7 @@ import { useTheme } from 'next-themes'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
-import { getCookie } from '@/lib/cookies'
+import { getCookie, setCookie } from '@/lib/cookies'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore } from '@/stores'
 import { usePreferences, useUpdatePreferences } from './useSettings'
@@ -43,7 +43,7 @@ export function useSettingsPage() {
   }
 
   function handleLanguageChange(locale: string) {
-    document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
+    setCookie('locale', locale)
     updatePreferences.mutate({ language: locale })
     router.refresh()
   }

@@ -2,7 +2,7 @@ import { useSyncExternalStore } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
-import { getCookie } from '@/lib/cookies'
+import { getCookie, setCookie } from '@/lib/cookies'
 import { useLoginForm } from './useLoginForm'
 
 const noop = () => {}
@@ -30,7 +30,7 @@ export function useLoginPage() {
   }
 
   function handleLocaleChange(locale: string) {
-    document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
+    setCookie('locale', locale)
     router.refresh()
   }
 

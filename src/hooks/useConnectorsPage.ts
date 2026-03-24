@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Permission } from '@/enums'
 import { CONNECTOR_TYPES } from '@/lib/constants/connectors.constants'
@@ -10,6 +11,7 @@ import { useLlmConnectors } from './useLlmConnectors'
 export function useConnectorsPage() {
   const t = useTranslations('connectors')
   const tLlm = useTranslations('llmConnectors')
+  const router = useRouter()
   const permissions = useAuthStore(s => s.permissions)
   const { data: connectors, isLoading, isFetching } = useConnectors()
   const { data: stats, isLoading: statsLoading } = useConnectorStats()
@@ -27,6 +29,10 @@ export function useConnectorsPage() {
     return CONNECTOR_TYPES.filter(ct => !configuredTypes.has(ct))
   }, [list])
 
+  const handleNavigateToLlm = useCallback(() => {
+    router.push('/connectors/llm')
+  }, [router])
+
   return {
     t,
     tLlm,
@@ -41,5 +47,6 @@ export function useConnectorsPage() {
     canCreate,
     canDelete,
     canCreateLlm,
+    handleNavigateToLlm,
   }
 }

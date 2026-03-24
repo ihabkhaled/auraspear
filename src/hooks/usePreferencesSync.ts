@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTheme } from 'next-themes'
-import { getCookie } from '@/lib/cookies'
+import { getCookie, setCookie } from '@/lib/cookies'
 import { useAuthStore } from '@/stores'
 import { usePreferences } from './useSettings'
 
@@ -37,7 +37,7 @@ export function usePreferencesSync(): { syncing: boolean } {
     if (backendLanguage) {
       const currentLocale = getCookie('locale') ?? 'en'
       if (currentLocale !== backendLanguage) {
-        document.cookie = `locale=${backendLanguage};path=/;max-age=31536000;SameSite=Lax`
+        setCookie('locale', backendLanguage)
         router.refresh()
       }
     }

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useUpdatePreferences } from '@/hooks/useSettings'
-import { getCookie } from '@/lib/cookies'
+import { getCookie, setCookie } from '@/lib/cookies'
 
 export function useLanguageSwitcher() {
   const t = useTranslations('language')
@@ -10,7 +10,7 @@ export function useLanguageSwitcher() {
   const current = getCookie('locale') || 'en'
 
   function handleChange(locale: string) {
-    document.cookie = `locale=${locale};path=/;max-age=31536000;SameSite=Lax`
+    setCookie('locale', locale)
     updatePreferences.mutate({ language: locale })
     router.refresh()
   }

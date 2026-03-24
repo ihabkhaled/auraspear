@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { IncidentStatus } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { copyToClipboard } from '@/lib/utils'
 import type {
   CreateIncidentFormValues,
   EditIncidentFormValues,
@@ -124,7 +125,7 @@ export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
 
   const handleCopyId = useCallback(
     (id: string) => {
-      void navigator.clipboard.writeText(id)
+      void copyToClipboard(id)
       Toast.success(tCommon('copied'))
     },
     [tCommon]

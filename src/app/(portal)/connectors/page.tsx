@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import {
   Cable,
   CheckCircle2,
@@ -16,7 +15,6 @@ import { Button } from '@/components/ui/button'
 import { useConnectorsPage } from '@/hooks/useConnectorsPage'
 
 export default function ConnectorsPage() {
-  const router = useRouter()
   const {
     t,
     tLlm,
@@ -30,6 +28,7 @@ export default function ConnectorsPage() {
     unconfiguredTypes,
     canCreate,
     canCreateLlm,
+    handleNavigateToLlm,
   } = useConnectorsPage()
 
   if (isLoading) {
@@ -117,7 +116,7 @@ export default function ConnectorsPage() {
           </div>
           <div className="flex items-center gap-2">
             {canCreateLlm && (
-              <Button variant="outline" size="sm" onClick={() => router.push('/connectors/llm')}>
+              <Button variant="outline" size="sm" onClick={handleNavigateToLlm}>
                 <Plus className="me-1 h-3.5 w-3.5" />
                 {tLlm('createConnector')}
               </Button>

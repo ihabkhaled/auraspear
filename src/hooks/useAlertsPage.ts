@@ -9,6 +9,7 @@ import { Permission, SortOrder, type AlertSeverity, type TimeRange } from '@/enu
 import { SEVERITY_ORDER, parseKQLQuery } from '@/lib/alert.utils'
 import { VALID_SEVERITIES, VALID_TIME_RANGES } from '@/lib/constants/alerts'
 import { hasPermission } from '@/lib/permissions'
+import { copyToClipboard } from '@/lib/utils'
 import { useAuthStore, useFilterStore } from '@/stores'
 import type { Alert, AIInvestigation, AlertSearchParams, CreateCaseFormValues } from '@/types'
 import { useAiAlertTriage } from './useAiAlertTriage'
@@ -219,7 +220,7 @@ export function useAlertsPage() {
 
   const handleCopyId = useCallback(
     (id: string) => {
-      void navigator.clipboard.writeText(id)
+      void copyToClipboard(id)
       Toast.success(tCommon('copied'))
     },
     [tCommon]
