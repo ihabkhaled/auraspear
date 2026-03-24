@@ -61,6 +61,7 @@
 57. **EVERY trigger configuration form MUST use per-mode Zod schemas** — Separate schemas for manual, auto_on_alert, auto_by_agent, scheduled.
 58. **NEVER render raw AI inter-agent JSON in user-facing UI** — Transform to human-readable before rendering.
 59. **EVERY approval-required AI action MUST show approval status badge** — Pending approvals visually distinct.
+60. **NEVER define derived state `const` inside `.tsx` component files** — All computed/derived values (from props, hook results, or API responses) MUST be computed inside the hook that provides the data, not in the component. Components receive ready-to-render values only. Move all `const x = computeSomething(hookResult)` patterns into the hook's return value via `useMemo`.
 
 ---
 

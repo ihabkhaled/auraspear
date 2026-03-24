@@ -57,6 +57,12 @@ const banInlineUtilFunction = {
     'Utility functions must be defined in src/lib/<domain>.utils.ts. Import from @/lib instead (Rule #15).',
 }
 
+const banInlineArrowUtil = {
+  selector: 'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[a-z]/] > ArrowFunctionExpression',
+  message:
+    'Arrow-function utilities/helpers must not be defined in .tsx files. Move to src/lib/<domain>.utils.ts or src/hooks/ (Rule #60).',
+}
+
 const banLiteralStatusCssReturn = {
   selector: 'ReturnStatement > Literal[value=/^(text-status-|bg-status-|border-status-|text-muted-foreground|bg-muted|border-border)/]',
   message:
@@ -67,7 +73,7 @@ const banLiteralStatusCssReturn = {
 const baseSelectors = [banStringLiteralUnions]
 const defaultSelectors = [...baseSelectors, banInlineEnum]
 const typeAwareSelectors = [...defaultSelectors, banInlineInterface, banInlineTypeAlias, banInlineConst, banInlineUtilFunction]
-const componentSelectors = [...typeAwareSelectors, banInlineHook, banInlineHookArrow]
+const componentSelectors = [...typeAwareSelectors, banInlineHook, banInlineHookArrow, banInlineArrowUtil]
 
 const eslintConfig = defineConfig([
   // ── Next.js presets (includes @typescript-eslint, react, react-hooks, jsx-a11y) ──

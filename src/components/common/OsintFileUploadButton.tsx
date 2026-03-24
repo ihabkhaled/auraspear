@@ -4,12 +4,6 @@ import { ExternalLink, Loader2, RefreshCw, Upload } from 'lucide-react'
 import { OsintResultCard } from '@/components/common/OsintResultCard'
 import { Button } from '@/components/ui/button'
 import { useOsintFileUpload } from '@/hooks'
-import {
-  extractUploadResultMeta,
-  extractVtAnalysisUrl,
-  extractVtFileGuiUrl,
-  isVtFetchedStillQueued,
-} from '@/lib/osint.utils'
 import type { OsintFileUploadButtonProps } from '@/types'
 
 export function OsintFileUploadButton({ t }: OsintFileUploadButtonProps) {
@@ -23,16 +17,12 @@ export function OsintFileUploadButton({ t }: OsintFileUploadButtonProps) {
     fetchedData,
     isFetchingAnalysis,
     fetchAnalysis,
+    isQueued,
+    fetchUrl,
+    fetchedStillQueued,
+    showFetchButton,
+    vtFileGuiUrl,
   } = useOsintFileUpload()
-
-  const analysisUrl = result ? extractVtAnalysisUrl(result.rawResponse) : null
-  const { rawStatus, queuedAnalysisUrl } = extractUploadResultMeta(result?.rawResponse)
-  const isQueued = Boolean(analysisUrl) || rawStatus === 'queued'
-  const fetchUrl = analysisUrl ?? queuedAnalysisUrl
-  const fetchedStillQueued = isVtFetchedStillQueued(fetchedData)
-  const showFetchButton = Boolean(fetchUrl) || fetchedStillQueued
-  const vtFileGuiUrl =
-    fetchedData !== null && !fetchedStillQueued ? extractVtFileGuiUrl(fetchedData) : null
 
   return (
     <div className="inline-flex flex-col gap-1">

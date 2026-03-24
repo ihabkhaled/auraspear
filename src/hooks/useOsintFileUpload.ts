@@ -1,9 +1,15 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
+import {
+  extractUploadResultMeta,
+  extractVtAnalysisUrl,
+  extractVtFileGuiUrl,
+  isVtFetchedStillQueued,
+} from '@/lib/osint.utils'
 import { agentConfigService } from '@/services/agent-config.service'
 import type { OsintQueryResult } from '@/types'
 
@@ -77,6 +83,20 @@ export function useOsintFileUpload() {
     setFetchedData(null)
   }, [])
 
+  // Derived state — moved from component per CLAUDE.md rule 60
+  const derived = useMemo(() => {
+    const analysisUrl = result ? extractVtAnalysisUrl(result.rawResponse) : null
+    const { rawStatus, queuedAnalysisUrl } = extractUploadResultMeta(result?.rawResponse)
+    const isQueued = Boolean(analysisUrl) || rawStatus === 'queued'
+    const fetchUrl = analysisUrl ?? queuedAnalysisUrl
+    const stillQueued = isVtFetchedStillQueued(fetchedData)
+    const showFetchButton = Boolean(fetchUrl) || stillQueued
+    const vtFileGuiUrl =
+      fetchedData !== null && !stillQueued ? extractVtFileGuiUrl(fetchedData) : null
+
+    return { analysisUrl, isQueued, fetchUrl, fetchedStillQueued: stillQueued, showFetchButton, vtFileGuiUrl }
+  }, [result, fetchedData])
+
   return {
     fileInputRef,
     handleButtonClick,
@@ -87,5 +107,6 @@ export function useOsintFileUpload() {
     fetchedData,
     isFetchingAnalysis,
     fetchAnalysis,
+    ...derived,
   }
 }
