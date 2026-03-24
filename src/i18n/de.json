@@ -116,7 +116,19 @@
     "osintUndetected": "undetected",
     "osintEngines": "engines",
     "osintReputation": "Reputation",
-    "osintRawData": "Raw Data"
+    "osintRawData": "Raw Data",
+    "aiFindings": {
+      "title": "KI-Ergebnisse",
+      "noFindings": "Keine KI-Ergebnisse",
+      "summary": "Zusammenfassung",
+      "confidence": "Vertrauen",
+      "severity": "Schweregrad",
+      "status": "Status",
+      "recommendedAction": "Empfohlene Maßnahme",
+      "evidence": "Beweise",
+      "appliedAt": "Angewendet am",
+      "viewAll": "Alle anzeigen"
+    }
   },
   "dashboard": {
     "title": "Management-Dashboard",
@@ -315,7 +327,22 @@
     "aiRegenerate": "Regenerieren",
     "aiTriageLoading": "Analyse läuft...",
     "aiTriageError": "KI-Analyse fehlgeschlagen. Bitte versuchen Sie es erneut.",
-    "aiNoResult": "Kein Ergebnis verfügbar"
+    "aiNoResult": "Kein Ergebnis verfügbar",
+    "ai": {
+      "aiAnalysis": "KI-Analyse",
+      "aiSummary": "KI-Zusammenfassung",
+      "aiConfidence": "Vertrauen",
+      "aiSeveritySuggestion": "Vorgeschlagener Schweregrad",
+      "aiEscalation": "Eskalationsvorschlag",
+      "aiLastRun": "Letzte Analyse",
+      "aiStatus": "Analysestatus",
+      "aiStatusCompleted": "Abgeschlossen",
+      "aiStatusRunning": "Wird ausgefuehrt",
+      "aiStatusFailed": "Fehlgeschlagen",
+      "aiStatusPending": "Ausstehend",
+      "noAiAnalysis": "Keine KI-Analyse verfuegbar",
+      "runAiTriage": "KI-Triage ausfuehren"
+    }
   },
   "hunt": {
     "title": "KI-Bedrohungssuche",
@@ -2522,6 +2549,12 @@
     "sessionDuration": "Dauer",
     "sessionDetailTitle": "Sitzungsdetails",
     "sessionDetailDescription": "Vollständige Details dieser KI-Agenten-Sitzung",
+    "sessionTrigger": "Auslöser",
+    "sessionTriggerUser": "Benutzer",
+    "sessionTriggerSystem": "System",
+    "sessionTriggerScheduled": "Geplant",
+    "sessionTriggerEvent": "Ereignis",
+    "sessionSourceModule": "Quelle",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",

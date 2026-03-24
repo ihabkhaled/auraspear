@@ -32,3 +32,10 @@ export enum AiConnectorPreference {
   LLM_APIS = 'llm_apis',
   OPENCLAW_GATEWAY = 'openclaw_gateway',
 }
+
+export enum AiSessionTrigger {
+  USER = 'user',
+  SYSTEM = 'system',
+  SCHEDULED = 'scheduled',
+  EVENT = 'event',
+}

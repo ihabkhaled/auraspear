@@ -24,3 +24,10 @@ export enum AlertTimelineEventType {
   ESCALATED = 'escalated',
   INVESTIGATED = 'investigated',
 }
+
+export enum AlertAiStatus {
+  COMPLETED = 'completed',
+  RUNNING = 'running',
+  FAILED = 'failed',
+  PENDING = 'pending',
+}

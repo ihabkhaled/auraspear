@@ -2,8 +2,9 @@
 
 import { AlertTriangle, Brain, Briefcase, Loader2, X } from 'lucide-react'
 import { AiTriagePanel } from '@/components/alerts/AiTriagePanel'
+import { AlertAiResultPanel } from '@/components/alerts/AlertAiResultPanel'
 import { AlertTimeline } from '@/components/alerts/AlertTimeline'
-import { OsintEnrichButton } from '@/components/common'
+import { AiFindingsPanel, OsintEnrichButton } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -43,6 +44,9 @@ export function AlertDetailDrawer({
   onEscalateToIncident,
   onClose,
   triageProps,
+  aiResult,
+  aiResultLoading,
+  onRunAiTriage,
 }: AlertDetailDrawerProps) {
   const { t, tCommon, getStatusLabel } = useAlertDetailDrawer()
 
@@ -171,6 +175,15 @@ export function AlertDetailDrawer({
               <DetailRow label={t('updatedAt')}>
                 <span className="text-xs">{formatTimestamp(alert.updatedAt)}</span>
               </DetailRow>
+              <Separator className="my-3" />
+              <AlertAiResultPanel
+                aiResult={aiResult ?? null}
+                isLoading={Boolean(aiResultLoading)}
+                onRunTriage={onRunAiTriage}
+                t={t}
+              />
+              <Separator className="my-3" />
+              <AiFindingsPanel sourceModule="alert" sourceEntityId={alert.id} t={tCommon} />
               {triageProps && (
                 <>
                   <Separator className="my-3" />

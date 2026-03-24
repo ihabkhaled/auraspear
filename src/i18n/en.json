@@ -116,7 +116,19 @@
     "osintUndetected": "undetected",
     "osintEngines": "engines",
     "osintReputation": "Reputation",
-    "osintRawData": "Raw Data"
+    "osintRawData": "Raw Data",
+    "aiFindings": {
+      "title": "AI Findings",
+      "noFindings": "No AI findings",
+      "summary": "Summary",
+      "confidence": "Confidence",
+      "severity": "Severity",
+      "status": "Status",
+      "recommendedAction": "Recommended Action",
+      "evidence": "Evidence",
+      "appliedAt": "Applied At",
+      "viewAll": "View All"
+    }
   },
   "dashboard": {
     "title": "Executive Dashboard",
@@ -315,7 +327,22 @@
     "aiRegenerate": "Regenerate",
     "aiTriageLoading": "Analyzing...",
     "aiTriageError": "AI analysis failed. Please try again.",
-    "aiNoResult": "No result available"
+    "aiNoResult": "No result available",
+    "ai": {
+      "aiAnalysis": "AI Analysis",
+      "aiSummary": "AI Summary",
+      "aiConfidence": "Confidence",
+      "aiSeveritySuggestion": "Suggested Severity",
+      "aiEscalation": "Escalation Suggestion",
+      "aiLastRun": "Last Analysis",
+      "aiStatus": "Analysis Status",
+      "aiStatusCompleted": "Completed",
+      "aiStatusRunning": "Running",
+      "aiStatusFailed": "Failed",
+      "aiStatusPending": "Pending",
+      "noAiAnalysis": "No AI analysis available",
+      "runAiTriage": "Run AI Triage"
+    }
   },
   "hunt": {
     "title": "AI Threat Hunting",
@@ -2528,6 +2555,12 @@
     "sessionDuration": "Duration",
     "sessionDetailTitle": "Session Details",
     "sessionDetailDescription": "Full details of this AI agent session run",
+    "sessionTrigger": "Trigger",
+    "sessionTriggerUser": "User",
+    "sessionTriggerSystem": "System",
+    "sessionTriggerScheduled": "Scheduled",
+    "sessionTriggerEvent": "Event",
+    "sessionSourceModule": "Source",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",

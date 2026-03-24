@@ -6,6 +6,7 @@ import {
   AiAgentTier,
   AiConnectorPreference,
   AiConnectorType,
+  AiSessionTrigger,
 } from '@/enums'
 import type { AiAgentToolFormValues, AvailableAiConnector } from '@/types'
 
@@ -96,4 +97,18 @@ export const RISK_LEVEL_LABEL_KEYS: Record<AgentRiskLevel, string> = {
   [AgentRiskLevel.MEDIUM]: 'riskLevels.medium',
   [AgentRiskLevel.HIGH]: 'riskLevels.high',
   [AgentRiskLevel.CRITICAL]: 'riskLevels.critical',
+}
+
+export const AI_SESSION_TRIGGER_LABEL_KEYS: Record<AiSessionTrigger, string> = {
+  [AiSessionTrigger.USER]: 'sessionTriggerUser',
+  [AiSessionTrigger.SYSTEM]: 'sessionTriggerSystem',
+  [AiSessionTrigger.SCHEDULED]: 'sessionTriggerScheduled',
+  [AiSessionTrigger.EVENT]: 'sessionTriggerEvent',
+}
+
+export const AI_SESSION_TRIGGER_VARIANTS: Record<AiSessionTrigger, string> = {
+  [AiSessionTrigger.USER]: 'default',
+  [AiSessionTrigger.SYSTEM]: 'secondary',
+  [AiSessionTrigger.SCHEDULED]: 'info',
+  [AiSessionTrigger.EVENT]: 'warning',
 }

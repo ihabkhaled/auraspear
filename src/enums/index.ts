@@ -1,5 +1,5 @@
 export { AgentAutomationMode, AgentActionType, AgentRiskLevel } from './agent-automation.enum'
-export { AlertSeverity, AlertStatus, AlertTimelineEventType } from './alert.enum'
+export { AlertSeverity, AlertStatus, AlertTimelineEventType, AlertAiStatus } from './alert.enum'
 export { TimeRange } from './alert-filter.enum'
 export { BadgeVariant } from './badge.enum'
 export { JobStatus, JobType } from './job.enum'
@@ -58,6 +58,7 @@ export {
   AiAgentSessionStatus,
   AiAgentPanelTab,
   AiConnectorPreference,
+  AiSessionTrigger,
 } from './ai-agent.enum'
 export { UebaEntityType, UebaRiskLevel, MlModelStatus, MlModelType, UebaTab } from './ueba.enum'
 export { AttackPathSeverity, AttackPathStatus } from './attack-path.enum'

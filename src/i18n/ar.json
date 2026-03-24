@@ -116,7 +116,19 @@
     "osintUndetected": "غير مكتشف",
     "osintEngines": "محركات",
     "osintReputation": "السمعة",
-    "osintRawData": "البيانات الخام"
+    "osintRawData": "البيانات الخام",
+    "aiFindings": {
+      "title": "نتائج الذكاء الاصطناعي",
+      "noFindings": "لا توجد نتائج للذكاء الاصطناعي",
+      "summary": "الملخص",
+      "confidence": "الثقة",
+      "severity": "الخطورة",
+      "status": "الحالة",
+      "recommendedAction": "الإجراء الموصى به",
+      "evidence": "الأدلة",
+      "appliedAt": "تم التطبيق في",
+      "viewAll": "عرض الكل"
+    }
   },
   "dashboard": {
     "title": "لوحة المتابعة التنفيذية",
@@ -315,7 +327,22 @@
     "aiRegenerate": "إعادة التوليد",
     "aiTriageLoading": "جارٍ التحليل...",
     "aiTriageError": "فشل تحليل الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
-    "aiNoResult": "لا توجد نتائج متاحة"
+    "aiNoResult": "لا توجد نتائج متاحة",
+    "ai": {
+      "aiAnalysis": "تحليل الذكاء الاصطناعي",
+      "aiSummary": "ملخص الذكاء الاصطناعي",
+      "aiConfidence": "الثقة",
+      "aiSeveritySuggestion": "الخطورة المقترحة",
+      "aiEscalation": "اقتراح التصعيد",
+      "aiLastRun": "آخر تحليل",
+      "aiStatus": "حالة التحليل",
+      "aiStatusCompleted": "مكتمل",
+      "aiStatusRunning": "قيد التشغيل",
+      "aiStatusFailed": "فشل",
+      "aiStatusPending": "معلق",
+      "noAiAnalysis": "لا يوجد تحليل ذكاء اصطناعي متاح",
+      "runAiTriage": "تشغيل فرز الذكاء الاصطناعي"
+    }
   },
   "hunt": {
     "title": "صيد التهديدات بالذكاء الاصطناعي",
@@ -2522,6 +2549,12 @@
     "sessionDuration": "المدة",
     "sessionDetailTitle": "تفاصيل الجلسة",
     "sessionDetailDescription": "التفاصيل الكاملة لجلسة تشغيل عامل الذكاء الاصطناعي",
+    "sessionTrigger": "المشغّل",
+    "sessionTriggerUser": "مستخدم",
+    "sessionTriggerSystem": "نظام",
+    "sessionTriggerScheduled": "مجدول",
+    "sessionTriggerEvent": "حدث",
+    "sessionSourceModule": "المصدر",
     "toolsDescription": "إدارة الأدوات المتاحة لهذا الوكيل",
     "addTool": "إضافة أداة",
     "editTool": "تعديل الأداة",

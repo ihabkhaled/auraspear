@@ -116,7 +116,19 @@
     "osintUndetected": "undetected",
     "osintEngines": "engines",
     "osintReputation": "Reputation",
-    "osintRawData": "Raw Data"
+    "osintRawData": "Raw Data",
+    "aiFindings": {
+      "title": "Résultats IA",
+      "noFindings": "Aucun résultat IA",
+      "summary": "Résumé",
+      "confidence": "Confiance",
+      "severity": "Sévérité",
+      "status": "Statut",
+      "recommendedAction": "Action recommandée",
+      "evidence": "Preuves",
+      "appliedAt": "Appliqué le",
+      "viewAll": "Voir tout"
+    }
   },
   "dashboard": {
     "title": "Tableau de bord executif",
@@ -315,7 +327,22 @@
     "aiRegenerate": "Régénérer",
     "aiTriageLoading": "Analyse en cours...",
     "aiTriageError": "L'analyse IA a échoué. Veuillez réessayer.",
-    "aiNoResult": "Aucun résultat disponible"
+    "aiNoResult": "Aucun résultat disponible",
+    "ai": {
+      "aiAnalysis": "Analyse IA",
+      "aiSummary": "Resume IA",
+      "aiConfidence": "Confiance",
+      "aiSeveritySuggestion": "Severite suggeree",
+      "aiEscalation": "Suggestion d'escalade",
+      "aiLastRun": "Derniere analyse",
+      "aiStatus": "Statut de l'analyse",
+      "aiStatusCompleted": "Termine",
+      "aiStatusRunning": "En cours",
+      "aiStatusFailed": "Echoue",
+      "aiStatusPending": "En attente",
+      "noAiAnalysis": "Aucune analyse IA disponible",
+      "runAiTriage": "Lancer le triage IA"
+    }
   },
   "hunt": {
     "title": "Chasse aux menaces IA",
@@ -2522,6 +2549,12 @@
     "sessionDuration": "Durée",
     "sessionDetailTitle": "Détails de la session",
     "sessionDetailDescription": "Détails complets de cette exécution de l'agent IA",
+    "sessionTrigger": "Déclencheur",
+    "sessionTriggerUser": "Utilisateur",
+    "sessionTriggerSystem": "Système",
+    "sessionTriggerScheduled": "Planifié",
+    "sessionTriggerEvent": "Événement",
+    "sessionSourceModule": "Source",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",

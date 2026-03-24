@@ -365,3 +365,28 @@ export interface AiAutomationBadgeData {
   agentName: string
   isLoading: boolean
 }
+
+export interface AiExecutionFinding {
+  id: string
+  tenantId: string
+  sessionId: string
+  agentId: string
+  sourceModule: string
+  sourceEntityId: string | null
+  findingType: string
+  title: string
+  summary: string
+  confidenceScore: number | null
+  severity: string | null
+  evidenceJson: unknown
+  recommendedAction: string | null
+  status: string
+  appliedAt: string | null
+  createdAt: string
+}
+
+export interface AiFindingsPanelProps {
+  sourceModule: string
+  sourceEntityId: string
+  t: (key: string) => string
+}

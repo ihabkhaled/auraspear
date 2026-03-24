@@ -116,7 +116,19 @@
     "osintUndetected": "undetected",
     "osintEngines": "engines",
     "osintReputation": "Reputation",
-    "osintRawData": "Raw Data"
+    "osintRawData": "Raw Data",
+    "aiFindings": {
+      "title": "Hallazgos de IA",
+      "noFindings": "Sin hallazgos de IA",
+      "summary": "Resumen",
+      "confidence": "Confianza",
+      "severity": "Severidad",
+      "status": "Estado",
+      "recommendedAction": "Acción recomendada",
+      "evidence": "Evidencia",
+      "appliedAt": "Aplicado el",
+      "viewAll": "Ver todo"
+    }
   },
   "dashboard": {
     "title": "Panel Ejecutivo",
@@ -315,7 +327,22 @@
     "aiRegenerate": "Regenerar",
     "aiTriageLoading": "Analizando...",
     "aiTriageError": "El análisis de IA falló. Inténtelo de nuevo.",
-    "aiNoResult": "Sin resultado disponible"
+    "aiNoResult": "Sin resultado disponible",
+    "ai": {
+      "aiAnalysis": "Analisis de IA",
+      "aiSummary": "Resumen de IA",
+      "aiConfidence": "Confianza",
+      "aiSeveritySuggestion": "Gravedad sugerida",
+      "aiEscalation": "Sugerencia de escalamiento",
+      "aiLastRun": "Ultimo analisis",
+      "aiStatus": "Estado del analisis",
+      "aiStatusCompleted": "Completado",
+      "aiStatusRunning": "En ejecucion",
+      "aiStatusFailed": "Fallido",
+      "aiStatusPending": "Pendiente",
+      "noAiAnalysis": "No hay analisis de IA disponible",
+      "runAiTriage": "Ejecutar triaje de IA"
+    }
   },
   "hunt": {
     "title": "Caza de Amenazas con IA",
@@ -2522,6 +2549,12 @@
     "sessionDuration": "Duración",
     "sessionDetailTitle": "Detalles de la sesión",
     "sessionDetailDescription": "Detalles completos de esta ejecución del agente IA",
+    "sessionTrigger": "Disparador",
+    "sessionTriggerUser": "Usuario",
+    "sessionTriggerSystem": "Sistema",
+    "sessionTriggerScheduled": "Programado",
+    "sessionTriggerEvent": "Evento",
+    "sessionSourceModule": "Origen",
     "toolsDescription": "Manage tools available to this agent",
     "addTool": "Add Tool",
     "editTool": "Edit Tool",

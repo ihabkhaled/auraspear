@@ -1,8 +1,34 @@
 'use client'
 
-import { AI_SESSION_CONNECTOR_LABELS } from '@/lib/constants/ai-agents'
+import { Badge } from '@/components/ui/badge'
+import { type AiSessionTrigger } from '@/enums'
+import {
+  AI_SESSION_CONNECTOR_LABELS,
+  AI_SESSION_TRIGGER_LABEL_KEYS,
+  AI_SESSION_TRIGGER_VARIANTS,
+} from '@/lib/constants/ai-agents'
 import { lookup } from '@/lib/utils'
 import type { AiAgentSession, Column, SessionColumnTranslations } from '@/types'
+
+function TriggerBadge({
+  trigger,
+  t,
+}: {
+  trigger: AiSessionTrigger | null
+  t: SessionColumnTranslations
+}) {
+  if (!trigger) {
+    return <span className="text-muted-foreground text-xs">—</span>
+  }
+  const labelKey = lookup(AI_SESSION_TRIGGER_LABEL_KEYS, trigger)
+  const variant = lookup(AI_SESSION_TRIGGER_VARIANTS, trigger) ?? 'default'
+  const label = labelKey ? t(labelKey) : trigger
+  return (
+    <Badge variant={variant as 'default'} className="text-xs">
+      {label}
+    </Badge>
+  )
+}
 
 export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<AiAgentSession>[] {
   return [
@@ -18,6 +44,32 @@ export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<A
       label: t('colStatus'),
       className: 'w-24',
       render: (value: unknown) => <span className="text-xs capitalize">{String(value ?? '')}</span>,
+    },
+    {
+      key: 'trigger',
+      label: t('sessionTrigger'),
+      className: 'w-28',
+      render: (_value: unknown, row: AiAgentSession) => (
+        <TriggerBadge trigger={row.trigger} t={t} />
+      ),
+    },
+    {
+      key: 'sourceModule',
+      label: t('sessionSourceModule'),
+      className: 'w-44',
+      render: (_value: unknown, row: AiAgentSession) => {
+        if (!row.sourceModule) {
+          return <span className="text-muted-foreground text-xs">—</span>
+        }
+        const entityLabel = row.sourceEntity
+          ? `${row.sourceModule}: ${row.sourceEntity}`
+          : row.sourceModule
+        return (
+          <span className="max-w-[180px] truncate text-xs" title={entityLabel}>
+            {entityLabel}
+          </span>
+        )
+      },
     },
     {
       key: 'provider',

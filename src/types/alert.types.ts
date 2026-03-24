@@ -1,4 +1,5 @@
 import type {
+  AlertAiStatus,
   AlertSeverity,
   AlertStatus,
   AlertTimelineEventType,
@@ -87,6 +88,9 @@ export interface AlertDetailDrawerProps {
   onEscalateToIncident?: ((alert: Alert) => void) | undefined
   onClose?: ((alert: Alert) => void) | undefined
   triageProps?: AiTriageExternalProps | undefined
+  aiResult?: AlertAiResult | null | undefined
+  aiResultLoading?: boolean | undefined
+  onRunAiTriage?: (() => void) | undefined
 }
 
 export interface AlertFilterSidebarProps {
@@ -220,19 +224,18 @@ export interface EscalateFormValues {
   category: string
 }
 
-export interface SeverityCount {
-  severity: AlertSeverity
-  count: number
+export interface AlertAiResult {
+  aiSummary: string | null
+  aiConfidence: number | null
+  aiSeveritySuggestion: string | null
+  aiEscalationSuggestion: string | null
+  aiLastRunAt: string | null
+  aiStatus: AlertAiStatus | null
 }
 
-export interface AlertColumnTranslations {
-  alerts: (key: string) => string
-  common: (key: string) => string
-}
-
-export interface GetAlertColumnsOptions {
-  onView?: ((alert: Alert) => void) | undefined
-  onInvestigate?: ((alert: Alert) => void) | undefined
-  onCreateCase?: ((alert: Alert) => void) | undefined
-  onCopyId?: ((id: string) => void) | undefined
+export interface AlertAiResultPanelProps {
+  aiResult: AlertAiResult | null
+  isLoading: boolean
+  onRunTriage?: (() => void) | undefined
+  t: (key: string) => string
 }

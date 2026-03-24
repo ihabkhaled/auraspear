@@ -72,6 +72,8 @@ export type {
   AiTriageResult,
   AiTriagePanelProps,
   AiTriageExternalProps,
+  AlertAiResult,
+  AlertAiResultPanelProps,
 } from './alert.types'
 export type {
   Case,
@@ -800,4 +802,6 @@ export type {
   AiAutomationBadgeProps,
   OrchestratorStatsBarProps,
   AiAutomationBadgeData,
+  AiExecutionFinding,
+  AiFindingsPanelProps,
 } from './ai-config.types'

@@ -1,6 +1,7 @@
 import api from '@/lib/api'
 import type {
   AgentExecutionHistoryItem,
+  AiExecutionFinding,
   AiFeatureConfig,
   AiPromptTemplate,
   ApiResponse,
@@ -145,4 +146,21 @@ export const agentConfigService = {
 
   getOrchestratorStats: () =>
     api.get<ApiResponse<OrchestratorStats>>('/agent-config/orchestrator/stats').then(r => r.data),
+
+  // AI Findings
+  getFindings: (params?: {
+    sourceModule?: string
+    sourceEntityId?: string
+    agentId?: string
+    page?: number
+    limit?: number
+  }) => api.get<ApiResponse<AiExecutionFinding[]>>('/ai/findings', { params }).then(r => r.data),
+
+  getFinding: (id: string) =>
+    api.get<ApiResponse<AiExecutionFinding>>(`/ai/findings/${id}`).then(r => r.data),
+
+  getFindingsByEntity: (entityType: string, entityId: string) =>
+    api
+      .get<ApiResponse<AiExecutionFinding[]>>(`/ai/findings/by-entity/${entityType}/${entityId}`)
+      .then(r => r.data),
 }

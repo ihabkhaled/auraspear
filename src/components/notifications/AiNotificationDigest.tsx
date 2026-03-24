@@ -30,7 +30,9 @@ function DigestResultCard({
           {result.provider ?? result.model}
         </Badge>
       </div>
-      <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">{result.result}</p>
+      <p className="text-foreground scroll text-sm leading-relaxed whitespace-pre-wrap">
+        {result.result}
+      </p>
     </div>
   )
 }

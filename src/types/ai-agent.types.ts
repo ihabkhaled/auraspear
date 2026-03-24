@@ -2,6 +2,7 @@ import type {
   AiAgentSessionStatus,
   AiAgentStatus,
   AiAgentTier,
+  AiSessionTrigger,
   BadgeVariant,
   SortOrder,
 } from '@/enums'
@@ -31,6 +32,9 @@ export interface AiAgentSession {
   id: string
   agentId: string
   status: AiAgentSessionStatus
+  trigger: AiSessionTrigger | null
+  sourceModule: string | null
+  sourceEntity: string | null
   input: string
   output: string | null
   model: string | null
