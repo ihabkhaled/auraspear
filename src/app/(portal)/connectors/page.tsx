@@ -1,14 +1,6 @@
 'use client'
 
-import {
-  Cable,
-  CheckCircle2,
-  Plus,
-  Plug,
-  ShieldAlert,
-  ToggleLeft,
-  TriangleAlert,
-} from 'lucide-react'
+import { Cable, CheckCircle2, Plus, Plug, ShieldAlert, Power, TriangleAlert } from 'lucide-react'
 import { KpiCard, LoadingSpinner, PageHeader } from '@/components/common'
 import { ConnectorCard, AddConnectorCard, LlmConnectorCard } from '@/components/connectors'
 import { Button } from '@/components/ui/button'
@@ -54,7 +46,7 @@ export default function ConnectorsPage() {
           <KpiCard
             label={t('stats.enabledConnectors')}
             value={stats.enabledConnectors}
-            icon={<ToggleLeft className="h-5 w-5" />}
+            icon={<Power className="h-5 w-5" />}
             accentColor="var(--status-info)"
           />
           <KpiCard

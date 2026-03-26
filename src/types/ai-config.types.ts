@@ -315,6 +315,7 @@ export interface FeatureTableProps {
   features: AiFeatureConfig[]
   loading: boolean
   onEdit: (feature: AiFeatureConfig) => void
+  onToggle?: (featureKey: string, enabled: boolean) => void
   t: (key: string) => string
 }
 

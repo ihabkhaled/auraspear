@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
+import { AiFindingsPanel } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -231,6 +232,10 @@ export function IncidentDetailPanel({
                   </div>
                 </CollapsibleContent>
               </Collapsible>
+
+              <Separator />
+
+              <AiFindingsPanel sourceModule="incident" sourceEntityId={incident.id} t={tCommon} />
             </div>
           </ScrollArea>
         )}

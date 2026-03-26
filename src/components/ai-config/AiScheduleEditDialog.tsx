@@ -13,11 +13,16 @@ import { Label } from '@/components/ui/label'
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import type { CronPreset } from '@/enums'
 import { useAiScheduleEditDialog } from '@/hooks/useAiScheduleEditDialog'
+import { CRON_PRESET_GROUPS, CRON_PRESET_LABEL_KEY } from '@/lib/constants/cron-presets'
+import { lookup } from '@/lib/utils'
 import type { AiScheduleEditDialogProps } from '@/types'
 
 export function AiScheduleEditDialog({
@@ -29,8 +34,11 @@ export function AiScheduleEditDialog({
   t,
 }: AiScheduleEditDialogProps) {
   const {
-    cronExpression,
-    setCronExpression,
+    cronPreset,
+    handlePresetChange,
+    customCron,
+    setCustomCron,
+    isCustom,
     timezone,
     setTimezone,
     executionMode,
@@ -56,15 +64,41 @@ export function AiScheduleEditDialog({
         </DialogHeader>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <div className="space-y-1.5">
+          <div className="space-y-1.5 sm:col-span-2">
             <Label>{t('schedules.cron')}</Label>
-            <Input
-              value={cronExpression}
-              onChange={e => setCronExpression(e.currentTarget.value)}
-              placeholder="0 */6 * * *"
-            />
-            <p className="text-muted-foreground text-xs">{t('schedules.cronHelp')}</p>
+            <Select value={cronPreset} onValueChange={v => handlePresetChange(v as CronPreset)}>
+              <SelectTrigger>
+                <SelectValue placeholder={t('cronPresets.selectFrequency')} />
+              </SelectTrigger>
+              <SelectContent>
+                {CRON_PRESET_GROUPS.map(group => (
+                  <SelectGroup key={group.labelKey}>
+                    <SelectLabel>{t(group.labelKey)}</SelectLabel>
+                    {group.presets.map(preset => {
+                      const labelKey = lookup(CRON_PRESET_LABEL_KEY, preset)
+                      return (
+                        <SelectItem key={preset} value={preset}>
+                          {labelKey ? t(labelKey) : preset}
+                        </SelectItem>
+                      )
+                    })}
+                  </SelectGroup>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
+
+          {isCustom && (
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label>{t('cronPresets.custom')}</Label>
+              <Input
+                value={customCron}
+                onChange={e => setCustomCron(e.currentTarget.value)}
+                placeholder={t('cronPresets.customCronPlaceholder')}
+              />
+              <p className="text-muted-foreground text-xs">{t('schedules.cronHelp')}</p>
+            </div>
+          )}
 
           <div className="space-y-1.5">
             <Label>{t('schedules.timezone')}</Label>

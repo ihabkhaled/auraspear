@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
-import type { UpdateScheduleInput } from '@/types'
+import type { AiAgentSchedule, ApiResponse, UpdateScheduleInput } from '@/types'
 
 export function useAiSchedules() {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -17,12 +17,29 @@ export function useAiSchedules() {
 export function useToggleSchedule() {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const key = ['ai-schedules', tenantId]
 
   return useMutation({
     mutationFn: ({ id, enabled }: { id: string; enabled: boolean }) =>
       agentConfigService.toggleSchedule(id, enabled),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-schedules', tenantId] })
+    onMutate: async ({ id, enabled }) => {
+      await queryClient.cancelQueries({ queryKey: key })
+      const previous = queryClient.getQueryData<ApiResponse<AiAgentSchedule[]>>(key)
+      if (previous) {
+        queryClient.setQueryData<ApiResponse<AiAgentSchedule[]>>(key, {
+          ...previous,
+          data: previous.data.map(s => (s.id === id ? { ...s, isEnabled: enabled } : s)),
+        })
+      }
+      return { previous }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(key, context.previous)
+      }
+    },
+    onSettled: () => {
+      void queryClient.invalidateQueries({ queryKey: key })
     },
   })
 }
@@ -30,12 +47,29 @@ export function useToggleSchedule() {
 export function usePauseSchedule() {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const key = ['ai-schedules', tenantId]
 
   return useMutation({
     mutationFn: ({ id, paused }: { id: string; paused: boolean }) =>
       agentConfigService.pauseSchedule(id, paused),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['ai-schedules', tenantId] })
+    onMutate: async ({ id, paused }) => {
+      await queryClient.cancelQueries({ queryKey: key })
+      const previous = queryClient.getQueryData<ApiResponse<AiAgentSchedule[]>>(key)
+      if (previous) {
+        queryClient.setQueryData<ApiResponse<AiAgentSchedule[]>>(key, {
+          ...previous,
+          data: previous.data.map(s => (s.id === id ? { ...s, isPaused: paused } : s)),
+        })
+      }
+      return { previous }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(key, context.previous)
+      }
+    },
+    onSettled: () => {
+      void queryClient.invalidateQueries({ queryKey: key })
     },
   })
 }

@@ -1,12 +1,14 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { ApprovalStatus, Permission } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { useAuthStore } from '@/stores'
+import { agentConfigService } from '@/services'
+import { useAuthStore, useTenantStore } from '@/stores'
 import type {
   AiAgentSchedule,
   AiFeatureConfig,
@@ -24,7 +26,7 @@ import type {
 } from '@/types'
 import { useAgentConfigs, useToggleAgent, useUpdateAgentConfig } from './useAgentConfig'
 import { useAiApprovals, useResolveApproval } from './useAiApprovals'
-import { useAiFeatures, useUpdateAiFeature } from './useAiFeatures'
+import { useAiFeatures, useToggleAiFeature, useUpdateAiFeature } from './useAiFeatures'
 import {
   useAiPrompts,
   useActivateAiPrompt,
@@ -109,6 +111,7 @@ export function useAiConfigPage() {
   const activatePromptMutation = useActivateAiPrompt()
   const deletePromptMutation = useDeleteAiPrompt()
   const updateFeatureMutation = useUpdateAiFeature()
+  const toggleFeatureMutation = useToggleAiFeature()
   const toggleScheduleMutation = useToggleSchedule()
   const pauseScheduleMutation = usePauseSchedule()
   const runScheduleNowMutation = useRunScheduleNow()
@@ -349,6 +352,23 @@ export function useAiConfigPage() {
     setFeatureDialogOpen(true)
   }, [])
 
+  const handleToggleFeature = useCallback(
+    (featureKey: string, enabled: boolean) => {
+      toggleFeatureMutation.mutate(
+        { featureKey, enabled },
+        {
+          onSuccess: () => {
+            Toast.success(enabled ? t('featureToggleEnabled') : t('featureToggleDisabled'))
+          },
+          onError: (error: unknown) => {
+            Toast.error(tErrors(getErrorKey(error)))
+          },
+        }
+      )
+    },
+    [toggleFeatureMutation, t, tErrors]
+  )
+
   const handleUpdateFeature = useCallback(
     (featureKey: string, data: UpdateAiFeatureConfigInput) => {
       updateFeatureMutation.mutate(
@@ -480,6 +500,88 @@ export function useAiConfigPage() {
     [resolveApprovalMutation, t, tErrors]
   )
 
+  // Bulk toggle handlers
+  const queryClient = useQueryClient()
+  const tenantId = useTenantStore(s => s.currentTenantId)
+
+  const bulkToggleAgentsMutation = useMutation({
+    mutationFn: (enabled: boolean) => agentConfigService.bulkToggleAgents(enabled),
+    onSuccess: (_data, enabled) => {
+      Toast.success(enabled ? t('allAgentsEnabled') : t('allAgentsDisabled'))
+      void queryClient.invalidateQueries({ queryKey: ['agent-config', 'agents', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['orchestrator-stats', tenantId] })
+    },
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
+    },
+  })
+
+  const bulkToggleOsintMutation = useMutation({
+    mutationFn: (enabled: boolean) => agentConfigService.bulkToggleOsintSources(enabled),
+    onSuccess: (_data, enabled) => {
+      Toast.success(enabled ? t('allOsintEnabled') : t('allOsintDisabled'))
+      void queryClient.invalidateQueries({ queryKey: ['agent-config', 'osint-sources', tenantId] })
+    },
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
+    },
+  })
+
+  const bulkToggleFeaturesMutation = useMutation({
+    mutationFn: (enabled: boolean) => agentConfigService.bulkToggleFeatures(enabled),
+    onSuccess: (_data, enabled) => {
+      Toast.success(enabled ? t('allFeaturesEnabled') : t('allFeaturesDisabled'))
+      void queryClient.invalidateQueries({ queryKey: ['ai-features', tenantId] })
+    },
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
+    },
+  })
+
+  const bulkToggleSchedulesMutation = useMutation({
+    mutationFn: (enabled: boolean) => agentConfigService.bulkToggleSchedules(enabled),
+    onSuccess: (_data, enabled) => {
+      Toast.success(enabled ? t('allSchedulesEnabled') : t('allSchedulesDisabled'))
+      void queryClient.invalidateQueries({ queryKey: ['ai-schedules', tenantId] })
+    },
+    onError: (error: unknown) => {
+      Toast.error(tErrors(getErrorKey(error)))
+    },
+  })
+
+  const handleBulkToggle = useCallback(
+    async (section: string, enabled: boolean) => {
+      const confirmKey = enabled ? 'bulkEnableConfirm' : 'bulkDisableConfirm'
+      const confirmed = await SweetAlertDialog.show({
+        text: t(confirmKey),
+        icon: SweetAlertIcon.QUESTION,
+      })
+      if (!confirmed) return
+
+      switch (section) {
+        case 'agents':
+          bulkToggleAgentsMutation.mutate(enabled)
+          break
+        case 'osint':
+          bulkToggleOsintMutation.mutate(enabled)
+          break
+        case 'features':
+          bulkToggleFeaturesMutation.mutate(enabled)
+          break
+        case 'schedules':
+          bulkToggleSchedulesMutation.mutate(enabled)
+          break
+      }
+    },
+    [
+      bulkToggleAgentsMutation,
+      bulkToggleOsintMutation,
+      bulkToggleFeaturesMutation,
+      bulkToggleSchedulesMutation,
+      t,
+    ]
+  )
+
   return {
     t,
     activeTab,
@@ -493,7 +595,7 @@ export function useAiConfigPage() {
     orchestratorStatsFetching,
     // Agent configs
     agentConfigs,
-    agentConfigsLoading: agentConfigsQuery.isFetching,
+    agentConfigsLoading: agentConfigsQuery.isLoading,
     editDialogOpen,
     setEditDialogOpen,
     selectedConfig,
@@ -504,7 +606,7 @@ export function useAiConfigPage() {
     availableConnectors,
     // OSINT sources
     osintSources: osintSourcesQuery.data?.data ?? [],
-    osintSourcesLoading: osintSourcesQuery.isFetching,
+    osintSourcesLoading: osintSourcesQuery.isLoading,
     osintDialogOpen,
     setOsintDialogOpen,
     selectedOsintSource,
@@ -518,14 +620,14 @@ export function useAiConfigPage() {
     testOsintLoading: testOsintMutation.isPending,
     // Approvals
     approvals: approvalsQuery.data?.data ?? [],
-    approvalsLoading: approvalsQuery.isFetching,
+    approvalsLoading: approvalsQuery.isLoading,
     approvalFilter,
     setApprovalFilter,
     handleResolveApproval,
     resolveApprovalLoading: resolveApprovalMutation.isPending,
     // Prompts
     prompts: (promptsQuery.data?.data ?? []) as AiPromptTemplate[],
-    promptsLoading: promptsQuery.isFetching,
+    promptsLoading: promptsQuery.isLoading,
     promptDialogOpen,
     setPromptDialogOpen,
     selectedPrompt,
@@ -538,16 +640,17 @@ export function useAiConfigPage() {
     canManagePrompts,
     // Features
     features: (featuresQuery.data?.data ?? []) as AiFeatureConfig[],
-    featuresLoading: featuresQuery.isFetching,
+    featuresLoading: featuresQuery.isLoading,
     featureDialogOpen,
     setFeatureDialogOpen,
     selectedFeature,
     handleEditFeature,
     handleUpdateFeature,
     featureUpdateLoading: updateFeatureMutation.isPending,
+    handleToggleFeature,
     // Schedules
     schedules: (schedulesQuery.data?.data ?? []) as AiAgentSchedule[],
-    schedulesLoading: schedulesQuery.isFetching,
+    schedulesLoading: schedulesQuery.isLoading,
     scheduleDialogOpen,
     setScheduleDialogOpen,
     selectedSchedule,
@@ -558,5 +661,7 @@ export function useAiConfigPage() {
     handleRunScheduleNow,
     handleResetSchedule,
     scheduleUpdateLoading: updateScheduleMutation.isPending,
+    // Bulk toggle
+    handleBulkToggle,
   }
 }

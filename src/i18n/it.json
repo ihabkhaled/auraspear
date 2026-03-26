@@ -127,7 +127,12 @@
       "recommendedAction": "Azione consigliata",
       "evidence": "Prove",
       "appliedAt": "Applicato il",
-      "viewAll": "Vedi tutto"
+      "viewAll": "Vedi tutto",
+      "filterAgent": "Filtra per agente",
+      "filterModule": "Filtra per modulo",
+      "allAgents": "Tutti gli agenti",
+      "allModules": "Tutti i moduli",
+      "totalCount": "Totale risultati"
     }
   },
   "dashboard": {
@@ -3946,19 +3951,22 @@
         "view": "Visualizza Vulnerabilità",
         "create": "Crea Vulnerabilità",
         "update": "Aggiorna Vulnerabilità",
-        "delete": "Elimina Vulnerabilità"
+        "delete": "Elimina Vulnerabilità",
+        "aiCopilot": "Prioritizzazione IA delle vulnerabilità"
       },
       "ueba": {
         "view": "Visualizza UEBA",
         "create": "Crea Entità UEBA",
         "update": "Aggiorna Entità UEBA",
-        "delete": "Elimina entità UEBA"
+        "delete": "Elimina entità UEBA",
+        "aiNarrative": "Narrativa IA delle anomalie"
       },
       "attackPaths": {
         "view": "Visualizza Percorsi di Attacco",
         "create": "Crea Percorsi di Attacco",
         "update": "Aggiorna Percorsi di Attacco",
-        "delete": "Elimina Percorsi di Attacco"
+        "delete": "Elimina Percorsi di Attacco",
+        "aiSummary": "Riepilogo IA dei percorsi di attacco"
       },
       "normalization": {
         "view": "Visualizza Normalizzazione",
@@ -3985,7 +3993,8 @@
         "view": "Visualizza Sicurezza Cloud",
         "create": "Crea Account Cloud",
         "update": "Aggiorna Account Cloud",
-        "delete": "Elimina Account Cloud"
+        "delete": "Elimina Account Cloud",
+        "aiTriage": "Triage IA dei risultati cloud"
       },
       "compliance": {
         "view": "Visualizza Conformità",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "Configurazione IA",
     "description": "Configura agenti IA, provider, trigger e fonti OSINT",
+    "enableAll": "Attiva tutto",
+    "disableAll": "Disattiva tutto",
+    "bulkEnableConfirm": "Sei sicuro di voler attivare tutti gli elementi di questa sezione?",
+    "bulkDisableConfirm": "Sei sicuro di voler disattivare tutti gli elementi di questa sezione?",
+    "allAgentsEnabled": "Tutti gli agenti attivati",
+    "allAgentsDisabled": "Tutti gli agenti disattivati",
+    "allOsintEnabled": "Tutte le fonti OSINT attivate",
+    "allOsintDisabled": "Tutte le fonti OSINT disattivate",
+    "allFeaturesEnabled": "Tutte le funzionalità attivate",
+    "allFeaturesDisabled": "Tutte le funzionalità disattivate",
+    "allSchedulesEnabled": "Tutte le pianificazioni attivate",
+    "allSchedulesDisabled": "Tutte le pianificazioni disattivate",
     "tabAgents": "Agenti",
     "tabOsint": "Fonti OSINT",
     "tabApprovals": "Approvazioni",
@@ -4447,6 +4468,8 @@
     "promptName": "Nome modello",
     "promptTaskType": "Tipo di attivita",
     "promptContent": "Contenuto",
+    "promptContentPlaceholder": "Scrivi il tuo prompt qui. Usa i segnaposto sopra per includere i dati dell'entità.",
+    "promptPlaceholdersHint": "Includi questi segnaposto nel tuo prompt — verranno sostituiti con dati reali al momento dell'esecuzione:",
     "promptVersion": "Versione",
     "promptActive": "Attivo",
     "promptInactive": "Inattivo",
@@ -4547,6 +4570,68 @@
       "resumedSuccess": "Pianificazione ripresa",
       "runNowSuccess": "Esecuzione della pianificazione attivata",
       "resetSuccess": "Pianificazione reimpostata con successo"
+    },
+    "cronPresets": {
+      "groupSeconds": "Secondi",
+      "groupMinutes": "Minuti",
+      "groupHours": "Ore",
+      "groupDaily": "Giornaliero",
+      "groupWeekly": "Settimanale",
+      "groupMonthly": "Mensile",
+      "groupCustom": "Personalizzato",
+      "every30Seconds": "Ogni 30 secondi",
+      "every1Minute": "Ogni minuto",
+      "every2Minutes": "Ogni 2 minuti",
+      "every3Minutes": "Ogni 3 minuti",
+      "every5Minutes": "Ogni 5 minuti",
+      "every10Minutes": "Ogni 10 minuti",
+      "every15Minutes": "Ogni 15 minuti",
+      "every20Minutes": "Ogni 20 minuti",
+      "every25Minutes": "Ogni 25 minuti",
+      "every30Minutes": "Ogni 30 minuti",
+      "every45Minutes": "Ogni 45 minuti",
+      "every1Hour": "Ogni ora",
+      "every2Hours": "Ogni 2 ore",
+      "every3Hours": "Ogni 3 ore",
+      "every4Hours": "Ogni 4 ore",
+      "every6Hours": "Ogni 6 ore",
+      "every8Hours": "Ogni 8 ore",
+      "every12Hours": "Ogni 12 ore",
+      "dailyMidnight": "Ogni giorno a mezzanotte",
+      "daily1Am": "Ogni giorno alle 1:00",
+      "daily2Am": "Ogni giorno alle 2:00",
+      "daily230Am": "Ogni giorno alle 2:30",
+      "daily3Am": "Ogni giorno alle 3:00",
+      "daily4Am": "Ogni giorno alle 4:00",
+      "daily5Am": "Ogni giorno alle 5:00",
+      "daily6Am": "Ogni giorno alle 6:00",
+      "daily7Am": "Ogni giorno alle 7:00",
+      "daily8Am": "Ogni giorno alle 8:00",
+      "daily9Am": "Ogni giorno alle 9:00",
+      "daily10Am": "Ogni giorno alle 10:00",
+      "daily12Pm": "Ogni giorno alle 12:00",
+      "daily6Pm": "Ogni giorno alle 18:00",
+      "weeklyMonday7Am": "Ogni lunedì alle 7:00",
+      "weeklyMonday9Am": "Ogni lunedì alle 9:00",
+      "weeklyFriday5Pm": "Ogni venerdì alle 17:00",
+      "weeklySundayMidnight": "Ogni domenica a mezzanotte",
+      "monthly1stMidnight": "Il 1° di ogni mese a mezzanotte",
+      "monthly1st9Am": "Il 1° di ogni mese alle 9:00",
+      "monthly15th9Am": "Il 15 di ogni mese alle 9:00",
+      "custom": "Espressione cron personalizzata",
+      "selectFrequency": "Seleziona frequenza",
+      "customCronPlaceholder": "es. 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "Risultati",
+      "noFindings": "Nessun risultato IA ancora. Esegui le pianificazioni o attiva le funzioni IA.",
+      "summary": "Riepilogo",
+      "recommendedAction": "Azione raccomandata",
+      "filterAgent": "Filtra per agente",
+      "filterModule": "Filtra per modulo",
+      "allAgents": "Tutti gli agenti",
+      "allModules": "Tutti i moduli",
+      "totalCount": "Totale risultati"
     }
   }
 }

@@ -127,7 +127,12 @@
       "recommendedAction": "Recommended Action",
       "evidence": "Evidence",
       "appliedAt": "Applied At",
-      "viewAll": "View All"
+      "viewAll": "View All",
+      "filterAgent": "Filter by agent",
+      "filterModule": "Filter by module",
+      "allAgents": "All Agents",
+      "allModules": "All Modules",
+      "totalCount": "Total findings"
     }
   },
   "dashboard": {
@@ -3999,19 +4004,22 @@
         "view": "View Vulnerabilities",
         "create": "Create Vulnerabilities",
         "update": "Update Vulnerabilities",
-        "delete": "Delete Vulnerabilities"
+        "delete": "Delete Vulnerabilities",
+        "aiCopilot": "AI Vulnerability Prioritization"
       },
       "ueba": {
         "view": "View UEBA",
         "create": "Create UEBA Entities",
         "update": "Update UEBA Entities",
-        "delete": "Delete UEBA Entities"
+        "delete": "Delete UEBA Entities",
+        "aiNarrative": "AI Anomaly Narrative"
       },
       "attackPaths": {
         "view": "View Attack Paths",
         "create": "Create Attack Paths",
         "update": "Update Attack Paths",
-        "delete": "Delete Attack Paths"
+        "delete": "Delete Attack Paths",
+        "aiSummary": "AI Attack Path Summary"
       },
       "normalization": {
         "view": "View Normalization",
@@ -4046,7 +4054,8 @@
         "view": "View Cloud Security",
         "create": "Create Cloud Accounts",
         "update": "Update Cloud Accounts",
-        "delete": "Delete Cloud Accounts"
+        "delete": "Delete Cloud Accounts",
+        "aiTriage": "AI Cloud Finding Triage"
       },
       "compliance": {
         "view": "View Compliance",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "AI Configuration",
     "description": "Configure AI agents, providers, triggers, and OSINT sources",
+    "enableAll": "Enable All",
+    "disableAll": "Disable All",
+    "bulkEnableConfirm": "Are you sure you want to enable all items in this section?",
+    "bulkDisableConfirm": "Are you sure you want to disable all items in this section?",
+    "allAgentsEnabled": "All agents enabled",
+    "allAgentsDisabled": "All agents disabled",
+    "allOsintEnabled": "All OSINT sources enabled",
+    "allOsintDisabled": "All OSINT sources disabled",
+    "allFeaturesEnabled": "All features enabled",
+    "allFeaturesDisabled": "All features disabled",
+    "allSchedulesEnabled": "All schedules enabled",
+    "allSchedulesDisabled": "All schedules disabled",
     "tabAgents": "Agents",
     "tabOsint": "OSINT Sources",
     "tabApprovals": "Approvals",
@@ -4447,6 +4468,8 @@
     "promptName": "Prompt Name",
     "promptTaskType": "Task Type",
     "promptContent": "Content",
+    "promptContentPlaceholder": "Write your prompt here. Use the placeholders above to include entity data.",
+    "promptPlaceholdersHint": "Include these placeholders in your prompt — they will be replaced with actual data at execution time:",
     "promptVersion": "Version",
     "promptActive": "Active",
     "promptInactive": "Inactive",
@@ -4461,6 +4484,8 @@
     "promptDeleted": "Prompt deleted",
     "featureKey": "Feature",
     "featureEnabled": "Enabled",
+    "featureToggleEnabled": "Feature enabled",
+    "featureToggleDisabled": "Feature disabled",
     "featureProvider": "Preferred Provider",
     "featureMaxTokens": "Max Tokens",
     "featureApproval": "Approval Level",
@@ -4547,6 +4572,68 @@
       "resumedSuccess": "Schedule resumed",
       "runNowSuccess": "Schedule execution triggered",
       "resetSuccess": "Schedule reset successfully"
+    },
+    "cronPresets": {
+      "groupSeconds": "Seconds",
+      "groupMinutes": "Minutes",
+      "groupHours": "Hours",
+      "groupDaily": "Daily",
+      "groupWeekly": "Weekly",
+      "groupMonthly": "Monthly",
+      "groupCustom": "Custom",
+      "every30Seconds": "Every 30 seconds",
+      "every1Minute": "Every minute",
+      "every2Minutes": "Every 2 minutes",
+      "every3Minutes": "Every 3 minutes",
+      "every5Minutes": "Every 5 minutes",
+      "every10Minutes": "Every 10 minutes",
+      "every15Minutes": "Every 15 minutes",
+      "every20Minutes": "Every 20 minutes",
+      "every25Minutes": "Every 25 minutes",
+      "every30Minutes": "Every 30 minutes",
+      "every45Minutes": "Every 45 minutes",
+      "every1Hour": "Every hour",
+      "every2Hours": "Every 2 hours",
+      "every3Hours": "Every 3 hours",
+      "every4Hours": "Every 4 hours",
+      "every6Hours": "Every 6 hours",
+      "every8Hours": "Every 8 hours",
+      "every12Hours": "Every 12 hours",
+      "dailyMidnight": "Daily at midnight",
+      "daily1Am": "Daily at 1:00 AM",
+      "daily2Am": "Daily at 2:00 AM",
+      "daily230Am": "Daily at 2:30 AM",
+      "daily3Am": "Daily at 3:00 AM",
+      "daily4Am": "Daily at 4:00 AM",
+      "daily5Am": "Daily at 5:00 AM",
+      "daily6Am": "Daily at 6:00 AM",
+      "daily7Am": "Daily at 7:00 AM",
+      "daily8Am": "Daily at 8:00 AM",
+      "daily9Am": "Daily at 9:00 AM",
+      "daily10Am": "Daily at 10:00 AM",
+      "daily12Pm": "Daily at 12:00 PM",
+      "daily6Pm": "Daily at 6:00 PM",
+      "weeklyMonday7Am": "Every Monday at 7:00 AM",
+      "weeklyMonday9Am": "Every Monday at 9:00 AM",
+      "weeklyFriday5Pm": "Every Friday at 5:00 PM",
+      "weeklySundayMidnight": "Every Sunday at midnight",
+      "monthly1stMidnight": "1st of each month at midnight",
+      "monthly1st9Am": "1st of each month at 9:00 AM",
+      "monthly15th9Am": "15th of each month at 9:00 AM",
+      "custom": "Custom cron expression",
+      "selectFrequency": "Select frequency",
+      "customCronPlaceholder": "e.g. 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "Findings",
+      "noFindings": "No AI findings yet. Run schedules or trigger AI features to generate findings.",
+      "summary": "Summary",
+      "recommendedAction": "Recommended Action",
+      "filterAgent": "Filter by agent",
+      "filterModule": "Filter by module",
+      "allAgents": "All Agents",
+      "allModules": "All Modules",
+      "totalCount": "Total findings"
     }
   }
 }

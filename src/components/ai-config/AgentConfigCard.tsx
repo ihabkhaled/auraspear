@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import { Bot, Settings } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -29,82 +30,82 @@ function TokenBar({ used, limit, label }: { used: number; limit: number; label: 
   )
 }
 
-export function AgentConfigCard({
-  config,
-  onEdit,
-  onToggle,
-  availableConnectors,
-  t,
-}: AgentCardProps) {
-  const providerLabel =
-    availableConnectors.find(c => c.key === config.providerMode)?.label ?? config.providerMode
-  const triggerKey = lookup(AI_TRIGGER_MODE_LABEL_KEYS, config.triggerMode)
+export const AgentConfigCard = memo(
+  ({ config, onEdit, onToggle, availableConnectors, t }: AgentCardProps) => {
+    const providerLabel =
+      availableConnectors.find(c => c.key === config.providerMode)?.label ?? config.providerMode
+    const triggerKey = lookup(AI_TRIGGER_MODE_LABEL_KEYS, config.triggerMode)
 
-  return (
-    <Card className="border-border bg-card">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <div className="flex items-center gap-2">
-          <Bot className="text-primary h-5 w-5" />
-          <div>
-            <h3 className="text-sm font-semibold">{config.displayName}</h3>
-            <p className="text-muted-foreground text-xs">{config.description}</p>
+    return (
+      <Card className="border-border bg-card">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <div className="flex items-center gap-2">
+            <Bot className="text-primary h-5 w-5" />
+            <div>
+              <h3 className="text-sm font-semibold">{config.displayName}</h3>
+              <p className="text-muted-foreground text-xs">{config.description}</p>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Badge variant={config.isEnabled ? 'success' : 'secondary'}>
-            {config.isEnabled ? t('enabled') : t('disabled')}
-          </Badge>
-          <Switch
-            checked={config.isEnabled}
-            onCheckedChange={checked => onToggle(config.agentId, checked)}
-            aria-label={t('enabled')}
-          />
-        </div>
-      </CardHeader>
-      <CardContent className="space-y-3 pt-0">
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <span className="text-muted-foreground">{t('provider')}: </span>
-            <span>{providerLabel}</span>
+          <div className="flex items-center gap-2">
+            <Badge variant={config.isEnabled ? 'success' : 'secondary'}>
+              {config.isEnabled ? t('enabled') : t('disabled')}
+            </Badge>
+            <Switch
+              checked={config.isEnabled}
+              onCheckedChange={checked => onToggle(config.agentId, checked)}
+              aria-label={t('enabled')}
+            />
           </div>
-          <div>
-            <span className="text-muted-foreground">{t('model')}: </span>
-            <span>{config.model || '-'}</span>
+        </CardHeader>
+        <CardContent className="space-y-3 pt-0">
+          <div className="grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <span className="text-muted-foreground">{t('provider')}: </span>
+              <span>{providerLabel}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">{t('model')}: </span>
+              <span>{config.model || '-'}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">{t('temperature')}: </span>
+              <span>{String(config.temperature)}</span>
+            </div>
+            <div>
+              <span className="text-muted-foreground">{t('triggerMode')}: </span>
+              <span>
+                {triggerKey ? t(triggerKey.replace('aiConfig.', '')) : config.triggerMode}
+              </span>
+            </div>
           </div>
-          <div>
-            <span className="text-muted-foreground">{t('temperature')}: </span>
-            <span>{String(config.temperature)}</span>
-          </div>
-          <div>
-            <span className="text-muted-foreground">{t('triggerMode')}: </span>
-            <span>{triggerKey ? t(triggerKey.replace('aiConfig.', '')) : config.triggerMode}</span>
-          </div>
-        </div>
 
-        <div className="space-y-2">
-          <p className="text-muted-foreground text-xs font-medium uppercase">{t('tokenUsage')}</p>
-          <TokenBar
-            used={config.tokensUsedHour}
-            limit={config.tokensPerHour}
-            label={t('tokensPerHour')}
-          />
-          <TokenBar
-            used={config.tokensUsedDay}
-            limit={config.tokensPerDay}
-            label={t('tokensPerDay')}
-          />
-          <TokenBar
-            used={config.tokensUsedMonth}
-            limit={config.tokensPerMonth}
-            label={t('tokensPerMonth')}
-          />
-        </div>
+          <div className="space-y-2">
+            <p className="text-muted-foreground text-xs font-medium uppercase">{t('tokenUsage')}</p>
+            <TokenBar
+              used={config.tokensUsedHour}
+              limit={config.tokensPerHour}
+              label={t('tokensPerHour')}
+            />
+            <TokenBar
+              used={config.tokensUsedDay}
+              limit={config.tokensPerDay}
+              label={t('tokensPerDay')}
+            />
+            <TokenBar
+              used={config.tokensUsedMonth}
+              limit={config.tokensPerMonth}
+              label={t('tokensPerMonth')}
+            />
+          </div>
 
-        <Button variant="outline" size="sm" className="w-full" onClick={() => onEdit(config)}>
-          <Settings className="mr-1.5 h-3.5 w-3.5" />
-          {t('configure')}
-        </Button>
-      </CardContent>
-    </Card>
-  )
-}
+          <Button variant="outline" size="sm" className="w-full" onClick={() => onEdit(config)}>
+            <Settings className="mr-1.5 h-3.5 w-3.5" />
+            {t('configure')}
+          </Button>
+        </CardContent>
+      </Card>
+    )
+  }
+)
+
+AgentConfigCard.displayName = 'AgentConfigCard'

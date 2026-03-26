@@ -7,7 +7,7 @@ import {
   Pencil,
   Shield,
   ShieldOff,
-  ToggleRight,
+  ArrowRightLeft,
   UserCheck,
   UserMinus,
   UserPlus,
@@ -30,7 +30,7 @@ export function getNotificationIcon(type: string) {
     case NotificationType.CASE_ARTIFACT_ADDED:
       return <FileText className="h-4 w-4" />
     case NotificationType.CASE_STATUS_CHANGED:
-      return <ToggleRight className="h-4 w-4" />
+      return <ArrowRightLeft className="h-4 w-4" />
     case NotificationType.CASE_UPDATED:
       return <Pencil className="h-4 w-4" />
     case NotificationType.TENANT_ASSIGNED:

@@ -160,10 +160,26 @@ export const CONNECTOR_STATUS_KEYS: Record<ConnectorStatus, string> = {
 }
 
 export const BEDROCK_MODELS = [
-  { id: 'anthropic.claude-3-sonnet', label: 'Claude 3 Sonnet' },
-  { id: 'anthropic.claude-3-haiku', label: 'Claude 3 Haiku' },
-  { id: 'amazon.titan-text-express', label: 'Titan Text Express' },
-  { id: 'meta.llama3-70b-instruct', label: 'Llama 3 70B' },
+  {
+    id: 'global.anthropic.claude-opus-4-6-v1',
+    label: 'Claude Opus 4.6',
+  },
+  {
+    id: 'global.anthropic.claude-sonnet-4-5-20250929-v1:0',
+    label: 'Claude Sonnet 4.5',
+  },
+  {
+    id: 'anthropic.claude-3-haiku-20240307-v1:0',
+    label: 'Claude 3 Haiku',
+  },
+  {
+    id: 'amazon.nova-micro-v1:0',
+    label: 'Amazon Nova Micro',
+  },
+  {
+    id: 'us.meta.llama3-1-70b-instruct-v1:0',
+    label: 'Llama 3.1 70B',
+  },
 ] as const
 
 export const AWS_REGIONS = [

@@ -1,5 +1,6 @@
 'use client'
 
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -21,6 +22,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { AiFeatureKey } from '@/enums'
 import { usePromptDialog } from '@/hooks/usePromptDialog'
 import { AI_FEATURE_KEY_LABEL_KEYS } from '@/lib/constants/ai-config'
+import { PROMPT_PLACEHOLDERS } from '@/lib/constants/prompt-placeholders'
 import { lookup } from '@/lib/utils'
 import type { PromptDialogProps } from '@/types'
 
@@ -43,6 +45,8 @@ export function PromptDialog({
     handleSubmit,
     canSubmit,
   } = usePromptDialog(prompt, onSubmit)
+
+  const placeholders = lookup(PROMPT_PLACEHOLDERS, taskType) ?? ['{{context}}']
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -84,10 +88,22 @@ export function PromptDialog({
 
           <div className="space-y-2">
             <Label>{t('promptContent')}</Label>
+            <div className="bg-muted/50 border-border space-y-2 rounded-md border p-3">
+              <p className="text-muted-foreground text-xs font-medium">
+                {t('promptPlaceholdersHint')}
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {(placeholders as string[]).map(placeholder => (
+                  <Badge key={placeholder} variant="outline" className="font-mono text-xs">
+                    {placeholder}
+                  </Badge>
+                ))}
+              </div>
+            </div>
             <Textarea
               value={content}
               onChange={e => setContent(e.currentTarget.value)}
-              placeholder={t('promptContent')}
+              placeholder={t('promptContentPlaceholder')}
               rows={8}
             />
           </div>

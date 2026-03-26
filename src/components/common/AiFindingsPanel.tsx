@@ -5,13 +5,17 @@ import { Badge } from '@/components/ui/badge'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Separator } from '@/components/ui/separator'
 import { useAiFindingsPanel } from '@/hooks'
+import {
+  resolveFindingConfidenceVariant,
+  resolveFindingSeverityVariant,
+  resolveFindingStatusVariant,
+} from '@/lib/ai-config.utils'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { AiExecutionFinding, AiFindingsPanelProps } from '@/types'
 
 function FindingConfidenceBadge({ score }: { score: number }) {
-  const variant = score >= 80 ? 'success' : score >= 50 ? 'warning' : 'destructive'
   return (
-    <Badge variant={variant} className="text-xs">
+    <Badge variant={resolveFindingConfidenceVariant(score)} className="text-xs">
       <TrendingUp className="me-1 h-3 w-3" />
       {`${score}%`}
     </Badge>
@@ -19,30 +23,15 @@ function FindingConfidenceBadge({ score }: { score: number }) {
 }
 
 function FindingSeverityBadge({ severity }: { severity: string }) {
-  const variant =
-    severity === 'critical' || severity === 'high'
-      ? 'destructive'
-      : severity === 'medium'
-        ? 'warning'
-        : severity === 'low'
-          ? 'info'
-          : 'secondary'
   return (
-    <Badge variant={variant} className="text-xs capitalize">
+    <Badge variant={resolveFindingSeverityVariant(severity)} className="text-xs capitalize">
       {severity}
     </Badge>
   )
 }
 
 function FindingStatusBadge({ status }: { status: string }) {
-  const variant =
-    status === 'applied'
-      ? 'success'
-      : status === 'dismissed'
-        ? 'secondary'
-        : status === 'pending'
-          ? 'pending'
-          : 'outline'
+  const variant = resolveFindingStatusVariant(status)
   return (
     <Badge variant={variant} className="text-xs capitalize">
       {status}

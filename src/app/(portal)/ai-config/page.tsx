@@ -1,9 +1,19 @@
 'use client'
 
-import { BookText, Calendar, Globe, Layers, Plus, Settings2, ShieldCheck } from 'lucide-react'
+import {
+  BookText,
+  Calendar,
+  Globe,
+  Layers,
+  Plus,
+  Settings2,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react'
 import {
   AgentConfigCard,
   AgentConfigEditDialog,
+  AiFindingsTable,
   AiScheduleEditDialog,
   AiScheduleTable,
   ApprovalCard,
@@ -85,6 +95,7 @@ export default function AiConfigPage() {
     selectedFeature,
     handleEditFeature,
     handleUpdateFeature,
+    handleToggleFeature,
     featureUpdateLoading,
     schedules,
     schedulesLoading,
@@ -98,6 +109,7 @@ export default function AiConfigPage() {
     handleRunScheduleNow,
     handleResetSchedule,
     scheduleUpdateLoading,
+    handleBulkToggle,
   } = useAiConfigPage()
 
   return (
@@ -134,9 +146,31 @@ export default function AiConfigPage() {
             <Calendar className="mr-1.5 h-3.5 w-3.5" />
             {t('schedules.title')}
           </TabsTrigger>
+          <TabsTrigger value="findings">
+            <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+            {t('aiFindings.title')}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="agents" className="mt-4">
+          {canEdit && (
+            <div className="mb-4 flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('agents', true)}
+              >
+                {t('enableAll')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('agents', false)}
+              >
+                {t('disableAll')}
+              </Button>
+            </div>
+          )}
           {agentConfigsLoading ? (
             <LoadingSpinner />
           ) : (
@@ -157,7 +191,21 @@ export default function AiConfigPage() {
 
         <TabsContent value="osint" className="mt-4">
           {canManageOsint && (
-            <div className="mb-4 flex justify-end">
+            <div className="mb-4 flex flex-wrap justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('osint', true)}
+              >
+                {t('enableAll')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('osint', false)}
+              >
+                {t('disableAll')}
+              </Button>
               <Button onClick={handleOpenOsintCreate}>
                 <Plus className="mr-1.5 h-4 w-4" />
                 {t('addSource')}
@@ -248,15 +296,52 @@ export default function AiConfigPage() {
         </TabsContent>
 
         <TabsContent value="features" className="mt-4">
+          {canEdit && (
+            <div className="mb-4 flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('features', true)}
+              >
+                {t('enableAll')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('features', false)}
+              >
+                {t('disableAll')}
+              </Button>
+            </div>
+          )}
           <FeatureTable
             features={features}
             loading={featuresLoading}
             onEdit={handleEditFeature}
+            {...(canEdit ? { onToggle: handleToggleFeature } : {})}
             t={t}
           />
         </TabsContent>
 
         <TabsContent value="schedules" className="mt-4">
+          {canEdit && (
+            <div className="mb-4 flex justify-end gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('schedules', true)}
+              >
+                {t('enableAll')}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => void handleBulkToggle('schedules', false)}
+              >
+                {t('disableAll')}
+              </Button>
+            </div>
+          )}
           <AiScheduleTable
             schedules={schedules}
             isLoading={schedulesLoading}
@@ -267,6 +352,10 @@ export default function AiConfigPage() {
             onReset={handleResetSchedule}
             t={t}
           />
+        </TabsContent>
+
+        <TabsContent value="findings" className="mt-4">
+          <AiFindingsTable t={t} />
         </TabsContent>
       </Tabs>
 
@@ -307,6 +396,7 @@ export default function AiConfigPage() {
         feature={selectedFeature}
         onSubmit={handleUpdateFeature}
         loading={featureUpdateLoading}
+        availableConnectors={availableConnectors}
         t={t}
       />
 

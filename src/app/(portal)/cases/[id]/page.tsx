@@ -11,7 +11,7 @@ import {
   EditCaseDialog,
   CaseComments,
 } from '@/components/cases'
-import { LoadingSpinner, EmptyState } from '@/components/common'
+import { AiFindingsPanel, LoadingSpinner, EmptyState } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -192,6 +192,12 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 tCommon={aiCopilot.tCommon}
                 t={aiCopilot.t}
               />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardContent className="pt-6">
+              <AiFindingsPanel sourceModule="case" sourceEntityId={id} t={aiCopilot.tCommon} />
             </CardContent>
           </Card>
 

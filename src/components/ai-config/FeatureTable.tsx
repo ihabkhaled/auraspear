@@ -4,19 +4,27 @@ import { Pen } from 'lucide-react'
 import { DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import type { AiFeatureConfig, Column, FeatureTableProps } from '@/types'
 
-export function FeatureTable({ features, loading, onEdit, t }: FeatureTableProps) {
+export function FeatureTable({ features, loading, onEdit, onToggle, t }: FeatureTableProps) {
   // Columns contain JSX render functions — acceptable inline per CLAUDE.md rule 33
   const columns: Column<AiFeatureConfig>[] = [
     { key: 'featureKey', label: t('featureKey') },
     {
       key: 'enabled',
       label: t('featureEnabled'),
-      render: (value: unknown) => (
-        <Badge variant={value ? 'success' : 'secondary'}>
-          {value ? t('enabled') : t('disabled')}
-        </Badge>
+      render: (value: unknown, row: AiFeatureConfig) => (
+        <div className="flex items-center gap-2">
+          <Switch
+            checked={Boolean(value)}
+            onCheckedChange={checked => onToggle?.(row.featureKey, checked)}
+            aria-label={t('featureEnabled')}
+          />
+          <Badge variant={value ? 'success' : 'secondary'}>
+            {value ? t('enabled') : t('disabled')}
+          </Badge>
+        </div>
       ),
     },
     {
@@ -45,6 +53,12 @@ export function FeatureTable({ features, loading, onEdit, t }: FeatureTableProps
   ]
 
   return (
-    <DataTable columns={columns} data={features} emptyMessage={t('noFeatures')} loading={loading} keyField="featureKey" />
+    <DataTable
+      columns={columns}
+      data={features}
+      emptyMessage={t('noFeatures')}
+      loading={loading}
+      keyField="featureKey"
+    />
   )
 }

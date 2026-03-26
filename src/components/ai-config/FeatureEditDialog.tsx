@@ -20,7 +20,7 @@ import {
 import { Switch } from '@/components/ui/switch'
 import { AiApprovalLevel } from '@/enums'
 import { useFeatureEditDialog } from '@/hooks/useFeatureEditDialog'
-import type { FeatureEditDialogProps } from '@/types'
+import type { AvailableAiConnector, FeatureEditDialogProps } from '@/types'
 
 export function FeatureEditDialog({
   open,
@@ -28,8 +28,9 @@ export function FeatureEditDialog({
   feature,
   onSubmit,
   loading,
+  availableConnectors,
   t,
-}: FeatureEditDialogProps) {
+}: FeatureEditDialogProps & { availableConnectors: AvailableAiConnector[] }) {
   const {
     enabled,
     setEnabled,
@@ -59,11 +60,21 @@ export function FeatureEditDialog({
 
           <div className="space-y-2">
             <Label>{t('featureProvider')}</Label>
-            <Input
-              value={preferredProvider ?? ''}
-              onChange={e => setPreferredProvider(e.currentTarget.value || null)}
-              placeholder={t('featureProvider')}
-            />
+            <Select
+              value={preferredProvider ?? 'default'}
+              onValueChange={v => setPreferredProvider(v === 'default' ? null : v)}
+            >
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {availableConnectors.map(c => (
+                  <SelectItem key={c.key} value={c.key}>
+                    {c.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">

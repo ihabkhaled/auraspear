@@ -49,6 +49,28 @@ export const agentConfigService = {
       .post<ApiResponse<TenantAgentConfig>>(`/agent-config/agents/${agentId}/reset-usage/${period}`)
       .then(r => r.data),
 
+  bulkToggleAgents: (enabled: boolean) =>
+    api
+      .post<ApiResponse<{ updated: number }>>('/agent-config/agents/bulk-toggle', { enabled })
+      .then(r => r.data),
+
+  bulkToggleOsintSources: (enabled: boolean) =>
+    api
+      .post<
+        ApiResponse<{ updated: number }>
+      >('/agent-config/osint-sources/bulk-toggle', { enabled })
+      .then(r => r.data),
+
+  bulkToggleFeatures: (enabled: boolean) =>
+    api
+      .post<ApiResponse<{ updated: number }>>('/ai-features/bulk-toggle', { enabled })
+      .then(r => r.data),
+
+  bulkToggleSchedules: (enabled: boolean) =>
+    api
+      .post<ApiResponse<{ updated: number }>>('/ai/schedules/bulk-toggle', { enabled })
+      .then(r => r.data),
+
   getOsintSources: () =>
     api.get<ApiResponse<OsintSourceConfig[]>>('/agent-config/osint-sources').then(r => r.data),
 

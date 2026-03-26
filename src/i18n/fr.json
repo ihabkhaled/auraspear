@@ -127,7 +127,12 @@
       "recommendedAction": "Action recommandée",
       "evidence": "Preuves",
       "appliedAt": "Appliqué le",
-      "viewAll": "Voir tout"
+      "viewAll": "Voir tout",
+      "filterAgent": "Filtrer par agent",
+      "filterModule": "Filtrer par module",
+      "allAgents": "Tous les agents",
+      "allModules": "Tous les modules",
+      "totalCount": "Total des résultats"
     }
   },
   "dashboard": {
@@ -3946,19 +3951,22 @@
         "view": "Voir les Vulnérabilités",
         "create": "Créer des Vulnérabilités",
         "update": "Mettre à Jour les Vulnérabilités",
-        "delete": "Supprimer les Vulnérabilités"
+        "delete": "Supprimer les Vulnérabilités",
+        "aiCopilot": "Priorisation IA des vulnérabilités"
       },
       "ueba": {
         "view": "Voir UEBA",
         "create": "Créer des Entités UEBA",
         "update": "Mettre à Jour les Entités UEBA",
-        "delete": "Supprimer les entités UEBA"
+        "delete": "Supprimer les entités UEBA",
+        "aiNarrative": "Narration IA des anomalies"
       },
       "attackPaths": {
         "view": "Voir les Chemins d'Attaque",
         "create": "Créer des Chemins d'Attaque",
         "update": "Mettre à Jour les Chemins d'Attaque",
-        "delete": "Supprimer les Chemins d'Attaque"
+        "delete": "Supprimer les Chemins d'Attaque",
+        "aiSummary": "Résumé IA des chemins d'attaque"
       },
       "normalization": {
         "view": "Voir la Normalisation",
@@ -3985,7 +3993,8 @@
         "view": "Voir la Sécurité Cloud",
         "create": "Créer des Comptes Cloud",
         "update": "Mettre à Jour les Comptes Cloud",
-        "delete": "Supprimer les Comptes Cloud"
+        "delete": "Supprimer les Comptes Cloud",
+        "aiTriage": "Triage IA des résultats cloud"
       },
       "compliance": {
         "view": "Voir la Conformité",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "Configuration IA",
     "description": "Configurer les agents IA, fournisseurs, declencheurs et sources OSINT",
+    "enableAll": "Tout activer",
+    "disableAll": "Tout désactiver",
+    "bulkEnableConfirm": "Voulez-vous vraiment activer tous les éléments de cette section ?",
+    "bulkDisableConfirm": "Voulez-vous vraiment désactiver tous les éléments de cette section ?",
+    "allAgentsEnabled": "Tous les agents activés",
+    "allAgentsDisabled": "Tous les agents désactivés",
+    "allOsintEnabled": "Toutes les sources OSINT activées",
+    "allOsintDisabled": "Toutes les sources OSINT désactivées",
+    "allFeaturesEnabled": "Toutes les fonctionnalités activées",
+    "allFeaturesDisabled": "Toutes les fonctionnalités désactivées",
+    "allSchedulesEnabled": "Toutes les planifications activées",
+    "allSchedulesDisabled": "Toutes les planifications désactivées",
     "tabAgents": "Agents",
     "tabOsint": "Sources OSINT",
     "tabApprovals": "Approbations",
@@ -4447,6 +4468,8 @@
     "promptName": "Nom du modele",
     "promptTaskType": "Type de tache",
     "promptContent": "Contenu",
+    "promptContentPlaceholder": "Écrivez votre prompt ici. Utilisez les marqueurs ci-dessus pour inclure les données de l'entité.",
+    "promptPlaceholdersHint": "Incluez ces marqueurs dans votre prompt — ils seront remplacés par les données réelles lors de l'exécution :",
     "promptVersion": "Version",
     "promptActive": "Actif",
     "promptInactive": "Inactif",
@@ -4547,6 +4570,68 @@
       "resumedSuccess": "Planification reprise",
       "runNowSuccess": "Exécution de la planification déclenchée",
       "resetSuccess": "Planification réinitialisée avec succès"
+    },
+    "cronPresets": {
+      "groupSeconds": "Secondes",
+      "groupMinutes": "Minutes",
+      "groupHours": "Heures",
+      "groupDaily": "Quotidien",
+      "groupWeekly": "Hebdomadaire",
+      "groupMonthly": "Mensuel",
+      "groupCustom": "Personnalisé",
+      "every30Seconds": "Toutes les 30 secondes",
+      "every1Minute": "Chaque minute",
+      "every2Minutes": "Toutes les 2 minutes",
+      "every3Minutes": "Toutes les 3 minutes",
+      "every5Minutes": "Toutes les 5 minutes",
+      "every10Minutes": "Toutes les 10 minutes",
+      "every15Minutes": "Toutes les 15 minutes",
+      "every20Minutes": "Toutes les 20 minutes",
+      "every25Minutes": "Toutes les 25 minutes",
+      "every30Minutes": "Toutes les 30 minutes",
+      "every45Minutes": "Toutes les 45 minutes",
+      "every1Hour": "Chaque heure",
+      "every2Hours": "Toutes les 2 heures",
+      "every3Hours": "Toutes les 3 heures",
+      "every4Hours": "Toutes les 4 heures",
+      "every6Hours": "Toutes les 6 heures",
+      "every8Hours": "Toutes les 8 heures",
+      "every12Hours": "Toutes les 12 heures",
+      "dailyMidnight": "Tous les jours à minuit",
+      "daily1Am": "Tous les jours à 1h00",
+      "daily2Am": "Tous les jours à 2h00",
+      "daily230Am": "Tous les jours à 2h30",
+      "daily3Am": "Tous les jours à 3h00",
+      "daily4Am": "Tous les jours à 4h00",
+      "daily5Am": "Tous les jours à 5h00",
+      "daily6Am": "Tous les jours à 6h00",
+      "daily7Am": "Tous les jours à 7h00",
+      "daily8Am": "Tous les jours à 8h00",
+      "daily9Am": "Tous les jours à 9h00",
+      "daily10Am": "Tous les jours à 10h00",
+      "daily12Pm": "Tous les jours à 12h00",
+      "daily6Pm": "Tous les jours à 18h00",
+      "weeklyMonday7Am": "Chaque lundi à 7h00",
+      "weeklyMonday9Am": "Chaque lundi à 9h00",
+      "weeklyFriday5Pm": "Chaque vendredi à 17h00",
+      "weeklySundayMidnight": "Chaque dimanche à minuit",
+      "monthly1stMidnight": "Le 1er de chaque mois à minuit",
+      "monthly1st9Am": "Le 1er de chaque mois à 9h00",
+      "monthly15th9Am": "Le 15 de chaque mois à 9h00",
+      "custom": "Expression cron personnalisée",
+      "selectFrequency": "Sélectionner la fréquence",
+      "customCronPlaceholder": "ex. 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "Résultats",
+      "noFindings": "Aucun résultat IA pour le moment. Exécutez des planifications ou activez des fonctions IA.",
+      "summary": "Résumé",
+      "recommendedAction": "Action recommandée",
+      "filterAgent": "Filtrer par agent",
+      "filterModule": "Filtrer par module",
+      "allAgents": "Tous les agents",
+      "allModules": "Tous les modules",
+      "totalCount": "Total des résultats"
     }
   }
 }

@@ -16,13 +16,13 @@ import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Separator } from '@/components/ui/separator'
 import { AlertAiStatus } from '@/enums'
+import { resolveFindingConfidenceVariant } from '@/lib/ai-config.utils'
 import { formatTimestamp } from '@/lib/utils'
 import type { AlertAiResultPanelProps } from '@/types'
 
 function ConfidenceBadge({ confidence, t }: { confidence: number; t: (key: string) => string }) {
-  const variant = confidence >= 80 ? 'success' : confidence >= 50 ? 'warning' : 'destructive'
   return (
-    <Badge variant={variant} className="text-xs">
+    <Badge variant={resolveFindingConfidenceVariant(confidence)} className="text-xs">
       <TrendingUp className="me-1 h-3 w-3" />
       {`${confidence}% ${t('ai.aiConfidence')}`}
     </Badge>

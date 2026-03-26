@@ -127,7 +127,12 @@
       "recommendedAction": "Acción recomendada",
       "evidence": "Evidencia",
       "appliedAt": "Aplicado el",
-      "viewAll": "Ver todo"
+      "viewAll": "Ver todo",
+      "filterAgent": "Filtrar por agente",
+      "filterModule": "Filtrar por módulo",
+      "allAgents": "Todos los agentes",
+      "allModules": "Todos los módulos",
+      "totalCount": "Total de hallazgos"
     }
   },
   "dashboard": {
@@ -3946,19 +3951,22 @@
         "view": "Ver Vulnerabilidades",
         "create": "Crear Vulnerabilidades",
         "update": "Actualizar Vulnerabilidades",
-        "delete": "Eliminar Vulnerabilidades"
+        "delete": "Eliminar Vulnerabilidades",
+        "aiCopilot": "Priorización IA de Vulnerabilidades"
       },
       "ueba": {
         "view": "Ver UEBA",
         "create": "Crear Entidades UEBA",
         "update": "Actualizar Entidades UEBA",
-        "delete": "Eliminar entidades UEBA"
+        "delete": "Eliminar entidades UEBA",
+        "aiNarrative": "Narrativa IA de Anomalías"
       },
       "attackPaths": {
         "view": "Ver Rutas de Ataque",
         "create": "Crear Rutas de Ataque",
         "update": "Actualizar Rutas de Ataque",
-        "delete": "Eliminar Rutas de Ataque"
+        "delete": "Eliminar Rutas de Ataque",
+        "aiSummary": "Resumen IA de Rutas de Ataque"
       },
       "normalization": {
         "view": "Ver Normalización",
@@ -3985,7 +3993,8 @@
         "view": "Ver Seguridad en la Nube",
         "create": "Crear Cuentas en la Nube",
         "update": "Actualizar Cuentas en la Nube",
-        "delete": "Eliminar Cuentas en la Nube"
+        "delete": "Eliminar Cuentas en la Nube",
+        "aiTriage": "Triaje IA de Hallazgos Cloud"
       },
       "compliance": {
         "view": "Ver Cumplimiento",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "Configuracion de IA",
     "description": "Configurar agentes de IA, proveedores, disparadores y fuentes OSINT",
+    "enableAll": "Activar todo",
+    "disableAll": "Desactivar todo",
+    "bulkEnableConfirm": "¿Está seguro de que desea activar todos los elementos de esta sección?",
+    "bulkDisableConfirm": "¿Está seguro de que desea desactivar todos los elementos de esta sección?",
+    "allAgentsEnabled": "Todos los agentes activados",
+    "allAgentsDisabled": "Todos los agentes desactivados",
+    "allOsintEnabled": "Todas las fuentes OSINT activadas",
+    "allOsintDisabled": "Todas las fuentes OSINT desactivadas",
+    "allFeaturesEnabled": "Todas las funciones activadas",
+    "allFeaturesDisabled": "Todas las funciones desactivadas",
+    "allSchedulesEnabled": "Todas las programaciones activadas",
+    "allSchedulesDisabled": "Todas las programaciones desactivadas",
     "tabAgents": "Agentes",
     "tabOsint": "Fuentes OSINT",
     "tabApprovals": "Aprobaciones",
@@ -4447,6 +4468,8 @@
     "promptName": "Nombre de Plantilla",
     "promptTaskType": "Tipo de Tarea",
     "promptContent": "Contenido",
+    "promptContentPlaceholder": "Escriba su prompt aquí. Use los marcadores de arriba para incluir datos de la entidad.",
+    "promptPlaceholdersHint": "Incluya estos marcadores en su prompt — se reemplazarán con datos reales en tiempo de ejecución:",
     "promptVersion": "Version",
     "promptActive": "Activo",
     "promptInactive": "Inactivo",
@@ -4547,6 +4570,68 @@
       "resumedSuccess": "Programación reanudada",
       "runNowSuccess": "Ejecución de programación activada",
       "resetSuccess": "Programación restablecida correctamente"
+    },
+    "cronPresets": {
+      "groupSeconds": "Segundos",
+      "groupMinutes": "Minutos",
+      "groupHours": "Horas",
+      "groupDaily": "Diario",
+      "groupWeekly": "Semanal",
+      "groupMonthly": "Mensual",
+      "groupCustom": "Personalizado",
+      "every30Seconds": "Cada 30 segundos",
+      "every1Minute": "Cada minuto",
+      "every2Minutes": "Cada 2 minutos",
+      "every3Minutes": "Cada 3 minutos",
+      "every5Minutes": "Cada 5 minutos",
+      "every10Minutes": "Cada 10 minutos",
+      "every15Minutes": "Cada 15 minutos",
+      "every20Minutes": "Cada 20 minutos",
+      "every25Minutes": "Cada 25 minutos",
+      "every30Minutes": "Cada 30 minutos",
+      "every45Minutes": "Cada 45 minutos",
+      "every1Hour": "Cada hora",
+      "every2Hours": "Cada 2 horas",
+      "every3Hours": "Cada 3 horas",
+      "every4Hours": "Cada 4 horas",
+      "every6Hours": "Cada 6 horas",
+      "every8Hours": "Cada 8 horas",
+      "every12Hours": "Cada 12 horas",
+      "dailyMidnight": "Diariamente a medianoche",
+      "daily1Am": "Diariamente a la 1:00 AM",
+      "daily2Am": "Diariamente a las 2:00 AM",
+      "daily230Am": "Diariamente a las 2:30 AM",
+      "daily3Am": "Diariamente a las 3:00 AM",
+      "daily4Am": "Diariamente a las 4:00 AM",
+      "daily5Am": "Diariamente a las 5:00 AM",
+      "daily6Am": "Diariamente a las 6:00 AM",
+      "daily7Am": "Diariamente a las 7:00 AM",
+      "daily8Am": "Diariamente a las 8:00 AM",
+      "daily9Am": "Diariamente a las 9:00 AM",
+      "daily10Am": "Diariamente a las 10:00 AM",
+      "daily12Pm": "Diariamente a las 12:00 PM",
+      "daily6Pm": "Diariamente a las 6:00 PM",
+      "weeklyMonday7Am": "Cada lunes a las 7:00 AM",
+      "weeklyMonday9Am": "Cada lunes a las 9:00 AM",
+      "weeklyFriday5Pm": "Cada viernes a las 5:00 PM",
+      "weeklySundayMidnight": "Cada domingo a medianoche",
+      "monthly1stMidnight": "El 1.° de cada mes a medianoche",
+      "monthly1st9Am": "El 1.° de cada mes a las 9:00 AM",
+      "monthly15th9Am": "El 15 de cada mes a las 9:00 AM",
+      "custom": "Expresión cron personalizada",
+      "selectFrequency": "Seleccionar frecuencia",
+      "customCronPlaceholder": "ej. 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "Hallazgos",
+      "noFindings": "Aún no hay hallazgos de IA. Ejecute programaciones o active funciones de IA.",
+      "summary": "Resumen",
+      "recommendedAction": "Acción recomendada",
+      "filterAgent": "Filtrar por agente",
+      "filterModule": "Filtrar por módulo",
+      "allAgents": "Todos los agentes",
+      "allModules": "Todos los módulos",
+      "totalCount": "Total de hallazgos"
     }
   }
 }

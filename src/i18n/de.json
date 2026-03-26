@@ -127,7 +127,12 @@
       "recommendedAction": "Empfohlene Maßnahme",
       "evidence": "Beweise",
       "appliedAt": "Angewendet am",
-      "viewAll": "Alle anzeigen"
+      "viewAll": "Alle anzeigen",
+      "filterAgent": "Nach Agent filtern",
+      "filterModule": "Nach Modul filtern",
+      "allAgents": "Alle Agenten",
+      "allModules": "Alle Module",
+      "totalCount": "Ergebnisse gesamt"
     }
   },
   "dashboard": {
@@ -3946,19 +3951,22 @@
         "view": "Schwachstellen Anzeigen",
         "create": "Schwachstellen Erstellen",
         "update": "Schwachstellen Aktualisieren",
-        "delete": "Schwachstellen Löschen"
+        "delete": "Schwachstellen Löschen",
+        "aiCopilot": "KI-Schwachstellenpriorisierung"
       },
       "ueba": {
         "view": "UEBA Anzeigen",
         "create": "UEBA-Entitäten Erstellen",
         "update": "UEBA-Entitäten Aktualisieren",
-        "delete": "UEBA-Entitäten löschen"
+        "delete": "UEBA-Entitäten löschen",
+        "aiNarrative": "KI-Anomalie-Narrativ"
       },
       "attackPaths": {
         "view": "Angriffspfade Anzeigen",
         "create": "Angriffspfade Erstellen",
         "update": "Angriffspfade Aktualisieren",
-        "delete": "Angriffspfade Löschen"
+        "delete": "Angriffspfade Löschen",
+        "aiSummary": "KI-Angriffspfad-Zusammenfassung"
       },
       "normalization": {
         "view": "Normalisierung Anzeigen",
@@ -3985,7 +3993,8 @@
         "view": "Cloud-Sicherheit Anzeigen",
         "create": "Cloud-Konten Erstellen",
         "update": "Cloud-Konten Aktualisieren",
-        "delete": "Cloud-Konten Löschen"
+        "delete": "Cloud-Konten Löschen",
+        "aiTriage": "KI-Cloud-Befund-Triage"
       },
       "compliance": {
         "view": "Compliance Anzeigen",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "KI-Konfiguration",
     "description": "KI-Agenten, Anbieter, Ausloser und OSINT-Quellen konfigurieren",
+    "enableAll": "Alle aktivieren",
+    "disableAll": "Alle deaktivieren",
+    "bulkEnableConfirm": "Möchten Sie wirklich alle Elemente in diesem Abschnitt aktivieren?",
+    "bulkDisableConfirm": "Möchten Sie wirklich alle Elemente in diesem Abschnitt deaktivieren?",
+    "allAgentsEnabled": "Alle Agenten aktiviert",
+    "allAgentsDisabled": "Alle Agenten deaktiviert",
+    "allOsintEnabled": "Alle OSINT-Quellen aktiviert",
+    "allOsintDisabled": "Alle OSINT-Quellen deaktiviert",
+    "allFeaturesEnabled": "Alle Funktionen aktiviert",
+    "allFeaturesDisabled": "Alle Funktionen deaktiviert",
+    "allSchedulesEnabled": "Alle Zeitpläne aktiviert",
+    "allSchedulesDisabled": "Alle Zeitpläne deaktiviert",
     "tabAgents": "Agenten",
     "tabOsint": "OSINT-Quellen",
     "tabApprovals": "Genehmigungen",
@@ -4447,6 +4468,8 @@
     "promptName": "Vorlagenname",
     "promptTaskType": "Aufgabentyp",
     "promptContent": "Inhalt",
+    "promptContentPlaceholder": "Schreiben Sie Ihren Prompt hier. Verwenden Sie die obigen Platzhalter, um Entitätsdaten einzufügen.",
+    "promptPlaceholdersHint": "Fügen Sie diese Platzhalter in Ihren Prompt ein — sie werden zur Ausführungszeit durch echte Daten ersetzt:",
     "promptVersion": "Version",
     "promptActive": "Aktiv",
     "promptInactive": "Inaktiv",
@@ -4547,6 +4570,68 @@
       "resumedSuccess": "Zeitplan fortgesetzt",
       "runNowSuccess": "Zeitplanausführung ausgelöst",
       "resetSuccess": "Zeitplan erfolgreich zurückgesetzt"
+    },
+    "cronPresets": {
+      "groupSeconds": "Sekunden",
+      "groupMinutes": "Minuten",
+      "groupHours": "Stunden",
+      "groupDaily": "Täglich",
+      "groupWeekly": "Wöchentlich",
+      "groupMonthly": "Monatlich",
+      "groupCustom": "Benutzerdefiniert",
+      "every30Seconds": "Alle 30 Sekunden",
+      "every1Minute": "Jede Minute",
+      "every2Minutes": "Alle 2 Minuten",
+      "every3Minutes": "Alle 3 Minuten",
+      "every5Minutes": "Alle 5 Minuten",
+      "every10Minutes": "Alle 10 Minuten",
+      "every15Minutes": "Alle 15 Minuten",
+      "every20Minutes": "Alle 20 Minuten",
+      "every25Minutes": "Alle 25 Minuten",
+      "every30Minutes": "Alle 30 Minuten",
+      "every45Minutes": "Alle 45 Minuten",
+      "every1Hour": "Jede Stunde",
+      "every2Hours": "Alle 2 Stunden",
+      "every3Hours": "Alle 3 Stunden",
+      "every4Hours": "Alle 4 Stunden",
+      "every6Hours": "Alle 6 Stunden",
+      "every8Hours": "Alle 8 Stunden",
+      "every12Hours": "Alle 12 Stunden",
+      "dailyMidnight": "Täglich um Mitternacht",
+      "daily1Am": "Täglich um 1:00 Uhr",
+      "daily2Am": "Täglich um 2:00 Uhr",
+      "daily230Am": "Täglich um 2:30 Uhr",
+      "daily3Am": "Täglich um 3:00 Uhr",
+      "daily4Am": "Täglich um 4:00 Uhr",
+      "daily5Am": "Täglich um 5:00 Uhr",
+      "daily6Am": "Täglich um 6:00 Uhr",
+      "daily7Am": "Täglich um 7:00 Uhr",
+      "daily8Am": "Täglich um 8:00 Uhr",
+      "daily9Am": "Täglich um 9:00 Uhr",
+      "daily10Am": "Täglich um 10:00 Uhr",
+      "daily12Pm": "Täglich um 12:00 Uhr",
+      "daily6Pm": "Täglich um 18:00 Uhr",
+      "weeklyMonday7Am": "Jeden Montag um 7:00 Uhr",
+      "weeklyMonday9Am": "Jeden Montag um 9:00 Uhr",
+      "weeklyFriday5Pm": "Jeden Freitag um 17:00 Uhr",
+      "weeklySundayMidnight": "Jeden Sonntag um Mitternacht",
+      "monthly1stMidnight": "Am 1. jedes Monats um Mitternacht",
+      "monthly1st9Am": "Am 1. jedes Monats um 9:00 Uhr",
+      "monthly15th9Am": "Am 15. jedes Monats um 9:00 Uhr",
+      "custom": "Benutzerdefinierter Cron-Ausdruck",
+      "selectFrequency": "Frequenz auswählen",
+      "customCronPlaceholder": "z.B. 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "Ergebnisse",
+      "noFindings": "Noch keine KI-Ergebnisse. Führen Sie Zeitpläne aus oder aktivieren Sie KI-Funktionen.",
+      "summary": "Zusammenfassung",
+      "recommendedAction": "Empfohlene Maßnahme",
+      "filterAgent": "Nach Agent filtern",
+      "filterModule": "Nach Modul filtern",
+      "allAgents": "Alle Agenten",
+      "allModules": "Alle Module",
+      "totalCount": "Ergebnisse gesamt"
     }
   }
 }

@@ -3,6 +3,7 @@ import {
   AiApprovalLevel,
   AiFeatureKey,
   AiOutputFormat,
+  AlertSeverity,
   BadgeVariant,
   AiTriggerMode,
   OsintAuthType,
@@ -192,4 +193,26 @@ export function deriveScheduleFormState(
     providerPreference: schedule?.providerPreference ?? '',
     modelPreference: schedule?.modelPreference ?? '',
   }
+}
+
+export function resolveFindingConfidenceVariant(score: number): BadgeVariant {
+  if (score >= 80) return BadgeVariant.SUCCESS
+  if (score >= 50) return BadgeVariant.WARNING
+  return BadgeVariant.DESTRUCTIVE
+}
+
+export function resolveFindingSeverityVariant(severity: string): BadgeVariant {
+  if (severity === AlertSeverity.CRITICAL || severity === AlertSeverity.HIGH) {
+    return BadgeVariant.DESTRUCTIVE
+  }
+  if (severity === AlertSeverity.MEDIUM) return BadgeVariant.WARNING
+  if (severity === AlertSeverity.LOW) return BadgeVariant.INFO
+  return BadgeVariant.SECONDARY
+}
+
+export function resolveFindingStatusVariant(status: string): BadgeVariant {
+  if (status === 'applied') return BadgeVariant.SUCCESS
+  if (status === 'dismissed') return BadgeVariant.SECONDARY
+  if (status === 'pending') return BadgeVariant.PENDING
+  return BadgeVariant.OUTLINE
 }

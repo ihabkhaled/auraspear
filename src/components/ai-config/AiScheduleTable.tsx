@@ -1,11 +1,15 @@
 'use client'
 
-import { Pause, Pen, Play, RotateCcw, ToggleLeft, ToggleRight } from 'lucide-react'
+import { Pause, Pen, Play, RotateCcw } from 'lucide-react'
 import { DataTable } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Switch } from '@/components/ui/switch'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { formatDate } from '@/lib/utils'
+import { CronPreset } from '@/enums'
+import { CRON_PRESET_LABEL_KEY } from '@/lib/constants/cron-presets'
+import { cronPresetFromExpression } from '@/lib/cron.utils'
+import { formatDate, lookup } from '@/lib/utils'
 import type { AiAgentSchedule, AiScheduleTableProps, Column } from '@/types'
 
 export function AiScheduleTable({
@@ -22,7 +26,37 @@ export function AiScheduleTable({
   const columns: Column<AiAgentSchedule>[] = [
     { key: 'module', label: t('schedules.module') },
     { key: 'agentId', label: t('schedules.agent') },
-    { key: 'cronExpression', label: t('schedules.cron') },
+    {
+      key: 'cronExpression',
+      label: t('schedules.cron'),
+      render: (value: unknown) => {
+        const expr = value as string
+        const preset = cronPresetFromExpression(expr)
+        if (preset === CronPreset.CUSTOM) {
+          return (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="text-muted-foreground font-mono text-xs">{expr}</span>
+                </TooltipTrigger>
+                <TooltipContent>{t('cronPresets.custom')}</TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )
+        }
+        const labelKey = lookup(CRON_PRESET_LABEL_KEY, preset)
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs">{labelKey ? t(labelKey) : expr}</span>
+              </TooltipTrigger>
+              <TooltipContent className="font-mono">{expr}</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )
+      },
+    },
     { key: 'timezone', label: t('schedules.timezone') },
     {
       key: 'isEnabled',
@@ -81,18 +115,11 @@ export function AiScheduleTable({
       render: (_value: unknown, row: AiAgentSchedule) => (
         <TooltipProvider>
           <div className="flex items-center gap-1">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant="ghost" size="sm" onClick={() => onToggle(row.id, !row.isEnabled)}>
-                  {row.isEnabled ? (
-                    <ToggleRight className="h-3.5 w-3.5" />
-                  ) : (
-                    <ToggleLeft className="h-3.5 w-3.5" />
-                  )}
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t('schedules.toggleEnable')}</TooltipContent>
-            </Tooltip>
+            <Switch
+              checked={row.isEnabled}
+              onCheckedChange={checked => onToggle(row.id, checked)}
+              aria-label={t('schedules.toggleEnable')}
+            />
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button

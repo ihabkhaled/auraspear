@@ -127,7 +127,12 @@
       "recommendedAction": "الإجراء الموصى به",
       "evidence": "الأدلة",
       "appliedAt": "تم التطبيق في",
-      "viewAll": "عرض الكل"
+      "viewAll": "عرض الكل",
+      "filterAgent": "تصفية حسب الوكيل",
+      "filterModule": "تصفية حسب الوحدة",
+      "allAgents": "جميع الوكلاء",
+      "allModules": "جميع الوحدات",
+      "totalCount": "إجمالي النتائج"
     }
   },
   "dashboard": {
@@ -3946,19 +3951,22 @@
         "view": "عرض الثغرات الأمنية",
         "create": "إنشاء الثغرات الأمنية",
         "update": "تحديث الثغرات الأمنية",
-        "delete": "حذف الثغرات الأمنية"
+        "delete": "حذف الثغرات الأمنية",
+        "aiCopilot": "تحديد أولويات الثغرات بالذكاء الاصطناعي"
       },
       "ueba": {
         "view": "عرض UEBA",
         "create": "إنشاء كيانات UEBA",
         "update": "تحديث كيانات UEBA",
-        "delete": "حذف كيانات UEBA"
+        "delete": "حذف كيانات UEBA",
+        "aiNarrative": "سرد الحالات الشاذة بالذكاء الاصطناعي"
       },
       "attackPaths": {
         "view": "عرض مسارات الهجوم",
         "create": "إنشاء مسارات الهجوم",
         "update": "تحديث مسارات الهجوم",
-        "delete": "حذف مسارات الهجوم"
+        "delete": "حذف مسارات الهجوم",
+        "aiSummary": "ملخص مسارات الهجوم بالذكاء الاصطناعي"
       },
       "normalization": {
         "view": "عرض التطبيع",
@@ -3985,7 +3993,8 @@
         "view": "عرض أمان السحابة",
         "create": "إنشاء حسابات سحابية",
         "update": "تحديث حسابات سحابية",
-        "delete": "حذف حسابات سحابية"
+        "delete": "حذف حسابات سحابية",
+        "aiTriage": "فرز نتائج السحابة بالذكاء الاصطناعي"
       },
       "compliance": {
         "view": "عرض الامتثال",
@@ -4291,6 +4300,18 @@
   "aiConfig": {
     "title": "تهيئة الذكاء الاصطناعي",
     "description": "تهيئة وكلاء الذكاء الاصطناعي والمزودين والمشغلات ومصادر OSINT",
+    "enableAll": "تفعيل الكل",
+    "disableAll": "تعطيل الكل",
+    "bulkEnableConfirm": "هل أنت متأكد من تفعيل جميع العناصر في هذا القسم؟",
+    "bulkDisableConfirm": "هل أنت متأكد من تعطيل جميع العناصر في هذا القسم؟",
+    "allAgentsEnabled": "تم تفعيل جميع الوكلاء",
+    "allAgentsDisabled": "تم تعطيل جميع الوكلاء",
+    "allOsintEnabled": "تم تفعيل جميع مصادر OSINT",
+    "allOsintDisabled": "تم تعطيل جميع مصادر OSINT",
+    "allFeaturesEnabled": "تم تفعيل جميع الميزات",
+    "allFeaturesDisabled": "تم تعطيل جميع الميزات",
+    "allSchedulesEnabled": "تم تفعيل جميع الجداول",
+    "allSchedulesDisabled": "تم تعطيل جميع الجداول",
     "tabAgents": "الوكلاء",
     "tabOsint": "مصادر OSINT",
     "tabApprovals": "الموافقات",
@@ -4447,6 +4468,8 @@
     "promptName": "اسم القالب",
     "promptTaskType": "نوع المهمة",
     "promptContent": "المحتوى",
+    "promptContentPlaceholder": "اكتب الأمر هنا. استخدم العناصر النائبة أعلاه لتضمين بيانات الكيان.",
+    "promptPlaceholdersHint": "قم بتضمين هذه العناصر النائبة في الأمر — سيتم استبدالها بالبيانات الفعلية وقت التنفيذ:",
     "promptVersion": "الإصدار",
     "promptActive": "نشط",
     "promptInactive": "غير نشط",
@@ -4547,6 +4570,68 @@
       "resumedSuccess": "تم استئناف الجدول",
       "runNowSuccess": "تم تشغيل الجدول الزمني",
       "resetSuccess": "تمت إعادة تعيين الجدول بنجاح"
+    },
+    "cronPresets": {
+      "groupSeconds": "ثواني",
+      "groupMinutes": "دقائق",
+      "groupHours": "ساعات",
+      "groupDaily": "يومي",
+      "groupWeekly": "أسبوعي",
+      "groupMonthly": "شهري",
+      "groupCustom": "مخصص",
+      "every30Seconds": "كل 30 ثانية",
+      "every1Minute": "كل دقيقة",
+      "every2Minutes": "كل دقيقتين",
+      "every3Minutes": "كل 3 دقائق",
+      "every5Minutes": "كل 5 دقائق",
+      "every10Minutes": "كل 10 دقائق",
+      "every15Minutes": "كل 15 دقيقة",
+      "every20Minutes": "كل 20 دقيقة",
+      "every25Minutes": "كل 25 دقيقة",
+      "every30Minutes": "كل 30 دقيقة",
+      "every45Minutes": "كل 45 دقيقة",
+      "every1Hour": "كل ساعة",
+      "every2Hours": "كل ساعتين",
+      "every3Hours": "كل 3 ساعات",
+      "every4Hours": "كل 4 ساعات",
+      "every6Hours": "كل 6 ساعات",
+      "every8Hours": "كل 8 ساعات",
+      "every12Hours": "كل 12 ساعة",
+      "dailyMidnight": "يومياً عند منتصف الليل",
+      "daily1Am": "يومياً الساعة 1:00 صباحاً",
+      "daily2Am": "يومياً الساعة 2:00 صباحاً",
+      "daily230Am": "يومياً الساعة 2:30 صباحاً",
+      "daily3Am": "يومياً الساعة 3:00 صباحاً",
+      "daily4Am": "يومياً الساعة 4:00 صباحاً",
+      "daily5Am": "يومياً الساعة 5:00 صباحاً",
+      "daily6Am": "يومياً الساعة 6:00 صباحاً",
+      "daily7Am": "يومياً الساعة 7:00 صباحاً",
+      "daily8Am": "يومياً الساعة 8:00 صباحاً",
+      "daily9Am": "يومياً الساعة 9:00 صباحاً",
+      "daily10Am": "يومياً الساعة 10:00 صباحاً",
+      "daily12Pm": "يومياً الساعة 12:00 ظهراً",
+      "daily6Pm": "يومياً الساعة 6:00 مساءً",
+      "weeklyMonday7Am": "كل اثنين الساعة 7:00 صباحاً",
+      "weeklyMonday9Am": "كل اثنين الساعة 9:00 صباحاً",
+      "weeklyFriday5Pm": "كل جمعة الساعة 5:00 مساءً",
+      "weeklySundayMidnight": "كل أحد عند منتصف الليل",
+      "monthly1stMidnight": "الأول من كل شهر عند منتصف الليل",
+      "monthly1st9Am": "الأول من كل شهر الساعة 9:00 صباحاً",
+      "monthly15th9Am": "الخامس عشر من كل شهر الساعة 9:00 صباحاً",
+      "custom": "تعبير cron مخصص",
+      "selectFrequency": "اختر التكرار",
+      "customCronPlaceholder": "مثال 0 */6 * * *"
+    },
+    "aiFindings": {
+      "title": "النتائج",
+      "noFindings": "لا توجد نتائج ذكاء اصطناعي بعد. قم بتشغيل الجداول أو تفعيل ميزات الذكاء الاصطناعي.",
+      "summary": "الملخص",
+      "recommendedAction": "الإجراء الموصى به",
+      "filterAgent": "تصفية حسب الوكيل",
+      "filterModule": "تصفية حسب الوحدة",
+      "allAgents": "جميع الوكلاء",
+      "allModules": "جميع الوحدات",
+      "totalCount": "إجمالي النتائج"
     }
   }
 }

@@ -1,7 +1,11 @@
 'use client'
 
 import { useCallback, useMemo, useState } from 'react'
+import { CronPreset } from '@/enums'
 import { deriveScheduleFormState } from '@/lib/ai-config.utils'
+import { CRON_PRESET_EXPRESSION } from '@/lib/constants/cron-presets'
+import { cronExpressionFromPreset, cronPresetFromExpression } from '@/lib/cron.utils'
+import { lookup } from '@/lib/utils'
 import type { AiAgentSchedule, UpdateScheduleInput } from '@/types'
 
 export function useAiScheduleEditDialog(
@@ -10,7 +14,15 @@ export function useAiScheduleEditDialog(
 ) {
   const derived = useMemo(() => deriveScheduleFormState(schedule), [schedule])
 
-  const [cronExpression, setCronExpression] = useState(derived.cronExpression)
+  const initialPreset = useMemo(
+    () => cronPresetFromExpression(derived.cronExpression),
+    [derived.cronExpression]
+  )
+
+  const [cronPreset, setCronPreset] = useState<CronPreset>(initialPreset)
+  const [customCron, setCustomCron] = useState(
+    initialPreset === CronPreset.CUSTOM ? derived.cronExpression : ''
+  )
   const [timezone, setTimezone] = useState(derived.timezone)
   const [executionMode, setExecutionMode] = useState(derived.executionMode)
   const [riskMode, setRiskMode] = useState(derived.riskMode)
@@ -19,24 +31,24 @@ export function useAiScheduleEditDialog(
   const [providerPreference, setProviderPreference] = useState(derived.providerPreference)
   const [modelPreference, setModelPreference] = useState(derived.modelPreference)
 
-  const resetToSchedule = useCallback(() => {
-    const next = deriveScheduleFormState(schedule)
-    setCronExpression(next.cronExpression)
-    setTimezone(next.timezone)
-    setExecutionMode(next.executionMode)
-    setRiskMode(next.riskMode)
-    setApprovalMode(next.approvalMode)
-    setMaxConcurrency(next.maxConcurrency)
-    setProviderPreference(next.providerPreference)
-    setModelPreference(next.modelPreference)
-  }, [schedule])
+  const handlePresetChange = useCallback((preset: CronPreset) => {
+    setCronPreset(preset)
+    if (preset !== CronPreset.CUSTOM) {
+      setCustomCron(lookup(CRON_PRESET_EXPRESSION, preset) ?? '')
+    }
+  }, [])
+
+  const resolvedCronExpression = useMemo(
+    () => cronExpressionFromPreset(cronPreset, customCron),
+    [cronPreset, customCron]
+  )
 
   const handleSubmit = useCallback(() => {
     if (!schedule) {
       return
     }
     const data: UpdateScheduleInput = {
-      cronExpression,
+      cronExpression: resolvedCronExpression,
       timezone,
       executionMode,
       riskMode,
@@ -48,7 +60,7 @@ export function useAiScheduleEditDialog(
     onSubmit(schedule.id, data)
   }, [
     schedule,
-    cronExpression,
+    resolvedCronExpression,
     timezone,
     executionMode,
     riskMode,
@@ -60,8 +72,11 @@ export function useAiScheduleEditDialog(
   ])
 
   return {
-    cronExpression,
-    setCronExpression,
+    cronPreset,
+    handlePresetChange,
+    customCron,
+    setCustomCron,
+    isCustom: cronPreset === CronPreset.CUSTOM,
     timezone,
     setTimezone,
     executionMode,
@@ -77,6 +92,5 @@ export function useAiScheduleEditDialog(
     modelPreference,
     setModelPreference,
     handleSubmit,
-    resetToSchedule,
   }
 }

@@ -3,7 +3,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
-import type { UpdateAgentConfigInput } from '@/types'
+import type { ApiResponse, TenantAgentConfig, UpdateAgentConfigInput } from '@/types'
 
 export function useAgentConfigs() {
   const tenantId = useTenantStore(s => s.currentTenantId)
@@ -40,12 +40,35 @@ export function useUpdateAgentConfig() {
 export function useToggleAgent() {
   const queryClient = useQueryClient()
   const tenantId = useTenantStore(s => s.currentTenantId)
+  const agentsKey = ['agent-config', 'agents', tenantId]
+  const statsKey = ['orchestrator-stats', tenantId]
 
   return useMutation({
     mutationFn: ({ agentId, enabled }: { agentId: string; enabled: boolean }) =>
       agentConfigService.toggleAgent(agentId, enabled),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ['agent-config', 'agents', tenantId] })
+    onMutate: async ({ agentId, enabled }) => {
+      await queryClient.cancelQueries({ queryKey: agentsKey })
+      const previous = queryClient.getQueryData<ApiResponse<TenantAgentConfig[]>>(agentsKey)
+
+      if (previous) {
+        queryClient.setQueryData<ApiResponse<TenantAgentConfig[]>>(agentsKey, {
+          ...previous,
+          data: previous.data.map(agent =>
+            agent.agentId === agentId ? { ...agent, isEnabled: enabled } : agent
+          ),
+        })
+      }
+
+      return { previous }
+    },
+    onError: (_err, _vars, context) => {
+      if (context?.previous) {
+        queryClient.setQueryData(agentsKey, context.previous)
+      }
+    },
+    onSettled: () => {
+      void queryClient.invalidateQueries({ queryKey: agentsKey })
+      void queryClient.invalidateQueries({ queryKey: statsKey })
     },
   })
 }

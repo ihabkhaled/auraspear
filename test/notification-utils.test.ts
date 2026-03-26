@@ -11,7 +11,7 @@ vi.mock('lucide-react', () => ({
   Pencil: 'Pencil',
   Shield: 'Shield',
   ShieldOff: 'ShieldOff',
-  ToggleRight: 'ToggleRight',
+  ArrowRightLeft: 'ArrowRightLeft',
   UserCheck: 'UserCheck',
   UserMinus: 'UserMinus',
   UserPlus: 'UserPlus',
