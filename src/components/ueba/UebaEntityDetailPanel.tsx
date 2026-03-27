@@ -1,10 +1,11 @@
 'use client'
 
 import { ChevronDown, X } from 'lucide-react'
-import { LoadingSpinner } from '@/components/common'
+import { AiFindingsPanel, LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Separator } from '@/components/ui/separator'
 import { useUebaEntityDetailPanel } from '@/hooks/useUebaEntityDetailPanel'
 import {
   UEBA_ENTITY_TYPE_LABEL_KEYS,
@@ -134,6 +135,9 @@ export function UebaEntityDetailPanel({ entityId, onClose }: UebaEntityDetailPan
           </div>
         </CollapsibleContent>
       </Collapsible>
+
+      <Separator />
+      <AiFindingsPanel sourceModule="ueba" sourceEntityId={entityId} t={t} />
     </div>
   )
 }

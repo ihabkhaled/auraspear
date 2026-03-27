@@ -1,9 +1,11 @@
 'use client'
 
 import { Bot, ChevronDown, Edit, Trash2 } from 'lucide-react'
+import { AiFindingsPanel } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -162,6 +164,13 @@ export function NormalizationDetailPanel({
                 </pre>
               </CollapsibleContent>
             </Collapsible>
+
+            <Separator />
+            <AiFindingsPanel
+              sourceModule="normalization"
+              sourceEntityId={pipeline.id}
+              t={tCommon}
+            />
           </div>
         )}
       </SheetContent>

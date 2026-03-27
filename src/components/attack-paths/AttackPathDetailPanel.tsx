@@ -1,10 +1,11 @@
 'use client'
 
 import { ChevronDown, Edit, Trash2, X } from 'lucide-react'
-import { LoadingSpinner } from '@/components/common'
+import { AiFindingsPanel, LoadingSpinner } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Separator } from '@/components/ui/separator'
 import { useAttackPathDetailPanel } from '@/hooks/useAttackPathDetailPanel'
 import {
   ATTACK_PATH_SEVERITY_CLASSES,
@@ -182,6 +183,9 @@ export function AttackPathDetailPanel({
             </CollapsibleContent>
           </Collapsible>
         )}
+
+        <Separator />
+        <AiFindingsPanel sourceModule="attack_paths" sourceEntityId={path.id} t={t} />
       </div>
     </div>
   )

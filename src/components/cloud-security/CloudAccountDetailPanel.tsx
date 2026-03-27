@@ -1,8 +1,10 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
+import { AiFindingsPanel } from '@/components/common'
 import { Badge } from '@/components/ui/badge'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { Separator } from '@/components/ui/separator'
 import {
   Sheet,
   SheetContent,
@@ -143,6 +145,13 @@ export function CloudAccountDetailPanel({
                 </CollapsibleContent>
               </Collapsible>
             )}
+
+            <Separator />
+            <AiFindingsPanel
+              sourceModule="cloud_security"
+              sourceEntityId={account.id}
+              t={tCommon}
+            />
           </div>
         )}
       </SheetContent>

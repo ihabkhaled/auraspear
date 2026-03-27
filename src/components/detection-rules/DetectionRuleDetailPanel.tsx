@@ -1,6 +1,7 @@
 'use client'
 
 import { ChevronDown, Pencil, Power, Trash2 } from 'lucide-react'
+import { AiFindingsPanel } from '@/components/common'
 import { AiDetectionCopilotPanel } from '@/components/detection-rules/AiDetectionCopilotPanel'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -193,6 +194,9 @@ export function DetectionRuleDetailPanel({
               tCommon={aiCopilot.tCommon}
               t={aiCopilot.t}
             />
+
+            <Separator />
+            <AiFindingsPanel sourceModule="detection_rules" sourceEntityId={rule.id} t={tCommon} />
           </div>
         )}
       </SheetContent>
