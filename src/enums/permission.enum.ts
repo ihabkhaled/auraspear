@@ -141,4 +141,7 @@ export enum Permission {
   AI_CONFIG_MANAGE_OSINT = 'ai.config.manage_osint',
   AI_APPROVALS_MANAGE = 'ai.approvals.manage',
   AI_USAGE_VIEW = 'ai.usage.view',
+
+  // AI Chat
+  AI_CHAT_ACCESS = 'ai.chat.access',
 }

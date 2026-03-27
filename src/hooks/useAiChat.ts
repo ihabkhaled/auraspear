@@ -36,9 +36,12 @@ export function useAiChat() {
     : []
   const hasMoreThreads = threadsQuery.hasNextPage ?? false
 
+  // Auto-select latest thread when none is explicitly selected
+  const effectiveThreadId = selectedThreadId ?? threads.at(0)?.id ?? null
+
   // Messages with cursor-based infinite query (loads older on scroll up)
   const messagesQuery = useInfiniteQuery({
-    queryKey: ['ai-chat-messages', tenantId, selectedThreadId],
+    queryKey: ['ai-chat-messages', tenantId, effectiveThreadId],
     queryFn: ({ pageParam }) => {
       const params: { limit: number; cursor?: string; direction?: string } = {
         limit: 30,
@@ -47,11 +50,11 @@ export function useAiChat() {
       if (pageParam) {
         params.cursor = pageParam as string
       }
-      return agentConfigService.getChatMessages(selectedThreadId ?? '', params)
+      return agentConfigService.getChatMessages(effectiveThreadId ?? '', params)
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: lastPage => (lastPage.hasMore ? lastPage.nextCursor : undefined),
-    enabled: Boolean(selectedThreadId),
+    enabled: Boolean(effectiveThreadId),
   })
 
   // Flatten all pages into a single messages array (chronological order)
@@ -106,7 +109,7 @@ export function useAiChat() {
     onSuccess: () => {
       setMessageInput('')
       void queryClient.invalidateQueries({
-        queryKey: ['ai-chat-messages', tenantId, selectedThreadId],
+        queryKey: ['ai-chat-messages', tenantId, effectiveThreadId],
       })
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
@@ -145,22 +148,19 @@ export function useAiChat() {
     },
   })
 
-  const handleSendMessage = useCallback(() => {
-    if (!selectedThreadId || !messageInput.trim()) return
-    sendMessageMutation.mutate({ threadId: selectedThreadId, content: messageInput.trim() })
-  }, [selectedThreadId, messageInput, sendMessageMutation])
+  const handleSendMessage = () => {
+    if (!effectiveThreadId || !messageInput.trim()) return
+    sendMessageMutation.mutate({ threadId: effectiveThreadId, content: messageInput.trim() })
+  }
 
-  const handleKeyDown = useCallback(
-    (e: React.KeyboardEvent) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault()
-        handleSendMessage()
-      }
-    },
-    [handleSendMessage]
-  )
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleSendMessage()
+    }
+  }
 
-  const selectedThread = threads.find(thread => thread.id === selectedThreadId) ?? null
+  const selectedThread = threads.find(thread => thread.id === effectiveThreadId) ?? null
 
   return {
     t,
@@ -169,7 +169,7 @@ export function useAiChat() {
     hasMoreThreads,
     fetchMoreThreads: threadsQuery.fetchNextPage,
     isFetchingMoreThreads: threadsQuery.isFetchingNextPage,
-    selectedThreadId,
+    selectedThreadId: effectiveThreadId,
     handleSelectThread,
     selectedThread,
     messages: allMessages,

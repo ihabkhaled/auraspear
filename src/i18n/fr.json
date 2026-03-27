@@ -49,6 +49,7 @@
     "entities": "Graphe Entités",
     "msspDashboard": "Tableau de bord MSSP",
     "aiConfig": "Config IA",
+    "aiChat": "Chat IA",
     "aiHistory": "Historique IA"
   },
   "common": {
@@ -3886,7 +3887,8 @@
       "aiDetectionCopilot": "Copilote IA de Détection",
       "entities": "Graphe d'Entités",
       "msspDashboard": "Tableau de Bord MSSP",
-      "aiConfig": "Configuration IA"
+      "aiConfig": "Configuration IA",
+      "aiChat": "Chat IA"
     },
     "permissions": {
       "dashboard": {
@@ -4098,6 +4100,9 @@
         "manageOsint": "Gerer les Sources OSINT",
         "manageApprovals": "Gérer les Approbations IA",
         "viewUsage": "Voir l'Utilisation IA"
+      },
+      "aiChat": {
+        "access": "Accéder au Chat IA"
       }
     },
     "roles": {
@@ -4334,6 +4339,10 @@
     "noHistory": "Aucun historique d'exécution IA trouvé",
     "viewDetail": "Voir",
     "runDetail": "Détails de l'exécution"
+  },
+  "aiChat": {
+    "pageTitle": "Chat IA",
+    "pageDescription": "Discutez avec des assistants IA en utilisant vos connecteurs LLM configurés"
   },
   "aiConfig": {
     "title": "Configuration IA",

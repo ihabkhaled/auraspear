@@ -49,6 +49,7 @@
     "entities": "Entitätsgraph",
     "msspDashboard": "MSSP-Dashboard",
     "aiConfig": "KI-Konfig",
+    "aiChat": "KI-Chat",
     "aiHistory": "KI-Verlauf"
   },
   "common": {
@@ -3886,7 +3887,8 @@
       "aiDetectionCopilot": "KI-Erkennungscopilot",
       "entities": "Entitätsgraph",
       "msspDashboard": "MSSP-Dashboard",
-      "aiConfig": "KI-Konfiguration"
+      "aiConfig": "KI-Konfiguration",
+      "aiChat": "KI-Chat"
     },
     "permissions": {
       "dashboard": {
@@ -4098,6 +4100,9 @@
         "manageOsint": "OSINT-Quellen verwalten",
         "manageApprovals": "KI-Genehmigungen verwalten",
         "viewUsage": "KI-Nutzung anzeigen"
+      },
+      "aiChat": {
+        "access": "Zugang zum KI-Chat"
       }
     },
     "roles": {
@@ -4334,6 +4339,10 @@
     "noHistory": "Kein KI-Ausführungsverlauf gefunden",
     "viewDetail": "Anzeigen",
     "runDetail": "Ausführungsdetails"
+  },
+  "aiChat": {
+    "pageTitle": "KI-Chat",
+    "pageDescription": "Chatten Sie mit KI-Assistenten über Ihre konfigurierten LLM-Konnektoren"
   },
   "aiConfig": {
     "title": "KI-Konfiguration",

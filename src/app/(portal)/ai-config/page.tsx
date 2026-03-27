@@ -5,7 +5,6 @@ import {
   Calendar,
   Globe,
   Layers,
-  MessageSquare,
   Plus,
   Settings2,
   ShieldCheck,
@@ -14,7 +13,6 @@ import {
 import {
   AgentConfigCard,
   AgentConfigEditDialog,
-  AiChatPanel,
   AiFindingsTable,
   AiScheduleEditDialog,
   AiScheduleTable,
@@ -151,10 +149,6 @@ export default function AiConfigPage() {
           <TabsTrigger value="findings">
             <Sparkles className="mr-1.5 h-3.5 w-3.5" />
             {t('aiFindings.title')}
-          </TabsTrigger>
-          <TabsTrigger value="chat">
-            <MessageSquare className="mr-1.5 h-3.5 w-3.5" />
-            {t('chatTitle')}
           </TabsTrigger>
         </TabsList>
 
@@ -362,10 +356,6 @@ export default function AiConfigPage() {
 
         <TabsContent value="findings" className="mt-4">
           <AiFindingsTable t={t} />
-        </TabsContent>
-
-        <TabsContent value="chat" className="mt-4">
-          <AiChatPanel />
         </TabsContent>
       </Tabs>
 

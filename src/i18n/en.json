@@ -49,6 +49,7 @@
     "entities": "Entity Graph",
     "msspDashboard": "MSSP Dashboard",
     "aiConfig": "AI Config",
+    "aiChat": "AI Chat",
     "aiHistory": "AI History"
   },
   "common": {
@@ -3939,7 +3940,8 @@
       "aiDetectionCopilot": "AI Detection Copilot",
       "entities": "Entity Graph",
       "msspDashboard": "MSSP Dashboard",
-      "aiConfig": "AI Configuration"
+      "aiConfig": "AI Configuration",
+      "aiChat": "AI Chat"
     },
     "permissions": {
       "dashboard": {
@@ -4151,6 +4153,9 @@
         "manageOsint": "Manage OSINT Sources",
         "manageApprovals": "Manage AI Approvals",
         "viewUsage": "View AI Usage"
+      },
+      "aiChat": {
+        "access": "Access AI Chat"
       }
     },
     "roles": {
@@ -4334,6 +4339,10 @@
     "noHistory": "No AI run history found",
     "viewDetail": "View",
     "runDetail": "Run Details"
+  },
+  "aiChat": {
+    "pageTitle": "AI Chat",
+    "pageDescription": "Chat with AI assistants using your configured LLM connectors"
   },
   "aiConfig": {
     "title": "AI Configuration",

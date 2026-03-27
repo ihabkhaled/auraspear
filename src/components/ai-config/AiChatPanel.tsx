@@ -274,9 +274,9 @@ export function AiChatPanel() {
                 )}
               </div>
               <Select
-                value={selectedThread?.connectorId ?? 'default'}
+                value={selectedThread?.connectorId ?? selectedThread?.provider ?? 'default'}
                 onValueChange={v => {
-                  if (selectedThreadId && v !== 'default') {
+                  if (selectedThreadId) {
                     updateThread({
                       threadId: selectedThreadId,
                       data: { connectorId: v },

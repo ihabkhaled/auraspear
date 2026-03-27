@@ -28,6 +28,7 @@ import {
   UsersRound,
   BookOpen,
   History,
+  MessageSquare,
   Network,
   Settings2,
 } from 'lucide-react'
@@ -92,6 +93,7 @@ export function useSidebarContent() {
     {
       label: t('nav.aiAutomation'),
       items: [
+        { icon: MessageSquare, label: t('nav.aiChat'), href: '/ai-chat' },
         { icon: Bot, label: t('nav.aiAgents'), href: '/ai-agents' },
         { icon: Settings2, label: t('nav.aiConfig'), href: '/ai-config' },
         { icon: History, label: t('nav.aiHistory'), href: '/ai-history' },
