@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { Bot, Loader2, MessageSquare, Plus, Send, Trash2, User } from 'lucide-react'
+import { Virtuoso } from 'react-virtuoso'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -15,8 +15,8 @@ import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { useAiChat } from '@/hooks/useAiChat'
 import { useAvailableAiConnectors } from '@/hooks/useAvailableAiConnectors'
-import { formatDate, cn } from '@/lib/utils'
-import type { AiChatMessage, AiChatThread } from '@/types'
+import { formatTimestamp, cn } from '@/lib/utils'
+import type { AiChatMessage, AiChatThread, EmbeddedUser } from '@/types'
 
 function ThreadItem({
   thread,
@@ -40,16 +40,34 @@ function ThreadItem({
     >
       <p className="truncate text-sm font-medium">{thread.title ?? 'Untitled Chat'}</p>
       <div className="mt-1 flex items-center gap-2">
+        {thread.user && (
+          <span className="text-muted-foreground truncate text-xs">{thread.user.name}</span>
+        )}
         <span className="text-muted-foreground text-xs">{thread.provider ?? 'default'}</span>
         <span className="text-muted-foreground text-xs">{String(thread.messageCount)} msgs</span>
       </div>
-      <p className="text-muted-foreground mt-0.5 text-xs">{formatDate(thread.lastActivityAt)}</p>
+      <p className="text-muted-foreground mt-0.5 text-xs">
+        {formatTimestamp(thread.lastActivityAt)}
+      </p>
     </button>
   )
 }
 
-function ChatMessage({ message }: { message: AiChatMessage }) {
+function ChatMessage({
+  message,
+  threadUser,
+}: {
+  message: AiChatMessage
+  threadUser?: EmbeddedUser | undefined
+}) {
   const isUser = message.role === 'user'
+  const initials = threadUser?.name
+    ? threadUser.name
+        .split(' ')
+        .slice(0, 2)
+        .map(p => p.charAt(0).toUpperCase())
+        .join('')
+    : null
   return (
     <div className={cn('flex gap-3 py-3', isUser ? 'justify-end' : 'justify-start')}>
       {!isUser && (
@@ -57,95 +75,72 @@ function ChatMessage({ message }: { message: AiChatMessage }) {
           <Bot className="text-primary h-4 w-4" />
         </div>
       )}
-      <div
-        className={cn(
-          'max-w-[80%] rounded-lg px-4 py-2.5',
-          isUser ? 'bg-primary text-primary-foreground' : 'bg-muted'
+      <div className="max-w-[80%]">
+        {isUser && threadUser && (
+          <p className="text-muted-foreground mb-1 text-end text-xs font-medium">
+            {threadUser.name}
+          </p>
         )}
-      >
-        <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
-        {!isUser && (
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            {message.model && (
-              <Badge variant="outline" className="text-xs">
-                {message.model}
-              </Badge>
-            )}
-            {message.requestedModel &&
-              message.model &&
-              message.requestedModel !== message.model && (
-                <Badge variant="warning" className="text-xs">
-                  requested: {message.requestedModel}
+        <div
+          className={cn(
+            'rounded-lg px-4 py-2.5',
+            isUser ? 'bg-primary text-primary-foreground' : 'bg-muted'
+          )}
+        >
+          <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+          {!isUser && (
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              {message.model && (
+                <Badge variant="outline" className="text-xs">
+                  {message.model}
                 </Badge>
               )}
-            {message.fallbackModel && (
-              <Badge variant="destructive" className="text-xs">
-                fallback: {message.fallbackModel}
-              </Badge>
-            )}
-            {message.status === 'failed' && (
-              <Badge variant="destructive" className="text-xs">
-                failed
-              </Badge>
-            )}
-            {message.durationMs !== null && (
-              <span className="text-muted-foreground text-xs">{String(message.durationMs)}ms</span>
-            )}
-          </div>
-        )}
+              {message.requestedModel &&
+                message.model &&
+                message.requestedModel !== message.model && (
+                  <Badge variant="warning" className="text-xs">
+                    requested: {message.requestedModel}
+                  </Badge>
+                )}
+              {message.fallbackModel && (
+                <Badge variant="destructive" className="text-xs">
+                  fallback: {message.fallbackModel}
+                </Badge>
+              )}
+              {message.status === 'failed' && (
+                <Badge variant="destructive" className="text-xs">
+                  failed
+                </Badge>
+              )}
+              {message.durationMs !== null &&
+                message.durationMs !== undefined &&
+                message.durationMs > 0 && (
+                  <span className="text-muted-foreground text-xs">
+                    {String(message.durationMs)}ms
+                  </span>
+                )}
+            </div>
+          )}
+        </div>
+        <p
+          className={cn(
+            'mt-1 text-xs',
+            isUser ? 'text-end' : 'text-start',
+            'text-muted-foreground'
+          )}
+        >
+          {formatTimestamp(message.createdAt)}
+        </p>
       </div>
       {isUser && (
         <div className="bg-muted flex h-8 w-8 shrink-0 items-center justify-center rounded-full">
-          <User className="text-muted-foreground h-4 w-4" />
+          {initials ? (
+            <span className="text-muted-foreground text-xs font-semibold">{initials}</span>
+          ) : (
+            <User className="text-muted-foreground h-4 w-4" />
+          )}
         </div>
       )}
-    </div>
-  )
-}
-
-function InfiniteScrollSentinel({
-  onIntersect,
-  isFetching,
-}: {
-  onIntersect: () => void
-  isFetching: boolean
-}) {
-  const sentinelRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    const el = sentinelRef.current
-    if (!el) return
-
-    const observer = new IntersectionObserver(
-      entries => {
-        const entry = entries.at(0)
-        if (entry?.isIntersecting && !isFetching) {
-          onIntersect()
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    observer.observe(el)
-    return () => {
-      observer.disconnect()
-    }
-  }, [onIntersect, isFetching])
-
-  return (
-    <div ref={sentinelRef} className="flex items-center justify-center py-2">
-      {isFetching && <Loader2 className="text-muted-foreground h-4 w-4 animate-spin" />}
-    </div>
-  )
-}
-
-function OverlayLoader() {
-  return (
-    <div className="bg-background/60 absolute inset-0 z-10 flex items-center justify-center">
-      <div className="bg-card flex items-center gap-2 rounded-lg border px-4 py-2 shadow-lg">
-        <Loader2 className="text-primary h-4 w-4 animate-spin" />
-        <span className="text-muted-foreground text-sm">Loading...</span>
-      </div>
     </div>
   )
 }
@@ -155,12 +150,14 @@ export function AiChatPanel() {
     t,
     threads,
     threadsLoading,
+    hasMoreThreads,
+    fetchMoreThreads,
+    isFetchingMoreThreads,
     selectedThreadId,
     handleSelectThread,
     selectedThread,
     messages,
     messagesLoading,
-    messagesFetching,
     hasOlderMessages,
     fetchOlderMessages,
     isFetchingOlder,
@@ -169,7 +166,6 @@ export function AiChatPanel() {
     handleSendMessage,
     handleKeyDown,
     isSending,
-    messagesEndRef,
     createThread,
     isCreatingThread,
     updateThread,
@@ -190,8 +186,16 @@ export function AiChatPanel() {
             </SelectTrigger>
             <SelectContent>
               {availableConnectors.map(c => (
-                <SelectItem key={c.key} value={c.key}>
+                <SelectItem
+                  key={c.key}
+                  value={c.key}
+                  disabled={!c.enabled && c.key !== 'default'}
+                  className={!c.enabled && c.key !== 'default' ? 'opacity-40' : ''}
+                >
                   {c.label}
+                  {!c.enabled && c.key !== 'default' && (
+                    <span className="text-muted-foreground ms-1 text-xs">(disabled)</span>
+                  )}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -211,26 +215,45 @@ export function AiChatPanel() {
           </Button>
         </div>
 
-        {/* Scrollable thread list */}
-        <div className="flex-1 overflow-y-auto">
-          <div className="space-y-1 p-2">
-            {threadsLoading && (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
-              </div>
-            )}
-            {!threadsLoading && threads.length === 0 && (
-              <p className="text-muted-foreground px-3 py-8 text-center text-xs">{t('noChats')}</p>
-            )}
-            {threads.map(threadItem => (
-              <ThreadItem
-                key={threadItem.id}
-                thread={threadItem}
-                isSelected={threadItem.id === selectedThreadId}
-                onSelect={() => handleSelectThread(threadItem.id)}
-              />
-            ))}
-          </div>
+        {/* Virtualized thread list */}
+        <div className="flex-1">
+          {threadsLoading && (
+            <div className="flex items-center justify-center py-8">
+              <Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
+            </div>
+          )}
+          {!threadsLoading && threads.length === 0 && (
+            <p className="text-muted-foreground px-3 py-8 text-center text-xs">{t('noChats')}</p>
+          )}
+          {!threadsLoading && threads.length > 0 && (
+            <Virtuoso
+              data={threads}
+              overscan={100}
+              className="h-full"
+              endReached={() => {
+                if (hasMoreThreads && !isFetchingMoreThreads) {
+                  void fetchMoreThreads()
+                }
+              }}
+              components={{
+                Footer: () =>
+                  isFetchingMoreThreads ? (
+                    <div className="flex justify-center py-2">
+                      <Loader2 className="text-muted-foreground h-4 w-4 animate-spin" />
+                    </div>
+                  ) : null,
+              }}
+              itemContent={(_index, threadItem) => (
+                <div className="px-2 py-0.5">
+                  <ThreadItem
+                    thread={threadItem}
+                    isSelected={threadItem.id === selectedThreadId}
+                    onSelect={() => handleSelectThread(threadItem.id)}
+                  />
+                </div>
+              )}
+            />
+          )}
         </div>
       </div>
 
@@ -244,6 +267,11 @@ export function AiChatPanel() {
                 <p className="truncate text-sm font-medium">
                   {selectedThread?.title ?? 'Untitled Chat'}
                 </p>
+                {selectedThread?.user && (
+                  <p className="text-muted-foreground truncate text-xs">
+                    {t('chatCreatedBy')}: {selectedThread.user.name}
+                  </p>
+                )}
               </div>
               <Select
                 value={selectedThread?.connectorId ?? 'default'}
@@ -261,8 +289,16 @@ export function AiChatPanel() {
                 </SelectTrigger>
                 <SelectContent>
                   {availableConnectors.map(c => (
-                    <SelectItem key={c.key} value={c.key}>
+                    <SelectItem
+                      key={c.key}
+                      value={c.key}
+                      disabled={!c.enabled && c.key !== 'default'}
+                      className={!c.enabled && c.key !== 'default' ? 'opacity-40' : ''}
+                    >
                       {c.label}
+                      {!c.enabled && c.key !== 'default' && (
+                        <span className="text-muted-foreground ms-1 text-xs">(disabled)</span>
+                      )}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -272,11 +308,8 @@ export function AiChatPanel() {
               </Button>
             </div>
 
-            {/* Scrollable message area with overlay loader */}
-            <div className="relative flex-1 overflow-y-auto px-4">
-              {/* Overlay loader for message pagination/fetching (keeps messages visible) */}
-              {messagesFetching && !messagesLoading && <OverlayLoader />}
-
+            {/* Virtualized message area */}
+            <div className="relative flex-1">
               {/* Sending indicator overlay */}
               {isSending && (
                 <div className="bg-background/40 absolute inset-0 z-10 flex items-end justify-center pb-4">
@@ -287,39 +320,49 @@ export function AiChatPanel() {
                 </div>
               )}
 
-              {/* Infinite scroll sentinel — triggers fetch when visible */}
-              {hasOlderMessages && (
-                <div className="flex justify-center py-2">
-                  <InfiniteScrollSentinel
-                    onIntersect={fetchOlderMessages}
-                    isFetching={isFetchingOlder}
-                  />
-                </div>
-              )}
-
-              {/* Initial loading only shown on first mount */}
+              {/* Initial loading */}
               {messagesLoading && (
-                <div className="flex items-center justify-center py-12">
+                <div className="flex h-full items-center justify-center">
                   <Loader2 className="text-muted-foreground h-5 w-5 animate-spin" />
                 </div>
               )}
 
               {/* Empty state */}
               {!messagesLoading && messages.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-12">
+                <div className="flex h-full flex-col items-center justify-center">
                   <Bot className="text-muted-foreground mb-3 h-8 w-8" />
                   <p className="text-muted-foreground text-sm">{t('chatPlaceholder')}</p>
                 </div>
               )}
 
-              {/* Messages */}
+              {/* Virtuoso: only renders visible messages + overscan */}
               {!messagesLoading && messages.length > 0 && (
-                <div className="py-4">
-                  {messages.map(msg => (
-                    <ChatMessage key={msg.id} message={msg} />
-                  ))}
-                  <div ref={messagesEndRef} />
-                </div>
+                <Virtuoso
+                  data={messages}
+                  initialTopMostItemIndex={messages.length - 1}
+                  followOutput="smooth"
+                  alignToBottom
+                  overscan={200}
+                  className="h-full"
+                  startReached={() => {
+                    if (hasOlderMessages && !isFetchingOlder) {
+                      void fetchOlderMessages()
+                    }
+                  }}
+                  components={{
+                    Header: () =>
+                      isFetchingOlder ? (
+                        <div className="flex justify-center py-3">
+                          <Loader2 className="text-muted-foreground h-4 w-4 animate-spin" />
+                        </div>
+                      ) : null,
+                  }}
+                  itemContent={(_index, msg) => (
+                    <div className="px-4">
+                      <ChatMessage key={msg.id} message={msg} threadUser={selectedThread?.user} />
+                    </div>
+                  )}
+                />
               )}
             </div>
 

@@ -192,8 +192,24 @@ export const agentConfigService = {
       .then(r => r.data),
 
   // Chat
-  listChatThreads: (params?: { page?: number; limit?: number }) =>
-    api.get<ApiResponse<AiChatThread[]>>('/ai-chat/threads', { params }).then(r => r.data),
+  listChatThreads: (params?: { limit?: number; cursor?: string }) =>
+    api
+      .get<
+        | { data: AiChatThread[]; nextCursor: string | null; hasMore: boolean }
+        | { data: { data: AiChatThread[]; nextCursor: string | null; hasMore: boolean } }
+      >('/ai-chat/threads', { params })
+      .then(r => {
+        const payload = r.data as Record<string, unknown>
+        const innerData = payload['data']
+        if (Array.isArray(innerData)) {
+          return payload as unknown as {
+            data: AiChatThread[]
+            nextCursor: string | null
+            hasMore: boolean
+          }
+        }
+        return innerData as { data: AiChatThread[]; nextCursor: string | null; hasMore: boolean }
+      }),
 
   createChatThread: (data: { connectorId?: string; model?: string; systemPrompt?: string }) =>
     api.post<ApiResponse<AiChatThread>>('/ai-chat/threads', data).then(r => r.data),
@@ -203,12 +219,23 @@ export const agentConfigService = {
     params?: { limit?: number; cursor?: string; direction?: string }
   ) =>
     api
-      .get<{
-        data: AiChatMessage[]
-        nextCursor: string | null
-        hasMore: boolean
-      }>(`/ai-chat/threads/${threadId}/messages`, { params })
-      .then(r => r.data),
+      .get<
+        | { data: AiChatMessage[]; nextCursor: string | null; hasMore: boolean }
+        | { data: { data: AiChatMessage[]; nextCursor: string | null; hasMore: boolean } }
+      >(`/ai-chat/threads/${threadId}/messages`, { params })
+      .then(r => {
+        const payload = r.data as Record<string, unknown>
+        // Handle double-wrapped response from proxy
+        const innerData = payload['data']
+        if (Array.isArray(innerData)) {
+          return payload as unknown as {
+            data: AiChatMessage[]
+            nextCursor: string | null
+            hasMore: boolean
+          }
+        }
+        return innerData as { data: AiChatMessage[]; nextCursor: string | null; hasMore: boolean }
+      }),
 
   sendChatMessage: (
     threadId: string,

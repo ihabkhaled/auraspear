@@ -10,6 +10,7 @@ export type {
   DataTableProps,
   PortalShellProps,
   DynamicIdRouteContext,
+  EmbeddedUser,
   ProxyOptions,
   FetchOptions,
   CopyButtonProps,

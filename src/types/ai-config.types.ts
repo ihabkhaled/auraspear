@@ -4,6 +4,7 @@ import {
   type OsintAuthType,
   type OsintSourceType,
 } from '@/enums'
+import type { EmbeddedUser } from './common.types'
 import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface TenantAgentConfig {
@@ -404,6 +405,7 @@ export interface AiChatThread {
   isArchived: boolean
   createdAt: string
   updatedAt: string
+  user?: EmbeddedUser
 }
 
 export interface AiChatMessage {

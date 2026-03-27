@@ -1,13 +1,7 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
-import {
-  keepPreviousData,
-  useInfiniteQuery,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from '@tanstack/react-query'
+import { useCallback, useState } from 'react'
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
@@ -22,17 +16,25 @@ export function useAiChat() {
   const queryClient = useQueryClient()
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [messageInput, setMessageInput] = useState('')
-  const messagesEndRef = useRef<HTMLDivElement | null>(null)
-  const messagesTopRef = useRef<HTMLDivElement | null>(null)
 
-  // Thread list
-  const threadsQuery = useQuery({
+  // Thread list with cursor-based infinite loading
+  const threadsQuery = useInfiniteQuery({
     queryKey: ['ai-chat-threads', tenantId],
-    queryFn: () => agentConfigService.listChatThreads({ page: 1, limit: 50 }),
-    placeholderData: keepPreviousData,
+    queryFn: ({ pageParam }) => {
+      const params: { limit: number; cursor?: string } = { limit: 20 }
+      if (pageParam) {
+        params.cursor = pageParam as string
+      }
+      return agentConfigService.listChatThreads(params)
+    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: lastPage => (lastPage.hasMore ? lastPage.nextCursor : undefined),
   })
 
-  const threads: AiChatThread[] = threadsQuery.data?.data ?? []
+  const threads: AiChatThread[] = threadsQuery.data
+    ? threadsQuery.data.pages.flatMap(page => page.data)
+    : []
+  const hasMoreThreads = threadsQuery.hasNextPage ?? false
 
   // Messages with cursor-based infinite query (loads older on scroll up)
   const messagesQuery = useInfiniteQuery({
@@ -107,9 +109,6 @@ export function useAiChat() {
         queryKey: ['ai-chat-messages', tenantId, selectedThreadId],
       })
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-      }, 200)
     },
     onError: (error: unknown) => {
       Toast.error(tErrors(getErrorKey(error)))
@@ -167,6 +166,9 @@ export function useAiChat() {
     t,
     threads,
     threadsLoading: threadsQuery.isLoading,
+    hasMoreThreads,
+    fetchMoreThreads: threadsQuery.fetchNextPage,
+    isFetchingMoreThreads: threadsQuery.isFetchingNextPage,
     selectedThreadId,
     handleSelectThread,
     selectedThread,
@@ -181,8 +183,6 @@ export function useAiChat() {
     handleSendMessage,
     handleKeyDown,
     isSending: sendMessageMutation.isPending,
-    messagesEndRef,
-    messagesTopRef,
     createThread: createThreadMutation.mutate,
     isCreatingThread: createThreadMutation.isPending,
     updateThread: updateThreadMutation.mutate,

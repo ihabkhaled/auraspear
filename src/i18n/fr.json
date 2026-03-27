@@ -4361,6 +4361,7 @@
     "chatArchive": "Archiver",
     "chatArchived": "Chat archivé",
     "chatCreated": "Nouveau chat créé",
+    "chatCreatedBy": "Créé par",
     "chatError": "Échec de l'envoi du message",
     "chatLoadOlder": "Charger les messages plus anciens",
     "tabAgents": "Agents",

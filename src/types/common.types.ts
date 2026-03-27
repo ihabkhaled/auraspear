@@ -104,6 +104,13 @@ export interface ProxyOptions {
   timeoutMs?: number
 }
 
+/** Lightweight user embed returned by backend includes (id, name, email) */
+export interface EmbeddedUser {
+  id: string
+  name: string
+  email: string
+}
+
 export interface DynamicIdRouteContext {
   params: Promise<{ id: string }>
 }
