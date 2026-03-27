@@ -48,7 +48,8 @@
     "knowledge": "Base de Connaissances",
     "entities": "Graphe Entités",
     "msspDashboard": "Tableau de bord MSSP",
-    "aiConfig": "Config IA"
+    "aiConfig": "Config IA",
+    "aiHistory": "Historique IA"
   },
   "common": {
     "search": "Rechercher",
@@ -4306,6 +4307,33 @@
     "totalAlerts": "Total des alertes",
     "totalCriticalAlerts": "Total des alertes critiques",
     "totalOpenCases": "Total des cas ouverts"
+  },
+  "aiHistory": {
+    "title": "Historique des réponses IA",
+    "description": "Parcourez toutes les exécutions d'agents IA",
+    "agent": "Agent",
+    "module": "Module",
+    "status": "Statut",
+    "provider": "Fournisseur",
+    "model": "Modèle",
+    "tokens": "Tokens",
+    "duration": "Durée",
+    "date": "Date",
+    "triggerType": "Déclencheur",
+    "summary": "Résumé",
+    "error": "Erreur",
+    "filterAgent": "Filtrer par agent",
+    "filterStatus": "Filtrer par statut",
+    "filterModule": "Filtrer par module",
+    "allAgents": "Tous les agents",
+    "allStatuses": "Tous les statuts",
+    "allModules": "Tous les modules",
+    "completed": "Terminé",
+    "failed": "Échoué",
+    "totalRuns": "Total des exécutions",
+    "noHistory": "Aucun historique d'exécution IA trouvé",
+    "viewDetail": "Voir",
+    "runDetail": "Détails de l'exécution"
   },
   "aiConfig": {
     "title": "Configuration IA",

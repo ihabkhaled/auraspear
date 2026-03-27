@@ -48,7 +48,8 @@
     "knowledge": "Wissensdatenbank",
     "entities": "Entitätsgraph",
     "msspDashboard": "MSSP-Dashboard",
-    "aiConfig": "KI-Konfig"
+    "aiConfig": "KI-Konfig",
+    "aiHistory": "KI-Verlauf"
   },
   "common": {
     "search": "Suche",
@@ -4306,6 +4307,33 @@
     "totalAlerts": "Gesamtalarme",
     "totalCriticalAlerts": "Gesamtkritische Alarme",
     "totalOpenCases": "Gesamtoffene Fälle"
+  },
+  "aiHistory": {
+    "title": "KI-Antwortverlauf",
+    "description": "Alle KI-Agenten-Ausführungen und Ergebnisse durchsuchen",
+    "agent": "Agent",
+    "module": "Modul",
+    "status": "Status",
+    "provider": "Anbieter",
+    "model": "Modell",
+    "tokens": "Tokens",
+    "duration": "Dauer",
+    "date": "Datum",
+    "triggerType": "Auslöser",
+    "summary": "Zusammenfassung",
+    "error": "Fehler",
+    "filterAgent": "Nach Agent filtern",
+    "filterStatus": "Nach Status filtern",
+    "filterModule": "Nach Modul filtern",
+    "allAgents": "Alle Agenten",
+    "allStatuses": "Alle Status",
+    "allModules": "Alle Module",
+    "completed": "Abgeschlossen",
+    "failed": "Fehlgeschlagen",
+    "totalRuns": "Ausführungen gesamt",
+    "noHistory": "Kein KI-Ausführungsverlauf gefunden",
+    "viewDetail": "Anzeigen",
+    "runDetail": "Ausführungsdetails"
   },
   "aiConfig": {
     "title": "KI-Konfiguration",

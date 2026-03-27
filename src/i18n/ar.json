@@ -48,7 +48,8 @@
     "knowledge": "قاعدة المعرفة",
     "entities": "مخطط الكيانات",
     "msspDashboard": "لوحة تحكم MSSP",
-    "aiConfig": "تهيئة الذكاء الاصطناعي"
+    "aiConfig": "تهيئة الذكاء الاصطناعي",
+    "aiHistory": "سجل الذكاء الاصطناعي"
   },
   "common": {
     "search": "بحث",
@@ -4306,6 +4307,33 @@
     "totalAlerts": "إجمالي التنبيهات",
     "totalCriticalAlerts": "إجمالي التنبيهات الحرجة",
     "totalOpenCases": "إجمالي الحالات المفتوحة"
+  },
+  "aiHistory": {
+    "title": "سجل استجابات الذكاء الاصطناعي",
+    "description": "تصفح جميع عمليات تشغيل وكلاء الذكاء الاصطناعي",
+    "agent": "الوكيل",
+    "module": "الوحدة",
+    "status": "الحالة",
+    "provider": "المزود",
+    "model": "النموذج",
+    "tokens": "الرموز",
+    "duration": "المدة",
+    "date": "التاريخ",
+    "triggerType": "المشغل",
+    "summary": "الملخص",
+    "error": "خطأ",
+    "filterAgent": "تصفية حسب الوكيل",
+    "filterStatus": "تصفية حسب الحالة",
+    "filterModule": "تصفية حسب الوحدة",
+    "allAgents": "جميع الوكلاء",
+    "allStatuses": "جميع الحالات",
+    "allModules": "جميع الوحدات",
+    "completed": "مكتمل",
+    "failed": "فشل",
+    "totalRuns": "إجمالي التشغيلات",
+    "noHistory": "لا يوجد سجل تشغيل ذكاء اصطناعي",
+    "viewDetail": "عرض",
+    "runDetail": "تفاصيل التشغيل"
   },
   "aiConfig": {
     "title": "تهيئة الذكاء الاصطناعي",

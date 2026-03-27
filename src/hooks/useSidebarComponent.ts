@@ -27,6 +27,7 @@ import {
   Lock,
   UsersRound,
   BookOpen,
+  History,
   Network,
   Settings2,
 } from 'lucide-react'
@@ -93,6 +94,7 @@ export function useSidebarContent() {
       items: [
         { icon: Bot, label: t('nav.aiAgents'), href: '/ai-agents' },
         { icon: Settings2, label: t('nav.aiConfig'), href: '/ai-config' },
+        { icon: History, label: t('nav.aiHistory'), href: '/ai-history' },
         { icon: Workflow, label: t('nav.soar'), href: '/soar' },
       ],
     },

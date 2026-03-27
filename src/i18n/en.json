@@ -48,7 +48,8 @@
     "knowledge": "Knowledge Base",
     "entities": "Entity Graph",
     "msspDashboard": "MSSP Dashboard",
-    "aiConfig": "AI Config"
+    "aiConfig": "AI Config",
+    "aiHistory": "AI History"
   },
   "common": {
     "search": "Search",
@@ -4306,6 +4307,33 @@
     "totalAlerts": "Total Alerts",
     "totalCriticalAlerts": "Total Critical Alerts",
     "totalOpenCases": "Total Open Cases"
+  },
+  "aiHistory": {
+    "title": "AI Response History",
+    "description": "Browse all AI agent runs and their outputs across the platform",
+    "agent": "Agent",
+    "module": "Module",
+    "status": "Status",
+    "provider": "Provider",
+    "model": "Model",
+    "tokens": "Tokens",
+    "duration": "Duration",
+    "date": "Date",
+    "triggerType": "Trigger",
+    "summary": "Summary",
+    "error": "Error",
+    "filterAgent": "Filter by agent",
+    "filterStatus": "Filter by status",
+    "filterModule": "Filter by module",
+    "allAgents": "All Agents",
+    "allStatuses": "All Statuses",
+    "allModules": "All Modules",
+    "completed": "Completed",
+    "failed": "Failed",
+    "totalRuns": "Total runs",
+    "noHistory": "No AI run history found",
+    "viewDetail": "View",
+    "runDetail": "Run Details"
   },
   "aiConfig": {
     "title": "AI Configuration",
