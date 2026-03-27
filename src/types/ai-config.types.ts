@@ -412,8 +412,13 @@ export interface AiChatMessage {
   tenantId: string
   role: string
   content: string
+  requestedModel: string | null
+  requestedProvider: string | null
   model: string | null
   provider: string | null
+  fallbackModel: string | null
+  fallbackReason: string | null
+  status: string
   inputTokens: number
   outputTokens: number
   durationMs: number | null

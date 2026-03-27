@@ -4362,6 +4362,7 @@
     "chatArchived": "تم أرشفة المحادثة",
     "chatCreated": "تم إنشاء محادثة جديدة",
     "chatError": "فشل في إرسال الرسالة",
+    "chatLoadOlder": "تحميل رسائل أقدم",
     "tabAgents": "الوكلاء",
     "tabOsint": "مصادر OSINT",
     "tabApprovals": "الموافقات",

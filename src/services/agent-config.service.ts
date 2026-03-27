@@ -198,15 +198,32 @@ export const agentConfigService = {
   createChatThread: (data: { connectorId?: string; model?: string; systemPrompt?: string }) =>
     api.post<ApiResponse<AiChatThread>>('/ai-chat/threads', data).then(r => r.data),
 
-  getChatMessages: (threadId: string, params?: { page?: number; limit?: number }) =>
+  getChatMessages: (
+    threadId: string,
+    params?: { limit?: number; cursor?: string; direction?: string }
+  ) =>
     api
-      .get<ApiResponse<AiChatMessage[]>>(`/ai-chat/threads/${threadId}/messages`, { params })
+      .get<{
+        data: AiChatMessage[]
+        nextCursor: string | null
+        hasMore: boolean
+      }>(`/ai-chat/threads/${threadId}/messages`, { params })
       .then(r => r.data),
 
-  sendChatMessage: (threadId: string, content: string) =>
+  sendChatMessage: (
+    threadId: string,
+    content: string,
+    overrides?: { model?: string; connectorId?: string }
+  ) =>
     api
-      .post<ApiResponse<AiChatMessage>>(`/ai-chat/threads/${threadId}/messages`, { content })
+      .post<ApiResponse<AiChatMessage>>(`/ai-chat/threads/${threadId}/messages`, {
+        content,
+        ...overrides,
+      })
       .then(r => r.data),
+
+  updateChatThread: (threadId: string, data: { connectorId?: string; model?: string }) =>
+    api.patch<ApiResponse<AiChatThread>>(`/ai-chat/threads/${threadId}`, data).then(r => r.data),
 
   archiveChatThread: (threadId: string) =>
     api.delete<ApiResponse<void>>(`/ai-chat/threads/${threadId}`).then(r => r.data),

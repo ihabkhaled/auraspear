@@ -4362,6 +4362,7 @@
     "chatArchived": "Chat archivé",
     "chatCreated": "Nouveau chat créé",
     "chatError": "Échec de l'envoi du message",
+    "chatLoadOlder": "Charger les messages plus anciens",
     "tabAgents": "Agents",
     "tabOsint": "Sources OSINT",
     "tabApprovals": "Approbations",
