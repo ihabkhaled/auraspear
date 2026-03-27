@@ -386,6 +386,66 @@ export interface AiExecutionFinding {
   createdAt: string
 }
 
+export interface AiChatThread {
+  id: string
+  tenantId: string
+  userId: string
+  connectorId: string | null
+  title: string | null
+  model: string | null
+  provider: string | null
+  outputFormat: string
+  temperature: number
+  maxTokens: number
+  systemPrompt: string | null
+  messageCount: number
+  totalTokensUsed: number
+  lastActivityAt: string
+  isArchived: boolean
+  createdAt: string
+  updatedAt: string
+}
+
+export interface AiChatMessage {
+  id: string
+  threadId: string
+  tenantId: string
+  role: string
+  content: string
+  model: string | null
+  provider: string | null
+  inputTokens: number
+  outputTokens: number
+  durationMs: number | null
+  sequenceNum: number
+  createdAt: string
+}
+
+export interface AiJobRunSummary {
+  id: string
+  tenantId: string
+  jobId: string
+  scheduleId: string | null
+  jobKey: string
+  agentId: string | null
+  triggerType: string
+  status: string
+  startedAt: string | null
+  completedAt: string | null
+  durationMs: number | null
+  providerKey: string | null
+  modelKey: string | null
+  tokensUsed: number
+  findingsCount: number
+  writebacksCount: number
+  sourceModule: string | null
+  sourceEntityId: string | null
+  summaryText: string | null
+  confidenceScore: number | null
+  errorMessage: string | null
+  createdAt: string
+}
+
 export interface AiFindingsPanelProps {
   sourceModule: string
   sourceEntityId: string

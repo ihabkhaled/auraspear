@@ -1839,7 +1839,17 @@
       "wrongCredentials": "Invalid API key or credentials for this OSINT source. Please update your API key in AI Configuration."
     },
     "agentConfig": {
-      "osintSourceNotFound": "OSINT source not found."
+      "osintSourceNotFound": "OSINT source not found.",
+      "invalidAgentId": "Invalid agent ID.",
+      "approvalNotFound": "Approval request not found.",
+      "approvalAlreadyResolved": "Approval request has already been resolved.",
+      "approvalExpired": "Approval request has expired."
+    },
+    "validation": {
+      "maxTokensPerCall": {
+        "tooLarge": "Max tokens per call cannot exceed 32,768.",
+        "tooSmall": "Max tokens per call must be at least 256."
+      }
     }
   },
   "profile": {
@@ -4312,6 +4322,18 @@
     "allFeaturesDisabled": "All features disabled",
     "allSchedulesEnabled": "All schedules enabled",
     "allSchedulesDisabled": "All schedules disabled",
+    "chatTitle": "AI Chat",
+    "chatDescription": "Chat directly with your configured LLM connectors",
+    "newChat": "New Chat",
+    "chatPlaceholder": "Type your message...",
+    "sendMessage": "Send",
+    "noChats": "No chat threads yet. Start a new conversation.",
+    "chatMessages": "messages",
+    "chatTokens": "tokens used",
+    "chatArchive": "Archive",
+    "chatArchived": "Chat archived",
+    "chatCreated": "New chat created",
+    "chatError": "Failed to send message",
     "tabAgents": "Agents",
     "tabOsint": "OSINT Sources",
     "tabApprovals": "Approvals",
@@ -4379,7 +4401,7 @@
     "provider": "Provider",
     "model": "Model",
     "temperature": "Temperature",
-    "maxTokens": "Max Tokens",
+    "maxTokens": "Max tokens per call",
     "triggerMode": "Trigger Mode",
     "outputFormat": "Output Format",
     "tokenUsage": "Token Usage",
@@ -4405,6 +4427,7 @@
     "outputJson": "Structured JSON",
     "outputMarkdown": "Markdown",
     "outputRichCards": "Rich Cards",
+    "outputPlainText": "Plain Text",
     "configUpdated": "Configuration updated",
     "agentEnabled": "Agent enabled",
     "agentDisabled": "Agent disabled",
@@ -4487,7 +4510,7 @@
     "featureToggleEnabled": "Feature enabled",
     "featureToggleDisabled": "Feature disabled",
     "featureProvider": "Preferred Provider",
-    "featureMaxTokens": "Max Tokens",
+    "featureMaxTokens": "Max tokens per response",
     "featureApproval": "Approval Level",
     "featureBudget": "Monthly Budget",
     "editFeature": "Edit Feature",

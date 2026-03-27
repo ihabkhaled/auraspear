@@ -22,6 +22,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
 import { AiOutputFormat, AiTriggerMode } from '@/enums'
 import { useAgentConfigEditDialog } from '@/hooks/useAgentConfigEditDialog'
+import { AI_OUTPUT_FORMAT_LABEL_KEYS, AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
+import { lookup } from '@/lib/utils'
 import type { AgentConfigEditDialogProps } from '@/types'
 
 export function AgentConfigEditDialog({
@@ -98,9 +100,14 @@ export function AgentConfigEditDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={AiOutputFormat.STRUCTURED_JSON}>{t('outputJson')}</SelectItem>
-                  <SelectItem value={AiOutputFormat.MARKDOWN}>{t('outputMarkdown')}</SelectItem>
-                  <SelectItem value={AiOutputFormat.RICH_CARDS}>{t('outputRichCards')}</SelectItem>
+                  {Object.values(AiOutputFormat).map(fmt => {
+                    const labelKey = lookup(AI_OUTPUT_FORMAT_LABEL_KEYS, fmt)
+                    return (
+                      <SelectItem key={fmt} value={fmt}>
+                        {labelKey ? t(labelKey.replace('aiConfig.', '')) : fmt}
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
             </div>
@@ -204,14 +211,14 @@ export function AgentConfigEditDialog({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={AiTriggerMode.MANUAL_ONLY}>{t('triggerManual')}</SelectItem>
-                  <SelectItem value={AiTriggerMode.AUTO_ON_ALERT}>
-                    {t('triggerAutoAlert')}
-                  </SelectItem>
-                  <SelectItem value={AiTriggerMode.AUTO_BY_AGENT}>
-                    {t('triggerAutoAgent')}
-                  </SelectItem>
-                  <SelectItem value={AiTriggerMode.SCHEDULED}>{t('triggerScheduled')}</SelectItem>
+                  {Object.values(AiTriggerMode).map(mode => {
+                    const labelKey = lookup(AI_TRIGGER_MODE_LABEL_KEYS, mode)
+                    return (
+                      <SelectItem key={mode} value={mode}>
+                        {labelKey ? t(labelKey.replace('aiConfig.', '')) : mode}
+                      </SelectItem>
+                    )
+                  })}
                 </SelectContent>
               </Select>
             </div>

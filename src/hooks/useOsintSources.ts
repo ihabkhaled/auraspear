@@ -5,12 +5,13 @@ import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { CreateOsintSourceInput, UpdateOsintSourceInput } from '@/types'
 
-export function useOsintSources() {
+export function useOsintSources(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['agent-config', 'osint-sources', tenantId],
     queryFn: () => agentConfigService.getOsintSources(),
+    enabled,
   })
 }
 

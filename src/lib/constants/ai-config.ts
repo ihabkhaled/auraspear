@@ -75,6 +75,7 @@ export const AI_OUTPUT_FORMAT_LABEL_KEYS: Record<AiOutputFormat, string> = {
   [AiOutputFormat.STRUCTURED_JSON]: 'aiConfig.outputJson',
   [AiOutputFormat.MARKDOWN]: 'aiConfig.outputMarkdown',
   [AiOutputFormat.RICH_CARDS]: 'aiConfig.outputRichCards',
+  [AiOutputFormat.PLAIN_TEXT]: 'aiConfig.outputPlainText',
 }
 
 export const OSINT_AUTH_TYPE_LABELS: Record<OsintAuthType, string> = {

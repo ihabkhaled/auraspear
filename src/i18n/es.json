@@ -1839,7 +1839,17 @@
       "wrongCredentials": "Clave API o credenciales inválidas para esta fuente OSINT. Actualice su clave en Configuración de IA."
     },
     "agentConfig": {
-      "osintSourceNotFound": "Fuente OSINT no encontrada."
+      "osintSourceNotFound": "Fuente OSINT no encontrada.",
+      "invalidAgentId": "ID de agente no válido.",
+      "approvalNotFound": "Solicitud de aprobación no encontrada.",
+      "approvalAlreadyResolved": "La solicitud de aprobación ya fue resuelta.",
+      "approvalExpired": "La solicitud de aprobación ha expirado."
+    },
+    "validation": {
+      "maxTokensPerCall": {
+        "tooLarge": "El máximo de tokens por llamada no puede exceder 32.768.",
+        "tooSmall": "El mínimo de tokens por llamada es 256."
+      }
     }
   },
   "profile": {
@@ -4312,6 +4322,18 @@
     "allFeaturesDisabled": "Todas las funciones desactivadas",
     "allSchedulesEnabled": "Todas las programaciones activadas",
     "allSchedulesDisabled": "Todas las programaciones desactivadas",
+    "chatTitle": "Chat IA",
+    "chatDescription": "Chatea directamente con tus conectores LLM configurados",
+    "newChat": "Nuevo chat",
+    "chatPlaceholder": "Escribe tu mensaje...",
+    "sendMessage": "Enviar",
+    "noChats": "Aún no hay conversaciones. Inicia una nueva.",
+    "chatMessages": "mensajes",
+    "chatTokens": "tokens usados",
+    "chatArchive": "Archivar",
+    "chatArchived": "Chat archivado",
+    "chatCreated": "Nuevo chat creado",
+    "chatError": "Error al enviar el mensaje",
     "tabAgents": "Agentes",
     "tabOsint": "Fuentes OSINT",
     "tabApprovals": "Aprobaciones",
@@ -4379,7 +4401,7 @@
     "provider": "Proveedor",
     "model": "Modelo",
     "temperature": "Temperatura",
-    "maxTokens": "Tokens Maximos",
+    "maxTokens": "Máximo de tokens por llamada",
     "triggerMode": "Modo de Disparo",
     "outputFormat": "Formato de Salida",
     "tokenUsage": "Uso de Tokens",
@@ -4405,6 +4427,7 @@
     "outputJson": "JSON Estructurado",
     "outputMarkdown": "Markdown",
     "outputRichCards": "Tarjetas Enriquecidas",
+    "outputPlainText": "Texto plano",
     "configUpdated": "Configuracion actualizada",
     "agentEnabled": "Agente habilitado",
     "agentDisabled": "Agente deshabilitado",
@@ -4485,7 +4508,9 @@
     "featureKey": "Funcionalidad",
     "featureEnabled": "Habilitado",
     "featureProvider": "Proveedor Preferido",
-    "featureMaxTokens": "Tokens Maximos",
+    "featureMaxTokens": "Máximo de tokens por respuesta",
+    "featureToggleEnabled": "Función activada",
+    "featureToggleDisabled": "Función desactivada",
     "featureApproval": "Nivel de Aprobacion",
     "featureBudget": "Presupuesto Mensual",
     "editFeature": "Editar Funcionalidad",

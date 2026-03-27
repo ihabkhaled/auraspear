@@ -5,12 +5,13 @@ import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { CreateAiPromptInput, UpdateAiPromptInput } from '@/types'
 
-export function useAiPrompts() {
+export function useAiPrompts(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['ai-prompts', tenantId],
     queryFn: () => agentConfigService.getPrompts(),
+    enabled,
   })
 }
 

@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useState } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
@@ -64,8 +65,19 @@ export function useAiConfigPage() {
   const canManageApprovals = hasPermission(permissions, Permission.AI_APPROVALS_MANAGE)
   const canManagePrompts = hasPermission(permissions, Permission.AI_CONFIG_MANAGE_PROMPTS)
 
-  // Tab state
-  const [activeTab, setActiveTab] = useState('agents')
+  // Tab state — persisted in URL so refresh keeps the active tab
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+  const activeTab = searchParams.get('tab') ?? 'agents'
+  const setActiveTab = useCallback(
+    (tab: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('tab', tab)
+      router.replace(`${pathname}?${params.toString()}`)
+    },
+    [searchParams, router, pathname]
+  )
 
   // Dialog states — store agentId, not full config (avoids stale data after toggle/save)
   const [editDialogOpen, setEditDialogOpen] = useState(false)
@@ -89,14 +101,17 @@ export function useAiConfigPage() {
   // Orchestrator stats
   const { stats: orchestratorStats, isFetching: orchestratorStatsFetching } = useOrchestratorStats()
 
-  // Queries
+  // Queries — only fetch data for the active tab
   const { availableConnectors } = useAvailableAiConnectors()
   const agentConfigsQuery = useAgentConfigs()
-  const osintSourcesQuery = useOsintSources()
-  const approvalsQuery = useAiApprovals(approvalFilter === 'all' ? undefined : approvalFilter)
-  const promptsQuery = useAiPrompts()
-  const featuresQuery = useAiFeatures()
-  const schedulesQuery = useAiSchedules()
+  const osintSourcesQuery = useOsintSources(activeTab === 'osint')
+  const isApprovalsTab = activeTab === 'approvals'
+  const resolvedApprovalFilter =
+    isApprovalsTab && approvalFilter !== 'all' ? approvalFilter : undefined
+  const approvalsQuery = useAiApprovals(resolvedApprovalFilter, isApprovalsTab)
+  const promptsQuery = useAiPrompts(activeTab === 'prompts')
+  const featuresQuery = useAiFeatures(activeTab === 'features')
+  const schedulesQuery = useAiSchedules(activeTab === 'schedules')
 
   // Mutations
   const updateConfigMutation = useUpdateAgentConfig()

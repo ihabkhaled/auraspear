@@ -5,12 +5,13 @@ import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { AiFeatureConfig, ApiResponse, UpdateAiFeatureConfigInput } from '@/types'
 
-export function useAiFeatures() {
+export function useAiFeatures(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['ai-features', tenantId],
     queryFn: () => agentConfigService.getFeatures(),
+    enabled,
   })
 }
 

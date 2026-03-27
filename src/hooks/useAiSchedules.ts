@@ -5,12 +5,13 @@ import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { AiAgentSchedule, ApiResponse, UpdateScheduleInput } from '@/types'
 
-export function useAiSchedules() {
+export function useAiSchedules(enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['ai-schedules', tenantId],
     queryFn: () => agentConfigService.getSchedules(),
+    enabled,
   })
 }
 

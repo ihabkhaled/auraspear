@@ -1839,7 +1839,17 @@
       "wrongCredentials": "مفتاح API أو بيانات اعتماد غير صالحة لمصدر OSINT هذا. قم بتحديث مفتاحك في إعدادات الذكاء الاصطناعي."
     },
     "agentConfig": {
-      "osintSourceNotFound": "مصدر OSINT غير موجود."
+      "osintSourceNotFound": "مصدر OSINT غير موجود.",
+      "invalidAgentId": "معرف الوكيل غير صالح.",
+      "approvalNotFound": "طلب الموافقة غير موجود.",
+      "approvalAlreadyResolved": "تم حل طلب الموافقة بالفعل.",
+      "approvalExpired": "انتهت صلاحية طلب الموافقة."
+    },
+    "validation": {
+      "maxTokensPerCall": {
+        "tooLarge": "لا يمكن أن يتجاوز الحد الأقصى للرموز لكل طلب 32,768.",
+        "tooSmall": "الحد الأدنى للرموز لكل طلب هو 256."
+      }
     }
   },
   "profile": {
@@ -4312,6 +4322,18 @@
     "allFeaturesDisabled": "تم تعطيل جميع الميزات",
     "allSchedulesEnabled": "تم تفعيل جميع الجداول",
     "allSchedulesDisabled": "تم تعطيل جميع الجداول",
+    "chatTitle": "محادثة الذكاء الاصطناعي",
+    "chatDescription": "تحدث مباشرة مع موصلات LLM المكونة",
+    "newChat": "محادثة جديدة",
+    "chatPlaceholder": "اكتب رسالتك...",
+    "sendMessage": "إرسال",
+    "noChats": "لا توجد محادثات بعد. ابدأ محادثة جديدة.",
+    "chatMessages": "رسائل",
+    "chatTokens": "رموز مستخدمة",
+    "chatArchive": "أرشفة",
+    "chatArchived": "تم أرشفة المحادثة",
+    "chatCreated": "تم إنشاء محادثة جديدة",
+    "chatError": "فشل في إرسال الرسالة",
     "tabAgents": "الوكلاء",
     "tabOsint": "مصادر OSINT",
     "tabApprovals": "الموافقات",
@@ -4379,7 +4401,7 @@
     "provider": "المزوّد",
     "model": "النموذج",
     "temperature": "درجة الحرارة",
-    "maxTokens": "أقصى عدد للرموز",
+    "maxTokens": "الحد الأقصى للرموز لكل طلب",
     "triggerMode": "وضع التشغيل",
     "outputFormat": "تنسيق الإخراج",
     "tokenUsage": "استخدام الرموز",
@@ -4405,6 +4427,7 @@
     "outputJson": "JSON مهيكل",
     "outputMarkdown": "Markdown",
     "outputRichCards": "بطاقات غنية",
+    "outputPlainText": "نص عادي",
     "configUpdated": "تم تحديث التكوين",
     "agentEnabled": "تم تفعيل الوكيل",
     "agentDisabled": "تم تعطيل الوكيل",
@@ -4485,7 +4508,9 @@
     "featureKey": "الميزة",
     "featureEnabled": "مفعّل",
     "featureProvider": "المزود المفضل",
-    "featureMaxTokens": "الحد الأقصى للرموز",
+    "featureMaxTokens": "الحد الأقصى للرموز لكل استجابة",
+    "featureToggleEnabled": "تم تفعيل الميزة",
+    "featureToggleDisabled": "تم تعطيل الميزة",
     "featureApproval": "مستوى الموافقة",
     "featureBudget": "الميزانية الشهرية",
     "editFeature": "تعديل الميزة",

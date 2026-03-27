@@ -5,12 +5,13 @@ import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { ResolveApprovalInput } from '@/types'
 
-export function useAiApprovals(status?: string) {
+export function useAiApprovals(status?: string, enabled = true) {
   const tenantId = useTenantStore(s => s.currentTenantId)
 
   return useQuery({
     queryKey: ['agent-config', 'approvals', status, tenantId],
     queryFn: () => agentConfigService.getApprovals(status),
+    enabled,
   })
 }
 

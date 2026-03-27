@@ -2,8 +2,11 @@ import api from '@/lib/api'
 import type {
   AgentExecutionHistoryItem,
   AiAgentSchedule,
+  AiChatMessage,
+  AiChatThread,
   AiExecutionFinding,
   AiFeatureConfig,
+  AiJobRunSummary,
   AiPromptTemplate,
   ApiResponse,
   ApprovalRequest,
@@ -186,6 +189,49 @@ export const agentConfigService = {
   getFindingsByEntity: (entityType: string, entityId: string) =>
     api
       .get<ApiResponse<AiExecutionFinding[]>>(`/ai/findings/by-entity/${entityType}/${entityId}`)
+      .then(r => r.data),
+
+  // Chat
+  listChatThreads: (params?: { page?: number; limit?: number }) =>
+    api.get<ApiResponse<AiChatThread[]>>('/ai-chat/threads', { params }).then(r => r.data),
+
+  createChatThread: (data: { connectorId?: string; model?: string; systemPrompt?: string }) =>
+    api.post<ApiResponse<AiChatThread>>('/ai-chat/threads', data).then(r => r.data),
+
+  getChatMessages: (threadId: string, params?: { page?: number; limit?: number }) =>
+    api
+      .get<ApiResponse<AiChatMessage[]>>(`/ai-chat/threads/${threadId}/messages`, { params })
+      .then(r => r.data),
+
+  sendChatMessage: (threadId: string, content: string) =>
+    api
+      .post<ApiResponse<AiChatMessage>>(`/ai-chat/threads/${threadId}/messages`, { content })
+      .then(r => r.data),
+
+  archiveChatThread: (threadId: string) =>
+    api.delete<ApiResponse<void>>(`/ai-chat/threads/${threadId}`).then(r => r.data),
+
+  // Job Runs
+  getJobRuns: (params?: {
+    page?: number
+    limit?: number
+    jobKey?: string
+    agentId?: string
+    status?: string
+    sourceModule?: string
+  }) => api.get<ApiResponse<AiJobRunSummary[]>>('/ai/job-runs', { params }).then(r => r.data),
+
+  getJobHealth: () =>
+    api
+      .get<
+        ApiResponse<{
+          totalRuns: number
+          completed: number
+          failed: number
+          avgDurationMs: number
+          uniqueAgents: number
+        }>
+      >('/ai/job-health/summary')
       .then(r => r.data),
 
   // Schedules
