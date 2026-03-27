@@ -3,7 +3,7 @@ const path = require('path')
 const toForwardSlash = p => p.split(path.sep).join('/')
 
 const buildEslintCommand = fileNames =>
-  `eslint ${fileNames.map(f => toForwardSlash(path.relative(process.cwd(), f))).join(' ')} --fix`
+  `eslint ${fileNames.map(f => `"${toForwardSlash(path.relative(process.cwd(), f))}"`).join(' ')} --fix`
 
 const buildPrettierCommand = fileNames =>
   `prettier --write ${fileNames.map(f => toForwardSlash(path.relative(process.cwd(), f))).join(' ')}`

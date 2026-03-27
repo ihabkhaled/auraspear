@@ -50,6 +50,7 @@
     "msspDashboard": "MSSP Dashboard",
     "aiConfig": "AI Config",
     "aiChat": "AI Chat",
+    "aiMemory": "AI Memory",
     "aiHistory": "AI History"
   },
   "common": {
@@ -3941,7 +3942,8 @@
       "entities": "Entity Graph",
       "msspDashboard": "MSSP Dashboard",
       "aiConfig": "AI Configuration",
-      "aiChat": "AI Chat"
+      "aiChat": "AI Chat",
+      "aiMemory": "AI Memory"
     },
     "permissions": {
       "dashboard": {
@@ -4156,6 +4158,10 @@
       },
       "aiChat": {
         "access": "Access AI Chat"
+      },
+      "aiMemory": {
+        "view": "View AI Memory",
+        "edit": "Edit AI Memory"
       }
     },
     "roles": {
@@ -4339,6 +4345,31 @@
     "noHistory": "No AI run history found",
     "viewDetail": "View",
     "runDetail": "Run Details"
+  },
+  "memory": {
+    "title": "AI Memory",
+    "description": "The AI remembers facts and preferences about you across conversations. You can view, edit, or delete what it remembers.",
+    "empty": "No memories yet",
+    "emptyHint": "As you chat with the AI, it will automatically learn and remember important facts about you. Start a conversation to get started.",
+    "searchPlaceholder": "Search memories...",
+    "allCategories": "All categories",
+    "categoryFact": "Fact",
+    "categoryPreference": "Preference",
+    "categoryInstruction": "Instruction",
+    "categoryContext": "Context",
+    "addMemory": "Add Memory",
+    "createMemory": "Create Memory",
+    "editMemory": "Edit Memory",
+    "contentPlaceholder": "Enter a fact or preference for the AI to remember...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "created": "Memory created",
+    "updated": "Memory updated",
+    "deleted": "Memory deleted",
+    "allDeleted": "All memories deleted",
+    "deleteAll": "Delete All Memories",
+    "source": "Source"
   },
   "aiChat": {
     "pageTitle": "AI Chat",

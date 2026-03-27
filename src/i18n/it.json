@@ -50,6 +50,7 @@
     "msspDashboard": "Dashboard MSSP",
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
+    "aiMemory": "Memoria IA",
     "aiHistory": "Cronologia IA"
   },
   "common": {
@@ -3888,7 +3889,8 @@
       "entities": "Grafo Entità",
       "msspDashboard": "Dashboard MSSP",
       "aiConfig": "Configurazione IA",
-      "aiChat": "Chat IA"
+      "aiChat": "Chat IA",
+      "aiMemory": "Memoria IA"
     },
     "permissions": {
       "dashboard": {
@@ -4103,6 +4105,10 @@
       },
       "aiChat": {
         "access": "Accesso alla Chat IA"
+      },
+      "aiMemory": {
+        "view": "Visualizza Memoria IA",
+        "edit": "Modifica Memoria IA"
       }
     },
     "roles": {
@@ -4339,6 +4345,31 @@
     "noHistory": "Nessuna cronologia di esecuzione IA trovata",
     "viewDetail": "Visualizza",
     "runDetail": "Dettagli esecuzione"
+  },
+  "memory": {
+    "title": "Memoria IA",
+    "description": "L'IA ricorda fatti e preferenze su di te attraverso le conversazioni. Puoi visualizzare, modificare o eliminare ciò che ricorda.",
+    "empty": "Nessun ricordo ancora",
+    "emptyHint": "Mentre chatti con l'IA, imparerà automaticamente fatti importanti su di te. Inizia una conversazione per cominciare.",
+    "searchPlaceholder": "Cerca nei ricordi...",
+    "allCategories": "Tutte le categorie",
+    "categoryFact": "Fatto",
+    "categoryPreference": "Preferenza",
+    "categoryInstruction": "Istruzione",
+    "categoryContext": "Contesto",
+    "addMemory": "Aggiungi ricordo",
+    "createMemory": "Crea ricordo",
+    "editMemory": "Modifica ricordo",
+    "contentPlaceholder": "Inserisci un fatto o una preferenza che l'IA dovrebbe ricordare...",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "create": "Crea",
+    "created": "Ricordo creato",
+    "updated": "Ricordo aggiornato",
+    "deleted": "Ricordo eliminato",
+    "allDeleted": "Tutti i ricordi eliminati",
+    "deleteAll": "Elimina tutti i ricordi",
+    "source": "Fonte"
   },
   "aiChat": {
     "pageTitle": "Chat IA",

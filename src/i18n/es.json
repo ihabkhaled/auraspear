@@ -50,6 +50,7 @@
     "msspDashboard": "Panel MSSP",
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
+    "aiMemory": "Memoria de IA",
     "aiHistory": "Historial IA"
   },
   "common": {
@@ -3888,7 +3889,8 @@
       "entities": "Grafo de Entidades",
       "msspDashboard": "Panel MSSP",
       "aiConfig": "Configuracion de IA",
-      "aiChat": "Chat IA"
+      "aiChat": "Chat IA",
+      "aiMemory": "Memoria de IA"
     },
     "permissions": {
       "dashboard": {
@@ -4103,6 +4105,10 @@
       },
       "aiChat": {
         "access": "Acceder al Chat IA"
+      },
+      "aiMemory": {
+        "view": "Ver Memoria de IA",
+        "edit": "Editar Memoria de IA"
       }
     },
     "roles": {
@@ -4339,6 +4345,31 @@
     "noHistory": "No se encontró historial de ejecuciones IA",
     "viewDetail": "Ver",
     "runDetail": "Detalles de ejecución"
+  },
+  "memory": {
+    "title": "Memoria de IA",
+    "description": "La IA recuerda hechos y preferencias sobre ti a través de las conversaciones. Puedes ver, editar o eliminar lo que recuerda.",
+    "empty": "Sin recuerdos aún",
+    "emptyHint": "Mientras chateas con la IA, aprenderá automáticamente hechos importantes sobre ti. Inicia una conversación para empezar.",
+    "searchPlaceholder": "Buscar recuerdos...",
+    "allCategories": "Todas las categorías",
+    "categoryFact": "Hecho",
+    "categoryPreference": "Preferencia",
+    "categoryInstruction": "Instrucción",
+    "categoryContext": "Contexto",
+    "addMemory": "Añadir recuerdo",
+    "createMemory": "Crear recuerdo",
+    "editMemory": "Editar recuerdo",
+    "contentPlaceholder": "Ingresa un hecho o preferencia para que la IA recuerde...",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "create": "Crear",
+    "created": "Recuerdo creado",
+    "updated": "Recuerdo actualizado",
+    "deleted": "Recuerdo eliminado",
+    "allDeleted": "Todos los recuerdos eliminados",
+    "deleteAll": "Eliminar todos los recuerdos",
+    "source": "Fuente"
   },
   "aiChat": {
     "pageTitle": "Chat IA",

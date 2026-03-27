@@ -50,6 +50,7 @@
     "msspDashboard": "Tableau de bord MSSP",
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
+    "aiMemory": "Mémoire IA",
     "aiHistory": "Historique IA"
   },
   "common": {
@@ -3888,7 +3889,8 @@
       "entities": "Graphe d'Entités",
       "msspDashboard": "Tableau de Bord MSSP",
       "aiConfig": "Configuration IA",
-      "aiChat": "Chat IA"
+      "aiChat": "Chat IA",
+      "aiMemory": "Mémoire IA"
     },
     "permissions": {
       "dashboard": {
@@ -4103,6 +4105,10 @@
       },
       "aiChat": {
         "access": "Accéder au Chat IA"
+      },
+      "aiMemory": {
+        "view": "Voir la Mémoire IA",
+        "edit": "Modifier la Mémoire IA"
       }
     },
     "roles": {
@@ -4339,6 +4345,31 @@
     "noHistory": "Aucun historique d'exécution IA trouvé",
     "viewDetail": "Voir",
     "runDetail": "Détails de l'exécution"
+  },
+  "memory": {
+    "title": "Mémoire IA",
+    "description": "L'IA se souvient des faits et préférences vous concernant à travers les conversations. Vous pouvez voir, modifier ou supprimer ce dont elle se souvient.",
+    "empty": "Aucun souvenir pour le moment",
+    "emptyHint": "En discutant avec l'IA, elle apprendra automatiquement des faits importants à votre sujet. Commencez une conversation pour démarrer.",
+    "searchPlaceholder": "Rechercher dans les souvenirs...",
+    "allCategories": "Toutes les catégories",
+    "categoryFact": "Fait",
+    "categoryPreference": "Préférence",
+    "categoryInstruction": "Instruction",
+    "categoryContext": "Contexte",
+    "addMemory": "Ajouter un souvenir",
+    "createMemory": "Créer un souvenir",
+    "editMemory": "Modifier le souvenir",
+    "contentPlaceholder": "Entrez un fait ou une préférence dont l'IA devrait se souvenir...",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "create": "Créer",
+    "created": "Souvenir créé",
+    "updated": "Souvenir mis à jour",
+    "deleted": "Souvenir supprimé",
+    "allDeleted": "Tous les souvenirs supprimés",
+    "deleteAll": "Supprimer tous les souvenirs",
+    "source": "Source"
   },
   "aiChat": {
     "pageTitle": "Chat IA",

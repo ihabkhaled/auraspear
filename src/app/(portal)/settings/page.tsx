@@ -6,6 +6,7 @@ import {
   NotificationPreferencesCard,
   DataRetentionCard,
   ExportImportCard,
+  MemorySettingsCard,
 } from '@/components/settings'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -205,6 +206,9 @@ export default function SettingsPage() {
 
       {/* Export/Import Settings Card */}
       <ExportImportCard />
+
+      {/* AI Memory Card */}
+      <MemorySettingsCard />
     </div>
   )
 }

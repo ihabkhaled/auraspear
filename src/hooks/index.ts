@@ -605,3 +605,4 @@ export {
   useResetSchedule,
 } from './useAiSchedules'
 export { useAiScheduleEditDialog } from './useAiScheduleEditDialog'
+export { useMemorySettings } from './useMemorySettings'

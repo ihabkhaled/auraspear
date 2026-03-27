@@ -117,3 +117,4 @@ export {
   AiApprovalLevel,
 } from './ai-config.enum'
 export { CronPreset } from './cron-preset.enum'
+export { MemoryCategory } from './memory.enum'

@@ -50,6 +50,7 @@
     "msspDashboard": "MSSP-Dashboard",
     "aiConfig": "KI-Konfig",
     "aiChat": "KI-Chat",
+    "aiMemory": "KI-Gedächtnis",
     "aiHistory": "KI-Verlauf"
   },
   "common": {
@@ -3888,7 +3889,8 @@
       "entities": "Entitätsgraph",
       "msspDashboard": "MSSP-Dashboard",
       "aiConfig": "KI-Konfiguration",
-      "aiChat": "KI-Chat"
+      "aiChat": "KI-Chat",
+      "aiMemory": "KI-Gedächtnis"
     },
     "permissions": {
       "dashboard": {
@@ -4103,6 +4105,10 @@
       },
       "aiChat": {
         "access": "Zugang zum KI-Chat"
+      },
+      "aiMemory": {
+        "view": "KI-Gedächtnis anzeigen",
+        "edit": "KI-Gedächtnis bearbeiten"
       }
     },
     "roles": {
@@ -4339,6 +4345,31 @@
     "noHistory": "Kein KI-Ausführungsverlauf gefunden",
     "viewDetail": "Anzeigen",
     "runDetail": "Ausführungsdetails"
+  },
+  "memory": {
+    "title": "KI-Gedächtnis",
+    "description": "Die KI merkt sich Fakten und Präferenzen über Sie über Gespräche hinweg. Sie können ansehen, bearbeiten oder löschen, was sie sich merkt.",
+    "empty": "Noch keine Erinnerungen",
+    "emptyHint": "Während Sie mit der KI chatten, lernt sie automatisch wichtige Fakten über Sie. Starten Sie ein Gespräch, um zu beginnen.",
+    "searchPlaceholder": "Erinnerungen durchsuchen...",
+    "allCategories": "Alle Kategorien",
+    "categoryFact": "Fakt",
+    "categoryPreference": "Präferenz",
+    "categoryInstruction": "Anweisung",
+    "categoryContext": "Kontext",
+    "addMemory": "Erinnerung hinzufügen",
+    "createMemory": "Erinnerung erstellen",
+    "editMemory": "Erinnerung bearbeiten",
+    "contentPlaceholder": "Geben Sie einen Fakt oder eine Präferenz ein, die die KI sich merken soll...",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "create": "Erstellen",
+    "created": "Erinnerung erstellt",
+    "updated": "Erinnerung aktualisiert",
+    "deleted": "Erinnerung gelöscht",
+    "allDeleted": "Alle Erinnerungen gelöscht",
+    "deleteAll": "Alle Erinnerungen löschen",
+    "source": "Quelle"
   },
   "aiChat": {
     "pageTitle": "KI-Chat",

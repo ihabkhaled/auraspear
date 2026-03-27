@@ -813,3 +813,10 @@ export type {
   AiScheduleTableProps,
   AiScheduleEditDialogProps,
 } from './ai-config.types'
+export type {
+  UserMemory,
+  UserMemoryListResponse,
+  CreateMemoryInput,
+  UpdateMemoryInput,
+  MemorySettingsCardProps,
+} from './memory.types'
