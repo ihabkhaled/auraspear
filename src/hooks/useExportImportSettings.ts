@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
+import { nowISO, todayDate } from '@/lib/dayjs'
 import { buildErrorToastHandler } from '@/lib/toast.utils'
 import type { ExportedSettings } from '@/types'
 import { usePreferences, useUpdatePreferences } from './useSettings'
@@ -37,14 +38,14 @@ export function useExportImportSettings() {
       },
       theme: (preferences['theme'] as string) ?? 'system',
       language: (preferences['language'] as string) ?? 'en',
-      exportedAt: new Date().toISOString(),
+      exportedAt: nowISO(),
     }
 
     const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement('a')
     link.href = url
-    link.download = `auraspear-settings-${new Date().toISOString().split('T')[0]}.json`
+    link.download = `auraspear-settings-${todayDate()}.json`
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)

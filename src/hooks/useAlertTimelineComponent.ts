@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { AlertTimelineEventType } from '@/enums'
 import { getTimelineEventColor, getTimelineEventIcon } from '@/lib/alert.utils'
+import { sortByDateAsc } from '@/lib/dayjs'
 import type { Alert, AlertTimelineEvent } from '@/types'
 
 export function useAlertTimelineComponent(alert: Alert) {
@@ -40,7 +41,7 @@ export function useAlertTimelineComponent(alert: Alert) {
       })
     }
 
-    return events.sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime())
+    return sortByDateAsc(events, e => e.timestamp)
   }, [alert, t])
 
   return {

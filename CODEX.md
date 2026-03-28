@@ -42,6 +42,7 @@ If this file and `CLAUDE.md` ever differ, `CLAUDE.md` wins.
 15. Use `buildErrorToastHandler(tErrors)` for all mutation `onError` handlers instead of inline toast calls.
 16. Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns — it reads from the global `useAiConnectorStore`.
 17. New common components (SearchInput, CollapsibleSection, AiResultCard, VirtualizedList, column-renderers, toast.utils) are available via `@/components/common` barrel.
+18. NEVER use raw `new Date()` or `Date.now()` — use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `uniqueId`, `formatTimestamp`, `sortByDateAsc/Desc`).
 
 ## Current Focus Defaults
 

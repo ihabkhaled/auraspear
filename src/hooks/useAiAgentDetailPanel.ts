@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { AiAgentPanelTab, AiAgentStatus, Permission } from '@/enums'
 import { isAiAgentPanelTab } from '@/lib/ai-agent.utils'
+import { formatDate } from '@/lib/dayjs'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { hasPermission } from '@/lib/permissions'
 import { buildErrorToastHandler } from '@/lib/toast.utils'
@@ -65,10 +66,7 @@ export function useAiAgentDetailPanel({
 
   const formattedCost = useMemo(() => `$${agent.totalCost.toFixed(2)}`, [agent.totalCost])
 
-  const formattedDate = useMemo(
-    () => new Date(agent.createdAt).toLocaleDateString(),
-    [agent.createdAt]
-  )
+  const formattedDate = useMemo(() => formatDate(agent.createdAt), [agent.createdAt])
 
   const handleSaveSoul = useCallback(() => {
     updateSoulMutation.mutate(

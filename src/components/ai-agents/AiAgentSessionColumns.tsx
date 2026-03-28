@@ -2,6 +2,7 @@
 
 import { Badge } from '@/components/ui'
 import { type AiSessionTrigger } from '@/enums'
+import { formatTimestamp } from '@/lib/dayjs'
 import {
   AI_SESSION_CONNECTOR_LABELS,
   AI_SESSION_TRIGGER_LABEL_KEYS,
@@ -116,7 +117,7 @@ export function getAiAgentSessionColumns(t: SessionColumnTranslations): Column<A
       className: 'w-36',
       render: (value: unknown) => (
         <span className="text-muted-foreground text-xs">
-          {value ? new Date(String(value)).toLocaleString() : '-'}
+          {value ? formatTimestamp(String(value)) : '-'}
         </span>
       ),
     },

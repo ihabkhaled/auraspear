@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { HuntMobileTab, HuntStatus, MessageRole, Permission, ReasoningStepStatus } from '@/enums'
+import { nowISO, uniqueId } from '@/lib/dayjs'
 import { hasPermission } from '@/lib/permissions'
 import { useAuthStore, useHuntStore } from '@/stores'
 import type { HuntSession } from '@/types'
@@ -62,10 +63,10 @@ export function useHuntPage() {
 
       // Add user message
       addMessage({
-        id: `user-${Date.now()}`,
+        id: uniqueId('user'),
         role: MessageRole.USER,
         content,
-        timestamp: new Date().toISOString(),
+        timestamp: nowISO(),
       })
 
       setHuntStatus(HuntStatus.RUNNING)
@@ -96,10 +97,10 @@ export function useHuntPage() {
                 : []
 
               addMessage({
-                id: `ai-${Date.now()}`,
+                id: uniqueId('ai'),
                 role: MessageRole.AI,
                 content: sessionData.aiAnalysis ?? reasoningSteps.join('\n'),
-                timestamp: new Date().toISOString(),
+                timestamp: nowISO(),
                 reasoningSteps: reasoningSteps.map((step: string, i: number) => ({
                   id: `step-${String(i)}`,
                   label: step,

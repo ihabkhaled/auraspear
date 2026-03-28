@@ -523,6 +523,13 @@ Always use shadcn/ui form components, not raw HTML elements.
 | `renderConfidenceBadge` | `@/lib/column-renderers` | DataTable column confidence badge renderer |
 | `renderTruncatedText` | `@/lib/column-renderers` | DataTable column text truncation renderer |
 | `TranslationFn` | `@/types` | Base type: `(key: string) => string` for t() props |
+| `formatDate` | `@/lib/dayjs` | Format date as `MMM D, YYYY` |
+| `formatTimestamp` | `@/lib/dayjs` | Format date as `MMM D, YYYY HH:mm:ss` |
+| `formatRelativeTime` | `@/lib/dayjs` | Format date as relative time (`2 hours ago`) |
+| `nowISO` | `@/lib/dayjs` | Get current time as ISO string (replaces `new Date().toISOString()`) |
+| `todayDate` | `@/lib/dayjs` | Get today as `YYYY-MM-DD` (replaces `new Date().toISOString().split('T')[0]`) |
+| `uniqueId` | `@/lib/dayjs` | Generate unique ID with prefix (replaces `` `${prefix}-${Date.now()}` ``) |
+| `sortByDateAsc/Desc` | `@/lib/dayjs` | Sort arrays by date field (replaces manual `.getTime()` comparisons) |
 
 ### Common Hooks
 
@@ -544,7 +551,7 @@ Always use shadcn/ui form components, not raw HTML elements.
 | `react-hook-form`                   | Form management        | `useForm`, `Controller`                           |
 | `zod`                               | Schema validation      | `z.object()`, `z.string()`                        |
 | `axios`                             | HTTP client            | via `@/lib/api` (pre-configured instance)         |
-| `dayjs`                             | Date formatting        | `formatDate()` from `@/lib/utils`                 |
+| `dayjs`                             | Date formatting        | via `@/lib/dayjs` module (NEVER import dayjs directly) |
 | `lucide-react`                      | Icons                  | `<Search />`, `<Filter />`, `<Plus />`, etc.      |
 | `sonner`                            | Toast notifications    | via `Toast` from `@/components/common`            |
 | `sweetalert2`                       | Confirmation dialogs   | via `SweetAlertDialog` from `@/components/common` |
@@ -999,4 +1006,5 @@ Before committing any module:
 39. **NEVER use literal strings in `switch/case` statements** — Use enum values instead. Write `case AlertSeverity.CRITICAL:` not `case 'critical':`. If no enum exists for the domain, create one in `src/enums/`.
 40. **NEVER return literal CSS class strings from utility functions** — Use `StatusTextClass`, `StatusBgClass`, `StatusBorderClass` enums from `@/enums` instead of literal strings like `'text-status-error'` or `'bg-status-success'`. For compound classes use template literals: `` `${StatusBgClass.ERROR} ${StatusTextClass.WHITE}` ``.
 41. **Browser APIs MUST be centralized in utility functions** — Never call `document.cookie`, `navigator.clipboard`, `localStorage`, or `sessionStorage` directly in hooks or components. Use centralized utilities: `setCookie()`/`getCookie()` from `@/lib/cookies`, `copyToClipboard()` from `@/lib/utils`, Zustand stores with `persist-storage` for localStorage. This ensures consistent behavior, testability, and SSR safety (`typeof window` checks in one place).
-42. **Cross-cutting libraries MUST be modularized** — Any external library (Axios, dayjs, sonner, sweetalert2, etc.) must be wrapped in a centralized module (`src/lib/api.ts`, `src/lib/utils.ts`, `src/components/common/Toast.tsx`, etc.). Never import external libraries directly in hooks, components, or pages. Import the wrapper instead.
+42. **Cross-cutting libraries MUST be modularized** — Any external library (Axios, dayjs, sonner, sweetalert2, etc.) must be wrapped in a centralized module (`src/lib/api.ts`, `src/lib/dayjs.ts`, `src/components/common/Toast.tsx`, etc.). Never import external libraries directly in hooks, components, or pages. Import the wrapper instead.
+43. **NEVER use raw `new Date()`, `Date.now()`, or `Date` methods** — Always use the centralized dayjs module at `@/lib/dayjs`. Use `nowISO()` instead of `new Date().toISOString()`, `todayDate()` instead of `new Date().toISOString().split('T')[0]`, `uniqueId(prefix)` instead of `` `${prefix}-${Date.now()}` ``, `formatTimestamp(date)` instead of `new Date(date).toLocaleString()`, `sortByDateAsc/Desc()` instead of manual `.getTime()` comparisons.

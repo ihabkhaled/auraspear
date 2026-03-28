@@ -5,6 +5,7 @@ import { DataTable, EmptyState, LoadingSpinner, PageHeader, Pagination } from '@
 import { JobFilters, JobKpiCards } from '@/components/jobs'
 import { Badge, Button } from '@/components/ui'
 import { useJobsPage } from '@/hooks'
+import { formatTimestamp } from '@/lib/dayjs'
 import {
   getJobStatusBadgeVariant,
   isCancellableJobStatus,
@@ -79,7 +80,7 @@ export default function JobsPage() {
       sortable: true,
       render: value => (
         <span className="text-muted-foreground text-xs">
-          {new Date(String(value)).toLocaleString()}
+          {formatTimestamp(String(value))}
         </span>
       ),
     },
@@ -89,7 +90,7 @@ export default function JobsPage() {
       sortable: true,
       render: value => (
         <span className="text-muted-foreground text-xs">
-          {value ? new Date(String(value)).toLocaleString() : '—'}
+          {value ? formatTimestamp(String(value)) : '—'}
         </span>
       ),
     },

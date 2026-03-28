@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { IncidentStatus } from '@/enums'
 import { getErrorKey } from '@/lib/api-error'
+import { nowISO } from '@/lib/dayjs'
 import { copyToClipboard } from '@/lib/utils'
 import type {
   CreateIncidentFormValues,
@@ -86,7 +87,7 @@ export function useIncidentPageCrud(dialogs: IncidentPageDialogsReturn) {
         formData.status === IncidentStatus.RESOLVED &&
         dialogs.editingIncident.status !== IncidentStatus.RESOLVED
       ) {
-        payload['resolvedAt'] = new Date().toISOString()
+        payload['resolvedAt'] = nowISO()
       }
       updateMutation.mutate(
         { id: dialogs.editingIncident.id, data: payload },

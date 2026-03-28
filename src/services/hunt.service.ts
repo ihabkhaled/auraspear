@@ -1,5 +1,6 @@
 import { MessageRole, ReasoningStepStatus } from '@/enums'
 import api from '@/lib/api'
+import { nowISO, uniqueId } from '@/lib/dayjs'
 import type { ApiResponse, HuntSession, HuntMessage, HuntEvent } from '@/types'
 import type { AiResponse } from '@/types/ai.types'
 
@@ -15,10 +16,10 @@ export const huntService = {
     const ai = response.data.data
 
     const message: HuntMessage = {
-      id: `ai-${Date.now()}`,
+      id: uniqueId('ai'),
       role: MessageRole.AI,
       content: ai?.result ?? '',
-      timestamp: new Date().toISOString(),
+      timestamp: nowISO(),
       reasoningSteps: (ai?.reasoning ?? []).map((step, i) => ({
         id: `step-${String(i)}`,
         label: step,

@@ -1,5 +1,6 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
+import { formatTimestamp } from '@/lib/dayjs'
 import type { AiAgentSession } from '@/types'
 
 export function useAiAgentSessionDetail() {
@@ -39,13 +40,12 @@ export function useAiAgentSessionDetail() {
   )
 
   const formattedStartedAt = useMemo(
-    () => (selectedSession?.startedAt ? new Date(selectedSession.startedAt).toLocaleString() : '-'),
+    () => (selectedSession?.startedAt ? formatTimestamp(selectedSession.startedAt) : '-'),
     [selectedSession]
   )
 
   const formattedCompletedAt = useMemo(
-    () =>
-      selectedSession?.completedAt ? new Date(selectedSession.completedAt).toLocaleString() : '-',
+    () => (selectedSession?.completedAt ? formatTimestamp(selectedSession.completedAt) : '-'),
     [selectedSession]
   )
 

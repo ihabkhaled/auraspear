@@ -37,6 +37,7 @@ All code must follow the rules defined in [`CLAUDE.md`](./CLAUDE.md). Key highli
 - Use `buildErrorToastHandler(tErrors)` for mutation error handling
 - Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns
 - Wrap third-party UI libs in `@/components/common/` before using
+- NEVER use raw `new Date()` or `Date.now()` — use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `formatTimestamp`, etc.)
 
 ## Pull Request Workflow
 

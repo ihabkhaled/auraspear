@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { useForm } from 'react-hook-form'
+import { todayDate } from '@/lib/dayjs'
 import type { CreateCycleFormValues, UseCreateCycleDialogParams } from '@/types'
 
 export function useCreateCycleDialog({ open, onOpenChange, onSubmit }: UseCreateCycleDialogParams) {
@@ -10,7 +11,7 @@ export function useCreateCycleDialog({ open, onOpenChange, onSubmit }: UseCreate
     defaultValues: {
       name: '',
       description: '',
-      startDate: new Date().toISOString().split('T')[0] ?? '',
+      startDate: todayDate(),
       endDate: '',
     },
   })
