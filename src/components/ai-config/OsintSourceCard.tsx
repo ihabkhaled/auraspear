@@ -2,10 +2,14 @@
 
 import { memo } from 'react'
 import { CheckCircle, Edit, Globe, Trash2, XCircle, Zap } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Switch,
+} from '@/components/ui'
 import { OSINT_AUTH_TYPE_LABELS } from '@/lib/constants/ai-config'
 import { lookupBuiltinOsintDefaults } from '@/lib/osint.utils'
 import { lookup } from '@/lib/utils'

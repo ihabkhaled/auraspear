@@ -8,7 +8,7 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command'
+} from '@/components/ui'
 import { useCommandPalette } from '@/hooks'
 
 export function CommandPalette() {

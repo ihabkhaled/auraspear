@@ -1,8 +1,15 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui'
 import type { DashboardSectionCardProps } from '@/types'
 
 export function DashboardSectionCard({

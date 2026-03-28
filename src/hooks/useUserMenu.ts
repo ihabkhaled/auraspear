@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useLogout } from '@/hooks/useLogout'
+import { useLogout } from '@/hooks'
 import { getInitials } from '@/lib/case.utils'
 import { useAuthStore } from '@/stores'
 

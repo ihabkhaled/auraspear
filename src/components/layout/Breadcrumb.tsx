@@ -4,13 +4,13 @@ import React from 'react'
 import Link from 'next/link'
 import {
   Breadcrumb as BreadcrumbRoot,
-  BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,
+  BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb'
-import { useBreadcrumb } from '@/hooks/useBreadcrumb'
+} from '@/components/ui'
+import { useBreadcrumb } from '@/hooks'
 import { PATH_LABEL_MAP, SKIP_SEGMENTS } from '@/lib/constants/breadcrumb'
 
 export function LayoutBreadcrumb() {

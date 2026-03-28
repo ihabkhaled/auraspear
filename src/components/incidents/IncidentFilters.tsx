@@ -1,17 +1,17 @@
 'use client'
 
 import { Search, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
-import { useIncidentFilters } from '@/hooks/useIncidentFilters'
+import { useIncidentFilters } from '@/hooks'
 import {
   INCIDENT_CATEGORY_LABEL_KEYS,
   INCIDENT_SEVERITY_LABEL_KEYS,

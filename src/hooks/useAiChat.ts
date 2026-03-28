@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react'
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 import type { AiChatMessage, AiChatThread } from '@/types'
@@ -83,9 +83,7 @@ export function useAiChat() {
       Toast.success(t('chatCreated'))
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   // Send message with per-message model override
@@ -113,9 +111,7 @@ export function useAiChat() {
       })
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   // Update thread (change model/connector mid-chat)
@@ -130,9 +126,7 @@ export function useAiChat() {
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   // Archive thread
@@ -143,9 +137,7 @@ export function useAiChat() {
       setSelectedThreadId(null)
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleSendMessage = () => {

@@ -1,7 +1,7 @@
 'use client'
 
 import { Bot, User } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { MessageRole } from '@/enums'
 import { useChatMessage } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'

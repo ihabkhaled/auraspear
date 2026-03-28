@@ -2,7 +2,7 @@
 
 import { AlertTriangle, Cloud, Link2, ShieldAlert } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useCloudSecurityKpiCards } from '@/hooks/useCloudSecurityKpiCards'
+import { useCloudSecurityKpiCards } from '@/hooks'
 import type { CloudSecurityKpiCardsProps } from '@/types'
 
 export function CloudSecurityKpiCards({ stats }: CloudSecurityKpiCardsProps) {

@@ -8,11 +8,14 @@ import {
   RunbookDetailPanel,
   RunbookEditDialog,
 } from '@/components/knowledge'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { useKnowledgePage } from '@/hooks/useKnowledgePage'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  Input,
+} from '@/components/ui'
+import { useKnowledgePage } from '@/hooks'
 import { formatDate } from '@/lib/utils'
 import type { Column, RunbookRecord } from '@/types'
 
@@ -49,10 +52,6 @@ export default function KnowledgePage() {
     canDelete,
     aiGenerate,
     aiSearch,
-    aiConnectorTCommon,
-    aiAvailableConnectors,
-    aiSelectedConnector,
-    aiHandleConnectorChange,
   } = useKnowledgePage()
 
   const enhancedColumns: Column<RunbookRecord>[] = [
@@ -151,10 +150,6 @@ export default function KnowledgePage() {
       <AiKnowledgePanel
         aiGenerate={aiGenerate}
         aiSearch={aiSearch}
-        availableConnectors={aiAvailableConnectors}
-        selectedConnector={aiSelectedConnector}
-        onConnectorChange={aiHandleConnectorChange}
-        tCommon={aiConnectorTCommon}
         t={t}
       />
 

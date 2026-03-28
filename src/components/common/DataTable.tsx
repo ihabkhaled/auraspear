@@ -2,18 +2,18 @@
 
 import { Inbox, ArrowUp, ArrowDown, ChevronsUpDown } from 'lucide-react'
 import { EmptyState } from '@/components/common/EmptyState'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Skeleton } from '@/components/ui/skeleton'
 import {
+  Checkbox,
+  Skeleton,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui'
 import { SortOrder } from '@/enums'
-import { useDataTableComponent } from '@/hooks/useDataTableComponent'
+import { useDataTableComponent } from '@/hooks'
 import { cn, getNestedValue } from '@/lib/utils'
 import type { DataTableProps } from '@/types'
 

@@ -1,10 +1,16 @@
 'use client'
 
 import { Cable, Settings } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { useLlmConnectorCard } from '@/hooks/useLlmConnectorCard'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useLlmConnectorCard } from '@/hooks'
 import { formatRelativeTime } from '@/lib/utils'
 import type { LlmConnectorCardProps } from '@/types'
 import { StatusBadge } from './StatusBadge'

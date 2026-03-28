@@ -1,9 +1,7 @@
 'use client'
 
 import { Crosshair } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { Pagination } from '@/components/common/Pagination'
-import { SeverityBadge } from '@/components/common/SeverityBadge'
+import { DataTable, Pagination, SeverityBadge } from '@/components/common'
 import type { AlertSeverity } from '@/enums'
 import { useHuntEventTable } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'

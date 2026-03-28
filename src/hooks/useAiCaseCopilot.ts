@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { caseService } from '@/services/case.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { caseService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiCaseCopilotResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiCaseCopilot(caseId: string) {
   const t = useTranslations('cases')
@@ -19,8 +17,8 @@ export function useAiCaseCopilot(caseId: string) {
   const permissions = useAuthStore(s => s.permissions)
   const canUseCopilot = hasPermission(permissions, Permission.AI_CASE_COPILOT)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiCaseCopilotResult>>({})
@@ -32,7 +30,7 @@ export function useAiCaseCopilot(caseId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -44,7 +42,7 @@ export function useAiCaseCopilot(caseId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -56,7 +54,7 @@ export function useAiCaseCopilot(caseId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -68,7 +66,7 @@ export function useAiCaseCopilot(caseId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -111,8 +109,5 @@ export function useAiCaseCopilot(caseId: string) {
     handleExecutiveSummary,
     handleTimeline,
     handleNextTasks,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

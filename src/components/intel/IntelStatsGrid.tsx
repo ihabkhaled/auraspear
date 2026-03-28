@@ -1,7 +1,7 @@
 'use client'
 
 import { Users, Globe, FileText, Link } from 'lucide-react'
-import { KpiCard } from '@/components/common/KpiCard'
+import { KpiCard } from '@/components/common'
 import { useIntelStatsGrid } from '@/hooks'
 import type { IntelStatsGridProps } from '@/types'
 

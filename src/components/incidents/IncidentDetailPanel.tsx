@@ -2,28 +2,28 @@
 
 import { ChevronDown } from 'lucide-react'
 import { AiFindingsPanel } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Label } from '@/components/ui/label'
-import { ScrollArea } from '@/components/ui/scroll-area'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Label,
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import {
+  Separator,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
+} from '@/components/ui'
 import type { IncidentCategory, IncidentSeverity, IncidentStatus } from '@/enums'
-import { useIncidentDetailPanel } from '@/hooks/useIncidentDetailPanel'
+import { useIncidentDetailPanel } from '@/hooks'
 import {
   INCIDENT_CATEGORY_LABEL_KEYS,
   INCIDENT_SEVERITY_CLASSES,

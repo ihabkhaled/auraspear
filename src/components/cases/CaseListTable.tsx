@@ -1,8 +1,7 @@
 'use client'
 
-import { DataTable } from '@/components/common/DataTable'
-import { SeverityBadge } from '@/components/common/SeverityBadge'
-import { Badge } from '@/components/ui/badge'
+import { DataTable, SeverityBadge } from '@/components/common'
+import { Badge } from '@/components/ui'
 import { type CaseStatus, type CaseSeverity } from '@/enums'
 import { useCaseListTable } from '@/hooks'
 import { STATUS_VARIANT_MAP } from '@/lib/case.utils'

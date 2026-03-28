@@ -1,9 +1,16 @@
 'use client'
 
 import { User, Mail, Shield, Building2, ChevronDown } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Label } from '@/components/ui/label'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Label,
+} from '@/components/ui'
 import type { ProfilePersonalInfoProps } from '@/types'
 
 export function ProfilePersonalInfo({

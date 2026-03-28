@@ -1,16 +1,17 @@
 'use client'
 
 import { User, Settings, LogOut } from 'lucide-react'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
+  Avatar,
+  AvatarFallback,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useUserMenu } from '@/hooks/useUserMenu'
+} from '@/components/ui'
+import { useUserMenu } from '@/hooks'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { TenantSwitcher } from './TenantSwitcher'
 import { ThemeSwitcher } from './ThemeSwitcher'

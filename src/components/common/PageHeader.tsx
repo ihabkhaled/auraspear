@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import type { PageHeaderProps } from '@/types'
 
 export function PageHeader({ title, description, action, children }: PageHeaderProps) {

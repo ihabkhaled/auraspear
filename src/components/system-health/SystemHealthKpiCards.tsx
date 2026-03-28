@@ -2,7 +2,7 @@
 
 import { Activity, AlertTriangle, CheckCircle2, Clock, XCircle } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useSystemHealthKpiCards } from '@/hooks/useSystemHealthKpiCards'
+import { useSystemHealthKpiCards } from '@/hooks'
 import type { SystemHealthKpiCardsProps } from '@/types'
 
 export function SystemHealthKpiCards({ stats }: SystemHealthKpiCardsProps) {

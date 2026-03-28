@@ -2,17 +2,19 @@
 
 import { ChevronDown } from 'lucide-react'
 import { AiFindingsPanel } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
 import {
+  Badge,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useCloudAccountDetailPanel } from '@/hooks/useCloudAccountDetailPanel'
+} from '@/components/ui'
+import { useCloudAccountDetailPanel } from '@/hooks'
 import {
   CLOUD_ACCOUNT_STATUS_CLASSES,
   CLOUD_ACCOUNT_STATUS_LABEL_KEYS,

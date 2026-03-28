@@ -1,5 +1,5 @@
 import { Bot } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import { resolveAutomationBadgeLabel, resolveAutomationBadgeVariant } from '@/lib/ai-config.utils'
 import type { AiAutomationBadgeProps } from '@/types'
 

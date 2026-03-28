@@ -2,7 +2,7 @@
 
 import { Clock } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import { SortOrder } from '@/enums'
 import { useExplorerSyncJobsPage } from '@/hooks'
 import { statusVariant } from '@/lib/explorer.utils'

@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Permission, SortOrder } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore } from '@/stores'
 import type { CaseCycle, CreateCycleFormValues, EditCycleFormValues } from '@/types'
 import {
@@ -86,9 +86,7 @@ export function useCycleHistoryPage() {
             setCreateDialogOpen(false)
             Toast.success(t('cycleCreated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -113,9 +111,7 @@ export function useCycleHistoryPage() {
           onSuccess: () => {
             Toast.success(t('cycleClosed'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -149,9 +145,7 @@ export function useCycleHistoryPage() {
             setEditingCycle(null)
             Toast.success(t('cycleUpdated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -174,9 +168,7 @@ export function useCycleHistoryPage() {
         onSuccess: () => {
           Toast.success(t('cycleActivated'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [activateCycle, t, tErrors]
@@ -198,9 +190,7 @@ export function useCycleHistoryPage() {
         onSuccess: () => {
           Toast.success(t('cycleDeleted'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [deleteCycle, t, tErrors]

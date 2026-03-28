@@ -1,17 +1,19 @@
 'use client'
 
 import { ChevronDown, Edit, Trash2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useCorrelationDetailPanel } from '@/hooks/useCorrelationDetailPanel'
+} from '@/components/ui'
+import { useCorrelationDetailPanel } from '@/hooks'
 import {
   RULE_SOURCE_LABEL_KEYS,
   RULE_SOURCE_CLASSES,

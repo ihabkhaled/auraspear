@@ -2,9 +2,8 @@
 
 import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
-import { agentConfigService } from '@/services/agent-config.service'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { agentConfigService } from '@/services'
 
 /**
  * Hook to fetch VT analysis results from a VT analysis URL.
@@ -23,7 +22,7 @@ export function useOsintAnalysisFetch() {
         const resp = await agentConfigService.fetchVtAnalysis(analysisUrl)
         setFetchedData(resp.data)
       } catch (error: unknown) {
-        Toast.error(tErrors(getErrorKey(error)))
+        buildErrorToastHandler(tErrors)(error)
       } finally {
         setIsFetching(false)
       }

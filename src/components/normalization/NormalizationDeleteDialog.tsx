@@ -1,8 +1,8 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useNormalizationDeleteDialog } from '@/hooks/useNormalizationDeleteDialog'
+import { Button } from '@/components/ui'
+import { useNormalizationDeleteDialog } from '@/hooks'
 import type { NormalizationDeleteDialogProps } from '@/types'
 
 export function NormalizationDeleteDialog({

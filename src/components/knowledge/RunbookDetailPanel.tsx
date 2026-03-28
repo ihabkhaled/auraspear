@@ -1,9 +1,14 @@
 'use client'
 
 import { X } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import { formatDate } from '@/lib/utils'
 import type { RunbookDetailPanelProps } from '@/types'
 

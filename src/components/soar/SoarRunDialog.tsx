@@ -1,6 +1,6 @@
 'use client'
 
-import { useSoarRunDialog } from '@/hooks/useSoarRunDialog'
+import { useSoarRunDialog } from '@/hooks'
 import type { SoarRunDialogProps } from '@/types'
 
 export function SoarRunDialog(props: SoarRunDialogProps) {

@@ -2,7 +2,7 @@
 
 import { BarChart3 } from 'lucide-react'
 import { EmptyState } from '@/components/common'
-import { Progress } from '@/components/ui/progress'
+import { Progress } from '@/components/ui'
 import { formatRelativeTime } from '@/lib/utils'
 import type { DashboardMetricBarListProps } from '@/types'
 

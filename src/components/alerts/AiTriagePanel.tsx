@@ -1,17 +1,15 @@
 'use client'
 
 import { Brain, ChevronDown, Loader2, RefreshCw, Shield, Sparkles, Target } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
+import { AiConnectorSelect } from '@/components/common'
 import { cn } from '@/lib/utils'
 import type { AiTriagePanelProps, AiTriageResult } from '@/types'
 
@@ -73,9 +71,6 @@ export function AiTriagePanel({
   onExplainSeverity,
   onFalsePositiveScore,
   onNextAction,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
   t,
 }: AiTriagePanelProps) {
@@ -104,18 +99,7 @@ export function AiTriagePanel({
             <p className="text-muted-foreground text-xs">{t('aiTriageDescription')}</p>
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-              <Select value={selectedConnector} onValueChange={onConnectorChange}>
-                <SelectTrigger className="h-7 w-[160px] text-xs">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableConnectors.map(c => (
-                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                      {c.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <AiConnectorSelect />
             </div>
           </div>
 

@@ -2,15 +2,15 @@
 
 import { Copy, ExternalLink, Globe, Plus, Trash2 } from 'lucide-react'
 import { OsintEnrichButton, OsintFileUploadButton } from '@/components/common'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CaseArtifactType } from '@/enums'
 import { useCaseArtifactPanel } from '@/hooks'
 import { ARTIFACT_TYPE_ICONS, ARTIFACT_TYPE_KEYS } from '@/lib/constants/cases'

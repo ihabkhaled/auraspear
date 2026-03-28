@@ -2,7 +2,7 @@
 
 import { Bug, Plus, Upload } from 'lucide-react'
 import { PageHeader, DataTable, Pagination, LoadingSpinner } from '@/components/common'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import {
   VulnerabilityKpiCards,
   VulnerabilityFilters,
@@ -11,7 +11,7 @@ import {
   VulnerabilityDetailPanel,
   VulnerabilityBulkImportDialog,
 } from '@/components/vulnerabilities'
-import { useVulnerabilitiesPage } from '@/hooks/useVulnerabilitiesPage'
+import { useVulnerabilitiesPage } from '@/hooks'
 
 export default function VulnerabilitiesPage() {
   const {

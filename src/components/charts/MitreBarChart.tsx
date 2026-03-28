@@ -1,7 +1,7 @@
 'use client'
 
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
-import { useMitreBarChart } from '@/hooks/useMitreBarChart'
+import { useMitreBarChart } from '@/hooks'
 import type { MitreBarChartProps } from '@/types'
 
 export function MitreBarChart({ data }: MitreBarChartProps) {

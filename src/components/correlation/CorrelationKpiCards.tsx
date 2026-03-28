@@ -2,7 +2,7 @@
 
 import { GitBranch, Link, ShieldCheck, Zap } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useCorrelationKpiCards } from '@/hooks/useCorrelationKpiCards'
+import { useCorrelationKpiCards } from '@/hooks'
 import type { CorrelationKpiCardsProps } from '@/types'
 
 export function CorrelationKpiCards({ stats }: CorrelationKpiCardsProps) {

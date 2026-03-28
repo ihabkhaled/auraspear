@@ -1,9 +1,14 @@
 'use client'
 
 import { AppLogDetailRow } from '@/components/admin/AppLogDetailRow'
-import { Badge } from '@/components/ui/badge'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import {
+  Badge,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  ScrollArea,
+} from '@/components/ui'
 import { useAppLogDetailDialog } from '@/hooks'
 import { getLevelClasses } from '@/lib/admin.utils'
 import { cn, formatTimestamp } from '@/lib/utils'

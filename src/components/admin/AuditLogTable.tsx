@@ -1,7 +1,7 @@
 'use client'
 
 import { ScrollText } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
+import { DataTable } from '@/components/common'
 import { useAuditLogTable } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'
 import type { AuditLogEntry, AuditLogTableProps, Column } from '@/types'

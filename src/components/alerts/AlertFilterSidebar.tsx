@@ -1,10 +1,12 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import {
+  Button,
+  Checkbox,
+  Input,
+  Label,
+} from '@/components/ui'
 import { type AlertSeverity } from '@/enums'
 import { useAlertFilterSidebar } from '@/hooks'
 import { getSeverityDotClass } from '@/lib/alert.utils'

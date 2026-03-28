@@ -1,5 +1,5 @@
 import { RotateCcw, Save } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import type { RoleSettingsToolbarProps } from '@/types'
 
 export function RoleSettingsToolbar({

@@ -2,9 +2,7 @@
 
 import { Pen } from 'lucide-react'
 import { DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
+import { Badge, Button, Switch } from '@/components/ui'
 import type { AiFeatureConfig, Column, FeatureTableProps } from '@/types'
 
 export function FeatureTable({ features, loading, onEdit, onToggle, t }: FeatureTableProps) {

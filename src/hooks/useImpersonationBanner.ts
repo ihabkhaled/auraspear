@@ -4,8 +4,8 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { type UserRole } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
-import { authService } from '@/services/auth.service'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { authService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useImpersonationBanner() {
@@ -38,7 +38,7 @@ export function useImpersonationBanner() {
       Toast.success(t('ended'))
       router.push('/admin/tenant')
     } catch (error) {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
     } finally {
       setEnding(false)
     }

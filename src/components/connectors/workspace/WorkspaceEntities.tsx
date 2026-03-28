@@ -1,11 +1,15 @@
 'use client'
 
-import { DataTable } from '@/components/common/DataTable'
-import { Pagination } from '@/components/common/Pagination'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { DataTable, Pagination } from '@/components/common'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import { WorkspaceEntityStatus } from '@/enums'
-import { useWorkspaceEntitiesComponent } from '@/hooks/useWorkspaceEntitiesComponent'
+import { useWorkspaceEntitiesComponent } from '@/hooks'
 import { cn, formatTimestamp } from '@/lib/utils'
 import type { Column, WorkspaceEntity, WorkspaceEntitiesProps } from '@/types'
 

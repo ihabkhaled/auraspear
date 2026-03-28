@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common/Toast'
+import { Toast } from '@/components/common'
 import { copyToClipboard } from '@/lib/utils'
 
 export function useCopyButton(value: string) {

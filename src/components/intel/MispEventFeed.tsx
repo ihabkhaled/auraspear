@@ -1,8 +1,8 @@
 'use client'
 
 import { Globe } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { Badge } from '@/components/ui/badge'
+import { DataTable } from '@/components/common'
+import { Badge } from '@/components/ui'
 import { useMispEventFeed } from '@/hooks'
 import { getThreatLevelVariant, truncateInfo } from '@/lib/intel-utils'
 import { formatRelativeTime } from '@/lib/utils'

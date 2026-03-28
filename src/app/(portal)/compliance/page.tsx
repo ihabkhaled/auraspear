@@ -10,7 +10,7 @@ import {
   ComplianceFrameworkDeleteDialog,
   ComplianceFrameworkDetailPanel,
 } from '@/components/compliance'
-import { useCompliancePage } from '@/hooks/useCompliancePage'
+import { useCompliancePage } from '@/hooks'
 
 export default function CompliancePage() {
   const {

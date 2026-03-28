@@ -13,7 +13,6 @@ import type {
 import type { TenantMember } from './admin.types'
 import type { CaseCycle } from './case-cycle.types'
 import type { SelectOption } from './common.types'
-import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface CaseTask {
   id: string
@@ -407,9 +406,6 @@ export interface AiCaseCopilotPanelProps {
   onExecutiveSummary: () => void
   onTimeline: () => void
   onNextTasks: () => void
-  availableConnectors: AvailableAiConnector[]
-  selectedConnector: string
-  onConnectorChange: (value: string) => void
   tCommon: (key: string) => string
   t: (key: string) => string
 }

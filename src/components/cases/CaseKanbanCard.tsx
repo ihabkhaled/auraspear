@@ -1,8 +1,8 @@
 'use client'
 
 import { Link2, Clock } from 'lucide-react'
-import { SeverityBadge } from '@/components/common/SeverityBadge'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { SeverityBadge } from '@/components/common'
+import { Avatar, AvatarFallback } from '@/components/ui'
 import { CaseStatus } from '@/enums'
 import { useCaseKanbanCard } from '@/hooks'
 import { getInitials } from '@/lib/case.utils'

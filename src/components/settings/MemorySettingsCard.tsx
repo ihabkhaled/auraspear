@@ -1,31 +1,30 @@
 'use client'
 
 import { Brain, Edit2, Loader2, Plus, Search, Trash2, X } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { useMemorySettings } from '@/hooks/useMemorySettings'
+  Textarea,
+} from '@/components/ui'
+import { useMemorySettings } from '@/hooks'
 import { formatTimestamp } from '@/lib/utils'
 import type { UserMemory } from '@/types'
 

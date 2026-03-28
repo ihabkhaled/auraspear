@@ -1,5 +1,5 @@
 import { Activity, Bot, CheckCircle2, Clock, XCircle } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import type { OrchestratorStatsBarProps } from '@/types'
 
 export function OrchestratorStatsBar({ stats, t }: OrchestratorStatsBarProps) {

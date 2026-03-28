@@ -2,18 +2,21 @@
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { DataTable, PageHeader } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import {
+  Badge,
+  Button,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { BadgeVariant } from '@/enums'
-import { useAiHistoryPage } from '@/hooks/useAiHistoryPage'
+import { useAiHistoryPage } from '@/hooks'
 import { formatDate } from '@/lib/utils'
 import type { AiJobRunSummary, Column } from '@/types'
 

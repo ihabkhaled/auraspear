@@ -2,9 +2,9 @@
 
 import { MessageSquare, BarChart3 } from 'lucide-react'
 import { HuntChatPanel, HuntResultsPanel } from '@/components/hunt'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { HuntMobileTab, HuntStatus } from '@/enums'
-import { useHuntPage } from '@/hooks/useHuntPage'
+import { useHuntPage } from '@/hooks'
 
 export default function HuntPage() {
   const {

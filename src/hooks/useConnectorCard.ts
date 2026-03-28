@@ -2,10 +2,10 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Permission } from '@/enums'
-import { useTestConnector, useToggleConnector, useDeleteConnector } from '@/hooks/useConnectors'
-import { getErrorKey } from '@/lib/api-error'
+import { useTestConnector, useToggleConnector, useDeleteConnector } from '@/hooks'
 import { CONNECTOR_META } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore } from '@/stores'
 import type { ConnectorCardProps } from '@/types'
 
@@ -31,9 +31,7 @@ export function useConnectorCard({ connector }: ConnectorCardProps) {
         onSuccess: () => {
           Toast.success(`${meta.label} ${checked ? t('enabled') : t('disabled')}`)
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }
@@ -48,9 +46,7 @@ export function useConnectorCard({ connector }: ConnectorCardProps) {
           Toast.error(result.details ?? t('connectionFailed'))
         }
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }
 
@@ -65,9 +61,7 @@ export function useConnectorCard({ connector }: ConnectorCardProps) {
       onSuccess: () => {
         Toast.success(`${meta.label} ${t('deleted')}`)
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }
 

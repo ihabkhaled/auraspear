@@ -1,16 +1,16 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Label } from '@/components/ui/label'
 import {
+  Button,
+  Checkbox,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { UserRole } from '@/enums'
 import { useUserRoleForm } from '@/hooks'
 import type { UserRoleFormProps } from '@/types'

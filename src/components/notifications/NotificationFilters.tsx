@@ -1,15 +1,15 @@
 'use client'
 
 import { Search, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { NotificationType } from '@/enums'
 import { ALL_FILTER } from '@/lib/constants/filters'
 import type { NotificationFiltersProps } from '@/types'

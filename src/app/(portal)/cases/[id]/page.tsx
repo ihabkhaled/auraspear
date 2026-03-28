@@ -12,12 +12,19 @@ import {
   CaseComments,
 } from '@/components/cases'
 import { AiFindingsPanel, LoadingSpinner, EmptyState } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui'
 import { CaseStatus } from '@/enums'
-import { useCaseDetailPage } from '@/hooks/useCaseDetailPage'
+import { useCaseDetailPage } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { CaseDetailPageProps } from '@/types'
 
@@ -186,9 +193,6 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 onExecutiveSummary={aiCopilot.handleExecutiveSummary}
                 onTimeline={aiCopilot.handleTimeline}
                 onNextTasks={aiCopilot.handleNextTasks}
-                availableConnectors={aiCopilot.availableConnectors}
-                selectedConnector={aiCopilot.selectedConnector}
-                onConnectorChange={aiCopilot.handleConnectorChange}
                 tCommon={aiCopilot.tCommon}
                 t={aiCopilot.t}
               />

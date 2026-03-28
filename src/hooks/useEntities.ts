@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
-import { entityService } from '@/services/entity.service'
+import { entityService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { CreateEntityInput, EntitySearchParams, UpdateEntityInput } from '@/types'
 

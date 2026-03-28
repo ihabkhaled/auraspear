@@ -1,11 +1,18 @@
 'use client'
 
 import { Bell, ChevronDown } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { useNotificationPreferences } from '@/hooks/useNotificationPreferences'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Label,
+  Switch,
+} from '@/components/ui'
+import { useNotificationPreferences } from '@/hooks'
 import { CATEGORY_DESCRIPTION_KEYS, CATEGORY_LABEL_KEYS } from '@/lib/constants/settings'
 import { lookup } from '@/lib/utils'
 

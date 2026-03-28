@@ -8,7 +8,7 @@ import { DetectionRuleEditDialog } from '@/components/detection-rules/DetectionR
 import { DetectionRuleFilters } from '@/components/detection-rules/DetectionRuleFilters'
 import { DetectionRuleKpiCards } from '@/components/detection-rules/DetectionRuleKpiCards'
 import { DetectionRuleSeverity, DetectionRuleStatus, DetectionRuleType } from '@/enums'
-import { useDetectionRulesPage } from '@/hooks/useDetectionRulesPage'
+import { useDetectionRulesPage } from '@/hooks'
 
 export default function DetectionRulesPage() {
   const {

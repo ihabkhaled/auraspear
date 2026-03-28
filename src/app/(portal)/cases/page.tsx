@@ -10,9 +10,9 @@ import {
   CaseOwnerFilter,
 } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState } from '@/components/common'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { CaseViewMode } from '@/enums'
-import { useCasesPage } from '@/hooks/useCasesPage'
+import { useCasesPage } from '@/hooks'
 
 export default function CasesPage() {
   const {

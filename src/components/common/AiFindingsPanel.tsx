@@ -1,9 +1,13 @@
 'use client'
 
 import { ChevronDown, Loader2, Sparkles, TrendingUp } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
+import {
+  Badge,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
 import { useAiFindingsPanel } from '@/hooks'
 import {
   resolveFindingConfidenceVariant,

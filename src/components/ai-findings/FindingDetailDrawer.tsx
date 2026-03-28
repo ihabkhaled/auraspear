@@ -1,19 +1,17 @@
 'use client'
 
 import { CheckCircle, XCircle } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from '@/components/ui/collapsible'
-import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-} from '@/components/ui/sheet'
+} from '@/components/ui'
 import { AiFindingStatus } from '@/enums'
 import {
   resolveFindingConfidenceVariant,

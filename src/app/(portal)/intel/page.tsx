@@ -9,8 +9,13 @@ import {
   MispEventFeed,
   WazuhCorrelationPanel,
 } from '@/components/intel'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useIntelPage } from '@/hooks/useIntelPage'
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useIntelPage } from '@/hooks'
 
 export default function IntelPage() {
   const {
@@ -74,9 +79,6 @@ export default function IntelPage() {
             selectedIocIds={selectedIocIds}
             onEnrichIoc={aiIntel.handleEnrichIoc}
             onDraftAdvisory={aiIntel.handleDraftAdvisory}
-            availableConnectors={aiIntel.availableConnectors}
-            selectedConnector={aiIntel.selectedConnector}
-            onConnectorChange={aiIntel.handleConnectorChange}
             tCommon={aiIntel.tCommon}
             t={t}
           />

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { DayPicker, getDefaultClassNames, type DayButton } from 'react-day-picker'
 import { Button, buttonVariants } from '@/components/ui/button'
-import { useCalendarDayButton } from '@/hooks/useCalendarDayButton'
+import { useCalendarDayButton } from '@/hooks'
 import { cn } from '@/lib/utils'
 
 function Calendar({

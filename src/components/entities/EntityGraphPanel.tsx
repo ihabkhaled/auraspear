@@ -2,14 +2,14 @@
 
 import { Network } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
 import {
+  Badge,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
+} from '@/components/ui'
 import type { EntityGraphPanelProps } from '@/types'
 
 export function EntityGraphPanel({

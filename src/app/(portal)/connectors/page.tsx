@@ -3,8 +3,8 @@
 import { Cable, CheckCircle2, Plus, Plug, ShieldAlert, Power, TriangleAlert } from 'lucide-react'
 import { KpiCard, LoadingSpinner, PageHeader } from '@/components/common'
 import { ConnectorCard, AddConnectorCard, LlmConnectorCard } from '@/components/connectors'
-import { Button } from '@/components/ui/button'
-import { useConnectorsPage } from '@/hooks/useConnectorsPage'
+import { Button } from '@/components/ui'
+import { useConnectorsPage } from '@/hooks'
 
 export default function ConnectorsPage() {
   const {

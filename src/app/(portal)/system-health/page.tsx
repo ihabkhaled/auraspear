@@ -5,7 +5,7 @@ import { DataTable, PageHeader, Pagination } from '@/components/common'
 import { SystemHealthDetailPanel } from '@/components/system-health/SystemHealthDetailPanel'
 import { SystemHealthFilters } from '@/components/system-health/SystemHealthFilters'
 import { SystemHealthKpiCards } from '@/components/system-health/SystemHealthKpiCards'
-import { useSystemHealthPage } from '@/hooks/useSystemHealthPage'
+import { useSystemHealthPage } from '@/hooks'
 import {
   HEALTH_CHECK_STATUS_CLASSES,
   HEALTH_CHECK_STATUS_LABEL_KEYS,

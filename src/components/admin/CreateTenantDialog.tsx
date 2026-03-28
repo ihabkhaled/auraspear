@@ -1,16 +1,16 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { useCreateTenantDialog } from '@/hooks/useCreateTenantDialog'
+  Input,
+  Label,
+} from '@/components/ui'
+import { useCreateTenantDialog } from '@/hooks'
 import type { CreateTenantDialogProps } from '@/types'
 
 export function CreateTenantDialog(props: CreateTenantDialogProps) {

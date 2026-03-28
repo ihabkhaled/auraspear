@@ -11,9 +11,15 @@ import {
 } from '@/components/alerts'
 import { CreateCaseDialog } from '@/components/cases'
 import { PageHeader, DataTable, Pagination, LoadingSpinner } from '@/components/common'
-import { Button } from '@/components/ui/button'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
-import { useAlertsPage } from '@/hooks/useAlertsPage'
+import {
+  Button,
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui'
+import { useAlertsPage } from '@/hooks'
 
 export default function AlertsPage() {
   const {

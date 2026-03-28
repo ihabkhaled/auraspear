@@ -1,15 +1,15 @@
 'use client'
 
 import { Blocks, Clock, Coins, Cpu, Hash, Zap } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
 import {
+  Badge,
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
+  ScrollArea,
+} from '@/components/ui'
 import { getSessionStatusBadgeProps } from '@/lib/ai-agent.utils'
 import { cn } from '@/lib/utils'
 import type { AiAgentSessionDetailDialogProps } from '@/types'

@@ -6,8 +6,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { ApprovalStatus, Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { agentConfigService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type {
@@ -156,7 +156,7 @@ export function useAiConfigPage() {
             setSelectedAgentId(null)
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         }
       )
@@ -173,7 +173,7 @@ export function useAiConfigPage() {
             Toast.success(enabled ? t('agentEnabled') : t('agentDisabled'))
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         }
       )
@@ -204,7 +204,7 @@ export function useAiConfigPage() {
               setSelectedOsintSource(null)
             },
             onError: error => {
-              Toast.error(tErrors(getErrorKey(error)))
+              buildErrorToastHandler(tErrors)(error)
             },
           }
         )
@@ -215,7 +215,7 @@ export function useAiConfigPage() {
             setOsintDialogOpen(false)
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         })
       }
@@ -237,7 +237,7 @@ export function useAiConfigPage() {
           Toast.success(t('sourceDeleted'))
         },
         onError: error => {
-          Toast.error(tErrors(getErrorKey(error)))
+          buildErrorToastHandler(tErrors)(error)
         },
       })
     },
@@ -259,9 +259,7 @@ export function useAiConfigPage() {
             Toast.error(translated ?? t('testConnectionFailed'))
           }
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [testOsintMutation, t, tErrors]
@@ -275,9 +273,7 @@ export function useAiConfigPage() {
           onSuccess: () => {
             Toast.success(enabled ? t('sourceEnabled') : t('sourceDisabled'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -306,9 +302,7 @@ export function useAiConfigPage() {
               setPromptDialogOpen(false)
               setSelectedPrompt(null)
             },
-            onError: (error: unknown) => {
-              Toast.error(tErrors(getErrorKey(error)))
-            },
+            onError: buildErrorToastHandler(tErrors),
           }
         )
       } else {
@@ -317,9 +311,7 @@ export function useAiConfigPage() {
             Toast.success(t('promptCreated'))
             setPromptDialogOpen(false)
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         })
       }
     },
@@ -332,9 +324,7 @@ export function useAiConfigPage() {
         onSuccess: () => {
           Toast.success(t('promptActivated'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [activatePromptMutation, t, tErrors]
@@ -353,9 +343,7 @@ export function useAiConfigPage() {
         onSuccess: () => {
           Toast.success(t('promptDeleted'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [deletePromptMutation, t, tErrors]
@@ -375,9 +363,7 @@ export function useAiConfigPage() {
           onSuccess: () => {
             Toast.success(enabled ? t('featureToggleEnabled') : t('featureToggleDisabled'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -394,9 +380,7 @@ export function useAiConfigPage() {
             setFeatureDialogOpen(false)
             setSelectedFeature(null)
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -419,9 +403,7 @@ export function useAiConfigPage() {
             setScheduleDialogOpen(false)
             setSelectedSchedule(null)
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -436,9 +418,7 @@ export function useAiConfigPage() {
           onSuccess: () => {
             Toast.success(enabled ? t('schedules.enabled') : t('schedules.disabled'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -453,9 +433,7 @@ export function useAiConfigPage() {
           onSuccess: () => {
             Toast.success(paused ? t('schedules.pausedSuccess') : t('schedules.resumedSuccess'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -468,9 +446,7 @@ export function useAiConfigPage() {
         onSuccess: () => {
           Toast.success(t('schedules.runNowSuccess'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [runScheduleNowMutation, t, tErrors]
@@ -489,9 +465,7 @@ export function useAiConfigPage() {
         onSuccess: () => {
           Toast.success(t('schedules.resetSuccess'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [resetScheduleMutation, t, tErrors]
@@ -507,7 +481,7 @@ export function useAiConfigPage() {
             Toast.success(t('approvalResolved'))
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         }
       )
@@ -526,9 +500,7 @@ export function useAiConfigPage() {
       void queryClient.invalidateQueries({ queryKey: ['agent-config', 'agents', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['orchestrator-stats', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const bulkToggleOsintMutation = useMutation({
@@ -537,9 +509,7 @@ export function useAiConfigPage() {
       Toast.success(enabled ? t('allOsintEnabled') : t('allOsintDisabled'))
       void queryClient.invalidateQueries({ queryKey: ['agent-config', 'osint-sources', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const bulkToggleFeaturesMutation = useMutation({
@@ -548,9 +518,7 @@ export function useAiConfigPage() {
       Toast.success(enabled ? t('allFeaturesEnabled') : t('allFeaturesDisabled'))
       void queryClient.invalidateQueries({ queryKey: ['ai-features', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const bulkToggleSchedulesMutation = useMutation({
@@ -559,9 +527,7 @@ export function useAiConfigPage() {
       Toast.success(enabled ? t('allSchedulesEnabled') : t('allSchedulesDisabled'))
       void queryClient.invalidateQueries({ queryKey: ['ai-schedules', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleBulkToggle = useCallback(

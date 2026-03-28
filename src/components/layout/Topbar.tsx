@@ -1,9 +1,8 @@
 'use client'
 
 import { Menu, PanelLeftOpen, Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Separator } from '@/components/ui/separator'
-import { useTopbar } from '@/hooks/useTopbar'
+import { Button, Separator } from '@/components/ui'
+import { useTopbar } from '@/hooks'
 import { LayoutBreadcrumb } from './Breadcrumb'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { NotificationBell } from './NotificationBell'

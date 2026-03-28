@@ -1,7 +1,7 @@
 'use client'
 
 import { Shield } from 'lucide-react'
-import { useBrandLogo } from '@/hooks/useBrandLogo'
+import { useBrandLogo } from '@/hooks'
 import type { BrandLogoProps } from '@/types'
 
 export function BrandLogo({ collapsed }: BrandLogoProps) {

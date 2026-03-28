@@ -1,8 +1,13 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useWorkspaceRecentActivityComponent } from '@/hooks/useWorkspaceRecentActivityComponent'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useWorkspaceRecentActivityComponent } from '@/hooks'
 import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceRecentActivityProps } from '@/types'

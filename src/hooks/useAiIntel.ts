@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { intelService } from '@/services/intel.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { intelService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiIntelResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiIntel() {
   const t = useTranslations('intel')
@@ -19,8 +17,8 @@ export function useAiIntel() {
   const permissions = useAuthStore(s => s.permissions)
   const canEnrich = hasPermission(permissions, Permission.INTEL_VIEW)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [enrichResult, setEnrichResult] = useState<AiIntelResult | null>(null)
@@ -33,7 +31,7 @@ export function useAiIntel() {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -45,7 +43,7 @@ export function useAiIntel() {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -79,8 +77,5 @@ export function useAiIntel() {
     isLoading,
     handleEnrichIoc,
     handleDraftAdvisory,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

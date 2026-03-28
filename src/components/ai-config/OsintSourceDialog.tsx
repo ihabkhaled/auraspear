@@ -1,26 +1,24 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
+  Switch,
+} from '@/components/ui'
 import { OsintAuthType, OsintSourceType } from '@/enums'
-import { useOsintSourceDialog } from '@/hooks/useOsintSourceDialog'
+import { useOsintSourceDialog } from '@/hooks'
 import { OSINT_AUTH_TYPE_LABELS } from '@/lib/constants/ai-config'
 import { lookup } from '@/lib/utils'
 import type { OsintSourceDialogProps } from '@/types'

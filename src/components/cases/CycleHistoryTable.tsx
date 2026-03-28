@@ -1,8 +1,8 @@
 'use client'
 
 import { Pause, Pencil, Play, Trash2 } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { Button } from '@/components/ui/button'
+import { DataTable } from '@/components/common'
+import { Button } from '@/components/ui'
 import { CaseCycleStatus } from '@/enums'
 import { useCycleHistoryTable } from '@/hooks'
 import { formatDate } from '@/lib/utils'

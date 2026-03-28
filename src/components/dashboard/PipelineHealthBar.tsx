@@ -1,7 +1,7 @@
 'use client'
 
 import { Activity } from 'lucide-react'
-import { EmptyState } from '@/components/common/EmptyState'
+import { EmptyState } from '@/components/common'
 import type { ServiceStatus } from '@/enums'
 import { usePipelineHealthBar } from '@/hooks'
 import { getStatusDotClass } from '@/lib/health-utils'

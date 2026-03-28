@@ -9,7 +9,7 @@ import {
   AttackPathDetailPanel,
 } from '@/components/attack-paths'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
-import { useAttackPathsPage } from '@/hooks/useAttackPathsPage'
+import { useAttackPathsPage } from '@/hooks'
 
 export default function AttackPathsPage() {
   const {

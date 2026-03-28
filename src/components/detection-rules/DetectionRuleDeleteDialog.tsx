@@ -1,8 +1,8 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useDetectionRuleDeleteDialog } from '@/hooks/useDetectionRuleDeleteDialog'
+import { Button } from '@/components/ui'
+import { useDetectionRuleDeleteDialog } from '@/hooks'
 import type { DetectionRuleDeleteDialogProps } from '@/types'
 
 export function DetectionRuleDeleteDialog({

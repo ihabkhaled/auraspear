@@ -1,6 +1,6 @@
 'use client'
 
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { ScrollArea } from '@/components/ui'
 import type { HuntResultsPanelProps } from '@/types'
 import { HuntEventTable } from './HuntEventTable'
 import { HuntStatsGrid } from './HuntStatsGrid'

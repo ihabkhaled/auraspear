@@ -11,10 +11,14 @@ import {
   Sparkles,
   TrendingUp,
 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
+import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
 import { AlertAiStatus } from '@/enums'
 import { resolveFindingConfidenceVariant } from '@/lib/ai-config.utils'
 import { formatTimestamp } from '@/lib/utils'

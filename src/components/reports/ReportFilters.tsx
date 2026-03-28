@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { ReportFormat, ReportStatus, ReportType } from '@/enums'
-import { useReportFilters } from '@/hooks/useReportFilters'
+import { useReportFilters } from '@/hooks'
 import {
   REPORT_FORMAT_LABEL_KEYS,
   REPORT_STATUS_LABEL_KEYS,

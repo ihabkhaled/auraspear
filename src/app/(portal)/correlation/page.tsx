@@ -10,7 +10,7 @@ import {
   CorrelationDeleteDialog,
   CorrelationDetailPanel,
 } from '@/components/correlation'
-import { useCorrelationPage } from '@/hooks/useCorrelationPage'
+import { useCorrelationPage } from '@/hooks'
 
 export default function CorrelationPage() {
   const {

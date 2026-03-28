@@ -33,6 +33,12 @@ export type {
   ProvidersProps,
   DynamicUserIdRouteContext,
   DynamicUserSessionIdRouteContext,
+  AiResultCardResult,
+  AiResultCardProps,
+  CollapsibleSectionProps,
+  UseDeleteWithConfirmationOptions,
+  TranslationFn,
+  SearchInputProps,
 } from './common.types'
 export type {
   AuthUser,

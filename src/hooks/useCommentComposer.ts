@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
-import { useMentionableUsers } from '@/hooks/useCaseComments'
-import { useDebounce } from '@/hooks/useDebounce'
+import { useMentionableUsers, useDebounce } from '@/hooks'
 import { COMMENT_MAX_LENGTH, COMMENT_MENTIONS_MAX } from '@/lib/constants/cases'
 import type { MentionableUser, UseCommentComposerProps } from '@/types'
 

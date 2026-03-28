@@ -5,13 +5,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { type ConnectorType, Permission, WorkspaceTab } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import {
   isConnectorType,
   CONNECTOR_ICONS,
   CONNECTOR_META,
 } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import type { CreateConnectorInput, WorkspaceSearchRequest } from '@/types'
@@ -99,9 +99,7 @@ export function useConnectorWorkspacePage(rawType: string) {
           Toast.error(result.details ?? t('connectionFailed'))
         }
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
       onSettled: () => {
         setTesting(false)
       },
@@ -121,9 +119,7 @@ export function useConnectorWorkspacePage(rawType: string) {
         Toast.success(`${meta.label} ${t('deleted')}`)
         router.push('/connectors')
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }, [isValidType, meta, rawType, deleteMutation, t, tErrors, router])
 
@@ -134,9 +130,7 @@ export function useConnectorWorkspacePage(rawType: string) {
           Toast.success(t('connectorCreated'))
           router.push('/connectors')
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [createMutation, t, tErrors, router]
@@ -145,9 +139,7 @@ export function useConnectorWorkspacePage(rawType: string) {
   const handleSearch = useCallback(
     (request: WorkspaceSearchRequest) => {
       searchMutation.mutate(request, {
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [searchMutation, tErrors]
@@ -164,9 +156,7 @@ export function useConnectorWorkspacePage(rawType: string) {
           Toast.error(result.message)
         }
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }, [isValidType, meta, rawType, syncMutation, t, tErrors])
 
@@ -182,9 +172,7 @@ export function useConnectorWorkspacePage(rawType: string) {
               Toast.error(result.message)
             }
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },

@@ -7,7 +7,7 @@ import { NormalizationDetailPanel } from '@/components/normalization/Normalizati
 import { NormalizationEditDialog } from '@/components/normalization/NormalizationEditDialog'
 import { NormalizationFilters } from '@/components/normalization/NormalizationFilters'
 import { NormalizationKpiCards } from '@/components/normalization/NormalizationKpiCards'
-import { useNormalizationPage } from '@/hooks/useNormalizationPage'
+import { useNormalizationPage } from '@/hooks'
 
 export default function NormalizationPage() {
   const {

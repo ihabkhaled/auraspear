@@ -9,7 +9,7 @@ import {
   IncidentFilters,
   IncidentKpiCards,
 } from '@/components/incidents'
-import { useIncidentsPage } from '@/hooks/useIncidentsPage'
+import { useIncidentsPage } from '@/hooks'
 
 export default function IncidentsPage() {
   const {

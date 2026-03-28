@@ -1,7 +1,7 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { useStatusBadge } from '@/hooks/useStatusBadge'
+import { Badge } from '@/components/ui'
+import { useStatusBadge } from '@/hooks'
 import {
   CONNECTOR_STATUS_STYLES,
   CONNECTOR_STATUS_KEYS,

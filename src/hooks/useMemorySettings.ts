@@ -5,8 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { memoryService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { UserMemory } from '@/types'
@@ -47,9 +47,7 @@ export function useMemorySettings() {
       setCreateDialogOpen(false)
       void queryClient.invalidateQueries({ queryKey: ['user-memories', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const updateMutation = useMutation({
@@ -60,9 +58,7 @@ export function useMemorySettings() {
       setEditingMemory(null)
       void queryClient.invalidateQueries({ queryKey: ['user-memories', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const deleteMutation = useMutation({
@@ -71,9 +67,7 @@ export function useMemorySettings() {
       Toast.success(t('deleted'))
       void queryClient.invalidateQueries({ queryKey: ['user-memories', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const deleteAllMutation = useMutation({
@@ -82,9 +76,7 @@ export function useMemorySettings() {
       Toast.success(t('allDeleted'))
       void queryClient.invalidateQueries({ queryKey: ['user-memories', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleSearchChange = useCallback((value: string) => {

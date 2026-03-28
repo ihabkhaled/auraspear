@@ -1,14 +1,14 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { AttackPathSeverity, AttackPathStatus } from '@/enums'
 import {
   ATTACK_PATH_SEVERITY_LABEL_KEYS,

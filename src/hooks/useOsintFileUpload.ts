@@ -3,14 +3,14 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
 import {
   extractUploadResultMeta,
   extractVtAnalysisUrl,
   extractVtGuiUrl,
   isVtFetchedStillQueued,
 } from '@/lib/osint.utils'
-import { agentConfigService } from '@/services/agent-config.service'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { agentConfigService } from '@/services'
 import type { OsintQueryResult } from '@/types'
 
 export function useOsintFileUpload() {
@@ -52,7 +52,7 @@ export function useOsintFileUpload() {
         setResult(resp)
         Toast.success(tCommon('fileUploadComplete'))
       } catch (error: unknown) {
-        Toast.error(tErrors(getErrorKey(error)))
+        buildErrorToastHandler(tErrors)(error)
       } finally {
         setIsUploading(false)
         if (fileInputRef.current) {
@@ -70,7 +70,7 @@ export function useOsintFileUpload() {
         const resp = await agentConfigService.fetchVtAnalysis(analysisUrl)
         setFetchedData(resp.data)
       } catch (error: unknown) {
-        Toast.error(tErrors(getErrorKey(error)))
+        buildErrorToastHandler(tErrors)(error)
       } finally {
         setIsFetchingAnalysis(false)
       }

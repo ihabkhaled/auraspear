@@ -13,7 +13,7 @@ import {
   ReportDetailPanel,
   ReportTemplateGrid,
 } from '@/components/reports'
-import { useReportsPage } from '@/hooks/useReportsPage'
+import { useReportsPage } from '@/hooks'
 
 export default function ReportsPage() {
   const {
@@ -63,9 +63,6 @@ export default function ReportsPage() {
     handleAiTimeRangeChange,
     handleGenerateAiReport,
     aiReportTCommon,
-    aiReportAvailableConnectors,
-    aiReportSelectedConnector,
-    aiReportHandleConnectorChange,
   } = useReportsPage()
 
   return (
@@ -93,9 +90,6 @@ export default function ReportsPage() {
         onTimeRangeChange={handleAiTimeRangeChange}
         onGenerate={handleGenerateAiReport}
         isLoading={aiReportLoading}
-        availableConnectors={aiReportAvailableConnectors}
-        selectedConnector={aiReportSelectedConnector}
-        onConnectorChange={aiReportHandleConnectorChange}
         tCommon={aiReportTCommon}
       />
 

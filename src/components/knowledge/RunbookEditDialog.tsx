@@ -1,18 +1,18 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { useRunbookEditDialog } from '@/hooks/useRunbookEditDialog'
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
+  Textarea,
+} from '@/components/ui'
+import { useRunbookEditDialog } from '@/hooks'
 import type { RunbookEditDialogProps } from '@/types'
 
 export function RunbookEditDialog({

@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import type { ConnectorType, DashboardDensity, DashboardPanelKey, IncidentStatus } from '@/enums'
 import type { ServiceHealth } from './admin.types'
 import type { AiResponse } from './ai.types'
-import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface DashboardKPI {
   label: string
@@ -400,9 +399,6 @@ export interface AiDashboardInsightComponentProps {
   dailySummary: AiResponse | null
   isDailySummaryLoading: boolean
   onGenerateSummary: () => void
-  availableConnectors: AvailableAiConnector[]
-  selectedConnector: string
-  onConnectorChange: (value: string) => void
   tCommon: (key: string) => string
 }
 
@@ -413,8 +409,5 @@ export interface AiReportPanelComponentProps {
   onTimeRangeChange: (value: string) => void
   onGenerate: () => void
   isLoading: boolean
-  availableConnectors: AvailableAiConnector[]
-  selectedConnector: string
-  onConnectorChange: (value: string) => void
   tCommon: (key: string) => string
 }

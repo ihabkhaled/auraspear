@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { UserRole, type SortOrder } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type {
   AddUserFormValues,
@@ -191,9 +191,7 @@ export function useTenantConfigPage() {
             setCreateDialogOpen(false)
             Toast.success(t('tenants.tenantCreated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -217,9 +215,7 @@ export function useTenantConfigPage() {
             setAddUserDialogOpen(false)
             Toast.success(t('users.userCreated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -235,9 +231,7 @@ export function useTenantConfigPage() {
             setAssignUserDialogOpen(false)
             Toast.success(t('users.userAssigned'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -269,9 +263,7 @@ export function useTenantConfigPage() {
             setEditingTenant(null)
             Toast.success(t('tenants.tenantUpdated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -297,9 +289,7 @@ export function useTenantConfigPage() {
           }
           Toast.success(t('tenants.tenantDeleted'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [deleteTenant, currentTenantId, setCurrentTenant, t, tErrors]
@@ -330,9 +320,7 @@ export function useTenantConfigPage() {
             setEditingUser(null)
             Toast.success(t('users.userUpdated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -357,9 +345,7 @@ export function useTenantConfigPage() {
           onSuccess: () => {
             Toast.success(t('users.userRemoved'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -384,9 +370,7 @@ export function useTenantConfigPage() {
           onSuccess: () => {
             Toast.success(t('users.userBlocked'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -411,9 +395,7 @@ export function useTenantConfigPage() {
           onSuccess: () => {
             Toast.success(t('users.userUnblocked'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -456,9 +438,7 @@ export function useTenantConfigPage() {
           onSuccess: () => {
             Toast.success(t('users.userRestored'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -499,9 +479,7 @@ export function useTenantConfigPage() {
             Toast.success(tImpersonation('started', { user: tenantUser.email }))
             router.push('/dashboard')
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },

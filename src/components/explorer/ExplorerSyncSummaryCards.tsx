@@ -1,8 +1,13 @@
 'use client'
 
 import { CheckCircle2, Loader2, XCircle } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import type { ExplorerSyncSummaryCardsProps } from '@/types'
 
 export function ExplorerSyncSummaryCards({ summary, t }: ExplorerSyncSummaryCardsProps) {

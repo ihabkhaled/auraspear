@@ -1,17 +1,22 @@
 'use client'
 
 import { ChevronDown, Database } from 'lucide-react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Label } from '@/components/ui/label'
 import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useDataRetention } from '@/hooks/useDataRetention'
+} from '@/components/ui'
+import { useDataRetention } from '@/hooks'
 import { RETENTION_FIELDS } from '@/lib/constants/settings'
 
 export default function DataRetentionCard() {

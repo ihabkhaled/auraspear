@@ -1,9 +1,14 @@
 'use client'
 
 import { Shield, KeyRound, Lock } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useSecurityIndicators } from '@/hooks/useSecurityIndicators'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useSecurityIndicators } from '@/hooks'
 import { SECURITY_POSTURE } from '@/lib/constants/connectors.constants'
 import { lookup } from '@/lib/utils'
 import type { SecurityIndicatorsProps } from '@/types'

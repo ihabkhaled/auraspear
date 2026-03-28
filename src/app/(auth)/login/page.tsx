@@ -1,18 +1,22 @@
 'use client'
 
 import { Shield, Eye, EyeOff, Sun, Moon, Languages } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useLoginPage } from '@/hooks/useLoginPage'
+} from '@/components/ui'
+import { useLoginPage } from '@/hooks'
 import { LOCALES } from '@/lib/constants/locales'
 
 export default function LoginPage() {

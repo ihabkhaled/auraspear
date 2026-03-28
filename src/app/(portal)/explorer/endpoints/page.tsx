@@ -2,9 +2,14 @@
 
 import { Monitor, Search, RefreshCw, AlertCircle } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import {
+  Badge,
+  Input,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui'
 import { SortOrder, VelociraptorTab } from '@/enums'
 import { useExplorerEndpointsPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'

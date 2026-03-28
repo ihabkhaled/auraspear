@@ -1,12 +1,16 @@
 'use client'
 
 import { CheckCircle, Clock, XCircle } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Textarea } from '@/components/ui/textarea'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Textarea,
+} from '@/components/ui'
 import { ApprovalStatus } from '@/enums'
-import { useApprovalCard } from '@/hooks/useApprovalCard'
+import { useApprovalCard } from '@/hooks'
 import { formatDate } from '@/lib/utils'
 import type { ApprovalCardProps } from '@/types'
 

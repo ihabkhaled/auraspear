@@ -1,16 +1,18 @@
 'use client'
 
 import { ChevronDown } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
+  Badge,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useSystemHealthDetailPanel } from '@/hooks/useSystemHealthDetailPanel'
+} from '@/components/ui'
+import { useSystemHealthDetailPanel } from '@/hooks'
 import {
   HEALTH_CHECK_STATUS_CLASSES,
   HEALTH_CHECK_STATUS_LABEL_KEYS,

@@ -2,7 +2,7 @@
 
 import { Bot, DollarSign, Hash, Wifi, Zap } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useAiAgentKpiCards } from '@/hooks/useAiAgentKpiCards'
+import { useAiAgentKpiCards } from '@/hooks'
 import type { AiAgentKpiCardsProps } from '@/types'
 
 export function AiAgentKpiCards(props: AiAgentKpiCardsProps) {

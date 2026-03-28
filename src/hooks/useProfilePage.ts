@@ -2,9 +2,9 @@ import { useState, useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { ROLE_LABEL_KEYS } from '@/lib/constants/roles'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { lookup } from '@/lib/utils'
 import { useAuthStore } from '@/stores'
 import { useProfile, useUpdateProfile, useChangePassword } from './useProfile'
@@ -65,9 +65,7 @@ export function useProfilePage() {
           Toast.success(t('nameUpdated'))
           setNamePassword('')
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }
@@ -93,9 +91,7 @@ export function useProfilePage() {
           setNewPassword('')
           setConfirmPassword('')
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }

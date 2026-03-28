@@ -3,19 +3,18 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
-import { dashboardService } from '@/services/dashboard.service'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { dashboardService } from '@/services'
+import { useAiConnectorStore } from '@/stores'
 import type { AiNotificationDigestResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiNotificationDigest() {
   const t = useTranslations('notifications')
   const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [digestResult, setDigestResult] = useState<AiNotificationDigestResult | null>(null)
 
@@ -24,9 +23,7 @@ export function useAiNotificationDigest() {
     onSuccess: (data: AiNotificationDigestResult) => {
       setDigestResult(data)
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleGenerateDigest = useCallback(() => {
@@ -40,8 +37,5 @@ export function useAiNotificationDigest() {
     digestResult,
     isLoading: digestMutation.isPending,
     handleGenerateDigest,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

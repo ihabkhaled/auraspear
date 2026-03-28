@@ -1,12 +1,12 @@
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import type { EntityFiltersProps } from '@/types'
 
 export function EntityFilters({

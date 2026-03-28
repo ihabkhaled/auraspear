@@ -1,8 +1,8 @@
 'use client'
 
 import { Building2, Pencil, Trash2 } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { Button } from '@/components/ui/button'
+import { DataTable } from '@/components/common'
+import { Button } from '@/components/ui'
 import { UserRole } from '@/enums'
 import { useTenantListTable } from '@/hooks'
 import { formatRelativeTime } from '@/lib/utils'

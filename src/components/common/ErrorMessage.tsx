@@ -1,8 +1,8 @@
 'use client'
 
 import { AlertTriangle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useErrorMessage } from '@/hooks/useErrorMessage'
+import { Button } from '@/components/ui'
+import { useErrorMessage } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { ErrorMessageProps } from '@/types'
 

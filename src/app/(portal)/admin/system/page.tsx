@@ -14,20 +14,26 @@ import {
   ErrorMessage,
   EmptyState,
 } from '@/components/common'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Progress } from '@/components/ui/progress'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+  Progress,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui'
 import { AppLogLevel, AppLogFeature, ServiceStatus, SystemAdminTab } from '@/enums'
-import { useSystemAdminPage } from '@/hooks/useSystemAdminPage'
+import { useSystemAdminPage } from '@/hooks'
 import { ALL_LEVELS, ALL_FEATURES } from '@/lib/constants/admin'
 import { computeHealthPercent, getHealthStatusClass, getHealthBgClass } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'

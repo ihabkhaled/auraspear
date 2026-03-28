@@ -8,7 +8,7 @@ import { CloudSecurityFilters } from '@/components/cloud-security/CloudSecurityF
 import { CloudSecurityKpiCards } from '@/components/cloud-security/CloudSecurityKpiCards'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
 import { CloudProvider } from '@/enums'
-import { useCloudSecurityPage } from '@/hooks/useCloudSecurityPage'
+import { useCloudSecurityPage } from '@/hooks'
 
 export default function CloudSecurityPage() {
   const {

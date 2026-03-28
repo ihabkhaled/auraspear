@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { SoarPlaybookStatus, SoarTriggerType } from '@/enums'
-import { useSoarFilters } from '@/hooks/useSoarFilters'
+import { useSoarFilters } from '@/hooks'
 import { SOAR_PLAYBOOK_STATUS_LABEL_KEYS, SOAR_TRIGGER_TYPE_LABEL_KEYS } from '@/lib/constants/soar'
 import { lookup } from '@/lib/utils'
 import type { SoarFiltersProps } from '@/types'

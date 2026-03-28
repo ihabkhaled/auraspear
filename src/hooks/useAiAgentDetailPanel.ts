@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { AiAgentPanelTab, AiAgentStatus, Permission } from '@/enums'
 import { isAiAgentPanelTab } from '@/lib/ai-agent.utils'
-import { getErrorKey } from '@/lib/api-error'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { lookup } from '@/lib/utils'
-import { useAuthStore } from '@/stores'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiAgentDetailPanelProps, AiAgentToolFormValues } from '@/types'
 import {
   useAiAgent,
@@ -18,7 +18,6 @@ import {
   useCreateAgentTool,
   useDeleteAgentTool,
 } from './useAiAgents'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiAgentDetailPanel({
   agent: listAgent,
@@ -34,8 +33,8 @@ export function useAiAgentDetailPanel({
   const { data: fullAgentResponse } = useAiAgent(listAgent.id)
   const agent = fullAgentResponse?.data ?? listAgent
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [activeTab, setActiveTab] = useState(AiAgentPanelTab.OVERVIEW)
   const [soulMdDraft, setSoulMdDraft] = useState(agent.soulMd ?? '')
@@ -78,9 +77,7 @@ export function useAiAgentDetailPanel({
         onSuccess: () => {
           Toast.success(t('soulUpdated'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }, [agent.id, soulMdDraft, updateSoulMutation, t, tErrors])
@@ -90,9 +87,7 @@ export function useAiAgentDetailPanel({
       onSuccess: () => {
         Toast.success(t('agentStarted'))
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }, [agent.id, startAgentMutation, t, tErrors])
 
@@ -101,9 +96,7 @@ export function useAiAgentDetailPanel({
       onSuccess: () => {
         Toast.success(t('agentStopped'))
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }, [agent.id, stopAgentMutation, t, tErrors])
 
@@ -115,9 +108,7 @@ export function useAiAgentDetailPanel({
           setRunPrompt('')
           Toast.success(t('runQueued'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }, [agent.id, runAgentMutation, runPrompt, connectorValue, t, tErrors])
@@ -145,9 +136,7 @@ export function useAiAgentDetailPanel({
             setToolDialogOpen(false)
             Toast.success(t('toolCreated'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -162,9 +151,7 @@ export function useAiAgentDetailPanel({
           onSuccess: () => {
             Toast.success(t('toolDeleted'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -184,13 +171,10 @@ export function useAiAgentDetailPanel({
     agent,
     activeTab,
     handleActiveTabChange,
-    availableConnectors,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,
     setRunPrompt,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,

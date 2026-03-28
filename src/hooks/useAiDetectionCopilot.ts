@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { detectionRuleService } from '@/services/detection-rule.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { detectionRuleService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiDetectionCopilotResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiDetectionCopilot(ruleId: string | null) {
   const t = useTranslations('detectionRules')
@@ -19,8 +17,8 @@ export function useAiDetectionCopilot(ruleId: string | null) {
   const permissions = useAuthStore(s => s.permissions)
   const canUseCopilot = hasPermission(permissions, Permission.AI_DETECTION_COPILOT)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiDetectionCopilotResult>>({})
@@ -33,7 +31,7 @@ export function useAiDetectionCopilot(ruleId: string | null) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -50,7 +48,7 @@ export function useAiDetectionCopilot(ruleId: string | null) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -92,8 +90,5 @@ export function useAiDetectionCopilot(ruleId: string | null) {
     handleDraftRule,
     handleTuning,
     resetResults,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

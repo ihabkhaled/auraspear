@@ -1,8 +1,8 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useCloudAccountDeleteDialog } from '@/hooks/useCloudAccountDeleteDialog'
+import { Button } from '@/components/ui'
+import { useCloudAccountDeleteDialog } from '@/hooks'
 import type { CloudAccountDeleteDialogProps } from '@/types'
 
 export function CloudAccountDeleteDialog({

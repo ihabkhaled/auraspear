@@ -1,16 +1,15 @@
 'use client'
 
 import { Loader2, Sparkles } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { AiConnectorSelect } from '@/components/common'
 import type { AiNotificationDigestProps, AiNotificationDigestResult } from '@/types'
 
 function DigestResultCard({
@@ -41,9 +40,6 @@ export function AiNotificationDigest({
   isLoading,
   digestResult,
   onGenerateDigest,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
   t,
 }: AiNotificationDigestProps) {
@@ -57,18 +53,7 @@ export function AiNotificationDigest({
           </div>
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-            <Select value={selectedConnector} onValueChange={onConnectorChange}>
-              <SelectTrigger className="h-7 w-[160px] text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {availableConnectors.map(c => (
-                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <AiConnectorSelect />
           </div>
           <Button variant="secondary" size="sm" onClick={onGenerateDigest} disabled={isLoading}>
             {isLoading ? (

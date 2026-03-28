@@ -1,8 +1,13 @@
 'use client'
 
 import { Loader2, Settings } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import { useIntegrationConfigPanel } from '@/hooks'
 import { getStatusBorderClass, getStatusIcon } from '@/lib/integration-utils'
 import { cn } from '@/lib/utils'

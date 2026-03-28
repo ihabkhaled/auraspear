@@ -1,26 +1,24 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+  Textarea,
+} from '@/components/ui'
 import { AiFeatureKey } from '@/enums'
-import { usePromptDialog } from '@/hooks/usePromptDialog'
+import { usePromptDialog } from '@/hooks'
 import { AI_FEATURE_KEY_LABEL_KEYS } from '@/lib/constants/ai-config'
 import { PROMPT_PLACEHOLDERS } from '@/lib/constants/prompt-placeholders'
 import { lookup } from '@/lib/utils'

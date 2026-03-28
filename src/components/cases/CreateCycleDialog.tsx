@@ -1,18 +1,18 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { useCreateCycleDialog } from '@/hooks/useCreateCycleDialog'
+  Input,
+  Label,
+  Textarea,
+} from '@/components/ui'
+import { useCreateCycleDialog } from '@/hooks'
 import type { CreateCycleDialogProps } from '@/types'
 
 export function CreateCycleDialog({

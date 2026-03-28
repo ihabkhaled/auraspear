@@ -7,8 +7,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useLanguageSwitcher } from '@/hooks/useLanguageSwitcher'
+} from '@/components/ui'
+import { useLanguageSwitcher } from '@/hooks'
 import { LOCALES } from '@/lib/constants/locales'
 
 export function LanguageSwitcher() {

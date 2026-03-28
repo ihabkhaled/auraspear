@@ -12,8 +12,8 @@ import {
   SoarRunDialog,
   SoarDetailPanel,
 } from '@/components/soar'
-import { Card, CardContent } from '@/components/ui/card'
-import { useSoarPage } from '@/hooks/useSoarPage'
+import { Card, CardContent } from '@/components/ui'
+import { useSoarPage } from '@/hooks'
 
 export default function SoarPage() {
   const {
@@ -88,9 +88,6 @@ export default function SoarPage() {
             isLoading={aiSoar.isLoading}
             draftResult={aiSoar.draftResult}
             onDraftPlaybook={aiSoar.handleDraftPlaybook}
-            availableConnectors={aiSoar.availableConnectors}
-            selectedConnector={aiSoar.selectedConnector}
-            onConnectorChange={aiSoar.handleConnectorChange}
             tCommon={aiSoar.tCommon}
             t={t}
           />

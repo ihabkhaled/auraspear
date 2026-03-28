@@ -1,18 +1,18 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { useAiAgentToolDialog } from '@/hooks/useAiAgentToolDialog'
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
+  Textarea,
+} from '@/components/ui'
+import { useAiAgentToolDialog } from '@/hooks'
 import type { AiAgentToolDialogProps } from '@/types'
 
 export function AiAgentToolDialog({

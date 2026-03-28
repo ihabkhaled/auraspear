@@ -1,5 +1,4 @@
 import type { SortOrder } from '@/enums'
-import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface MISPEvent {
   id: string
@@ -89,9 +88,6 @@ export interface AiIntelPanelProps {
   selectedIocIds?: string[]
   onEnrichIoc: (iocId: string) => void
   onDraftAdvisory: (iocIds: string[]) => void
-  availableConnectors: AvailableAiConnector[]
-  selectedConnector: string
-  onConnectorChange: (value: string) => void
   tCommon: (key: string) => string
   t: (key: string) => string
 }

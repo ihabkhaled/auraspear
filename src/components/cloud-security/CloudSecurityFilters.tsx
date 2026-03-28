@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CloudAccountStatus, CloudProvider } from '@/enums'
-import { useCloudSecurityFilters } from '@/hooks/useCloudSecurityFilters'
+import { useCloudSecurityFilters } from '@/hooks'
 import {
   CLOUD_ACCOUNT_STATUS_LABEL_KEYS,
   CLOUD_PROVIDER_LABEL_KEYS,

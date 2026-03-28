@@ -1,20 +1,15 @@
 'use client'
 
 import { Bot, Loader2, MessageSquare, Plus, Send, Trash2, User } from 'lucide-react'
-import { Virtuoso } from 'react-virtuoso'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { AiConnectorSelect, VirtualizedList } from '@/components/common'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
-import { useAiChat } from '@/hooks/useAiChat'
-import { useAvailableAiConnectors } from '@/hooks/useAvailableAiConnectors'
+  Badge,
+  Button,
+  Separator,
+  Textarea,
+} from '@/components/ui'
+import { useAiChat } from '@/hooks'
+import { useAiConnectorStore } from '@/stores'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { AiChatMessage, AiChatThread, EmbeddedUser } from '@/types'
 
@@ -172,34 +167,19 @@ export function AiChatPanel() {
     archiveThread,
   } = useAiChat()
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const connectorSelection = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = connectorSelection === 'default' ? undefined : connectorSelection
 
   return (
     <div className="border-border flex h-[600px] overflow-hidden rounded-lg border">
       {/* Thread sidebar */}
       <div className="border-border relative flex w-72 shrink-0 flex-col border-e">
         <div className="border-border space-y-2 border-b p-3">
-          <Select value={selectedConnector} onValueChange={setSelectedConnector}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder={t('featureProvider')} />
-            </SelectTrigger>
-            <SelectContent>
-              {availableConnectors.map(c => (
-                <SelectItem
-                  key={c.key}
-                  value={c.key}
-                  disabled={!c.enabled && c.key !== 'default'}
-                  className={!c.enabled && c.key !== 'default' ? 'opacity-40' : ''}
-                >
-                  {c.label}
-                  {!c.enabled && c.key !== 'default' && (
-                    <span className="text-muted-foreground ms-1 text-xs">(disabled)</span>
-                  )}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <AiConnectorSelect
+            placeholder={t('featureProvider')}
+            className="h-9 w-full"
+            showDisabledState
+          />
           <Button
             className="w-full"
             size="sm"
@@ -226,7 +206,7 @@ export function AiChatPanel() {
             <p className="text-muted-foreground px-3 py-8 text-center text-xs">{t('noChats')}</p>
           )}
           {!threadsLoading && threads.length > 0 && (
-            <Virtuoso
+            <VirtualizedList<AiChatThread>
               data={threads}
               overscan={100}
               className="h-full"
@@ -273,9 +253,9 @@ export function AiChatPanel() {
                   </p>
                 )}
               </div>
-              <Select
+              <AiConnectorSelect
                 value={selectedThread?.connectorId ?? selectedThread?.provider ?? 'default'}
-                onValueChange={v => {
+                onChange={v => {
                   if (selectedThreadId) {
                     updateThread({
                       threadId: selectedThreadId,
@@ -283,26 +263,9 @@ export function AiChatPanel() {
                     })
                   }
                 }}
-              >
-                <SelectTrigger className="h-8 w-44">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableConnectors.map(c => (
-                    <SelectItem
-                      key={c.key}
-                      value={c.key}
-                      disabled={!c.enabled && c.key !== 'default'}
-                      className={!c.enabled && c.key !== 'default' ? 'opacity-40' : ''}
-                    >
-                      {c.label}
-                      {!c.enabled && c.key !== 'default' && (
-                        <span className="text-muted-foreground ms-1 text-xs">(disabled)</span>
-                      )}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                className="h-8 w-44"
+                showDisabledState
+              />
               <Button variant="ghost" size="sm" onClick={() => archiveThread(selectedThreadId)}>
                 <Trash2 className="text-destructive h-3.5 w-3.5" />
               </Button>
@@ -337,7 +300,7 @@ export function AiChatPanel() {
 
               {/* Virtuoso: only renders visible messages + overscan */}
               {!messagesLoading && messages.length > 0 && (
-                <Virtuoso
+                <VirtualizedList<AiChatMessage>
                   data={messages}
                   initialTopMostItemIndex={messages.length - 1}
                   followOutput="smooth"

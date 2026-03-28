@@ -1,8 +1,8 @@
 'use client'
 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { usePaginationComponent } from '@/hooks/usePaginationComponent'
+import { Button } from '@/components/ui'
+import { usePaginationComponent } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { PaginationProps } from '@/types'
 

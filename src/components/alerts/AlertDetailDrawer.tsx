@@ -5,19 +5,22 @@ import { AiTriagePanel } from '@/components/alerts/AiTriagePanel'
 import { AlertAiResultPanel } from '@/components/alerts/AlertAiResultPanel'
 import { AlertTimeline } from '@/components/alerts/AlertTimeline'
 import { AiFindingsPanel, OsintEnrichButton } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
 import {
+  Badge,
+  Button,
+  ScrollArea,
+  Separator,
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetDescription,
   SheetFooter,
-} from '@/components/ui/sheet'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+  SheetHeader,
+  SheetTitle,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui'
 import { type AlertStatus } from '@/enums'
 import { useAlertDetailDrawer } from '@/hooks'
 import { ALERT_STATUS_CLASSES } from '@/lib/constants/alerts'

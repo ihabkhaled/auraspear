@@ -1,6 +1,6 @@
 'use client'
 
-import { useCorrelationDeleteDialog } from '@/hooks/useCorrelationDeleteDialog'
+import { useCorrelationDeleteDialog } from '@/hooks'
 import type { CorrelationDeleteDialogProps } from '@/types'
 
 export function CorrelationDeleteDialog({ rule, onConfirm }: CorrelationDeleteDialogProps) {

@@ -241,3 +241,43 @@ export interface ProvidersProps {
   messages: Record<string, unknown>
   locale: string
 }
+
+export interface AiResultCardResult {
+  result?: string
+  confidence?: number
+  provider?: string
+  model?: string
+}
+
+export interface AiResultCardProps {
+  result?: AiResultCardResult | null
+  isLoading?: boolean
+  label?: string
+  className?: string
+}
+
+export interface CollapsibleSectionProps {
+  title: string
+  icon?: ReactNode
+  children: ReactNode
+  defaultOpen?: boolean
+  className?: string
+  badge?: ReactNode
+}
+
+export interface UseDeleteWithConfirmationOptions<TId = string> {
+  mutationFn: (id: TId) => Promise<unknown>
+  queryKeysToInvalidate: string[][]
+  confirmText: string
+  successMessage: string
+}
+
+/** Base translation function prop — use in all component props that accept t() */
+export type TranslationFn = (key: string) => string
+
+export interface SearchInputProps {
+  value: string
+  onChange: (value: string) => void
+  placeholder?: string
+  className?: string
+}

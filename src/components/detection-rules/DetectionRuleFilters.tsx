@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { DetectionRuleSeverity, DetectionRuleStatus, DetectionRuleType } from '@/enums'
-import { useDetectionRuleFilters } from '@/hooks/useDetectionRuleFilters'
+import { useDetectionRuleFilters } from '@/hooks'
 import {
   DETECTION_RULE_SEVERITY_LABEL_KEYS,
   DETECTION_RULE_STATUS_LABEL_KEYS,

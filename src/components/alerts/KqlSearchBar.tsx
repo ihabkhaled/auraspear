@@ -1,9 +1,7 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+import { Button, Card, Input } from '@/components/ui'
 import { useKqlSearchBar } from '@/hooks'
 import type { KQLSearchBarProps } from '@/types'
 

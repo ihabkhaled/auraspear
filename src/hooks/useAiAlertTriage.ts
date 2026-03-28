@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { alertService } from '@/services/alert.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { alertService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiTriageResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiAlertTriage(alertId: string) {
   const t = useTranslations('alerts')
@@ -19,8 +17,8 @@ export function useAiAlertTriage(alertId: string) {
   const permissions = useAuthStore(s => s.permissions)
   const canTriage = hasPermission(permissions, Permission.AI_ALERT_TRIAGE)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [activeTask, setActiveTask] = useState<string | null>(null)
   const [results, setResults] = useState<Record<string, AiTriageResult>>({})
@@ -32,7 +30,7 @@ export function useAiAlertTriage(alertId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -44,7 +42,7 @@ export function useAiAlertTriage(alertId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -56,7 +54,7 @@ export function useAiAlertTriage(alertId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -68,7 +66,7 @@ export function useAiAlertTriage(alertId: string) {
       setActiveTask(null)
     },
     onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
+      buildErrorToastHandler(tErrors)(error)
       setActiveTask(null)
     },
   })
@@ -111,8 +109,5 @@ export function useAiAlertTriage(alertId: string) {
     handleExplainSeverity,
     handleFalsePositiveScore,
     handleNextAction,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

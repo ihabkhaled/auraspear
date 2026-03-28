@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle2, Clock, FileText } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useReportKpiCards } from '@/hooks/useReportKpiCards'
+import { useReportKpiCards } from '@/hooks'
 import type { ReportKpiCardsProps } from '@/types'
 
 export function ReportKpiCards({ stats }: ReportKpiCardsProps) {

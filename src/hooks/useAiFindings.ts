@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { agentConfigService } from '@/services/agent-config.service'
+import { agentConfigService } from '@/services'
 import { useTenantStore } from '@/stores'
 
 export function useAiFindings(sourceModule?: string, sourceEntityId?: string) {

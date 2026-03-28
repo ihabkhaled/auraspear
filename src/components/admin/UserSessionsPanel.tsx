@@ -2,9 +2,14 @@
 
 import { LogOut, MonitorSmartphone, ShieldAlert, Wifi } from 'lucide-react'
 import { EmptyState, LoadingSpinner, Pagination } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import { UserSessionStatus } from '@/enums'
 import {
   USERS_CONTROL_BROWSER_LABEL_KEYS,

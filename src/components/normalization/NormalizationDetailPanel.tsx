@@ -2,18 +2,20 @@
 
 import { Bot, ChevronDown, Edit, Trash2 } from 'lucide-react'
 import { AiFindingsPanel } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useNormalizationDetailPanel } from '@/hooks/useNormalizationDetailPanel'
+} from '@/components/ui'
+import { useNormalizationDetailPanel } from '@/hooks'
 import {
   NORMALIZATION_PIPELINE_STATUS_CLASSES,
   NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS,

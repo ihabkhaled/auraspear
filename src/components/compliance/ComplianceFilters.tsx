@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { ComplianceStandard } from '@/enums'
-import { useComplianceFilters } from '@/hooks/useComplianceFilters'
+import { useComplianceFilters } from '@/hooks'
 import { COMPLIANCE_STANDARD_LABEL_KEYS } from '@/lib/constants/compliance'
 import { lookup } from '@/lib/utils'
 import type { ComplianceFiltersProps } from '@/types'

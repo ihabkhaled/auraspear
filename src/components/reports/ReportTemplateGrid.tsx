@@ -1,8 +1,14 @@
 'use client'
 
 import { FilePlus2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import {
   REPORT_FORMAT_LABEL_KEYS,
   REPORT_MODULE_LABEL_KEYS,

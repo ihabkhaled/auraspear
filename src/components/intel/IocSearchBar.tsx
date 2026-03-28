@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useIocSearchBar } from '@/hooks/useIocSearchBar'
+} from '@/components/ui'
+import { useIocSearchBar } from '@/hooks'
 import { IOC_SOURCE_OPTIONS, IOC_TYPE_OPTIONS } from '@/lib/constants/intel'
 import type { IOCSearchBarProps } from '@/types'
 

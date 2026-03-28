@@ -1,17 +1,17 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { RuleSeverity, RuleStatus } from '@/enums'
-import { useCorrelationFilters } from '@/hooks/useCorrelationFilters'
+import { useCorrelationFilters } from '@/hooks'
 import { SOURCE_TABS } from '@/lib/constants/correlation'
 import type { CorrelationFiltersProps } from '@/types'
 

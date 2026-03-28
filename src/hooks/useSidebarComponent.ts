@@ -34,7 +34,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useSidebarHealth } from '@/hooks/useSidebarHealth'
+import { useSidebarHealth } from '@/hooks'
 import { canAccessRouteByPermission } from '@/lib/permissions'
 import { useUIStore, useAuthStore } from '@/stores'
 import type { NavSection } from '@/types'

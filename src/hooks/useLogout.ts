@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useQueryClient } from '@tanstack/react-query'
 import { type UserRole } from '@/enums'
-import { authService } from '@/services/auth.service'
+import { authService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useLogout() {

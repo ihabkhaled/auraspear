@@ -1,7 +1,7 @@
 'use client'
 
-import { DataTable } from '@/components/common/DataTable'
-import { Badge } from '@/components/ui/badge'
+import { DataTable } from '@/components/common'
+import { Badge } from '@/components/ui'
 import { useAppLogTable } from '@/hooks'
 import { getLevelClasses } from '@/lib/admin.utils'
 import { formatTimestamp } from '@/lib/utils'

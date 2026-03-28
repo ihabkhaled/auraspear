@@ -1,13 +1,13 @@
 'use client'
 
 import { Edit2, MoreHorizontal, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui'
 import { CommentPartType } from '@/enums'
 import { useCommentItem } from '@/hooks'
 import { COMMENT_COLLAPSE_HEIGHT_PX } from '@/lib/constants/cases'

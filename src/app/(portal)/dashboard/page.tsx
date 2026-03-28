@@ -14,10 +14,9 @@ import {
   PipelineHealthBar,
   RecentActivityFeed,
 } from '@/components/dashboard'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
+import { Button, Card, CardContent } from '@/components/ui'
 import { DashboardPanelKey } from '@/enums'
-import { useDashboardPage } from '@/hooks/useDashboardPage'
+import { useDashboardPage } from '@/hooks'
 import {
   KPI_ICONS,
   KPI_COLORS,
@@ -82,9 +81,6 @@ export default function DashboardPage() {
     isDailySummaryLoading,
     generateDailySummary,
     aiTCommon,
-    aiAvailableConnectors,
-    aiSelectedConnector,
-    aiHandleConnectorChange,
   } = useDashboardPage()
 
   function renderKPIs() {
@@ -201,9 +197,6 @@ export default function DashboardPage() {
         dailySummary={dailySummary}
         isDailySummaryLoading={isDailySummaryLoading}
         onGenerateSummary={generateDailySummary}
-        availableConnectors={aiAvailableConnectors}
-        selectedConnector={aiSelectedConnector}
-        onConnectorChange={aiHandleConnectorChange}
         tCommon={aiTCommon}
       />
 

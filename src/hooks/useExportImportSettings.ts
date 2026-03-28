@@ -1,7 +1,7 @@
 import { useCallback, useRef } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import type { ExportedSettings } from '@/types'
 import { usePreferences, useUpdatePreferences } from './useSettings'
 
@@ -129,9 +129,7 @@ export function useExportImportSettings() {
             onSuccess: () => {
               Toast.success(t('importSuccess'))
             },
-            onError: (error: unknown) => {
-              Toast.error(tErrors(getErrorKey(error)))
-            },
+            onError: buildErrorToastHandler(tErrors),
           })
         } catch {
           Toast.error(t('importError'))

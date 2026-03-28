@@ -1,9 +1,14 @@
 'use client'
 
 import { Play, RefreshCw, Workflow, Zap } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useWorkspaceActionsPanel } from '@/hooks/useWorkspaceActionsPanel'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useWorkspaceActionsPanel } from '@/hooks'
 import { lookup } from '@/lib/utils'
 import type { WorkspaceActionsPanelProps } from '@/types'
 import type { LucideIcon } from 'lucide-react'

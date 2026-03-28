@@ -1,9 +1,8 @@
 'use client'
 
 import { ArrowLeft } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { useWorkspaceHeader } from '@/hooks/useWorkspaceHeader'
+import { Badge, Button } from '@/components/ui'
+import { useWorkspaceHeader } from '@/hooks'
 import { WORKSPACE_HEADER_STATUS_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceHeaderProps } from '@/types'

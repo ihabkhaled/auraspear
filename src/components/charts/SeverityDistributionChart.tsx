@@ -1,7 +1,7 @@
 'use client'
 
 import { ResponsiveContainer, PieChart, Pie, Legend, Tooltip } from 'recharts'
-import { useSeverityChartData } from '@/hooks/useSeverityChartData'
+import { useSeverityChartData } from '@/hooks'
 import type { SeverityDistributionChartProps } from '@/types'
 
 export function SeverityDistributionChart({ data }: SeverityDistributionChartProps) {

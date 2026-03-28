@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle2, Layers, XCircle } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useNormalizationKpiCards } from '@/hooks/useNormalizationKpiCards'
+import { useNormalizationKpiCards } from '@/hooks'
 import type { NormalizationKpiCardsProps } from '@/types'
 
 export function NormalizationKpiCards({ stats }: NormalizationKpiCardsProps) {

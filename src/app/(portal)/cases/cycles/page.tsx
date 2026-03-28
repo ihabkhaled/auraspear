@@ -3,7 +3,7 @@
 import { Plus, History, AlertTriangle } from 'lucide-react'
 import { CycleHistoryTable, CreateCycleDialog, EditCycleDialog } from '@/components/cases'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination } from '@/components/common'
-import { useCycleHistoryPage } from '@/hooks/useCycleHistoryPage'
+import { useCycleHistoryPage } from '@/hooks'
 
 export default function CycleHistoryPage() {
   const {

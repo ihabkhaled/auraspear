@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { entityService } from '@/services/entity.service'
+import { entityService } from '@/services'
 import { useTenantStore } from '@/stores'
 
 export function useEntityGraph(entityId: string) {

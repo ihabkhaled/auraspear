@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { UebaEntityType, UebaRiskLevel } from '@/enums'
-import { useUebaFilters } from '@/hooks/useUebaFilters'
+import { useUebaFilters } from '@/hooks'
 import { UEBA_ENTITY_TYPE_LABEL_KEYS, UEBA_RISK_LEVEL_LABEL_KEYS } from '@/lib/constants/ueba'
 import { lookup } from '@/lib/utils'
 import type { UebaFiltersProps } from '@/types'

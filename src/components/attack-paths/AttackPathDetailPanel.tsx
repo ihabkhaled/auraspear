@@ -2,11 +2,15 @@
 
 import { ChevronDown, Edit, Trash2, X } from 'lucide-react'
 import { AiFindingsPanel, LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
-import { useAttackPathDetailPanel } from '@/hooks/useAttackPathDetailPanel'
+import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
+import { useAttackPathDetailPanel } from '@/hooks'
 import {
   ATTACK_PATH_SEVERITY_CLASSES,
   ATTACK_PATH_SEVERITY_LABEL_KEYS,

@@ -1,8 +1,8 @@
 'use client'
 
 import { EyeOff, LogOut } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useImpersonationBanner } from '@/hooks/useImpersonationBanner'
+import { Button } from '@/components/ui'
+import { useImpersonationBanner } from '@/hooks'
 
 export function ImpersonationBanner() {
   const { t, impersonator, user, ending, handleEndImpersonation } = useImpersonationBanner()

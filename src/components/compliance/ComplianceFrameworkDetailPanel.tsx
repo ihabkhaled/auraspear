@@ -2,17 +2,19 @@
 
 import { ChevronDown, Pencil, Trash2 } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useComplianceDetailPanel } from '@/hooks/useComplianceDetailPanel'
+} from '@/components/ui'
+import { useComplianceDetailPanel } from '@/hooks'
 import {
   COMPLIANCE_STANDARD_LABEL_KEYS,
   COMPLIANCE_STANDARD_CLASSES,

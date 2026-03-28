@@ -1,8 +1,8 @@
 'use client'
 
 import { Sun, Moon } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useThemeSwitcher } from '@/hooks/useThemeSwitcher'
+import { Button } from '@/components/ui'
+import { useThemeSwitcher } from '@/hooks'
 
 export function ThemeSwitcher() {
   const { t, mounted, isDark, handleToggle } = useThemeSwitcher()

@@ -1,17 +1,19 @@
 'use client'
 
 import { ChevronDown, Pencil, Play, Trash2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useSoarDetailPanel } from '@/hooks/useSoarDetailPanel'
+} from '@/components/ui'
+import { useSoarDetailPanel } from '@/hooks'
 import {
   SOAR_PLAYBOOK_STATUS_LABEL_KEYS,
   SOAR_PLAYBOOK_STATUS_CLASSES,

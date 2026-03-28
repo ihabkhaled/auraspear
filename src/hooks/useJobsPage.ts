@@ -5,10 +5,10 @@ import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission, SortOrder } from '@/enums'
 import type { JobStatus, JobType } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { ALL_JOB_FILTER_VALUE } from '@/lib/constants/jobs'
 import { isJobStatus, isJobType } from '@/lib/job.utils'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore } from '@/stores'
 import { useCancelAllJobs, useCancelJob, useJobs, useJobStats, useRetryJob } from './useJobs'
 import { usePagination } from './usePagination'
@@ -68,9 +68,7 @@ export function useJobsPage() {
         onSuccess: () => {
           Toast.success(t('retrySuccess'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [retryMutation, t, tErrors]
@@ -82,9 +80,7 @@ export function useJobsPage() {
         onSuccess: () => {
           Toast.success(t('cancelSuccess'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [cancelMutation, t, tErrors]
@@ -96,9 +92,7 @@ export function useJobsPage() {
         const count = (result as { data: { cancelled: number } })?.data?.cancelled ?? 0
         Toast.success(t('cancelAllSuccess', { count: String(count) }))
       },
-      onError: (error: unknown) => {
-        Toast.error(tErrors(getErrorKey(error)))
-      },
+      onError: buildErrorToastHandler(tErrors),
     })
   }, [cancelAllMutation, t, tErrors])
 

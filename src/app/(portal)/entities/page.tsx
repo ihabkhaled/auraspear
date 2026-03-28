@@ -10,9 +10,8 @@ import {
   OsintFileUploadButton,
 } from '@/components/common'
 import { EntityFilters, EntityGraphPanel, RiskScoreBadge } from '@/components/entities'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { useEntitiesPage } from '@/hooks/useEntitiesPage'
+import { Badge, Button } from '@/components/ui'
+import { useEntitiesPage } from '@/hooks'
 import { isEnrichableEntityType, isFileOrHashType, normalizeIocType } from '@/lib/entity.utils'
 import { formatTimestamp } from '@/lib/utils'
 import type { Column, EntityRecord } from '@/types'

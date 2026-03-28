@@ -9,7 +9,7 @@ import {
   AiAgentDetailPanel,
 } from '@/components/ai-agents'
 import { DataTable, PageHeader, Pagination } from '@/components/common'
-import { useAiAgentsPage } from '@/hooks/useAiAgentsPage'
+import { useAiAgentsPage } from '@/hooks'
 
 export default function AiAgentsPage() {
   const {

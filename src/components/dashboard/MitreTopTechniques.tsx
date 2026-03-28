@@ -1,8 +1,8 @@
 'use client'
 
 import { Swords } from 'lucide-react'
-import { EmptyState } from '@/components/common/EmptyState'
-import { Progress } from '@/components/ui/progress'
+import { EmptyState } from '@/components/common'
+import { Progress } from '@/components/ui'
 import { useMitreTopTechniques } from '@/hooks'
 import type { MITRETopTechniquesProps } from '@/types'
 

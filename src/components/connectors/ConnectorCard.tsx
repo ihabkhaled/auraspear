@@ -1,11 +1,17 @@
 'use client'
 
 import { Settings, Play, Trash2, ExternalLink } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Switch,
+} from '@/components/ui'
 import { WorkspaceTab } from '@/enums'
-import { useConnectorCard } from '@/hooks/useConnectorCard'
+import { useConnectorCard } from '@/hooks'
 import { deriveConnectorStatus } from '@/lib/connectors.utils'
 import { CONNECTOR_ICONS } from '@/lib/constants/connectors.constants'
 import { formatRelativeTime } from '@/lib/utils'

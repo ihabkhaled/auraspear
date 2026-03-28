@@ -2,7 +2,7 @@
 
 import { Zap } from 'lucide-react'
 import { DataTable, Pagination } from '@/components/common'
-import { useAiAgentSessionTable } from '@/hooks/useAiAgentSessionTable'
+import { useAiAgentSessionTable } from '@/hooks'
 import type { AiAgentSessionTableProps } from '@/types'
 import { AiAgentSessionDetailDialog } from './AiAgentSessionDetailDialog'
 

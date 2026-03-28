@@ -2,24 +2,22 @@
 
 import { Check, Eye, EyeOff, Loader2, AlertCircle } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useAssignUserDialog } from '@/hooks/useAssignUserDialog'
+} from '@/components/ui'
+import { useAssignUserDialog } from '@/hooks'
 import type { AssignUserDialogProps } from '@/types'
 
 export function AssignUserDialog(props: AssignUserDialogProps) {

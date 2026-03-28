@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { uebaService } from '@/services/ueba.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { uebaService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiUebaNarrativeResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiUebaNarrative(anomalyId: string) {
   const t = useTranslations('ueba')
@@ -19,8 +17,8 @@ export function useAiUebaNarrative(anomalyId: string) {
   const permissions = useAuthStore(s => s.permissions)
   const canExplain = hasPermission(permissions, Permission.AI_UEBA_NARRATIVE)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [result, setResult] = useState<AiUebaNarrativeResult | null>(null)
 
@@ -29,9 +27,7 @@ export function useAiUebaNarrative(anomalyId: string) {
     onSuccess: (data: AiUebaNarrativeResult) => {
       setResult(data)
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleExplain = useCallback(() => {
@@ -51,8 +47,5 @@ export function useAiUebaNarrative(anomalyId: string) {
     isExplaining: explainMutation.isPending,
     result,
     clearResult: handleClearResult,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

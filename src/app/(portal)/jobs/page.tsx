@@ -3,8 +3,7 @@
 import { Clock3, RefreshCcw, XCircle } from 'lucide-react'
 import { DataTable, EmptyState, LoadingSpinner, PageHeader, Pagination } from '@/components/common'
 import { JobFilters, JobKpiCards } from '@/components/jobs'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge, Button } from '@/components/ui'
 import { useJobsPage } from '@/hooks'
 import {
   getJobStatusBadgeVariant,

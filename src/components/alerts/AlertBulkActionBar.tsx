@@ -1,8 +1,8 @@
 'use client'
 
 import { CheckCircle, XCircle, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useAlertBulkActionBar } from '@/hooks/useAlertBulkActionBar'
+import { Button } from '@/components/ui'
+import { useAlertBulkActionBar } from '@/hooks'
 import type { AlertBulkActionBarProps } from '@/types'
 
 export function AlertBulkActionBar({

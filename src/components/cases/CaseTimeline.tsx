@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown, ChevronUp } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { useCaseTimeline } from '@/hooks'
 import { getTypeColor } from '@/lib/case.utils'
 import { cn, formatTimestamp } from '@/lib/utils'

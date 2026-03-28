@@ -4,13 +4,13 @@ import { Brain, CheckCircle } from 'lucide-react'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
-} from '@/components/ui/dialog'
-import { Progress } from '@/components/ui/progress'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { Separator } from '@/components/ui/separator'
+  Progress,
+  ScrollArea,
+  Separator,
+} from '@/components/ui'
 import { useAiInvestigationModal } from '@/hooks'
 import { getConfidenceColor } from '@/lib/alert.utils'
 import { cn } from '@/lib/utils'

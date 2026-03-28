@@ -3,7 +3,7 @@
 import { QueryClientProvider } from '@tanstack/react-query'
 import { NextIntlClientProvider } from 'next-intl'
 import { ThemeProvider } from 'next-themes'
-import { useProviders } from '@/hooks/useProviders'
+import { useProviders } from '@/hooks'
 import { DEFAULT_TIME_ZONE } from '@/lib/constants/locales'
 import { SerwistProvider } from '@/lib/serwist-client'
 import type { ProvidersProps } from '@/types'

@@ -1,8 +1,8 @@
 'use client'
 
 import { Copy, Check } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useCopyButton } from '@/hooks/useCopyButton'
+import { Button } from '@/components/ui'
+import { useCopyButton } from '@/hooks'
 import type { CopyButtonProps } from '@/types'
 
 export function CopyButton({ value, label }: CopyButtonProps) {

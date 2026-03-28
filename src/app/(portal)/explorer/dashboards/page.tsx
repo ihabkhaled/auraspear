@@ -2,8 +2,7 @@
 
 import { LayoutDashboard, Search, RefreshCw, ExternalLink, Star, AlertCircle } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
+import { Badge, Input } from '@/components/ui'
 import { SortOrder } from '@/enums'
 import { useExplorerDashboardsPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'

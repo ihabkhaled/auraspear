@@ -6,7 +6,7 @@ import {
   ProfilePersonalInfo,
   ProfileUpdateNameForm,
 } from '@/components/profile'
-import { useProfilePage } from '@/hooks/useProfilePage'
+import { useProfilePage } from '@/hooks'
 
 export default function ProfilePage() {
   const {

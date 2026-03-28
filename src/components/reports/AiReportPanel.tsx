@@ -1,13 +1,17 @@
 import { Bot, Loader2, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { AiConnectorSelect } from '@/components/common'
 import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { AI_TIME_RANGE_LABEL_KEYS, AI_TIME_RANGE_OPTIONS } from '@/lib/constants/reports'
 import type { AiReportPanelComponentProps } from '@/types'
 
@@ -18,9 +22,6 @@ export function AiReportPanel({
   onTimeRangeChange,
   onGenerate,
   isLoading,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
 }: AiReportPanelComponentProps) {
   return (
@@ -33,18 +34,7 @@ export function AiReportPanel({
           </CardTitle>
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-            <Select value={selectedConnector} onValueChange={onConnectorChange}>
-              <SelectTrigger className="h-7 w-[160px] text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {availableConnectors.map(c => (
-                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <AiConnectorSelect />
             <Select value={selectedTimeRange} onValueChange={onTimeRangeChange}>
               <SelectTrigger className="w-[140px]">
                 <SelectValue />

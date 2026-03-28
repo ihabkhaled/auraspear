@@ -6,9 +6,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { HealthCheckStatus, ServiceType } from '@/enums'
-import { useSystemHealthFilters } from '@/hooks/useSystemHealthFilters'
+import { useSystemHealthFilters } from '@/hooks'
 import {
   HEALTH_CHECK_STATUS_LABEL_KEYS,
   SERVICE_TYPE_LABEL_KEYS,

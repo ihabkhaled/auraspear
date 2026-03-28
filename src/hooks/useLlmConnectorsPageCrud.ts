@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import type {
   LlmConnectorsPageDialogsReturn,
   CreateLlmConnectorFormValues,
@@ -56,9 +56,7 @@ export function useLlmConnectorsPageCrud(dialogs: LlmConnectorsPageDialogsReturn
           Toast.success(t('connectorCreated'))
           dialogs.setCreateDialogOpen(false)
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [createMutation, t, tErrors, dialogs]
@@ -93,9 +91,7 @@ export function useLlmConnectorsPageCrud(dialogs: LlmConnectorsPageDialogsReturn
             dialogs.setEditDialogOpen(false)
             dialogs.setEditConnector(null)
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -116,9 +112,7 @@ export function useLlmConnectorsPageCrud(dialogs: LlmConnectorsPageDialogsReturn
             dialogs.setSelectedConnectorId(null)
           }
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [deleteMutation, dialogs, t, tErrors]
@@ -135,9 +129,7 @@ export function useLlmConnectorsPageCrud(dialogs: LlmConnectorsPageDialogsReturn
             Toast.error(testResult?.details ?? t('testFailed'))
           }
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [testMutation, t, tErrors]
@@ -153,9 +145,7 @@ export function useLlmConnectorsPageCrud(dialogs: LlmConnectorsPageDialogsReturn
             Toast.success(t('connectorDisabled'))
           }
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [toggleMutation, t, tErrors]

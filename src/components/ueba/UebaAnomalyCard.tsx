@@ -1,9 +1,8 @@
 'use client'
 
 import { CheckCircle, Clock } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { useUebaAnomalyCard } from '@/hooks/useUebaAnomalyCard'
+import { Badge, Button } from '@/components/ui'
+import { useUebaAnomalyCard } from '@/hooks'
 import { UEBA_RISK_LEVEL_LABEL_KEYS } from '@/lib/constants/ueba'
 import { formatRelativeTime, lookup } from '@/lib/utils'
 import type { UebaAnomalyCardProps } from '@/types'

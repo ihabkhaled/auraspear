@@ -1,27 +1,28 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
+  Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '@/components/ui'
 import { AiOutputFormat, AiTriggerMode } from '@/enums'
-import { useAgentConfigEditDialog } from '@/hooks/useAgentConfigEditDialog'
+import { useAgentConfigEditDialog } from '@/hooks'
 import { AI_OUTPUT_FORMAT_LABEL_KEYS, AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
 import { lookup } from '@/lib/utils'
 import type { AgentConfigEditDialogProps } from '@/types'

@@ -12,11 +12,19 @@ import {
   WorkspaceSearchPanel,
   WorkspaceActionsPanel,
 } from '@/components/connectors/workspace'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui'
 import { ConnectorAuthType, WorkspaceTab } from '@/enums'
-import { useConnectorWorkspacePage } from '@/hooks/useConnectorWorkspacePage'
+import { useConnectorWorkspacePage } from '@/hooks'
 import { mapConfigForBackend } from '@/lib/connector-utils'
 import { isSyncableConnector } from '@/lib/constants/connectors.constants'
 import type { ConnectorDetailPageProps } from '@/types'

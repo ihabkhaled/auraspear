@@ -5,12 +5,11 @@ import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { normalizationService } from '@/services/normalization.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { normalizationService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiResponse } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiNormVerifier() {
   const t = useTranslations('normalization')
@@ -18,8 +17,8 @@ export function useAiNormVerifier() {
   const permissions = useAuthStore(s => s.permissions)
   const canVerify = hasPermission(permissions, Permission.NORMALIZATION_VIEW)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [result, setResult] = useState<AiResponse | null>(null)
 
@@ -30,9 +29,7 @@ export function useAiNormVerifier() {
       setResult(data)
       Toast.success(t('aiVerifySuccess'))
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleVerify = useCallback(
@@ -50,9 +47,6 @@ export function useAiNormVerifier() {
     t,
     tErrors,
     canVerify,
-    availableConnectors,
-    selectedConnector,
-    setSelectedConnector,
     verifyMutation,
     result,
     isVerifying: verifyMutation.isPending,

@@ -1,27 +1,25 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+  Textarea,
+} from '@/components/ui'
 import { ComplianceStandard } from '@/enums'
-import { useComplianceCreateDialog } from '@/hooks/useComplianceCreateDialog'
+import { useComplianceCreateDialog } from '@/hooks'
 import { COMPLIANCE_STANDARD_LABEL_KEYS } from '@/lib/constants/compliance'
 import { lookup } from '@/lib/utils'
 import type { ComplianceCreateDialogProps } from '@/types'

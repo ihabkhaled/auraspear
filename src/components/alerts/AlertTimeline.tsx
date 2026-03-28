@@ -2,7 +2,7 @@
 
 import { PlusCircle, CheckCircle, XCircle, AlertTriangle, Search, Circle } from 'lucide-react'
 import { AlertTimelineEventType } from '@/enums'
-import { useAlertTimelineComponent } from '@/hooks/useAlertTimelineComponent'
+import { useAlertTimelineComponent } from '@/hooks'
 import { formatTimestamp, cn } from '@/lib/utils'
 import type { AlertTimelineProps, AlertTimelineEvent } from '@/types'
 

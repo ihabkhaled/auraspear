@@ -1,16 +1,16 @@
 'use client'
 
 import { Calendar, User, UserCheck, Edit, Trash2, ExternalLink, FolderClosed } from 'lucide-react'
-import { SeverityBadge } from '@/components/common/SeverityBadge'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { SeverityBadge } from '@/components/common'
 import {
+  Badge,
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CaseCycleStatus, CaseStatus } from '@/enums'
 import { useCaseDetailHeader } from '@/hooks'
 import { getAvailableTransitions, STATUS_VARIANT_MAP } from '@/lib/case.utils'

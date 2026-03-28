@@ -1,15 +1,15 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
+  Button,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { TenantEnvironment } from '@/enums'
 import { useTenantProfileForm } from '@/hooks'
 import type { TenantProfileFormProps } from '@/types'

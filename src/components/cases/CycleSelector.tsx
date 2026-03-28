@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CaseCycleStatus } from '@/enums'
 import { useCycleSelector } from '@/hooks'
 import type { CycleSelectorProps } from '@/types'

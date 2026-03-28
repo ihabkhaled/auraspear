@@ -3,7 +3,7 @@
 import { useCallback, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { agentConfigService } from '@/services'
 import type { OsintEnrichmentResult } from '@/types'
 
@@ -68,7 +68,7 @@ export function useOsintEnrichment() {
           }
         }
       } catch (error: unknown) {
-        Toast.error(tErrors(getErrorKey(error)))
+        buildErrorToastHandler(tErrors)(error)
       } finally {
         setIsEnriching(false)
       }
@@ -83,7 +83,7 @@ export function useOsintEnrichment() {
         const resp = await agentConfigService.fetchVtAnalysis(analysisUrl)
         setFetchedAnalysisData(prev => ({ ...prev, [sourceId]: resp.data }))
       } catch (error: unknown) {
-        Toast.error(tErrors(getErrorKey(error)))
+        buildErrorToastHandler(tErrors)(error)
       } finally {
         setFetchingSourceId(null)
       }

@@ -1,17 +1,15 @@
 'use client'
 
 import { ChevronDown, Loader2, RefreshCw, Search, Sparkles, FileText } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
+import { AiConnectorSelect } from '@/components/common'
 import type { AiIntelPanelProps, AiIntelResult } from '@/types'
 
 function IntelResultCard({ result, t }: { result: AiIntelResult; t: (key: string) => string }) {
@@ -40,9 +38,6 @@ export function AiIntelPanel({
   selectedIocIds,
   onEnrichIoc,
   onDraftAdvisory,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
   t,
 }: AiIntelPanelProps) {
@@ -66,18 +61,7 @@ export function AiIntelPanel({
             <p className="text-muted-foreground text-xs">{t('aiEnrichDescription')}</p>
             <div className="flex items-center gap-2">
               <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-              <Select value={selectedConnector} onValueChange={onConnectorChange}>
-                <SelectTrigger className="h-7 w-[160px] text-xs">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {availableConnectors.map(c => (
-                    <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                      {c.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <AiConnectorSelect />
             </div>
           </div>
 

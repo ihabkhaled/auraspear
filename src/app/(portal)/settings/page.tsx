@@ -8,19 +8,25 @@ import {
   ExportImportCard,
   MemorySettingsCard,
 } from '@/components/settings'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Label } from '@/components/ui/label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Switch } from '@/components/ui/switch'
-import { useSettingsPage } from '@/hooks/useSettingsPage'
+  Switch,
+} from '@/components/ui'
+import { useSettingsPage } from '@/hooks'
 import { LOCALES } from '@/lib/constants/locales'
 
 export default function SettingsPage() {

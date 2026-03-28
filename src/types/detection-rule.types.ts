@@ -4,7 +4,6 @@ import type {
   DetectionRuleType,
   SortOrder,
 } from '@/enums'
-import type { AvailableAiConnector } from './llm-connector.types'
 
 export interface DetectionRule {
   id: string
@@ -197,9 +196,6 @@ export interface AiDetectionCopilotPanelProps {
   onDraftDescriptionChange: (value: string) => void
   onDraftRule: () => void
   onTuning: () => void
-  availableConnectors: AvailableAiConnector[]
-  selectedConnector: string
-  onConnectorChange: (value: string) => void
   tCommon: (key: string) => string
   t: (key: string) => string
 }

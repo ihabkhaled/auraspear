@@ -1,9 +1,8 @@
 'use client'
 
 import { Bot, Crosshair, Plus } from 'lucide-react'
-import { EmptyState } from '@/components/common/EmptyState'
-import { Button } from '@/components/ui/button'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { EmptyState } from '@/components/common'
+import { Button, ScrollArea } from '@/components/ui'
 import { useHuntChatPanel } from '@/hooks'
 import type { HuntChatPanelProps } from '@/types'
 import { ChatMessage } from './ChatMessage'

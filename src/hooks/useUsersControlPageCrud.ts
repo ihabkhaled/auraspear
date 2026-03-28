@@ -4,8 +4,8 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { canManageUsersControlTarget } from '@/lib/users-control'
 import { useAuthStore } from '@/stores'
 import type { UsersControlUser } from '@/types'
@@ -52,9 +52,7 @@ export function useUsersControlPageCrud(selectedUser: UsersControlUser | null, s
               })
             )
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         })
       }
     },
@@ -77,9 +75,7 @@ export function useUsersControlPageCrud(selectedUser: UsersControlUser | null, s
             })
           )
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     }
   }, [forceLogoutAllMutation, scopeLabel, t, tErrors])
@@ -107,9 +103,7 @@ export function useUsersControlPageCrud(selectedUser: UsersControlUser | null, s
                 })
               )
             },
-            onError: (error: unknown) => {
-              Toast.error(tErrors(getErrorKey(error)))
-            },
+            onError: buildErrorToastHandler(tErrors),
           }
         )
       }

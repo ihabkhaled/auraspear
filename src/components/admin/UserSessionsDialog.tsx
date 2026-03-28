@@ -2,24 +2,22 @@
 
 import { ArrowDown, ArrowUp, Globe, LogOut, MonitorSmartphone } from 'lucide-react'
 import { Pagination } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import {
+  ScrollArea,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { SortOrder, UsersControlSessionSortField } from '@/enums'
 import { formatRelativeTime, formatTimestamp } from '@/lib/utils'
 import type { UserSessionsDialogProps } from '@/types'

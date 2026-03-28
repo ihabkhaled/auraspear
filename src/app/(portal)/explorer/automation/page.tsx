@@ -2,8 +2,7 @@
 
 import { Workflow, Search, RefreshCw, CheckCircle2, XCircle, AlertCircle } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
+import { Badge, Input } from '@/components/ui'
 import { SortOrder } from '@/enums'
 import { useExplorerAutomationPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'

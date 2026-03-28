@@ -2,7 +2,7 @@
 
 import { ExternalLink, Loader2, RefreshCw, Upload } from 'lucide-react'
 import { OsintResultCard } from '@/components/common/OsintResultCard'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { useOsintFileUpload } from '@/hooks'
 import type { OsintFileUploadButtonProps } from '@/types'
 

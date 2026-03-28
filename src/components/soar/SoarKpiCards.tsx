@@ -2,7 +2,7 @@
 
 import { CheckCircle2, Clock, Play, Workflow, Zap } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useSoarKpiCards } from '@/hooks/useSoarKpiCards'
+import { useSoarKpiCards } from '@/hooks'
 import type { SoarKpiCardsProps } from '@/types'
 
 export function SoarKpiCards({ stats }: SoarKpiCardsProps) {

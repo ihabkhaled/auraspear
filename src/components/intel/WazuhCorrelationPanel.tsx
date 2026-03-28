@@ -1,10 +1,7 @@
 'use client'
 
 import { Link2 } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { OsintEnrichButton } from '@/components/common/OsintEnrichButton'
-import { OsintFileUploadButton } from '@/components/common/OsintFileUploadButton'
-import { SeverityBadge } from '@/components/common/SeverityBadge'
+import { DataTable, OsintEnrichButton, OsintFileUploadButton, SeverityBadge } from '@/components/common'
 import type { AlertSeverity } from '@/enums'
 import { useWazuhCorrelationPanel } from '@/hooks'
 import { isFileOrHashType, normalizeIocType } from '@/lib/entity.utils'

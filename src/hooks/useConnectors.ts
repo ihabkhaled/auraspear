@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
-import { connectorService } from '@/services/connector.service'
+import { connectorService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { CreateConnectorInput, ToggleConnectorInput } from '@/types'
 
@@ -46,6 +46,7 @@ export function useUpdateConnector(type: string) {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-connectors-available', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
       void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
@@ -64,6 +65,7 @@ export function useDeleteConnector() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-connectors-available', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
       void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
@@ -100,6 +102,7 @@ export function useCreateConnector() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-connectors-available', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
       void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },
@@ -118,6 +121,7 @@ export function useToggleConnector() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['connectors', tenantId] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-connectors-available', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['admin', tenantId, 'service-health'] })
       void queryClient.invalidateQueries({ queryKey: ['dashboard', tenantId] })
     },

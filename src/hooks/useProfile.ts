@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { PROFILE_KEY } from '@/lib/constants/settings'
 import { requirePermission } from '@/lib/permissions'
-import { profileService } from '@/services/profile.service'
+import { profileService } from '@/services'
 import { useAuthStore } from '@/stores'
 import type { ChangePasswordInput, UpdateProfileInput } from '@/types'
 

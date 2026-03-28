@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { useUpdatePreferences } from '@/hooks/useSettings'
+import { useUpdatePreferences } from '@/hooks'
 import { getCookie, setCookie } from '@/lib/cookies'
 
 export function useLanguageSwitcher() {

@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { applyPermissionSnapshot, invalidatePermissionSensitiveQueries } from '@/lib/auth-session'
 import { PERMISSION_SYNC_INTERVAL } from '@/lib/constants/admin'
-import { authService } from '@/services/auth.service'
+import { authService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 /**

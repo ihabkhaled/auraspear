@@ -1,9 +1,8 @@
 'use client'
 
 import { Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import { useHuntInputArea } from '@/hooks/useHuntInputArea'
+import { Button, Textarea } from '@/components/ui'
+import { useHuntInputArea } from '@/hooks'
 import { QUICK_PROMPT_KEYS } from '@/lib/constants/hunt'
 import type { HuntInputAreaProps } from '@/types'
 

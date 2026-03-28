@@ -1,6 +1,6 @@
 'use client'
 
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui'
 import { CardVariant } from '@/enums'
 import { WORKSPACE_ICON_MAP, WORKSPACE_VARIANT_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, lookup } from '@/lib/utils'

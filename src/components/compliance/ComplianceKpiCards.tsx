@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle2, ClipboardList, ShieldCheck } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useComplianceKpiCards } from '@/hooks/useComplianceKpiCards'
+import { useComplianceKpiCards } from '@/hooks'
 import type { ComplianceKpiCardsProps } from '@/types'
 
 export function ComplianceKpiCards({ stats }: ComplianceKpiCardsProps) {

@@ -1,10 +1,17 @@
 'use client'
 
 import { ChevronDown, Download, Upload } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { useExportImportSettings } from '@/hooks/useExportImportSettings'
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui'
+import { useExportImportSettings } from '@/hooks'
 
 export default function ExportImportCard() {
   const { t, fileInputRef, isPending, handleExport, handleImportClick, handleFileChange } =

@@ -7,8 +7,8 @@ import {
   NotificationFilters,
   getNotificationColumns,
 } from '@/components/notifications'
-import { Button } from '@/components/ui/button'
-import { useNotificationsPage } from '@/hooks/useNotificationsPage'
+import { Button } from '@/components/ui'
+import { useNotificationsPage } from '@/hooks'
 
 export default function NotificationsPage() {
   const {
@@ -51,9 +51,6 @@ export default function NotificationsPage() {
         isLoading={aiDigest.isLoading}
         digestResult={aiDigest.digestResult}
         onGenerateDigest={aiDigest.handleGenerateDigest}
-        availableConnectors={aiDigest.availableConnectors}
-        selectedConnector={aiDigest.selectedConnector}
-        onConnectorChange={aiDigest.handleConnectorChange}
         tCommon={aiDigest.tCommon}
         t={t}
       />

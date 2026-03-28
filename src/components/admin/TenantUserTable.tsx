@@ -11,10 +11,14 @@ import {
   Trash2,
   Users,
 } from 'lucide-react'
-import { DataTable } from '@/components/common/DataTable'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { DataTable } from '@/components/common'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Button,
+} from '@/components/ui'
 import { UserRole, UserStatus } from '@/enums'
 import { useTenantUserTable } from '@/hooks'
 import { getStatusDotClass, getRoleBadgeClass } from '@/lib/admin-utils'

@@ -1,14 +1,14 @@
 'use client'
 
 import { Ban } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { JOB_STATUS_FILTER_OPTIONS, JOB_TYPE_FILTER_OPTIONS } from '@/lib/constants/jobs'
 import type { JobFiltersProps } from '@/types'
 

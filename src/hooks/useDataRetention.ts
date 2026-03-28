@@ -2,7 +2,7 @@ import { useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { RetentionPeriod } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import {
   DEFAULT_RETENTION,
   RETENTION_KEY_TO_PREF,
@@ -44,9 +44,7 @@ export function useDataRetention() {
           onSuccess: () => {
             Toast.success(t('saved'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },

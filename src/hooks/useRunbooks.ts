@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
-import { knowledgeService } from '@/services/knowledge.service'
+import { knowledgeService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { CreateRunbookInput, RunbookSearchParams, UpdateRunbookInput } from '@/types'
 

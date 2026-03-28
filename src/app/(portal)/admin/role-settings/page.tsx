@@ -2,8 +2,8 @@
 
 import { RoleSettingsMatrix, RoleSettingsToolbar } from '@/components/admin'
 import { PageHeader, LoadingSpinner } from '@/components/common'
-import { Card, CardContent } from '@/components/ui/card'
-import { useRoleSettingsPage } from '@/hooks/useRoleSettingsPage'
+import { Card, CardContent } from '@/components/ui'
+import { useRoleSettingsPage } from '@/hooks'
 
 export default function RoleSettingsPage() {
   const {

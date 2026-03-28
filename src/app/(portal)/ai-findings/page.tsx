@@ -9,18 +9,18 @@ import {
 } from 'lucide-react'
 import { FindingDetailDrawer } from '@/components/ai-findings'
 import { DataTable, PageHeader } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Badge,
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { SortOrder } from '@/enums'
-import { useAiFindingsPage } from '@/hooks/useAiFindingsPage'
+import { useAiFindingsPage } from '@/hooks'
 import {
   resolveFindingConfidenceVariant,
   resolveFindingSeverityVariant,

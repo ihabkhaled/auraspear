@@ -4,15 +4,11 @@ import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { SweetAlertDialog, SweetAlertIcon, Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { CreateRunbookFormValues, EditRunbookFormValues, RunbookRecord } from '@/types'
-import {
-  useAiGenerateRunbook,
-  useAiKnowledgeConnector,
-  useAiSearchKnowledge,
-} from './useAiKnowledge'
+import { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
 import { useCreateRunbook, useUpdateRunbook, useDeleteRunbook } from './useRunbooks'
 
 export function useKnowledgePageCrud(dialogs: {
@@ -35,9 +31,10 @@ export function useKnowledgePageCrud(dialogs: {
   const updateMutation = useUpdateRunbook()
   const deleteMutation = useDeleteRunbook()
 
-  const aiConnector = useAiKnowledgeConnector()
-  const aiGenerateMutation = useAiGenerateRunbook(aiConnector.connectorValue)
-  const aiSearchMutation = useAiSearchKnowledge(aiConnector.connectorValue)
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
+  const aiGenerateMutation = useAiGenerateRunbook(connectorValue)
+  const aiSearchMutation = useAiSearchKnowledge(connectorValue)
 
   const handleCreate = useCallback(
     (values: CreateRunbookFormValues) => {
@@ -59,7 +56,7 @@ export function useKnowledgePageCrud(dialogs: {
             dialogs.setCreateOpen(false)
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         }
       )
@@ -94,7 +91,7 @@ export function useKnowledgePageCrud(dialogs: {
             dialogs.setSelectedRunbook(null)
           },
           onError: error => {
-            Toast.error(tErrors(getErrorKey(error)))
+            buildErrorToastHandler(tErrors)(error)
           },
         }
       )
@@ -119,7 +116,7 @@ export function useKnowledgePageCrud(dialogs: {
           }
         },
         onError: error => {
-          Toast.error(tErrors(getErrorKey(error)))
+          buildErrorToastHandler(tErrors)(error)
         },
       })
     },
@@ -129,9 +126,7 @@ export function useKnowledgePageCrud(dialogs: {
   const handleAiGenerate = useCallback(
     (description: string) => {
       aiGenerateMutation.mutate(description, {
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [aiGenerateMutation, tErrors]
@@ -140,9 +135,7 @@ export function useKnowledgePageCrud(dialogs: {
   const handleAiSearch = useCallback(
     (query: string) => {
       aiSearchMutation.mutate(query, {
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [aiSearchMutation, tErrors]
@@ -167,9 +160,5 @@ export function useKnowledgePageCrud(dialogs: {
       data: aiSearchMutation.data,
       isPending: aiSearchMutation.isPending,
     },
-    aiConnectorTCommon: aiConnector.tCommon,
-    aiAvailableConnectors: aiConnector.availableConnectors,
-    aiSelectedConnector: aiConnector.selectedConnector,
-    aiHandleConnectorChange: aiConnector.handleConnectorChange,
   }
 }

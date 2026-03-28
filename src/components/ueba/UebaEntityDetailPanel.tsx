@@ -2,11 +2,15 @@
 
 import { ChevronDown, X } from 'lucide-react'
 import { AiFindingsPanel, LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
-import { useUebaEntityDetailPanel } from '@/hooks/useUebaEntityDetailPanel'
+import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+} from '@/components/ui'
+import { useUebaEntityDetailPanel } from '@/hooks'
 import {
   UEBA_ENTITY_TYPE_LABEL_KEYS,
   UEBA_ENTITY_TYPE_CLASSES,

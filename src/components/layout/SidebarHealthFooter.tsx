@@ -1,8 +1,8 @@
 'use client'
 
 import { Activity } from 'lucide-react'
-import { Progress } from '@/components/ui/progress'
-import { useSidebarHealthFooter } from '@/hooks/useSidebarHealthFooter'
+import { Progress } from '@/components/ui'
+import { useSidebarHealthFooter } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { SidebarHealthFooterProps } from '@/types'
 

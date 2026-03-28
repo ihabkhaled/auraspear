@@ -1,8 +1,8 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useUebaEntityDeleteDialog } from '@/hooks/useUebaEntityDeleteDialog'
+import { Button } from '@/components/ui'
+import { useUebaEntityDeleteDialog } from '@/hooks'
 import type { UebaEntityDeleteDialogProps } from '@/types'
 
 export function UebaEntityDeleteDialog({

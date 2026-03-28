@@ -3,14 +3,12 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
-import { attackPathService } from '@/services/attack-path.service'
-import { useAuthStore } from '@/stores'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { attackPathService } from '@/services'
+import { useAiConnectorStore, useAuthStore } from '@/stores'
 import type { AiAttackPathSummaryResult } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiAttackPathSummary(pathId: string) {
   const t = useTranslations('attackPath')
@@ -19,8 +17,8 @@ export function useAiAttackPathSummary(pathId: string) {
   const permissions = useAuthStore(s => s.permissions)
   const canSummarize = hasPermission(permissions, Permission.AI_ATTACK_PATH_SUMMARY)
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [result, setResult] = useState<AiAttackPathSummaryResult | null>(null)
 
@@ -29,9 +27,7 @@ export function useAiAttackPathSummary(pathId: string) {
     onSuccess: (data: AiAttackPathSummaryResult) => {
       setResult(data)
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleSummarize = useCallback(() => {
@@ -51,8 +47,5 @@ export function useAiAttackPathSummary(pathId: string) {
     isSummarizing: summarizeMutation.isPending,
     result,
     clearResult: handleClearResult,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

@@ -1,9 +1,14 @@
 'use client'
 
 import { PageHeader, LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useMsspDashboardPage } from '@/hooks/useMsspDashboardPage'
+import {
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
+import { useMsspDashboardPage } from '@/hooks'
 import { cn } from '@/lib/utils'
 import type { MsspTenantSummary } from '@/types'
 

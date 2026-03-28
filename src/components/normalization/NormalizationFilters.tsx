@@ -1,16 +1,16 @@
 'use client'
 
 import { Search } from 'lucide-react'
-import { Input } from '@/components/ui/input'
 import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { NormalizationPipelineStatus, NormalizationSourceType } from '@/enums'
-import { useNormalizationFilters } from '@/hooks/useNormalizationFilters'
+import { useNormalizationFilters } from '@/hooks'
 import {
   NORMALIZATION_PIPELINE_STATUS_LABEL_KEYS,
   NORMALIZATION_SOURCE_TYPE_LABEL_KEYS,

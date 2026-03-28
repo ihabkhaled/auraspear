@@ -1,26 +1,24 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
-import { useLlmConnectorEditDialog } from '@/hooks/useLlmConnectorEditDialog'
+  Textarea,
+} from '@/components/ui'
+import { useLlmConnectorEditDialog } from '@/hooks'
 import type { LlmConnectorEditDialogProps } from '@/types'
 
 export function LlmConnectorEditDialog({

@@ -2,7 +2,7 @@
 
 import { DataTable } from '@/components/common'
 import { type SoarExecutionStatus, SortOrder } from '@/enums'
-import { useSoarExecutionHistory } from '@/hooks/useSoarExecutionHistory'
+import { useSoarExecutionHistory } from '@/hooks'
 import {
   SOAR_EXECUTION_STATUS_CLASSES,
   SOAR_EXECUTION_STATUS_LABEL_KEYS,

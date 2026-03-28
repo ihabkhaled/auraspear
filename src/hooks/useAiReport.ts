@@ -3,19 +3,18 @@
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
-import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
-import { reportService } from '@/services/report.service'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
+import { reportService } from '@/services'
+import { useAiConnectorStore } from '@/stores'
 import type { AiResponse } from '@/types'
-import { useAvailableAiConnectors } from './useAvailableAiConnectors'
 
 export function useAiReport() {
   const t = useTranslations('reports')
   const tCommon = useTranslations('common')
   const tErrors = useTranslations('errors')
 
-  const { availableConnectors, selectedConnector, setSelectedConnector, connectorValue } =
-    useAvailableAiConnectors()
+  const selectedConnector = useAiConnectorStore(s => s.selectedConnector)
+  const connectorValue = selectedConnector === 'default' ? undefined : selectedConnector
 
   const [report, setReport] = useState<AiResponse | null>(null)
   const [selectedTimeRange, setSelectedTimeRange] = useState('7d')
@@ -25,9 +24,7 @@ export function useAiReport() {
     onSuccess: (data: AiResponse) => {
       setReport(data)
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const generateReport = useCallback(() => {
@@ -46,8 +43,5 @@ export function useAiReport() {
     handleTimeRangeChange,
     generateReport,
     isLoading: reportMutation.isPending,
-    availableConnectors,
-    selectedConnector,
-    handleConnectorChange: setSelectedConnector,
   }
 }

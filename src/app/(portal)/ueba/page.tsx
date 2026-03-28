@@ -9,7 +9,7 @@ import {
   UebaEntityEditDialog,
   UebaEntityDetailPanel,
 } from '@/components/ueba'
-import { useUebaPage } from '@/hooks/useUebaPage'
+import { useUebaPage } from '@/hooks'
 
 export default function UebaPage() {
   const {

@@ -2,8 +2,8 @@ import { useCallback, useMemo } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import type { NotificationCategory } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { CATEGORY_TO_PREF_KEY, NOTIFICATION_CATEGORIES } from '@/lib/constants/notifications'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { lookup } from '@/lib/utils'
 import { usePreferences, useUpdatePreferences } from './useSettings'
 
@@ -30,9 +30,7 @@ export function useNotificationPreferences() {
           onSuccess: () => {
             Toast.success(t('saved'))
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },

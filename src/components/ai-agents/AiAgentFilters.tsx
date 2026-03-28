@@ -1,17 +1,17 @@
 'use client'
 
 import { Plus, Search } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import {
+  Button,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { AiAgentStatus, AiAgentTier } from '@/enums'
-import { useAiAgentFilters } from '@/hooks/useAiAgentFilters'
+import { useAiAgentFilters } from '@/hooks'
 import { AI_AGENT_STATUS_LABEL_KEYS, AI_AGENT_TIER_LABEL_KEYS } from '@/lib/constants/ai-agents'
 import { lookup } from '@/lib/utils'
 import type { AiAgentFiltersProps } from '@/types'

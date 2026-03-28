@@ -1,19 +1,20 @@
 'use client'
 
 import { Bot, ChevronDown, Edit, Play, Plus, Save, Square, Trash2, Wrench, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import { AiConnectorSelect } from '@/components/common'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Textarea } from '@/components/ui/textarea'
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+} from '@/components/ui'
 import { AiAgentPanelTab } from '@/enums'
-import { useAiAgentDetailPanel } from '@/hooks/useAiAgentDetailPanel'
+import { useAiAgentDetailPanel } from '@/hooks'
 import { AI_AGENT_STATUS_CLASSES, AI_AGENT_TIER_CLASSES } from '@/lib/constants/ai-agents'
 import { cn, lookup } from '@/lib/utils'
 import type { AiAgentDetailPanelProps } from '@/types'
@@ -27,13 +28,10 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
     agent,
     activeTab,
     handleActiveTabChange,
-    availableConnectors,
     soulMdDraft,
     setSoulMdDraft,
     runPrompt,
     setRunPrompt,
-    selectedConnector,
-    handleConnectorChange,
     toolDialogOpen,
     setToolDialogOpen,
     sessionsOpen,
@@ -182,18 +180,7 @@ export function AiAgentDetailPanel(props: AiAgentDetailPanelProps) {
                 <label className="text-muted-foreground text-xs font-medium">
                   {t('connectorLabel')}
                 </label>
-                <Select value={selectedConnector} onValueChange={handleConnectorChange}>
-                  <SelectTrigger className="w-full sm:w-64">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {availableConnectors?.map(connector => (
-                      <SelectItem key={connector.key} value={connector.key}>
-                        {connector.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <AiConnectorSelect className="w-full sm:w-64" />
               </div>
               <Textarea
                 value={runPrompt}

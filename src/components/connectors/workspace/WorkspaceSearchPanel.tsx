@@ -2,11 +2,16 @@
 
 import { Search } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { useWorkspaceSearchPanel } from '@/hooks/useWorkspaceSearchPanel'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Input,
+} from '@/components/ui'
+import { useWorkspaceSearchPanel } from '@/hooks'
 import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'
 import type { WorkspaceRecentItem, WorkspaceSearchPanelProps } from '@/types'

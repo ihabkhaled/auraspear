@@ -1,8 +1,8 @@
 'use client'
 
 import { Brain, Database } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { useUebaMlModelCard } from '@/hooks/useUebaMlModelCard'
+import { Badge } from '@/components/ui'
+import { useUebaMlModelCard } from '@/hooks'
 import {
   ML_MODEL_STATUS_LABEL_KEYS,
   ML_MODEL_STATUS_CLASSES,

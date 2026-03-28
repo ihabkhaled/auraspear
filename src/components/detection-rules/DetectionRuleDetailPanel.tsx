@@ -3,18 +3,20 @@
 import { ChevronDown, Pencil, Power, Trash2 } from 'lucide-react'
 import { AiFindingsPanel } from '@/components/common'
 import { AiDetectionCopilotPanel } from '@/components/detection-rules/AiDetectionCopilotPanel'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
-import { Separator } from '@/components/ui/separator'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useDetectionRuleDetailPanel } from '@/hooks/useDetectionRuleDetailPanel'
+} from '@/components/ui'
+import { useDetectionRuleDetailPanel } from '@/hooks'
 import {
   DETECTION_RULE_SEVERITY_CLASSES,
   DETECTION_RULE_SEVERITY_LABEL_KEYS,
@@ -188,9 +190,6 @@ export function DetectionRuleDetailPanel({
               onDraftDescriptionChange={aiCopilot.setDraftDescription}
               onDraftRule={aiCopilot.handleDraftRule}
               onTuning={aiCopilot.handleTuning}
-              availableConnectors={aiCopilot.availableConnectors}
-              selectedConnector={aiCopilot.selectedConnector}
-              onConnectorChange={aiCopilot.handleConnectorChange}
               tCommon={aiCopilot.tCommon}
               t={aiCopilot.t}
             />

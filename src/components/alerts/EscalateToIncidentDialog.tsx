@@ -1,27 +1,25 @@
 'use client'
 
 import { AlertTriangle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Textarea } from '@/components/ui/textarea'
+  Textarea,
+} from '@/components/ui'
 import { IncidentCategory, IncidentSeverity } from '@/enums'
-import { useEscalateToIncidentDialog } from '@/hooks/useEscalateToIncidentDialog'
+import { useEscalateToIncidentDialog } from '@/hooks'
 import type { EscalateToIncidentDialogProps } from '@/types'
 
 export function EscalateToIncidentDialog({

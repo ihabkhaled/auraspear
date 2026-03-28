@@ -3,8 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { requirePermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { roleSettingsService } from '@/services'
 
 export function useRoleSettingsPageCrud(state: {
@@ -28,9 +28,7 @@ export function useRoleSettingsPageCrud(state: {
       void queryClient.invalidateQueries({ queryKey: ['role-settings'] })
       Toast.success(t('roleSettings.saved'))
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const resetMutation = useMutation({
@@ -44,9 +42,7 @@ export function useRoleSettingsPageCrud(state: {
       void queryClient.invalidateQueries({ queryKey: ['role-settings'] })
       Toast.success(t('roleSettings.resetSuccess'))
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleSave = useCallback(() => {

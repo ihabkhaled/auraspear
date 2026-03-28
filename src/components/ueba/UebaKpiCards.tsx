@@ -2,7 +2,7 @@
 
 import { AlertTriangle, Brain, ShieldAlert, Users } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useUebaKpiCards } from '@/hooks/useUebaKpiCards'
+import { useUebaKpiCards } from '@/hooks'
 import type { UebaKpiCardsProps } from '@/types'
 
 export function UebaKpiCards({ stats }: UebaKpiCardsProps) {

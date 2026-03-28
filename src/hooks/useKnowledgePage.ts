@@ -46,9 +46,5 @@ export function useKnowledgePage() {
     canDelete: crud.canDelete,
     aiGenerate: crud.aiGenerate,
     aiSearch: crud.aiSearch,
-    aiConnectorTCommon: crud.aiConnectorTCommon,
-    aiAvailableConnectors: crud.aiAvailableConnectors,
-    aiSelectedConnector: crud.aiSelectedConnector,
-    aiHandleConnectorChange: crud.aiHandleConnectorChange,
   }
 }

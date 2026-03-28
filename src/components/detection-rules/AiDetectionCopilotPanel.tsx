@@ -1,18 +1,16 @@
 'use client'
 
 import { ChevronDown, Loader2, RefreshCw, Settings2, Sparkles, Wand2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Textarea } from '@/components/ui/textarea'
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+  Separator,
+  Textarea,
+} from '@/components/ui'
+import { AiConnectorSelect } from '@/components/common'
 import { cn } from '@/lib/utils'
 import type { AiDetectionCopilotPanelProps, AiDetectionCopilotResult } from '@/types'
 
@@ -50,9 +48,6 @@ export function AiDetectionCopilotPanel({
   onDraftDescriptionChange,
   onDraftRule,
   onTuning,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
   t,
 }: AiDetectionCopilotPanelProps) {
@@ -77,18 +72,7 @@ export function AiDetectionCopilotPanel({
         <CollapsibleContent className="space-y-4">
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-            <Select value={selectedConnector} onValueChange={onConnectorChange}>
-              <SelectTrigger className="h-7 w-[160px] text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {availableConnectors.map(c => (
-                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <AiConnectorSelect />
           </div>
 
           {/* Draft Rule from Description */}

@@ -1,17 +1,19 @@
 'use client'
 
 import { ChevronDown, Download, Edit, Trash2 } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
+  Badge,
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { useReportDetailPanel } from '@/hooks/useReportDetailPanel'
+} from '@/components/ui'
+import { useReportDetailPanel } from '@/hooks'
 import {
   REPORT_TYPE_LABEL_KEYS,
   REPORT_TYPE_CLASSES,

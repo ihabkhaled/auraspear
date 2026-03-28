@@ -1,7 +1,7 @@
 'use client'
 
 import { Server } from 'lucide-react'
-import { EmptyState } from '@/components/common/EmptyState'
+import { EmptyState } from '@/components/common'
 import { useServiceHealthGrid } from '@/hooks'
 import type { ServiceHealthGridProps } from '@/types'
 import { ServiceHealthCard } from './ServiceHealthCard'

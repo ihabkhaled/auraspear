@@ -1,8 +1,7 @@
 'use client'
 
 import { Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
+import { Button, Textarea } from '@/components/ui'
 import { useCommentComposer } from '@/hooks'
 import { COMMENT_MAX_LENGTH } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'

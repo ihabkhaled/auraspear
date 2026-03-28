@@ -1,4 +1,4 @@
-import { authService } from '@/services/auth.service'
+import { authService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { MeResponse } from '@/types'
 import type { QueryClient, QueryKey } from '@tanstack/react-query'

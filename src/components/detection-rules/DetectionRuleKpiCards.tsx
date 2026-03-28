@@ -2,7 +2,7 @@
 
 import { AlertTriangle, CheckCircle2, FlaskConical, ShieldCheck } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { useDetectionRuleKpiCards } from '@/hooks/useDetectionRuleKpiCards'
+import { useDetectionRuleKpiCards } from '@/hooks'
 import type { DetectionRuleKpiCardsProps } from '@/types'
 
 export function DetectionRuleKpiCards({ stats }: DetectionRuleKpiCardsProps) {

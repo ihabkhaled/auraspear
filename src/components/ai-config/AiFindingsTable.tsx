@@ -3,16 +3,16 @@
 import { memo } from 'react'
 import { ChevronDown, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { useAiFindingsTab } from '@/hooks/useAiFindingsTab'
+} from '@/components/ui'
+import { useAiFindingsTab } from '@/hooks'
 import {
   resolveFindingConfidenceVariant,
   resolveFindingSeverityVariant,

@@ -70,8 +70,5 @@ export function useReportsPage() {
     handleAiTimeRangeChange: aiReport.handleTimeRangeChange,
     handleGenerateAiReport: aiReport.generateReport,
     aiReportTCommon: aiReport.tCommon,
-    aiReportAvailableConnectors: aiReport.availableConnectors,
-    aiReportSelectedConnector: aiReport.selectedConnector,
-    aiReportHandleConnectorChange: aiReport.handleConnectorChange,
   }
 }

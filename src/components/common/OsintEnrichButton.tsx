@@ -2,8 +2,12 @@
 
 import { ChevronDown, Loader2, Search } from 'lucide-react'
 import { OsintResultCard } from '@/components/common/OsintResultCard'
-import { Button } from '@/components/ui/button'
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
+import {
+  Button,
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui'
 import { useOsintEnrichButton } from '@/hooks'
 import { lookup } from '@/lib/utils'
 import type { OsintEnrichButtonProps } from '@/types'

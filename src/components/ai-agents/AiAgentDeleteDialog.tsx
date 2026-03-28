@@ -1,8 +1,8 @@
 'use client'
 
 import { Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useAiAgentDeleteDialog } from '@/hooks/useAiAgentDeleteDialog'
+import { Button } from '@/components/ui'
+import { useAiAgentDeleteDialog } from '@/hooks'
 import type { AiAgentDeleteDialogProps } from '@/types'
 
 export function AiAgentDeleteDialog(props: AiAgentDeleteDialogProps) {

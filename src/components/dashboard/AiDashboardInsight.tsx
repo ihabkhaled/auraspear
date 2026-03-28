@@ -1,13 +1,12 @@
 import { Bot, Loader2, Sparkles } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { AiConnectorSelect } from '@/components/common'
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui'
 import type { AiDashboardInsightComponentProps } from '@/types'
 
 export function AiDashboardInsight({
@@ -15,9 +14,6 @@ export function AiDashboardInsight({
   dailySummary,
   isDailySummaryLoading,
   onGenerateSummary,
-  availableConnectors,
-  selectedConnector,
-  onConnectorChange,
   tCommon,
 }: AiDashboardInsightComponentProps) {
   return (
@@ -30,18 +26,7 @@ export function AiDashboardInsight({
           </CardTitle>
           <div className="flex items-center gap-2">
             <span className="text-muted-foreground text-xs">{tCommon('aiConnector')}</span>
-            <Select value={selectedConnector} onValueChange={onConnectorChange}>
-              <SelectTrigger className="h-7 w-[160px] text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {availableConnectors.map(c => (
-                  <SelectItem key={c.key} value={c.key} disabled={!c.enabled}>
-                    {c.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <AiConnectorSelect />
             <Button
               variant="outline"
               size="sm"

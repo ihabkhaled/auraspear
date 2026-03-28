@@ -3,7 +3,7 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from '@tanstack/react-query'
 import { Permission } from '@/enums'
 import { requirePermission } from '@/lib/permissions'
-import { connectorWorkspaceService } from '@/services/connector-workspace.service'
+import { connectorWorkspaceService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { WorkspaceSearchRequest } from '@/types'
 

@@ -2,8 +2,8 @@
 
 import { AlertTriangle, CheckCircle2, Clock, Shield } from 'lucide-react'
 import { KpiCard } from '@/components/common'
-import { Skeleton } from '@/components/ui/skeleton'
-import { useIncidentKpiCards } from '@/hooks/useIncidentKpiCards'
+import { Skeleton } from '@/components/ui'
+import { useIncidentKpiCards } from '@/hooks'
 import type { IncidentKpiCardsProps } from '@/types'
 
 export function IncidentKpiCards({ stats, isLoading }: IncidentKpiCardsProps) {

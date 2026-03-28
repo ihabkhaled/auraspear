@@ -1,26 +1,24 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
+  DialogHeader,
+  DialogTitle,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CloudProvider } from '@/enums'
-import { useCloudAccountCreateDialog } from '@/hooks/useCloudAccountCreateDialog'
+import { useCloudAccountCreateDialog } from '@/hooks'
 import { CLOUD_PROVIDER_LABEL_KEYS } from '@/lib/constants/cloud-security'
 import { lookup } from '@/lib/utils'
 import type { CloudAccountCreateDialogProps } from '@/types'

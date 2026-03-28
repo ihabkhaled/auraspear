@@ -1,10 +1,8 @@
 'use client'
 
 import { Plus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { ScrollArea } from '@/components/ui/scroll-area'
-import { useIncidentTimelineComponent } from '@/hooks/useIncidentTimelineComponent'
+import { Button, Input, ScrollArea } from '@/components/ui'
+import { useIncidentTimelineComponent } from '@/hooks'
 import {
   INCIDENT_ACTOR_TYPE_CLASSES,
   INCIDENT_TIMELINE_DOT_CLASSES,

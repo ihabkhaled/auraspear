@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Toast, SweetAlertDialog, SweetAlertIcon } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore } from '@/stores'
 import type { Case } from '@/types'
 import { useCaseCycle, useCloseCaseCycle } from './useCaseCycles'
@@ -39,7 +39,7 @@ export function useCycleDetailPage(id: string) {
       { id: cycle.id, data: {} },
       {
         onSuccess: () => Toast.success(t('cycleClosed')),
-        onError: (error: unknown) => Toast.error(tErrors(getErrorKey(error))),
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }, [cycle, closeCycle, t, tErrors])

@@ -3,7 +3,7 @@
 import { useCallback } from 'react'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import type {
   AiAgentsPageDialogsReturn,
   CreateAiAgentFormValues,
@@ -26,9 +26,7 @@ export function useAiAgentsPageCrud(dialogs: AiAgentsPageDialogsReturn) {
           Toast.success(t('createSuccess'))
           dialogs.setCreateDialogOpen(false)
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [createMutation, t, tErrors, dialogs]
@@ -45,9 +43,7 @@ export function useAiAgentsPageCrud(dialogs: AiAgentsPageDialogsReturn) {
             dialogs.setEditDialogOpen(false)
             dialogs.setEditAgent(null)
           },
-          onError: (error: unknown) => {
-            Toast.error(tErrors(getErrorKey(error)))
-          },
+          onError: buildErrorToastHandler(tErrors),
         }
       )
     },
@@ -63,9 +59,7 @@ export function useAiAgentsPageCrud(dialogs: AiAgentsPageDialogsReturn) {
             dialogs.setSelectedAgentId(null)
           }
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       })
     },
     [deleteMutation, dialogs, t, tErrors]

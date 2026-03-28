@@ -2,10 +2,14 @@
 
 import { memo } from 'react'
 import { Bot, Settings } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Switch } from '@/components/ui/switch'
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Switch,
+} from '@/components/ui'
 import { AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
 import { lookup } from '@/lib/utils'
 import type { AgentCardProps } from '@/types'

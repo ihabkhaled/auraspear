@@ -5,7 +5,7 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tansta
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { AiFindingStatus, AiFindingType, AlertSeverity, SortOrder } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { agentConfigService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { AiExecutionFinding, AiFindingsStats } from '@/types'
@@ -152,9 +152,7 @@ export function useAiFindingsPage() {
       queryClient.invalidateQueries({ queryKey: ['ai-findings', 'page', tenantId] })
       queryClient.invalidateQueries({ queryKey: ['ai-findings-stats', tenantId] })
     },
-    onError: (error: unknown) => {
-      Toast.error(tErrors(getErrorKey(error)))
-    },
+    onError: buildErrorToastHandler(tErrors),
   })
 
   const handleUpdateStatus = useCallback(

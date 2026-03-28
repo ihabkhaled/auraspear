@@ -4,7 +4,7 @@ import { Search } from 'lucide-react'
 import { UserSessionsPanel, UsersControlOverviewCards, UsersControlTable } from '@/components/admin'
 import { ErrorMessage, PageHeader, Pagination } from '@/components/common'
 import { DashboardSectionCard } from '@/components/dashboard'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui'
 import { useUsersControlPage } from '@/hooks'
 
 export default function UsersControlPage() {

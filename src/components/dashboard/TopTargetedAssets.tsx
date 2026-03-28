@@ -1,8 +1,8 @@
 'use client'
 
 import { Monitor } from 'lucide-react'
-import { EmptyState } from '@/components/common/EmptyState'
-import { Badge } from '@/components/ui/badge'
+import { EmptyState } from '@/components/common'
+import { Badge } from '@/components/ui'
 import { useTopTargetedAssets } from '@/hooks'
 import { getRiskBadgeClass } from '@/lib/dashboard.utils'
 import { cn } from '@/lib/utils'

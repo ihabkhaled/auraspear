@@ -2,8 +2,7 @@
 
 import { Pen, Play, Trash2 } from 'lucide-react'
 import { DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Badge, Button } from '@/components/ui'
 import { AI_FEATURE_KEY_LABEL_KEYS } from '@/lib/constants/ai-config'
 import { formatDate, lookup } from '@/lib/utils'
 import type { AiPromptTemplate, Column, PromptTableProps } from '@/types'

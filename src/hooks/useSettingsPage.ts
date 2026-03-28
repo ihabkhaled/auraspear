@@ -4,9 +4,9 @@ import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
-import { getErrorKey } from '@/lib/api-error'
 import { getCookie, setCookie } from '@/lib/cookies'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { useAuthStore } from '@/stores'
 import { usePreferences, useUpdatePreferences } from './useSettings'
 
@@ -55,9 +55,7 @@ export function useSettingsPage() {
         onSuccess: () => {
           Toast.success(t('saved'))
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }

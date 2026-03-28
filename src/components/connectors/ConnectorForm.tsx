@@ -2,21 +2,21 @@
 
 import { Eye, EyeOff } from 'lucide-react'
 import { Controller } from 'react-hook-form'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
+  Button,
+  Input,
+  Label,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Separator } from '@/components/ui/separator'
-import { Switch } from '@/components/ui/switch'
-import { Textarea } from '@/components/ui/textarea'
+  Separator,
+  Switch,
+  Textarea,
+} from '@/components/ui'
 import { ConnectorAuthType, ConnectorType, LlmMaxTokensParameter } from '@/enums'
-import { useConnectorForm } from '@/hooks/useConnectorForm'
+import { useConnectorForm } from '@/hooks'
 import { BEDROCK_MODELS, AWS_REGIONS } from '@/lib/constants/connectors.constants'
 import type { ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import type { ConnectorFormProps, FieldErrorProps, SecretFieldProps } from '@/types'

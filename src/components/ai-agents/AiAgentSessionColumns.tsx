@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import { type AiSessionTrigger } from '@/enums'
 import {
   AI_SESSION_CONNECTOR_LABELS,

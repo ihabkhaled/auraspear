@@ -1,9 +1,8 @@
 'use client'
 
 import { CheckCircle2, EyeOff } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { useCloudSecurityFilters } from '@/hooks/useCloudSecurityFilters'
+import { Badge, Button } from '@/components/ui'
+import { useCloudSecurityFilters } from '@/hooks'
 import {
   CLOUD_FINDING_SEVERITY_CLASSES,
   CLOUD_FINDING_SEVERITY_LABEL_KEYS,

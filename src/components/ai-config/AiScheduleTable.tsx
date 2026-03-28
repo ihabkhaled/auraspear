@@ -2,10 +2,15 @@
 
 import { Pause, Pen, Play, RotateCcw } from 'lucide-react'
 import { DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Switch } from '@/components/ui/switch'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Badge,
+  Button,
+  Switch,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui'
 import { CronPreset } from '@/enums'
 import { CRON_PRESET_LABEL_KEY } from '@/lib/constants/cron-presets'
 import { cronPresetFromExpression } from '@/lib/cron.utils'

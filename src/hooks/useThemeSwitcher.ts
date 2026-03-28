@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from 'react'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
-import { useUpdatePreferences } from '@/hooks/useSettings'
+import { useUpdatePreferences } from '@/hooks'
 
 const noop = () => {}
 const emptySubscribe = () => noop

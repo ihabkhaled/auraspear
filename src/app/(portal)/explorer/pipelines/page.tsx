@@ -2,15 +2,15 @@
 
 import { GitBranch, Search, RefreshCw, AlertCircle } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Badge } from '@/components/ui/badge'
-import { Input } from '@/components/ui/input'
 import {
+  Badge,
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { SortOrder } from '@/enums'
 import { useExplorerPipelinesPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'

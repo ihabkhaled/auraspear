@@ -3,9 +3,8 @@
 import { Pencil, Play, Power, Trash2, Unplug } from 'lucide-react'
 import { DataTable, PageHeader } from '@/components/common'
 import { LlmConnectorCreateDialog, LlmConnectorEditDialog } from '@/components/connectors'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { useLlmConnectorsPage } from '@/hooks/useLlmConnectorsPage'
+import { Button, Input } from '@/components/ui'
+import { useLlmConnectorsPage } from '@/hooks'
 import type { LlmConnectorRecord } from '@/types'
 
 export default function LlmConnectorsPage() {

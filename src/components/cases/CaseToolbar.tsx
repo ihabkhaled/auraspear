@@ -1,15 +1,15 @@
 'use client'
 
 import { LayoutGrid, List, ArrowUp, ArrowDown } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui'
 import { CaseSortField, CaseViewMode, SortOrder } from '@/enums'
 import { useCaseToolbar } from '@/hooks'
 import { CASE_SEVERITY_FILTERS } from '@/lib/constants/cases'

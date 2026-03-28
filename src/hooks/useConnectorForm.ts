@@ -4,11 +4,11 @@ import { useTranslations } from 'next-intl'
 import { useForm, useWatch } from 'react-hook-form'
 import { Toast } from '@/components/common'
 import { ConnectorAuthType, LlmMaxTokensParameter, Permission } from '@/enums'
-import { useUpdateConnector } from '@/hooks/useConnectors'
-import { getErrorKey } from '@/lib/api-error'
+import { useUpdateConnector } from '@/hooks'
 import { mapConfigForBackend, recordToFormValues } from '@/lib/connector-utils'
 import { CONNECTOR_META } from '@/lib/constants/connectors.constants'
 import { hasPermission } from '@/lib/permissions'
+import { buildErrorToastHandler } from '@/lib/toast.utils'
 import { lookup } from '@/lib/utils'
 import { getConnectorSchema, type ConnectorFormValues } from '@/lib/validation/connectors.schema'
 import { useAuthStore } from '@/stores'
@@ -145,9 +145,7 @@ export function useConnectorForm({
         onSuccess: () => {
           Toast.success(`${meta.label} ${t('configurationSaved')}`)
         },
-        onError: (error: unknown) => {
-          Toast.error(tErrors(getErrorKey(error)))
-        },
+        onError: buildErrorToastHandler(tErrors),
       }
     )
   }

@@ -1,7 +1,7 @@
 'use client'
 
 import { ArrowRight, Shield } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import type { AttackPathVisualizationProps } from '@/types'
 
 export function AttackPathVisualization({ stages, t }: AttackPathVisualizationProps) {

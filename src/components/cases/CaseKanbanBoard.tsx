@@ -1,7 +1,6 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
-import { ScrollArea } from '@/components/ui/scroll-area'
+import { Badge, ScrollArea } from '@/components/ui'
 import { useCaseKanbanBoard } from '@/hooks'
 import { KANBAN_COLUMN_CONFIG } from '@/lib/constants/cases'
 import { cn } from '@/lib/utils'

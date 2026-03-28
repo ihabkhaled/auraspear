@@ -2,7 +2,7 @@
 
 import { Shield, Search, AlertCircle } from 'lucide-react'
 import { PageHeader, LoadingSpinner, EmptyState, Pagination, DataTable } from '@/components/common'
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui'
 import { SortOrder } from '@/enums'
 import { useExplorerThreatIntelPage } from '@/hooks'
 import { getErrorKey } from '@/lib/api-error'

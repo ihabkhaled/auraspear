@@ -1,7 +1,7 @@
 'use client'
 
 import { Activity, Globe, ShieldAlert } from 'lucide-react'
-import { Card, CardContent } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui'
 import { useHuntStatsGrid } from '@/hooks'
 import { formatNumber } from '@/lib/utils'
 import type { HuntStatsGridProps } from '@/types'

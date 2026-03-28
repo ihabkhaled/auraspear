@@ -2,7 +2,7 @@
 
 import { AiChatPanel } from '@/components/ai-config'
 import { PageHeader } from '@/components/common'
-import { useAiChatPage } from '@/hooks/useAiChatPage'
+import { useAiChatPage } from '@/hooks'
 
 export default function AiChatPage() {
   const { t } = useAiChatPage()

@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import {
   SEVERITY_TEXT_CLASSES,
   SEVERITY_BG_CLASSES,

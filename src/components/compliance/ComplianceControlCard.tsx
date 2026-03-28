@@ -1,8 +1,8 @@
 'use client'
 
 import { ClipboardCheck } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useComplianceControlCard } from '@/hooks/useComplianceControlCard'
+import { Button } from '@/components/ui'
+import { useComplianceControlCard } from '@/hooks'
 import {
   COMPLIANCE_CONTROL_STATUS_CLASSES,
   COMPLIANCE_CONTROL_STATUS_LABEL_KEYS,

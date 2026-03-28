@@ -1,8 +1,8 @@
 'use client'
 
 import { PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useSidebarContent, useSidebarShell } from '@/hooks/useSidebarComponent'
+import { Button } from '@/components/ui'
+import { useSidebarContent, useSidebarShell } from '@/hooks'
 import { cn } from '@/lib/utils'
 import { BrandLogo } from './BrandLogo'
 import { SidebarHealthFooter } from './SidebarHealthFooter'

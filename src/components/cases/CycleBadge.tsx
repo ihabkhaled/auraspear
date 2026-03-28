@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import { CaseCycleStatus } from '@/enums'
 import { useCycleBadge } from '@/hooks'
 import type { CycleBadgeProps } from '@/types'

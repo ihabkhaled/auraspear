@@ -25,17 +25,20 @@ import {
   PromptTable,
 } from '@/components/ai-config'
 import { LoadingSpinner, OrchestratorStatsBar, PageHeader } from '@/components/common'
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui'
 import { ApprovalStatus } from '@/enums'
-import { useAiConfigPage } from '@/hooks/useAiConfigPage'
+import { useAiConfigPage } from '@/hooks'
 
 export default function AiConfigPage() {
   const {

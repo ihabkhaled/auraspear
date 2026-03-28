@@ -1,6 +1,6 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/components/ui'
 import { type AlertSeverity, type AlertStatus, SortOrder } from '@/enums'
 import { ALERT_STATUS_CLASSES, ALERT_STATUS_LABEL_KEYS } from '@/lib/constants/alerts'
 import { getSeverityVariant } from '@/lib/severity-utils'

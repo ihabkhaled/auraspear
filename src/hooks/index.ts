@@ -50,11 +50,7 @@ export {
   useDeleteRunbook,
   useSearchRunbooks,
 } from './useRunbooks'
-export {
-  useAiGenerateRunbook,
-  useAiKnowledgeConnector,
-  useAiSearchKnowledge,
-} from './useAiKnowledge'
+export { useAiGenerateRunbook, useAiSearchKnowledge } from './useAiKnowledge'
 export { useKnowledgePage } from './useKnowledgePage'
 export { useKnowledgePageFilters } from './useKnowledgePageFilters'
 export { useKnowledgePageDialogs } from './useKnowledgePageDialogs'
@@ -607,3 +603,9 @@ export {
 } from './useAiSchedules'
 export { useAiScheduleEditDialog } from './useAiScheduleEditDialog'
 export { useMemorySettings } from './useMemorySettings'
+export { useDeleteWithConfirmation } from './useDeleteWithConfirmation'
+export { useAiChat } from './useAiChat'
+export { useAiChatPage } from './useAiChatPage'
+export { useAiHistoryPage } from './useAiHistoryPage'
+export { useOsintResultCard } from './useOsintResultCard'
+export { useTenantSessionSync } from './useTenantSessionSync'

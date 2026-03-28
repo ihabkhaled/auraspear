@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
 import { getErrorKey } from '@/lib/api-error'
-import { authService } from '@/services/auth.service'
+import { authService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 
 export function useLoginForm() {
