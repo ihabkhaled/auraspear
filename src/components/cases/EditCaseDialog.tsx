@@ -34,7 +34,7 @@ export function EditCaseDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="max-w-[95vw] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('editCase')}</DialogTitle>
           <DialogDescription>{t('editCaseDescription')}</DialogDescription>

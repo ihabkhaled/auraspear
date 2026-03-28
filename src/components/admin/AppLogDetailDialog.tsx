@@ -30,7 +30,7 @@ export function AppLogDetailDialog({ log, open, onClose }: AppLogDetailDialogPro
         }
       }}
     >
-      <DialogContent className="sm:max-w-2xl">
+      <DialogContent className="max-w-[95vw] sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Badge

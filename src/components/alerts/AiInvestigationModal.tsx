@@ -31,7 +31,7 @@ export function AiInvestigationModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="border-primary/20 shadow-[0_0_40px_-10px_hsl(var(--primary)/0.3)] sm:max-w-2xl">
+      <DialogContent className="max-w-[95vw] border-primary/20 shadow-[0_0_40px_-10px_hsl(var(--primary)/0.3)] sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Brain className="text-primary h-4 w-4" />

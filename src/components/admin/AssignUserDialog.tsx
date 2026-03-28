@@ -43,7 +43,7 @@ export function AssignUserDialog(props: AssignUserDialogProps) {
 
   return (
     <Dialog open={props.open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[95vw] sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('users.assignUser')}</DialogTitle>
           <DialogDescription>{t('users.assignUserDescription')}</DialogDescription>

@@ -21,7 +21,7 @@ export function TenantSwitcher() {
 
     return (
       <Select value={currentTenantId} onValueChange={handleTenantChange}>
-        <SelectTrigger size="sm" className="w-[160px]">
+        <SelectTrigger size="sm" className="w-24 sm:w-[160px]">
           <SelectValue placeholder={t('selectTenant')} />
         </SelectTrigger>
         <SelectContent>

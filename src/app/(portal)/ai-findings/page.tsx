@@ -176,7 +176,7 @@ export default function AiFindingsPage() {
       />
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-5">
         <div className="bg-card border-border rounded-lg border p-3">
           <p className="text-muted-foreground text-xs font-medium uppercase">{t('total')}</p>
           <p className="text-foreground text-2xl font-bold">
@@ -224,7 +224,7 @@ export default function AiFindingsPage() {
         </div>
 
         <Select value={agentId || 'all'} onValueChange={v => handleFilterChange('agentId', v)}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full sm:w-40">
             <SelectValue placeholder={t('allAgents')} />
           </SelectTrigger>
           <SelectContent>
@@ -241,7 +241,7 @@ export default function AiFindingsPage() {
           value={sourceModule || 'all'}
           onValueChange={v => handleFilterChange('sourceModule', v)}
         >
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full sm:w-40">
             <SelectValue placeholder={t('allModules')} />
           </SelectTrigger>
           <SelectContent>
@@ -255,7 +255,7 @@ export default function AiFindingsPage() {
         </Select>
 
         <Select value={severity || 'all'} onValueChange={v => handleFilterChange('severity', v)}>
-          <SelectTrigger className="w-36">
+          <SelectTrigger className="w-full sm:w-36">
             <SelectValue placeholder={t('allSeverities')} />
           </SelectTrigger>
           <SelectContent>
@@ -269,7 +269,7 @@ export default function AiFindingsPage() {
         </Select>
 
         <Select value={status || 'all'} onValueChange={v => handleFilterChange('status', v)}>
-          <SelectTrigger className="w-36">
+          <SelectTrigger className="w-full sm:w-36">
             <SelectValue placeholder={t('allStatuses')} />
           </SelectTrigger>
           <SelectContent>
@@ -286,7 +286,7 @@ export default function AiFindingsPage() {
           value={findingType || 'all'}
           onValueChange={v => handleFilterChange('findingType', v)}
         >
-          <SelectTrigger className="w-44">
+          <SelectTrigger className="w-full sm:w-44">
             <SelectValue placeholder={t('allTypes')} />
           </SelectTrigger>
           <SelectContent>

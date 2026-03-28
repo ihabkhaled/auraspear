@@ -41,7 +41,7 @@ export function AiConnectorSelect({
 
   return (
     <Select value={resolvedValue} onValueChange={resolvedOnChange}>
-      <SelectTrigger className={cn('h-7 w-[160px] text-xs', className)}>
+      <SelectTrigger className={cn('h-7 w-full text-xs sm:w-[160px]', className)}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

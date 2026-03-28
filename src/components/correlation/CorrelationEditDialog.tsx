@@ -42,7 +42,7 @@ export function CorrelationEditDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
+      <DialogContent className="max-h-[85vh] max-w-[95vw] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{t('editRuleTitle')}</DialogTitle>
           <DialogDescription>

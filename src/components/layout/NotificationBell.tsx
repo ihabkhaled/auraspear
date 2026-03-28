@@ -45,7 +45,7 @@ export function NotificationBell() {
         </Button>
       </PopoverTrigger>
 
-      <PopoverContent align="end" className="w-96 p-0">
+      <PopoverContent align="end" className="w-[calc(100vw-2rem)] p-0 sm:w-96">
         {/* Header */}
         <div className="border-border flex items-center justify-between border-b px-4 py-3">
           <div className="flex items-center gap-2">
@@ -71,7 +71,7 @@ export function NotificationBell() {
         </div>
 
         {/* Notification list */}
-        <div ref={scrollContainerRef} className="max-h-[400px] overflow-y-auto">
+        <div ref={scrollContainerRef} className="max-h-[60vh] overflow-y-auto sm:max-h-[400px]">
           {isLoading && (
             <div className="flex justify-center py-8">
               <LoadingSpinner />

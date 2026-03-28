@@ -95,7 +95,7 @@ export default function AlertsPage() {
               <span className="hidden sm:inline">{t('filters')}</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[85vw] overflow-y-auto sm:w-80">
+          <SheetContent side="left" className="w-[90vw] max-w-xs overflow-y-auto sm:w-80">
             <SheetHeader>
               <SheetTitle>{t('filters')}</SheetTitle>
             </SheetHeader>

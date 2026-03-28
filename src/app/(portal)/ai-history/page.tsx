@@ -123,7 +123,7 @@ export default function AiHistoryPage() {
 
       <div className="flex flex-wrap items-center gap-3">
         <Select value={agentFilter || 'all'} onValueChange={v => handleFilterChange('agent', v)}>
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder={t('filterAgent')} />
           </SelectTrigger>
           <SelectContent>
@@ -137,7 +137,7 @@ export default function AiHistoryPage() {
         </Select>
 
         <Select value={statusFilter || 'all'} onValueChange={v => handleFilterChange('status', v)}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="w-full sm:w-40">
             <SelectValue placeholder={t('filterStatus')} />
           </SelectTrigger>
           <SelectContent>
@@ -148,7 +148,7 @@ export default function AiHistoryPage() {
         </Select>
 
         <Select value={moduleFilter || 'all'} onValueChange={v => handleFilterChange('module', v)}>
-          <SelectTrigger className="w-48">
+          <SelectTrigger className="w-full sm:w-48">
             <SelectValue placeholder={t('filterModule')} />
           </SelectTrigger>
           <SelectContent>
@@ -202,7 +202,7 @@ export default function AiHistoryPage() {
           </DialogHeader>
           {selectedRun && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="grid grid-cols-1 gap-2 text-sm sm:grid-cols-2 sm:gap-3">
                 <div>
                   <span className="text-muted-foreground">{t('agent')}: </span>
                   <span className="font-medium">{selectedRun.agentId ?? '-'}</span>

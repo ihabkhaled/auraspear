@@ -43,6 +43,7 @@ If this file and `CLAUDE.md` ever differ, `CLAUDE.md` wins.
 16. Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns — it reads from the global `useAiConnectorStore`.
 17. New common components (SearchInput, CollapsibleSection, AiResultCard, VirtualizedList, column-renderers, toast.utils) are available via `@/components/common` barrel.
 18. NEVER use raw `new Date()` or `Date.now()` — use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `uniqueId`, `formatTimestamp`, `sortByDateAsc/Desc`).
+19. All dialogs must include `max-w-[95vw]` mobile fallback. All fixed-width selects must use `w-full sm:w-*` pattern. All scroll containers must use viewport-relative heights on mobile.
 
 ## Current Focus Defaults
 

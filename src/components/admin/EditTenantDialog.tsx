@@ -20,7 +20,7 @@ export function EditTenantDialog(props: EditTenantDialogProps) {
 
   return (
     <Dialog open={props.open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[95vw] sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('tenants.editTenant')}</DialogTitle>
           <DialogDescription>{t('tenants.editTenantDescription')}</DialogDescription>

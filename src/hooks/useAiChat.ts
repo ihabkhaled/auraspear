@@ -16,6 +16,7 @@ export function useAiChat() {
   const queryClient = useQueryClient()
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [messageInput, setMessageInput] = useState('')
+  const [mobileThreadsOpen, setMobileThreadsOpen] = useState(false)
 
   // Thread list with cursor-based infinite loading
   const threadsQuery = useInfiniteQuery({
@@ -66,6 +67,7 @@ export function useAiChat() {
   const handleSelectThread = useCallback(
     (threadId: string) => {
       setSelectedThreadId(threadId)
+      setMobileThreadsOpen(false)
       void queryClient.resetQueries({ queryKey: ['ai-chat-messages', tenantId, threadId] })
     },
     [queryClient, tenantId]
@@ -80,6 +82,7 @@ export function useAiChat() {
       if (newThread) {
         setSelectedThreadId(newThread.id)
       }
+      setMobileThreadsOpen(false)
       Toast.success(t('chatCreated'))
       void queryClient.invalidateQueries({ queryKey: ['ai-chat-threads', tenantId] })
     },
@@ -179,5 +182,7 @@ export function useAiChat() {
     isCreatingThread: createThreadMutation.isPending,
     updateThread: updateThreadMutation.mutate,
     archiveThread: archiveThreadMutation.mutate,
+    mobileThreadsOpen,
+    setMobileThreadsOpen,
   }
 }

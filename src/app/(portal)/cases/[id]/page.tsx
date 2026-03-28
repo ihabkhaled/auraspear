@@ -154,7 +154,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
         </Card>
       )}
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
         {/* Timeline + Comments - wider left column */}
         <div className="flex flex-col gap-6 lg:col-span-2">
           <Card>
@@ -237,7 +237,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 </CollapsibleTrigger>
               </CardHeader>
               <CollapsibleContent>
-                <CardContent className="max-h-[400px] overflow-y-auto">
+                <CardContent className="max-h-[50vh] overflow-y-auto sm:max-h-[400px]">
                   <CaseTaskList
                     tasks={caseItem.tasks ?? []}
                     onToggleTask={canAddTask ? handleToggleTask : undefined}
@@ -259,7 +259,7 @@ export default function CaseDetailPage({ params }: CaseDetailPageProps) {
                 </CollapsibleTrigger>
               </CardHeader>
               <CollapsibleContent>
-                <CardContent className="max-h-[400px] overflow-y-auto">
+                <CardContent className="max-h-[50vh] overflow-y-auto sm:max-h-[400px]">
                   <CaseArtifactPanel
                     artifacts={caseItem.artifacts ?? []}
                     onAddArtifact={canAddArtifact ? handleAddArtifact : undefined}

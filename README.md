@@ -84,6 +84,7 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 - **Dark Mode** — Full light/dark/system theme via CSS custom properties
 - **RTL Support** — Bidirectional layout for Arabic
 - **PWA** — Progressive Web App with service worker (via @serwist/next), offline support, mobile responsiveness, and installable on mobile and desktop
+- **Mobile Responsive** — All pages, dialogs, filter toolbars, scroll containers, and chat panels are mobile-optimized with viewport-relative sizing, slide-over panels, and responsive grid breakpoints
 
 ---
 

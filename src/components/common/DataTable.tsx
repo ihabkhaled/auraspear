@@ -102,34 +102,36 @@ export function DataTable<T>({
 
   if (loading) {
     return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {hasSelection && <TableHead className="w-10" />}
-            {columns.map(col => (
-              <TableHead key={String(col.key)} className={col.className}>
-                {col.label}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <TableRow key={`skeleton-${String(i)}`}>
-              {hasSelection && (
-                <TableCell>
-                  <Skeleton className="h-4 w-4" />
-                </TableCell>
-              )}
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {hasSelection && <TableHead className="w-10" />}
               {columns.map(col => (
-                <TableCell key={`skeleton-${String(i)}-${String(col.key)}`}>
-                  <Skeleton className="h-4 w-24" />
-                </TableCell>
+                <TableHead key={String(col.key)} className={col.className}>
+                  {col.label}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <TableRow key={`skeleton-${String(i)}`}>
+                {hasSelection && (
+                  <TableCell>
+                    <Skeleton className="h-4 w-4" />
+                  </TableCell>
+                )}
+                {columns.map(col => (
+                  <TableCell key={`skeleton-${String(i)}-${String(col.key)}`}>
+                    <Skeleton className="h-4 w-24" />
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     )
   }
 

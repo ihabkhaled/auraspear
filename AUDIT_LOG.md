@@ -220,3 +220,17 @@ Missing keys added to all 6 locale files (en, ar, es, fr, de, it) for normalizat
 - AI Chat page (`/ai-chat`) with LLM connector fallback chain, user attribution, cross-chat memory injection, per-thread connector override
 - AI Findings page (`/ai-findings`) with full-text search (PostgreSQL tsvector), advanced filters, sortable DataTable, go-to-page pagination, KPI cards, detail drawer
 - AI Memory management (Settings > AI Memory) with search, category filters, CRUD operations
+
+---
+
+### Mobile Responsiveness Audit — 2026-03-28
+- Audited 20 critical mobile issues across 30+ routes
+- Fixed 43 files for mobile responsiveness
+- Critical: Chat panel responsive stacking with slide-over thread sidebar
+- Critical: Notification popover viewport-relative width
+- Critical: TenantSwitcher, AiConnectorSelect, SearchInput responsive widths
+- High: 18 dialogs added max-w-[95vw] mobile fallback
+- High: Alert filter drawer, AI History/Findings filter toolbars responsive
+- Medium: Case detail, timeline, DataTable viewport-relative heights
+- Medium: Dashboard grid breakpoints improved (xl→lg)
+- All fixes preserve desktop layout unchanged

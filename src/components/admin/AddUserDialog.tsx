@@ -42,7 +42,7 @@ export function AddUserDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="max-w-[95vw] sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{t('users.addUser')}</DialogTitle>
           <DialogDescription>{t('users.addUserDescription')}</DialogDescription>

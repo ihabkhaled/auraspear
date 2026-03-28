@@ -225,7 +225,7 @@ export default function DashboardPage() {
               <DashboardNarrativeList items={threatOperationItems} t={t} />
             )}
 
-            <div className={cn('grid grid-cols-1 xl:grid-cols-[1.5fr_0.9fr]', panelGapClass)}>
+            <div className={cn('grid grid-cols-1 lg:grid-cols-[1.5fr_0.9fr]', panelGapClass)}>
               <DashboardSectionCard
                 title={t('alertTrends')}
                 action={<span className="text-muted-foreground text-xs">{t('last7Days')}</span>}
@@ -289,7 +289,7 @@ export default function DashboardPage() {
           open={isPanelOpen(DashboardPanelKey.OPERATIONS)}
           onOpenChange={open => handlePanelOpenChange(DashboardPanelKey.OPERATIONS, open)}
         >
-          <div className={cn('grid grid-cols-1 xl:grid-cols-2', panelGapClass)}>
+          <div className={cn('grid grid-cols-1 lg:grid-cols-2', panelGapClass)}>
             <DashboardSectionCard
               title={t('incidentStatusSection')}
               open={isPanelOpen(DashboardPanelKey.INCIDENT_STATUS)}
@@ -432,7 +432,7 @@ export default function DashboardPage() {
           open={isPanelOpen(DashboardPanelKey.AUTOMATION)}
           onOpenChange={open => handlePanelOpenChange(DashboardPanelKey.AUTOMATION, open)}
         >
-          <div className={cn('grid grid-cols-1 xl:grid-cols-[1.3fr_0.9fr]', panelGapClass)}>
+          <div className={cn('grid grid-cols-1 lg:grid-cols-[1.3fr_0.9fr]', panelGapClass)}>
             <DashboardSectionCard
               title={t('aiOrchestrationCanvas')}
               open={isPanelOpen(DashboardPanelKey.AI_CANVAS)}

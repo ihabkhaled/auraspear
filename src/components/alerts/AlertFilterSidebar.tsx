@@ -36,7 +36,7 @@ export function AlertFilterSidebar({
   }
 
   return (
-    <aside className="w-64 shrink-0 space-y-6">
+    <aside className="w-full shrink-0 space-y-6 xl:w-64">
       <div>
         <h3 className="text-muted-foreground mb-3 text-xs font-bold tracking-wider uppercase">
           {t('timeRange')}

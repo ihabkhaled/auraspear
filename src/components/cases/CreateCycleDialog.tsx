@@ -26,7 +26,7 @@ export function CreateCycleDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="max-w-[95vw] sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>{t('createCycle')}</DialogTitle>
           <DialogDescription>{t('createCycleDescription')}</DialogDescription>

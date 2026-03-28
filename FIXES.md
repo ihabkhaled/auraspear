@@ -156,3 +156,17 @@
 - Migrated 250 files from direct UI imports to barrel imports
 - Replaced 124 error toast patterns with `buildErrorToastHandler`
 - Removed `useAvailableAiConnectors` prop drilling from 15 AI hooks + 11 components
+
+### Mobile Responsiveness Fixes (2026-03-28)
+- Chat panel: thread sidebar as slide-over overlay on mobile, static on desktop
+- Chat header: compact connector select (w-28) on mobile, threads toggle button visible
+- Chat messages: break-words prevents horizontal overflow
+- NotificationBell: viewport-relative width and scroll height on mobile
+- TenantSwitcher: narrower (w-24) on mobile
+- AiConnectorSelect: full-width on mobile by default
+- SearchInput: removed min-width constraint for mobile toolbars
+- 18 dialogs: added max-w-[95vw] mobile fallback
+- AI Findings/History: filter selects full-width on mobile with flex-wrap
+- Case detail: viewport-relative max-heights for scroll containers
+- Dashboard: two-column grids kick in at lg instead of xl
+- DataTable: overflow-x-auto on loading skeleton

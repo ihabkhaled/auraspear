@@ -37,7 +37,7 @@ export function ComplianceControlEditDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-lg">
+      <DialogContent className="max-w-[95vw] overflow-hidden sm:max-w-lg">
         <DialogHeader>
           <DialogTitle>{t('controlEditTitle')}</DialogTitle>
           <DialogDescription>{controlTitle}</DialogDescription>

@@ -1,6 +1,15 @@
 'use client'
 
-import { Bot, Loader2, MessageSquare, Plus, Send, Trash2, User } from 'lucide-react'
+import {
+  Bot,
+  ChevronDown,
+  Loader2,
+  MessageSquare,
+  Plus,
+  Send,
+  Trash2,
+  User,
+} from 'lucide-react'
 import { AiConnectorSelect, VirtualizedList } from '@/components/common'
 import {
   Badge,
@@ -82,7 +91,7 @@ function ChatMessage({
             isUser ? 'bg-primary text-primary-foreground' : 'bg-muted'
           )}
         >
-          <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+          <p className="break-words text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
           {!isUser && (
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               {message.model && (
@@ -165,16 +174,34 @@ export function AiChatPanel() {
     isCreatingThread,
     updateThread,
     archiveThread,
+    mobileThreadsOpen,
+    setMobileThreadsOpen,
   } = useAiChat()
 
   const connectorSelection = useAiConnectorStore(s => s.selectedConnector)
   const connectorValue = connectorSelection === 'default' ? undefined : connectorSelection
 
   return (
-    <div className="border-border flex h-[600px] overflow-hidden rounded-lg border">
-      {/* Thread sidebar */}
-      <div className="border-border relative flex w-72 shrink-0 flex-col border-e">
+    <div className="border-border relative flex h-[calc(100vh-12rem)] min-h-[400px] max-h-[600px] overflow-hidden rounded-lg border sm:flex-row">
+      {/* Thread sidebar — overlay on mobile, static on sm+ */}
+      <div
+        className={cn(
+          'border-border absolute inset-0 z-20 flex flex-col bg-background transition-transform duration-200 sm:relative sm:inset-auto sm:z-auto sm:w-72 sm:shrink-0 sm:translate-x-0 sm:border-e',
+          mobileThreadsOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
+        )}
+      >
         <div className="border-border space-y-2 border-b p-3">
+          <div className="flex items-center justify-between sm:hidden">
+            <p className="text-sm font-semibold">{t('chatTitle')}</p>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-7 w-7"
+              onClick={() => setMobileThreadsOpen(false)}
+            >
+              <ChevronDown className="h-4 w-4 -rotate-90" />
+            </Button>
+          </div>
           <AiConnectorSelect
             placeholder={t('featureProvider')}
             className="h-9 w-full"
@@ -238,17 +265,26 @@ export function AiChatPanel() {
       </div>
 
       {/* Chat area */}
-      <div className="flex flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         {selectedThreadId ? (
           <>
             {/* Header with model switcher */}
-            <div className="border-border flex items-center gap-3 border-b px-4 py-2">
+            <div className="border-border flex items-center gap-1.5 border-b px-2 py-2 sm:gap-3 sm:px-4">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-8 w-8 shrink-0 sm:hidden"
+                onClick={() => setMobileThreadsOpen(true)}
+                aria-label="Open threads"
+              >
+                <MessageSquare className="h-4 w-4" />
+              </Button>
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-medium">
                   {selectedThread?.title ?? 'Untitled Chat'}
                 </p>
                 {selectedThread?.user && (
-                  <p className="text-muted-foreground truncate text-xs">
+                  <p className="text-muted-foreground hidden truncate text-xs sm:block">
                     {t('chatCreatedBy')}: {selectedThread.user.name}
                   </p>
                 )}
@@ -263,10 +299,10 @@ export function AiChatPanel() {
                     })
                   }
                 }}
-                className="h-8 w-44"
+                className="h-7 w-28 sm:h-8 sm:w-44"
                 showDisabledState
               />
-              <Button variant="ghost" size="sm" onClick={() => archiveThread(selectedThreadId)}>
+              <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => archiveThread(selectedThreadId)}>
                 <Trash2 className="text-destructive h-3.5 w-3.5" />
               </Button>
             </div>
@@ -331,14 +367,14 @@ export function AiChatPanel() {
 
             {/* Input */}
             <Separator />
-            <div className="flex items-end gap-2 p-3">
+            <div className="flex items-end gap-2 p-2 sm:p-3">
               <Textarea
                 value={messageInput}
                 onChange={e => setMessageInput(e.currentTarget.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={t('chatPlaceholder')}
                 rows={2}
-                className="min-h-[60px] resize-none"
+                className="min-h-[50px] min-w-0 flex-1 resize-none sm:min-h-[60px]"
                 disabled={isSending}
               />
               <Button
@@ -360,6 +396,15 @@ export function AiChatPanel() {
             <MessageSquare className="text-muted-foreground h-12 w-12" />
             <p className="text-muted-foreground text-sm">{t('chatDescription')}</p>
             <p className="text-muted-foreground text-xs">{t('noChats')}</p>
+            <Button
+              variant="outline"
+              size="sm"
+              className="sm:hidden"
+              onClick={() => setMobileThreadsOpen(true)}
+            >
+              <MessageSquare className="me-1.5 h-3.5 w-3.5" />
+              {t('chatTitle')}
+            </Button>
           </div>
         )}
       </div>

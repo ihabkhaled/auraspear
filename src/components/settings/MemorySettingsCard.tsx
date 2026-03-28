@@ -194,7 +194,7 @@ export function MemorySettingsCard() {
           <CollapsibleContent>
             <CardContent className="space-y-3">
               {/* Toolbar */}
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className="relative flex-1">
                   <Search className="text-muted-foreground absolute start-2.5 top-2.5 h-3.5 w-3.5" />
                   <Input
@@ -215,7 +215,7 @@ export function MemorySettingsCard() {
                   )}
                 </div>
                 <Select value={categoryFilter || 'all'} onValueChange={handleCategoryChange}>
-                  <SelectTrigger className="h-9 w-36">
+                  <SelectTrigger className="h-9 w-full sm:w-36">
                     <SelectValue placeholder={t('allCategories')} />
                   </SelectTrigger>
                   <SelectContent>

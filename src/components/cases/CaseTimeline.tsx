@@ -23,7 +23,7 @@ export function CaseTimeline({ entries }: CaseTimelineProps) {
       <div
         className={cn(
           'overflow-y-auto transition-[max-height] duration-300',
-          expanded ? 'max-h-[600px]' : 'max-h-[200px]'
+          expanded ? 'max-h-[70vh] sm:max-h-[600px]' : 'max-h-[30vh] sm:max-h-[200px]'
         )}
       >
         <div className="flex flex-col">

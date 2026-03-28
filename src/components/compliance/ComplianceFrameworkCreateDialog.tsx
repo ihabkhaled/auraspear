@@ -35,7 +35,7 @@ export function ComplianceFrameworkCreateDialog({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogContent className="overflow-hidden sm:max-w-xl">
+      <DialogContent className="max-w-[95vw] overflow-hidden sm:max-w-xl">
         <DialogHeader>
           <DialogTitle>{t('createTitle')}</DialogTitle>
           <DialogDescription>{t('createDescription')}</DialogDescription>
