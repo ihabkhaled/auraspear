@@ -51,6 +51,14 @@ Login:
 - Email: `admin@auraspear.io`
 - Password: the `SEED_DEFAULT_PASSWORD` from backend `.env`
 
+## Database Migrations Required
+
+- `user_memories` table with embedding storage
+- `search_vector` tsvector column on `ai_execution_findings` with GIN index
+- `pg_trgm` PostgreSQL extension for fuzzy search
+- `memory_extraction` added to `JobType` enum
+- New permissions: `AI_CHAT_ACCESS`, `AI_MEMORY_VIEW`, `AI_MEMORY_EDIT`
+
 ## Commands
 
 | Action      | Command                                              |

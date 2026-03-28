@@ -5,14 +5,14 @@
 1. **NEVER use `any`** — Use `unknown`, generics, or proper types. `@typescript-eslint/no-explicit-any: error`.
 2. **NEVER disable ESLint rules** — No `// eslint-disable`, no `@ts-ignore`, no `@ts-expect-error`. Fix the root cause. No exceptions.
 3. **NEVER use static Tailwind color classes** for semantic colors — Always use the status/severity class system.
-4. **NEVER use `<table>` directly** — Always use `<DataTable>` from `@/components/common/DataTable`.
+4. **NEVER use `<table>` directly** — Always use `<DataTable>` from `@/components/common`.
 5. **NEVER use `==` or `!=`** — Always use `===` and `!==` (`eqeqeq: error`).
 6. **NEVER use `var`** — Use `const` (preferred) or `let`.
 7. **NEVER use `!` (non-null assertion)** — Use proper null checks (`if`, `??`, `?.`).
 8. **NEVER use `console.log`** — Only `console.warn` and `console.error` are allowed.
 9. **NEVER hardcode user-facing text** — Always use `t()` from `next-intl`.
 10. **NEVER use string concatenation** — Use template literals (`prefer-template: warn`).
-11. **NEVER use raw HTML `<select>`, `<input>`, `<textarea>`** — Always use shadcn/ui components from `@/components/ui/`.
+11. **NEVER use raw HTML `<select>`, `<input>`, `<textarea>`** — Always use shadcn/ui components from `@/components/ui` (barrel import).
 12. **NEVER add `// eslint-disable-next-line`** — This rule is absolute with zero exceptions. If a rule triggers, fix the code.
 13. **NEVER put `const`, `interface`, `enum`, or `type` declarations inside component, hook, service, or API route files** (`no-restricted-syntax: error`) — Enums → `src/enums/`, Types/Interfaces → `src/types/<domain>.types.ts`, Constants → `src/lib/constants/<domain>.ts`. Exception: file-local constants (used only in that file, e.g., a small config object) are acceptable inline at the top of the file. ESLint enforces: `TSEnumDeclaration` banned outside `src/enums/`, `TSInterfaceDeclaration` and `TSTypeAliasDeclaration` banned in `.tsx`, `hooks/`, `services/`, `stores/`, and `app/api/` files, SCREAMING*CASE `const` declarations (`/^[A-Z]A-Z0-9*]+$/`) banned at module level in the same files.
 14. **NEVER put custom hooks inside component files** (`no-restricted-syntax: error`) — All `useXxx` hooks → `src/hooks/` (one hook per file, barrel-exported from `src/hooks/index.ts`). ESLint enforces: `FunctionDeclaration[id.name=/^use[A-Z]/]` and arrow-function hooks banned in `.tsx` files.
@@ -30,7 +30,8 @@
 26. **NEVER have blank lines between import groups** — All imports must be contiguous with no empty lines separating them (`import-x/order` with `newlines-between: 'never'`).
 27. **NEVER reference loop-mutated variables inside closures** — Capture the variable in a `const` before using it in callbacks like `.find()`, `.map()`, etc. inside loops (`@typescript-eslint/no-loop-func`).
 28. **ALWAYS order `@/lib/*` imports alphabetically** — `@/lib/constants/foo` before `@/lib/utils`, `@/lib/api-error` before `@/lib/roles` (`import-x/order` with `alphabetize: asc`).
-29. **NEVER leave placeholder/mock AI responses in production** — All AI methods must route through configured connectors (Bedrock, LLM APIs, or OpenClaw Gateway). Rule-based fallbacks are acceptable ONLY when no connector is configured, and must be clearly labeled as `model: 'rule-based'` in the response.
+29. **NEVER import directly from `@/components/ui/*` subpaths** — Always use the barrel `@/components/ui`. Write `import { Button, Badge } from '@/components/ui'` not `import { Button } from '@/components/ui/button'`. Same applies to `@/components/common`, `@/services`, `@/hooks`, and `@/stores` — always use barrel exports.
+30. **NEVER leave placeholder/mock AI responses in production** — All AI methods must route through configured connectors (Bedrock, LLM APIs, or OpenClaw Gateway). Rule-based fallbacks are acceptable ONLY when no connector is configured, and must be clearly labeled as `model: 'rule-based'` in the response.
 30. **NEVER hardcode a single AI provider** — AI routing must check all configured AI connectors (bedrock → llm_apis → openclaw_gateway) and use the first available. The `AiService.findAvailableAiConnector()` method handles this.
 31. **NEVER leave job handlers unregistered** — Every `JobType` enum value MUST have a corresponding handler registered in `JobsModule.onModuleInit()`. Unregistered handlers cause jobs to sit PENDING forever.
 32. **NEVER leave executor engines disconnected from the job system** — Normalization, correlation, and detection executors MUST be wired to their respective job handlers. Executors that exist but are never called are dead code.
@@ -62,6 +63,9 @@
 58. **NEVER render raw AI inter-agent JSON in user-facing UI** — Transform to human-readable before rendering.
 59. **EVERY approval-required AI action MUST show approval status badge** — Pending approvals visually distinct.
 60. **NEVER define derived state `const` inside `.tsx` component files** — All computed/derived values (from props, hook results, or API responses) MUST be computed inside the hook that provides the data, not in the component. Components receive ready-to-render values only. Move all `const x = computeSomething(hookResult)` patterns into the hook's return value via `useMemo`.
+61. **NEVER pass `availableConnectors`/`selectedConnector`/`onConnectorChange` as component props** — The `<AiConnectorSelect />` from `@/components/common` is self-contained (uses global Zustand store internally). Render it with zero props. AI hooks read `connectorValue` from `useAiConnectorStore` directly.
+62. **NEVER write inline `Toast.error(tErrors(getErrorKey(error)))` in mutation callbacks** — Use `buildErrorToastHandler(tErrors)` from `@/lib/toast.utils`. Simple: `onError: buildErrorToastHandler(tErrors)`. Multi-statement: `buildErrorToastHandler(tErrors)(error)`.
+63. **NEVER import third-party UI libraries directly in components** — Wrap in `@/components/common/` first. Use `VirtualizedList` from `@/components/common` instead of `Virtuoso` from `react-virtuoso`.
 
 ---
 
@@ -254,6 +258,24 @@
 
 ---
 
+## Import Rules (MANDATORY)
+
+All imports MUST use barrel exports. Direct subpath imports are banned.
+
+| Module | Barrel Path | Example |
+|--------|------------|---------|
+| UI components | `@/components/ui` | `import { Button, Badge, Input } from '@/components/ui'` |
+| Common components | `@/components/common` | `import { DataTable, Toast, AiConnectorSelect } from '@/components/common'` |
+| Services | `@/services` | `import { alertService, memoryService } from '@/services'` |
+| Hooks | `@/hooks` | `import { useAiAlertTriage, useDebounce } from '@/hooks'` |
+| Stores | `@/stores` | `import { useAuthStore, useAiConnectorStore } from '@/stores'` |
+| Types | `@/types` | `import type { Alert, UserMemory } from '@/types'` |
+| Enums | `@/enums` | `import { Permission, SortOrder } from '@/enums'` |
+
+**Exception**: Files WITHIN a barrel directory may import siblings directly (e.g., `@/components/ui/calendar.tsx` can import from `@/components/ui/button`).
+
+---
+
 ## TypeScript Configuration (`tsconfig.json`)
 
 - **Target**: ES2020
@@ -302,7 +324,7 @@ Configuration:
 
 - **Theme**: Dark mode primary, cyan/teal accent for primary actions and links
 - **KPI Cards**: Use `bg-card`, uppercase muted labels, bold large values
-- **Tables**: Dark alternating rows, subtle hover, minimal borders — ALWAYS use `<DataTable>` from `@/components/common/DataTable`
+- **Tables**: Dark alternating rows, subtle hover, minimal borders — ALWAYS use `<DataTable>` from `@/components/common`
 - **Badges**: Semantic, uppercase, small rounded
 
 ---
@@ -410,12 +432,12 @@ Theme-aware colors are defined via `@theme` in `src/app/globals.css` using CSS v
 
 ## Components — MUST USE (never build custom alternatives)
 
-### DataTable — `@/components/common/DataTable`
+### DataTable — `@/components/common`
 
 **Always use `<DataTable>` instead of raw `<table>` elements.**
 
 ```tsx
-import { DataTable, type Column } from '@/components/common/DataTable'
+import { DataTable, type Column } from '@/components/common'
 
 const columns: Column<MyType>[] = [
   { key: 'name', label: t('name') },
@@ -480,6 +502,35 @@ Variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link`, `su
 
 Always use shadcn/ui form components, not raw HTML elements.
 
+### New Common Components
+
+| Component | Import | Purpose |
+|-----------|--------|---------|
+| `AiConnectorSelect` | `@/components/common` | Self-contained AI connector dropdown (zero props) |
+| `AiResultCard` | `@/components/common` | AI result display with confidence/provider badges |
+| `CollapsibleSection` | `@/components/common` | Collapsible wrapper with title, icon, badge, children |
+| `SearchInput` | `@/components/common` | Search input with icon + clear button |
+| `VirtualizedList` | `@/components/common` | Wrapper around react-virtuoso Virtuoso |
+
+### Common Utilities
+
+| Utility | Import | Purpose |
+|---------|--------|---------|
+| `buildErrorToastHandler` | `@/lib/toast.utils` | Mutation `onError` callback factory |
+| `renderSeverityBadge` | `@/lib/column-renderers` | DataTable column severity badge renderer |
+| `renderStatusBadge` | `@/lib/column-renderers` | DataTable column status badge renderer |
+| `renderTimestamp` | `@/lib/column-renderers` | DataTable column timestamp renderer |
+| `renderConfidenceBadge` | `@/lib/column-renderers` | DataTable column confidence badge renderer |
+| `renderTruncatedText` | `@/lib/column-renderers` | DataTable column text truncation renderer |
+| `TranslationFn` | `@/types` | Base type: `(key: string) => string` for t() props |
+
+### Common Hooks
+
+| Hook | Import | Purpose |
+|------|--------|---------|
+| `useDeleteWithConfirmation` | `@/hooks` | Generic delete with SweetAlert confirm + mutation + toast |
+| `useAvailableAiConnectors` | `@/hooks` | Connector list query + global selection from Zustand store |
+
 ---
 
 ## Libraries — Reference
@@ -499,6 +550,7 @@ Always use shadcn/ui form components, not raw HTML elements.
 | `sweetalert2`                       | Confirmation dialogs   | via `SweetAlertDialog` from `@/components/common` |
 | `zustand`                           | Global state stores    | stores in `@/stores/`                             |
 | `clsx` + `class-variance-authority` | CSS class utilities    | `cn()` from `@/lib/utils`                         |
+| `react-virtuoso`                    | Virtualized lists      | via `VirtualizedList` from `@/components/common`  |
 
 ---
 
@@ -528,6 +580,49 @@ All AI methods (hunt, investigate, explain, agent task) work with all three conn
 - Bedrock: region, model, AWS credentials
 - LLM APIs: baseUrl, apiKey, defaultModel, organizationId
 - OpenClaw Gateway: baseUrl, apiKey
+
+---
+
+## AI Cross-Chat Memory System
+
+Persistent cross-chat memory for personalized AI interactions:
+
+- **Extraction**: After each chat message, async `MEMORY_EXTRACTION` job extracts facts/preferences via LLM
+- **Storage**: `UserMemory` model — content, category (fact/preference/instruction/context), embeddings, source tracking
+- **Retrieval**: Cosine similarity on embeddings before each LLM call; fallback to recent memories if embeddings fail
+- **Injection**: Retrieved memories prepended to system prompt as context
+- **User Control**: Settings → AI Memory card — view, search, edit, delete memories
+- **Non-blocking**: Memory retrieval failures never crash chat
+- **Embedding**: Gemini `text-embedding-004` or OpenAI `text-embedding-ada-002` auto-detected from connector URL
+- **Permission**: `AI_MEMORY_VIEW`, `AI_MEMORY_EDIT` (granted to all roles)
+
+---
+
+## AI Findings Page
+
+Dedicated `/ai-findings` route — central searchable workspace for all AI-generated findings:
+
+- **Full-text search**: PostgreSQL tsvector with weighted ranking (A: title, B: summary, C: action, D: agent/module)
+- **Filters**: agent, module, severity, status, findingType, confidence range, date range
+- **Sorting**: 8 sortable columns, server-side with relevance ranking when searching
+- **Pagination**: Next/prev + go-to-page input + page size selector
+- **KPI cards**: Total, proposed, applied, dismissed, high confidence
+- **Detail drawer**: Sheet with metadata, summary, evidence JSON, Apply/Dismiss actions
+- **Stats endpoint**: `GET /ai/findings/stats`
+- **Status update**: `PATCH /ai/findings/:id/status` (proposed→applied/dismissed, failed→dismissed)
+
+---
+
+## AI Chat Page
+
+Standalone `/ai-chat` route for LLM conversations:
+
+- **Permission**: `AI_CHAT_ACCESS` (granted to all roles)
+- **Connector fallback**: Fixed connectors (llm_apis → openclaw_gateway → bedrock) tried first, then custom LLM connectors
+- **User attribution**: Thread creator name shown in sidebar + chat messages with initials avatar
+- **Memory injection**: Relevant user memories auto-injected into system prompt
+- **Auto-select**: Latest thread selected on page load
+- **maxTokens**: Default 16384 (increased from 2048 to prevent response truncation)
 
 ---
 
@@ -669,7 +764,7 @@ src/
 
 - **Services**: Singleton objects with async methods, call Axios API instance from `@/lib/api`
 - **Hooks**: Custom hooks in `src/hooks/` encapsulate `useQuery`/`useMutation` logic
-- **Stores**: Zustand stores in `src/stores/` for global client state (auth, tenant, filters, UI, notifications, hunt). Auth store (`auth-storage`) holds JWT tokens + user info. Tenant store (`tenant-storage`) holds the switched tenant ID for GLOBAL_ADMIN.
+- **Stores**: Zustand stores in `src/stores/` for global client state (auth, tenant, filters, UI, notifications, hunt, ai-connector). Auth store (`auth-storage`) holds JWT tokens + user info. Tenant store (`tenant-storage`) holds the switched tenant ID for GLOBAL_ADMIN. AI Connector store (`ai-connector-storage`) holds the globally shared AI connector selection. All AI hooks and the `AiConnectorSelect` component read from this store.
 - **Error handling**: `try/catch` + `Toast.error(t(getErrorKey(error)))` pattern
 - **Loading states**: `<LoadingSpinner>` from `@/components/common`
 - **Empty states**: `<EmptyState>` or custom empty message in DataTable

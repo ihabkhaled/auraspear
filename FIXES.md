@@ -137,3 +137,22 @@
 | Sorting/search added to hooks | 6 |
 | Type/hook/i18n updates | 10+ |
 | **Total fixes** | **44+** |
+
+---
+
+## Recent Fixes (2026-03-28)
+
+### Backend
+
+- Fixed UUID validation: non-UUID connectorId no longer stored in UUID column
+- Fixed embedding model: uses text-embedding-004 (Gemini) / text-embedding-ada-002 (OpenAI) instead of falling back to chat model
+- Fixed tsquery syntax errors: special characters stripped from search input
+- Fixed chat maxTokens: increased from 2048 to 16384 to prevent response truncation
+- Fixed memory retrieval: non-blocking with try/catch, graceful fallback to recent memories
+
+### Frontend
+
+- Fixed `AiFindingType` enum values to align with backend
+- Migrated 250 files from direct UI imports to barrel imports
+- Replaced 124 error toast patterns with `buildErrorToastHandler`
+- Removed `useAvailableAiConnectors` prop drilling from 15 AI hooks + 11 components

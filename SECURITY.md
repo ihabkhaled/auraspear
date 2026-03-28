@@ -46,6 +46,13 @@ This project follows these security practices:
 - **Pre-commit hooks** — ESLint security plugin checks run on every commit
 - **HttpOnly cookies** — preferred for token storage when possible
 
+## AI Memory Security
+
+- Memories strictly scoped by `tenantId` + `userId` — no cross-tenant or cross-user leakage
+- Memory CRUD requires `AI_MEMORY_VIEW`/`AI_MEMORY_EDIT` permissions
+- Embeddings stored server-side only — never in localStorage
+- Memory retrieval failures are non-blocking (graceful fallback)
+
 ## Scope
 
 The following are in scope for vulnerability reports:

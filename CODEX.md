@@ -35,6 +35,14 @@ If this file and `CLAUDE.md` ever differ, `CLAUDE.md` wins.
 11. For dashboard or reporting work, prefer extending shared contracts such as `analytics-overview` and `operations-overview` before adding page-local fetch shapes.
 12. Use `npm run validate:full` for feature-complete changes that touch UI, tests, or documentation.
 
+## Import & Modularization Rules
+
+13. Always use barrel imports: `@/components/ui`, `@/components/common`, `@/services`, `@/hooks`, `@/stores`, `@/types`, `@/enums`.
+14. Never import from subpaths (e.g., `@/components/ui/button` is banned — use `@/components/ui`).
+15. Use `buildErrorToastHandler(tErrors)` for all mutation `onError` handlers instead of inline toast calls.
+16. Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns — it reads from the global `useAiConnectorStore`.
+17. New common components (SearchInput, CollapsibleSection, AiResultCard, VirtualizedList, column-renderers, toast.utils) are available via `@/components/common` barrel.
+
 ## Current Focus Defaults
 
 - Build concrete, organized features rather than placeholder scaffolding.

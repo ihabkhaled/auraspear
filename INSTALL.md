@@ -42,6 +42,12 @@ pnpm dev
 | `pnpm test`        | Run vitest                |
 | `pnpm format`      | Prettier                  |
 
+## New Routes
+
+- `/ai-chat` — AI Chat (requires `AI_CHAT_ACCESS` permission)
+- `/ai-findings` — AI Findings search (requires `AI_AGENTS_VIEW` permission)
+- `/settings` — now includes AI Memory management section
+
 ## Architecture
 
 See docs/ARCHITECTURE.md

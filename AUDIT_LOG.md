@@ -171,3 +171,52 @@ Missing keys added to all 6 locale files (en, ar, es, fr, de, it) for normalizat
 - [x] Frontend Tests: 43 suites, 906 tests passed
 - [x] Frontend Build: success
 - [x] Backend Build: success
+
+---
+
+# Modularization Audit — 2026-03-28
+
+## Scope
+
+384 files changed in frontend modularization pass.
+
+## Barrel Exports Created
+
+- Created `@/components/ui/index.ts` barrel (28 UI components)
+- Created `@/components/common/index.ts` barrel (28+ common components)
+- Created `@/services/index.ts` barrel (34 services)
+- Created `@/hooks/index.ts` barrel (366+ hooks)
+- Created `@/stores/index.ts` barrel (7 stores)
+
+## Import Migration
+
+- Migrated 250 files from direct UI imports to barrel (`@/components/ui`)
+- Consolidated 17 common component direct imports to barrel
+- Consolidated 31 service direct imports to barrel
+- Consolidated 192 hook direct imports to barrel
+
+## Error Handling Deduplication
+
+- Replaced 124 error toast patterns with `buildErrorToastHandler`
+
+## New Common Modules
+
+- `AiConnectorSelect` — zero-prop AI connector dropdown (reads from global store)
+- `AiResultCard` — standardized AI result display component
+- `CollapsibleSection` — reusable collapsible panel wrapper
+- `SearchInput` — debounced search input component
+- `VirtualizedList` — virtualized list for large datasets
+- `useDeleteWithConfirmation` — reusable delete-with-confirm hook
+- `column-renderers` — shared DataTable column render utilities
+- `toast.utils` — `buildErrorToastHandler` and toast helpers
+
+## Global State
+
+- Created Zustand `useAiConnectorStore` for global AI connector selection
+- Removed `useAvailableAiConnectors` from 15 AI hooks + 11 components + 8 type interfaces
+
+## New Features
+
+- AI Chat page (`/ai-chat`) with LLM connector fallback chain, user attribution, cross-chat memory injection, per-thread connector override
+- AI Findings page (`/ai-findings`) with full-text search (PostgreSQL tsvector), advanced filters, sortable DataTable, go-to-page pagination, KPI cards, detail drawer
+- AI Memory management (Settings > AI Memory) with search, category filters, CRUD operations

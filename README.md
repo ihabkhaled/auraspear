@@ -70,6 +70,9 @@ A multi-tenant **Security Operations Center (SOC)** platform built with Next.js 
 - **UEBA** — User and Entity Behavior Analytics (anomalies, entities, ML models)
 - **SOAR** — Shuffle playbook management and execution
 - **AI Agents** — AI agent management with sessions
+- **AI Chat** — Standalone AI conversation interface with LLM connector fallback chain, user attribution, cross-chat memory injection, and per-thread connector override
+- **AI Findings** — Central searchable workspace for all AI-generated findings with full-text search (PostgreSQL tsvector), advanced filters, sortable DataTable, go-to-page pagination, KPI cards, and detail drawer
+- **AI Memory** — User-controlled AI memory management (Settings > AI Memory) with search, category filters, CRUD operations. Memories are automatically extracted from chat and injected into future conversations
 - **Reports** — Report generation and management
 - **Admin — System** — Multi-tenant management, service health, audit logs
 - **Admin — Tenant** — User management (invite/edit/block/restore), RBAC assignment
@@ -180,9 +183,9 @@ src/
 │   ├── common/                    # Shared: AuthGuard, RoleGuard, DataTable, PageHeader, etc.
 │   ├── layout/                    # PortalShell, Sidebar, Topbar, TenantSwitcher, etc.
 │   └── <domain>/                  # Domain components (alerts, cases, hunt, intel, etc.)
-├── hooks/                         # 230+ custom hooks (one file per hook)
-├── services/                      # 28 singleton API services
-├── stores/                        # 7 Zustand stores (auth, tenant, filter, hunt, ui, notification)
+├── hooks/                         # 366+ custom hooks (one file per hook)
+├── services/                      # 34 singleton API services
+├── stores/                        # 7 Zustand stores (auth, tenant, filter, hunt, ui, notification, aiConnector)
 ├── types/                         # 34 type definition files
 ├── enums/                         # 38 enum files
 ├── i18n/                          # 6 locale files (en, ar, es, fr, de, it)
@@ -226,17 +229,28 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
            Custom Hooks → Services → Axios → API Routes
 ```
 
-- **Services** — Singleton API wrappers (28 files, one per domain)
-- **Hooks** — One hook per file (230+ hooks). Page hooks, data hooks, component hooks
+- **Services** — Singleton API wrappers (34 files, one per domain)
+- **Hooks** — One hook per file (366+ hooks). Page hooks, data hooks, component hooks
 - **Types** — All interfaces in `src/types/<domain>.types.ts`
 - **Enums** — All enums in `src/enums/<domain>.enum.ts`
 - **Constants** — All constants in `src/lib/constants/<domain>.ts`
+
+### Modularization
+
+- All UI components exported via `@/components/ui` barrel (28 components)
+- All common components via `@/components/common` barrel (28+ components)
+- All services via `@/services` barrel (34 services)
+- All hooks via `@/hooks` barrel (366+ hooks)
+- All stores via `@/stores` barrel (7 stores including `useAiConnectorStore`)
+- All types via `@/types` barrel
+- All enums via `@/enums` barrel
+- Import from barrels only — never from subpaths (e.g., `@/components/ui` not `@/components/ui/button`)
 
 ---
 
 ## Pages & Routes
 
-### Portal Pages (38 pages)
+### Portal Pages (41 pages)
 
 | Route                  | Description                       | Min Role       |
 | ---------------------- | --------------------------------- | -------------- |
@@ -261,13 +275,15 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
 | `/ueba`                | Behavior analytics                | SOC_ANALYST_L2 |
 | `/soar`                | SOAR playbooks                    | SOC_ANALYST_L2 |
 | `/ai-agents`           | AI agent management               | SOC_ANALYST_L2 |
+| `/ai-chat`             | AI conversation interface         | AI_CHAT_ACCESS |
+| `/ai-findings`         | AI findings search & workspace    | AI_AGENTS_VIEW |
 | `/reports`             | Report generation                 | SOC_ANALYST_L1 |
 | `/system-health`       | System monitoring                 | TENANT_ADMIN   |
 | `/admin/system`        | System admin (multi-tenant)       | GLOBAL_ADMIN   |
 | `/admin/tenant`        | Tenant user management            | TENANT_ADMIN   |
 | `/admin/role-settings` | Role permission matrix editor     | GLOBAL_ADMIN   |
 | `/profile`             | User profile                      | All roles      |
-| `/settings`            | Theme, language, notifications    | All roles      |
+| `/settings`            | Theme, language, notifications, AI Memory | All roles      |
 
 ### Auth Pages
 

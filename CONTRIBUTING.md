@@ -30,6 +30,14 @@ All code must follow the rules defined in [`CLAUDE.md`](./CLAUDE.md). Key highli
 - **Services** in `src/services/` handle API calls via the Axios instance from `@/lib/api`.
 - **Stores** in `src/stores/` manage global client state with Zustand.
 
+### Import Conventions
+
+- ALWAYS use barrel imports: `@/components/ui`, `@/components/common`, `@/services`, `@/hooks`, `@/stores`
+- NEVER import from subpaths like `@/components/ui/button`
+- Use `buildErrorToastHandler(tErrors)` for mutation error handling
+- Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns
+- Wrap third-party UI libs in `@/components/common/` before using
+
 ## Pull Request Workflow
 
 1. Create a feature branch from `main`: `git checkout -b feat/your-feature`
