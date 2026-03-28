@@ -812,6 +812,9 @@ export type {
   UpdateScheduleInput,
   AiScheduleTableProps,
   AiScheduleEditDialogProps,
+  AiFindingsPageFilters,
+  AiFindingsStats,
+  FindingDetailDrawerProps,
 } from './ai-config.types'
 export type {
   UserMemory,

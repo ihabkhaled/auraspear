@@ -51,7 +51,8 @@
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
     "aiMemory": "Memoria IA",
-    "aiHistory": "Cronologia IA"
+    "aiHistory": "Cronologia IA",
+    "aiFindings": "Risultati IA"
   },
   "common": {
     "search": "Cerca",
@@ -1423,136 +1424,9 @@
       "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
-      "failed": "Validazione fallita. Controlla i dati inseriti e riprova.",
-      "email": {
-        "required": "L'indirizzo e-mail e obbligatorio",
-        "invalidEmail": "Inserisci un indirizzo e-mail valido"
-      },
-      "password": {
-        "required": "La password e obbligatoria"
-      },
-      "refreshToken": {
-        "required": "Il token di aggiornamento e obbligatorio"
-      },
-      "currentPassword": {
-        "required": "La password attuale e obbligatoria"
-      },
-      "newPassword": {
-        "required": "La nuova password e obbligatoria",
-        "tooShort": "La nuova password deve contenere almeno 8 caratteri",
-        "sameAsOld": "La nuova password deve essere diversa dalla password attuale",
-        "weak": "La password deve contenere maiuscole, minuscole, un numero e un carattere speciale"
-      },
-      "confirmPassword": {
-        "required": "La conferma della password e obbligatoria",
-        "passwordMismatch": "Le password non corrispondono"
-      },
-      "name": {
-        "required": "Il nome e obbligatorio",
-        "tooShort": "Il nome deve contenere almeno 2 caratteri",
-        "tooLong": "Il nome deve contenere al massimo 255 caratteri"
-      },
-      "title": {
-        "required": "Il titolo e obbligatorio",
-        "tooLong": "Il titolo deve contenere al massimo 256 caratteri"
-      },
-      "description": {
-        "required": "La descrizione e obbligatoria",
-        "tooLong": "La descrizione deve contenere al massimo 4096 caratteri"
-      },
-      "severity": {
-        "required": "La gravita e obbligatoria",
-        "invalidOption": "Valore di gravita non valido"
-      },
-      "status": {
-        "invalidOption": "Valore di stato non valido"
-      },
-      "resolution": {
-        "required": "La risoluzione e obbligatoria",
-        "tooLong": "La risoluzione deve contenere al massimo 4096 caratteri"
-      },
-      "notes": {
-        "tooLong": "Le note devono contenere al massimo 4096 caratteri"
-      },
-      "body": {
-        "required": "Il contenuto della nota e obbligatorio"
-      },
-      "alertId": {
-        "required": "L'ID dell'avviso e obbligatorio"
-      },
-      "indexName": {
-        "required": "Il nome dell'indice e obbligatorio"
-      },
-      "query": {
-        "required": "La query e obbligatoria"
-      },
-      "timeRange": {
-        "required": "L'intervallo temporale e obbligatorio"
-      },
-      "type": {
-        "required": "Il tipo di connettore e obbligatorio",
-        "invalidOption": "Tipo di connettore non valido"
-      },
-      "enabled": {
-        "required": "Il campo di abilitazione e obbligatorio"
-      },
-      "authType": {
-        "invalidOption": "Tipo di autenticazione non valido"
-      },
-      "config": {
-        "required": "La configurazione e obbligatoria"
-      },
-      "prompt": {
-        "required": "Il prompt e obbligatorio",
-        "tooLong": "Il prompt deve contenere al massimo 4096 caratteri"
-      },
-      "oidcSub": {
-        "required": "Il soggetto OIDC e obbligatorio"
-      },
-      "slug": {
-        "required": "Lo slug e obbligatorio",
-        "tooLong": "Lo slug deve contenere al massimo 100 caratteri",
-        "invalidFormat": "Lo slug deve contenere solo lettere minuscole, numeri e trattini"
-      },
-      "role": {
-        "required": "Il ruolo e obbligatorio",
-        "invalidOption": "Valore di ruolo non valido"
-      },
-      "alertIds": {
-        "required": "Gli ID degli avvisi sono obbligatori",
-        "tooFew": "E richiesto almeno un ID di avviso"
-      },
-      "ownerUserId": {
-        "invalidUuid": "Formato ID utente non valido"
-      },
-      "theme": {
-        "invalidOption": "Valore di tema non valido"
-      },
-      "language": {
-        "invalidOption": "Valore di lingua non valido"
-      },
-      "sortOrder": {
-        "invalidOption": "Ordine di ordinamento non valido"
-      },
-      "page": {
-        "invalidNumber": "La pagina deve essere un intero positivo"
-      },
-      "limit": {
-        "invalidNumber": "Il limite deve essere un intero positivo",
-        "tooLarge": "Il limite deve essere al massimo 100"
-      },
-      "yamlContent": {
-        "invalid": "Il contenuto YAML deve essere una stringa valida",
-        "required": "Il contenuto YAML e obbligatorio",
-        "tooLong": "Il contenuto YAML e troppo lungo"
-      },
-      "conditions": {
-        "invalid": "Le condizioni devono essere un oggetto JSON valido",
-        "required": "Le condizioni sono obbligatorie"
-      },
-      "source": {
-        "required": "La fonte e obbligatoria",
-        "invalidOption": "Valore della fonte non valido"
+      "maxTokensPerCall": {
+        "tooLarge": "Il massimo di token per chiamata non può superare 32.768.",
+        "tooSmall": "Il minimo di token per chiamata è 256."
       }
     },
     "ssrf": {
@@ -1847,12 +1721,6 @@
       "approvalNotFound": "Richiesta di approvazione non trovata.",
       "approvalAlreadyResolved": "La richiesta di approvazione è già stata risolta.",
       "approvalExpired": "La richiesta di approvazione è scaduta."
-    },
-    "validation": {
-      "maxTokensPerCall": {
-        "tooLarge": "Il massimo di token per chiamata non può superare 32.768.",
-        "tooSmall": "Il minimo di token per chiamata è 256."
-      }
     }
   },
   "profile": {
@@ -4728,5 +4596,46 @@
       "allModules": "Tutti i moduli",
       "totalCount": "Totale risultati"
     }
+  },
+  "aiFindings": {
+    "pageTitle": "Risultati IA",
+    "pageDescription": "Cerca, filtra e rivedi tutti i risultati generati dall'IA nelle tue operazioni di sicurezza",
+    "noFindings": "Nessun risultato corrisponde ai tuoi criteri",
+    "searchPlaceholder": "Cerca risultati per titolo, riepilogo, agente o parole chiave...",
+    "allAgents": "Tutti gli agenti",
+    "allModules": "Tutti i moduli",
+    "allStatuses": "Tutti gli stati",
+    "allTypes": "Tutti i tipi",
+    "allSeverities": "Tutte le severità",
+    "clearFilters": "Cancella filtri",
+    "total": "Totale",
+    "proposed": "Proposto",
+    "applied": "Applicato",
+    "dismissed": "Ignorato",
+    "failed": "Fallito",
+    "highConfidence": "Alta affidabilità",
+    "goToPage": "Vai alla pagina",
+    "of": "di",
+    "showing": "Visualizzazione",
+    "results": "risultati",
+    "findingDetail": "Dettaglio risultato",
+    "summary": "Riepilogo",
+    "recommendedAction": "Azione consigliata",
+    "evidence": "Prove",
+    "confidence": "Affidabilità",
+    "createdAt": "Creato",
+    "appliedAt": "Applicato",
+    "agent": "Agente",
+    "module": "Modulo",
+    "severity": "Severità",
+    "status": "Stato",
+    "type": "Tipo",
+    "markApplied": "Segna come applicato",
+    "markDismissed": "Segna come ignorato",
+    "statusUpdated": "Stato del risultato aggiornato",
+    "sourceEntity": "Entità sorgente",
+    "session": "Sessione",
+    "title": "Titolo",
+    "perPage": "Per pagina"
   }
 }

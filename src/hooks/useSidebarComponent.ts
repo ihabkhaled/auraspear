@@ -31,6 +31,7 @@ import {
   MessageSquare,
   Network,
   Settings2,
+  Sparkles,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { useSidebarHealth } from '@/hooks/useSidebarHealth'
@@ -93,6 +94,7 @@ export function useSidebarContent() {
     {
       label: t('nav.aiAutomation'),
       items: [
+        { icon: Sparkles, label: t('nav.aiFindings'), href: '/ai-findings' },
         { icon: MessageSquare, label: t('nav.aiChat'), href: '/ai-chat' },
         { icon: Bot, label: t('nav.aiAgents'), href: '/ai-agents' },
         { icon: Settings2, label: t('nav.aiConfig'), href: '/ai-config' },

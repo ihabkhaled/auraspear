@@ -51,7 +51,8 @@
     "aiConfig": "AI Config",
     "aiChat": "AI Chat",
     "aiMemory": "AI Memory",
-    "aiHistory": "AI History"
+    "aiHistory": "AI History",
+    "aiFindings": "AI Findings"
   },
   "common": {
     "search": "Search",
@@ -4728,5 +4729,46 @@
       "allModules": "All Modules",
       "totalCount": "Total findings"
     }
+  },
+  "aiFindings": {
+    "pageTitle": "AI Findings",
+    "pageDescription": "Search, filter, and review all AI-generated findings across your security operations",
+    "noFindings": "No findings match your criteria",
+    "searchPlaceholder": "Search findings by title, summary, agent, or keywords...",
+    "allAgents": "All Agents",
+    "allModules": "All Modules",
+    "allStatuses": "All Statuses",
+    "allTypes": "All Types",
+    "allSeverities": "All Severities",
+    "clearFilters": "Clear Filters",
+    "total": "Total",
+    "proposed": "Proposed",
+    "applied": "Applied",
+    "dismissed": "Dismissed",
+    "failed": "Failed",
+    "highConfidence": "High Confidence",
+    "goToPage": "Go to page",
+    "of": "of",
+    "showing": "Showing",
+    "results": "results",
+    "findingDetail": "Finding Detail",
+    "summary": "Summary",
+    "recommendedAction": "Recommended Action",
+    "evidence": "Evidence",
+    "confidence": "Confidence",
+    "createdAt": "Created",
+    "appliedAt": "Applied",
+    "agent": "Agent",
+    "module": "Module",
+    "severity": "Severity",
+    "status": "Status",
+    "type": "Type",
+    "markApplied": "Mark Applied",
+    "markDismissed": "Mark Dismissed",
+    "statusUpdated": "Finding status updated",
+    "sourceEntity": "Source Entity",
+    "session": "Session",
+    "title": "Title",
+    "perPage": "Per page"
   }
 }

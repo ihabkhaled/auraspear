@@ -51,7 +51,8 @@
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
     "aiMemory": "Mémoire IA",
-    "aiHistory": "Historique IA"
+    "aiHistory": "Historique IA",
+    "aiFindings": "Résultats IA"
   },
   "common": {
     "search": "Rechercher",
@@ -1423,136 +1424,9 @@
       "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
-      "failed": "La validation a echoue. Veuillez verifier votre saisie et reessayer.",
-      "email": {
-        "required": "L'adresse e-mail est obligatoire",
-        "invalidEmail": "Veuillez saisir une adresse e-mail valide"
-      },
-      "password": {
-        "required": "Le mot de passe est obligatoire"
-      },
-      "refreshToken": {
-        "required": "Le jeton de rafraichissement est obligatoire"
-      },
-      "currentPassword": {
-        "required": "Le mot de passe actuel est obligatoire"
-      },
-      "newPassword": {
-        "required": "Le nouveau mot de passe est obligatoire",
-        "tooShort": "Le nouveau mot de passe doit contenir au moins 8 caracteres",
-        "sameAsOld": "Le nouveau mot de passe doit etre different du mot de passe actuel",
-        "weak": "Le mot de passe doit contenir des majuscules, des minuscules, un chiffre et un caractere special"
-      },
-      "confirmPassword": {
-        "required": "La confirmation du mot de passe est obligatoire",
-        "passwordMismatch": "Les mots de passe ne correspondent pas"
-      },
-      "name": {
-        "required": "Le nom est obligatoire",
-        "tooShort": "Le nom doit contenir au moins 2 caracteres",
-        "tooLong": "Le nom doit contenir au plus 255 caracteres"
-      },
-      "title": {
-        "required": "Le titre est obligatoire",
-        "tooLong": "Le titre doit contenir au plus 256 caracteres"
-      },
-      "description": {
-        "required": "La description est obligatoire",
-        "tooLong": "La description doit contenir au plus 4096 caracteres"
-      },
-      "severity": {
-        "required": "La severite est obligatoire",
-        "invalidOption": "Valeur de severite non valide"
-      },
-      "status": {
-        "invalidOption": "Valeur de statut non valide"
-      },
-      "resolution": {
-        "required": "La resolution est obligatoire",
-        "tooLong": "La resolution doit contenir au plus 4096 caracteres"
-      },
-      "notes": {
-        "tooLong": "Les notes doivent contenir au plus 4096 caracteres"
-      },
-      "body": {
-        "required": "Le contenu de la note est obligatoire"
-      },
-      "alertId": {
-        "required": "L'ID d'alerte est obligatoire"
-      },
-      "indexName": {
-        "required": "Le nom de l'index est obligatoire"
-      },
-      "query": {
-        "required": "La requete est obligatoire"
-      },
-      "timeRange": {
-        "required": "La plage temporelle est obligatoire"
-      },
-      "type": {
-        "required": "Le type de connecteur est obligatoire",
-        "invalidOption": "Type de connecteur non valide"
-      },
-      "enabled": {
-        "required": "Le champ d'activation est obligatoire"
-      },
-      "authType": {
-        "invalidOption": "Type d'authentification non valide"
-      },
-      "config": {
-        "required": "La configuration est obligatoire"
-      },
-      "prompt": {
-        "required": "Le prompt est obligatoire",
-        "tooLong": "Le prompt doit contenir au plus 4096 caracteres"
-      },
-      "oidcSub": {
-        "required": "Le sujet OIDC est obligatoire"
-      },
-      "slug": {
-        "required": "Le slug est obligatoire",
-        "tooLong": "Le slug doit contenir au plus 100 caracteres",
-        "invalidFormat": "Le slug ne doit contenir que des lettres minuscules, des chiffres et des tirets"
-      },
-      "role": {
-        "required": "Le role est obligatoire",
-        "invalidOption": "Valeur de role non valide"
-      },
-      "alertIds": {
-        "required": "Les IDs d'alerte sont obligatoires",
-        "tooFew": "Au moins un ID d'alerte est requis"
-      },
-      "ownerUserId": {
-        "invalidUuid": "Format d'ID utilisateur non valide"
-      },
-      "theme": {
-        "invalidOption": "Valeur de theme non valide"
-      },
-      "language": {
-        "invalidOption": "Valeur de langue non valide"
-      },
-      "sortOrder": {
-        "invalidOption": "Ordre de tri non valide"
-      },
-      "page": {
-        "invalidNumber": "La page doit etre un entier positif"
-      },
-      "limit": {
-        "invalidNumber": "La limite doit etre un entier positif",
-        "tooLarge": "La limite doit etre au plus 100"
-      },
-      "yamlContent": {
-        "invalid": "Le contenu YAML doit etre une chaine valide",
-        "required": "Le contenu YAML est requis",
-        "tooLong": "Le contenu YAML est trop long"
-      },
-      "conditions": {
-        "invalid": "Les conditions doivent etre un objet JSON valide",
-        "required": "Les conditions sont requises"
-      },
-      "source": {
-        "required": "La source est requise",
-        "invalidOption": "Valeur de source non valide"
+      "maxTokensPerCall": {
+        "tooLarge": "Le maximum de tokens par appel ne peut pas dépasser 32 768.",
+        "tooSmall": "Le minimum de tokens par appel est 256."
       }
     },
     "ssrf": {
@@ -1847,12 +1721,6 @@
       "approvalNotFound": "Demande d'approbation introuvable.",
       "approvalAlreadyResolved": "La demande d'approbation a déjà été résolue.",
       "approvalExpired": "La demande d'approbation a expiré."
-    },
-    "validation": {
-      "maxTokensPerCall": {
-        "tooLarge": "Le maximum de tokens par appel ne peut pas dépasser 32 768.",
-        "tooSmall": "Le minimum de tokens par appel est 256."
-      }
     }
   },
   "profile": {
@@ -4728,5 +4596,46 @@
       "allModules": "Tous les modules",
       "totalCount": "Total des résultats"
     }
+  },
+  "aiFindings": {
+    "pageTitle": "Résultats IA",
+    "pageDescription": "Recherchez, filtrez et examinez tous les résultats générés par l'IA dans vos opérations de sécurité",
+    "noFindings": "Aucun résultat ne correspond à vos critères",
+    "searchPlaceholder": "Rechercher des résultats par titre, résumé, agent ou mots-clés...",
+    "allAgents": "Tous les agents",
+    "allModules": "Tous les modules",
+    "allStatuses": "Tous les statuts",
+    "allTypes": "Tous les types",
+    "allSeverities": "Toutes les sévérités",
+    "clearFilters": "Effacer les filtres",
+    "total": "Total",
+    "proposed": "Proposé",
+    "applied": "Appliqué",
+    "dismissed": "Rejeté",
+    "failed": "Échoué",
+    "highConfidence": "Haute confiance",
+    "goToPage": "Aller à la page",
+    "of": "de",
+    "showing": "Affichage",
+    "results": "résultats",
+    "findingDetail": "Détail du résultat",
+    "summary": "Résumé",
+    "recommendedAction": "Action recommandée",
+    "evidence": "Preuves",
+    "confidence": "Confiance",
+    "createdAt": "Créé",
+    "appliedAt": "Appliqué",
+    "agent": "Agent",
+    "module": "Module",
+    "severity": "Sévérité",
+    "status": "Statut",
+    "type": "Type",
+    "markApplied": "Marquer comme appliqué",
+    "markDismissed": "Marquer comme rejeté",
+    "statusUpdated": "Statut du résultat mis à jour",
+    "sourceEntity": "Entité source",
+    "session": "Session",
+    "title": "Titre",
+    "perPage": "Par page"
   }
 }

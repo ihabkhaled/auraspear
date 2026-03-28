@@ -51,7 +51,8 @@
     "aiConfig": "تهيئة الذكاء الاصطناعي",
     "aiChat": "محادثة الذكاء الاصطناعي",
     "aiMemory": "ذاكرة الذكاء الاصطناعي",
-    "aiHistory": "سجل الذكاء الاصطناعي"
+    "aiHistory": "سجل الذكاء الاصطناعي",
+    "aiFindings": "نتائج الذكاء الاصطناعي"
   },
   "common": {
     "search": "بحث",
@@ -1423,136 +1424,9 @@
       "csrfTokenMismatch": "عدم تطابق رمز الأمان. يرجى تحديث الصفحة والمحاولة مرة أخرى."
     },
     "validation": {
-      "failed": "فشل التحقق. يرجى التحقق من المدخلات والمحاولة مرة أخرى.",
-      "email": {
-        "required": "البريد الإلكتروني مطلوب",
-        "invalidEmail": "يرجى إدخال بريد إلكتروني صالح"
-      },
-      "password": {
-        "required": "كلمة المرور مطلوبة"
-      },
-      "refreshToken": {
-        "required": "رمز التحديث مطلوب"
-      },
-      "currentPassword": {
-        "required": "كلمة المرور الحالية مطلوبة"
-      },
-      "newPassword": {
-        "required": "كلمة المرور الجديدة مطلوبة",
-        "tooShort": "يجب أن تتكون كلمة المرور الجديدة من 8 أحرف على الأقل",
-        "sameAsOld": "يجب أن تكون كلمة المرور الجديدة مختلفة عن كلمة المرور الحالية",
-        "weak": "يجب أن تحتوي كلمة المرور على أحرف كبيرة وصغيرة ورقم وحرف خاص"
-      },
-      "confirmPassword": {
-        "required": "تأكيد كلمة المرور مطلوب",
-        "passwordMismatch": "كلمات المرور غير متطابقة"
-      },
-      "name": {
-        "required": "الاسم مطلوب",
-        "tooShort": "يجب أن يتكون الاسم من حرفين على الأقل",
-        "tooLong": "يجب ألا يتجاوز الاسم 255 حرفاً"
-      },
-      "title": {
-        "required": "العنوان مطلوب",
-        "tooLong": "يجب ألا يتجاوز العنوان 256 حرفاً"
-      },
-      "description": {
-        "required": "الوصف مطلوب",
-        "tooLong": "يجب ألا يتجاوز الوصف 4096 حرفاً"
-      },
-      "severity": {
-        "required": "مستوى الخطورة مطلوب",
-        "invalidOption": "قيمة خطورة غير صالحة"
-      },
-      "status": {
-        "invalidOption": "قيمة حالة غير صالحة"
-      },
-      "resolution": {
-        "required": "الحل مطلوب",
-        "tooLong": "يجب ألا يتجاوز الحل 4096 حرفاً"
-      },
-      "notes": {
-        "tooLong": "يجب ألا تتجاوز الملاحظات 4096 حرفاً"
-      },
-      "body": {
-        "required": "محتوى الملاحظة مطلوب"
-      },
-      "alertId": {
-        "required": "معرف التنبيه مطلوب"
-      },
-      "indexName": {
-        "required": "اسم الفهرس مطلوب"
-      },
-      "query": {
-        "required": "الاستعلام مطلوب"
-      },
-      "timeRange": {
-        "required": "النطاق الزمني مطلوب"
-      },
-      "type": {
-        "required": "نوع الموصّل مطلوب",
-        "invalidOption": "نوع موصّل غير صالح"
-      },
-      "enabled": {
-        "required": "حقل التفعيل مطلوب"
-      },
-      "authType": {
-        "invalidOption": "نوع مصادقة غير صالح"
-      },
-      "config": {
-        "required": "الإعدادات مطلوبة"
-      },
-      "prompt": {
-        "required": "الأمر مطلوب",
-        "tooLong": "يجب ألا يتجاوز الأمر 4096 حرفاً"
-      },
-      "oidcSub": {
-        "required": "معرف OIDC مطلوب"
-      },
-      "slug": {
-        "required": "المعرّف مطلوب",
-        "tooLong": "يجب ألا يتجاوز المعرّف 100 حرف",
-        "invalidFormat": "يجب أن يحتوي المعرّف على أحرف صغيرة وأرقام وشرطات فقط"
-      },
-      "role": {
-        "required": "الدور مطلوب",
-        "invalidOption": "قيمة دور غير صالحة"
-      },
-      "alertIds": {
-        "required": "معرفات التنبيهات مطلوبة",
-        "tooFew": "مطلوب معرف تنبيه واحد على الأقل"
-      },
-      "ownerUserId": {
-        "invalidUuid": "تنسيق معرف المستخدم غير صالح"
-      },
-      "theme": {
-        "invalidOption": "قيمة سمة غير صالحة"
-      },
-      "language": {
-        "invalidOption": "قيمة لغة غير صالحة"
-      },
-      "sortOrder": {
-        "invalidOption": "ترتيب فرز غير صالح"
-      },
-      "page": {
-        "invalidNumber": "يجب أن تكون الصفحة عدداً صحيحاً موجباً"
-      },
-      "limit": {
-        "invalidNumber": "يجب أن يكون الحد عدداً صحيحاً موجباً",
-        "tooLarge": "يجب ألا يتجاوز الحد 100"
-      },
-      "yamlContent": {
-        "invalid": "يجب أن يكون محتوى YAML نصًا صالحًا",
-        "required": "محتوى YAML مطلوب",
-        "tooLong": "محتوى YAML طويل جدًا"
-      },
-      "conditions": {
-        "invalid": "يجب أن تكون الشروط كائن JSON صالحًا",
-        "required": "الشروط مطلوبة"
-      },
-      "source": {
-        "required": "المصدر مطلوب",
-        "invalidOption": "قيمة المصدر غير صالحة"
+      "maxTokensPerCall": {
+        "tooLarge": "لا يمكن أن يتجاوز الحد الأقصى للرموز لكل طلب 32,768.",
+        "tooSmall": "الحد الأدنى للرموز لكل طلب هو 256."
       }
     },
     "ssrf": {
@@ -1847,12 +1721,6 @@
       "approvalNotFound": "طلب الموافقة غير موجود.",
       "approvalAlreadyResolved": "تم حل طلب الموافقة بالفعل.",
       "approvalExpired": "انتهت صلاحية طلب الموافقة."
-    },
-    "validation": {
-      "maxTokensPerCall": {
-        "tooLarge": "لا يمكن أن يتجاوز الحد الأقصى للرموز لكل طلب 32,768.",
-        "tooSmall": "الحد الأدنى للرموز لكل طلب هو 256."
-      }
     }
   },
   "profile": {
@@ -4728,5 +4596,46 @@
       "allModules": "جميع الوحدات",
       "totalCount": "إجمالي النتائج"
     }
+  },
+  "aiFindings": {
+    "pageTitle": "نتائج الذكاء الاصطناعي",
+    "pageDescription": "ابحث وصفّي وراجع جميع نتائج الذكاء الاصطناعي عبر عمليات الأمان",
+    "noFindings": "لا توجد نتائج مطابقة لمعاييرك",
+    "searchPlaceholder": "ابحث في النتائج حسب العنوان أو الملخص أو الوكيل أو الكلمات المفتاحية...",
+    "allAgents": "جميع الوكلاء",
+    "allModules": "جميع الوحدات",
+    "allStatuses": "جميع الحالات",
+    "allTypes": "جميع الأنواع",
+    "allSeverities": "جميع مستويات الخطورة",
+    "clearFilters": "مسح الفلاتر",
+    "total": "الإجمالي",
+    "proposed": "مقترح",
+    "applied": "مطبّق",
+    "dismissed": "مرفوض",
+    "failed": "فشل",
+    "highConfidence": "ثقة عالية",
+    "goToPage": "انتقل إلى الصفحة",
+    "of": "من",
+    "showing": "عرض",
+    "results": "نتائج",
+    "findingDetail": "تفاصيل النتيجة",
+    "summary": "الملخص",
+    "recommendedAction": "الإجراء الموصى به",
+    "evidence": "الأدلة",
+    "confidence": "الثقة",
+    "createdAt": "تاريخ الإنشاء",
+    "appliedAt": "تاريخ التطبيق",
+    "agent": "الوكيل",
+    "module": "الوحدة",
+    "severity": "الخطورة",
+    "status": "الحالة",
+    "type": "النوع",
+    "markApplied": "تحديد كمطبّق",
+    "markDismissed": "تحديد كمرفوض",
+    "statusUpdated": "تم تحديث حالة النتيجة",
+    "sourceEntity": "الكيان المصدر",
+    "session": "الجلسة",
+    "title": "العنوان",
+    "perPage": "لكل صفحة"
   }
 }

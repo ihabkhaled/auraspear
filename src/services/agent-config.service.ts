@@ -6,6 +6,7 @@ import type {
   AiChatThread,
   AiExecutionFinding,
   AiFeatureConfig,
+  AiFindingsStats,
   AiJobRunSummary,
   AiPromptTemplate,
   ApiResponse,
@@ -179,6 +180,12 @@ export const agentConfigService = {
     sourceModule?: string
     sourceEntityId?: string
     agentId?: string
+    query?: string
+    status?: string
+    findingType?: string
+    severity?: string
+    sortBy?: string
+    sortOrder?: string
     page?: number
     limit?: number
   }) => api.get<ApiResponse<AiExecutionFinding[]>>('/ai/findings', { params }).then(r => r.data),
@@ -189,6 +196,14 @@ export const agentConfigService = {
   getFindingsByEntity: (entityType: string, entityId: string) =>
     api
       .get<ApiResponse<AiExecutionFinding[]>>(`/ai/findings/by-entity/${entityType}/${entityId}`)
+      .then(r => r.data),
+
+  getFindingsStats: () =>
+    api.get<ApiResponse<AiFindingsStats>>('/ai/findings/stats').then(r => r.data),
+
+  updateFindingStatus: (id: string, status: string) =>
+    api
+      .patch<ApiResponse<AiExecutionFinding>>(`/ai/findings/${id}/status`, { status })
       .then(r => r.data),
 
   // Chat

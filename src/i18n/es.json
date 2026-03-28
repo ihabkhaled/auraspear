@@ -51,7 +51,8 @@
     "aiConfig": "Config IA",
     "aiChat": "Chat IA",
     "aiMemory": "Memoria de IA",
-    "aiHistory": "Historial IA"
+    "aiHistory": "Historial IA",
+    "aiFindings": "Hallazgos IA"
   },
   "common": {
     "search": "Buscar",
@@ -1423,136 +1424,9 @@
       "csrfTokenMismatch": "Security token mismatch. Please refresh and try again."
     },
     "validation": {
-      "failed": "La validación falló. Por favor, verifique su entrada e inténtelo de nuevo.",
-      "email": {
-        "required": "El correo electrónico es obligatorio",
-        "invalidEmail": "Introduzca una dirección de correo electrónico válida"
-      },
-      "password": {
-        "required": "La contraseña es obligatoria"
-      },
-      "refreshToken": {
-        "required": "El token de actualización es obligatorio"
-      },
-      "currentPassword": {
-        "required": "La contraseña actual es obligatoria"
-      },
-      "newPassword": {
-        "required": "La nueva contraseña es obligatoria",
-        "tooShort": "La nueva contraseña debe tener al menos 8 caracteres",
-        "sameAsOld": "La nueva contraseña debe ser diferente de la contraseña actual",
-        "weak": "La contraseña debe contener mayúsculas, minúsculas, un dígito y un carácter especial"
-      },
-      "confirmPassword": {
-        "required": "La confirmación de contraseña es obligatoria",
-        "passwordMismatch": "Las contraseñas no coinciden"
-      },
-      "name": {
-        "required": "El nombre es obligatorio",
-        "tooShort": "El nombre debe tener al menos 2 caracteres",
-        "tooLong": "El nombre debe tener como máximo 255 caracteres"
-      },
-      "title": {
-        "required": "El título es obligatorio",
-        "tooLong": "El título debe tener como máximo 256 caracteres"
-      },
-      "description": {
-        "required": "La descripción es obligatoria",
-        "tooLong": "La descripción debe tener como máximo 4096 caracteres"
-      },
-      "severity": {
-        "required": "La severidad es obligatoria",
-        "invalidOption": "Valor de severidad no válido"
-      },
-      "status": {
-        "invalidOption": "Valor de estado no válido"
-      },
-      "resolution": {
-        "required": "La resolución es obligatoria",
-        "tooLong": "La resolución debe tener como máximo 4096 caracteres"
-      },
-      "notes": {
-        "tooLong": "Las notas deben tener como máximo 4096 caracteres"
-      },
-      "body": {
-        "required": "El contenido de la nota es obligatorio"
-      },
-      "alertId": {
-        "required": "El ID de alerta es obligatorio"
-      },
-      "indexName": {
-        "required": "El nombre del índice es obligatorio"
-      },
-      "query": {
-        "required": "La consulta es obligatoria"
-      },
-      "timeRange": {
-        "required": "El rango de tiempo es obligatorio"
-      },
-      "type": {
-        "required": "El tipo de conector es obligatorio",
-        "invalidOption": "Tipo de conector no válido"
-      },
-      "enabled": {
-        "required": "El campo de habilitación es obligatorio"
-      },
-      "authType": {
-        "invalidOption": "Tipo de autenticación no válido"
-      },
-      "config": {
-        "required": "La configuración es obligatoria"
-      },
-      "prompt": {
-        "required": "El prompt es obligatorio",
-        "tooLong": "El prompt debe tener como máximo 4096 caracteres"
-      },
-      "oidcSub": {
-        "required": "El sujeto OIDC es obligatorio"
-      },
-      "slug": {
-        "required": "El slug es obligatorio",
-        "tooLong": "El slug debe tener como máximo 100 caracteres",
-        "invalidFormat": "El slug solo debe contener letras minúsculas, números y guiones"
-      },
-      "role": {
-        "required": "El rol es obligatorio",
-        "invalidOption": "Valor de rol no válido"
-      },
-      "alertIds": {
-        "required": "Los IDs de alerta son obligatorios",
-        "tooFew": "Se requiere al menos un ID de alerta"
-      },
-      "ownerUserId": {
-        "invalidUuid": "Formato de ID de usuario no válido"
-      },
-      "theme": {
-        "invalidOption": "Valor de tema no válido"
-      },
-      "language": {
-        "invalidOption": "Valor de idioma no válido"
-      },
-      "sortOrder": {
-        "invalidOption": "Orden de clasificación no válido"
-      },
-      "page": {
-        "invalidNumber": "La página debe ser un entero positivo"
-      },
-      "limit": {
-        "invalidNumber": "El límite debe ser un entero positivo",
-        "tooLarge": "El límite debe ser como máximo 100"
-      },
-      "yamlContent": {
-        "invalid": "El contenido YAML debe ser una cadena válida",
-        "required": "El contenido YAML es obligatorio",
-        "tooLong": "El contenido YAML es demasiado largo"
-      },
-      "conditions": {
-        "invalid": "Las condiciones deben ser un objeto JSON válido",
-        "required": "Las condiciones son obligatorias"
-      },
-      "source": {
-        "required": "La fuente es obligatoria",
-        "invalidOption": "Valor de fuente no válido"
+      "maxTokensPerCall": {
+        "tooLarge": "El máximo de tokens por llamada no puede exceder 32.768.",
+        "tooSmall": "El mínimo de tokens por llamada es 256."
       }
     },
     "ssrf": {
@@ -1847,12 +1721,6 @@
       "approvalNotFound": "Solicitud de aprobación no encontrada.",
       "approvalAlreadyResolved": "La solicitud de aprobación ya fue resuelta.",
       "approvalExpired": "La solicitud de aprobación ha expirado."
-    },
-    "validation": {
-      "maxTokensPerCall": {
-        "tooLarge": "El máximo de tokens por llamada no puede exceder 32.768.",
-        "tooSmall": "El mínimo de tokens por llamada es 256."
-      }
     }
   },
   "profile": {
@@ -4728,5 +4596,46 @@
       "allModules": "Todos los módulos",
       "totalCount": "Total de hallazgos"
     }
+  },
+  "aiFindings": {
+    "pageTitle": "Hallazgos de IA",
+    "pageDescription": "Busque, filtre y revise todos los hallazgos generados por IA en sus operaciones de seguridad",
+    "noFindings": "No hay hallazgos que coincidan con sus criterios",
+    "searchPlaceholder": "Buscar hallazgos por título, resumen, agente o palabras clave...",
+    "allAgents": "Todos los agentes",
+    "allModules": "Todos los módulos",
+    "allStatuses": "Todos los estados",
+    "allTypes": "Todos los tipos",
+    "allSeverities": "Todas las severidades",
+    "clearFilters": "Limpiar filtros",
+    "total": "Total",
+    "proposed": "Propuesto",
+    "applied": "Aplicado",
+    "dismissed": "Descartado",
+    "failed": "Fallido",
+    "highConfidence": "Alta confianza",
+    "goToPage": "Ir a página",
+    "of": "de",
+    "showing": "Mostrando",
+    "results": "resultados",
+    "findingDetail": "Detalle del hallazgo",
+    "summary": "Resumen",
+    "recommendedAction": "Acción recomendada",
+    "evidence": "Evidencia",
+    "confidence": "Confianza",
+    "createdAt": "Creado",
+    "appliedAt": "Aplicado",
+    "agent": "Agente",
+    "module": "Módulo",
+    "severity": "Severidad",
+    "status": "Estado",
+    "type": "Tipo",
+    "markApplied": "Marcar como aplicado",
+    "markDismissed": "Marcar como descartado",
+    "statusUpdated": "Estado del hallazgo actualizado",
+    "sourceEntity": "Entidad origen",
+    "session": "Sesión",
+    "title": "Título",
+    "perPage": "Por página"
   }
 }

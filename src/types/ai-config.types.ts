@@ -510,6 +510,40 @@ export interface AiScheduleTableProps {
   t: (key: string) => string
 }
 
+export interface AiFindingsPageFilters {
+  query: string
+  agentId: string
+  sourceModule: string
+  status: string
+  findingType: string
+  severity: string
+  sortBy: string
+  sortOrder: string
+  page: number
+  limit: number
+}
+
+export interface AiFindingsStats {
+  total: number
+  proposed: number
+  applied: number
+  dismissed: number
+  failed: number
+  highConfidence: number
+  bySeverity: Record<string, number>
+  byAgent: Array<{ agentId: string; count: number }>
+  byModule: Array<{ sourceModule: string; count: number }>
+}
+
+export interface FindingDetailDrawerProps {
+  finding: AiExecutionFinding | null
+  open: boolean
+  onOpenChange: (open: boolean) => void
+  onUpdateStatus: (id: string, status: string) => void
+  statusLoading: boolean
+  t: (key: string) => string
+}
+
 export interface AiScheduleEditDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
