@@ -152,6 +152,8 @@ export type {
   AiUsageByUserEntry,
   AiUsageSummary,
   AiUsageSummaryEntry,
+  AiOpsRecentItem,
+  AiOpsWorkspace,
   AiAuditLogEntry,
   AiTranscriptMessage,
   AiTranscriptPolicy,

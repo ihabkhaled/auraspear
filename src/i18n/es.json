@@ -54,7 +54,8 @@
     "aiHistory": "Historial IA",
     "aiFindings": "Hallazgos IA",
     "aiFinops": "AI FinOps",
-    "aiTranscripts": "Transcripciones IA"
+    "aiTranscripts": "Transcripciones IA",
+    "aiOps": "Operaciones IA"
   },
   "common": {
     "search": "Buscar",
@@ -3762,7 +3763,8 @@
       "aiChat": "Chat IA",
       "aiMemory": "Memoria de IA",
       "aiFinops": "AI FinOps",
-      "aiTranscript": "Transcripciones IA"
+      "aiTranscript": "Transcripciones IA",
+      "aiOps": "Operaciones IA"
     },
     "permissions": {
       "dashboard": {
@@ -3992,6 +3994,9 @@
         "view": "Ver Transcripciones IA",
         "manage": "Gestionar Transcripciones IA",
         "export": "Exportar Transcripciones IA"
+      },
+      "aiOps": {
+        "view": "Ver Operaciones IA"
       }
     },
     "roles": {
@@ -4289,6 +4294,47 @@
       "deleted": "Alerta de presupuesto eliminada",
       "empty": "No hay alertas de presupuesto configuradas",
       "cancel": "Cancelar"
+    }
+  },
+  "aiOps": {
+    "title": "Espacio de Operaciones IA",
+    "description": "Panel de control unificado para agentes, hallazgos, trabajos, chats, aprobaciones, uso y auditoría de IA",
+    "noAccess": "No tienes permiso para ver las operaciones de IA",
+    "sections": {
+      "agents": "Estado de Agentes",
+      "orchestration": "Orquestación (24h)",
+      "findings": "Hallazgos IA",
+      "chatUsageAudit": "Chat, Uso y Auditoría",
+      "recentActivity": "Actividad Reciente"
+    },
+    "kpi": {
+      "totalAgents": "Agentes Totales",
+      "onlineAgents": "En Línea",
+      "sessions24h": "Sesiones (24h)",
+      "dispatches24h": "Despachos (24h)",
+      "success24h": "Éxitos (24h)",
+      "failures24h": "Fallos (24h)",
+      "pendingApprovals": "Aprobaciones Pendientes",
+      "totalFindings": "Hallazgos Totales",
+      "proposed": "Propuestos",
+      "applied": "Aplicados",
+      "dismissed": "Descartados",
+      "highConfidence": "Alta Confianza",
+      "chatThreads": "Hilos de Chat",
+      "chatMessages": "Mensajes de Chat",
+      "legalHold": "Retención Legal",
+      "tokens24h": "Tokens (24h)",
+      "cost24h": "Costo (24h)",
+      "auditLogs24h": "Registros de Auditoría (24h)"
+    },
+    "recent": {
+      "type": "Tipo",
+      "title": "Título",
+      "status": "Estado",
+      "agent": "Agente",
+      "module": "Módulo",
+      "time": "Hora",
+      "empty": "Sin actividad reciente"
     }
   },
   "aiTranscripts": {

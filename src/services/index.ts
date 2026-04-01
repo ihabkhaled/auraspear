@@ -1,3 +1,4 @@
+export { aiOpsService } from './ai-ops.service'
 export { aiTranscriptService } from './ai-transcript.service'
 export { dashboardService } from './dashboard.service'
 export { alertService } from './alert.service'

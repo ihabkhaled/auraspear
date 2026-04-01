@@ -54,7 +54,8 @@
     "aiHistory": "Historique IA",
     "aiFindings": "Résultats IA",
     "aiFinops": "AI FinOps",
-    "aiTranscripts": "Transcriptions IA"
+    "aiTranscripts": "Transcriptions IA",
+    "aiOps": "Opérations IA"
   },
   "common": {
     "search": "Rechercher",
@@ -3762,7 +3763,8 @@
       "aiChat": "Chat IA",
       "aiMemory": "Mémoire IA",
       "aiFinops": "AI FinOps",
-      "aiTranscript": "Transcriptions IA"
+      "aiTranscript": "Transcriptions IA",
+      "aiOps": "Opérations IA"
     },
     "permissions": {
       "dashboard": {
@@ -3992,6 +3994,9 @@
         "view": "Voir les Transcriptions IA",
         "manage": "Gérer les Transcriptions IA",
         "export": "Exporter les Transcriptions IA"
+      },
+      "aiOps": {
+        "view": "Voir les Opérations IA"
       }
     },
     "roles": {
@@ -4289,6 +4294,47 @@
       "deleted": "Alerte de budget supprimée",
       "empty": "Aucune alerte de budget configurée",
       "cancel": "Annuler"
+    }
+  },
+  "aiOps": {
+    "title": "Espace de Travail Opérations IA",
+    "description": "Panneau de contrôle unifié pour tous les agents, résultats, tâches, chats, approbations, utilisation et audit IA",
+    "noAccess": "Vous n'avez pas la permission de voir les opérations IA",
+    "sections": {
+      "agents": "État des Agents",
+      "orchestration": "Orchestration (24h)",
+      "findings": "Résultats IA",
+      "chatUsageAudit": "Chat, Utilisation et Audit",
+      "recentActivity": "Activité Récente"
+    },
+    "kpi": {
+      "totalAgents": "Agents Totaux",
+      "onlineAgents": "En Ligne",
+      "sessions24h": "Sessions (24h)",
+      "dispatches24h": "Envois (24h)",
+      "success24h": "Succès (24h)",
+      "failures24h": "Échecs (24h)",
+      "pendingApprovals": "Approbations en Attente",
+      "totalFindings": "Résultats Totaux",
+      "proposed": "Proposés",
+      "applied": "Appliqués",
+      "dismissed": "Rejetés",
+      "highConfidence": "Haute Confiance",
+      "chatThreads": "Fils de Chat",
+      "chatMessages": "Messages de Chat",
+      "legalHold": "Conservation Juridique",
+      "tokens24h": "Jetons (24h)",
+      "cost24h": "Coût (24h)",
+      "auditLogs24h": "Journaux d'Audit (24h)"
+    },
+    "recent": {
+      "type": "Type",
+      "title": "Titre",
+      "status": "Statut",
+      "agent": "Agent",
+      "module": "Module",
+      "time": "Heure",
+      "empty": "Aucune activité récente"
     }
   },
   "aiTranscripts": {

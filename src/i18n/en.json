@@ -54,7 +54,8 @@
     "aiHistory": "AI History",
     "aiFindings": "AI Findings",
     "aiFinops": "AI FinOps",
-    "aiTranscripts": "AI Transcripts"
+    "aiTranscripts": "AI Transcripts",
+    "aiOps": "AI Operations"
   },
   "common": {
     "search": "Search",
@@ -3948,7 +3949,8 @@
       "aiChat": "AI Chat",
       "aiMemory": "AI Memory",
       "aiFinops": "AI FinOps",
-      "aiTranscript": "AI Transcripts"
+      "aiTranscript": "AI Transcripts",
+      "aiOps": "AI Operations"
     },
     "permissions": {
       "dashboard": {
@@ -4178,6 +4180,9 @@
         "view": "View AI Transcripts",
         "manage": "Manage AI Transcripts",
         "export": "Export AI Transcripts"
+      },
+      "aiOps": {
+        "view": "View AI Operations"
       }
     },
     "roles": {
@@ -4425,6 +4430,47 @@
       "deleted": "Budget alert deleted",
       "empty": "No budget alerts configured",
       "cancel": "Cancel"
+    }
+  },
+  "aiOps": {
+    "title": "AI Operations Workspace",
+    "description": "Unified control plane for all AI agents, findings, jobs, chats, approvals, usage, and audit activity",
+    "noAccess": "You do not have permission to view AI operations",
+    "sections": {
+      "agents": "Agent Status",
+      "orchestration": "Orchestration (24h)",
+      "findings": "AI Findings",
+      "chatUsageAudit": "Chat, Usage & Audit",
+      "recentActivity": "Recent Activity"
+    },
+    "kpi": {
+      "totalAgents": "Total Agents",
+      "onlineAgents": "Online",
+      "sessions24h": "Sessions (24h)",
+      "dispatches24h": "Dispatches (24h)",
+      "success24h": "Successes (24h)",
+      "failures24h": "Failures (24h)",
+      "pendingApprovals": "Pending Approvals",
+      "totalFindings": "Total Findings",
+      "proposed": "Proposed",
+      "applied": "Applied",
+      "dismissed": "Dismissed",
+      "highConfidence": "High Confidence",
+      "chatThreads": "Chat Threads",
+      "chatMessages": "Chat Messages",
+      "legalHold": "Legal Hold",
+      "tokens24h": "Tokens (24h)",
+      "cost24h": "Cost (24h)",
+      "auditLogs24h": "Audit Logs (24h)"
+    },
+    "recent": {
+      "type": "Type",
+      "title": "Title",
+      "status": "Status",
+      "agent": "Agent",
+      "module": "Module",
+      "time": "Time",
+      "empty": "No recent activity"
     }
   },
   "aiTranscripts": {

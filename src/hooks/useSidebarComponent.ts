@@ -95,6 +95,7 @@ export function useSidebarContent() {
     {
       label: t('nav.aiAutomation'),
       items: [
+        { icon: Activity, label: t('nav.aiOps'), href: '/ai-ops' },
         { icon: Sparkles, label: t('nav.aiFindings'), href: '/ai-findings' },
         { icon: MessageSquare, label: t('nav.aiChat'), href: '/ai-chat' },
         { icon: Bot, label: t('nav.aiAgents'), href: '/ai-agents' },

@@ -54,7 +54,8 @@
     "aiHistory": "KI-Verlauf",
     "aiFindings": "KI-Ergebnisse",
     "aiFinops": "AI FinOps",
-    "aiTranscripts": "KI-Transkripte"
+    "aiTranscripts": "KI-Transkripte",
+    "aiOps": "KI-Operationen"
   },
   "common": {
     "search": "Suche",
@@ -3762,7 +3763,8 @@
       "aiChat": "KI-Chat",
       "aiMemory": "KI-Gedächtnis",
       "aiFinops": "AI FinOps",
-      "aiTranscript": "KI-Transkripte"
+      "aiTranscript": "KI-Transkripte",
+      "aiOps": "KI-Operationen"
     },
     "permissions": {
       "dashboard": {
@@ -3992,6 +3994,9 @@
         "view": "KI-Transkripte anzeigen",
         "manage": "KI-Transkripte verwalten",
         "export": "KI-Transkripte exportieren"
+      },
+      "aiOps": {
+        "view": "KI-Operationen anzeigen"
       }
     },
     "roles": {
@@ -4289,6 +4294,47 @@
       "deleted": "Budget-Warnung gelöscht",
       "empty": "Keine Budget-Warnungen konfiguriert",
       "cancel": "Abbrechen"
+    }
+  },
+  "aiOps": {
+    "title": "KI-Operationen Arbeitsbereich",
+    "description": "Einheitliches Kontrollpanel für alle KI-Agenten, Ergebnisse, Aufgaben, Chats, Genehmigungen, Nutzung und Audit",
+    "noAccess": "Sie haben keine Berechtigung, KI-Operationen anzuzeigen",
+    "sections": {
+      "agents": "Agentenstatus",
+      "orchestration": "Orchestrierung (24h)",
+      "findings": "KI-Ergebnisse",
+      "chatUsageAudit": "Chat, Nutzung und Audit",
+      "recentActivity": "Letzte Aktivität"
+    },
+    "kpi": {
+      "totalAgents": "Agenten Gesamt",
+      "onlineAgents": "Online",
+      "sessions24h": "Sitzungen (24h)",
+      "dispatches24h": "Versendungen (24h)",
+      "success24h": "Erfolge (24h)",
+      "failures24h": "Fehler (24h)",
+      "pendingApprovals": "Ausstehende Genehmigungen",
+      "totalFindings": "Ergebnisse Gesamt",
+      "proposed": "Vorgeschlagen",
+      "applied": "Angewendet",
+      "dismissed": "Verworfen",
+      "highConfidence": "Hohe Konfidenz",
+      "chatThreads": "Chat-Threads",
+      "chatMessages": "Chat-Nachrichten",
+      "legalHold": "Rechtliche Aufbewahrung",
+      "tokens24h": "Token (24h)",
+      "cost24h": "Kosten (24h)",
+      "auditLogs24h": "Audit-Protokolle (24h)"
+    },
+    "recent": {
+      "type": "Typ",
+      "title": "Titel",
+      "status": "Status",
+      "agent": "Agent",
+      "module": "Modul",
+      "time": "Zeit",
+      "empty": "Keine aktuelle Aktivität"
     }
   },
   "aiTranscripts": {
