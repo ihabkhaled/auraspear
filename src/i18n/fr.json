@@ -53,7 +53,8 @@
     "aiMemory": "Mémoire IA",
     "aiHistory": "Historique IA",
     "aiFindings": "Résultats IA",
-    "aiFinops": "AI FinOps"
+    "aiFinops": "AI FinOps",
+    "aiTranscripts": "Transcriptions IA"
   },
   "common": {
     "search": "Rechercher",
@@ -3760,7 +3761,8 @@
       "aiConfig": "Configuration IA",
       "aiChat": "Chat IA",
       "aiMemory": "Mémoire IA",
-      "aiFinops": "AI FinOps"
+      "aiFinops": "AI FinOps",
+      "aiTranscript": "Transcriptions IA"
     },
     "permissions": {
       "dashboard": {
@@ -3985,6 +3987,11 @@
       "aiFinops": {
         "view": "Voir AI FinOps",
         "manage": "Gérer AI FinOps"
+      },
+      "aiTranscript": {
+        "view": "Voir les Transcriptions IA",
+        "manage": "Gérer les Transcriptions IA",
+        "export": "Exporter les Transcriptions IA"
       }
     },
     "roles": {
@@ -4282,6 +4289,72 @@
       "deleted": "Alerte de budget supprimée",
       "empty": "Aucune alerte de budget configurée",
       "cancel": "Annuler"
+    }
+  },
+  "aiTranscripts": {
+    "title": "Transcriptions et Conformité IA",
+    "description": "Appliquer la rétention, la rédaction, la conservation juridique et la politique de conformité sur les prompts, sorties et mémoires IA",
+    "noAccess": "Vous n'avez pas la permission de voir les transcriptions IA",
+    "noThreads": "Aucun fil de conversation trouvé",
+    "noAuditLogs": "Aucun journal d'audit IA trouvé",
+    "untitled": "Fil sans titre",
+    "hold": "Conservation Juridique",
+    "noHold": "Sans Conservation",
+    "redacted": "Rédigé",
+    "searchThreads": "Rechercher des fils...",
+    "allThreads": "Tous les Fils",
+    "onHoldOnly": "Conservation Juridique uniquement",
+    "noHoldOnly": "Sans Conservation uniquement",
+    "setLegalHold": "Établir la Conservation Juridique",
+    "releaseLegalHold": "Libérer la Conservation Juridique",
+    "redactThread": "Rédiger le Fil",
+    "exportThread": "Exporter la Transcription",
+    "exportAuditLogs": "Exporter les Journaux d'Audit",
+    "legalHoldUpdated": "Statut de conservation juridique mis à jour",
+    "threadRedacted": "Fil rédigé avec succès",
+    "policySaved": "Politique de transcription enregistrée",
+    "cleanupDone": "Nettoyage terminé",
+    "exportDone": "Exportation terminée",
+    "kpi": {
+      "threads": "Fils de Chat",
+      "messages": "Messages Totaux",
+      "auditLogs": "Journaux d'Audit IA",
+      "onHold": "En Conservation Juridique",
+      "redacted": "Rédigés"
+    },
+    "sections": {
+      "policy": "Politique de Conformité",
+      "threads": "Transcriptions de Conversations",
+      "auditLogs": "Journaux d'Audit IA"
+    },
+    "table": {
+      "title": "Fil",
+      "user": "Utilisateur",
+      "messages": "Messages",
+      "tokens": "Tokens",
+      "legalHold": "Conservation Juridique",
+      "status": "Statut",
+      "lastActivity": "Dernière Activité"
+    },
+    "audit": {
+      "actor": "Acteur",
+      "action": "Action",
+      "model": "Modèle",
+      "inputTokens": "Tokens d'Entrée",
+      "outputTokens": "Tokens de Sortie",
+      "duration": "Durée",
+      "date": "Date"
+    },
+    "policy": {
+      "chatRetention": "Rétention Chat (jours)",
+      "auditRetention": "Rétention Audit (jours)",
+      "daysHint": "0 = ne jamais supprimer",
+      "autoRedactPii": "Rédiger auto les PII",
+      "requireLegalHold": "Exiger conservation juridique avant suppression",
+      "save": "Enregistrer la Politique",
+      "runCleanup": "Exécuter le Nettoyage",
+      "lastCleanup": "Dernier nettoyage",
+      "itemsCleaned": "éléments nettoyés"
     }
   },
   "memoryGovernance": {

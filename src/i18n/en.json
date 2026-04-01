@@ -53,7 +53,8 @@
     "aiMemory": "AI Memory",
     "aiHistory": "AI History",
     "aiFindings": "AI Findings",
-    "aiFinops": "AI FinOps"
+    "aiFinops": "AI FinOps",
+    "aiTranscripts": "AI Transcripts"
   },
   "common": {
     "search": "Search",
@@ -3946,7 +3947,8 @@
       "aiConfig": "AI Configuration",
       "aiChat": "AI Chat",
       "aiMemory": "AI Memory",
-      "aiFinops": "AI FinOps"
+      "aiFinops": "AI FinOps",
+      "aiTranscript": "AI Transcripts"
     },
     "permissions": {
       "dashboard": {
@@ -4171,6 +4173,11 @@
       "aiFinops": {
         "view": "View AI FinOps",
         "manage": "Manage AI FinOps"
+      },
+      "aiTranscript": {
+        "view": "View AI Transcripts",
+        "manage": "Manage AI Transcripts",
+        "export": "Export AI Transcripts"
       }
     },
     "roles": {
@@ -4418,6 +4425,72 @@
       "deleted": "Budget alert deleted",
       "empty": "No budget alerts configured",
       "cancel": "Cancel"
+    }
+  },
+  "aiTranscripts": {
+    "title": "AI Transcript & Compliance",
+    "description": "Enforce retention, redaction, legal hold, and compliance policy over AI prompts, outputs, and memories",
+    "noAccess": "You do not have permission to view AI transcripts",
+    "noThreads": "No conversation threads found",
+    "noAuditLogs": "No AI audit logs found",
+    "untitled": "Untitled Thread",
+    "hold": "Legal Hold",
+    "noHold": "No Hold",
+    "redacted": "Redacted",
+    "searchThreads": "Search threads...",
+    "allThreads": "All Threads",
+    "onHoldOnly": "Legal Hold Only",
+    "noHoldOnly": "No Hold Only",
+    "setLegalHold": "Set Legal Hold",
+    "releaseLegalHold": "Release Legal Hold",
+    "redactThread": "Redact Thread",
+    "exportThread": "Export Transcript",
+    "exportAuditLogs": "Export Audit Logs",
+    "legalHoldUpdated": "Legal hold status updated",
+    "threadRedacted": "Thread redacted successfully",
+    "policySaved": "Transcript policy saved",
+    "cleanupDone": "Cleanup completed",
+    "exportDone": "Export completed",
+    "kpi": {
+      "threads": "Chat Threads",
+      "messages": "Total Messages",
+      "auditLogs": "AI Audit Logs",
+      "onHold": "On Legal Hold",
+      "redacted": "Redacted"
+    },
+    "sections": {
+      "policy": "Compliance Policy",
+      "threads": "Conversation Transcripts",
+      "auditLogs": "AI Audit Logs"
+    },
+    "table": {
+      "title": "Thread",
+      "user": "User",
+      "messages": "Messages",
+      "tokens": "Tokens",
+      "legalHold": "Legal Hold",
+      "status": "Status",
+      "lastActivity": "Last Activity"
+    },
+    "audit": {
+      "actor": "Actor",
+      "action": "Action",
+      "model": "Model",
+      "inputTokens": "Input Tokens",
+      "outputTokens": "Output Tokens",
+      "duration": "Duration",
+      "date": "Date"
+    },
+    "policy": {
+      "chatRetention": "Chat Retention (days)",
+      "auditRetention": "Audit Log Retention (days)",
+      "daysHint": "0 = never delete",
+      "autoRedactPii": "Auto-redact PII",
+      "requireLegalHold": "Require legal hold before deletion",
+      "save": "Save Policy",
+      "runCleanup": "Run Cleanup",
+      "lastCleanup": "Last cleanup",
+      "itemsCleaned": "items cleaned"
     }
   },
   "memoryGovernance": {

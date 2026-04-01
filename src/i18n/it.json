@@ -53,7 +53,8 @@
     "aiMemory": "Memoria IA",
     "aiHistory": "Cronologia IA",
     "aiFindings": "Risultati IA",
-    "aiFinops": "AI FinOps"
+    "aiFinops": "AI FinOps",
+    "aiTranscripts": "Trascrizioni IA"
   },
   "common": {
     "search": "Cerca",
@@ -3760,7 +3761,8 @@
       "aiConfig": "Configurazione IA",
       "aiChat": "Chat IA",
       "aiMemory": "Memoria IA",
-      "aiFinops": "AI FinOps"
+      "aiFinops": "AI FinOps",
+      "aiTranscript": "Trascrizioni IA"
     },
     "permissions": {
       "dashboard": {
@@ -3985,6 +3987,11 @@
       "aiFinops": {
         "view": "Visualizza AI FinOps",
         "manage": "Gestisci AI FinOps"
+      },
+      "aiTranscript": {
+        "view": "Visualizza Trascrizioni IA",
+        "manage": "Gestisci Trascrizioni IA",
+        "export": "Esporta Trascrizioni IA"
       }
     },
     "roles": {
@@ -4282,6 +4289,72 @@
       "deleted": "Avviso di budget eliminato",
       "empty": "Nessun avviso di budget configurato",
       "cancel": "Annulla"
+    }
+  },
+  "aiTranscripts": {
+    "title": "Trascrizioni e Conformità IA",
+    "description": "Applicare conservazione, redazione, blocco legale e policy di conformità su prompt, output e memorie IA",
+    "noAccess": "Non hai il permesso di visualizzare le trascrizioni IA",
+    "noThreads": "Nessun thread di conversazione trovato",
+    "noAuditLogs": "Nessun registro di audit IA trovato",
+    "untitled": "Thread senza titolo",
+    "hold": "Blocco Legale",
+    "noHold": "Nessun Blocco",
+    "redacted": "Redatto",
+    "searchThreads": "Cerca thread...",
+    "allThreads": "Tutti i Thread",
+    "onHoldOnly": "Solo con Blocco Legale",
+    "noHoldOnly": "Solo senza Blocco",
+    "setLegalHold": "Imposta Blocco Legale",
+    "releaseLegalHold": "Rilascia Blocco Legale",
+    "redactThread": "Redigi Thread",
+    "exportThread": "Esporta Trascrizione",
+    "exportAuditLogs": "Esporta Registri di Audit",
+    "legalHoldUpdated": "Stato del blocco legale aggiornato",
+    "threadRedacted": "Thread redatto con successo",
+    "policySaved": "Policy di trascrizione salvata",
+    "cleanupDone": "Pulizia completata",
+    "exportDone": "Esportazione completata",
+    "kpi": {
+      "threads": "Thread di Chat",
+      "messages": "Messaggi Totali",
+      "auditLogs": "Registri di Audit IA",
+      "onHold": "In Blocco Legale",
+      "redacted": "Redatti"
+    },
+    "sections": {
+      "policy": "Policy di Conformità",
+      "threads": "Trascrizioni di Conversazioni",
+      "auditLogs": "Registri di Audit IA"
+    },
+    "table": {
+      "title": "Thread",
+      "user": "Utente",
+      "messages": "Messaggi",
+      "tokens": "Token",
+      "legalHold": "Blocco Legale",
+      "status": "Stato",
+      "lastActivity": "Ultima Attività"
+    },
+    "audit": {
+      "actor": "Attore",
+      "action": "Azione",
+      "model": "Modello",
+      "inputTokens": "Token di Input",
+      "outputTokens": "Token di Output",
+      "duration": "Durata",
+      "date": "Data"
+    },
+    "policy": {
+      "chatRetention": "Conservazione Chat (giorni)",
+      "auditRetention": "Conservazione Audit (giorni)",
+      "daysHint": "0 = non eliminare mai",
+      "autoRedactPii": "Auto-redigi PII",
+      "requireLegalHold": "Richiedi blocco legale prima dell'eliminazione",
+      "save": "Salva Policy",
+      "runCleanup": "Esegui Pulizia",
+      "lastCleanup": "Ultima pulizia",
+      "itemsCleaned": "elementi puliti"
     }
   },
   "memoryGovernance": {

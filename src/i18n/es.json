@@ -53,7 +53,8 @@
     "aiMemory": "Memoria de IA",
     "aiHistory": "Historial IA",
     "aiFindings": "Hallazgos IA",
-    "aiFinops": "AI FinOps"
+    "aiFinops": "AI FinOps",
+    "aiTranscripts": "Transcripciones IA"
   },
   "common": {
     "search": "Buscar",
@@ -3760,7 +3761,8 @@
       "aiConfig": "Configuracion de IA",
       "aiChat": "Chat IA",
       "aiMemory": "Memoria de IA",
-      "aiFinops": "AI FinOps"
+      "aiFinops": "AI FinOps",
+      "aiTranscript": "Transcripciones IA"
     },
     "permissions": {
       "dashboard": {
@@ -3985,6 +3987,11 @@
       "aiFinops": {
         "view": "Ver AI FinOps",
         "manage": "Gestionar AI FinOps"
+      },
+      "aiTranscript": {
+        "view": "Ver Transcripciones IA",
+        "manage": "Gestionar Transcripciones IA",
+        "export": "Exportar Transcripciones IA"
       }
     },
     "roles": {
@@ -4282,6 +4289,72 @@
       "deleted": "Alerta de presupuesto eliminada",
       "empty": "No hay alertas de presupuesto configuradas",
       "cancel": "Cancelar"
+    }
+  },
+  "aiTranscripts": {
+    "title": "Transcripciones y Cumplimiento IA",
+    "description": "Aplicar retención, redacción, retención legal y política de cumplimiento sobre prompts, salidas y memorias de IA",
+    "noAccess": "No tienes permiso para ver las transcripciones de IA",
+    "noThreads": "No se encontraron hilos de conversación",
+    "noAuditLogs": "No se encontraron registros de auditoría de IA",
+    "untitled": "Hilo sin título",
+    "hold": "Retención Legal",
+    "noHold": "Sin Retención",
+    "redacted": "Redactado",
+    "searchThreads": "Buscar hilos...",
+    "allThreads": "Todos los Hilos",
+    "onHoldOnly": "Solo con Retención Legal",
+    "noHoldOnly": "Solo sin Retención",
+    "setLegalHold": "Establecer Retención Legal",
+    "releaseLegalHold": "Liberar Retención Legal",
+    "redactThread": "Redactar Hilo",
+    "exportThread": "Exportar Transcripción",
+    "exportAuditLogs": "Exportar Registros de Auditoría",
+    "legalHoldUpdated": "Estado de retención legal actualizado",
+    "threadRedacted": "Hilo redactado exitosamente",
+    "policySaved": "Política de transcripción guardada",
+    "cleanupDone": "Limpieza completada",
+    "exportDone": "Exportación completada",
+    "kpi": {
+      "threads": "Hilos de Chat",
+      "messages": "Mensajes Totales",
+      "auditLogs": "Registros de Auditoría IA",
+      "onHold": "En Retención Legal",
+      "redacted": "Redactados"
+    },
+    "sections": {
+      "policy": "Política de Cumplimiento",
+      "threads": "Transcripciones de Conversación",
+      "auditLogs": "Registros de Auditoría IA"
+    },
+    "table": {
+      "title": "Hilo",
+      "user": "Usuario",
+      "messages": "Mensajes",
+      "tokens": "Tokens",
+      "legalHold": "Retención Legal",
+      "status": "Estado",
+      "lastActivity": "Última Actividad"
+    },
+    "audit": {
+      "actor": "Actor",
+      "action": "Acción",
+      "model": "Modelo",
+      "inputTokens": "Tokens de Entrada",
+      "outputTokens": "Tokens de Salida",
+      "duration": "Duración",
+      "date": "Fecha"
+    },
+    "policy": {
+      "chatRetention": "Retención de Chat (días)",
+      "auditRetention": "Retención de Auditoría (días)",
+      "daysHint": "0 = nunca eliminar",
+      "autoRedactPii": "Auto-redactar PII",
+      "requireLegalHold": "Requiere retención legal antes de eliminar",
+      "save": "Guardar Política",
+      "runCleanup": "Ejecutar Limpieza",
+      "lastCleanup": "Última limpieza",
+      "itemsCleaned": "elementos limpiados"
     }
   },
   "memoryGovernance": {

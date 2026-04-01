@@ -120,3 +120,72 @@ export interface AiBudgetAlert {
   createdAt: string
   updatedAt: string
 }
+
+/* ── Transcript & Compliance types ───────────────────── */
+
+export interface AiTranscriptStats {
+  totalThreads: number
+  totalMessages: number
+  totalAuditLogs: number
+  threadsOnHold: number
+  threadsRedacted: number
+}
+
+export interface AiTranscriptPolicy {
+  id: string
+  tenantId: string
+  chatRetentionDays: number
+  auditRetentionDays: number
+  autoRedactPii: boolean
+  requireLegalHold: boolean
+  lastCleanupAt: string | null
+  lastCleanupCount: number
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface AiTranscriptThread {
+  id: string
+  tenantId: string
+  userId: string
+  title: string | null
+  model: string | null
+  provider: string | null
+  messageCount: number
+  totalTokensUsed: number
+  lastActivityAt: string
+  isArchived: boolean
+  legalHold: boolean
+  complianceStatus: string
+  redactedAt: string | null
+  createdAt: string
+}
+
+export interface AiAuditLogEntry {
+  id: string
+  tenantId: string
+  actor: string
+  action: string
+  model: string
+  inputTokens: number
+  outputTokens: number
+  prompt: string | null
+  response: string | null
+  durationMs: number | null
+  createdAt: string
+}
+
+export interface AiTranscriptMessage {
+  id: string
+  threadId: string
+  role: string
+  content: string
+  model: string | null
+  provider: string | null
+  inputTokens: number
+  outputTokens: number
+  durationMs: number | null
+  sequenceNum: number
+  createdAt: string
+}

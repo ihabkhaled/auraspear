@@ -153,6 +153,11 @@ export enum Permission {
   AI_MEMORY_ADMIN = 'ai.memory.admin',
   AI_MEMORY_EXPORT = 'ai.memory.export',
 
+  // AI Transcript & Compliance
+  AI_TRANSCRIPT_VIEW = 'ai.transcript.view',
+  AI_TRANSCRIPT_MANAGE = 'ai.transcript.manage',
+  AI_TRANSCRIPT_EXPORT = 'ai.transcript.export',
+
   // AI FinOps
   AI_FINOPS_VIEW = 'ai.finops.view',
   AI_FINOPS_MANAGE = 'ai.finops.manage',

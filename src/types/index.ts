@@ -152,6 +152,11 @@ export type {
   AiUsageByUserEntry,
   AiUsageSummary,
   AiUsageSummaryEntry,
+  AiAuditLogEntry,
+  AiTranscriptMessage,
+  AiTranscriptPolicy,
+  AiTranscriptStats,
+  AiTranscriptThread,
   ExplainAnomalyInput,
 } from './ai.types'
 export type {

@@ -53,7 +53,8 @@
     "aiMemory": "KI-Gedächtnis",
     "aiHistory": "KI-Verlauf",
     "aiFindings": "KI-Ergebnisse",
-    "aiFinops": "AI FinOps"
+    "aiFinops": "AI FinOps",
+    "aiTranscripts": "KI-Transkripte"
   },
   "common": {
     "search": "Suche",
@@ -3760,7 +3761,8 @@
       "aiConfig": "KI-Konfiguration",
       "aiChat": "KI-Chat",
       "aiMemory": "KI-Gedächtnis",
-      "aiFinops": "AI FinOps"
+      "aiFinops": "AI FinOps",
+      "aiTranscript": "KI-Transkripte"
     },
     "permissions": {
       "dashboard": {
@@ -3985,6 +3987,11 @@
       "aiFinops": {
         "view": "AI FinOps anzeigen",
         "manage": "AI FinOps verwalten"
+      },
+      "aiTranscript": {
+        "view": "KI-Transkripte anzeigen",
+        "manage": "KI-Transkripte verwalten",
+        "export": "KI-Transkripte exportieren"
       }
     },
     "roles": {
@@ -4282,6 +4289,72 @@
       "deleted": "Budget-Warnung gelöscht",
       "empty": "Keine Budget-Warnungen konfiguriert",
       "cancel": "Abbrechen"
+    }
+  },
+  "aiTranscripts": {
+    "title": "KI-Transkript und Compliance",
+    "description": "Aufbewahrung, Schwärzung, rechtliche Aufbewahrungspflicht und Compliance-Richtlinien auf KI-Prompts, -Ausgaben und -Erinnerungen anwenden",
+    "noAccess": "Sie haben keine Berechtigung, KI-Transkripte anzuzeigen",
+    "noThreads": "Keine Konversations-Threads gefunden",
+    "noAuditLogs": "Keine KI-Audit-Protokolle gefunden",
+    "untitled": "Unbenannter Thread",
+    "hold": "Rechtliche Aufbewahrung",
+    "noHold": "Keine Aufbewahrung",
+    "redacted": "Geschwärzt",
+    "searchThreads": "Threads suchen...",
+    "allThreads": "Alle Threads",
+    "onHoldOnly": "Nur mit rechtlicher Aufbewahrung",
+    "noHoldOnly": "Nur ohne Aufbewahrung",
+    "setLegalHold": "Rechtliche Aufbewahrung festlegen",
+    "releaseLegalHold": "Rechtliche Aufbewahrung aufheben",
+    "redactThread": "Thread schwärzen",
+    "exportThread": "Transkript exportieren",
+    "exportAuditLogs": "Audit-Protokolle exportieren",
+    "legalHoldUpdated": "Status der rechtlichen Aufbewahrung aktualisiert",
+    "threadRedacted": "Thread erfolgreich geschwärzt",
+    "policySaved": "Transkript-Richtlinie gespeichert",
+    "cleanupDone": "Bereinigung abgeschlossen",
+    "exportDone": "Export abgeschlossen",
+    "kpi": {
+      "threads": "Chat-Threads",
+      "messages": "Gesamte Nachrichten",
+      "auditLogs": "KI-Audit-Protokolle",
+      "onHold": "In rechtlicher Aufbewahrung",
+      "redacted": "Geschwärzt"
+    },
+    "sections": {
+      "policy": "Compliance-Richtlinie",
+      "threads": "Konversations-Transkripte",
+      "auditLogs": "KI-Audit-Protokolle"
+    },
+    "table": {
+      "title": "Thread",
+      "user": "Benutzer",
+      "messages": "Nachrichten",
+      "tokens": "Tokens",
+      "legalHold": "Rechtliche Aufbewahrung",
+      "status": "Status",
+      "lastActivity": "Letzte Aktivität"
+    },
+    "audit": {
+      "actor": "Akteur",
+      "action": "Aktion",
+      "model": "Modell",
+      "inputTokens": "Eingabe-Tokens",
+      "outputTokens": "Ausgabe-Tokens",
+      "duration": "Dauer",
+      "date": "Datum"
+    },
+    "policy": {
+      "chatRetention": "Chat-Aufbewahrung (Tage)",
+      "auditRetention": "Audit-Aufbewahrung (Tage)",
+      "daysHint": "0 = niemals löschen",
+      "autoRedactPii": "PII automatisch schwärzen",
+      "requireLegalHold": "Rechtliche Aufbewahrung vor Löschung erforderlich",
+      "save": "Richtlinie speichern",
+      "runCleanup": "Bereinigung ausführen",
+      "lastCleanup": "Letzte Bereinigung",
+      "itemsCleaned": "Elemente bereinigt"
     }
   },
   "memoryGovernance": {

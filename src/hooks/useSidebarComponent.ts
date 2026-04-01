@@ -102,6 +102,7 @@ export function useSidebarContent() {
         { icon: History, label: t('nav.aiHistory'), href: '/ai-history' },
         { icon: DollarSign, label: t('nav.aiFinops'), href: '/ai-finops' },
         { icon: Brain, label: t('nav.aiMemory'), href: '/ai-memory' },
+        { icon: ShieldCheck, label: t('nav.aiTranscripts'), href: '/ai-transcripts' },
         { icon: Workflow, label: t('nav.soar'), href: '/soar' },
       ],
     },
