@@ -52,7 +52,8 @@
     "aiChat": "AI Chat",
     "aiMemory": "AI Memory",
     "aiHistory": "AI History",
-    "aiFindings": "AI Findings"
+    "aiFindings": "AI Findings",
+    "aiFinops": "AI FinOps"
   },
   "common": {
     "search": "Search",
@@ -3944,7 +3945,8 @@
       "msspDashboard": "MSSP Dashboard",
       "aiConfig": "AI Configuration",
       "aiChat": "AI Chat",
-      "aiMemory": "AI Memory"
+      "aiMemory": "AI Memory",
+      "aiFinops": "AI FinOps"
     },
     "permissions": {
       "dashboard": {
@@ -4162,7 +4164,13 @@
       },
       "aiMemory": {
         "view": "View AI Memory",
-        "edit": "Edit AI Memory"
+        "edit": "Edit AI Memory",
+        "admin": "Administer AI Memory",
+        "export": "Export AI Memory"
+      },
+      "aiFinops": {
+        "view": "View AI FinOps",
+        "manage": "Manage AI FinOps"
       }
     },
     "roles": {
@@ -4346,6 +4354,116 @@
     "noHistory": "No AI run history found",
     "viewDetail": "View",
     "runDetail": "Run Details"
+  },
+  "aiFinops": {
+    "title": "AI FinOps",
+    "description": "Monitor AI spending, token usage, budgets, and cost breakdowns across your tenant",
+    "noAccess": "You do not have permission to view AI FinOps data",
+    "noData": "No usage data available for this period",
+    "noBudgetSet": "No budget set",
+    "unknown": "Unknown",
+    "kpi": {
+      "totalCost": "Monthly Cost",
+      "totalTokens": "Total Tokens",
+      "totalRequests": "Total Requests",
+      "projected": "Projected Month End",
+      "budget": "Budget",
+      "budgetUsed": "used"
+    },
+    "sections": {
+      "dailyTrend": "Daily Cost Trend",
+      "byFeature": "Cost by Feature",
+      "byModel": "Cost by Model",
+      "byUser": "Cost by User",
+      "costRates": "Cost Rate Configuration",
+      "budgetAlerts": "Budget Alerts"
+    },
+    "table": {
+      "feature": "Feature",
+      "provider": "Provider",
+      "model": "Model",
+      "inputTokens": "Input Tokens",
+      "outputTokens": "Output Tokens",
+      "cost": "Cost",
+      "requests": "Requests",
+      "user": "User"
+    },
+    "chart": {
+      "cost": "Cost"
+    },
+    "costRates": {
+      "provider": "Provider",
+      "model": "Model",
+      "inputCostPer1k": "Input Cost / 1K",
+      "outputCostPer1k": "Output Cost / 1K",
+      "save": "Save Rate",
+      "delete": "Delete",
+      "add": "Add Cost Rate",
+      "saved": "Cost rate saved",
+      "deleted": "Cost rate deleted",
+      "empty": "No cost rates configured",
+      "cancel": "Cancel"
+    },
+    "budgetAlerts": {
+      "scope": "Scope",
+      "scopeKey": "Scope Key",
+      "monthlyBudget": "Monthly Budget",
+      "thresholds": "Alert Thresholds (%)",
+      "lastTriggered": "Last Triggered",
+      "enabled": "Enabled",
+      "save": "Save Alert",
+      "delete": "Delete",
+      "add": "Add Budget Alert",
+      "saved": "Budget alert saved",
+      "deleted": "Budget alert deleted",
+      "empty": "No budget alerts configured",
+      "cancel": "Cancel"
+    }
+  },
+  "memoryGovernance": {
+    "title": "AI Memory Governance",
+    "description": "Manage, inspect, and govern AI memories across all users in your tenant",
+    "noAccess": "You do not have permission to manage AI memories",
+    "noMemories": "No memories found",
+    "export": "Export",
+    "exportDone": "Memories exported successfully",
+    "searchPlaceholder": "Search memory content...",
+    "allCategories": "All Categories",
+    "categoryFact": "Fact",
+    "categoryPreference": "Preference",
+    "categoryInstruction": "Instruction",
+    "categoryContext": "Context",
+    "filterByUser": "Filter by User ID",
+    "deleteUserMemories": "Erase all memories for this user",
+    "userMemoriesDeleted": "User memories erased",
+    "kpi": {
+      "activeMemories": "Active Memories",
+      "deletedMemories": "Deleted Memories",
+      "uniqueUsers": "Users with Memories",
+      "categories": "Categories Used"
+    },
+    "sections": {
+      "retention": "Retention Policy",
+      "allMemories": "All Memories"
+    },
+    "table": {
+      "user": "User",
+      "content": "Content",
+      "category": "Category",
+      "source": "Source",
+      "updated": "Updated"
+    },
+    "retention": {
+      "days": "Retention Days",
+      "daysHint": "0 = memories never expire",
+      "autoCleanup": "Auto cleanup enabled",
+      "save": "Save Policy",
+      "saved": "Retention policy saved",
+      "runNow": "Run Cleanup Now",
+      "cleanupDone": "Cleanup completed",
+      "lastCleanup": "Last cleanup",
+      "memoriesCleaned": "memories cleaned"
+    }
   },
   "memory": {
     "title": "AI Memory",

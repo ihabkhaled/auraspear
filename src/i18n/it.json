@@ -52,7 +52,8 @@
     "aiChat": "Chat IA",
     "aiMemory": "Memoria IA",
     "aiHistory": "Cronologia IA",
-    "aiFindings": "Risultati IA"
+    "aiFindings": "Risultati IA",
+    "aiFinops": "AI FinOps"
   },
   "common": {
     "search": "Cerca",
@@ -3758,7 +3759,8 @@
       "msspDashboard": "Dashboard MSSP",
       "aiConfig": "Configurazione IA",
       "aiChat": "Chat IA",
-      "aiMemory": "Memoria IA"
+      "aiMemory": "Memoria IA",
+      "aiFinops": "AI FinOps"
     },
     "permissions": {
       "dashboard": {
@@ -3976,7 +3978,13 @@
       },
       "aiMemory": {
         "view": "Visualizza Memoria IA",
-        "edit": "Modifica Memoria IA"
+        "edit": "Modifica Memoria IA",
+        "admin": "Amministra Memoria IA",
+        "export": "Esporta Memoria IA"
+      },
+      "aiFinops": {
+        "view": "Visualizza AI FinOps",
+        "manage": "Gestisci AI FinOps"
       }
     },
     "roles": {
@@ -4213,6 +4221,110 @@
     "noHistory": "Nessuna cronologia di esecuzione IA trovata",
     "viewDetail": "Visualizza",
     "runDetail": "Dettagli esecuzione"
+  },
+  "aiFinops": {
+    "title": "AI FinOps",
+    "description": "Monitora le spese AI, l'utilizzo dei token, i budget e la ripartizione dei costi nel tuo tenant",
+    "noAccess": "Non hai il permesso di visualizzare i dati AI FinOps",
+    "noData": "Nessun dato di utilizzo disponibile per questo periodo",
+    "noBudgetSet": "Nessun budget impostato",
+    "unknown": "Sconosciuto",
+    "kpi": {
+      "totalCost": "Costo Mensile",
+      "totalTokens": "Token Totali",
+      "totalRequests": "Richieste Totali",
+      "projected": "Proiezione Fine Mese",
+      "budget": "Budget"
+    },
+    "sections": {
+      "dailyTrend": "Tendenza Giornaliera dei Costi",
+      "byFeature": "Costo per Funzionalità",
+      "byModel": "Costo per Modello",
+      "byUser": "Costo per Utente",
+      "costRates": "Configurazione Tariffe",
+      "budgetAlerts": "Avvisi di Budget"
+    },
+    "table": {
+      "feature": "Funzionalità",
+      "provider": "Fornitore",
+      "model": "Modello",
+      "inputTokens": "Token di Input",
+      "outputTokens": "Token di Output",
+      "cost": "Costo",
+      "requests": "Richieste",
+      "user": "Utente"
+    },
+    "chart": { "cost": "Costo" },
+    "costRates": {
+      "provider": "Fornitore",
+      "model": "Modello",
+      "inputCostPer1k": "Costo Input / 1K",
+      "outputCostPer1k": "Costo Output / 1K",
+      "save": "Salva Tariffa",
+      "delete": "Elimina",
+      "add": "Aggiungi Tariffa",
+      "saved": "Tariffa salvata",
+      "deleted": "Tariffa eliminata",
+      "empty": "Nessuna tariffa configurata",
+      "cancel": "Annulla"
+    },
+    "budgetAlerts": {
+      "scope": "Ambito",
+      "monthlyBudget": "Budget Mensile",
+      "thresholds": "Soglie di Avviso (%)",
+      "enabled": "Abilitato",
+      "save": "Salva Avviso",
+      "delete": "Elimina",
+      "add": "Aggiungi Avviso",
+      "scopeKey": "Chiave Ambito",
+      "lastTriggered": "Ultimo Attivato",
+      "saved": "Avviso di budget salvato",
+      "deleted": "Avviso di budget eliminato",
+      "empty": "Nessun avviso di budget configurato",
+      "cancel": "Annulla"
+    }
+  },
+  "memoryGovernance": {
+    "title": "Governance della Memoria IA",
+    "description": "Gestisci, ispeziona e governa le memorie IA di tutti gli utenti nel tuo tenant",
+    "noAccess": "Non hai il permesso di gestire le memorie IA",
+    "noMemories": "Nessuna memoria trovata",
+    "export": "Esporta",
+    "exportDone": "Memorie esportate con successo",
+    "searchPlaceholder": "Cerca contenuto delle memorie...",
+    "allCategories": "Tutte le Categorie",
+    "categoryFact": "Fatto",
+    "categoryPreference": "Preferenza",
+    "categoryInstruction": "Istruzione",
+    "categoryContext": "Contesto",
+    "filterByUser": "Filtra per ID Utente",
+    "deleteUserMemories": "Cancella tutte le memorie di questo utente",
+    "userMemoriesDeleted": "Memorie utente cancellate",
+    "kpi": {
+      "activeMemories": "Memorie Attive",
+      "deletedMemories": "Memorie Eliminate",
+      "uniqueUsers": "Utenti con Memorie",
+      "categories": "Categorie Utilizzate"
+    },
+    "sections": { "retention": "Politica di Conservazione", "allMemories": "Tutte le Memorie" },
+    "table": {
+      "user": "Utente",
+      "content": "Contenuto",
+      "category": "Categoria",
+      "source": "Fonte",
+      "updated": "Aggiornato"
+    },
+    "retention": {
+      "days": "Giorni di Conservazione",
+      "daysHint": "0 = le memorie non scadono mai",
+      "autoCleanup": "Pulizia automatica abilitata",
+      "save": "Salva Politica",
+      "saved": "Politica di conservazione salvata",
+      "runNow": "Esegui Pulizia Ora",
+      "cleanupDone": "Pulizia completata",
+      "lastCleanup": "Ultima pulizia",
+      "memoriesCleaned": "memorie pulite"
+    }
   },
   "memory": {
     "title": "Memoria IA",

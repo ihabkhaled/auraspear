@@ -19,6 +19,8 @@ export const ROUTE_PERMISSION_MAP: ReadonlyArray<readonly [string, Permission]> 
   ['/ai-chat', Permission.AI_CHAT_ACCESS],
   ['/ai-config', Permission.AI_CONFIG_VIEW],
   ['/ai-findings', Permission.AI_AGENTS_VIEW],
+  ['/ai-finops', Permission.AI_FINOPS_VIEW],
+  ['/ai-memory', Permission.AI_MEMORY_ADMIN],
   ['/ai-history', Permission.AI_AGENTS_VIEW],
   ['/cases', Permission.CASES_VIEW],
   ['/cloud-security', Permission.CLOUD_SECURITY_VIEW],

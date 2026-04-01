@@ -52,7 +52,8 @@
     "aiChat": "KI-Chat",
     "aiMemory": "KI-Gedächtnis",
     "aiHistory": "KI-Verlauf",
-    "aiFindings": "KI-Ergebnisse"
+    "aiFindings": "KI-Ergebnisse",
+    "aiFinops": "AI FinOps"
   },
   "common": {
     "search": "Suche",
@@ -3758,7 +3759,8 @@
       "msspDashboard": "MSSP-Dashboard",
       "aiConfig": "KI-Konfiguration",
       "aiChat": "KI-Chat",
-      "aiMemory": "KI-Gedächtnis"
+      "aiMemory": "KI-Gedächtnis",
+      "aiFinops": "AI FinOps"
     },
     "permissions": {
       "dashboard": {
@@ -3976,7 +3978,13 @@
       },
       "aiMemory": {
         "view": "KI-Gedächtnis anzeigen",
-        "edit": "KI-Gedächtnis bearbeiten"
+        "edit": "KI-Gedächtnis bearbeiten",
+        "admin": "KI-Speicher verwalten",
+        "export": "KI-Speicher exportieren"
+      },
+      "aiFinops": {
+        "view": "AI FinOps anzeigen",
+        "manage": "AI FinOps verwalten"
       }
     },
     "roles": {
@@ -4213,6 +4221,110 @@
     "noHistory": "Kein KI-Ausführungsverlauf gefunden",
     "viewDetail": "Anzeigen",
     "runDetail": "Ausführungsdetails"
+  },
+  "aiFinops": {
+    "title": "AI FinOps",
+    "description": "Überwachen Sie KI-Ausgaben, Token-Nutzung, Budgets und Kostenaufschlüsselungen in Ihrem Mandanten",
+    "noAccess": "Sie haben keine Berechtigung, AI FinOps-Daten anzuzeigen",
+    "noData": "Keine Nutzungsdaten für diesen Zeitraum verfügbar",
+    "noBudgetSet": "Kein Budget festgelegt",
+    "unknown": "Unbekannt",
+    "kpi": {
+      "totalCost": "Monatliche Kosten",
+      "totalTokens": "Gesamte Tokens",
+      "totalRequests": "Gesamte Anfragen",
+      "projected": "Hochrechnung Monatsende",
+      "budget": "Budget"
+    },
+    "sections": {
+      "dailyTrend": "Täglicher Kostentrend",
+      "byFeature": "Kosten nach Funktion",
+      "byModel": "Kosten nach Modell",
+      "byUser": "Kosten nach Benutzer",
+      "costRates": "Tarif-Konfiguration",
+      "budgetAlerts": "Budget-Warnungen"
+    },
+    "table": {
+      "feature": "Funktion",
+      "provider": "Anbieter",
+      "model": "Modell",
+      "inputTokens": "Eingabe-Tokens",
+      "outputTokens": "Ausgabe-Tokens",
+      "cost": "Kosten",
+      "requests": "Anfragen",
+      "user": "Benutzer"
+    },
+    "chart": { "cost": "Kosten" },
+    "costRates": {
+      "provider": "Anbieter",
+      "model": "Modell",
+      "inputCostPer1k": "Eingabekosten / 1K",
+      "outputCostPer1k": "Ausgabekosten / 1K",
+      "save": "Tarif speichern",
+      "delete": "Löschen",
+      "add": "Tarif hinzufügen",
+      "saved": "Tarif gespeichert",
+      "deleted": "Tarif gelöscht",
+      "empty": "Keine Tarife konfiguriert",
+      "cancel": "Abbrechen"
+    },
+    "budgetAlerts": {
+      "scope": "Bereich",
+      "monthlyBudget": "Monatsbudget",
+      "thresholds": "Warnschwellen (%)",
+      "enabled": "Aktiviert",
+      "save": "Warnung speichern",
+      "delete": "Löschen",
+      "add": "Warnung hinzufügen",
+      "scopeKey": "Bereichsschlüssel",
+      "lastTriggered": "Zuletzt Ausgelöst",
+      "saved": "Budget-Warnung gespeichert",
+      "deleted": "Budget-Warnung gelöscht",
+      "empty": "Keine Budget-Warnungen konfiguriert",
+      "cancel": "Abbrechen"
+    }
+  },
+  "memoryGovernance": {
+    "title": "KI-Speicher-Governance",
+    "description": "KI-Erinnerungen aller Benutzer Ihres Mandanten verwalten, inspizieren und steuern",
+    "noAccess": "Sie haben keine Berechtigung, KI-Erinnerungen zu verwalten",
+    "noMemories": "Keine Erinnerungen gefunden",
+    "export": "Exportieren",
+    "exportDone": "Erinnerungen erfolgreich exportiert",
+    "searchPlaceholder": "Erinnerungsinhalte durchsuchen...",
+    "allCategories": "Alle Kategorien",
+    "categoryFact": "Fakt",
+    "categoryPreference": "Präferenz",
+    "categoryInstruction": "Anweisung",
+    "categoryContext": "Kontext",
+    "filterByUser": "Nach Benutzer-ID filtern",
+    "deleteUserMemories": "Alle Erinnerungen dieses Benutzers löschen",
+    "userMemoriesDeleted": "Benutzererinnerungen gelöscht",
+    "kpi": {
+      "activeMemories": "Aktive Erinnerungen",
+      "deletedMemories": "Gelöschte Erinnerungen",
+      "uniqueUsers": "Benutzer mit Erinnerungen",
+      "categories": "Verwendete Kategorien"
+    },
+    "sections": { "retention": "Aufbewahrungsrichtlinie", "allMemories": "Alle Erinnerungen" },
+    "table": {
+      "user": "Benutzer",
+      "content": "Inhalt",
+      "category": "Kategorie",
+      "source": "Quelle",
+      "updated": "Aktualisiert"
+    },
+    "retention": {
+      "days": "Aufbewahrungstage",
+      "daysHint": "0 = Erinnerungen verfallen nie",
+      "autoCleanup": "Automatische Bereinigung aktiviert",
+      "save": "Richtlinie speichern",
+      "saved": "Aufbewahrungsrichtlinie gespeichert",
+      "runNow": "Bereinigung jetzt ausführen",
+      "cleanupDone": "Bereinigung abgeschlossen",
+      "lastCleanup": "Letzte Bereinigung",
+      "memoriesCleaned": "Erinnerungen bereinigt"
+    }
   },
   "memory": {
     "title": "KI-Gedächtnis",

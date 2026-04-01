@@ -142,8 +142,14 @@ export type {
 } from './case-cycle.types'
 export type {
   AiMonthlyUsage,
+  AiBudgetAlert,
+  AiCostRate,
+  AiDailyUsageEntry,
+  AiFinopsDashboard,
   AiResponse,
   AiTokenUsage,
+  AiUsageByModelEntry,
+  AiUsageByUserEntry,
   AiUsageSummary,
   AiUsageSummaryEntry,
   ExplainAnomalyInput,
@@ -823,9 +829,11 @@ export type {
   FindingDetailDrawerProps,
 } from './ai-config.types'
 export type {
+  CreateMemoryInput,
+  MemoryRetentionPolicy,
+  MemorySettingsCardProps,
+  MemoryStats,
+  UpdateMemoryInput,
   UserMemory,
   UserMemoryListResponse,
-  CreateMemoryInput,
-  UpdateMemoryInput,
-  MemorySettingsCardProps,
 } from './memory.types'

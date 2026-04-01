@@ -52,7 +52,8 @@
     "aiChat": "Chat IA",
     "aiMemory": "Mémoire IA",
     "aiHistory": "Historique IA",
-    "aiFindings": "Résultats IA"
+    "aiFindings": "Résultats IA",
+    "aiFinops": "AI FinOps"
   },
   "common": {
     "search": "Rechercher",
@@ -3758,7 +3759,8 @@
       "msspDashboard": "Tableau de Bord MSSP",
       "aiConfig": "Configuration IA",
       "aiChat": "Chat IA",
-      "aiMemory": "Mémoire IA"
+      "aiMemory": "Mémoire IA",
+      "aiFinops": "AI FinOps"
     },
     "permissions": {
       "dashboard": {
@@ -3976,7 +3978,13 @@
       },
       "aiMemory": {
         "view": "Voir la Mémoire IA",
-        "edit": "Modifier la Mémoire IA"
+        "edit": "Modifier la Mémoire IA",
+        "admin": "Administrer la Mémoire IA",
+        "export": "Exporter la Mémoire IA"
+      },
+      "aiFinops": {
+        "view": "Voir AI FinOps",
+        "manage": "Gérer AI FinOps"
       }
     },
     "roles": {
@@ -4213,6 +4221,110 @@
     "noHistory": "Aucun historique d'exécution IA trouvé",
     "viewDetail": "Voir",
     "runDetail": "Détails de l'exécution"
+  },
+  "aiFinops": {
+    "title": "AI FinOps",
+    "description": "Surveillez les dépenses IA, l'utilisation des tokens, les budgets et la répartition des coûts dans votre tenant",
+    "noAccess": "Vous n'avez pas la permission de voir les données AI FinOps",
+    "noData": "Aucune donnée d'utilisation disponible pour cette période",
+    "noBudgetSet": "Aucun budget défini",
+    "unknown": "Inconnu",
+    "kpi": {
+      "totalCost": "Coût Mensuel",
+      "totalTokens": "Tokens Totaux",
+      "totalRequests": "Requêtes Totales",
+      "projected": "Projection Fin de Mois",
+      "budget": "Budget"
+    },
+    "sections": {
+      "dailyTrend": "Tendance Quotidienne des Coûts",
+      "byFeature": "Coût par Fonctionnalité",
+      "byModel": "Coût par Modèle",
+      "byUser": "Coût par Utilisateur",
+      "costRates": "Configuration des Tarifs",
+      "budgetAlerts": "Alertes de Budget"
+    },
+    "table": {
+      "feature": "Fonctionnalité",
+      "provider": "Fournisseur",
+      "model": "Modèle",
+      "inputTokens": "Tokens d'Entrée",
+      "outputTokens": "Tokens de Sortie",
+      "cost": "Coût",
+      "requests": "Requêtes",
+      "user": "Utilisateur"
+    },
+    "chart": { "cost": "Coût" },
+    "costRates": {
+      "provider": "Fournisseur",
+      "model": "Modèle",
+      "inputCostPer1k": "Coût Entrée / 1K",
+      "outputCostPer1k": "Coût Sortie / 1K",
+      "save": "Enregistrer le Tarif",
+      "delete": "Supprimer",
+      "add": "Ajouter un Tarif",
+      "saved": "Tarif enregistré",
+      "deleted": "Tarif supprimé",
+      "empty": "Aucun tarif configuré",
+      "cancel": "Annuler"
+    },
+    "budgetAlerts": {
+      "scope": "Portée",
+      "monthlyBudget": "Budget Mensuel",
+      "thresholds": "Seuils d'Alerte (%)",
+      "enabled": "Activé",
+      "save": "Enregistrer l'Alerte",
+      "delete": "Supprimer",
+      "add": "Ajouter une Alerte",
+      "scopeKey": "Clé de Portée",
+      "lastTriggered": "Dernier Déclenchement",
+      "saved": "Alerte de budget enregistrée",
+      "deleted": "Alerte de budget supprimée",
+      "empty": "Aucune alerte de budget configurée",
+      "cancel": "Annuler"
+    }
+  },
+  "memoryGovernance": {
+    "title": "Gouvernance de la Mémoire IA",
+    "description": "Gérer, inspecter et gouverner les mémoires IA de tous les utilisateurs de votre tenant",
+    "noAccess": "Vous n'avez pas la permission de gérer les mémoires IA",
+    "noMemories": "Aucune mémoire trouvée",
+    "export": "Exporter",
+    "exportDone": "Mémoires exportées avec succès",
+    "searchPlaceholder": "Rechercher le contenu des mémoires...",
+    "allCategories": "Toutes les Catégories",
+    "categoryFact": "Fait",
+    "categoryPreference": "Préférence",
+    "categoryInstruction": "Instruction",
+    "categoryContext": "Contexte",
+    "filterByUser": "Filtrer par ID Utilisateur",
+    "deleteUserMemories": "Effacer toutes les mémoires de cet utilisateur",
+    "userMemoriesDeleted": "Mémoires de l'utilisateur effacées",
+    "kpi": {
+      "activeMemories": "Mémoires Actives",
+      "deletedMemories": "Mémoires Supprimées",
+      "uniqueUsers": "Utilisateurs avec Mémoires",
+      "categories": "Catégories Utilisées"
+    },
+    "sections": { "retention": "Politique de Rétention", "allMemories": "Toutes les Mémoires" },
+    "table": {
+      "user": "Utilisateur",
+      "content": "Contenu",
+      "category": "Catégorie",
+      "source": "Source",
+      "updated": "Mis à jour"
+    },
+    "retention": {
+      "days": "Jours de Rétention",
+      "daysHint": "0 = les mémoires n'expirent jamais",
+      "autoCleanup": "Nettoyage automatique activé",
+      "save": "Enregistrer la Politique",
+      "saved": "Politique de rétention enregistrée",
+      "runNow": "Exécuter le Nettoyage",
+      "cleanupDone": "Nettoyage terminé",
+      "lastCleanup": "Dernier nettoyage",
+      "memoriesCleaned": "mémoires nettoyées"
+    }
   },
   "memory": {
     "title": "Mémoire IA",
