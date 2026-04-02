@@ -55,7 +55,8 @@
     "aiFindings": "KI-Ergebnisse",
     "aiFinops": "AI FinOps",
     "aiTranscripts": "KI-Transkripte",
-    "aiOps": "KI-Operationen"
+    "aiOps": "KI-Operationen",
+    "aiHandoffs": "KI-Übergaben"
   },
   "common": {
     "search": "Suche",
@@ -3764,7 +3765,8 @@
       "aiMemory": "KI-Gedächtnis",
       "aiFinops": "AI FinOps",
       "aiTranscript": "KI-Transkripte",
-      "aiOps": "KI-Operationen"
+      "aiOps": "KI-Operationen",
+      "aiHandoff": "KI-Übergaben"
     },
     "permissions": {
       "dashboard": {
@@ -3997,6 +3999,9 @@
       },
       "aiOps": {
         "view": "KI-Operationen anzeigen"
+      },
+      "aiHandoff": {
+        "promote": "KI-Ergebnisse übertragen"
       }
     },
     "roles": {
@@ -4294,6 +4299,34 @@
       "deleted": "Budget-Warnung gelöscht",
       "empty": "Keine Budget-Warnungen konfiguriert",
       "cancel": "Abbrechen"
+    }
+  },
+  "aiHandoffs": {
+    "title": "KI-Workflow-Übergaben",
+    "description": "KI-Ergebnisse zu Fällen, Vorfällen und anderen operativen Artefakten mit Herkunftsverfolgung übertragen",
+    "noAccess": "Sie haben keine Berechtigung, KI-Übergaben zu verwalten",
+    "noHistory": "Kein Übergabeverlauf gefunden",
+    "promoted": "Ergebnis erfolgreich übertragen",
+    "allTargets": "Alle Ziele",
+    "targetCase": "Fall",
+    "targetIncident": "Vorfall",
+    "kpi": {
+      "totalPromotions": "Gesamte Übertragungen",
+      "last24h": "Letzte 24h",
+      "targetTypes": "Zieltypen",
+      "agentsInvolved": "Beteiligte Agenten"
+    },
+    "sections": {
+      "history": "Übertragungsverlauf"
+    },
+    "table": {
+      "finding": "Ergebnis",
+      "type": "Typ",
+      "severity": "Schweregrad",
+      "promotedTo": "Übertragen An",
+      "entityId": "Entitäts-ID",
+      "agent": "Agent",
+      "promotedAt": "Übertragen Am"
     }
   },
   "aiOps": {

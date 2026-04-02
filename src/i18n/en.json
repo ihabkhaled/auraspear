@@ -55,7 +55,8 @@
     "aiFindings": "AI Findings",
     "aiFinops": "AI FinOps",
     "aiTranscripts": "AI Transcripts",
-    "aiOps": "AI Operations"
+    "aiOps": "AI Operations",
+    "aiHandoffs": "AI Handoffs"
   },
   "common": {
     "search": "Search",
@@ -3950,7 +3951,8 @@
       "aiMemory": "AI Memory",
       "aiFinops": "AI FinOps",
       "aiTranscript": "AI Transcripts",
-      "aiOps": "AI Operations"
+      "aiOps": "AI Operations",
+      "aiHandoff": "AI Handoffs"
     },
     "permissions": {
       "dashboard": {
@@ -4183,6 +4185,9 @@
       },
       "aiOps": {
         "view": "View AI Operations"
+      },
+      "aiHandoff": {
+        "promote": "Promote AI Findings"
       }
     },
     "roles": {
@@ -4430,6 +4435,34 @@
       "deleted": "Budget alert deleted",
       "empty": "No budget alerts configured",
       "cancel": "Cancel"
+    }
+  },
+  "aiHandoffs": {
+    "title": "AI Workflow Handoffs",
+    "description": "Promote AI findings into cases, incidents, and other operational artifacts with full provenance tracking",
+    "noAccess": "You do not have permission to manage AI handoffs",
+    "noHistory": "No handoff history found",
+    "promoted": "Finding promoted successfully",
+    "allTargets": "All Targets",
+    "targetCase": "Case",
+    "targetIncident": "Incident",
+    "kpi": {
+      "totalPromotions": "Total Promotions",
+      "last24h": "Last 24h",
+      "targetTypes": "Target Types",
+      "agentsInvolved": "Agents Involved"
+    },
+    "sections": {
+      "history": "Promotion History"
+    },
+    "table": {
+      "finding": "Finding",
+      "type": "Type",
+      "severity": "Severity",
+      "promotedTo": "Promoted To",
+      "entityId": "Entity ID",
+      "agent": "Agent",
+      "promotedAt": "Promoted At"
     }
   },
   "aiOps": {

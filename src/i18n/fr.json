@@ -55,7 +55,8 @@
     "aiFindings": "Résultats IA",
     "aiFinops": "AI FinOps",
     "aiTranscripts": "Transcriptions IA",
-    "aiOps": "Opérations IA"
+    "aiOps": "Opérations IA",
+    "aiHandoffs": "Transferts IA"
   },
   "common": {
     "search": "Rechercher",
@@ -3764,7 +3765,8 @@
       "aiMemory": "Mémoire IA",
       "aiFinops": "AI FinOps",
       "aiTranscript": "Transcriptions IA",
-      "aiOps": "Opérations IA"
+      "aiOps": "Opérations IA",
+      "aiHandoff": "Transferts IA"
     },
     "permissions": {
       "dashboard": {
@@ -3997,6 +3999,9 @@
       },
       "aiOps": {
         "view": "Voir les Opérations IA"
+      },
+      "aiHandoff": {
+        "promote": "Promouvoir les Résultats IA"
       }
     },
     "roles": {
@@ -4294,6 +4299,34 @@
       "deleted": "Alerte de budget supprimée",
       "empty": "Aucune alerte de budget configurée",
       "cancel": "Annuler"
+    }
+  },
+  "aiHandoffs": {
+    "title": "Transferts de Flux de Travail IA",
+    "description": "Promouvoir les résultats IA en cas, incidents et autres artefacts opérationnels avec suivi de provenance",
+    "noAccess": "Vous n'avez pas la permission de gérer les transferts IA",
+    "noHistory": "Aucun historique de transfert trouvé",
+    "promoted": "Résultat promu avec succès",
+    "allTargets": "Toutes les Cibles",
+    "targetCase": "Cas",
+    "targetIncident": "Incident",
+    "kpi": {
+      "totalPromotions": "Promotions Totales",
+      "last24h": "Dernières 24h",
+      "targetTypes": "Types de Cible",
+      "agentsInvolved": "Agents Impliqués"
+    },
+    "sections": {
+      "history": "Historique des Promotions"
+    },
+    "table": {
+      "finding": "Résultat",
+      "type": "Type",
+      "severity": "Sévérité",
+      "promotedTo": "Promu Vers",
+      "entityId": "ID d'Entité",
+      "agent": "Agent",
+      "promotedAt": "Promu Le"
     }
   },
   "aiOps": {

@@ -237,3 +237,33 @@ export interface AiOpsRecentItem {
   sourceModule: string | null
   createdAt: string
 }
+
+/* ── AI Handoff types ────────────────────────────────── */
+
+export interface AiHandoffHistoryItem {
+  id: string
+  findingId: string
+  findingTitle: string
+  findingType: string
+  severity: string | null
+  agentId: string | null
+  sourceModule: string | null
+  linkedModule: string
+  linkedEntityType: string
+  linkedEntityId: string
+  createdAt: string
+}
+
+export interface AiHandoffStats {
+  totalPromotions: number
+  byTarget: Array<{ linkedModule: string; count: number }>
+  byAgent: Array<{ agentId: string; count: number }>
+  last24h: number
+}
+
+export interface AiHandoffPromoteResult {
+  finding: unknown
+  link: unknown
+  createdEntityId: string
+  targetModule: string
+}
