@@ -56,7 +56,12 @@
     "aiFinops": "AI FinOps",
     "aiTranscripts": "Transcriptions IA",
     "aiOps": "Opérations IA",
-    "aiHandoffs": "Transferts IA"
+    "aiHandoffs": "Transferts IA",
+    "aiRag": "Observabilité RAG",
+    "aiEval": "Labo Evaluation IA",
+    "aiSimulations": "Simulations IA",
+    "aiSearch": "Recherche IA",
+    "aiAgentGraph": "Graphe des Agents"
   },
   "common": {
     "search": "Rechercher",
@@ -1728,6 +1733,13 @@
       "approvalNotFound": "Demande d'approbation introuvable.",
       "approvalAlreadyResolved": "La demande d'approbation a déjà été résolue.",
       "approvalExpired": "La demande d'approbation a expiré."
+    },
+    "aiEval": {
+      "suiteNotFound": "Suite d evaluation introuvable",
+      "runNotFound": "Execution d evaluation introuvable"
+    },
+    "aiSimulation": {
+      "notFound": "Simulation introuvable"
     }
   },
   "profile": {
@@ -3769,7 +3781,10 @@
       "aiFinops": "AI FinOps",
       "aiTranscript": "Transcriptions IA",
       "aiOps": "Opérations IA",
-      "aiHandoff": "Transferts IA"
+      "aiHandoff": "Transferts IA",
+      "aiRag": "Observabilité RAG",
+      "aiEval": "Labo Evaluation IA",
+      "aiSimulation": "Simulation IA"
     },
     "permissions": {
       "dashboard": {
@@ -4005,6 +4020,14 @@
       },
       "aiHandoff": {
         "promote": "Promouvoir les Résultats IA"
+      },
+      "aiEval": {
+        "view": "Voir le Labo Evaluation IA",
+        "manage": "Gerer le Labo Evaluation IA"
+      },
+      "aiSimulation": {
+        "view": "Voir les Simulations IA",
+        "manage": "Gerer les Simulations IA"
       }
     },
     "roles": {
@@ -4274,7 +4297,9 @@
       "requests": "Requêtes",
       "user": "Utilisateur"
     },
-    "chart": { "cost": "Coût" },
+    "chart": {
+      "cost": "Coût"
+    },
     "costRates": {
       "provider": "Fournisseur",
       "model": "Modèle",
@@ -4283,6 +4308,7 @@
       "save": "Enregistrer le Tarif",
       "delete": "Supprimer",
       "add": "Ajouter un Tarif",
+      "selectProvider": "Sélectionner Fournisseur",
       "saved": "Tarif enregistré",
       "deleted": "Tarif supprimé",
       "empty": "Aucun tarif configuré",
@@ -4461,7 +4487,10 @@
       "uniqueUsers": "Utilisateurs avec Mémoires",
       "categories": "Catégories Utilisées"
     },
-    "sections": { "retention": "Politique de Rétention", "allMemories": "Toutes les Mémoires" },
+    "sections": {
+      "retention": "Politique de Rétention",
+      "allMemories": "Toutes les Mémoires"
+    },
     "table": {
       "user": "Utilisateur",
       "content": "Contenu",
@@ -4911,5 +4940,157 @@
     "session": "Session",
     "title": "Titre",
     "perPage": "Par page"
+  },
+  "ragObservability": {
+    "title": "Observabilité de Récupération et RAG",
+    "description": "Inspecter quelles mémoires, fragments et scores de similarité contribuent aux réponses IA",
+    "noAccess": "Vous n'avez pas la permission de voir l'observabilité RAG",
+    "kpi": {
+      "avgMemories": "Mémoires Moy./Requête",
+      "avgSimilarity": "Similarité Moyenne",
+      "categories": "Catégories",
+      "retrievals24h": "Récupérations (24h)"
+    },
+    "sections": {
+      "trace": "Trace de Récupération"
+    },
+    "trace": {
+      "placeholder": "Entrez une requête pour tracer la récupération...",
+      "run": "Tracer",
+      "content": "Contenu de Mémoire",
+      "category": "Catégorie",
+      "similarity": "Similarité",
+      "retrieved": "Récupérées",
+      "scanned": "Analysées",
+      "threshold": "Seuil",
+      "duration": "Durée",
+      "noMemories": "Aucune mémoire ne correspond à la requête"
+    }
+  },
+  "aiEval": {
+    "title": "Laboratoire d Evaluation et de Regression IA",
+    "description": "Comparez les modeles IA, prompts et connecteurs sur des jeux de donnees de reference avant le deploiement",
+    "noAccess": "Vous n avez pas la permission de voir le Labo Evaluation IA",
+    "kpi": {
+      "totalSuites": "Total Suites",
+      "totalRuns": "Total Runs",
+      "avgScore": "Avg Score",
+      "pendingRuns": "Pending",
+      "completedRuns": "Completed",
+      "failedRuns": "Failed"
+    },
+    "sections": {
+      "suites": "Evaluation Suites",
+      "runs": "Evaluation Runs"
+    },
+    "suites": {
+      "name": "Name",
+      "description": "Description",
+      "runs": "Runs",
+      "createdAt": "Created",
+      "empty": "No evaluation suites yet",
+      "create": "Nouvelle Suite",
+      "namePlaceholder": "Nom de suite",
+      "descPlaceholder": "Description (optionnel)",
+      "save": "Créer",
+      "cancel": "Annuler"
+    },
+    "runs": {
+      "suite": "Suite",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "avgScore": "Avg Score",
+      "passed": "Passed",
+      "latency": "Latency",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No evaluation runs yet",
+      "start": "Démarrer Exécution",
+      "selectSuite": "Sélectionner Suite",
+      "selectConnector": "Sélectionner Connecteur",
+      "modelPlaceholder": "Nom du modèle",
+      "execute": "Exécuter",
+      "cancel": "Annuler"
+    }
+  },
+  "aiSimulations": {
+    "title": "Simulation et Tests Retrospectifs IA",
+    "description": "Executez des agents IA sur des jeux de donnees historiques pour tester le comportement avant le deploiement",
+    "noAccess": "Vous n'avez pas la permission de voir les Simulations IA",
+    "kpi": {
+      "total": "Total Simulations",
+      "pending": "En Attente",
+      "running": "En Cours",
+      "completed": "Terminees",
+      "failed": "Echouees",
+      "avgLatency": "Latence Moyenne"
+    },
+    "table": {
+      "name": "Nom",
+      "agent": "Agent",
+      "status": "Statut",
+      "cases": "Cas",
+      "avgScore": "Score Moyen",
+      "tokens": "Tokens",
+      "createdAt": "Cree",
+      "empty": "Aucune simulation pour le moment"
+    },
+    "create": "Nouvelle Simulation",
+    "namePlaceholder": "Nom",
+    "selectAgent": "Sélectionner Agent",
+    "descPlaceholder": "Description (optionnel)",
+    "save": "Créer",
+    "cancel": "Annuler"
+  },
+  "aiSearch": {
+    "title": "Recherche Semantique Multi-Module",
+    "description": "Rechercher dans les resultats IA, fils de discussion, memoires, alertes, cas et incidents",
+    "noAccess": "Vous n'avez pas la permission d'acceder a la Recherche IA",
+    "searchPlaceholder": "Rechercher dans tous les modules...",
+    "enterQuery": "Entrez une requete pour commencer",
+    "modules": {
+      "findings": "Resultats",
+      "chatThreads": "Fils de Discussion",
+      "memories": "Memoires",
+      "alerts": "Alertes",
+      "cases": "Cas",
+      "incidents": "Incidents"
+    },
+    "table": {
+      "module": "Module",
+      "title": "Titre",
+      "snippet": "Extrait",
+      "score": "Score",
+      "createdAt": "Cree",
+      "empty": "Aucun resultat trouve"
+    }
+  },
+  "aiAgentGraph": {
+    "title": "Graphe de Dependances et Planification des Agents",
+    "description": "Visualiser les relations entre agents, les planifications, l'etat de sante et le flux d'execution",
+    "noAccess": "Vous n'avez pas la permission de voir le Graphe des Agents",
+    "kpi": {
+      "totalAgents": "Total Agents",
+      "enabledAgents": "Actives",
+      "coreAgents": "Principaux",
+      "specialistAgents": "Specialistes",
+      "totalSchedules": "Total Planifications",
+      "enabledSchedules": "Planifications Actives"
+    },
+    "table": {
+      "name": "Nom de l'Agent",
+      "type": "Type",
+      "core": "Principal",
+      "specialist": "Specialiste",
+      "executionAgent": "Agent d'Execution",
+      "enabled": "Active",
+      "yes": "Oui",
+      "no": "Non",
+      "schedules": "Planifications",
+      "features": "Fonctionnalites",
+      "tokens": "Tokens Utilises",
+      "empty": "Aucun agent configure"
+    }
   }
 }

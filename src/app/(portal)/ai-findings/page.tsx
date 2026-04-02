@@ -362,7 +362,7 @@ export default function AiFindingsPage() {
 
       {/* Bulk action bar */}
       {selectedIds.size > 0 && (
-        <div className="bg-muted flex items-center gap-3 rounded-lg border px-4 py-2">
+        <div className="bg-muted flex flex-wrap items-center gap-3 rounded-lg border px-4 py-2">
           <Checkbox
             checked={selectedIds.size === findings.length && findings.length > 0}
             onCheckedChange={toggleSelectAll}

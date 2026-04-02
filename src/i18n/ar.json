@@ -56,7 +56,12 @@
     "aiFinops": "إدارة تكاليف الذكاء الاصطناعي",
     "aiTranscripts": "نصوص الذكاء الاصطناعي",
     "aiOps": "عمليات الذكاء الاصطناعي",
-    "aiHandoffs": "تسليمات الذكاء الاصطناعي"
+    "aiHandoffs": "تسليمات الذكاء الاصطناعي",
+    "aiRag": "مراقبة RAG",
+    "aiEval": "مختبر تقييم الذكاء الاصطناعي",
+    "aiSimulations": "محاكاة الذكاء الاصطناعي",
+    "aiSearch": "بحث الذكاء الاصطناعي",
+    "aiAgentGraph": "رسم بياني للوكلاء"
   },
   "common": {
     "search": "بحث",
@@ -1728,6 +1733,13 @@
       "approvalNotFound": "طلب الموافقة غير موجود.",
       "approvalAlreadyResolved": "تم حل طلب الموافقة بالفعل.",
       "approvalExpired": "انتهت صلاحية طلب الموافقة."
+    },
+    "aiEval": {
+      "suiteNotFound": "مجموعة التقييم غير موجودة",
+      "runNotFound": "تشغيل التقييم غير موجود"
+    },
+    "aiSimulation": {
+      "notFound": "المحاكاة غير موجودة"
     }
   },
   "profile": {
@@ -3769,7 +3781,10 @@
       "aiFinops": "إدارة تكاليف الذكاء الاصطناعي",
       "aiTranscript": "نصوص الذكاء الاصطناعي",
       "aiOps": "عمليات الذكاء الاصطناعي",
-      "aiHandoff": "تسليمات الذكاء الاصطناعي"
+      "aiHandoff": "تسليمات الذكاء الاصطناعي",
+      "aiRag": "مراقبة RAG",
+      "aiEval": "مختبر تقييم الذكاء الاصطناعي",
+      "aiSimulation": "محاكاة الذكاء الاصطناعي"
     },
     "permissions": {
       "dashboard": {
@@ -4005,6 +4020,14 @@
       },
       "aiHandoff": {
         "promote": "ترقية نتائج الذكاء الاصطناعي"
+      },
+      "aiEval": {
+        "view": "عرض مختبر تقييم الذكاء الاصطناعي",
+        "manage": "إدارة مختبر تقييم الذكاء الاصطناعي"
+      },
+      "aiSimulation": {
+        "view": "عرض محاكاة الذكاء الاصطناعي",
+        "manage": "إدارة محاكاة الذكاء الاصطناعي"
       }
     },
     "roles": {
@@ -4249,12 +4272,63 @@
     "noData": "لا تتوفر بيانات استخدام لهذه الفترة",
     "noBudgetSet": "لم يتم تعيين ميزانية",
     "unknown": "غير معروف",
-    "kpi": { "totalCost": "التكلفة الشهرية", "totalTokens": "إجمالي الرموز", "totalRequests": "إجمالي الطلبات", "projected": "التوقعات نهاية الشهر", "budget": "الميزانية" },
-    "sections": { "dailyTrend": "اتجاه التكلفة اليومية", "byFeature": "التكلفة حسب الميزة", "byModel": "التكلفة حسب النموذج", "byUser": "التكلفة حسب المستخدم", "costRates": "تكوين الأسعار", "budgetAlerts": "تنبيهات الميزانية" },
-    "table": { "feature": "الميزة", "provider": "المزود", "model": "النموذج", "inputTokens": "رموز الإدخال", "outputTokens": "رموز الإخراج", "cost": "التكلفة", "requests": "الطلبات", "user": "المستخدم" },
-    "chart": { "cost": "التكلفة" },
-    "costRates": { "provider": "المزود", "model": "النموذج", "inputCostPer1k": "تكلفة الإدخال / 1 ألف", "outputCostPer1k": "تكلفة الإخراج / 1 ألف", "save": "حفظ السعر", "delete": "حذف", "add": "إضافة سعر", "saved": "تم حفظ السعر", "deleted": "تم حذف السعر", "empty": "لا توجد أسعار مكونة", "cancel": "إلغاء" },
-    "budgetAlerts": { "scope": "النطاق", "monthlyBudget": "الميزانية الشهرية", "thresholds": "عتبات التنبيه (%)", "enabled": "مفعل", "save": "حفظ التنبيه", "delete": "حذف", "add": "إضافة تنبيه", "scopeKey": "مفتاح النطاق", "lastTriggered": "آخر تنبيه", "saved": "تم حفظ تنبيه الميزانية", "deleted": "تم حذف تنبيه الميزانية", "empty": "لا توجد تنبيهات ميزانية مكونة", "cancel": "إلغاء" }
+    "kpi": {
+      "totalCost": "التكلفة الشهرية",
+      "totalTokens": "إجمالي الرموز",
+      "totalRequests": "إجمالي الطلبات",
+      "projected": "التوقعات نهاية الشهر",
+      "budget": "الميزانية"
+    },
+    "sections": {
+      "dailyTrend": "اتجاه التكلفة اليومية",
+      "byFeature": "التكلفة حسب الميزة",
+      "byModel": "التكلفة حسب النموذج",
+      "byUser": "التكلفة حسب المستخدم",
+      "costRates": "تكوين الأسعار",
+      "budgetAlerts": "تنبيهات الميزانية"
+    },
+    "table": {
+      "feature": "الميزة",
+      "provider": "المزود",
+      "model": "النموذج",
+      "inputTokens": "رموز الإدخال",
+      "outputTokens": "رموز الإخراج",
+      "cost": "التكلفة",
+      "requests": "الطلبات",
+      "user": "المستخدم"
+    },
+    "chart": {
+      "cost": "التكلفة"
+    },
+    "costRates": {
+      "provider": "المزود",
+      "model": "النموذج",
+      "inputCostPer1k": "تكلفة الإدخال / 1 ألف",
+      "outputCostPer1k": "تكلفة الإخراج / 1 ألف",
+      "save": "حفظ السعر",
+      "delete": "حذف",
+      "add": "إضافة سعر",
+      "selectProvider": "اختر المزود",
+      "saved": "تم حفظ السعر",
+      "deleted": "تم حذف السعر",
+      "empty": "لا توجد أسعار مكونة",
+      "cancel": "إلغاء"
+    },
+    "budgetAlerts": {
+      "scope": "النطاق",
+      "monthlyBudget": "الميزانية الشهرية",
+      "thresholds": "عتبات التنبيه (%)",
+      "enabled": "مفعل",
+      "save": "حفظ التنبيه",
+      "delete": "حذف",
+      "add": "إضافة تنبيه",
+      "scopeKey": "مفتاح النطاق",
+      "lastTriggered": "آخر تنبيه",
+      "saved": "تم حفظ تنبيه الميزانية",
+      "deleted": "تم حذف تنبيه الميزانية",
+      "empty": "لا توجد تنبيهات ميزانية مكونة",
+      "cancel": "إلغاء"
+    }
   },
   "aiHandoffs": {
     "title": "تسليمات سير عمل الذكاء الاصطناعي",
@@ -4407,10 +4481,34 @@
     "filterByUser": "تصفية حسب معرف المستخدم",
     "deleteUserMemories": "مسح جميع ذكريات هذا المستخدم",
     "userMemoriesDeleted": "تم مسح ذكريات المستخدم",
-    "kpi": { "activeMemories": "الذكريات النشطة", "deletedMemories": "الذكريات المحذوفة", "uniqueUsers": "المستخدمون مع ذكريات", "categories": "الفئات المستخدمة" },
-    "sections": { "retention": "سياسة الاحتفاظ", "allMemories": "جميع الذكريات" },
-    "table": { "user": "المستخدم", "content": "المحتوى", "category": "الفئة", "source": "المصدر", "updated": "محدث" },
-    "retention": { "days": "أيام الاحتفاظ", "daysHint": "0 = الذكريات لا تنتهي أبداً", "autoCleanup": "التنظيف التلقائي مفعل", "save": "حفظ السياسة", "saved": "تم حفظ سياسة الاحتفاظ", "runNow": "تشغيل التنظيف الآن", "cleanupDone": "اكتمل التنظيف", "lastCleanup": "آخر تنظيف", "memoriesCleaned": "ذكريات تم تنظيفها" }
+    "kpi": {
+      "activeMemories": "الذكريات النشطة",
+      "deletedMemories": "الذكريات المحذوفة",
+      "uniqueUsers": "المستخدمون مع ذكريات",
+      "categories": "الفئات المستخدمة"
+    },
+    "sections": {
+      "retention": "سياسة الاحتفاظ",
+      "allMemories": "جميع الذكريات"
+    },
+    "table": {
+      "user": "المستخدم",
+      "content": "المحتوى",
+      "category": "الفئة",
+      "source": "المصدر",
+      "updated": "محدث"
+    },
+    "retention": {
+      "days": "أيام الاحتفاظ",
+      "daysHint": "0 = الذكريات لا تنتهي أبداً",
+      "autoCleanup": "التنظيف التلقائي مفعل",
+      "save": "حفظ السياسة",
+      "saved": "تم حفظ سياسة الاحتفاظ",
+      "runNow": "تشغيل التنظيف الآن",
+      "cleanupDone": "اكتمل التنظيف",
+      "lastCleanup": "آخر تنظيف",
+      "memoriesCleaned": "ذكريات تم تنظيفها"
+    }
   },
   "memory": {
     "title": "ذاكرة الذكاء الاصطناعي",
@@ -4842,5 +4940,157 @@
     "session": "الجلسة",
     "title": "العنوان",
     "perPage": "لكل صفحة"
+  },
+  "ragObservability": {
+    "title": "مراقبة الاسترجاع و RAG",
+    "description": "فحص الذكريات والأجزاء ودرجات التشابه التي تساهم في استجابات الذكاء الاصطناعي",
+    "noAccess": "ليس لديك إذن لعرض مراقبة RAG",
+    "kpi": {
+      "avgMemories": "متوسط الذكريات/الاستعلام",
+      "avgSimilarity": "متوسط التشابه",
+      "categories": "الفئات",
+      "retrievals24h": "الاسترجاعات (24 ساعة)"
+    },
+    "sections": {
+      "trace": "تتبع الاسترجاع"
+    },
+    "trace": {
+      "placeholder": "أدخل استعلاماً لتتبع الاسترجاع...",
+      "run": "تتبع",
+      "content": "محتوى الذاكرة",
+      "category": "الفئة",
+      "similarity": "التشابه",
+      "retrieved": "المسترجعة",
+      "scanned": "الممسوحة",
+      "threshold": "الحد الأدنى",
+      "duration": "المدة",
+      "noMemories": "لم تتطابق أي ذكريات مع الاستعلام"
+    }
+  },
+  "aiEval": {
+    "title": "مختبر التقييم والاختبار الرجعي",
+    "description": "قارن نماذج الذكاء الاصطناعي والموصلات على مجموعات بيانات ذهبية قبل النشر",
+    "noAccess": "ليس لديك إذن لعرض مختبر التقييم",
+    "kpi": {
+      "totalSuites": "Total Suites",
+      "totalRuns": "Total Runs",
+      "avgScore": "Avg Score",
+      "pendingRuns": "Pending",
+      "completedRuns": "Completed",
+      "failedRuns": "Failed"
+    },
+    "sections": {
+      "suites": "Evaluation Suites",
+      "runs": "Evaluation Runs"
+    },
+    "suites": {
+      "name": "Name",
+      "description": "Description",
+      "runs": "Runs",
+      "createdAt": "Created",
+      "empty": "No evaluation suites yet",
+      "create": "مجموعة جديدة",
+      "namePlaceholder": "اسم المجموعة",
+      "descPlaceholder": "الوصف (اختياري)",
+      "save": "إنشاء",
+      "cancel": "إلغاء"
+    },
+    "runs": {
+      "suite": "Suite",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "avgScore": "Avg Score",
+      "passed": "Passed",
+      "latency": "Latency",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No evaluation runs yet",
+      "start": "بدء التشغيل",
+      "selectSuite": "اختر المجموعة",
+      "selectConnector": "اختر الموصل",
+      "modelPlaceholder": "اسم النموذج",
+      "execute": "تشغيل",
+      "cancel": "إلغاء"
+    }
+  },
+  "aiSimulations": {
+    "title": "محاكاة واختبار رجعي للذكاء الاصطناعي",
+    "description": "تشغيل وكلاء الذكاء الاصطناعي على مجموعات بيانات تاريخية لاختبار السلوك قبل النشر",
+    "noAccess": "ليس لديك صلاحية لعرض محاكاة الذكاء الاصطناعي",
+    "kpi": {
+      "total": "إجمالي المحاكاة",
+      "pending": "قيد الانتظار",
+      "running": "قيد التشغيل",
+      "completed": "مكتملة",
+      "failed": "فاشلة",
+      "avgLatency": "متوسط التأخير"
+    },
+    "table": {
+      "name": "الاسم",
+      "agent": "الوكيل",
+      "status": "الحالة",
+      "cases": "الحالات",
+      "avgScore": "متوسط الدرجة",
+      "tokens": "الرموز",
+      "createdAt": "تاريخ الإنشاء",
+      "empty": "لا توجد محاكاة حتى الآن"
+    },
+    "create": "محاكاة جديدة",
+    "namePlaceholder": "الاسم",
+    "selectAgent": "اختر الوكيل",
+    "descPlaceholder": "الوصف (اختياري)",
+    "save": "إنشاء",
+    "cancel": "إلغاء"
+  },
+  "aiSearch": {
+    "title": "بحث دلالي عبر الوحدات",
+    "description": "البحث عبر نتائج الذكاء الاصطناعي ومحادثات الدردشة والذكريات والتنبيهات والحالات والحوادث",
+    "noAccess": "ليس لديك صلاحية للوصول إلى بحث الذكاء الاصطناعي",
+    "searchPlaceholder": "البحث في جميع الوحدات...",
+    "enterQuery": "أدخل استعلام بحث للبدء",
+    "modules": {
+      "findings": "النتائج",
+      "chatThreads": "محادثات الدردشة",
+      "memories": "الذكريات",
+      "alerts": "التنبيهات",
+      "cases": "الحالات",
+      "incidents": "الحوادث"
+    },
+    "table": {
+      "module": "الوحدة",
+      "title": "العنوان",
+      "snippet": "المقتطف",
+      "score": "الدرجة",
+      "createdAt": "تاريخ الإنشاء",
+      "empty": "لم يتم العثور على نتائج"
+    }
+  },
+  "aiAgentGraph": {
+    "title": "رسم بياني لتبعيات وجداول الوكلاء",
+    "description": "تصور علاقات الوكلاء والجداول وحالة الصحة وتدفق التنفيذ",
+    "noAccess": "ليس لديك صلاحية لعرض رسم بياني الوكلاء",
+    "kpi": {
+      "totalAgents": "إجمالي الوكلاء",
+      "enabledAgents": "مفعّلون",
+      "coreAgents": "أساسيون",
+      "specialistAgents": "متخصصون",
+      "totalSchedules": "إجمالي الجداول",
+      "enabledSchedules": "جداول نشطة"
+    },
+    "table": {
+      "name": "اسم الوكيل",
+      "type": "النوع",
+      "core": "أساسي",
+      "specialist": "متخصص",
+      "executionAgent": "وكيل التنفيذ",
+      "enabled": "مفعّل",
+      "yes": "نعم",
+      "no": "لا",
+      "schedules": "الجداول",
+      "features": "الميزات",
+      "tokens": "الرموز المستخدمة",
+      "empty": "لا يوجد وكلاء مكوّنين"
+    }
   }
 }

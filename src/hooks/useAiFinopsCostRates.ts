@@ -7,9 +7,10 @@ import { Toast } from '@/components/common'
 import { Permission } from '@/enums'
 import { hasPermission } from '@/lib/permissions'
 import { buildErrorToastHandler } from '@/lib/toast.utils'
-import { aiUsageService } from '@/services'
+import { AI_CONNECTOR_FALLBACK } from '@/lib/constants/ai-agents'
+import { aiUsageService, llmConnectorService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
-import type { AiCostRate } from '@/types'
+import type { AiCostRate, AvailableAiConnector } from '@/types'
 
 export function useAiFinopsCostRates() {
   const t = useTranslations('aiFinops')
@@ -25,6 +26,13 @@ export function useAiFinopsCostRates() {
   const [formModel, setFormModel] = useState('')
   const [formInputCost, setFormInputCost] = useState('0.003')
   const [formOutputCost, setFormOutputCost] = useState('0.015')
+
+  const connectorsQuery = useQuery<AvailableAiConnector[]>({
+    queryKey: ['ai-connectors-available', tenantId],
+    queryFn: () => llmConnectorService.getAvailable(),
+    staleTime: 15_000,
+  })
+  const availableConnectors = connectorsQuery.data ?? AI_CONNECTOR_FALLBACK
 
   const ratesQuery = useQuery<AiCostRate[]>({
     queryKey: ['ai-finops-cost-rates', tenantId],
@@ -95,6 +103,7 @@ export function useAiFinopsCostRates() {
   return {
     t,
     canManage,
+    availableConnectors,
     rates: Array.isArray(ratesQuery.data) ? ratesQuery.data : [],
     isLoading: ratesQuery.isLoading,
     isAdding,

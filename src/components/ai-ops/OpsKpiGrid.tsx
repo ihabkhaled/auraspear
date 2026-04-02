@@ -76,7 +76,7 @@ export function OpsKpiGrid({
       </div>
 
       <h3 className="text-sm font-semibold text-muted-foreground">{t('sections.findings')}</h3>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <KpiCard
           label={t('kpi.totalFindings')}
           value={String(workspace.findings.total)}

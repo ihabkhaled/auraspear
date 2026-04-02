@@ -2,7 +2,15 @@
 
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { DataTable, LoadingSpinner } from '@/components/common'
-import { Button, Input } from '@/components/ui'
+import {
+  Button,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui'
 import { useAiFinopsCostRates } from '@/hooks'
 import type { AiCostRate, Column } from '@/types'
 
@@ -10,11 +18,11 @@ export function FinopsCostRatesPanel() {
   const {
     t,
     canManage,
+    availableConnectors,
     rates,
     isLoading,
     isAdding,
     formProvider,
-    formModel,
     formInputCost,
     formOutputCost,
     setFormProvider,
@@ -29,9 +37,22 @@ export function FinopsCostRatesPanel() {
     handleDelete,
   } = useAiFinopsCostRates()
 
+  const resolveConnectorName = (key: string): string => {
+    const connector = availableConnectors.find(c => c.key === key)
+    return connector?.label ?? key
+  }
+
   const columns: Column<AiCostRate>[] = [
-    { key: 'provider', label: t('costRates.provider') },
-    { key: 'model', label: t('costRates.model') },
+    {
+      key: 'provider',
+      label: t('costRates.provider'),
+      render: value => <span>{resolveConnectorName(value as string)}</span>,
+    },
+    {
+      key: 'model',
+      label: t('costRates.model'),
+      render: value => <span>{resolveConnectorName(value as string)}</span>,
+    },
     {
       key: 'inputCostPer1k',
       label: t('costRates.inputCostPer1k'),
@@ -77,17 +98,21 @@ export function FinopsCostRatesPanel() {
       )}
 
       {isAdding && (
-        <div className="bg-muted/50 grid grid-cols-1 gap-3 rounded-lg border p-4 sm:grid-cols-2 lg:grid-cols-5">
-          <Input
-            placeholder={t('costRates.provider')}
-            value={formProvider}
-            onChange={e => setFormProvider(e.currentTarget.value)}
-          />
-          <Input
-            placeholder={t('costRates.model')}
-            value={formModel}
-            onChange={e => setFormModel(e.currentTarget.value)}
-          />
+        <div className="bg-muted/50 grid grid-cols-1 gap-3 rounded-lg border p-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Select value={formProvider || 'none'} onValueChange={v => {
+            setFormProvider(v === 'none' ? '' : v)
+            setFormModel(v === 'none' ? '' : v)
+          }}>
+            <SelectTrigger>
+              <SelectValue placeholder={t('costRates.selectProvider')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">{t('costRates.selectProvider')}</SelectItem>
+              {availableConnectors.map(c => (
+                <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
           <Input
             type="number"
             step="0.0001"
@@ -106,9 +131,7 @@ export function FinopsCostRatesPanel() {
             <Button
               size="sm"
               onClick={handleSave}
-              disabled={
-                isSaving || formProvider.trim().length === 0 || formModel.trim().length === 0
-              }
+              disabled={isSaving || formProvider.trim().length === 0}
             >
               {t('costRates.save')}
             </Button>

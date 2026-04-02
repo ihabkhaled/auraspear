@@ -56,7 +56,12 @@
     "aiFinops": "AI FinOps",
     "aiTranscripts": "KI-Transkripte",
     "aiOps": "KI-Operationen",
-    "aiHandoffs": "KI-Übergaben"
+    "aiHandoffs": "KI-Übergaben",
+    "aiRag": "RAG-Beobachtbarkeit",
+    "aiEval": "KI-Evaluierungslabor",
+    "aiSimulations": "KI-Simulationen",
+    "aiSearch": "KI-Suche",
+    "aiAgentGraph": "Agenten-Graph"
   },
   "common": {
     "search": "Suche",
@@ -1728,6 +1733,13 @@
       "approvalNotFound": "Genehmigungsanfrage nicht gefunden.",
       "approvalAlreadyResolved": "Die Genehmigungsanfrage wurde bereits bearbeitet.",
       "approvalExpired": "Die Genehmigungsanfrage ist abgelaufen."
+    },
+    "aiEval": {
+      "suiteNotFound": "Evaluierungssuite nicht gefunden",
+      "runNotFound": "Evaluierungslauf nicht gefunden"
+    },
+    "aiSimulation": {
+      "notFound": "Simulation nicht gefunden"
     }
   },
   "profile": {
@@ -3769,7 +3781,10 @@
       "aiFinops": "AI FinOps",
       "aiTranscript": "KI-Transkripte",
       "aiOps": "KI-Operationen",
-      "aiHandoff": "KI-Übergaben"
+      "aiHandoff": "KI-Übergaben",
+      "aiRag": "RAG-Beobachtbarkeit",
+      "aiEval": "KI-Evaluierungslabor",
+      "aiSimulation": "KI-Simulation"
     },
     "permissions": {
       "dashboard": {
@@ -4005,6 +4020,14 @@
       },
       "aiHandoff": {
         "promote": "KI-Ergebnisse übertragen"
+      },
+      "aiEval": {
+        "view": "KI-Evaluierungslabor anzeigen",
+        "manage": "KI-Evaluierungslabor verwalten"
+      },
+      "aiSimulation": {
+        "view": "KI-Simulationen anzeigen",
+        "manage": "KI-Simulationen verwalten"
       }
     },
     "roles": {
@@ -4274,7 +4297,9 @@
       "requests": "Anfragen",
       "user": "Benutzer"
     },
-    "chart": { "cost": "Kosten" },
+    "chart": {
+      "cost": "Kosten"
+    },
     "costRates": {
       "provider": "Anbieter",
       "model": "Modell",
@@ -4283,6 +4308,7 @@
       "save": "Tarif speichern",
       "delete": "Löschen",
       "add": "Tarif hinzufügen",
+      "selectProvider": "Anbieter auswählen",
       "saved": "Tarif gespeichert",
       "deleted": "Tarif gelöscht",
       "empty": "Keine Tarife konfiguriert",
@@ -4461,7 +4487,10 @@
       "uniqueUsers": "Benutzer mit Erinnerungen",
       "categories": "Verwendete Kategorien"
     },
-    "sections": { "retention": "Aufbewahrungsrichtlinie", "allMemories": "Alle Erinnerungen" },
+    "sections": {
+      "retention": "Aufbewahrungsrichtlinie",
+      "allMemories": "Alle Erinnerungen"
+    },
     "table": {
       "user": "Benutzer",
       "content": "Inhalt",
@@ -4911,5 +4940,157 @@
     "session": "Sitzung",
     "title": "Titel",
     "perPage": "Pro Seite"
+  },
+  "ragObservability": {
+    "title": "Abruf- & RAG-Beobachtbarkeit",
+    "description": "Untersuchen Sie, welche Erinnerungen, Fragmente und Ähnlichkeitswerte zu KI-Antworten beitragen",
+    "noAccess": "Sie haben keine Berechtigung, die RAG-Beobachtbarkeit anzuzeigen",
+    "kpi": {
+      "avgMemories": "Durchschn. Erinnerungen/Abfrage",
+      "avgSimilarity": "Durchschn. Ähnlichkeit",
+      "categories": "Kategorien",
+      "retrievals24h": "Abrufe (24h)"
+    },
+    "sections": {
+      "trace": "Abrufverfolgung"
+    },
+    "trace": {
+      "placeholder": "Geben Sie eine Abfrage ein, um den Abruf zu verfolgen...",
+      "run": "Verfolgen",
+      "content": "Erinnerungsinhalt",
+      "category": "Kategorie",
+      "similarity": "Ähnlichkeit",
+      "retrieved": "Abgerufen",
+      "scanned": "Gescannt",
+      "threshold": "Schwellenwert",
+      "duration": "Dauer",
+      "noMemories": "Keine Erinnerungen entsprachen der Abfrage"
+    }
+  },
+  "aiEval": {
+    "title": "KI-Evaluierung & Regressionslabor",
+    "description": "Vergleichen Sie KI-Modelle, Prompts und Konnektoren mit Golden Datasets vor dem Rollout",
+    "noAccess": "Sie haben keine Berechtigung, das KI-Evaluierungslabor anzuzeigen",
+    "kpi": {
+      "totalSuites": "Total Suites",
+      "totalRuns": "Total Runs",
+      "avgScore": "Avg Score",
+      "pendingRuns": "Pending",
+      "completedRuns": "Completed",
+      "failedRuns": "Failed"
+    },
+    "sections": {
+      "suites": "Evaluation Suites",
+      "runs": "Evaluation Runs"
+    },
+    "suites": {
+      "name": "Name",
+      "description": "Description",
+      "runs": "Runs",
+      "createdAt": "Created",
+      "empty": "No evaluation suites yet",
+      "create": "Neue Suite",
+      "namePlaceholder": "Suite-Name",
+      "descPlaceholder": "Beschreibung (optional)",
+      "save": "Erstellen",
+      "cancel": "Abbrechen"
+    },
+    "runs": {
+      "suite": "Suite",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "avgScore": "Avg Score",
+      "passed": "Passed",
+      "latency": "Latency",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No evaluation runs yet",
+      "start": "Ausführung starten",
+      "selectSuite": "Suite auswählen",
+      "selectConnector": "Connector auswählen",
+      "modelPlaceholder": "Modellname",
+      "execute": "Ausführen",
+      "cancel": "Abbrechen"
+    }
+  },
+  "aiSimulations": {
+    "title": "KI-Simulation und Rucktests",
+    "description": "Fuhren Sie KI-Agenten gegen historische Datensatze aus, um das Verhalten vor dem Einsatz zu testen",
+    "noAccess": "Sie haben keine Berechtigung, KI-Simulationen anzuzeigen",
+    "kpi": {
+      "total": "Gesamt Simulationen",
+      "pending": "Ausstehend",
+      "running": "Laufend",
+      "completed": "Abgeschlossen",
+      "failed": "Fehlgeschlagen",
+      "avgLatency": "Durchschn. Latenz"
+    },
+    "table": {
+      "name": "Name",
+      "agent": "Agent",
+      "status": "Status",
+      "cases": "Falle",
+      "avgScore": "Durchschn. Bewertung",
+      "tokens": "Tokens",
+      "createdAt": "Erstellt",
+      "empty": "Noch keine Simulationen"
+    },
+    "create": "Neue Simulation",
+    "namePlaceholder": "Name",
+    "selectAgent": "Agent auswählen",
+    "descPlaceholder": "Beschreibung (optional)",
+    "save": "Erstellen",
+    "cancel": "Abbrechen"
+  },
+  "aiSearch": {
+    "title": "Modulubergreifende Semantische Suche",
+    "description": "Suchen Sie in KI-Ergebnissen, Chat-Threads, Erinnerungen, Alarmen, Fallen und Vorfallen",
+    "noAccess": "Sie haben keine Berechtigung, auf die KI-Suche zuzugreifen",
+    "searchPlaceholder": "In allen Modulen suchen...",
+    "enterQuery": "Geben Sie eine Suchanfrage ein",
+    "modules": {
+      "findings": "Ergebnisse",
+      "chatThreads": "Chat-Threads",
+      "memories": "Erinnerungen",
+      "alerts": "Alarme",
+      "cases": "Falle",
+      "incidents": "Vorfalle"
+    },
+    "table": {
+      "module": "Modul",
+      "title": "Titel",
+      "snippet": "Auszug",
+      "score": "Bewertung",
+      "createdAt": "Erstellt",
+      "empty": "Keine Ergebnisse gefunden"
+    }
+  },
+  "aiAgentGraph": {
+    "title": "Agenten-Abhangigkeits- und Zeitplan-Graph",
+    "description": "Visualisieren Sie Agentenbeziehungen, Zeitplane, Gesundheitsstatus und Ausfuhrungsablauf",
+    "noAccess": "Sie haben keine Berechtigung, den Agenten-Graph anzuzeigen",
+    "kpi": {
+      "totalAgents": "Gesamt Agenten",
+      "enabledAgents": "Aktiviert",
+      "coreAgents": "Kern",
+      "specialistAgents": "Spezialisten",
+      "totalSchedules": "Gesamt Zeitplane",
+      "enabledSchedules": "Aktive Zeitplane"
+    },
+    "table": {
+      "name": "Agentenname",
+      "type": "Typ",
+      "core": "Kern",
+      "specialist": "Spezialist",
+      "executionAgent": "Ausfuhrungsagent",
+      "enabled": "Aktiviert",
+      "yes": "Ja",
+      "no": "Nein",
+      "schedules": "Zeitplane",
+      "features": "Funktionen",
+      "tokens": "Verwendete Tokens",
+      "empty": "Keine Agenten konfiguriert"
+    }
   }
 }

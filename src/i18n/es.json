@@ -56,7 +56,12 @@
     "aiFinops": "AI FinOps",
     "aiTranscripts": "Transcripciones IA",
     "aiOps": "Operaciones IA",
-    "aiHandoffs": "Transferencias IA"
+    "aiHandoffs": "Transferencias IA",
+    "aiRag": "Observabilidad RAG",
+    "aiEval": "Laboratorio de Evaluacion IA",
+    "aiSimulations": "Simulaciones IA",
+    "aiSearch": "Busqueda IA",
+    "aiAgentGraph": "Grafo de Agentes"
   },
   "common": {
     "search": "Buscar",
@@ -1728,6 +1733,13 @@
       "approvalNotFound": "Solicitud de aprobación no encontrada.",
       "approvalAlreadyResolved": "La solicitud de aprobación ya fue resuelta.",
       "approvalExpired": "La solicitud de aprobación ha expirado."
+    },
+    "aiEval": {
+      "suiteNotFound": "Suite de evaluacion no encontrada",
+      "runNotFound": "Ejecucion de evaluacion no encontrada"
+    },
+    "aiSimulation": {
+      "notFound": "Simulacion no encontrada"
     }
   },
   "profile": {
@@ -3769,7 +3781,10 @@
       "aiFinops": "AI FinOps",
       "aiTranscript": "Transcripciones IA",
       "aiOps": "Operaciones IA",
-      "aiHandoff": "Transferencias IA"
+      "aiHandoff": "Transferencias IA",
+      "aiRag": "Observabilidad RAG",
+      "aiEval": "Laboratorio de Evaluacion IA",
+      "aiSimulation": "Simulacion IA"
     },
     "permissions": {
       "dashboard": {
@@ -4005,6 +4020,14 @@
       },
       "aiHandoff": {
         "promote": "Promover Hallazgos IA"
+      },
+      "aiEval": {
+        "view": "Ver Laboratorio de Evaluacion IA",
+        "manage": "Gestionar Laboratorio de Evaluacion IA"
+      },
+      "aiSimulation": {
+        "view": "Ver Simulaciones IA",
+        "manage": "Gestionar Simulaciones IA"
       }
     },
     "roles": {
@@ -4274,7 +4297,9 @@
       "requests": "Solicitudes",
       "user": "Usuario"
     },
-    "chart": { "cost": "Costo" },
+    "chart": {
+      "cost": "Costo"
+    },
     "costRates": {
       "provider": "Proveedor",
       "model": "Modelo",
@@ -4283,6 +4308,7 @@
       "save": "Guardar Tarifa",
       "delete": "Eliminar",
       "add": "Agregar Tarifa",
+      "selectProvider": "Seleccionar Proveedor",
       "saved": "Tarifa de costo guardada",
       "deleted": "Tarifa de costo eliminada",
       "empty": "No hay tarifas de costo configuradas",
@@ -4461,7 +4487,10 @@
       "uniqueUsers": "Usuarios con Memorias",
       "categories": "Categorías Usadas"
     },
-    "sections": { "retention": "Política de Retención", "allMemories": "Todas las Memorias" },
+    "sections": {
+      "retention": "Política de Retención",
+      "allMemories": "Todas las Memorias"
+    },
     "table": {
       "user": "Usuario",
       "content": "Contenido",
@@ -4911,5 +4940,157 @@
     "session": "Sesión",
     "title": "Título",
     "perPage": "Por página"
+  },
+  "ragObservability": {
+    "title": "Observabilidad de Recuperación y RAG",
+    "description": "Inspeccionar qué memorias, fragmentos y puntuaciones de similitud contribuyen a las respuestas de IA",
+    "noAccess": "No tiene permiso para ver la observabilidad RAG",
+    "kpi": {
+      "avgMemories": "Memorias Prom./Consulta",
+      "avgSimilarity": "Similitud Promedio",
+      "categories": "Categorías",
+      "retrievals24h": "Recuperaciones (24h)"
+    },
+    "sections": {
+      "trace": "Traza de Recuperación"
+    },
+    "trace": {
+      "placeholder": "Ingrese una consulta para rastrear la recuperación...",
+      "run": "Rastrear",
+      "content": "Contenido de Memoria",
+      "category": "Categoría",
+      "similarity": "Similitud",
+      "retrieved": "Recuperadas",
+      "scanned": "Escaneadas",
+      "threshold": "Umbral",
+      "duration": "Duración",
+      "noMemories": "Ninguna memoria coincidió con la consulta"
+    }
+  },
+  "aiEval": {
+    "title": "Laboratorio de Evaluacion y Regresion IA",
+    "description": "Compare modelos de IA, prompts y conectores en datasets dorados antes del despliegue",
+    "noAccess": "No tiene permiso para ver el Laboratorio de Evaluacion IA",
+    "kpi": {
+      "totalSuites": "Total Suites",
+      "totalRuns": "Total Runs",
+      "avgScore": "Avg Score",
+      "pendingRuns": "Pending",
+      "completedRuns": "Completed",
+      "failedRuns": "Failed"
+    },
+    "sections": {
+      "suites": "Evaluation Suites",
+      "runs": "Evaluation Runs"
+    },
+    "suites": {
+      "name": "Name",
+      "description": "Description",
+      "runs": "Runs",
+      "createdAt": "Created",
+      "empty": "No evaluation suites yet",
+      "create": "Nueva Suite",
+      "namePlaceholder": "Nombre de suite",
+      "descPlaceholder": "Descripción (opcional)",
+      "save": "Crear",
+      "cancel": "Cancelar"
+    },
+    "runs": {
+      "suite": "Suite",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "avgScore": "Avg Score",
+      "passed": "Passed",
+      "latency": "Latency",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No evaluation runs yet",
+      "start": "Iniciar Ejecución",
+      "selectSuite": "Seleccionar Suite",
+      "selectConnector": "Seleccionar Conector",
+      "modelPlaceholder": "Nombre del modelo",
+      "execute": "Ejecutar",
+      "cancel": "Cancelar"
+    }
+  },
+  "aiSimulations": {
+    "title": "Simulacion y Pruebas Retrospectivas IA",
+    "description": "Ejecute agentes IA contra conjuntos de datos historicos para probar comportamiento antes del despliegue",
+    "noAccess": "No tiene permiso para ver las Simulaciones IA",
+    "kpi": {
+      "total": "Total Simulaciones",
+      "pending": "Pendientes",
+      "running": "En Ejecucion",
+      "completed": "Completadas",
+      "failed": "Fallidas",
+      "avgLatency": "Latencia Promedio"
+    },
+    "table": {
+      "name": "Nombre",
+      "agent": "Agente",
+      "status": "Estado",
+      "cases": "Casos",
+      "avgScore": "Puntuacion Promedio",
+      "tokens": "Tokens",
+      "createdAt": "Creado",
+      "empty": "No hay simulaciones aun"
+    },
+    "create": "Nueva Simulación",
+    "namePlaceholder": "Nombre",
+    "selectAgent": "Seleccionar Agente",
+    "descPlaceholder": "Descripción (opcional)",
+    "save": "Crear",
+    "cancel": "Cancelar"
+  },
+  "aiSearch": {
+    "title": "Busqueda Semantica Multi-Modulo",
+    "description": "Buscar en hallazgos IA, hilos de chat, memorias, alertas, casos e incidentes",
+    "noAccess": "No tiene permiso para acceder a la Busqueda IA",
+    "searchPlaceholder": "Buscar en todos los modulos...",
+    "enterQuery": "Ingrese una consulta para comenzar",
+    "modules": {
+      "findings": "Hallazgos",
+      "chatThreads": "Hilos de Chat",
+      "memories": "Memorias",
+      "alerts": "Alertas",
+      "cases": "Casos",
+      "incidents": "Incidentes"
+    },
+    "table": {
+      "module": "Modulo",
+      "title": "Titulo",
+      "snippet": "Fragmento",
+      "score": "Puntuacion",
+      "createdAt": "Creado",
+      "empty": "No se encontraron resultados"
+    }
+  },
+  "aiAgentGraph": {
+    "title": "Grafo de Dependencias y Programacion de Agentes",
+    "description": "Visualizar relaciones de agentes, programaciones, estado de salud y flujo de ejecucion",
+    "noAccess": "No tiene permiso para ver el Grafo de Agentes",
+    "kpi": {
+      "totalAgents": "Total Agentes",
+      "enabledAgents": "Habilitados",
+      "coreAgents": "Principales",
+      "specialistAgents": "Especialistas",
+      "totalSchedules": "Total Programaciones",
+      "enabledSchedules": "Programaciones Activas"
+    },
+    "table": {
+      "name": "Nombre del Agente",
+      "type": "Tipo",
+      "core": "Principal",
+      "specialist": "Especialista",
+      "executionAgent": "Agente de Ejecucion",
+      "enabled": "Habilitado",
+      "yes": "Si",
+      "no": "No",
+      "schedules": "Programaciones",
+      "features": "Caracteristicas",
+      "tokens": "Tokens Usados",
+      "empty": "No hay agentes configurados"
+    }
   }
 }

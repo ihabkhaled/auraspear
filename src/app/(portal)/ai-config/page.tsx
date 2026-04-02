@@ -322,6 +322,7 @@ export default function AiConfigPage() {
             loading={featuresLoading}
             onEdit={handleEditFeature}
             {...(canEdit ? { onToggle: handleToggleFeature } : {})}
+            availableConnectors={availableConnectors}
             t={t}
           />
         </TabsContent>

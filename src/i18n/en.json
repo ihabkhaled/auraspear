@@ -56,7 +56,12 @@
     "aiFinops": "AI FinOps",
     "aiTranscripts": "AI Transcripts",
     "aiOps": "AI Operations",
-    "aiHandoffs": "AI Handoffs"
+    "aiHandoffs": "AI Handoffs",
+    "aiRag": "RAG Observability",
+    "aiEval": "AI Eval Lab",
+    "aiSimulations": "AI Simulations",
+    "aiSearch": "AI Search",
+    "aiAgentGraph": "Agent Graph"
   },
   "common": {
     "search": "Search",
@@ -1859,6 +1864,13 @@
       "approvalNotFound": "Approval request not found.",
       "approvalAlreadyResolved": "Approval request has already been resolved.",
       "approvalExpired": "Approval request has expired."
+    },
+    "aiEval": {
+      "suiteNotFound": "Evaluation suite not found",
+      "runNotFound": "Evaluation run not found"
+    },
+    "aiSimulation": {
+      "notFound": "Simulation not found"
     }
   },
   "profile": {
@@ -3953,7 +3965,10 @@
       "aiFinops": "AI FinOps",
       "aiTranscript": "AI Transcripts",
       "aiOps": "AI Operations",
-      "aiHandoff": "AI Handoffs"
+      "aiHandoff": "AI Handoffs",
+      "aiRag": "RAG Observability",
+      "aiEval": "AI Eval Lab",
+      "aiSimulation": "AI Simulation"
     },
     "permissions": {
       "dashboard": {
@@ -4189,6 +4204,14 @@
       },
       "aiHandoff": {
         "promote": "Promote AI Findings"
+      },
+      "aiEval": {
+        "view": "View AI Eval Lab",
+        "manage": "Manage AI Eval Lab"
+      },
+      "aiSimulation": {
+        "view": "View AI Simulations",
+        "manage": "Manage AI Simulations"
       }
     },
     "roles": {
@@ -4417,6 +4440,7 @@
       "save": "Save Rate",
       "delete": "Delete",
       "add": "Add Cost Rate",
+      "selectProvider": "Select Provider",
       "saved": "Cost rate saved",
       "deleted": "Cost rate deleted",
       "empty": "No cost rates configured",
@@ -5053,5 +5077,157 @@
     "session": "Session",
     "title": "Title",
     "perPage": "Per page"
+  },
+  "ragObservability": {
+    "title": "Retrieval & RAG Observability",
+    "description": "Inspect which memories, chunks, and similarity scores contribute to AI responses",
+    "noAccess": "You do not have permission to view RAG observability",
+    "kpi": {
+      "avgMemories": "Avg Memories/Query",
+      "avgSimilarity": "Avg Similarity",
+      "categories": "Categories",
+      "retrievals24h": "Retrievals (24h)"
+    },
+    "sections": {
+      "trace": "Retrieval Trace"
+    },
+    "trace": {
+      "placeholder": "Enter a query to trace retrieval...",
+      "run": "Trace",
+      "content": "Memory Content",
+      "category": "Category",
+      "similarity": "Similarity",
+      "retrieved": "Retrieved",
+      "scanned": "Scanned",
+      "threshold": "Threshold",
+      "duration": "Duration",
+      "noMemories": "No memories matched the query"
+    }
+  },
+  "aiEval": {
+    "title": "AI Evaluation & Regression Lab",
+    "description": "Compare AI models, prompts, and connectors on golden datasets before rollout",
+    "noAccess": "You do not have permission to view the AI Eval Lab",
+    "kpi": {
+      "totalSuites": "Total Suites",
+      "totalRuns": "Total Runs",
+      "avgScore": "Avg Score",
+      "pendingRuns": "Pending",
+      "completedRuns": "Completed",
+      "failedRuns": "Failed"
+    },
+    "sections": {
+      "suites": "Evaluation Suites",
+      "runs": "Evaluation Runs"
+    },
+    "suites": {
+      "name": "Name",
+      "description": "Description",
+      "runs": "Runs",
+      "createdAt": "Created",
+      "empty": "No evaluation suites yet",
+      "create": "New Suite",
+      "namePlaceholder": "Suite name",
+      "descPlaceholder": "Description (optional)",
+      "save": "Create",
+      "cancel": "Cancel"
+    },
+    "runs": {
+      "suite": "Suite",
+      "provider": "Provider",
+      "model": "Model",
+      "status": "Status",
+      "avgScore": "Avg Score",
+      "passed": "Passed",
+      "latency": "Latency",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No evaluation runs yet",
+      "start": "Start Run",
+      "selectSuite": "Select Suite",
+      "selectConnector": "Select Connector",
+      "modelPlaceholder": "Model name (e.g. claude-sonnet-4-5-20250929)",
+      "execute": "Run",
+      "cancel": "Cancel"
+    }
+  },
+  "aiSimulations": {
+    "title": "AI Simulation & Backtesting",
+    "description": "Run AI agents against historical datasets to test behavior before production deployment",
+    "noAccess": "You do not have permission to view AI Simulations",
+    "kpi": {
+      "total": "Total Simulations",
+      "pending": "Pending",
+      "running": "Running",
+      "completed": "Completed",
+      "failed": "Failed",
+      "avgLatency": "Avg Latency"
+    },
+    "table": {
+      "name": "Name",
+      "agent": "Agent",
+      "status": "Status",
+      "cases": "Cases",
+      "avgScore": "Avg Score",
+      "tokens": "Tokens",
+      "createdAt": "Created",
+      "empty": "No simulations yet"
+    },
+    "create": "New Simulation",
+    "namePlaceholder": "Simulation name",
+    "selectAgent": "Select Agent",
+    "descPlaceholder": "Description (optional)",
+    "save": "Create",
+    "cancel": "Cancel"
+  },
+  "aiSearch": {
+    "title": "Cross-Module Semantic Search",
+    "description": "Search across AI findings, chat threads, memories, alerts, cases, and incidents",
+    "noAccess": "You do not have permission to access AI Search",
+    "searchPlaceholder": "Search across all modules...",
+    "enterQuery": "Enter a search query to begin",
+    "modules": {
+      "findings": "Findings",
+      "chatThreads": "Chat Threads",
+      "memories": "Memories",
+      "alerts": "Alerts",
+      "cases": "Cases",
+      "incidents": "Incidents"
+    },
+    "table": {
+      "module": "Module",
+      "title": "Title",
+      "snippet": "Snippet",
+      "score": "Score",
+      "createdAt": "Created",
+      "empty": "No results found"
+    }
+  },
+  "aiAgentGraph": {
+    "title": "Agent Dependency & Schedule Graph",
+    "description": "Visualize agent relationships, schedules, health status, and execution flow",
+    "noAccess": "You do not have permission to view the Agent Graph",
+    "kpi": {
+      "totalAgents": "Total Agents",
+      "enabledAgents": "Enabled",
+      "coreAgents": "Core",
+      "specialistAgents": "Specialist",
+      "totalSchedules": "Total Schedules",
+      "enabledSchedules": "Active Schedules"
+    },
+    "table": {
+      "name": "Agent Name",
+      "type": "Type",
+      "core": "Core",
+      "specialist": "Specialist",
+      "executionAgent": "Execution Agent",
+      "enabled": "Enabled",
+      "yes": "Yes",
+      "no": "No",
+      "schedules": "Schedules",
+      "features": "Features",
+      "tokens": "Tokens Used",
+      "empty": "No agents configured"
+    }
   }
 }

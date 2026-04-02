@@ -149,6 +149,7 @@ export interface AiTranscriptThread {
   id: string
   tenantId: string
   userId: string
+  user?: { email: string }
   title: string | null
   model: string | null
   provider: string | null
@@ -266,4 +267,158 @@ export interface AiHandoffPromoteResult {
   link: unknown
   createdEntityId: string
   targetModule: string
+}
+
+/* ── RAG Observability types ─────────────────────────── */
+
+export interface RagRetrievedMemory {
+  id: string
+  content: string
+  category: string
+  similarity: number
+}
+
+export interface RagTraceResult {
+  query: string
+  memoriesRetrieved: RagRetrievedMemory[]
+  totalMemoriesScanned: number
+  embeddingModel: string | null
+  similarityThreshold: number
+  topN: number
+  retrievalDurationMs: number
+}
+
+export interface RagStats {
+  totalRetrievals24h: number
+  avgMemoriesPerRetrieval: number
+  avgSimilarityScore: number
+  topCategories: Array<{ category: string; count: number }>
+}
+
+export interface RagTracePanelProps {
+  t: (key: string) => string
+  traceQuery: string
+  setTraceQuery: (v: string) => void
+  traceResult: RagTraceResult | null
+  onTrace: () => void
+  isTracing: boolean
+}
+
+/* ── AI Eval Lab types ────────────────────────────────── */
+
+export interface AiEvalSuite {
+  id: string
+  tenantId: string
+  name: string
+  description: string | null
+  datasetJson: unknown
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+  _count?: { runs: number }
+}
+
+export interface AiEvalRun {
+  id: string
+  tenantId: string
+  suiteId: string
+  provider: string
+  model: string
+  status: string
+  totalCases: number
+  passedCases: number
+  failedCases: number
+  avgScore: number | null
+  avgLatencyMs: number | null
+  totalTokens: number
+  resultsJson: unknown
+  errorMessage: string | null
+  startedAt: string | null
+  completedAt: string | null
+  createdBy: string
+  createdAt: string
+  suite?: { name: string }
+}
+
+export interface AiEvalStats {
+  totalSuites: number
+  totalRuns: number
+  avgScore: number | null
+  pendingRuns: number
+  completedRuns: number
+  failedRuns: number
+}
+
+/* ── AI Simulation types ──────────────────────────────── */
+
+export interface AiSimulation {
+  id: string
+  tenantId: string
+  name: string
+  description: string | null
+  agentId: string
+  datasetJson: unknown
+  status: string
+  totalCases: number
+  completedCases: number
+  resultsJson: unknown
+  avgScore: number | null
+  avgLatencyMs: number | null
+  totalTokens: number
+  errorMessage: string | null
+  startedAt: string | null
+  completedAt: string | null
+  createdBy: string
+  createdAt: string
+}
+
+export interface AiSimulationStats {
+  total: number
+  pending: number
+  running: number
+  completed: number
+  failed: number
+  avgScore: number | null
+  avgLatencyMs: number | null
+}
+
+/* ── Semantic Search types ────────────────────────────── */
+
+export interface SemanticSearchResult {
+  id: string
+  module: string
+  entityType: string
+  title: string
+  snippet: string
+  score: number
+  createdAt: string
+}
+
+export interface SearchableModule {
+  key: string
+  label: string
+}
+
+/* ── Agent Graph types ────────────────────────────────── */
+
+export interface AgentGraphNode {
+  agentId: string
+  displayName: string
+  isEnabled: boolean
+  isCore: boolean
+  executionAgent: string | null
+  schedules: { id: string; cronExpression: string; isEnabled: boolean }[]
+  features: string[]
+  lastStatus: string | null
+  tokenUsage: number
+}
+
+export interface ScheduleHealthSummary {
+  totalSchedules: number
+  enabledSchedules: number
+  disabledSchedules: number
+  totalAgents: number
+  enabledAgents: number
+  coreAgents: number
+  specialistAgents: number
 }

@@ -5,7 +5,7 @@ import { DataTable } from '@/components/common'
 import { Badge, Button, Switch } from '@/components/ui'
 import type { AiFeatureConfig, Column, FeatureTableProps } from '@/types'
 
-export function FeatureTable({ features, loading, onEdit, onToggle, t }: FeatureTableProps) {
+export function FeatureTable({ features, loading, onEdit, onToggle, availableConnectors, t }: FeatureTableProps) {
   // Columns contain JSX render functions — acceptable inline per CLAUDE.md rule 33
   const columns: Column<AiFeatureConfig>[] = [
     { key: 'featureKey', label: t('featureKey') },
@@ -28,7 +28,12 @@ export function FeatureTable({ features, loading, onEdit, onToggle, t }: Feature
     {
       key: 'preferredProvider',
       label: t('featureProvider'),
-      render: (value: unknown) => <span>{(value as string) ?? '-'}</span>,
+      render: (value: unknown) => {
+        const providerKey = value as string | null
+        if (!providerKey) return <span>-</span>
+        const connector = availableConnectors?.find(c => c.key === providerKey)
+        return <span>{connector?.label ?? providerKey}</span>
+      },
     },
     { key: 'maxTokens', label: t('featureMaxTokens') },
     { key: 'approvalLevel', label: t('featureApproval') },

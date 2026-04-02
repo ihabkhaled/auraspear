@@ -38,7 +38,10 @@ export function TranscriptThreadsTable({
     {
       key: 'userId',
       label: t('table.user'),
-      render: (value) => <span className="font-mono text-xs">{(value as string).slice(0, 8)}</span>,
+      render: (_value, row) => {
+        const email = row.user?.email
+        return <span className="text-xs">{email ?? (row.userId as string).slice(0, 8)}</span>
+      },
     },
     {
       key: 'messageCount',
