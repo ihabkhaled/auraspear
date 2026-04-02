@@ -64,6 +64,9 @@ export default function AiFindingsPage() {
     handleRemoveFilter,
     handleUpdateStatus,
     statusLoading,
+    handlePromote,
+    promoteLoading,
+    canPromote,
     setPage,
     setDetailOpen,
     handleLimitChange,
@@ -408,7 +411,10 @@ export default function AiFindingsPage() {
         open={detailOpen}
         onOpenChange={setDetailOpen}
         onUpdateStatus={handleUpdateStatus}
+        onPromote={handlePromote}
         statusLoading={statusLoading}
+        promoteLoading={promoteLoading}
+        canPromote={canPromote}
         t={t}
       />
     </div>

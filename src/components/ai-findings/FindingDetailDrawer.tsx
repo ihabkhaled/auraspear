@@ -1,6 +1,6 @@
 'use client'
 
-import { CheckCircle, XCircle } from 'lucide-react'
+import { ArrowRightLeft, Briefcase, CheckCircle, ShieldAlert, XCircle } from 'lucide-react'
 import {
   Badge,
   Button,
@@ -26,7 +26,10 @@ export function FindingDetailDrawer({
   open,
   onOpenChange,
   onUpdateStatus,
+  onPromote,
   statusLoading,
+  promoteLoading,
+  canPromote,
   t,
 }: FindingDetailDrawerProps) {
   if (!finding) {
@@ -165,6 +168,36 @@ export function FindingDetailDrawer({
               </Button>
             )}
           </div>
+
+          {/* Promote to operations */}
+          {canPromote && onPromote && finding.status === AiFindingStatus.PROPOSED && (
+            <div className="border-border space-y-2 border-t pt-4">
+              <p className="text-muted-foreground text-xs font-medium uppercase">
+                <ArrowRightLeft className="me-1 inline h-3.5 w-3.5" />
+                {t('promoteToOps')}
+              </p>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="default"
+                  size="sm"
+                  disabled={Boolean(promoteLoading)}
+                  onClick={() => onPromote(finding.id, 'case')}
+                >
+                  <Briefcase className="me-1 h-4 w-4" />
+                  {t('promoteToCase')}
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="sm"
+                  disabled={Boolean(promoteLoading)}
+                  onClick={() => onPromote(finding.id, 'incident')}
+                >
+                  <ShieldAlert className="me-1 h-4 w-4" />
+                  {t('promoteToIncident')}
+                </Button>
+              </div>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>

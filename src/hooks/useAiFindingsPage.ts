@@ -4,9 +4,10 @@ import { useCallback, useMemo, useRef, useState } from 'react'
 import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslations } from 'next-intl'
 import { Toast } from '@/components/common'
-import { AiFindingStatus, AiFindingType, AlertSeverity, SortOrder } from '@/enums'
+import { AiFindingStatus, AiFindingType, AlertSeverity, Permission, SortOrder } from '@/enums'
+import { hasPermission } from '@/lib/permissions'
 import { buildErrorToastHandler } from '@/lib/toast.utils'
-import { agentConfigService } from '@/services'
+import { agentConfigService, aiHandoffService } from '@/services'
 import { useAuthStore, useTenantStore } from '@/stores'
 import type { AiExecutionFinding, AiFindingsStats } from '@/types'
 
@@ -162,6 +163,29 @@ export function useAiFindingsPage() {
     [statusMutation]
   )
 
+  const canPromote = hasPermission(permissions, Permission.AI_HANDOFF_PROMOTE)
+
+  const promoteMutation = useMutation({
+    mutationFn: ({ findingId, targetModule }: { findingId: string; targetModule: string }) =>
+      aiHandoffService.promote({ findingId, targetModule }),
+    onSuccess: (result) => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-findings'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-findings-stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-stats'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-history'] })
+      Toast.success(`${t('promotedTo')} ${result.targetModule} (${result.createdEntityId.slice(0, 8)})`)
+      setDetailOpen(false)
+    },
+    onError: buildErrorToastHandler(tErrors),
+  })
+
+  const handlePromote = useCallback(
+    (findingId: string, targetModule: string) => {
+      promoteMutation.mutate({ findingId, targetModule })
+    },
+    [promoteMutation]
+  )
+
   const findings: AiExecutionFinding[] = findingsQuery.data?.data ?? []
   const pagination = findingsQuery.data?.pagination ?? null
 
@@ -298,6 +322,9 @@ export function useAiFindingsPage() {
     handleRemoveFilter,
     handleUpdateStatus,
     statusLoading: statusMutation.isPending,
+    handlePromote,
+    promoteLoading: promoteMutation.isPending,
+    canPromote,
     setPage,
     setDetailOpen,
     handleLimitChange,

@@ -540,7 +540,10 @@ export interface FindingDetailDrawerProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   onUpdateStatus: (id: string, status: string) => void
+  onPromote?: (findingId: string, targetModule: string) => void
   statusLoading: boolean
+  promoteLoading?: boolean
+  canPromote?: boolean
   t: (key: string) => string
 }
 
