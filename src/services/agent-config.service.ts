@@ -206,6 +206,16 @@ export const agentConfigService = {
       .patch<ApiResponse<AiExecutionFinding>>(`/ai/findings/${id}/status`, { status })
       .then(r => r.data),
 
+  exportFindings: (params?: { status?: string; agentId?: string; sourceModule?: string }) =>
+    api
+      .get<ApiResponse<AiExecutionFinding[]>>('/ai/findings/export', { params })
+      .then(r => r.data),
+
+  bulkUpdateFindingStatus: (ids: string[], status: string) =>
+    api
+      .post<ApiResponse<{ updated: number }>>('/ai/findings/bulk-status', { ids, status })
+      .then(r => r.data),
+
   // Chat
   listChatThreads: (params?: { limit?: number; cursor?: string }) =>
     api

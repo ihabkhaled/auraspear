@@ -1538,6 +1538,9 @@
       "connectorFailed": "Der KI-Konnektor ist fehlgeschlagen. Versuchen Sie einen anderen.",
       "connectorTimeout": "Der KI-Konnektor hat das Zeitlimit überschritten.",
       "allConnectorsFailed": "Alle KI-Konnektoren sind fehlgeschlagen. Prüfen Sie den Status.",
+      "findingNotFound": "KI-Ergebnis nicht gefunden.",
+      "invalidStatusTransition": "Ungültiger Statusübergang für dieses Ergebnis.",
+      "bulkLimitExceeded": "Maximal 100 Ergebnisse pro Massenaktion.",
       "agent": {
         "orchestrator": {
           "disabled": "Der KI-Agent Orchestrator ist deaktiviert. Aktivieren Sie ihn in der KI-Konfiguration.",
@@ -4901,6 +4904,9 @@
     "promoteToIncident": "Vorfall erstellen",
     "promotedTo": "Ergebnis übertragen zu",
     "statusUpdated": "Ergebnisstatus aktualisiert",
+    "bulkStatusUpdated": "Massenstatus aktualisiert",
+    "exportDone": "Ergebnisse exportiert",
+    "exportFindings": "Exportieren",
     "sourceEntity": "Quellentität",
     "session": "Sitzung",
     "title": "Titel",

@@ -86,6 +86,35 @@ export const OSINT_AUTH_TYPE_LABELS: Record<OsintAuthType, string> = {
   [OsintAuthType.BASIC]: 'Basic Auth (user:pass)',
 }
 
+/**
+ * Maps specialist agent IDs to their core execution agent.
+ * Used in UI to show which core agent handles the specialist's work.
+ */
+export const AGENT_EXECUTION_MAP: Partial<Record<AiAgentId, AiAgentId>> = {
+  [AiAgentId.ALERT_TRIAGE]: AiAgentId.L1_ANALYST,
+  [AiAgentId.CASE_CREATION]: AiAgentId.L2_ANALYST,
+  [AiAgentId.INCIDENT_ESCALATION]: AiAgentId.L2_ANALYST,
+  [AiAgentId.CORRELATION_SYNTHESIS]: AiAgentId.L2_ANALYST,
+  [AiAgentId.SIGMA_DRAFTING]: AiAgentId.RULES_ANALYST,
+  [AiAgentId.VULN_PRIORITIZATION]: AiAgentId.L2_ANALYST,
+  [AiAgentId.UEBA_NARRATIVE]: AiAgentId.L2_ANALYST,
+  [AiAgentId.ATTACK_PATH_SUMMARY]: AiAgentId.THREAT_HUNTER,
+  [AiAgentId.NORM_VERIFICATION]: AiAgentId.NORM_VERIFIER,
+  [AiAgentId.RULES_HYGIENE]: AiAgentId.RULES_ANALYST,
+  [AiAgentId.REPORTING]: AiAgentId.DASHBOARD_BUILDER,
+  [AiAgentId.ENTITY_LINKING]: AiAgentId.L2_ANALYST,
+  [AiAgentId.JOB_HEALTH]: AiAgentId.ORCHESTRATOR,
+  [AiAgentId.CLOUD_TRIAGE]: AiAgentId.L1_ANALYST,
+  [AiAgentId.SOAR_DRAFTING]: AiAgentId.ORCHESTRATOR,
+  [AiAgentId.THREAT_INTEL_SYNTHESIS]: AiAgentId.L2_ANALYST,
+  [AiAgentId.IOC_ENRICHMENT]: AiAgentId.L2_ANALYST,
+  [AiAgentId.MISP_FEED_REVIEW]: AiAgentId.L2_ANALYST,
+  [AiAgentId.KNOWLEDGE_BASE]: AiAgentId.L1_ANALYST,
+  [AiAgentId.NOTIFICATION_DIGEST]: AiAgentId.ORCHESTRATOR,
+  [AiAgentId.PROVIDER_HEALTH]: AiAgentId.ORCHESTRATOR,
+  [AiAgentId.APPROVAL_ADVISOR]: AiAgentId.ORCHESTRATOR,
+}
+
 export const AI_FEATURE_KEY_LABEL_KEYS: Record<AiFeatureKey, string> = {
   [AiFeatureKey.ALERT_SUMMARIZE]: 'featureAlertSummarize',
   [AiFeatureKey.ALERT_EXPLAIN_SEVERITY]: 'featureAlertExplainSeverity',

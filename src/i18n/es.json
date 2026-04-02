@@ -1538,6 +1538,9 @@
       "connectorFailed": "El conector de IA falló. Pruebe con otro conector o use Predeterminado.",
       "connectorTimeout": "El conector de IA agotó el tiempo de espera. La solicitud puede ser demasiado grande.",
       "allConnectorsFailed": "Todos los conectores de IA fallaron. Verifique la salud de los conectores.",
+      "findingNotFound": "Hallazgo de IA no encontrado.",
+      "invalidStatusTransition": "Transición de estado inválida para este hallazgo.",
+      "bulkLimitExceeded": "Máximo 100 hallazgos por acción masiva.",
       "agent": {
         "orchestrator": {
           "disabled": "El agente IA Orchestrator está deshabilitado. Habilítelo en Configuración de IA.",
@@ -4901,6 +4904,9 @@
     "promoteToIncident": "Crear Incidente",
     "promotedTo": "Hallazgo promovido a",
     "statusUpdated": "Estado del hallazgo actualizado",
+    "bulkStatusUpdated": "Estado masivo actualizado",
+    "exportDone": "Hallazgos exportados",
+    "exportFindings": "Exportar",
     "sourceEntity": "Entidad origen",
     "session": "Sesión",
     "title": "Título",

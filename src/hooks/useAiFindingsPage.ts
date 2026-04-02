@@ -31,6 +31,7 @@ export function useAiFindingsPage() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(20)
   const [selectedFinding, setSelectedFinding] = useState<AiExecutionFinding | null>(null)
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [detailOpen, setDetailOpen] = useState(false)
 
   // Debounce timer ref
@@ -186,6 +187,89 @@ export function useAiFindingsPage() {
     [promoteMutation]
   )
 
+  const bulkStatusMutation = useMutation({
+    mutationFn: ({ ids, newStatus }: { ids: string[]; newStatus: string }) =>
+      agentConfigService.bulkUpdateFindingStatus(ids, newStatus),
+    onSuccess: (result) => {
+      void queryClient.invalidateQueries({ queryKey: ['ai-findings'] })
+      void queryClient.invalidateQueries({ queryKey: ['ai-findings-stats'] })
+      const updated = (result as { data?: { updated?: number } })?.data?.updated ?? 0
+      Toast.success(`${t('bulkStatusUpdated')}: ${String(updated)}`)
+    },
+    onError: buildErrorToastHandler(tErrors),
+  })
+
+  function handleExportFindings() {
+    // If findings are selected, export only those; otherwise export with current filters
+    if (selectedIds.size > 0) {
+      const selected = findings.filter(f => selectedIds.has(f.id))
+      const blob = new Blob([JSON.stringify(selected, null, 2)], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `ai-findings-export-${String(selectedIds.size)}.json`
+      a.click()
+      URL.revokeObjectURL(url)
+      Toast.success(t('exportDone'))
+      return
+    }
+
+    agentConfigService
+      .exportFindings((() => {
+        const params: Record<string, string> = {}
+        if (status) params['status'] = status
+        if (agentId) params['agentId'] = agentId
+        if (sourceModule) params['sourceModule'] = sourceModule
+        return params
+      })())
+      .then(result => {
+        const exportData = (result as { data?: AiExecutionFinding[] })?.data ?? []
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `ai-findings-export.json`
+        a.click()
+        URL.revokeObjectURL(url)
+        Toast.success(t('exportDone'))
+      })
+      .catch(buildErrorToastHandler(tErrors))
+  }
+
+  function handleBulkDismiss() {
+    bulkStatusMutation.mutate({ ids: [...selectedIds], newStatus: AiFindingStatus.DISMISSED })
+    setSelectedIds(new Set())
+  }
+
+  function handleBulkApply() {
+    bulkStatusMutation.mutate({ ids: [...selectedIds], newStatus: AiFindingStatus.APPLIED })
+    setSelectedIds(new Set())
+  }
+
+  function toggleSelectFinding(id: string) {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }
+
+  function toggleSelectAll() {
+    if (selectedIds.size === findings.length) {
+      setSelectedIds(new Set())
+    } else {
+      setSelectedIds(new Set(findings.map(f => f.id)))
+    }
+  }
+
+  function clearSelection() {
+    setSelectedIds(new Set())
+  }
+
   const findings: AiExecutionFinding[] = findingsQuery.data?.data ?? []
   const pagination = findingsQuery.data?.pagination ?? null
 
@@ -325,6 +409,14 @@ export function useAiFindingsPage() {
     handlePromote,
     promoteLoading: promoteMutation.isPending,
     canPromote,
+    handleExportFindings,
+    handleBulkDismiss,
+    handleBulkApply,
+    isBulkLoading: bulkStatusMutation.isPending,
+    selectedIds,
+    toggleSelectFinding,
+    toggleSelectAll,
+    clearSelection,
     setPage,
     setDetailOpen,
     handleLimitChange,

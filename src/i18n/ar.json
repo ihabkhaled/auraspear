@@ -1538,6 +1538,9 @@
       "connectorFailed": "فشل موصل الذكاء الاصطناعي. جرب موصلاً آخر.",
       "connectorTimeout": "انتهت مهلة موصل الذكاء الاصطناعي. قد يكون الطلب كبيراً جداً.",
       "allConnectorsFailed": "فشلت جميع موصلات الذكاء الاصطناعي. تحقق من حالتها.",
+      "findingNotFound": "نتيجة الذكاء الاصطناعي غير موجودة.",
+      "invalidStatusTransition": "انتقال حالة غير صالح لهذه النتيجة.",
+      "bulkLimitExceeded": "الحد الأقصى 100 نتيجة لكل إجراء جماعي.",
       "agent": {
         "orchestrator": {
           "disabled": "وكيل الذكاء الاصطناعي Orchestrator معطل. قم بتفعيله في تكوين الذكاء الاصطناعي.",
@@ -4832,6 +4835,9 @@
     "promoteToIncident": "إنشاء حادثة",
     "promotedTo": "تم ترقية النتيجة إلى",
     "statusUpdated": "تم تحديث حالة النتيجة",
+    "bulkStatusUpdated": "تم تحديث الحالة بالجملة",
+    "exportDone": "تم تصدير النتائج",
+    "exportFindings": "تصدير",
     "sourceEntity": "الكيان المصدر",
     "session": "الجلسة",
     "title": "العنوان",

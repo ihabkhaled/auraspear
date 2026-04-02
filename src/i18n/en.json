@@ -1558,6 +1558,10 @@
       "source": {
         "required": "Source is required",
         "invalidOption": "Invalid source value"
+      },
+      "maxTokensPerCall": {
+        "tooLarge": "Max tokens per call cannot exceed 32,768.",
+        "tooSmall": "Max tokens per call must be at least 256."
       }
     },
     "ssrf": {
@@ -1665,6 +1669,9 @@
       "connectorFailed": "The selected AI connector failed to process the request. Try a different connector or use Default.",
       "connectorTimeout": "The AI connector timed out. The request may be too large or the provider is slow.",
       "allConnectorsFailed": "All AI connectors failed. Check connector health in Settings → Connectors.",
+      "findingNotFound": "AI finding not found.",
+      "invalidStatusTransition": "Invalid status transition for this finding.",
+      "bulkLimitExceeded": "Maximum 100 findings per bulk action.",
       "agent": {
         "orchestrator": {
           "disabled": "Orchestrator AI agent is disabled. Enable it in AI Configuration.",
@@ -1852,12 +1859,6 @@
       "approvalNotFound": "Approval request not found.",
       "approvalAlreadyResolved": "Approval request has already been resolved.",
       "approvalExpired": "Approval request has expired."
-    },
-    "validation": {
-      "maxTokensPerCall": {
-        "tooLarge": "Max tokens per call cannot exceed 32,768.",
-        "tooSmall": "Max tokens per call must be at least 256."
-      }
     }
   },
   "profile": {
@@ -4744,6 +4745,7 @@
     "temperature": "Temperature",
     "maxTokens": "Max tokens per call",
     "triggerMode": "Trigger Mode",
+    "executesVia": "Executes via",
     "outputFormat": "Output Format",
     "tokenUsage": "Token Usage",
     "tokensPerHour": "Tokens/Hour",
@@ -4808,7 +4810,7 @@
     "reject": "Reject",
     "comment": "Comment",
     "noApprovals": "No pending approvals",
-    "noApprovalsDesc": "AI actions requiring approval will appear here",
+    "noApprovalsDesc": "Set a feature's approval level to 'Approval Required' in the Features tab, or configure a schedule with approval mode to generate approval requests",
     "approvalResolved": "Approval resolved",
     "riskLevel": "Risk Level",
     "requestedBy": "Requested By",
@@ -5040,6 +5042,13 @@
     "promoteToIncident": "Create Incident",
     "promotedTo": "Finding promoted to",
     "statusUpdated": "Finding status updated",
+    "bulkStatusUpdated": "Bulk status updated",
+    "exportDone": "Findings exported",
+    "exportFindings": "Export",
+    "selected": "selected",
+    "bulkApply": "Apply Selected",
+    "bulkDismiss": "Dismiss Selected",
+    "clearSelection": "Clear",
     "sourceEntity": "Source Entity",
     "session": "Session",
     "title": "Title",

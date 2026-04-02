@@ -10,7 +10,8 @@ import {
   CardHeader,
   Switch,
 } from '@/components/ui'
-import { AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
+import { AGENT_EXECUTION_MAP, AI_AGENT_LABEL_KEYS, AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
+import { AiAgentId } from '@/enums'
 import { lookup } from '@/lib/utils'
 import type { AgentCardProps } from '@/types'
 
@@ -39,6 +40,9 @@ export const AgentConfigCard = memo(
     const providerLabel =
       availableConnectors.find(c => c.key === config.providerMode)?.label ?? config.providerMode
     const triggerKey = lookup(AI_TRIGGER_MODE_LABEL_KEYS, config.triggerMode)
+    const agentIdKey = config.agentId as AiAgentId
+    const executionAgent = AGENT_EXECUTION_MAP[agentIdKey]
+    const executionAgentLabel = executionAgent ? lookup(AI_AGENT_LABEL_KEYS, executionAgent) : null
 
     return (
       <Card className="border-border bg-card">
@@ -81,6 +85,14 @@ export const AgentConfigCard = memo(
                 {triggerKey ? t(triggerKey.replace('aiConfig.', '')) : config.triggerMode}
               </span>
             </div>
+            {executionAgentLabel && (
+              <div className="col-span-2">
+                <span className="text-muted-foreground">{t('executesVia')}: </span>
+                <Badge variant="info" className="text-xs">
+                  {t(executionAgentLabel.replace('aiConfig.', ''))}
+                </Badge>
+              </div>
+            )}
           </div>
 
           <div className="space-y-2">

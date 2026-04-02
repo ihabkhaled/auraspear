@@ -1,17 +1,21 @@
 'use client'
 
 import {
+  CheckCircle,
   ChevronLeft,
   ChevronRight,
+  Download,
   Search,
   Sparkles,
   X,
+  XCircle,
 } from 'lucide-react'
 import { FindingDetailDrawer } from '@/components/ai-findings'
 import { DataTable, PageHeader } from '@/components/common'
 import {
   Badge,
   Button,
+  Checkbox,
   Input,
   Select,
   SelectContent,
@@ -67,13 +71,33 @@ export default function AiFindingsPage() {
     handlePromote,
     promoteLoading,
     canPromote,
+    handleExportFindings,
+    handleBulkDismiss,
+    handleBulkApply,
+    isBulkLoading,
+    selectedIds,
+    toggleSelectFinding,
+    toggleSelectAll,
+    clearSelection,
     setPage,
     setDetailOpen,
     handleLimitChange,
   } = useAiFindingsPage()
 
+
   // Columns contain JSX render functions -- acceptable inline per CLAUDE.md rule 33
   const columns: Column<AiExecutionFinding>[] = [
+    {
+      key: 'id',
+      label: '',
+      render: (_value: unknown, row: AiExecutionFinding) => (
+        <Checkbox
+          checked={selectedIds.has(row.id)}
+          onCheckedChange={() => toggleSelectFinding(row.id)}
+          onClick={(e: React.MouseEvent) => e.stopPropagation()}
+        />
+      ),
+    },
     {
       key: 'title',
       label: t('title'),
@@ -138,9 +162,10 @@ export default function AiFindingsPage() {
         if (score === null || score === undefined) {
           return <span className="text-muted-foreground text-xs">-</span>
         }
+        const pct = score <= 1 ? Math.round(score * 100) : Math.round(score)
         return (
-          <Badge variant={resolveFindingConfidenceVariant(score)} className="text-xs">
-            {`${String(score)}%`}
+          <Badge variant={resolveFindingConfidenceVariant(pct)} className="text-xs">
+            {`${String(pct)}%`}
           </Badge>
         )
       },
@@ -176,6 +201,11 @@ export default function AiFindingsPage() {
       <PageHeader
         title={t('pageTitle')}
         description={t('pageDescription')}
+        action={{
+          label: t('exportFindings'),
+          icon: <Download className="h-4 w-4" />,
+          onClick: handleExportFindings,
+        }}
       />
 
       {/* KPI Cards */}
@@ -327,6 +357,39 @@ export default function AiFindingsPage() {
               </button>
             </Badge>
           ))}
+        </div>
+      )}
+
+      {/* Bulk action bar */}
+      {selectedIds.size > 0 && (
+        <div className="bg-muted flex items-center gap-3 rounded-lg border px-4 py-2">
+          <Checkbox
+            checked={selectedIds.size === findings.length && findings.length > 0}
+            onCheckedChange={toggleSelectAll}
+          />
+          <span className="text-sm font-medium">{String(selectedIds.size)} {t('selected')}</span>
+          <Button
+            variant="default"
+            size="sm"
+            disabled={isBulkLoading}
+            onClick={handleBulkApply}
+          >
+            <CheckCircle className="mr-1.5 h-3.5 w-3.5" />
+            {t('bulkApply')}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            disabled={isBulkLoading}
+            onClick={handleBulkDismiss}
+          >
+            <XCircle className="mr-1.5 h-3.5 w-3.5" />
+            {t('bulkDismiss')}
+          </Button>
+          <Button variant="ghost" size="sm" onClick={clearSelection}>
+            <X className="mr-1 h-3.5 w-3.5" />
+            {t('clearSelection')}
+          </Button>
         </div>
       )}
 

@@ -94,11 +94,17 @@ export function AiScheduleTable({
           return <span>-</span>
         }
         const status = value as string
-        if (status === 'success') {
+        if (status === 'success' || status === 'completed') {
           return <Badge variant="success">{status}</Badge>
         }
         if (status === 'failed') {
           return <Badge variant="destructive">{status}</Badge>
+        }
+        if (status === 'no_context' || status === 'skipped') {
+          return <Badge variant="warning">{status.replaceAll('_', ' ')}</Badge>
+        }
+        if (status === 'dispatched') {
+          return <Badge variant="info">{status}</Badge>
         }
         return <Badge variant="secondary">{status}</Badge>
       },

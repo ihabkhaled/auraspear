@@ -63,8 +63,8 @@ export function FindingDetailDrawer({
               </Badge>
             )}
             {typeof finding.confidenceScore === 'number' && (
-              <Badge variant={resolveFindingConfidenceVariant(finding.confidenceScore)} className="text-xs">
-                {`${t('confidence')}: ${String(finding.confidenceScore)}%`}
+              <Badge variant={resolveFindingConfidenceVariant(finding.confidenceScore <= 1 ? Math.round(finding.confidenceScore * 100) : Math.round(finding.confidenceScore))} className="text-xs">
+                {`${t('confidence')}: ${String(finding.confidenceScore <= 1 ? Math.round(finding.confidenceScore * 100) : Math.round(finding.confidenceScore))}%`}
               </Badge>
             )}
           </div>

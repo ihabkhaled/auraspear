@@ -1538,6 +1538,9 @@
       "connectorFailed": "Il connettore IA ha fallito. Prova un altro connettore.",
       "connectorTimeout": "Il connettore IA è scaduto. La richiesta potrebbe essere troppo grande.",
       "allConnectorsFailed": "Tutti i connettori IA hanno fallito. Verifica il loro stato.",
+      "findingNotFound": "Risultato IA non trovato.",
+      "invalidStatusTransition": "Transizione di stato non valida per questo risultato.",
+      "bulkLimitExceeded": "Massimo 100 risultati per azione massiva.",
       "agent": {
         "orchestrator": {
           "disabled": "L'agente IA Orchestrator è disabilitato. Abilitalo nella Configurazione IA.",
@@ -4901,6 +4904,9 @@
     "promoteToIncident": "Crea Incidente",
     "promotedTo": "Risultato promosso a",
     "statusUpdated": "Stato del risultato aggiornato",
+    "bulkStatusUpdated": "Stato massivo aggiornato",
+    "exportDone": "Risultati esportati",
+    "exportFindings": "Esporta",
     "sourceEntity": "Entità sorgente",
     "session": "Sessione",
     "title": "Titolo",

@@ -1538,6 +1538,9 @@
       "connectorFailed": "Le connecteur IA a échoué. Essayez un autre connecteur.",
       "connectorTimeout": "Le connecteur IA a expiré. La requête est peut-être trop volumineuse.",
       "allConnectorsFailed": "Tous les connecteurs IA ont échoué. Vérifiez leur état.",
+      "findingNotFound": "Résultat IA non trouvé.",
+      "invalidStatusTransition": "Transition de statut invalide pour ce résultat.",
+      "bulkLimitExceeded": "Maximum 100 résultats par action en masse.",
       "agent": {
         "orchestrator": {
           "disabled": "L'agent IA Orchestrator est désactivé. Activez-le dans Configuration IA.",
@@ -4901,6 +4904,9 @@
     "promoteToIncident": "Créer un Incident",
     "promotedTo": "Résultat promu vers",
     "statusUpdated": "Statut du résultat mis à jour",
+    "bulkStatusUpdated": "Statut en masse mis à jour",
+    "exportDone": "Résultats exportés",
+    "exportFindings": "Exporter",
     "sourceEntity": "Entité source",
     "session": "Session",
     "title": "Titre",
