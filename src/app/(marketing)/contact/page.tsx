@@ -1,11 +1,11 @@
-import { getTranslations } from 'next-intl/server'
 import { ContactFormContainer } from '@/components/marketing/contact-form.container'
 import { MarketingFooter } from '@/components/marketing/marketing-footer.component'
 import { MarketingNav } from '@/components/marketing/marketing-nav.component'
+import { getServerTranslator } from '@/lib/server-translations'
 import type { Metadata } from 'next'
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations()
+  const t = await getServerTranslator()
   return {
     title: t('marketing.contact.metaTitle'),
     description: t('marketing.contact.metaDescription'),
@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ContactPage() {
-  const t = await getTranslations()
+  const t = await getServerTranslator()
 
   return (
     <>
