@@ -5092,5 +5092,55 @@
       "tokens": "Verwendete Tokens",
       "empty": "Keine Agenten konfiguriert"
     }
+  },
+  "marketing": {
+    "nav": {
+      "home": "Startseite",
+      "about": "Über uns",
+      "contact": "Kontakt",
+      "signIn": "Anmelden"
+    },
+    "hero": {
+      "title": "KI-gestützte Sicherheitsoperationen, vereint",
+      "subtitle": "AuraSpear SOC vereint Erkennung, Korrelation, Bedrohungssuche und KI-gestützte Reaktion in einer einzigen Plattform für moderne Sicherheitsteams.",
+      "cta": "In der Konsole anmelden",
+      "ctaSecondary": "Kontaktieren Sie uns"
+    },
+    "features": {
+      "title": "Alles, was Ihr SOC benötigt",
+      "detection": {
+        "title": "Echtzeit-Erkennung",
+        "description": "Korrelieren Sie Alarme über Ihre gesamte Infrastruktur hinweg mit regelbasierten und KI-gestützten Erkennungs-Engines."
+      },
+      "ai": {
+        "title": "KI-Co-Analyst",
+        "description": "Untersuchen, priorisieren und jagen Sie Bedrohungen mit KI-Agenten, die ihre Argumentation erklären und Belege anführen."
+      },
+      "response": {
+        "title": "Automatisierte Reaktion",
+        "description": "Lösen Sie SOAR-Playbooks und genehmigungspflichtige Aktionen aus, sobald eine Bedrohung bestätigt wird."
+      }
+    },
+    "footer": {
+      "rights": "Alle Rechte vorbehalten."
+    },
+    "about": {
+      "metaTitle": "Über uns",
+      "metaDescription": "Erfahren Sie mehr über die Mission von AuraSpear SOC, Erkennung, Reaktion und KI-gestützte Untersuchung für Sicherheitsteams zu vereinen.",
+      "title": "Über AuraSpear SOC",
+      "body": "AuraSpear SOC ist eine einheitliche Security-Operations-Center-Plattform, die Erkennungstechnik, Bedrohungssuche, Fallmanagement und KI-gestützte Untersuchung in einem einzigen Arbeitsbereich vereint. Unsere Mission ist es, Analysten den Kontext zu geben, den sie benötigen, um schneller zu reagieren – wobei die KI als Kraftverstärker und nicht als Blackbox fungiert."
+    },
+    "contact": {
+      "metaTitle": "Kontaktieren Sie uns",
+      "metaDescription": "Nehmen Sie Kontakt mit dem AuraSpear-SOC-Team auf — Fragen, Demos und Support.",
+      "title": "Kontaktieren Sie uns",
+      "subtitle": "Haben Sie eine Frage oder möchten Sie eine Demo? Senden Sie uns eine Nachricht und wir melden uns bei Ihnen.",
+      "form": {
+        "submit": "Nachricht senden",
+        "sending": "Wird gesendet...",
+        "success": "Nachricht gesendet — wir melden uns in Kürze bei Ihnen.",
+        "error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es später erneut."
+      }
+    }
   }
 }

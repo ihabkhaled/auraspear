@@ -96,6 +96,17 @@ export function lookup<K extends string, V>(record: Readonly<Record<K, V>>, key:
 }
 
 /**
+ * Unwraps the `{ data }` envelope returned by the Next.js API proxy routes.
+ */
+export function extractApiData<T>(response: { data: unknown }): T {
+  const body = response.data as Record<string, unknown>
+  if (body !== null && typeof body === 'object' && 'data' in body) {
+    return body['data'] as T
+  }
+  return body as T
+}
+
+/**
  * Safely parse a JSON string, returning a fallback value on failure or empty input.
  */
 export function safeJsonParse<T>(value: string | undefined | null, fallback: T): T {

@@ -119,3 +119,4 @@ export {
 export { AiFindingStatus, AiFindingType } from './ai-finding.enum'
 export { CronPreset } from './cron-preset.enum'
 export { MemoryCategory } from './memory.enum'
+export { ContactStatus } from './contact.enum'

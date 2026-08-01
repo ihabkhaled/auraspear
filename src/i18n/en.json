@@ -5229,5 +5229,55 @@
       "tokens": "Tokens Used",
       "empty": "No agents configured"
     }
+  },
+  "marketing": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact",
+      "signIn": "Sign In"
+    },
+    "hero": {
+      "title": "AI-Powered Security Operations, Unified",
+      "subtitle": "AuraSpear SOC brings detection, correlation, threat hunting, and AI-driven response into a single platform built for modern security teams.",
+      "cta": "Sign In to Console",
+      "ctaSecondary": "Contact Us"
+    },
+    "features": {
+      "title": "Everything your SOC needs",
+      "detection": {
+        "title": "Real-Time Detection",
+        "description": "Correlate alerts across your entire stack with rule-based and AI-assisted detection engines."
+      },
+      "ai": {
+        "title": "AI Co-Analyst",
+        "description": "Investigate, triage, and hunt threats with AI agents that explain their reasoning and cite evidence."
+      },
+      "response": {
+        "title": "Automated Response",
+        "description": "Trigger SOAR playbooks and approval-gated actions the moment a threat is confirmed."
+      }
+    },
+    "footer": {
+      "rights": "All rights reserved."
+    },
+    "about": {
+      "metaTitle": "About Us",
+      "metaDescription": "Learn about AuraSpear SOC's mission to unify detection, response, and AI-driven investigation for security teams.",
+      "title": "About AuraSpear SOC",
+      "body": "AuraSpear SOC is a unified Security Operations Center platform that combines detection engineering, threat hunting, case management, and AI-assisted investigation in one workspace. Our mission is to give analysts the context they need to respond faster, with AI acting as a force multiplier rather than a black box."
+    },
+    "contact": {
+      "metaTitle": "Contact Us",
+      "metaDescription": "Get in touch with the AuraSpear SOC team — questions, demos, and support.",
+      "title": "Contact Us",
+      "subtitle": "Have a question or want a demo? Send us a message and we'll get back to you.",
+      "form": {
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Message sent — we'll be in touch soon.",
+        "error": "Something went wrong. Please try again later."
+      }
+    }
   }
 }

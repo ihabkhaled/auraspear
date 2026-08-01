@@ -13,7 +13,12 @@ export const viewport: Viewport = {
   themeColor: '#135bec',
 }
 
+const siteUrl =
+  process.env['NEXT_PUBLIC_APP_URL'] ??
+  (process.env['VERCEL_URL'] ? `https://${process.env['VERCEL_URL']}` : 'http://localhost:3000')
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'AuraSpear SOC',
   description: 'Security Operations Center',
   manifest: '/manifest.json',
@@ -24,6 +29,26 @@ export const metadata: Metadata = {
   },
   icons: {
     apple: '/icons/apple-touch-icon.png',
+  },
+  openGraph: {
+    title: 'AuraSpear SOC',
+    description: 'Security Operations Center',
+    siteName: 'AuraSpear SOC',
+    type: 'website',
+    images: [
+      {
+        url: '/icons/icon-512.png',
+        width: 512,
+        height: 512,
+        alt: 'AuraSpear SOC',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'AuraSpear SOC',
+    description: 'Security Operations Center',
+    images: ['/icons/icon-512.png'],
   },
 }
 

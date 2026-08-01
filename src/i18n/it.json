@@ -5092,5 +5092,55 @@
       "tokens": "Token Utilizzati",
       "empty": "Nessun agente configurato"
     }
+  },
+  "marketing": {
+    "nav": {
+      "home": "Home",
+      "about": "Chi siamo",
+      "contact": "Contatti",
+      "signIn": "Accedi"
+    },
+    "hero": {
+      "title": "Operazioni di sicurezza potenziate dall'IA, unificate",
+      "subtitle": "AuraSpear SOC riunisce rilevamento, correlazione, threat hunting e risposta guidata dall'IA in un'unica piattaforma progettata per i team di sicurezza moderni.",
+      "cta": "Accedi alla Console",
+      "ctaSecondary": "Contattaci"
+    },
+    "features": {
+      "title": "Tutto ciò di cui il tuo SOC ha bisogno",
+      "detection": {
+        "title": "Rilevamento in Tempo Reale",
+        "description": "Correla gli avvisi in tutto il tuo stack con motori di rilevamento basati su regole e assistiti dall'IA."
+      },
+      "ai": {
+        "title": "Co-Analista IA",
+        "description": "Investiga, classifica e dai la caccia alle minacce con agenti IA che spiegano il loro ragionamento e citano le prove."
+      },
+      "response": {
+        "title": "Risposta Automatizzata",
+        "description": "Attiva playbook SOAR e azioni soggette ad approvazione nel momento in cui una minaccia viene confermata."
+      }
+    },
+    "footer": {
+      "rights": "Tutti i diritti riservati."
+    },
+    "about": {
+      "metaTitle": "Chi Siamo",
+      "metaDescription": "Scopri la missione di AuraSpear SOC di unificare rilevamento, risposta e indagine assistita dall'IA per i team di sicurezza.",
+      "title": "Chi è AuraSpear SOC",
+      "body": "AuraSpear SOC è una piattaforma unificata di Security Operations Center che combina detection engineering, threat hunting, gestione dei casi e indagine assistita dall'IA in un unico spazio di lavoro. La nostra missione è offrire agli analisti il contesto di cui hanno bisogno per rispondere più rapidamente, con l'IA che agisce come moltiplicatore di forza anziché come una scatola nera."
+    },
+    "contact": {
+      "metaTitle": "Contattaci",
+      "metaDescription": "Mettiti in contatto con il team di AuraSpear SOC — domande, demo e supporto.",
+      "title": "Contattaci",
+      "subtitle": "Hai una domanda o desideri una demo? Inviaci un messaggio e ti risponderemo al più presto.",
+      "form": {
+        "submit": "Invia Messaggio",
+        "sending": "Invio in corso...",
+        "success": "Messaggio inviato — ti contatteremo presto.",
+        "error": "Qualcosa è andato storto. Riprova più tardi."
+      }
+    }
   }
 }

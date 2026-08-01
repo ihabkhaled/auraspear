@@ -860,3 +860,13 @@ export type {
   UserMemory,
   UserMemoryListResponse,
 } from './memory.types'
+export type {
+  ContactFormProps,
+  ContactFormValues,
+  ContactResponse,
+  ContactStatusDisplay,
+  MarketingFeaturesProps,
+  MarketingFooterProps,
+  MarketingHeroProps,
+  MarketingNavProps,
+} from './contact.types'

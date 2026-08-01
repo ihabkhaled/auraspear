@@ -1,3 +1,4 @@
+export { contactService } from './contact.service'
 export { aiEvalService } from './ai-eval.service'
 export { aiGraphService } from './ai-graph.service'
 export { aiSearchService } from './ai-search.service'

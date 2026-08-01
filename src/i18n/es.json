@@ -5092,5 +5092,55 @@
       "tokens": "Tokens Usados",
       "empty": "No hay agentes configurados"
     }
+  },
+  "marketing": {
+    "nav": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "contact": "Contacto",
+      "signIn": "Iniciar Sesión"
+    },
+    "hero": {
+      "title": "Operaciones de Seguridad Impulsadas por IA, Unificadas",
+      "subtitle": "AuraSpear SOC reúne detección, correlación, caza de amenazas y respuesta impulsada por IA en una única plataforma diseñada para equipos de seguridad modernos.",
+      "cta": "Iniciar Sesión en la Consola",
+      "ctaSecondary": "Contáctenos"
+    },
+    "features": {
+      "title": "Todo lo que su SOC necesita",
+      "detection": {
+        "title": "Detección en Tiempo Real",
+        "description": "Correlacione alertas en toda su infraestructura con motores de detección basados en reglas y asistidos por IA."
+      },
+      "ai": {
+        "title": "Co-Analista de IA",
+        "description": "Investigue, clasifique y cace amenazas con agentes de IA que explican su razonamiento y citan evidencia."
+      },
+      "response": {
+        "title": "Respuesta Automatizada",
+        "description": "Active flujos de trabajo SOAR y acciones sujetas a aprobación en el momento en que se confirme una amenaza."
+      }
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados."
+    },
+    "about": {
+      "metaTitle": "Acerca de Nosotros",
+      "metaDescription": "Conozca la misión de AuraSpear SOC de unificar la detección, la respuesta y la investigación impulsada por IA para equipos de seguridad.",
+      "title": "Acerca de AuraSpear SOC",
+      "body": "AuraSpear SOC es una plataforma unificada de Centro de Operaciones de Seguridad que combina ingeniería de detección, caza de amenazas, gestión de casos e investigación asistida por IA en un solo espacio de trabajo. Nuestra misión es brindar a los analistas el contexto que necesitan para responder más rápido, con la IA actuando como un multiplicador de fuerza en lugar de una caja negra."
+    },
+    "contact": {
+      "metaTitle": "Contáctenos",
+      "metaDescription": "Póngase en contacto con el equipo de AuraSpear SOC — preguntas, demostraciones y soporte.",
+      "title": "Contáctenos",
+      "subtitle": "¿Tiene una pregunta o desea una demostración? Envíenos un mensaje y nos pondremos en contacto con usted.",
+      "form": {
+        "submit": "Enviar Mensaje",
+        "sending": "Enviando...",
+        "success": "Mensaje enviado — nos pondremos en contacto pronto.",
+        "error": "Algo salió mal. Por favor, inténtelo de nuevo más tarde."
+      }
+    }
   }
 }

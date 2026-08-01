@@ -5092,5 +5092,55 @@
       "tokens": "Tokens Utilises",
       "empty": "Aucun agent configure"
     }
+  },
+  "marketing": {
+    "nav": {
+      "home": "Accueil",
+      "about": "À propos",
+      "contact": "Contact",
+      "signIn": "Se connecter"
+    },
+    "hero": {
+      "title": "Opérations de sécurité pilotées par l'IA, unifiées",
+      "subtitle": "AuraSpear SOC réunit la détection, la corrélation, la chasse aux menaces et la réponse pilotée par l'IA au sein d'une plateforme unique conçue pour les équipes de sécurité modernes.",
+      "cta": "Se connecter à la console",
+      "ctaSecondary": "Nous contacter"
+    },
+    "features": {
+      "title": "Tout ce dont votre SOC a besoin",
+      "detection": {
+        "title": "Détection en temps réel",
+        "description": "Corrélez les alertes sur l'ensemble de votre infrastructure grâce à des moteurs de détection basés sur des règles et assistés par l'IA."
+      },
+      "ai": {
+        "title": "Co-analyste IA",
+        "description": "Enquêtez, triez et traquez les menaces avec des agents IA qui expliquent leur raisonnement et citent des preuves."
+      },
+      "response": {
+        "title": "Réponse automatisée",
+        "description": "Déclenchez des playbooks SOAR et des actions soumises à approbation dès qu'une menace est confirmée."
+      }
+    },
+    "footer": {
+      "rights": "Tous droits réservés."
+    },
+    "about": {
+      "metaTitle": "À propos de nous",
+      "metaDescription": "Découvrez la mission d'AuraSpear SOC : unifier la détection, la réponse et l'investigation assistée par l'IA pour les équipes de sécurité.",
+      "title": "À propos d'AuraSpear SOC",
+      "body": "AuraSpear SOC est une plateforme unifiée de centre d'opérations de sécurité qui combine l'ingénierie de détection, la chasse aux menaces, la gestion des cas et l'investigation assistée par l'IA au sein d'un seul espace de travail. Notre mission est de donner aux analystes le contexte dont ils ont besoin pour réagir plus rapidement, l'IA agissant comme un multiplicateur de force plutôt que comme une boîte noire."
+    },
+    "contact": {
+      "metaTitle": "Nous contacter",
+      "metaDescription": "Contactez l'équipe AuraSpear SOC — questions, démonstrations et support.",
+      "title": "Nous contacter",
+      "subtitle": "Une question ou envie d'une démonstration ? Envoyez-nous un message et nous vous répondrons rapidement.",
+      "form": {
+        "submit": "Envoyer le message",
+        "sending": "Envoi en cours...",
+        "success": "Message envoyé — nous vous recontacterons bientôt.",
+        "error": "Une erreur s'est produite. Veuillez réessayer plus tard."
+      }
+    }
   }
 }
