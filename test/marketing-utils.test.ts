@@ -7,6 +7,7 @@ import {
   isRtlLocale,
   normalizePublicPath,
   toAppPath,
+  localizeMarketingPage,
 } from '@/lib/marketing.utils'
 
 describe('marketing route model', () => {
@@ -45,5 +46,16 @@ describe('marketing route model', () => {
     expect(toAppPath('/login')).toBe('/app/login')
     expect(toAppPath('/app/dashboard')).toBe('/app/dashboard')
     expect(toAppPath('/')).toBe('/app/dashboard')
+  })
+
+  it('localizes public content and preserves the page when switching languages', () => {
+    const page = MARKETING_PAGES.find(item => item.path === '/features/alert-management')
+    expect(page).toBeDefined()
+    if (!page) return
+    const french = localizeMarketingPage(page, 'fr')
+    const japanese = localizeMarketingPage(page, 'ja')
+    expect(french.title).toBe('Gestion des alertes')
+    expect(japanese.title).toBe('アラート管理')
+    expect(buildPublicPath('fr', page.path)).toBe('/fr/features/alert-management')
   })
 })

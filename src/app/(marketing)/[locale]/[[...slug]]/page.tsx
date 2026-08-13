@@ -7,6 +7,7 @@ import {
   buildLanguageAlternates,
   buildPublicPath,
   isRtlLocale,
+  localizeMarketingPage,
   resolveLocalizedMarketingPage,
   type SupportedLocale,
 } from '@/lib/marketing.utils'
@@ -28,16 +29,17 @@ export async function generateMetadata({
   const values = await params
   const resolved = resolveLocalizedMarketingPage(values.locale, values.slug)
   if (!resolved.page || !resolved.locale) return {}
+  const localizedPage = localizeMarketingPage(resolved.page, resolved.locale)
   return {
-    title: resolved.page.title,
-    description: resolved.page.description,
+    title: localizedPage.title,
+    description: localizedPage.description,
     alternates: {
       canonical: buildPublicPath(resolved.locale, resolved.path),
       languages: buildLanguageAlternates(resolved.path),
     },
     openGraph: {
-      title: resolved.page.title,
-      description: resolved.page.description,
+      title: localizedPage.title,
+      description: localizedPage.description,
       locale: resolved.locale,
     },
   }
@@ -52,10 +54,11 @@ export default async function LocalizedPage({
   if (values.locale === 'en') permanentRedirect(resolved.path)
   if (!resolved.page || !resolved.locale) notFound()
   const locale = resolved.locale as SupportedLocale
+  const localizedPage = localizeMarketingPage(resolved.page, locale)
   return (
     <div lang={locale} dir={isRtlLocale(locale) ? 'rtl' : 'ltr'}>
-      <PublicShell locale={locale}>
-        <PublicPage page={resolved.page} locale={locale} />
+      <PublicShell locale={locale} currentPath={resolved.path}>
+        <PublicPage page={localizedPage} locale={locale} />
       </PublicShell>
     </div>
   )

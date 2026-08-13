@@ -3,14 +3,16 @@ import { AppWindow, Github, Mail } from 'lucide-react'
 import { ThemeSwitcher } from '@/components/layout'
 import { SUPPORTED_LOCALES } from '@/lib/constants/locales'
 import { MARKETING_PAGES } from '@/lib/constants/marketing'
-import { buildPublicPath, type SupportedLocale } from '@/lib/marketing.utils'
+import { buildPublicPath, localizeMarketingPage, type SupportedLocale } from '@/lib/marketing.utils'
 
 export function PublicShell({
   children,
   locale,
+  currentPath = '/',
 }: {
   children: React.ReactNode
   locale: SupportedLocale
+  currentPath?: string
 }) {
   const groups = ['Platform', 'Features', 'Integrations', 'Company']
   return (
@@ -37,7 +39,7 @@ export function PublicShell({
               {SUPPORTED_LOCALES.map(item => (
                 <Link
                   key={item}
-                  href={buildPublicPath(item, '/')}
+                  href={buildPublicPath(item, currentPath)}
                   className="hover:bg-accent rounded px-3 py-2 text-sm uppercase"
                 >
                   {item}
@@ -94,7 +96,7 @@ export function PublicShell({
                           className="text-muted-foreground hover:text-foreground text-sm"
                           href={buildPublicPath(locale, page.path)}
                         >
-                          {page.title}
+                          {localizeMarketingPage(page, locale).title}
                         </Link>
                       </li>
                     ))}

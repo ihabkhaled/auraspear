@@ -1,18 +1,12 @@
 'use client'
 
 import { Languages } from 'lucide-react'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui'
 import { useLanguageSwitcher } from '@/hooks'
 import { LOCALES } from '@/lib/constants/locales'
 
 export function LanguageSwitcher() {
-  const { t, current, handleChange } = useLanguageSwitcher()
+  const { current, handleChange } = useLanguageSwitcher()
 
   return (
     <Select value={current} onValueChange={handleChange}>
@@ -23,7 +17,7 @@ export function LanguageSwitcher() {
       <SelectContent>
         {LOCALES.map(l => (
           <SelectItem key={l.code} value={l.code}>
-            {t(l.labelKey)}
+            {l.label}
           </SelectItem>
         ))}
       </SelectContent>

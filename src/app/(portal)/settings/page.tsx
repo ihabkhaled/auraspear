@@ -32,7 +32,6 @@ import { LOCALES } from '@/lib/constants/locales'
 export default function SettingsPage() {
   const {
     t,
-    tLang,
     mounted,
     currentLocale,
     currentTheme,
@@ -138,7 +137,7 @@ export default function SettingsPage() {
                     <SelectContent>
                       {LOCALES.map(l => (
                         <SelectItem key={l.code} value={l.code}>
-                          {tLang(l.labelKey)}
+                          {l.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

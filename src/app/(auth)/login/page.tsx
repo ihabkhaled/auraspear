@@ -23,7 +23,6 @@ export default function LoginPage() {
   const {
     t,
     tApp,
-    tLang,
     tCommon,
     mounted,
     isDark,
@@ -51,7 +50,7 @@ export default function LoginPage() {
           <SelectContent>
             {LOCALES.map(l => (
               <SelectItem key={l.code} value={l.code}>
-                {tLang(l.labelKey)}
+                {l.label}
               </SelectItem>
             ))}
           </SelectContent>
