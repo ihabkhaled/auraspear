@@ -1,5 +1,4 @@
 import { cookies, headers } from 'next/headers'
-import Script from 'next/script'
 import { Toaster } from 'sonner'
 import { isRtlLocale, resolveDocumentLocale } from '@/lib/marketing.utils'
 import { Providers } from './providers'
@@ -89,13 +88,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
-      <body className="font-sans antialiased">
-        <Script
+      <head>
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415314275784926"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
+      </head>
+      <body className="font-sans antialiased">
         <Providers messages={messages} locale={locale}>
           {children}
           <Toaster
