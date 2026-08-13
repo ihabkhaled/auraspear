@@ -53,11 +53,12 @@ const isDev = process.env.NODE_ENV === 'development'
 
 const cspDirectives = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "img-src 'self' data: blob:",
+  "img-src 'self' data: blob: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net",
   "font-src 'self' https://fonts.gstatic.com",
-  `connect-src ${buildAllowedConnectSources().join(' ')} https://fonts.googleapis.com https://fonts.gstatic.com`,
+  `connect-src ${buildAllowedConnectSources().join(' ')} https://fonts.googleapis.com https://fonts.gstatic.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net`,
+  "frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com",
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",
   "base-uri 'self'",
@@ -80,6 +81,61 @@ const securityHeaders = [
 const nextConfig: NextConfig = withSerwist({
   output: 'standalone',
   productionBrowserSourceMaps: false,
+  async rewrites() {
+    return [{ source: '/app/:path*', destination: '/:path*' }]
+  },
+  async redirects() {
+    const internalRoots = [
+      'login',
+      'callback',
+      'dashboard',
+      'alerts',
+      'incidents',
+      'cases',
+      'hunt',
+      'intel',
+      'entities',
+      'vulnerabilities',
+      'ueba',
+      'cloud-security',
+      'compliance',
+      'attack-paths',
+      'correlation',
+      'detection-rules',
+      'soar',
+      'reports',
+      'jobs',
+      'notifications',
+      'knowledge',
+      'normalization',
+      'explorer',
+      'connectors',
+      'ai-chat',
+      'ai-agents',
+      'ai-agent-graph',
+      'ai-config',
+      'ai-eval',
+      'ai-findings',
+      'ai-finops',
+      'ai-handoffs',
+      'ai-history',
+      'ai-memory',
+      'ai-ops',
+      'ai-rag',
+      'ai-search',
+      'ai-simulations',
+      'ai-transcripts',
+      'settings',
+      'profile',
+      'system-health',
+      'admin',
+    ]
+    return internalRoots.map(root => ({
+      source: `/${root}/:path*`,
+      destination: `/app/${root}/:path*`,
+      permanent: true,
+    }))
+  },
   async headers() {
     return [
       {

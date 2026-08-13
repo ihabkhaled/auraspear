@@ -870,3 +870,4 @@ export type {
   MarketingHeroProps,
   MarketingNavProps,
 } from './contact.types'
+export type { MarketingPage } from './marketing.types'

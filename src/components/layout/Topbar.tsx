@@ -1,6 +1,7 @@
 'use client'
 
-import { Menu, PanelLeftOpen, Search } from 'lucide-react'
+import Link from 'next/link'
+import { Home, Menu, PanelLeftOpen, Search } from 'lucide-react'
 import { Button, Separator } from '@/components/ui'
 import { useTopbar } from '@/hooks'
 import { LayoutBreadcrumb } from './Breadcrumb'
@@ -66,6 +67,11 @@ export function Topbar() {
 
       {/* Right cluster */}
       <div className="ms-auto flex items-center gap-1">
+        <Button asChild variant="ghost" size="icon-sm">
+          <Link href="/" aria-label="AuraSpear public home">
+            <Home className="h-4 w-4" />
+          </Link>
+        </Button>
         {/* Mobile search icon */}
         <Button
           variant="ghost"

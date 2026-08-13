@@ -1,35 +1,19 @@
-import { MarketingFeatures } from '@/components/marketing/marketing-features.component'
-import { MarketingFooter } from '@/components/marketing/marketing-footer.component'
-import { MarketingHero } from '@/components/marketing/marketing-hero.component'
-import { MarketingNav } from '@/components/marketing/marketing-nav.component'
-import { getServerTranslator } from '@/lib/server-translations'
+import { PublicPage } from '@/components/marketing/public-page.component'
+import { PublicShell } from '@/components/marketing/public-shell.component'
+import { MARKETING_PAGES } from '@/lib/constants/marketing'
+import { buildLanguageAlternates } from '@/lib/marketing.utils'
 import type { Metadata } from 'next'
-
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getServerTranslator()
-  return {
-    title: 'AuraSpear SOC — AI-Powered Security Operations',
-    description: t('marketing.hero.subtitle'),
-    openGraph: {
-      title: 'AuraSpear SOC — AI-Powered Security Operations',
-      description: t('marketing.hero.subtitle'),
-      url: '/',
-    },
-    alternates: { canonical: '/' },
-  }
+export const metadata: Metadata = {
+  title: 'AuraSpear SOC — Unified AI-Powered Security Operations',
+  description: MARKETING_PAGES[0]?.description,
+  alternates: { canonical: '/', languages: buildLanguageAlternates('/') },
 }
-
-export default async function LandingPage() {
-  const t = await getServerTranslator()
-
+export default function LandingPage() {
+  const page = MARKETING_PAGES[0]
+  if (!page) return null
   return (
-    <>
-      <MarketingNav t={t} />
-      <main>
-        <MarketingHero t={t} />
-        <MarketingFeatures t={t} />
-      </main>
-      <MarketingFooter t={t} />
-    </>
+    <PublicShell locale="en">
+      <PublicPage page={page} locale="en" />
+    </PublicShell>
   )
 }

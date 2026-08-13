@@ -1,4 +1,5 @@
 import { cookies } from 'next/headers'
+import Script from 'next/script'
 import { Toaster } from 'sonner'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants/locales'
 import { Providers } from './providers'
@@ -19,8 +20,29 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'AuraSpear SOC',
-  description: 'Security Operations Center',
+  title: {
+    default: 'AuraSpear SOC — AI-Powered Security Operations',
+    template: '%s | AuraSpear SOC',
+  },
+  description:
+    'Unified multi-tenant security operations for detection, investigation, threat intelligence, automation, governance, and AI-assisted response.',
+  keywords: [
+    'security operations center',
+    'SOC platform',
+    'SIEM',
+    'SOAR',
+    'threat hunting',
+    'Wazuh',
+    'Logstash',
+    'multi-tenant SOC',
+    'AI cybersecurity',
+  ],
+  authors: [{ name: 'Ihab Khaled', url: 'https://github.com/ihabkhaled' }],
+  creator: 'Ihab Khaled',
+  publisher: 'AuraSpear SOC',
+  applicationName: 'AuraSpear SOC',
+  category: 'Cybersecurity',
+  other: { 'google-adsense-account': 'ca-pub-2415314275784926' },
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
@@ -68,6 +90,12 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body className="font-sans antialiased">
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2415314275784926"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <Providers messages={messages} locale={locale}>
           {children}
           <Toaster

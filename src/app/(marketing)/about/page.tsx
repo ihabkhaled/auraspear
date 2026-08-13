@@ -1,35 +1,19 @@
-import { MarketingFooter } from '@/components/marketing/marketing-footer.component'
-import { MarketingNav } from '@/components/marketing/marketing-nav.component'
-import { getServerTranslator } from '@/lib/server-translations'
+import { PublicPage } from '@/components/marketing/public-page.component'
+import { PublicShell } from '@/components/marketing/public-shell.component'
+import { MARKETING_PAGES } from '@/lib/constants/marketing'
+import { buildLanguageAlternates } from '@/lib/marketing.utils'
 import type { Metadata } from 'next'
-
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getServerTranslator()
-  return {
-    title: t('marketing.about.metaTitle'),
-    description: t('marketing.about.metaDescription'),
-    openGraph: {
-      title: t('marketing.about.metaTitle'),
-      description: t('marketing.about.metaDescription'),
-      url: '/about',
-    },
-    alternates: { canonical: '/about' },
-  }
+export const metadata: Metadata = {
+  title: 'About AuraSpear',
+  description: 'Meet the mission and engineering principles behind AuraSpear SOC.',
+  alternates: { canonical: '/about', languages: buildLanguageAlternates('/about') },
 }
-
-export default async function AboutPage() {
-  const t = await getServerTranslator()
-
+export default function AboutPage() {
+  const page = MARKETING_PAGES.find(item => item.path === '/about')
+  if (!page) return null
   return (
-    <>
-      <MarketingNav t={t} />
-      <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-        <h1 className="text-foreground mb-6 text-3xl font-bold">{t('marketing.about.title')}</h1>
-        <p className="text-muted-foreground text-base leading-relaxed">
-          {t('marketing.about.body')}
-        </p>
-      </main>
-      <MarketingFooter t={t} />
-    </>
+    <PublicShell locale="en">
+      <PublicPage page={page} locale="en" />
+    </PublicShell>
   )
 }

@@ -32,7 +32,7 @@ export function useLoginForm() {
         setPermissions(data.permissions ?? [])
         setCurrentTenant(data.user.tenantId)
         setUserTenants(data.tenants)
-        router.push('/dashboard')
+        router.push('/app/dashboard')
       })
       .catch((error: unknown) => {
         const key = getErrorKey(error)
