@@ -40,7 +40,7 @@ export default function AiSimulationsPage() {
 
   if (!canView) {
     return (
-      <div className="flex h-64 items-center justify-center text-muted-foreground">
+      <div className="text-muted-foreground flex h-64 items-center justify-center">
         {t('noAccess')}
       </div>
     )
@@ -60,12 +60,46 @@ export default function AiSimulationsPage() {
 
       {stats && (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-          <KpiCard label={t('kpi.total')} value={String(stats.total ?? 0)} icon={<PlayCircle className="h-4 w-4" />} accentColor={undefined} />
-          <KpiCard label={t('kpi.pending')} value={String(stats.pending ?? 0)} icon={<Clock className="h-4 w-4" />} accentColor={undefined} />
-          <KpiCard label={t('kpi.running')} value={String(stats.running ?? 0)} icon={<Cpu className="h-4 w-4" />} accentColor={undefined} />
-          <KpiCard label={t('kpi.completed')} value={String(stats.completed ?? 0)} icon={<CheckCircle className="h-4 w-4" />} accentColor={undefined} />
-          <KpiCard label={t('kpi.failed')} value={String(stats.failed ?? 0)} icon={<AlertTriangle className="h-4 w-4" />} accentColor={undefined} />
-          <KpiCard label={t('kpi.avgLatency')} value={stats.avgLatencyMs !== null && stats.avgLatencyMs !== undefined ? `${Number(stats.avgLatencyMs).toFixed(0)}ms` : '-'} icon={<Timer className="h-4 w-4" />} accentColor={undefined} />
+          <KpiCard
+            label={t('kpi.total')}
+            value={String(stats.total ?? 0)}
+            icon={<PlayCircle className="h-4 w-4" />}
+            accentColor={undefined}
+          />
+          <KpiCard
+            label={t('kpi.pending')}
+            value={String(stats.pending ?? 0)}
+            icon={<Clock className="h-4 w-4" />}
+            accentColor={undefined}
+          />
+          <KpiCard
+            label={t('kpi.running')}
+            value={String(stats.running ?? 0)}
+            icon={<Cpu className="h-4 w-4" />}
+            accentColor={undefined}
+          />
+          <KpiCard
+            label={t('kpi.completed')}
+            value={String(stats.completed ?? 0)}
+            icon={<CheckCircle className="h-4 w-4" />}
+            accentColor={undefined}
+          />
+          <KpiCard
+            label={t('kpi.failed')}
+            value={String(stats.failed ?? 0)}
+            icon={<AlertTriangle className="h-4 w-4" />}
+            accentColor={undefined}
+          />
+          <KpiCard
+            label={t('kpi.avgLatency')}
+            value={
+              stats.avgLatencyMs !== null && stats.avgLatencyMs !== undefined
+                ? `${Number(stats.avgLatencyMs).toFixed(0)}ms`
+                : '-'
+            }
+            icon={<Timer className="h-4 w-4" />}
+            accentColor={undefined}
+          />
         </div>
       )}
 
@@ -80,21 +114,39 @@ export default function AiSimulationsPage() {
         )}
         {showCreate && (
           <div className="bg-muted/50 grid grid-cols-1 gap-3 rounded-lg border p-4 sm:grid-cols-4">
-            <Input placeholder={t('namePlaceholder')} value={newName} onChange={e => setNewName(e.currentTarget.value)} />
-            <Select value={newAgentId || 'none'} onValueChange={v => setNewAgentId(v === 'none' ? '' : v)}>
+            <Input
+              placeholder={t('namePlaceholder')}
+              value={newName}
+              onChange={e => setNewName(e.currentTarget.value)}
+            />
+            <Select
+              value={newAgentId || 'none'}
+              onValueChange={v => setNewAgentId(v === 'none' ? '' : v)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder={t('selectAgent')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="none">{t('selectAgent')}</SelectItem>
                 {agents.map(a => (
-                  <SelectItem key={a.agentId} value={a.agentId}>{a.displayName ?? a.agentId}</SelectItem>
+                  <SelectItem key={a.agentId} value={a.agentId}>
+                    {a.displayName ?? a.agentId}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            <Textarea placeholder={t('descPlaceholder')} value={newDesc} onChange={e => setNewDesc(e.currentTarget.value)} rows={1} />
+            <Textarea
+              placeholder={t('descPlaceholder')}
+              value={newDesc}
+              onChange={e => setNewDesc(e.currentTarget.value)}
+              rows={1}
+            />
             <div className="flex gap-2">
-              <Button size="sm" onClick={handleCreate} disabled={isCreating || !newName.trim() || !newAgentId}>
+              <Button
+                size="sm"
+                onClick={handleCreate}
+                disabled={isCreating || !newName.trim() || !newAgentId}
+              >
                 {t('save')}
               </Button>
               <Button variant="outline" size="sm" onClick={() => setShowCreate(false)}>
@@ -109,7 +161,13 @@ export default function AiSimulationsPage() {
           data={simulations}
           loading={isFetching}
           canManage={canManage}
-          onDelete={canManage ? (id: string) => { deleteSimulation(id) } : undefined}
+          onDelete={
+            canManage
+              ? (id: string) => {
+                  deleteSimulation(id)
+                }
+              : undefined
+          }
         />
       </div>
     </div>

@@ -8,13 +8,7 @@ import {
   RunbookDetailPanel,
   RunbookEditDialog,
 } from '@/components/knowledge'
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  Input,
-} from '@/components/ui'
+import { Badge, Button, Card, CardContent, Input } from '@/components/ui'
 import { useKnowledgePage } from '@/hooks'
 import { formatDate } from '@/lib/utils'
 import type { Column, RunbookRecord } from '@/types'
@@ -147,11 +141,7 @@ export default function KnowledgePage() {
         }
       />
 
-      <AiKnowledgePanel
-        aiGenerate={aiGenerate}
-        aiSearch={aiSearch}
-        t={t}
-      />
+      <AiKnowledgePanel aiGenerate={aiGenerate} aiSearch={aiSearch} t={t} />
 
       <Card className="border-border bg-card">
         <CardContent className="pt-4">

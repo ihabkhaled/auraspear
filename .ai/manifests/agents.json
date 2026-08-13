@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "generic",
+      "path": "AGENTS.md",
+      "purpose": "cross-agent router",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "agent-start",
+      "version": 1
+    },
+    {
+      "id": "claude",
+      "path": "CLAUDE.md",
+      "purpose": "Claude and repository rules",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "agent-start",
+      "version": 1
+    },
+    {
+      "id": "codex",
+      "path": "CODEX.md",
+      "purpose": "Codex adapter",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "agent-start",
+      "version": 1
+    },
+    {
+      "id": "gpt",
+      "path": "GPT.md",
+      "purpose": "GPT adapter",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "agent-start",
+      "version": 1
+    },
+    {
+      "id": "cursor",
+      "path": ".cursorrules",
+      "purpose": "Cursor adapter",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "agent-start",
+      "version": 1
+    }
+  ]
+}

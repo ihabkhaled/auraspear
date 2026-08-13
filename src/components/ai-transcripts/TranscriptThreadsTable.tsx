@@ -30,7 +30,11 @@ export function TranscriptThreadsTable({
       key: 'title',
       label: t('table.title'),
       render: (value, row) => (
-        <button type="button" className="text-start text-sm hover:underline" onClick={() => onSelect(row.id)}>
+        <button
+          type="button"
+          className="text-start text-sm hover:underline"
+          onClick={() => onSelect(row.id)}
+        >
           {(value as string | null) ?? t('untitled')}
         </button>
       ),
@@ -46,22 +50,27 @@ export function TranscriptThreadsTable({
     {
       key: 'messageCount',
       label: t('table.messages'),
-      render: (value) => Number(value ?? 0).toLocaleString(),
+      render: value => Number(value ?? 0).toLocaleString(),
     },
     {
       key: 'totalTokensUsed',
       label: t('table.tokens'),
-      render: (value) => Number(value ?? 0).toLocaleString(),
+      render: value => Number(value ?? 0).toLocaleString(),
     },
     {
       key: 'legalHold',
       label: t('table.legalHold'),
-      render: (value) => (value as boolean) ? <Badge variant="destructive">{t('hold')}</Badge> : <Badge variant="secondary">{t('noHold')}</Badge>,
+      render: value =>
+        (value as boolean) ? (
+          <Badge variant="destructive">{t('hold')}</Badge>
+        ) : (
+          <Badge variant="secondary">{t('noHold')}</Badge>
+        ),
     },
     {
       key: 'complianceStatus',
       label: t('table.status'),
-      render: (value) => {
+      render: value => {
         const status = value as string
         if (status === 'redacted') return <Badge variant="warning">{t('redacted')}</Badge>
         return <Badge variant="secondary">{status}</Badge>
@@ -70,7 +79,7 @@ export function TranscriptThreadsTable({
     {
       key: 'lastActivityAt',
       label: t('table.lastActivity'),
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
     },
   ]
 
@@ -81,17 +90,36 @@ export function TranscriptThreadsTable({
       render: (_value, row) => (
         <div className="flex gap-1">
           {canManage && (
-            <Button variant="ghost" size="sm" onClick={() => onToggleLegalHold({ threadId: row.id, legalHold: !row.legalHold })} title={row.legalHold ? t('releaseLegalHold') : t('setLegalHold')}>
-              {row.legalHold ? <LockOpen className="h-3.5 w-3.5" /> : <Lock className="h-3.5 w-3.5" />}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onToggleLegalHold({ threadId: row.id, legalHold: !row.legalHold })}
+              title={row.legalHold ? t('releaseLegalHold') : t('setLegalHold')}
+            >
+              {row.legalHold ? (
+                <LockOpen className="h-3.5 w-3.5" />
+              ) : (
+                <Lock className="h-3.5 w-3.5" />
+              )}
             </Button>
           )}
           {canManage && !row.legalHold && row.complianceStatus !== 'redacted' && (
-            <Button variant="ghost" size="sm" onClick={() => onRedact(row.id)} title={t('redactThread')}>
-              <ShieldOff className="h-3.5 w-3.5 text-status-warning" />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onRedact(row.id)}
+              title={t('redactThread')}
+            >
+              <ShieldOff className="text-status-warning h-3.5 w-3.5" />
             </Button>
           )}
           {canExport && (
-            <Button variant="ghost" size="sm" onClick={() => onExport(row.id)} title={t('exportThread')}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onExport(row.id)}
+              title={t('exportThread')}
+            >
               <Download className="h-3.5 w-3.5" />
             </Button>
           )}

@@ -253,37 +253,37 @@ Page → Domain Components → Common Components → shadcn/ui Primitives
 
 ### Portal Pages (41 pages)
 
-| Route                  | Description                       | Min Role       |
-| ---------------------- | --------------------------------- | -------------- |
-| `/dashboard`           | Executive dashboard with KPIs     | All roles      |
-| `/alerts`              | Alert search and management       | SOC_ANALYST_L1 |
-| `/cases`               | Case list (Kanban + table)        | SOC_ANALYST_L1 |
-| `/cases/[id]`          | Case detail (artifacts, timeline) | SOC_ANALYST_L1 |
-| `/cases/cycles`        | Case cycle list                   | SOC_ANALYST_L1 |
-| `/hunt`                | AI-powered threat hunting         | THREAT_HUNTER  |
-| `/intel`               | Threat intelligence (IOC, MISP)   | SOC_ANALYST_L1 |
-| `/incidents`           | Incident management               | SOC_ANALYST_L1 |
-| `/connectors`          | Connector management              | TENANT_ADMIN   |
-| `/connectors/[type]`   | Connector configuration           | TENANT_ADMIN   |
-| `/explorer/*`          | Data explorer (8 sub-pages)       | SOC_ANALYST_L1 |
-| `/detection-rules`     | Detection rule management         | SOC_ANALYST_L2 |
-| `/correlation`         | Correlation rule engine           | SOC_ANALYST_L2 |
-| `/normalization`       | Normalization pipelines           | SOC_ANALYST_L2 |
-| `/attack-paths`        | Attack path analysis              | SOC_ANALYST_L2 |
-| `/cloud-security`      | Cloud account findings            | SOC_ANALYST_L1 |
-| `/compliance`          | Compliance tracking               | SOC_ANALYST_L1 |
-| `/vulnerabilities`     | Vulnerability tracking            | SOC_ANALYST_L1 |
-| `/ueba`                | Behavior analytics                | SOC_ANALYST_L2 |
-| `/soar`                | SOAR playbooks                    | SOC_ANALYST_L2 |
-| `/ai-agents`           | AI agent management               | SOC_ANALYST_L2 |
-| `/ai-chat`             | AI conversation interface         | AI_CHAT_ACCESS |
-| `/ai-findings`         | AI findings search & workspace    | AI_AGENTS_VIEW |
-| `/reports`             | Report generation                 | SOC_ANALYST_L1 |
-| `/system-health`       | System monitoring                 | TENANT_ADMIN   |
-| `/admin/system`        | System admin (multi-tenant)       | GLOBAL_ADMIN   |
-| `/admin/tenant`        | Tenant user management            | TENANT_ADMIN   |
-| `/admin/role-settings` | Role permission matrix editor     | GLOBAL_ADMIN   |
-| `/profile`             | User profile                      | All roles      |
+| Route                  | Description                               | Min Role       |
+| ---------------------- | ----------------------------------------- | -------------- |
+| `/dashboard`           | Executive dashboard with KPIs             | All roles      |
+| `/alerts`              | Alert search and management               | SOC_ANALYST_L1 |
+| `/cases`               | Case list (Kanban + table)                | SOC_ANALYST_L1 |
+| `/cases/[id]`          | Case detail (artifacts, timeline)         | SOC_ANALYST_L1 |
+| `/cases/cycles`        | Case cycle list                           | SOC_ANALYST_L1 |
+| `/hunt`                | AI-powered threat hunting                 | THREAT_HUNTER  |
+| `/intel`               | Threat intelligence (IOC, MISP)           | SOC_ANALYST_L1 |
+| `/incidents`           | Incident management                       | SOC_ANALYST_L1 |
+| `/connectors`          | Connector management                      | TENANT_ADMIN   |
+| `/connectors/[type]`   | Connector configuration                   | TENANT_ADMIN   |
+| `/explorer/*`          | Data explorer (8 sub-pages)               | SOC_ANALYST_L1 |
+| `/detection-rules`     | Detection rule management                 | SOC_ANALYST_L2 |
+| `/correlation`         | Correlation rule engine                   | SOC_ANALYST_L2 |
+| `/normalization`       | Normalization pipelines                   | SOC_ANALYST_L2 |
+| `/attack-paths`        | Attack path analysis                      | SOC_ANALYST_L2 |
+| `/cloud-security`      | Cloud account findings                    | SOC_ANALYST_L1 |
+| `/compliance`          | Compliance tracking                       | SOC_ANALYST_L1 |
+| `/vulnerabilities`     | Vulnerability tracking                    | SOC_ANALYST_L1 |
+| `/ueba`                | Behavior analytics                        | SOC_ANALYST_L2 |
+| `/soar`                | SOAR playbooks                            | SOC_ANALYST_L2 |
+| `/ai-agents`           | AI agent management                       | SOC_ANALYST_L2 |
+| `/ai-chat`             | AI conversation interface                 | AI_CHAT_ACCESS |
+| `/ai-findings`         | AI findings search & workspace            | AI_AGENTS_VIEW |
+| `/reports`             | Report generation                         | SOC_ANALYST_L1 |
+| `/system-health`       | System monitoring                         | TENANT_ADMIN   |
+| `/admin/system`        | System admin (multi-tenant)               | GLOBAL_ADMIN   |
+| `/admin/tenant`        | Tenant user management                    | TENANT_ADMIN   |
+| `/admin/role-settings` | Role permission matrix editor             | GLOBAL_ADMIN   |
+| `/profile`             | User profile                              | All roles      |
 | `/settings`            | Theme, language, notifications, AI Memory | All roles      |
 
 ### Auth Pages

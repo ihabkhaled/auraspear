@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "layers": {
+    "L0": ".ai/bootstrap/boot.toon",
+    "L1": ".ai/context/index.md",
+    "L2": "domain",
+    "L3": "exact sources",
+    "L4": "deep architecture"
+  },
+  "routes": [
+    {
+      "id": "frontend",
+      "match": ["src/app", "src/components", "src/hooks", "src/services"],
+      "load": ["CLAUDE.md", "docs/ARCHITECTURE.md"],
+      "commands": ["npm run typecheck", "npm run lint:strict", "npm test"]
+    },
+    {
+      "id": "ai-surfaces",
+      "match": ["src/components/ai-", "src/hooks/useAi", "src/services/ai-"],
+      "load": ["CLAUDE.md", "docs/AI-SURFACES.md"]
+    },
+    {
+      "id": "i18n",
+      "match": ["src/i18n", "next-intl", "locale"],
+      "load": ["CLAUDE.md", "src/lib/constants/locales.ts"],
+      "commands": ["npm test -- test/locale-completeness.test.ts"]
+    },
+    {
+      "id": "marketing-seo",
+      "match": ["marketing", "sitemap", "feed.xml", "robots"],
+      "load": ["CLAUDE.md", "docs/superpowers/specs/2026-08-13-public-marketing-platform-design.md"]
+    },
+    {
+      "id": "authentication",
+      "match": ["src/app/(auth)", "src/stores/auth.store.ts", "src/proxy.ts"],
+      "load": ["CLAUDE.md", "docs/permissions-and-routes.md"]
+    },
+    {
+      "id": "testing",
+      "match": ["test", "e2e", "vitest", "playwright"],
+      "load": ["CLAUDE.md", "vitest.config.ts"]
+    },
+    {
+      "id": "ai-framework",
+      "match": [".ai", "CLAUDE.md", "CODEX.md", "GPT.md", ".cursorrules"],
+      "load": [".ai/README.md", ".ai/rules/10-knowledge-maintenance.md"],
+      "commands": ["npm run ai:check"]
+    }
+  ]
+}

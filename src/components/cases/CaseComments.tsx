@@ -2,13 +2,7 @@
 
 import { ChevronDown, ChevronUp, MessageSquare } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import {
-  Badge,
-  Button,
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui'
+import { Badge, Button, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui'
 import { useCaseCommentsPanel } from '@/hooks'
 import type { CaseCommentsProps } from '@/types'
 import { CommentComposer } from './CommentComposer'

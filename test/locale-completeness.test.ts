@@ -22,10 +22,12 @@ import marketingKo from '@/i18n/marketing/ko.json'
 import marketingPt from '@/i18n/marketing/pt.json'
 import marketingRu from '@/i18n/marketing/ru.json'
 import marketingTh from '@/i18n/marketing/th.json'
+import marketingTr from '@/i18n/marketing/tr.json'
 import marketingZh from '@/i18n/marketing/zh.json'
 import appPt from '@/i18n/pt.json'
 import appRu from '@/i18n/ru.json'
 import appTh from '@/i18n/th.json'
+import appTr from '@/i18n/tr.json'
 import appZh from '@/i18n/zh.json'
 import { SUPPORTED_LOCALES } from '@/lib/constants/locales'
 
@@ -58,6 +60,7 @@ const appCatalogs = new Map<string, unknown>([
   ['fa', appFa],
   ['ja', appJa],
   ['hi', appHi],
+  ['tr', appTr],
 ])
 const marketingCatalogs = new Map<string, unknown>([
   ['en', marketingEn],
@@ -74,6 +77,7 @@ const marketingCatalogs = new Map<string, unknown>([
   ['fa', marketingFa],
   ['ja', marketingJa],
   ['hi', marketingHi],
+  ['tr', marketingTr],
 ])
 
 describe('locale completeness', () => {

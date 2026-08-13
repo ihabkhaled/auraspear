@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import { useServiceHealthCard } from '@/hooks'
 import { getStatusDotClass, getStatusBgHint, getStatusLabel } from '@/lib/health-utils'
 import { cn } from '@/lib/utils'

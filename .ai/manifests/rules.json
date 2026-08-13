@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "source": ".ai/MASTER-PROMPT.md",
+  "entries": [
+    {
+      "id": "master",
+      "path": ".ai/rules/00-master-rules.md",
+      "purpose": "canonical runtime",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "always",
+      "version": 1
+    },
+    {
+      "id": "pre-action-goal",
+      "path": ".ai/rules/01-pre-action-and-goal.md",
+      "purpose": "goal lock",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "task-start",
+      "version": 1
+    },
+    {
+      "id": "scope-attention",
+      "path": ".ai/rules/02-scope-and-attention.md",
+      "purpose": "drift control",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-drift",
+      "version": 1
+    },
+    {
+      "id": "retry-recovery",
+      "path": ".ai/rules/03-retry-progress-recovery.md",
+      "purpose": "loop recovery",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-loop",
+      "version": 1
+    },
+    {
+      "id": "evidence",
+      "path": ".ai/rules/04-evidence-and-uncertainty.md",
+      "purpose": "hallucination control",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "always",
+      "version": 1
+    },
+    {
+      "id": "context-memory",
+      "path": ".ai/rules/05-context-and-memory.md",
+      "purpose": "context efficiency",
+      "priority": "high",
+      "scope": "repository",
+      "loadCondition": "on-context-pressure",
+      "version": 1
+    },
+    {
+      "id": "testing-tools",
+      "path": ".ai/rules/06-testing-and-tools.md",
+      "purpose": "verification control",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "on-verification",
+      "version": 1
+    },
+    {
+      "id": "multi-agent",
+      "path": ".ai/rules/07-multi-agent-and-critic.md",
+      "purpose": "coordination",
+      "priority": "high",
+      "scope": "delegated",
+      "loadCondition": "on-multi-agent",
+      "version": 1
+    },
+    {
+      "id": "completion",
+      "path": ".ai/rules/08-completion-and-delivery.md",
+      "purpose": "termination",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "on-finalization",
+      "version": 1
+    },
+    {
+      "id": "communication",
+      "path": ".ai/rules/09-communication.md",
+      "purpose": "brief concrete updates",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "always",
+      "version": 1
+    },
+    {
+      "id": "knowledge",
+      "path": ".ai/rules/10-knowledge-maintenance.md",
+      "purpose": "framework maintenance",
+      "priority": "high",
+      "scope": ".ai",
+      "loadCondition": "on-ai-framework-change",
+      "version": 1
+    }
+  ]
+}

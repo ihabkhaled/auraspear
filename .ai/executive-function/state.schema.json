@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://auraspear.dev/schemas/ai-task-state.json",
+  "type": "object",
+  "required": [
+    "version",
+    "primaryObjective",
+    "definitionOfDone",
+    "scope",
+    "activeWorkItem",
+    "nestingDepth",
+    "retryCount",
+    "progressState",
+    "verificationState"
+  ],
+  "properties": {
+    "version": { "const": 1 },
+    "primaryObjective": { "type": "string", "minLength": 1 },
+    "definitionOfDone": { "type": "array", "items": { "type": "string" } },
+    "scope": { "type": "array", "items": { "type": "string" } },
+    "outOfScope": { "type": "array", "items": { "type": "string" } },
+    "activeWorkItem": { "type": "string" },
+    "nestingDepth": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "retryCount": { "type": "integer", "minimum": 0, "maximum": 3 },
+    "criticRound": { "type": "integer", "minimum": 0, "maximum": 2 },
+    "progressState": { "enum": ["advancing", "stalled", "blocked", "complete"] },
+    "verificationState": { "enum": ["needed", "sufficient"] }
+  },
+  "additionalProperties": true
+}

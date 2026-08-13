@@ -1,4 +1,9 @@
+import type * as React from 'react'
+import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import { Toast } from '@/components/common'
+import { useAiChat } from '@/hooks/useAiChat'
+import { agentConfigService } from '@/services'
 // Mock services before importing hooks
 vi.mock('@/services', () => ({
   agentConfigService: {
@@ -12,7 +17,7 @@ vi.mock('@/services', () => ({
 }))
 // Mock React hooks used by useAiChat
 vi.mock('react', async () => {
-  const actual = await vi.importActual<typeof import('react')>('react')
+  const actual = await vi.importActual<typeof React>('react')
   return {
     ...actual,
     useState: vi.fn((init: unknown) => [init, vi.fn()]),
@@ -73,11 +78,6 @@ vi.mock('@/components/common', () => ({
 vi.mock('@/lib/api-error', () => ({
   getErrorKey: vi.fn(() => 'someError'),
 }))
-
-import { useInfiniteQuery, useMutation } from '@tanstack/react-query'
-import { Toast } from '@/components/common'
-import { useAiChat } from '@/hooks/useAiChat'
-import { agentConfigService } from '@/services'
 
 const mockUseInfiniteQuery = useInfiniteQuery as unknown as Mock
 const mockUseMutation = useMutation as unknown as Mock

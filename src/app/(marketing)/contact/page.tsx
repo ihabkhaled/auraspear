@@ -1,14 +1,11 @@
 import { ContactPublicPage } from '@/components/marketing/contact-public-page.component'
 import { PublicShell } from '@/components/marketing/public-shell.component'
-import { buildLanguageAlternates } from '@/lib/marketing.utils'
+import { MARKETING_PAGES } from '@/lib/constants/marketing'
+import { buildPublicMetadata } from '@/lib/seo'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = {
-  title: 'Request an AuraSpear demo',
-  description:
-    'Contact AuraSpear for a security operations platform demo, integrations discussion, or deployment questions.',
-  alternates: { canonical: '/contact', languages: buildLanguageAlternates('/contact') },
-}
+const page = MARKETING_PAGES.find(item => item.path === '/contact')
+export const metadata: Metadata = page ? buildPublicMetadata(page, 'en') : {}
 
 export default function ContactPage() {
   return (

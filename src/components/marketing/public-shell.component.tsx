@@ -1,10 +1,12 @@
 import Link from 'next/link'
-import { AppWindow, Github, Home, Mail } from 'lucide-react'
+import { AppWindow, ChevronRight, Github, Home, Linkedin, Mail } from 'lucide-react'
 import { ThemeSwitcher } from '@/components/layout'
 import { LOCALES } from '@/lib/constants/locales'
 import { MARKETING_GROUPS, MARKETING_PAGES } from '@/lib/constants/marketing'
+import { PUBLIC_SITE_URL, SITE_NAME } from '@/lib/constants/seo'
 import { getMarketingContent } from '@/lib/marketing-content'
 import { buildPublicPath, localizeMarketingPage, type SupportedLocale } from '@/lib/marketing.utils'
+import { serializeJsonLd } from '@/lib/seo'
 
 export function PublicShell({
   children,
@@ -22,15 +24,47 @@ export function PublicShell({
     ['Integrations', copy.navIntegrations],
     ['Company', copy.navAbout],
   ])
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${PUBLIC_SITE_URL}/#organization`,
+    name: SITE_NAME,
+    url: PUBLIC_SITE_URL,
+    logo: `${PUBLIC_SITE_URL}/icons/icon-512.png`,
+    email: 'ihab.khaled94@gmail.com',
+    telephone: '+201001568256',
+    sameAs: [
+      'https://github.com/ihabkhaled/auraspear',
+      'https://www.linkedin.com/in/ihabkhaled94/',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'sales and product demonstrations',
+      email: 'ihab.khaled94@gmail.com',
+      telephone: '+201001568256',
+      availableLanguage: LOCALES.map(item => item.label),
+    },
+  }
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${PUBLIC_SITE_URL}/#website`,
+    name: SITE_NAME,
+    url: PUBLIC_SITE_URL,
+    publisher: { '@id': `${PUBLIC_SITE_URL}/#organization` },
+    inLanguage: LOCALES.map(item => item.code),
+  }
   return (
-    <div className="bg-background text-foreground min-h-screen">
-      <header className="bg-background/90 sticky top-0 z-50 border-b backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
+    <div className="bg-background text-foreground min-h-screen px-3 sm:px-0">
+      <script type="application/ld+json">{serializeJsonLd(organizationSchema)}</script>
+      <script type="application/ld+json">{serializeJsonLd(websiteSchema)}</script>
+      <header className="bg-background/90 sticky top-0 z-50 border-x border-b backdrop-blur sm:border-x-0">
+        <div className="mx-auto flex max-w-7xl items-center gap-2 px-3 py-3 sm:gap-4 sm:px-6">
           <Link
             href={buildPublicPath(locale, '/')}
-            className="mr-auto text-lg font-extrabold tracking-tight"
+            className="mr-auto min-w-0 text-base leading-tight font-extrabold tracking-tight sm:text-lg"
           >
-            AuraSpear<span className="text-primary"> / SOC</span>
+            AuraSpear<span className="text-blue-400"> / SOC</span>
           </Link>
           <Link
             href={buildPublicPath(locale, '/')}
@@ -51,10 +85,11 @@ export function PublicShell({
           </nav>
           <details className="relative">
             <summary
-              aria-label={copy.languageMenu}
-              className="cursor-pointer rounded-md border px-3 py-2 text-sm font-bold"
+              title={copy.languageMenu}
+              className="inline-flex cursor-pointer list-none items-center gap-1 rounded-md border px-2 py-2 text-sm font-bold whitespace-nowrap marker:content-none sm:px-3 [&::-webkit-details-marker]:hidden"
             >
-              {LOCALES.find(item => item.code === locale)?.label}
+              <ChevronRight aria-hidden="true" className="size-3.5 shrink-0" />
+              <span>{LOCALES.find(item => item.code === locale)?.label}</span>
             </summary>
             <div className="bg-popover absolute end-0 mt-2 grid max-h-80 min-w-40 gap-1 overflow-auto rounded-lg border p-2 shadow-xl">
               {LOCALES.map(item => (
@@ -88,7 +123,7 @@ export function PublicShell({
         </div>
       </header>
       {children}
-      <footer className="bg-card border-t">
+      <footer className="bg-card border-x border-t sm:border-x-0">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
             <div>
@@ -101,11 +136,14 @@ export function PublicShell({
                 <a href="https://github.com/ihabkhaled/auraspear" aria-label={copy.githubAria}>
                   <Github className="size-5" />
                 </a>
+                <a href="https://www.linkedin.com/in/ihabkhaled94/" aria-label={copy.linkedinLabel}>
+                  <Linkedin className="size-5" />
+                </a>
               </div>
             </div>
             {MARKETING_GROUPS.map(group => (
               <div key={group}>
-                <h2 className="text-primary font-mono text-xs font-bold tracking-widest uppercase">
+                <h2 className="font-mono text-xs font-bold tracking-widest text-blue-400 uppercase">
                   {groupLabels.get(group)}
                 </h2>
                 <ul className="mt-4 space-y-2">

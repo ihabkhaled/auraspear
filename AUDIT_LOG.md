@@ -224,6 +224,7 @@ Missing keys added to all 6 locale files (en, ar, es, fr, de, it) for normalizat
 ---
 
 ### Mobile Responsiveness Audit — 2026-03-28
+
 - Audited 20 critical mobile issues across 30+ routes
 - Fixed 43 files for mobile responsiveness
 - Critical: Chat panel responsive stacking with slide-over thread sidebar

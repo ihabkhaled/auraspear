@@ -1,4 +1,6 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import api from '@/lib/api'
+import { aiUsageService } from '@/services/ai-usage.service'
 
 vi.mock('@/lib/api', () => ({
   default: {
@@ -9,9 +11,6 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { aiUsageService } from '@/services/ai-usage.service'
 
 const mockGet = api.get as Mock
 const mockPost = api.post as Mock
@@ -103,8 +102,20 @@ describe('aiUsageService', () => {
   describe('listCostRates', () => {
     it('calls GET /ai-usage/cost-rates and returns array', async () => {
       const rates = [
-        { id: 'r1', provider: 'openai', model: 'gpt-4', inputCostPer1k: 0.03, outputCostPer1k: 0.06 },
-        { id: 'r2', provider: 'anthropic', model: 'claude-3', inputCostPer1k: 0.01, outputCostPer1k: 0.03 },
+        {
+          id: 'r1',
+          provider: 'openai',
+          model: 'gpt-4',
+          inputCostPer1k: 0.03,
+          outputCostPer1k: 0.06,
+        },
+        {
+          id: 'r2',
+          provider: 'anthropic',
+          model: 'claude-3',
+          inputCostPer1k: 0.01,
+          outputCostPer1k: 0.03,
+        },
       ]
       mockGet.mockResolvedValueOnce({ data: { data: rates } })
 
@@ -125,7 +136,12 @@ describe('aiUsageService', () => {
 
   describe('upsertCostRate', () => {
     it('calls PUT /ai-usage/cost-rates and extracts data', async () => {
-      const input = { provider: 'openai', model: 'gpt-4', inputCostPer1k: 0.03, outputCostPer1k: 0.06 }
+      const input = {
+        provider: 'openai',
+        model: 'gpt-4',
+        inputCostPer1k: 0.03,
+        outputCostPer1k: 0.06,
+      }
       const created = { id: 'r1', ...input }
       mockPut.mockResolvedValueOnce({ data: { data: created } })
 
@@ -139,7 +155,12 @@ describe('aiUsageService', () => {
       mockPut.mockRejectedValueOnce(new Error('Validation error'))
 
       await expect(
-        aiUsageService.upsertCostRate({ provider: '', model: '', inputCostPer1k: 0, outputCostPer1k: 0 })
+        aiUsageService.upsertCostRate({
+          provider: '',
+          model: '',
+          inputCostPer1k: 0,
+          outputCostPer1k: 0,
+        })
       ).rejects.toThrow('Validation error')
     })
   })
@@ -167,7 +188,13 @@ describe('aiUsageService', () => {
   describe('listBudgetAlerts', () => {
     it('calls GET /ai-usage/budget-alerts and returns array', async () => {
       const alerts = [
-        { id: 'ba1', scope: 'tenant', monthlyBudget: 100, alertThresholds: '50,80,100', enabled: true },
+        {
+          id: 'ba1',
+          scope: 'tenant',
+          monthlyBudget: 100,
+          alertThresholds: '50,80,100',
+          enabled: true,
+        },
       ]
       mockGet.mockResolvedValueOnce({ data: { data: alerts } })
 
@@ -262,7 +289,9 @@ describe('aiUsageService', () => {
 
       await aiUsageService.toggleBudgetAlert('ba1', false)
 
-      expect(mockPost).toHaveBeenCalledWith('/ai-usage/budget-alerts/ba1/toggle', { enabled: false })
+      expect(mockPost).toHaveBeenCalledWith('/ai-usage/budget-alerts/ba1/toggle', {
+        enabled: false,
+      })
     })
 
     it('propagates API errors', async () => {

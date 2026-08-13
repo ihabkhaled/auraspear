@@ -1,13 +1,7 @@
 'use client'
 
 import { DataTable, Pagination } from '@/components/common'
-import {
-  Badge,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Badge, Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import { WorkspaceEntityStatus } from '@/enums'
 import { useWorkspaceEntitiesComponent } from '@/hooks'
 import { cn, formatTimestamp } from '@/lib/utils'

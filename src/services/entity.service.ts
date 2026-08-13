@@ -13,19 +13,15 @@ export const entityService = {
   list: (params?: EntitySearchParams) =>
     api.get<ApiResponse<EntityRecord[]>>('/entities', { params }).then(r => r.data),
 
-  getById: (id: string) =>
-    api.get<ApiResponse<EntityRecord>>(`/entities/${id}`).then(r => r.data),
+  getById: (id: string) => api.get<ApiResponse<EntityRecord>>(`/entities/${id}`).then(r => r.data),
 
   getGraph: (id: string) =>
     api.get<ApiResponse<EntityGraphData>>(`/entities/${id}/graph`).then(r => r.data),
 
-  getTopRisky: () =>
-    api.get<ApiResponse<EntityRecord[]>>('/entities/top-risky').then(r => r.data),
+  getTopRisky: () => api.get<ApiResponse<EntityRecord[]>>('/entities/top-risky').then(r => r.data),
 
   getRiskBreakdown: (id: string) =>
-    api
-      .get<ApiResponse<RiskBreakdownResponse>>(`/entities/${id}/risk-breakdown`)
-      .then(r => r.data),
+    api.get<ApiResponse<RiskBreakdownResponse>>(`/entities/${id}/risk-breakdown`).then(r => r.data),
 
   create: (data: CreateEntityInput) =>
     api.post<ApiResponse<EntityRecord>>('/entities', data).then(r => r.data),

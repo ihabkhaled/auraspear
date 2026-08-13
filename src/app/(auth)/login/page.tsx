@@ -25,6 +25,7 @@ export default function LoginPage() {
     t,
     tApp,
     tCommon,
+    tMarketing,
     mounted,
     isDark,
     currentLocale,
@@ -44,7 +45,7 @@ export default function LoginPage() {
     <div className="bg-background flex min-h-screen flex-col items-center justify-center p-4">
       <div className="absolute end-3 top-3 flex items-center gap-1 sm:end-4 sm:top-4 sm:gap-2">
         <Button asChild variant="ghost" size="icon">
-          <Link href="/" aria-label={tCommon('home')}>
+          <Link href="/" aria-label={tMarketing('home')}>
             <Home className="text-muted-foreground h-4 w-4" />
           </Link>
         </Button>

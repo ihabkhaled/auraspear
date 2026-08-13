@@ -1,12 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import type { SidebarNavItemProps } from '@/types'
 

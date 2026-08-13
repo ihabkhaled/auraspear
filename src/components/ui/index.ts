@@ -1,5 +1,12 @@
 // Alphabetically ordered re-exports from all UI components
-export { Avatar, AvatarBadge, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from './avatar'
+export {
+  Avatar,
+  AvatarBadge,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarGroupCount,
+  AvatarImage,
+} from './avatar'
 export { Badge, badgeVariants } from './badge'
 export {
   Breadcrumb,

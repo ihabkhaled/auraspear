@@ -51,7 +51,7 @@ export function useAiHandoffs() {
       title?: string
       description?: string
     }) => aiHandoffService.promote(data),
-    onSuccess: (result) => {
+    onSuccess: result => {
       void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-stats', tenantId] })
       void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-history', tenantId] })
       Toast.success(

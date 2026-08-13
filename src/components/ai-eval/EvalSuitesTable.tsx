@@ -22,7 +22,7 @@ export function EvalSuitesTable({
     {
       key: 'description',
       label: t('suites.description'),
-      render: (value) => (value as string | null) ?? '-',
+      render: value => (value as string | null) ?? '-',
     },
     {
       key: '_count',
@@ -35,7 +35,7 @@ export function EvalSuitesTable({
     {
       key: 'createdAt',
       label: t('suites.createdAt'),
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
     },
     ...(canManage
       ? [
@@ -56,5 +56,7 @@ export function EvalSuitesTable({
       : []),
   ]
 
-  return <DataTable columns={columns} data={data} loading={loading} emptyMessage={t('suites.empty')} />
+  return (
+    <DataTable columns={columns} data={data} loading={loading} emptyMessage={t('suites.empty')} />
+  )
 }

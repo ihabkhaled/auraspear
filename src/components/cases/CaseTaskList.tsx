@@ -1,12 +1,7 @@
 'use client'
 
 import { Plus, Trash2 } from 'lucide-react'
-import {
-  Button,
-  Checkbox,
-  Input,
-  Progress,
-} from '@/components/ui'
+import { Button, Checkbox, Input, Progress } from '@/components/ui'
 import { CaseTaskStatus } from '@/enums'
 import { useCaseTaskList } from '@/hooks'
 import type { CaseTaskListProps } from '@/types'

@@ -12,13 +12,7 @@ import {
   Users,
 } from 'lucide-react'
 import { DataTable } from '@/components/common'
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  Badge,
-  Button,
-} from '@/components/ui'
+import { Avatar, AvatarFallback, AvatarImage, Badge, Button } from '@/components/ui'
 import { UserRole, UserStatus } from '@/enums'
 import { useTenantUserTable } from '@/hooks'
 import { getStatusDotClass, getRoleBadgeClass } from '@/lib/admin-utils'

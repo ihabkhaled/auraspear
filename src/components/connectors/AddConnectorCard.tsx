@@ -2,14 +2,7 @@
 
 import React from 'react'
 import { Plus } from 'lucide-react'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui'
 import { useAddConnectorCard } from '@/hooks'
 import { CONNECTOR_ICONS, CONNECTOR_META } from '@/lib/constants/connectors.constants'
 import { lookup } from '@/lib/utils'

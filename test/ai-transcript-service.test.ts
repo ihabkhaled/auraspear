@@ -1,4 +1,6 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import api from '@/lib/api'
+import { aiTranscriptService } from '@/services/ai-transcript.service'
 
 vi.mock('@/lib/api', () => ({
   default: {
@@ -8,9 +10,6 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { aiTranscriptService } from '@/services/ai-transcript.service'
 
 const mockGet = api.get as Mock
 const mockPost = api.post as Mock
@@ -110,9 +109,7 @@ describe('aiTranscriptService', () => {
 
   describe('listAuditLogs', () => {
     it('calls GET /ai-transcripts/audit-logs with params and returns { data, total }', async () => {
-      const logs = [
-        { id: 'log1', action: 'chat_message', createdAt: '2024-01-01T00:00:00Z' },
-      ]
+      const logs = [{ id: 'log1', action: 'chat_message', createdAt: '2024-01-01T00:00:00Z' }]
       mockGet.mockResolvedValueOnce({ data: { data: logs, total: 1 } })
 
       const result = await aiTranscriptService.listAuditLogs({ limit: 20, offset: 0 })

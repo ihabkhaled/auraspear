@@ -1,4 +1,6 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import api from '@/lib/api'
+import { aiHandoffService } from '@/services/ai-handoff.service'
 
 vi.mock('@/lib/api', () => ({
   default: {
@@ -6,9 +8,6 @@ vi.mock('@/lib/api', () => ({
     post: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { aiHandoffService } from '@/services/ai-handoff.service'
 
 const mockGet = api.get as Mock
 const mockPost = api.post as Mock
@@ -32,7 +31,9 @@ describe('aiHandoffService', () => {
 
     it('should propagate errors', async () => {
       mockPost.mockRejectedValue(new Error('Not found'))
-      await expect(aiHandoffService.promote({ findingId: 'x', targetModule: 'case' })).rejects.toThrow('Not found')
+      await expect(
+        aiHandoffService.promote({ findingId: 'x', targetModule: 'case' })
+      ).rejects.toThrow('Not found')
     })
   })
 
@@ -43,7 +44,9 @@ describe('aiHandoffService', () => {
 
       const result = await aiHandoffService.getHistory({ limit: 10, offset: 0 })
 
-      expect(mockGet).toHaveBeenCalledWith('/ai-handoffs/history', { params: { limit: 10, offset: 0 } })
+      expect(mockGet).toHaveBeenCalledWith('/ai-handoffs/history', {
+        params: { limit: 10, offset: 0 },
+      })
       expect(result.data).toHaveLength(1)
       expect(result.total).toBe(1)
     })

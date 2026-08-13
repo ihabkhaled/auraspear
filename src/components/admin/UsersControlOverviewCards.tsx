@@ -1,14 +1,7 @@
 'use client'
 
 import { Activity, ShieldOff, Users } from 'lucide-react'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Skeleton,
-} from '@/components/ui'
+import { Button, Card, CardContent, CardHeader, CardTitle, Skeleton } from '@/components/ui'
 import type { UsersControlOverviewCardsProps } from '@/types'
 
 export function UsersControlOverviewCards({

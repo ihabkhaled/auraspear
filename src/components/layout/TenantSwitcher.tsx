@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui'
 import { useTenantSwitcher } from '@/hooks'
 
 export function TenantSwitcher() {

@@ -5,7 +5,14 @@ import { DataTable } from '@/components/common'
 import { Badge, Button, Switch } from '@/components/ui'
 import type { AiFeatureConfig, Column, FeatureTableProps } from '@/types'
 
-export function FeatureTable({ features, loading, onEdit, onToggle, availableConnectors, t }: FeatureTableProps) {
+export function FeatureTable({
+  features,
+  loading,
+  onEdit,
+  onToggle,
+  availableConnectors,
+  t,
+}: FeatureTableProps) {
   // Columns contain JSX render functions — acceptable inline per CLAUDE.md rule 33
   const columns: Column<AiFeatureConfig>[] = [
     { key: 'featureKey', label: t('featureKey') },

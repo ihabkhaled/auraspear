@@ -27,7 +27,7 @@ export function useRagObservability() {
 
   const traceMutation = useMutation({
     mutationFn: (query: string) => aiRagService.trace(query),
-    onSuccess: (result) => {
+    onSuccess: result => {
       setTraceResult(result)
     },
   })

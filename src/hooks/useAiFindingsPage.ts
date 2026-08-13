@@ -48,32 +48,29 @@ export function useAiFindingsPage() {
     }, 400)
   }, [])
 
-  const handleFilterChange = useCallback(
-    (filter: string, value: string) => {
-      const resolved = value === 'all' ? '' : value
-      switch (filter) {
-        case 'agentId':
-          setAgentId(resolved)
-          break
-        case 'sourceModule':
-          setSourceModule(resolved)
-          break
-        case 'status':
-          setStatus(resolved)
-          break
-        case 'findingType':
-          setFindingType(resolved)
-          break
-        case 'severity':
-          setSeverity(resolved)
-          break
-        default:
-          break
-      }
-      setPage(1)
-    },
-    []
-  )
+  const handleFilterChange = useCallback((filter: string, value: string) => {
+    const resolved = value === 'all' ? '' : value
+    switch (filter) {
+      case 'agentId':
+        setAgentId(resolved)
+        break
+      case 'sourceModule':
+        setSourceModule(resolved)
+        break
+      case 'status':
+        setStatus(resolved)
+        break
+      case 'findingType':
+        setFindingType(resolved)
+        break
+      case 'severity':
+        setSeverity(resolved)
+        break
+      default:
+        break
+    }
+    setPage(1)
+  }, [])
 
   const handleSort = useCallback((field: string, order: SortOrder) => {
     setSortBy(field)
@@ -130,7 +127,18 @@ export function useAiFindingsPage() {
       params['sortOrder'] = sortOrder
     }
     return params
-  }, [page, limit, debouncedQuery, agentId, sourceModule, status, findingType, severity, sortBy, sortOrder])
+  }, [
+    page,
+    limit,
+    debouncedQuery,
+    agentId,
+    sourceModule,
+    status,
+    findingType,
+    severity,
+    sortBy,
+    sortOrder,
+  ])
 
   // Findings list query
   const findingsQuery = useQuery({
@@ -169,12 +177,14 @@ export function useAiFindingsPage() {
   const promoteMutation = useMutation({
     mutationFn: ({ findingId, targetModule }: { findingId: string; targetModule: string }) =>
       aiHandoffService.promote({ findingId, targetModule }),
-    onSuccess: (result) => {
+    onSuccess: result => {
       void queryClient.invalidateQueries({ queryKey: ['ai-findings'] })
       void queryClient.invalidateQueries({ queryKey: ['ai-findings-stats'] })
       void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-stats'] })
       void queryClient.invalidateQueries({ queryKey: ['ai-handoffs-history'] })
-      Toast.success(`${t('promotedTo')} ${result.targetModule} (${result.createdEntityId.slice(0, 8)})`)
+      Toast.success(
+        `${t('promotedTo')} ${result.targetModule} (${result.createdEntityId.slice(0, 8)})`
+      )
       setDetailOpen(false)
     },
     onError: buildErrorToastHandler(tErrors),
@@ -190,7 +200,7 @@ export function useAiFindingsPage() {
   const bulkStatusMutation = useMutation({
     mutationFn: ({ ids, newStatus }: { ids: string[]; newStatus: string }) =>
       agentConfigService.bulkUpdateFindingStatus(ids, newStatus),
-    onSuccess: (result) => {
+    onSuccess: result => {
       void queryClient.invalidateQueries({ queryKey: ['ai-findings'] })
       void queryClient.invalidateQueries({ queryKey: ['ai-findings-stats'] })
       const updated = (result as { data?: { updated?: number } })?.data?.updated ?? 0
@@ -215,13 +225,15 @@ export function useAiFindingsPage() {
     }
 
     agentConfigService
-      .exportFindings((() => {
-        const params: Record<string, string> = {}
-        if (status) params['status'] = status
-        if (agentId) params['agentId'] = agentId
-        if (sourceModule) params['sourceModule'] = sourceModule
-        return params
-      })())
+      .exportFindings(
+        (() => {
+          const params: Record<string, string> = {}
+          if (status) params['status'] = status
+          if (agentId) params['agentId'] = agentId
+          if (sourceModule) params['sourceModule'] = sourceModule
+          return params
+        })()
+      )
       .then(result => {
         const exportData = (result as { data?: AiExecutionFinding[] })?.data ?? []
         const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
@@ -309,64 +321,46 @@ export function useAiFindingsPage() {
     return filters
   }, [debouncedQuery, agentId, sourceModule, status, findingType, severity, t])
 
-  const handleRemoveFilter = useCallback(
-    (key: string) => {
-      switch (key) {
-        case 'query':
-          setQuery('')
-          setDebouncedQuery('')
-          break
-        case 'agentId':
-          setAgentId('')
-          break
-        case 'sourceModule':
-          setSourceModule('')
-          break
-        case 'status':
-          setStatus('')
-          break
-        case 'findingType':
-          setFindingType('')
-          break
-        case 'severity':
-          setSeverity('')
-          break
-        default:
-          break
-      }
-      setPage(1)
-    },
-    []
-  )
+  const handleRemoveFilter = useCallback((key: string) => {
+    switch (key) {
+      case 'query':
+        setQuery('')
+        setDebouncedQuery('')
+        break
+      case 'agentId':
+        setAgentId('')
+        break
+      case 'sourceModule':
+        setSourceModule('')
+        break
+      case 'status':
+        setStatus('')
+        break
+      case 'findingType':
+        setFindingType('')
+        break
+      case 'severity':
+        setSeverity('')
+        break
+      default:
+        break
+    }
+    setPage(1)
+  }, [])
 
   // Dropdown options from stats
-  const agentOptions = useMemo(
-    () => stats.byAgent.map(a => a.agentId).sort(),
-    [stats.byAgent]
-  )
+  const agentOptions = useMemo(() => stats.byAgent.map(a => a.agentId).sort(), [stats.byAgent])
 
   const moduleOptions = useMemo(
     () => stats.byModule.map(m => m.sourceModule).sort(),
     [stats.byModule]
   )
 
-  const statusOptions = useMemo(
-    () =>
-      Object.values(AiFindingStatus) as string[],
-    []
-  )
+  const statusOptions = useMemo(() => Object.values(AiFindingStatus) as string[], [])
 
-  const findingTypeOptions = useMemo(
-    () =>
-      Object.values(AiFindingType) as string[],
-    []
-  )
+  const findingTypeOptions = useMemo(() => Object.values(AiFindingType) as string[], [])
 
-  const severityOptions = useMemo(
-    () =>
-      Object.values(AlertSeverity) as string[],
-    []
-  )
+  const severityOptions = useMemo(() => Object.values(AlertSeverity) as string[], [])
 
   const totalPages = pagination?.totalPages ?? 1
 

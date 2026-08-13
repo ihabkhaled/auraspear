@@ -2,17 +2,24 @@ import Link from 'next/link'
 import { ArrowRight, CheckCircle2, Network, ShieldCheck } from 'lucide-react'
 import { getMarketingContent } from '@/lib/marketing-content'
 import { buildPublicPath, type SupportedLocale } from '@/lib/marketing.utils'
+import { publicPageJsonLd, serializeJsonLd } from '@/lib/seo'
 import type { MarketingPage } from '@/types/marketing.types'
 
 export function PublicPage({ page, locale }: { page: MarketingPage; locale: SupportedLocale }) {
   const copy = getMarketingContent(locale).shared
   const contactPath = buildPublicPath(locale, '/contact')
+  const schemas = publicPageJsonLd(page, locale)
   return (
     <main>
-      <section className="relative overflow-hidden border-b px-4 py-20 sm:px-6 lg:py-28">
+      {schemas.map((schema, index) => (
+        <script key={index} type="application/ld+json">
+          {serializeJsonLd(schema)}
+        </script>
+      ))}
+      <section className="relative overflow-hidden border-x border-b px-4 py-20 sm:border-x-0 sm:px-6 lg:py-28">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_75%_20%,color-mix(in_srgb,var(--primary)_16%,transparent),transparent_38%)]" />
         <div className="mx-auto max-w-7xl">
-          <p className="text-primary font-mono text-xs font-bold tracking-[0.22em] uppercase">
+          <p className="font-mono text-xs font-bold tracking-[0.22em] text-blue-400 uppercase">
             {page.category} / AuraSpear SOC
           </p>
           <h1 className="mt-5 max-w-5xl text-4xl leading-[1.05] font-extrabold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
@@ -39,7 +46,7 @@ export function PublicPage({ page, locale }: { page: MarketingPage; locale: Supp
       </section>
       <section className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[0.8fr_1.2fr]">
         <div>
-          <p className="text-primary font-mono text-xs tracking-widest uppercase">
+          <p className="font-mono text-xs tracking-widest text-blue-400 uppercase">
             {copy.fromSignalToDecision}
           </p>
           <h2 className="mt-4 text-3xl font-bold tracking-tight">{copy.contextTitle}</h2>
@@ -48,27 +55,27 @@ export function PublicPage({ page, locale }: { page: MarketingPage; locale: Supp
         <div className="grid gap-4 sm:grid-cols-2">
           {page.capabilities.map(capability => (
             <article key={capability} className="bg-card rounded-xl border p-6">
-              <CheckCircle2 className="text-primary size-5" />
+              <CheckCircle2 className="size-5 text-blue-400" />
               <h3 className="mt-4 font-bold">{capability}</h3>
               <p className="text-muted-foreground mt-2 text-sm leading-6">{copy.capabilityBody}</p>
             </article>
           ))}
         </div>
       </section>
-      <section className="bg-muted/40 border-y">
+      <section className="bg-muted/40 border">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 py-16 sm:px-6 md:grid-cols-3">
           <article>
-            <Network className="text-primary size-6" />
+            <Network className="size-6 text-blue-400" />
             <h2 className="mt-4 text-xl font-bold">{copy.connectTitle}</h2>
             <p className="text-muted-foreground mt-2 text-sm leading-6">{copy.connectBody}</p>
           </article>
           <article>
-            <ShieldCheck className="text-primary size-6" />
+            <ShieldCheck className="size-6 text-blue-400" />
             <h2 className="mt-4 text-xl font-bold">{copy.tenantTitle}</h2>
             <p className="text-muted-foreground mt-2 text-sm leading-6">{copy.tenantBody}</p>
           </article>
           <article>
-            <CheckCircle2 className="text-primary size-6" />
+            <CheckCircle2 className="size-6 text-blue-400" />
             <h2 className="mt-4 text-xl font-bold">{copy.accountableTitle}</h2>
             <p className="text-muted-foreground mt-2 text-sm leading-6">{copy.accountableBody}</p>
           </article>

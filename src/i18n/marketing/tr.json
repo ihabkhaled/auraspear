@@ -1,0 +1,640 @@
+{
+  "shared": {
+    "navPlatform": "Platform",
+    "navFeatures": "Özellikler",
+    "navIntegrations": "Entegrasyonlar",
+    "navAbout": "Hakkında",
+    "requestDemo": "Demo isteyin",
+    "requestYourDemo": "Demonuzu isteyin",
+    "goToApp": "Uygulamaya git",
+    "goToAppAria": "AuraSpear uygulamasına git",
+    "languageMenu": "Dil seçin",
+    "homeAria": "AuraSpear ana sayfasına git",
+    "fromSignalToDecision": "Sinyalden karara",
+    "contextTitle": "Bağlamını kaybedemeyen güvenlik çalışmaları için üretilmiştir",
+    "contextBody": "AuraSpear; telemetriyi, bulguları, analist değerlendirmelerini, onayları ve yanıt geçmişini birbirine bağlar. Ekipler, araştırmaları yavaşlatan devirleri azaltırken savunulabilir bir operasyon kaydı oluşturur.",
+    "capabilityBody": "Tekrarlanabilir işlemler, açık mülkiyet ve güvenlik yaşam döngüsü boyunca bağlı kalan kanıtlar için tasarlanmıştır.",
+    "connectTitle": "Yığınınızı bağlayın",
+    "connectBody": "Mevcut algılama, gözlemlenebilirlik, zeka, otomasyon ve AI sağlayıcıları tek bir yönetilen çalışma alanına getirin.",
+    "tenantTitle": "Kiracı sınırlarını koruyun",
+    "tenantBody": "Rol tabanlı erişim ve kiracı kapsamlı işlemler, hassas güvenlik bağlamlarını birbirinden ayrı tutar.",
+    "accountableTitle": "İnsan sorumluluğunu koruyun",
+    "accountableBody": "Onay kapıları, atıf, güven ve denetim izleri otomasyonu açıklanabilir tutar.",
+    "seeTitle": "AuraSpear'ı kendi ortamınızda görün",
+    "seeBody": "Telemetriniz, ekipleriniz, kiracılarınız ve yanıt iş akışlarınız hakkında bize bilgi verin. Operasyonel ihtiyaçlarınıza göre hazırlanmış odaklı bir ürün tanıtımı sunalım.",
+    "footerTagline": "Bağlı kanıtlar ve yönetilen yapay zeka ile birleşik, çok kiracılı güvenlik operasyonları.",
+    "footerRights": "© 2026 AuraSpear SOC. Birbirine bağlı güvenlik operasyonları.",
+    "emailAria": "E-posta AuraSpear",
+    "githubAria": "GitHub'da AuraSpear",
+    "contactEyebrow": "İletişim / Demo talep et",
+    "contactTitle": "Güvenlik operasyonları ihtiyacınızı bize anlatın",
+    "contactBody": "Ekip yapınızı, kiracı modelinizi, telemetri kaynaklarınızı ve yanıt hedeflerinizi paylaşın. Size özel, odaklı bir AuraSpear tanıtımı planlayalım.",
+    "contactPrivacy": "Bu ayrıntıları sadece isteğinize cevap vermek için kullanıyoruz.",
+    "linkedinLabel": "LinkedIn'de Ihab Khaled'i bulun",
+    "emailPlaceholder": "you@company.com",
+    "subjectPlaceholder": "Konu",
+    "messagePlaceholder": "Mesajınız"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "AI destekli güvenlik operasyonları",
+      "description": "Tespit, araştırma, istihbarat ve yanıt süreçlerini çok kiracılı tek bir SOC platformunda birleştirin.",
+      "category": "Genel bakış",
+      "capabilities": [
+        "Merkezileştirilmiş yapay zekâ destekli güvenlik operasyonları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "AuraSpear Hakkında",
+      "description": "AuraSpear SOC'un arkasındaki misyon ve mühendislik ilkeleriyle tanışın.",
+      "category": "Şirket",
+      "capabilities": [
+        "Merkezileştirilmiş AuraSpear iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "Demo talep et",
+      "description": "AuraSpear ekibiyle konuşlandırma, entegrasyon ve güvenlik operasyonları hakkında konuşun.",
+      "category": "Şirket",
+      "capabilities": [
+        "Merkezileştirilmiş istek demo iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "Birleşik SOC platformu",
+      "description": "Sinyaller, kanıtlar, kararlar ve yanıtlar için tek bir operasyonel katman.",
+      "category": "Platform",
+      "capabilities": [
+        "Merkezileştirilmiş birleşik soc platform iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "Güvenlik operasyonları mimarisi",
+      "description": "AuraSpear'ın modüler verilerini, otomasyonunu, AI'sını ve yönetim katmanlarını anlayın.",
+      "category": "Platform",
+      "capabilities": [
+        "Merkezi güvenlik operasyonları mimari iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "Çok kiracılı SOC işlemleri",
+      "description": "İzole edilmiş, yönetilen bir kontrol uçağından birden fazla güvenlik programını çalıştırın.",
+      "category": "Platform",
+      "capabilities": [
+        "Merkezileştirilmiş çok kiracılı soc işlemleri iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "Platform güvenliği",
+      "description": "Kimlik, izinler, veriler ve AI destekli eylemler için derinlemesine savunma denetimleri.",
+      "category": "Platform",
+      "capabilities": [
+        "Merkezileştirilmiş platform güvenlik iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "Kiracı izolasyonu",
+      "description": "Kiracı kimliklerini, telemetriyi, vakaları, yapılandırmaları ve erişim sınırlarını ayrı tutun.",
+      "category": "Platform",
+      "capabilities": [
+        "Merkezi kiracı izolasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "SOC gösterge panoları",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla soc gösterge tablolarını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş soc gösterge tabloları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "Uyarı yönetimi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla uyarı yönetimini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş alarm yönetimi iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "Olay yönetimi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla olay yönetimini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş olay yönetimi iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "Vaka yönetimi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla vaka yönetimini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş vaka yönetimi iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "Vaka yaşam döngüsü orkestrasyonu",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla vaka yaşam döngüsü orkestrasyonunu nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş vaka yaşam döngüsü orkestrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "Güvenlik raporlaması",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla güvenlik raporlamasını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş güvenlik raporlama iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "Operasyonel bildirimler",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla operasyonel bildirimleri nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş operasyonel bildirim iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "Arka plan işleri",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla arka plan işlerini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş arka plan işleri iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "Sistem sağlığı",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla sistem sağlığını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi sistem sağlık iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "Algılama mühendisliği",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla algılama mühendisliğini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi algılama mühendisliği iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "Korelasyon motoru",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla korelasyon motorunu nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş korelasyon motoru iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "Tehdit avcılığı",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla tehdit avı nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi tehdit avcılığı iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "Tehdit istihbaratı",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla tehdit istihbaratını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi tehdit istihbarat iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "Varlık riski",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla varlık riskini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş varlık risk iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "Güvenlik açığı yönetimi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla güvenlik açığı yönetimini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi güvenlik açığı yönetimi iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "Kullanıcı ve varlık davranış analizi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla kullanıcı ve varlık davranış analizlerini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş kullanıcı ve varlık davranışı analitiği iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "Bulut güvenliği",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla bulut güvenliğini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi bulut güvenlik iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "Uyumluluk işlemleri",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla uyumluluk işlemlerini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi uyum işlemleri iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "Saldırı yolu analizi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla saldırı yolu analizini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş saldırı yolu analizi iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOAR otomasyonu",
+      "description": "AuraSpear'ın, yönetilen iş akışları ve bağlı kanıtlarla nasıl bir sıralama otomasyonu sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş sonar otomasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "AI co-analyst",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla ai co-analyst'i nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai co-analyst iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "AI ajanları",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla ai ajanlarını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai ajanları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI soruşturma sohbet",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai soruşturma sohbetini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai soruşturma sohbet iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "AI arama",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai aramasını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai arama iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "AI bulguları",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai bulgularını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai bulguları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AI bellek ve RAG",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla ai bellek ve paçavrayı nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai bellek ve paçavra iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "AI değerlendirmesi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai değerlendirmesini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai değerlendirme iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "AI simülasyonları",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai simülasyonlarını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai simülasyonları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AI yönetimi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai yönetişimini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai yönetişim iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI FinOps",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlı kanıtlarla ai finops'u nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezileştirilmiş ai finops iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "Güvenlik veri kaşifi",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla güvenlik veri gezginini nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi güvenlik veri gezgini iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "Normalizasyon boru hatları",
+      "description": "AuraSpear'ın yönetilen iş akışları ve bağlantılı kanıtlarla normalleştirme boru hatlarını nasıl sunduğunu keşfedin.",
+      "category": "Özellikler",
+      "capabilities": [
+        "Merkezi normalizasyon boru hatları iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "Güvenlik entegrasyonları entegrasyonu",
+      "description": "Güvenlik entegrasyonlarını birleşik güvenlik bağlamı ve işlemleri için AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezi güvenlik entegrasyonları entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Wazuh entegrasyonu",
+      "description": "Wazuh'u birleşik güvenlik bağlamı ve işlemleri için AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş wazuh entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Logstash entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için Logstash'ı AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş logstash entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Graylog entegrasyonu",
+      "description": "Graylog'u birleşik güvenlik bağlamı ve işlemleri için AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş grilog entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Grafana entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için Graphana'yı AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş gragana entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISP entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için MISP'yi AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş misp entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Shuffle entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için Shuffle'ı AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş karıştırma entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Velociraptor entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için Velociraptor'u AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş velociraptor entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "InfluxDB entegrasyonu",
+      "description": "Birleşik güvenlik bağlamı ve işlemleri için InfluxDB'yi AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş inquiredb entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLM sağlayıcıları entegrasyonu",
+      "description": "LLM sağlayıcıları birleşik güvenlik bağlamı ve işlemleri için AuraSpear'a bağlayın.",
+      "category": "Entegrasyonlar",
+      "capabilities": [
+        "Merkezileştirilmiş llm sağlayıcıları entegrasyon iş akışları",
+        "Kiracıya ait erişim kontrolleri ve denetlenebilirlik",
+        "Bir çalışma alanında otomasyon, kanıt ve analist bağlamı",
+        "Mevcut güvenlik operasyonları yığınları için açık entegrasyon yolları"
+      ]
+    }
+  }
+}

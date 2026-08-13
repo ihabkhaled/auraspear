@@ -1,4 +1,5 @@
 import api from '@/lib/api'
+import { extractApiData } from '@/lib/utils'
 import type {
   CreateMemoryInput,
   MemoryRetentionPolicy,
@@ -8,37 +9,24 @@ import type {
   UserMemoryListResponse,
 } from '@/types'
 
-/**
- * Extract the actual payload from a proxy response.
- * The proxy wraps non-wrapped responses as { data: T }.
- * For responses the backend already wraps with { data: ... },
- * the proxy passes through, so r.data IS the backend response directly.
- */
-function extractData<T>(response: { data: unknown }): T {
-  const body = response.data as Record<string, unknown>
-  if (body !== null && typeof body === 'object' && 'data' in body) {
-    return body['data'] as T
-  }
-  return body as T
-}
-
 export const memoryService = {
   list: (params?: { category?: string; search?: string; limit?: number; offset?: number }) =>
     api.get<UserMemoryListResponse>('/user-memory', { params }).then(r => r.data),
 
   create: (data: CreateMemoryInput) =>
-    api.post('/user-memory', data).then(r => extractData<UserMemory>(r)),
+    api.post('/user-memory', data).then(r => extractApiData<UserMemory>(r)),
 
   update: (id: string, data: UpdateMemoryInput) =>
-    api.patch(`/user-memory/${id}`, data).then(r => extractData<UserMemory>(r)),
+    api.patch(`/user-memory/${id}`, data).then(r => extractApiData<UserMemory>(r)),
 
-  delete: (id: string) => api.delete(`/user-memory/${id}`).then(r => extractData<void>(r)),
+  delete: (id: string) => api.delete(`/user-memory/${id}`).then(r => extractApiData<void>(r)),
 
-  deleteAll: () => api.delete('/user-memory').then(r => extractData<{ deleted: number }>(r)),
+  deleteAll: () => api.delete('/user-memory').then(r => extractApiData<{ deleted: number }>(r)),
 
   /* ── Governance ────────────────────────────────────── */
 
-  getStats: () => api.get('/user-memory/governance/stats').then(r => extractData<MemoryStats>(r)),
+  getStats: () =>
+    api.get('/user-memory/governance/stats').then(r => extractApiData<MemoryStats>(r)),
 
   listAll: (params?: Record<string, string | number>) =>
     api.get('/user-memory/governance/all', { params }).then(r => {
@@ -62,18 +50,18 @@ export const memoryService = {
   getRetentionPolicy: () =>
     api
       .get('/user-memory/governance/retention')
-      .then(r => extractData<MemoryRetentionPolicy | null>(r)),
+      .then(r => extractApiData<MemoryRetentionPolicy | null>(r)),
 
   upsertRetentionPolicy: (data: { retentionDays: number; autoCleanup: boolean }) =>
     api
       .patch('/user-memory/governance/retention', data)
-      .then(r => extractData<MemoryRetentionPolicy>(r)),
+      .then(r => extractApiData<MemoryRetentionPolicy>(r)),
 
   runCleanup: () =>
-    api.post('/user-memory/governance/cleanup').then(r => extractData<{ cleaned: number }>(r)),
+    api.post('/user-memory/governance/cleanup').then(r => extractApiData<{ cleaned: number }>(r)),
 
   adminDeleteUserMemories: (userId: string) =>
     api
       .delete(`/user-memory/governance/user/${userId}`)
-      .then(r => extractData<{ deleted: number }>(r)),
+      .then(r => extractApiData<{ deleted: number }>(r)),
 }

@@ -3,7 +3,10 @@ import { proxyToBackend } from '@/lib/backend-proxy'
 
 export const dynamic = 'force-dynamic'
 
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const { id } = await params
   return proxyToBackend(request, { path: `/ai-usage/cost-rates/${id}` })
 }

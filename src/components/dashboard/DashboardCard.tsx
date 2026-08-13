@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import type { DashboardCardProps } from '@/types'
 
 export function DashboardCard({ title, action, children, className }: DashboardCardProps) {

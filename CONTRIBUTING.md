@@ -40,6 +40,7 @@ All code must follow the rules defined in [`CLAUDE.md`](./CLAUDE.md). Key highli
 - NEVER use raw `new Date()` or `Date.now()` — use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `formatTimestamp`, etc.)
 
 ### Mobile Responsiveness Rules
+
 - All fixed widths must have mobile fallback: `w-full sm:w-40` not `w-40`
 - All dialogs must use `max-w-[95vw] sm:max-w-xl` pattern
 - Scroll containers use viewport heights on mobile: `max-h-[60vh] sm:max-h-[400px]`

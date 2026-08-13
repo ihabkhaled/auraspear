@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "master-prompt",
+      "path": ".ai/MASTER-PROMPT.md",
+      "purpose": "authoritative complete framework specification",
+      "priority": "critical",
+      "scope": ".ai",
+      "loadCondition": "framework-maintenance",
+      "version": 1
+    },
+    {
+      "id": "framework-readme",
+      "path": ".ai/README.md",
+      "purpose": "runtime architecture",
+      "priority": "high",
+      "scope": ".ai",
+      "loadCondition": "framework-maintenance",
+      "version": 1
+    },
+    {
+      "id": "repository-rules",
+      "path": "CLAUDE.md",
+      "purpose": "repository engineering policy",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "code-task",
+      "version": 1
+    },
+    {
+      "id": "repository-map",
+      "path": ".ai/context/repository-map.md",
+      "purpose": "compact ownership map",
+      "priority": "high",
+      "scope": "repository",
+      "loadCondition": "context-route",
+      "version": 1
+    },
+    {
+      "id": "application-architecture",
+      "path": "docs/ARCHITECTURE.md",
+      "purpose": "frontend architecture",
+      "priority": "high",
+      "scope": "frontend",
+      "loadCondition": "architecture-task",
+      "version": 1
+    },
+    {
+      "id": "ai-surfaces",
+      "path": "docs/AI-SURFACES.md",
+      "purpose": "product AI map",
+      "priority": "high",
+      "scope": "ai-product",
+      "loadCondition": "ai-surface-task",
+      "version": 1
+    }
+  ]
+}

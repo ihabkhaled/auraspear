@@ -17,6 +17,7 @@ export function useLoginPage() {
   const tApp = useTranslations('app')
   const tLang = useTranslations('language')
   const tCommon = useTranslations('common')
+  const tMarketing = useTranslations('marketing.nav')
   const { resolvedTheme, setTheme } = useTheme()
   const mounted = useSyncExternalStore(
     emptySubscribe,
@@ -37,6 +38,7 @@ export function useLoginPage() {
     tApp,
     tLang,
     tCommon,
+    tMarketing,
     mounted,
     isDark,
     currentLocale,

@@ -2,13 +2,7 @@
 
 import { Bell, BellOff, CheckCheck } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import {
-  Badge,
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui'
+import { Badge, Button, Popover, PopoverContent, PopoverTrigger } from '@/components/ui'
 import { useNotificationBell } from '@/hooks'
 import { NOTIFICATION_TYPE_LABEL_MAP } from '@/lib/constants/notifications'
 import { getNotificationIcon, getNotificationIconColor } from '@/lib/notification.utils'

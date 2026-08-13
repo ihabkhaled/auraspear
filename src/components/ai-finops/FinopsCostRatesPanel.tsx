@@ -99,17 +99,22 @@ export function FinopsCostRatesPanel() {
 
       {isAdding && (
         <div className="bg-muted/50 grid grid-cols-1 gap-3 rounded-lg border p-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Select value={formProvider || 'none'} onValueChange={v => {
-            setFormProvider(v === 'none' ? '' : v)
-            setFormModel(v === 'none' ? '' : v)
-          }}>
+          <Select
+            value={formProvider || 'none'}
+            onValueChange={v => {
+              setFormProvider(v === 'none' ? '' : v)
+              setFormModel(v === 'none' ? '' : v)
+            }}
+          >
             <SelectTrigger>
               <SelectValue placeholder={t('costRates.selectProvider')} />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="none">{t('costRates.selectProvider')}</SelectItem>
               {availableConnectors.map(c => (
-                <SelectItem key={c.key} value={c.key}>{c.label}</SelectItem>
+                <SelectItem key={c.key} value={c.key}>
+                  {c.label}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>

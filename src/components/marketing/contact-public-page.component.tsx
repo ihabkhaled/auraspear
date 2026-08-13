@@ -8,7 +8,7 @@ export function ContactPublicPage({ locale }: { locale: SupportedLocale }) {
   return (
     <main className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-2">
       <section>
-        <p className="text-primary font-mono text-xs font-bold tracking-widest uppercase">
+        <p className="font-mono text-xs font-bold tracking-widest text-blue-400 uppercase">
           {copy.contactEyebrow}
         </p>
         <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-6xl">
@@ -20,25 +20,25 @@ export function ContactPublicPage({ locale }: { locale: SupportedLocale }) {
             className="flex items-center gap-3 font-semibold"
             href="mailto:ihab.khaled94@gmail.com"
           >
-            <Mail className="text-primary size-5" />
+            <Mail className="size-5 text-blue-400" />
             ihab.khaled94@gmail.com
           </a>
           <a className="flex items-center gap-3 font-semibold" href="tel:+201001568256">
-            <Phone className="text-primary size-5" />
+            <Phone className="size-5 text-blue-400" />
             +20 100 156 8256
           </a>
           <a
             className="flex items-center gap-3 font-semibold"
             href="https://github.com/ihabkhaled/auraspear"
           >
-            <Github className="text-primary size-5" />
+            <Github className="size-5 text-blue-400" />
             github.com/ihabkhaled/auraspear
           </a>
           <a
             className="flex items-center gap-3 font-semibold"
             href="https://www.linkedin.com/in/ihabkhaled94/"
           >
-            <Linkedin className="text-primary size-5" />
+            <Linkedin className="size-5 text-blue-400" />
             {copy.linkedinLabel}
           </a>
         </div>

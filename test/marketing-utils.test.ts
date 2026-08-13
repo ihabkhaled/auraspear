@@ -12,8 +12,8 @@ import {
 } from '@/lib/marketing.utils'
 
 describe('marketing route model', () => {
-  it('publishes a substantial unique catalog in fourteen locales', () => {
-    expect(SUPPORTED_LOCALES).toHaveLength(14)
+  it('publishes a substantial unique catalog in fifteen locales', () => {
+    expect(SUPPORTED_LOCALES).toHaveLength(15)
     expect(MARKETING_PAGES.length).toBeGreaterThanOrEqual(25)
     expect(new Set(MARKETING_PAGES.map(page => page.path)).size).toBe(MARKETING_PAGES.length)
   })
@@ -46,8 +46,9 @@ describe('marketing route model', () => {
     expect(alternates['fr']).toBe('/fr/about')
     expect(alternates['fa']).toBe('/fa/about')
     expect(alternates['hi']).toBe('/hi/about')
+    expect(alternates['tr']).toBe('/tr/about')
     expect(alternates['x-default']).toBe('/about')
-    expect(Object.keys(alternates)).toHaveLength(15)
+    expect(Object.keys(alternates)).toHaveLength(16)
   })
 
   it('maps internal routes to their public application address', () => {

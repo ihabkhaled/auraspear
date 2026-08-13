@@ -1,5 +1,6 @@
 import { cookies, headers } from 'next/headers'
 import { Toaster } from 'sonner'
+import { CORE_SEO_KEYWORDS, PUBLIC_SITE_URL } from '@/lib/constants/seo'
 import { isRtlLocale, resolveDocumentLocale } from '@/lib/marketing.utils'
 import { Providers } from './providers'
 import type { Metadata, Viewport } from 'next'
@@ -8,40 +9,43 @@ import './globals.css'
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: '#135bec',
 }
 
-const siteUrl =
-  process.env['NEXT_PUBLIC_APP_URL'] ??
-  (process.env['VERCEL_URL'] ? `https://${process.env['VERCEL_URL']}` : 'http://localhost:3000')
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(PUBLIC_SITE_URL),
   title: {
     default: 'AuraSpear SOC — AI-Powered Security Operations',
     template: '%s | AuraSpear SOC',
   },
   description:
     'Unified multi-tenant security operations for detection, investigation, threat intelligence, automation, governance, and AI-assisted response.',
-  keywords: [
-    'security operations center',
-    'SOC platform',
-    'SIEM',
-    'SOAR',
-    'threat hunting',
-    'Wazuh',
-    'Logstash',
-    'multi-tenant SOC',
-    'AI cybersecurity',
-  ],
-  authors: [{ name: 'Ihab Khaled', url: 'https://github.com/ihabkhaled' }],
+  keywords: [...CORE_SEO_KEYWORDS],
+  authors: [{ name: 'Ihab Khaled', url: 'https://www.linkedin.com/in/ihabkhaled94/' }],
   creator: 'Ihab Khaled',
   publisher: 'AuraSpear SOC',
   applicationName: 'AuraSpear SOC',
   category: 'Cybersecurity',
-  other: { 'google-adsense-account': 'ca-pub-2415314275784926' },
+  classification: 'Security Operations Software',
+  referrer: 'origin-when-cross-origin',
+  formatDetection: { email: false, address: false, telephone: false },
+  alternates: { types: { 'application/rss+xml': '/feed.xml' } },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
+  other: {
+    'google-adsense-account': 'ca-pub-2415314275784926',
+    'contact:email': 'ihab.khaled94@gmail.com',
+    'contact:phone_number': '+201001568256',
+  },
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,

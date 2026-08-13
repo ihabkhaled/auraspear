@@ -1,0 +1,3 @@
+# AI Failure Modes
+
+Each failure is handled through symptoms -> signal -> prevention -> recovery: attention/goal/scope/context drift; recursive decomposition/investigation; compulsive verification; analysis paralysis; retry/tool/test-fix/refactor/replan/critic/context-reload loops; architecture rabbit holes; premature optimization; strategy oscillation; infinite refinement; deadlock; livelock; evidence-free exploration; hallucinated repository knowledge; and completion avoidance. Thresholds are machine-readable in `.ai/telemetry/thresholds.json`; recovery procedures are exposed as triggered skills.

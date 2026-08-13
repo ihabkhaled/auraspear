@@ -5,8 +5,7 @@ import { SearchResultsTable } from '@/components/ai-search'
 import { LoadingSpinner, PageHeader, SearchInput } from '@/components/common'
 import { Badge } from '@/components/ui'
 import { useSemanticSearch } from '@/hooks'
-
-const MODULES = ['findings', 'chatThreads', 'memories', 'alerts', 'cases', 'incidents']
+import { AI_SEARCH_MODULES } from '@/lib/constants/ai-search'
 
 export default function AiSearchPage() {
   const {
@@ -24,7 +23,7 @@ export default function AiSearchPage() {
 
   if (!canView) {
     return (
-      <div className="flex h-64 items-center justify-center text-muted-foreground">
+      <div className="text-muted-foreground flex h-64 items-center justify-center">
         {t('noAccess')}
       </div>
     )
@@ -35,22 +34,12 @@ export default function AiSearchPage() {
       <PageHeader title={t('title')} description={t('description')} />
 
       <div className="space-y-4">
-        <SearchInput
-          value={query}
-          onChange={setQuery}
-          placeholder={t('searchPlaceholder')}
-        />
+        <SearchInput value={query} onChange={setQuery} placeholder={t('searchPlaceholder')} />
 
         <div className="flex flex-wrap gap-2">
-          {MODULES.map(mod => (
-            <button
-              key={mod}
-              type="button"
-              onClick={() => toggleModule(mod)}
-            >
-              <Badge
-                variant={selectedModules.includes(mod) ? 'default' : 'outline'}
-              >
+          {AI_SEARCH_MODULES.map(mod => (
+            <button key={mod} type="button" onClick={() => toggleModule(mod)}>
+              <Badge variant={selectedModules.includes(mod) ? 'default' : 'outline'}>
                 {t(`modules.${mod}`)}
               </Badge>
             </button>
@@ -58,14 +47,16 @@ export default function AiSearchPage() {
         </div>
       </div>
 
-      {isLoading && hasSearched ? (
+      {isLoading && hasSearched && (
         <div className="flex h-32 items-center justify-center">
           <LoadingSpinner />
         </div>
-      ) : hasSearched ? (
+      )}
+      {!isLoading && hasSearched && (
         <SearchResultsTable t={t} data={results} loading={isFetching} />
-      ) : (
-        <div className="flex h-32 items-center justify-center text-muted-foreground">
+      )}
+      {!hasSearched && (
+        <div className="text-muted-foreground flex h-32 items-center justify-center">
           <Search className="me-2 h-5 w-5" />
           {t('enterQuery')}
         </div>

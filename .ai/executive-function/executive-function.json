@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "objectivePolicy": { "lockBeforePlanning": true, "requiresDefinitionOfDone": true },
+  "scopePolicy": {
+    "classifications": ["BLOCKER", "REQUIRED", "OPTIONAL", "UNRELATED"],
+    "interrupt": ["BLOCKER", "REQUIRED"]
+  },
+  "communicationPolicy": { "defaultLines": "1-5", "requiresNewInformation": true },
+  "contextPolicy": { "layers": 5, "progressiveDisclosure": true },
+  "nestingPolicy": { "maximum": 3 },
+  "retryPolicy": { "sameStrategyMaximum": 3, "requiresNoveltyAfterLimit": true },
+  "verificationPolicy": { "smallestSufficientProof": true, "repeatOnlyAfterRelevantChange": true },
+  "criticPolicy": { "maximumRounds": 2 },
+  "progressPolicy": { "activityIsProgress": false, "stallCycles": 4 },
+  "evidencePolicy": { "repositoryClaimsRequireSource": true },
+  "deadlockPolicy": { "triggerRecovery": true },
+  "livelockPolicy": { "detectHighActivityLowOutcome": true },
+  "recoveryPolicy": { "reduceSearchSpace": true },
+  "memoryPolicy": { "durableFactsOnly": true, "sourceWins": true, "rawReasoningForbidden": true },
+  "terminationPolicy": { "stopWhenDefinitionOfDoneProven": true }
+}

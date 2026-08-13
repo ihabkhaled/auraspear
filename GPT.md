@@ -1,4 +1,8 @@
-# AuraSpear SOC - GPT/Codex Rules
+﻿# AuraSpear SOC - GPT/Codex Rules
+
+## AI Executive Function — Mandatory
+
+Before planning, auditing, editing, testing, reviewing, delegation, or expensive commands: load `.ai/bootstrap/boot.toon`, follow `.ai/rules/00-master-rules.md`, route only relevant context with `.ai/context/context-index.json`, and communicate through `.ai/rules/09-communication.md`. The complete specification is `.ai/MASTER-PROMPT.md`; `CLAUDE.md` remains the detailed repository engineering authority.
 
 ## Inheritance
 
@@ -38,11 +42,11 @@ If this file and `CLAUDE.md` ever differ, `CLAUDE.md` wins.
 ## Import & Modularization Rules
 
 13. Always use barrel imports: `@/components/ui`, `@/components/common`, `@/services`, `@/hooks`, `@/stores`, `@/types`, `@/enums`.
-14. Never import from subpaths (e.g., `@/components/ui/button` is banned — use `@/components/ui`).
+14. Never import from subpaths (e.g., `@/components/ui/button` is banned â€” use `@/components/ui`).
 15. Use `buildErrorToastHandler(tErrors)` for all mutation `onError` handlers instead of inline toast calls.
-16. Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns — it reads from the global `useAiConnectorStore`.
+16. Use `<AiConnectorSelect />` (zero props) for AI connector dropdowns â€” it reads from the global `useAiConnectorStore`.
 17. New common components (SearchInput, CollapsibleSection, AiResultCard, VirtualizedList, column-renderers, toast.utils) are available via `@/components/common` barrel.
-18. NEVER use raw `new Date()` or `Date.now()` — use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `uniqueId`, `formatTimestamp`, `sortByDateAsc/Desc`).
+18. NEVER use raw `new Date()` or `Date.now()` â€” use `@/lib/dayjs` utilities (`nowISO`, `todayDate`, `uniqueId`, `formatTimestamp`, `sortByDateAsc/Desc`).
 19. All dialogs must include `max-w-[95vw]` mobile fallback. All fixed-width selects must use `w-full sm:w-*` pattern. All scroll containers must use viewport-relative heights on mobile.
 
 ## Current Focus Defaults

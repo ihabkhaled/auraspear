@@ -11,6 +11,7 @@ import ko from '@/i18n/marketing/ko.json'
 import pt from '@/i18n/marketing/pt.json'
 import ru from '@/i18n/marketing/ru.json'
 import th from '@/i18n/marketing/th.json'
+import tr from '@/i18n/marketing/tr.json'
 import zh from '@/i18n/marketing/zh.json'
 import type { SupportedLocale } from '@/lib/marketing.utils'
 import type { MarketingPage } from '@/types/marketing.types'
@@ -20,7 +21,7 @@ export interface MarketingContent {
   pages: Record<string, MarketingPage>
 }
 
-const content = { en, es, it, fr, ar, de, ru, zh, ko, th, pt, fa, ja, hi } as unknown as Record<
+const content = { en, es, it, fr, ar, de, ru, zh, ko, th, pt, fa, ja, hi, tr } as unknown as Record<
   SupportedLocale,
   MarketingContent
 >

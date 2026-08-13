@@ -2,15 +2,7 @@
 
 import { Search } from 'lucide-react'
 import { LoadingSpinner } from '@/components/common'
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Input,
-} from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle, Input } from '@/components/ui'
 import { useWorkspaceSearchPanel } from '@/hooks'
 import { SEVERITY_CLASSES } from '@/lib/constants/connectors.constants'
 import { cn, formatTimestamp, lookup } from '@/lib/utils'

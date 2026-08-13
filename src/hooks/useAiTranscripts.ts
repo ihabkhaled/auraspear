@@ -59,7 +59,10 @@ export function useAiTranscripts() {
   // Thread messages (when selected)
   const messagesQuery = useQuery<AiTranscriptMessage[]>({
     queryKey: ['ai-transcripts-messages', tenantId, selectedThreadId],
-    queryFn: () => aiTranscriptService.getThreadMessages(selectedThreadId!),
+    queryFn: () => {
+      if (selectedThreadId === null) return Promise.resolve([])
+      return aiTranscriptService.getThreadMessages(selectedThreadId)
+    },
     enabled: canView && selectedThreadId !== null,
     staleTime: 30_000,
   })
@@ -125,38 +128,46 @@ export function useAiTranscripts() {
 
   const cleanupMutation = useMutation({
     mutationFn: () => aiTranscriptService.runCleanup(),
-    onSuccess: (result) => {
+    onSuccess: result => {
       invalidateAll()
-      Toast.success(`${t('cleanupDone')}: ${String(result.chats)} chats, ${String(result.audits)} audits`)
+      Toast.success(
+        `${t('cleanupDone')}: ${String(result.chats)} chats, ${String(result.audits)} audits`
+      )
     },
     onError: buildErrorToastHandler(tErrors),
   })
 
   function handleExportThread(threadId: string) {
-    aiTranscriptService.exportThread(threadId).then(result => {
-      const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `transcript-${threadId.slice(0, 8)}.json`
-      a.click()
-      URL.revokeObjectURL(url)
-      Toast.success(t('exportDone'))
-    }).catch(buildErrorToastHandler(tErrors))
+    aiTranscriptService
+      .exportThread(threadId)
+      .then(result => {
+        const blob = new Blob([JSON.stringify(result, null, 2)], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `transcript-${threadId.slice(0, 8)}.json`
+        a.click()
+        URL.revokeObjectURL(url)
+        Toast.success(t('exportDone'))
+      })
+      .catch(buildErrorToastHandler(tErrors))
   }
 
   function handleExportAuditLogs() {
-    aiTranscriptService.exportAuditLogs().then(result => {
-      const exportData = Array.isArray(result) ? result : []
-      const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `ai-audit-logs-${tenantId ?? 'tenant'}.json`
-      a.click()
-      URL.revokeObjectURL(url)
-      Toast.success(t('exportDone'))
-    }).catch(buildErrorToastHandler(tErrors))
+    aiTranscriptService
+      .exportAuditLogs()
+      .then(result => {
+        const exportData = Array.isArray(result) ? result : []
+        const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
+        const url = URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `ai-audit-logs-${tenantId ?? 'tenant'}.json`
+        a.click()
+        URL.revokeObjectURL(url)
+        Toast.success(t('exportDone'))
+      })
+      .catch(buildErrorToastHandler(tErrors))
   }
 
   const stats = statsQuery.data ?? null
@@ -189,8 +200,14 @@ export function useAiTranscripts() {
     auditPage,
     limit,
     selectedThreadId,
-    setThreadSearch: (v: string) => { setThreadSearch(v); setThreadPage(1) },
-    setLegalHoldFilter: (v: string) => { setLegalHoldFilter(v); setThreadPage(1) },
+    setThreadSearch: (v: string) => {
+      setThreadSearch(v)
+      setThreadPage(1)
+    },
+    setLegalHoldFilter: (v: string) => {
+      setLegalHoldFilter(v)
+      setThreadPage(1)
+    },
     setThreadPage,
     setAuditPage,
     setSelectedThreadId,

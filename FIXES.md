@@ -127,16 +127,16 @@
 
 ## Summary
 
-| Category | Count |
-|----------|-------|
-| Backend crash fixes (500→200) | 6 |
-| Missing endpoints added | 4 |
-| Duplicate handling (500→409) | 4 |
-| Frontend enum mismatches fixed | 11 |
-| Form validation fixes | 3 |
-| Sorting/search added to hooks | 6 |
-| Type/hook/i18n updates | 10+ |
-| **Total fixes** | **44+** |
+| Category                       | Count   |
+| ------------------------------ | ------- |
+| Backend crash fixes (500→200)  | 6       |
+| Missing endpoints added        | 4       |
+| Duplicate handling (500→409)   | 4       |
+| Frontend enum mismatches fixed | 11      |
+| Form validation fixes          | 3       |
+| Sorting/search added to hooks  | 6       |
+| Type/hook/i18n updates         | 10+     |
+| **Total fixes**                | **44+** |
 
 ---
 
@@ -158,6 +158,7 @@
 - Removed `useAvailableAiConnectors` prop drilling from 15 AI hooks + 11 components
 
 ### Mobile Responsiveness Fixes (2026-03-28)
+
 - Chat panel: thread sidebar as slide-over overlay on mobile, static on desktop
 - Chat header: compact connector select (w-28) on mobile, threads toggle button visible
 - Chat messages: break-words prevents horizontal overflow

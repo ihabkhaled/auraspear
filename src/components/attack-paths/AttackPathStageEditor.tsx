@@ -1,12 +1,7 @@
 'use client'
 
 import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react'
-import {
-  Button,
-  Input,
-  Label,
-  Textarea,
-} from '@/components/ui'
+import { Button, Input, Label, Textarea } from '@/components/ui'
 import type { AttackPathStageEditorProps } from '@/types'
 
 export function AttackPathStageEditor({

@@ -17,8 +17,7 @@ const banStringLiteralUnions = {
 
 const banInlineEnum = {
   selector: 'TSEnumDeclaration',
-  message:
-    'Enums must be defined in src/enums/. Import from @/enums instead (Rule #13).',
+  message: 'Enums must be defined in src/enums/. Import from @/enums instead (Rule #13).',
 }
 
 const banInlineInterface = {
@@ -34,7 +33,8 @@ const banInlineTypeAlias = {
 }
 
 const banInlineConst = {
-  selector: 'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[A-Z][A-Z0-9_]+$/]',
+  selector:
+    'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[A-Z][A-Z0-9_]+$/]',
   message:
     'Module-level constants (SCREAMING_CASE) must be defined in src/lib/constants/<domain>.ts (Rule #13).',
 }
@@ -58,13 +58,15 @@ const banInlineUtilFunction = {
 }
 
 const banInlineArrowUtil = {
-  selector: 'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[a-z]/] > ArrowFunctionExpression',
+  selector:
+    'Program > VariableDeclaration[kind="const"] > VariableDeclarator[id.name=/^[a-z]/] > ArrowFunctionExpression',
   message:
     'Arrow-function utilities/helpers must not be defined in .tsx files. Move to src/lib/<domain>.utils.ts or src/hooks/ (Rule #60).',
 }
 
 const banLiteralStatusCssReturn = {
-  selector: 'ReturnStatement > Literal[value=/^(text-status-|bg-status-|border-status-|text-muted-foreground|bg-muted|border-border)/]',
+  selector:
+    'ReturnStatement > Literal[value=/^(text-status-|bg-status-|border-status-|text-muted-foreground|bg-muted|border-border)/]',
   message:
     'Do not return literal CSS class strings. Use StatusTextClass, StatusBgClass, or StatusBorderClass enums from @/enums instead (Rule #40).',
 }
@@ -72,8 +74,19 @@ const banLiteralStatusCssReturn = {
 // Selectors by scope — each later block must include all applicable selectors
 const baseSelectors = [banStringLiteralUnions]
 const defaultSelectors = [...baseSelectors, banInlineEnum]
-const typeAwareSelectors = [...defaultSelectors, banInlineInterface, banInlineTypeAlias, banInlineConst, banInlineUtilFunction]
-const componentSelectors = [...typeAwareSelectors, banInlineHook, banInlineHookArrow, banInlineArrowUtil]
+const typeAwareSelectors = [
+  ...defaultSelectors,
+  banInlineInterface,
+  banInlineTypeAlias,
+  banInlineConst,
+  banInlineUtilFunction,
+]
+const componentSelectors = [
+  ...typeAwareSelectors,
+  banInlineHook,
+  banInlineHookArrow,
+  banInlineArrowUtil,
+]
 
 const eslintConfig = defineConfig([
   // ── Next.js presets (includes @typescript-eslint, react, react-hooks, jsx-a11y) ──
@@ -439,7 +452,12 @@ const eslintConfig = defineConfig([
 
   // Hook, service, API route files — ban inline interfaces, types, enums
   {
-    files: ['src/hooks/**/*.ts', 'src/services/**/*.ts', 'src/app/api/**/*.ts', 'src/stores/**/*.ts'],
+    files: [
+      'src/hooks/**/*.ts',
+      'src/services/**/*.ts',
+      'src/app/api/**/*.ts',
+      'src/stores/**/*.ts',
+    ],
     rules: {
       'no-restricted-syntax': ['error', ...typeAwareSelectors],
     },

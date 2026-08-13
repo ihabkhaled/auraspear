@@ -1,4 +1,6 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import api from '@/lib/api'
+import { memoryService } from '@/services/memory.service'
 
 vi.mock('@/lib/api', () => ({
   default: {
@@ -8,9 +10,6 @@ vi.mock('@/lib/api', () => ({
     delete: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { memoryService } from '@/services/memory.service'
 
 const mockGet = api.get as Mock
 const mockPost = api.post as Mock
@@ -157,7 +156,10 @@ describe('memoryService', () => {
 
   describe('listAll', () => {
     it('calls GET /user-memory/governance/all and returns normalized result', async () => {
-      const memories = [{ id: 'm1', content: 'fact 1' }, { id: 'm2', content: 'fact 2' }]
+      const memories = [
+        { id: 'm1', content: 'fact 1' },
+        { id: 'm2', content: 'fact 2' },
+      ]
       mockGet.mockResolvedValueOnce({ data: { data: memories, total: 2 } })
 
       const result = await memoryService.listAll({ limit: '10', offset: '0' })

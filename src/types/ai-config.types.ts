@@ -7,6 +7,11 @@ import {
 import type { EmbeddedUser } from './common.types'
 import type { AvailableAiConnector } from './llm-connector.types'
 
+export interface AiConnectorStoreState {
+  selectedConnector: string
+  setSelectedConnector: (value: string) => void
+}
+
 export interface TenantAgentConfig {
   agentId: string
   displayName: string

@@ -58,7 +58,7 @@ const cspDirectives = [
   "img-src 'self' data: blob: https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google",
   "font-src 'self' https://fonts.gstatic.com",
   `connect-src ${buildAllowedConnectSources().join(' ')} https://fonts.googleapis.com https://fonts.gstatic.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://*.adtrafficquality.google`,
-  "frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.adtrafficquality.google",
+  "frame-src 'self' https://www.google.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.adtrafficquality.google",
   "worker-src 'self' blob:",
   "frame-ancestors 'none'",
   "base-uri 'self'",

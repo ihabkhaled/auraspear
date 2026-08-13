@@ -47,8 +47,12 @@ export function useAiSimulations() {
   })
 
   const createMutation = useMutation({
-    mutationFn: (data: { name: string; description?: string; agentId: string; datasetJson: unknown }) =>
-      aiSimulationService.create(data),
+    mutationFn: (data: {
+      name: string
+      description?: string
+      agentId: string
+      datasetJson: unknown
+    }) => aiSimulationService.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['ai-simulations', tenantId] })
       queryClient.invalidateQueries({ queryKey: ['ai-simulation-stats', tenantId] })
@@ -75,7 +79,12 @@ export function useAiSimulations() {
     if (!newName.trim() || !newAgentId.trim()) return
     createMutation.mutate(
       (() => {
-        const payload: { name: string; description?: string; agentId: string; datasetJson: unknown } = {
+        const payload: {
+          name: string
+          description?: string
+          agentId: string
+          datasetJson: unknown
+        } = {
           name: newName.trim(),
           agentId: newAgentId.trim(),
           datasetJson: [],

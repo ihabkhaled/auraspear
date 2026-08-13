@@ -7,19 +7,17 @@ const columns: Column<RagRetrievedMemory>[] = [
   {
     key: 'content',
     label: 'content',
-    render: (value) => (
-      <span className="line-clamp-2 max-w-md text-sm">{value as string}</span>
-    ),
+    render: value => <span className="line-clamp-2 max-w-md text-sm">{value as string}</span>,
   },
   {
     key: 'category',
     label: 'category',
-    render: (value) => <Badge variant="secondary">{value as string}</Badge>,
+    render: value => <Badge variant="secondary">{value as string}</Badge>,
   },
   {
     key: 'similarity',
     label: 'similarity',
-    render: (value) => {
+    render: value => {
       const score = Number(value ?? 0)
       const pct = Math.round(score * 100)
       if (pct >= 70) {

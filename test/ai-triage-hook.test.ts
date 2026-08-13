@@ -35,7 +35,9 @@ describe('AI Alert Triage — service calls', () => {
 
       const result = await alertService.triageSummarize(ALERT_ID)
 
-      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/summarize`, { connector: undefined })
+      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/summarize`, {
+        connector: undefined,
+      })
       expect(result).toEqual(triageResult)
     })
 
@@ -53,7 +55,9 @@ describe('AI Alert Triage — service calls', () => {
 
       const result = await alertService.triageExplainSeverity(ALERT_ID)
 
-      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/explain-severity`, { connector: undefined })
+      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/explain-severity`, {
+        connector: undefined,
+      })
       expect(result).toEqual(triageResult)
     })
   })
@@ -65,7 +69,9 @@ describe('AI Alert Triage — service calls', () => {
 
       const result = await alertService.triageFalsePositiveScore(ALERT_ID)
 
-      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/false-positive-score`, { connector: undefined })
+      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/false-positive-score`, {
+        connector: undefined,
+      })
       expect(result).toEqual(triageResult)
     })
   })
@@ -77,7 +83,9 @@ describe('AI Alert Triage — service calls', () => {
 
       const result = await alertService.triageNextAction(ALERT_ID)
 
-      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/next-action`, { connector: undefined })
+      expect(mockPost).toHaveBeenCalledWith(`/alerts/${ALERT_ID}/ai/next-action`, {
+        connector: undefined,
+      })
       expect(result).toEqual(triageResult)
     })
   })

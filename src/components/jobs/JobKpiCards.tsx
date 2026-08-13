@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import type { JobKpiCardsProps } from '@/types'
 
 export function JobKpiCards({ stats, t }: JobKpiCardsProps) {

@@ -1,13 +1,7 @@
 'use client'
 
 import { ChevronDown, ExternalLink, Loader2, RefreshCw } from 'lucide-react'
-import {
-  Badge,
-  Button,
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui'
+import { Badge, Button, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui'
 import { useOsintResultCard } from '@/hooks'
 import type { OsintResultCardProps } from '@/types'
 

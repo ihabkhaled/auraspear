@@ -84,7 +84,6 @@ export default function AiFindingsPage() {
     handleLimitChange,
   } = useAiFindingsPage()
 
-
   // Columns contain JSX render functions -- acceptable inline per CLAUDE.md rule 33
   const columns: Column<AiExecutionFinding>[] = [
     {
@@ -247,7 +246,7 @@ export default function AiFindingsPage() {
       {/* Search + Filters toolbar */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="relative w-full sm:w-72">
-          <Search className="text-muted-foreground pointer-events-none absolute top-1/2 start-3 h-4 w-4 -translate-y-1/2" />
+          <Search className="text-muted-foreground pointer-events-none absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2" />
           <Input
             value={query}
             onChange={e => handleQueryChange(e.currentTarget.value)}
@@ -367,22 +366,14 @@ export default function AiFindingsPage() {
             checked={selectedIds.size === findings.length && findings.length > 0}
             onCheckedChange={toggleSelectAll}
           />
-          <span className="text-sm font-medium">{String(selectedIds.size)} {t('selected')}</span>
-          <Button
-            variant="default"
-            size="sm"
-            disabled={isBulkLoading}
-            onClick={handleBulkApply}
-          >
+          <span className="text-sm font-medium">
+            {String(selectedIds.size)} {t('selected')}
+          </span>
+          <Button variant="default" size="sm" disabled={isBulkLoading} onClick={handleBulkApply}>
             <CheckCircle className="mr-1.5 h-3.5 w-3.5" />
             {t('bulkApply')}
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={isBulkLoading}
-            onClick={handleBulkDismiss}
-          >
+          <Button variant="outline" size="sm" disabled={isBulkLoading} onClick={handleBulkDismiss}>
             <XCircle className="mr-1.5 h-3.5 w-3.5" />
             {t('bulkDismiss')}
           </Button>
@@ -410,9 +401,7 @@ export default function AiFindingsPage() {
       {totalPages > 1 && (
         <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
           <div className="flex items-center gap-2">
-            <span className="text-muted-foreground text-xs">
-              {t('perPage')}:
-            </span>
+            <span className="text-muted-foreground text-xs">{t('perPage')}:</span>
             <Select value={String(limit)} onValueChange={handleLimitChange}>
               <SelectTrigger className="h-8 w-20">
                 <SelectValue />

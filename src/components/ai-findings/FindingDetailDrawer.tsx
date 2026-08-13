@@ -54,16 +54,29 @@ export function FindingDetailDrawer({
 
           {/* Badges row */}
           <div className="flex flex-wrap items-center gap-2">
-            <Badge variant={resolveFindingStatusVariant(finding.status)} className="text-xs capitalize">
+            <Badge
+              variant={resolveFindingStatusVariant(finding.status)}
+              className="text-xs capitalize"
+            >
               {finding.status}
             </Badge>
             {finding.severity && (
-              <Badge variant={resolveFindingSeverityVariant(finding.severity)} className="text-xs capitalize">
+              <Badge
+                variant={resolveFindingSeverityVariant(finding.severity)}
+                className="text-xs capitalize"
+              >
                 {finding.severity}
               </Badge>
             )}
             {typeof finding.confidenceScore === 'number' && (
-              <Badge variant={resolveFindingConfidenceVariant(finding.confidenceScore <= 1 ? Math.round(finding.confidenceScore * 100) : Math.round(finding.confidenceScore))} className="text-xs">
+              <Badge
+                variant={resolveFindingConfidenceVariant(
+                  finding.confidenceScore <= 1
+                    ? Math.round(finding.confidenceScore * 100)
+                    : Math.round(finding.confidenceScore)
+                )}
+                className="text-xs"
+              >
                 {`${t('confidence')}: ${String(finding.confidenceScore <= 1 ? Math.round(finding.confidenceScore * 100) : Math.round(finding.confidenceScore))}%`}
               </Badge>
             )}

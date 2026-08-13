@@ -14,16 +14,10 @@ import {
 import { KpiCard } from '@/components/common'
 import type { AiOpsWorkspace, TranslationFn } from '@/types'
 
-export function OpsKpiGrid({
-  t,
-  workspace,
-}: {
-  t: TranslationFn
-  workspace: AiOpsWorkspace
-}) {
+export function OpsKpiGrid({ t, workspace }: { t: TranslationFn; workspace: AiOpsWorkspace }) {
   return (
     <div className="space-y-4">
-      <h3 className="text-sm font-semibold text-muted-foreground">{t('sections.agents')}</h3>
+      <h3 className="text-muted-foreground text-sm font-semibold">{t('sections.agents')}</h3>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         <KpiCard
           label={t('kpi.totalAgents')}
@@ -45,9 +39,7 @@ export function OpsKpiGrid({
         />
       </div>
 
-      <h3 className="text-sm font-semibold text-muted-foreground">
-        {t('sections.orchestration')}
-      </h3>
+      <h3 className="text-muted-foreground text-sm font-semibold">{t('sections.orchestration')}</h3>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <KpiCard
           label={t('kpi.dispatches24h')}
@@ -75,7 +67,7 @@ export function OpsKpiGrid({
         />
       </div>
 
-      <h3 className="text-sm font-semibold text-muted-foreground">{t('sections.findings')}</h3>
+      <h3 className="text-muted-foreground text-sm font-semibold">{t('sections.findings')}</h3>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         <KpiCard
           label={t('kpi.totalFindings')}
@@ -109,7 +101,7 @@ export function OpsKpiGrid({
         />
       </div>
 
-      <h3 className="text-sm font-semibold text-muted-foreground">
+      <h3 className="text-muted-foreground text-sm font-semibold">
         {t('sections.chatUsageAudit')}
       </h3>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">

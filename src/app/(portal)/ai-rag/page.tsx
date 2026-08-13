@@ -20,7 +20,7 @@ export default function RagObservabilityPage() {
 
   if (!canView) {
     return (
-      <div className="flex h-64 items-center justify-center text-muted-foreground">
+      <div className="text-muted-foreground flex h-64 items-center justify-center">
         {t('noAccess')}
       </div>
     )

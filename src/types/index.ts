@@ -850,6 +850,7 @@ export type {
   AiFindingsPageFilters,
   AiFindingsStats,
   FindingDetailDrawerProps,
+  AiConnectorStoreState,
 } from './ai-config.types'
 export type {
   CreateMemoryInput,

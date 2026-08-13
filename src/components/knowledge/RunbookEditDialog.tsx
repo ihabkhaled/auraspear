@@ -47,9 +47,7 @@ export function RunbookEditDialog({
               placeholder={t('fieldTitle')}
               aria-invalid={errors.title ? true : undefined}
             />
-            {errors.title && (
-              <p className="text-destructive text-xs">{errors.title.message}</p>
-            )}
+            {errors.title && <p className="text-destructive text-xs">{errors.title.message}</p>}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -63,11 +61,7 @@ export function RunbookEditDialog({
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="edit-runbook-tags">{t('fieldTags')}</Label>
-            <Input
-              id="edit-runbook-tags"
-              {...register('tags')}
-              placeholder="tag1, tag2, tag3"
-            />
+            <Input id="edit-runbook-tags" {...register('tags')} placeholder="tag1, tag2, tag3" />
           </div>
 
           <div className="flex flex-col gap-2">
@@ -80,9 +74,7 @@ export function RunbookEditDialog({
               className="min-h-[200px] resize-none font-mono text-xs"
               rows={10}
             />
-            {errors.content && (
-              <p className="text-destructive text-xs">{errors.content.message}</p>
-            )}
+            {errors.content && <p className="text-destructive text-xs">{errors.content.message}</p>}
           </div>
 
           <DialogFooter>

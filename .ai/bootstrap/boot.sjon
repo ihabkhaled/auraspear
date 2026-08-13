@@ -1,0 +1,7 @@
+{
+  version: 1,
+  load: ["CLAUDE.md", ".ai/rules/00-master-rules.md", ".ai/context/context-index.json"],
+  limits: { wip: 1, nest: 3, retry: 3, critic: 2 },
+  gate: ["objective", "success", "dod", "scope", "evidence"],
+  stop: "definition-of-done-proven"
+}

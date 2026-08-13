@@ -1,12 +1,6 @@
 import { Bot, Loader2, Sparkles } from 'lucide-react'
 import { AiConnectorSelect } from '@/components/common'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Button, Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import type { AiDashboardInsightComponentProps } from '@/types'
 
 export function AiDashboardInsight({

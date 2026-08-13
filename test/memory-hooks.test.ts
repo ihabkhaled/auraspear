@@ -1,4 +1,9 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import { Toast } from '@/components/common'
+import { useMemorySettings } from '@/hooks/useMemorySettings'
+import { memoryService } from '@/services'
+
+type MockFunction = (...args: unknown[]) => unknown
 
 const mockInvalidateQueries = vi.fn()
 const mockUseQuery = vi.fn()
@@ -11,8 +16,8 @@ vi.mock('@tanstack/react-query', () => ({
 }))
 
 vi.mock('@/stores', () => ({
-  useTenantStore: vi.fn((selector: Function) => selector({ currentTenantId: 'test-tenant' })),
-  useAuthStore: vi.fn((selector: Function) =>
+  useTenantStore: vi.fn((selector: MockFunction) => selector({ currentTenantId: 'test-tenant' })),
+  useAuthStore: vi.fn((selector: MockFunction) =>
     selector({ permissions: ['ai.memory.view', 'ai.memory.edit'] })
   ),
 }))
@@ -45,12 +50,8 @@ vi.mock('@/services', () => ({
 
 vi.mock('react', () => ({
   useState: vi.fn((initial: unknown) => [initial, vi.fn()]),
-  useCallback: vi.fn((fn: Function) => fn),
+  useCallback: vi.fn((fn: MockFunction) => fn),
 }))
-
-import { memoryService } from '@/services'
-import { Toast } from '@/components/common'
-import { useMemorySettings } from '@/hooks/useMemorySettings'
 
 afterEach(() => {
   vi.clearAllMocks()
@@ -134,7 +135,7 @@ describe('useMemorySettings', () => {
     const input = { content: 'new memory', category: 'fact' }
     ;(memoryService.create as Mock).mockResolvedValueOnce({ data: { id: '2', ...input } })
 
-    await (createOpts!['mutationFn'] as Function)(input)
+    await (createOpts!['mutationFn'] as MockFunction)(input)
 
     expect(memoryService.create).toHaveBeenCalledWith(input)
   })
@@ -144,7 +145,7 @@ describe('useMemorySettings', () => {
     useMemorySettings()
 
     const createOpts = capturedMutationOpts.at(0)
-    ;(createOpts!['onSuccess'] as Function)()
+    ;(createOpts!['onSuccess'] as MockFunction)()
 
     expect(Toast.success).toHaveBeenCalledWith('created')
     expect(mockInvalidateQueries).toHaveBeenCalledWith({
@@ -157,7 +158,7 @@ describe('useMemorySettings', () => {
     useMemorySettings()
 
     const createOpts = capturedMutationOpts.at(0)
-    ;(createOpts!['onError'] as Function)(new Error('fail'))
+    ;(createOpts!['onError'] as MockFunction)(new Error('fail'))
 
     expect(Toast.error).toHaveBeenCalledWith('someError')
   })
@@ -170,7 +171,7 @@ describe('useMemorySettings', () => {
     const payload = { id: 'mem-1', data: { content: 'updated', category: 'preference' } }
     ;(memoryService.update as Mock).mockResolvedValueOnce({ data: { id: 'mem-1' } })
 
-    await (updateOpts!['mutationFn'] as Function)(payload)
+    await (updateOpts!['mutationFn'] as MockFunction)(payload)
 
     expect(memoryService.update).toHaveBeenCalledWith('mem-1', payload.data)
   })
@@ -180,7 +181,7 @@ describe('useMemorySettings', () => {
     useMemorySettings()
 
     const updateOpts = capturedMutationOpts.at(1)
-    ;(updateOpts!['onSuccess'] as Function)()
+    ;(updateOpts!['onSuccess'] as MockFunction)()
 
     expect(Toast.success).toHaveBeenCalledWith('updated')
     expect(mockInvalidateQueries).toHaveBeenCalledWith({
@@ -195,7 +196,7 @@ describe('useMemorySettings', () => {
     const deleteOpts = capturedMutationOpts.at(2)
     ;(memoryService.delete as Mock).mockResolvedValueOnce({ data: undefined })
 
-    await (deleteOpts!['mutationFn'] as Function)('mem-99')
+    await (deleteOpts!['mutationFn'] as MockFunction)('mem-99')
 
     expect(memoryService.delete).toHaveBeenCalledWith('mem-99')
   })
@@ -205,7 +206,7 @@ describe('useMemorySettings', () => {
     useMemorySettings()
 
     const deleteOpts = capturedMutationOpts.at(2)
-    ;(deleteOpts!['onSuccess'] as Function)()
+    ;(deleteOpts!['onSuccess'] as MockFunction)()
 
     expect(Toast.success).toHaveBeenCalledWith('deleted')
     expect(mockInvalidateQueries).toHaveBeenCalledWith({
@@ -220,7 +221,7 @@ describe('useMemorySettings', () => {
     const deleteAllOpts = capturedMutationOpts.at(3)
     ;(memoryService.deleteAll as Mock).mockResolvedValueOnce({ data: { deleted: 3 } })
 
-    await (deleteAllOpts!['mutationFn'] as Function)()
+    await (deleteAllOpts!['mutationFn'] as MockFunction)()
 
     expect(memoryService.deleteAll).toHaveBeenCalled()
   })
@@ -230,7 +231,7 @@ describe('useMemorySettings', () => {
     useMemorySettings()
 
     const deleteAllOpts = capturedMutationOpts.at(3)
-    ;(deleteAllOpts!['onSuccess'] as Function)()
+    ;(deleteAllOpts!['onSuccess'] as MockFunction)()
 
     expect(Toast.success).toHaveBeenCalledWith('allDeleted')
     expect(mockInvalidateQueries).toHaveBeenCalledWith({

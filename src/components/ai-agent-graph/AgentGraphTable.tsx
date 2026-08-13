@@ -18,7 +18,7 @@ export function AgentGraphTable({
     {
       key: 'isCore',
       label: t('table.type'),
-      render: (value) => (
+      render: value => (
         <Badge variant={value ? 'default' : 'secondary'}>
           {value ? t('table.core') : t('table.specialist')}
         </Badge>
@@ -27,12 +27,12 @@ export function AgentGraphTable({
     {
       key: 'executionAgent',
       label: t('table.executionAgent'),
-      render: (value) => (value as string | null) ?? '-',
+      render: value => (value as string | null) ?? '-',
     },
     {
       key: 'isEnabled',
       label: t('table.enabled'),
-      render: (value) => (
+      render: value => (
         <Badge variant={value ? 'success' : 'destructive'}>
           {value ? t('table.yes') : t('table.no')}
         </Badge>
@@ -51,11 +51,16 @@ export function AgentGraphTable({
     {
       key: 'tokenUsage',
       label: t('table.tokens'),
-      render: (value) => String(value ?? 0),
+      render: value => String(value ?? 0),
     },
   ]
 
   return (
-    <DataTable columns={columns} data={safeData} loading={loading} emptyMessage={t('table.empty')} />
+    <DataTable
+      columns={columns}
+      data={safeData}
+      loading={loading}
+      emptyMessage={t('table.empty')}
+    />
   )
 }

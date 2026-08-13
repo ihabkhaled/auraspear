@@ -1,0 +1,1 @@
+{ version: 1, objective: "locked", scope: "bounded", evidence: "required", progress: "outcome-change", recover: "reduce-search-space", terminate: "DoD-proven" }

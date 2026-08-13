@@ -1,13 +1,12 @@
 import { describe, it, expect, vi, afterEach, type Mock } from 'vitest'
+import api from '@/lib/api'
+import { aiOpsService } from '@/services/ai-ops.service'
 
 vi.mock('@/lib/api', () => ({
   default: {
     get: vi.fn(),
   },
 }))
-
-import api from '@/lib/api'
-import { aiOpsService } from '@/services/ai-ops.service'
 
 const mockGet = api.get as Mock
 

@@ -2,22 +2,11 @@
 
 import { Bot, Search, Sparkles } from 'lucide-react'
 import { AiConnectorSelect } from '@/components/common'
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  Textarea,
-} from '@/components/ui'
+import { Button, Card, CardContent, CardHeader, CardTitle, Textarea } from '@/components/ui'
 import { useAiKnowledgePanel } from '@/hooks'
 import type { AiKnowledgePanelProps } from '@/types'
 
-export function AiKnowledgePanel({
-  aiGenerate,
-  aiSearch,
-  t,
-}: AiKnowledgePanelProps) {
+export function AiKnowledgePanel({ aiGenerate, aiSearch, t }: AiKnowledgePanelProps) {
   const {
     generateInput,
     setGenerateInput,

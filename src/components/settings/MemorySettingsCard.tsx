@@ -50,9 +50,7 @@ function MemoryItem({
           {memory.sourceLabel && (
             <span className="text-muted-foreground text-xs">{memory.sourceLabel}</span>
           )}
-          <span className="text-muted-foreground text-xs">
-            {formatTimestamp(memory.updatedAt)}
-          </span>
+          <span className="text-muted-foreground text-xs">{formatTimestamp(memory.updatedAt)}</span>
         </div>
       </div>
       {canEdit && (

@@ -1,10 +1,5 @@
 import { ChevronDown } from 'lucide-react'
-import {
-  Checkbox,
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui'
+import { Checkbox, Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui'
 import { cn, lookup } from '@/lib/utils'
 import type { RoleSettingsMatrixProps } from '@/types'
 

@@ -4,7 +4,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/app/', '/api/', '/callback', '/serwist/', '/_next/'],
+      disallow: ['/app/', '/api/', '/callback', '/serwist/'],
     },
     sitemap: 'https://auraspear-demo.vercel.app/sitemap.xml',
     host: 'https://auraspear-demo.vercel.app',

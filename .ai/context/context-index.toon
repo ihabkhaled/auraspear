@@ -1,0 +1,8 @@
+v:1
+frontend=>CLAUDE.md,docs/ARCHITECTURE.md|typecheck,lint,test
+ai-surfaces=>CLAUDE.md,docs/AI-SURFACES.md
+i18n=>CLAUDE.md,src/lib/constants/locales.ts|locale-test
+marketing-seo=>CLAUDE.md,marketing-design
+auth=>CLAUDE.md,docs/permissions-and-routes.md
+testing=>CLAUDE.md,vitest.config.ts
+ai-framework=>.ai/README.md,.ai/rules/10-knowledge-maintenance.md|ai:check

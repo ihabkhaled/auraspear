@@ -1,7 +1,12 @@
 'use client'
 
 import { LoadingSpinner } from '@/components/common'
-import { useNotificationSocket, usePermissionSync, usePreferencesSync, useTenantSessionSync } from '@/hooks'
+import {
+  useNotificationSocket,
+  usePermissionSync,
+  usePreferencesSync,
+  useTenantSessionSync,
+} from '@/hooks'
 import type { PortalShellProps } from '@/types'
 import { CommandPalette } from './CommandPalette'
 import { ImpersonationBanner } from './ImpersonationBanner'

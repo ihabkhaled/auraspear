@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "activeWorkItems": { "type": "integer", "minimum": 0 },
+    "nestingDepth": { "type": "integer", "minimum": 0 },
+    "retryCount": { "type": "integer", "minimum": 0 },
+    "criticRound": { "type": "integer", "minimum": 0 },
+    "sameErrorCount": { "type": "integer", "minimum": 0 },
+    "sameCommandCount": { "type": "integer", "minimum": 0 },
+    "filesReread": { "type": "integer", "minimum": 0 },
+    "requirementsCompleted": { "type": "integer", "minimum": 0 },
+    "requirementsRemaining": { "type": "integer", "minimum": 0 },
+    "lastProgressEvent": { "type": ["string", "null"] },
+    "scopeItemCount": { "type": "integer", "minimum": 0 },
+    "contextRefreshCount": { "type": "integer", "minimum": 0 },
+    "replanCount": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

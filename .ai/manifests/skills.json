@@ -1,0 +1,230 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "task-bootstrap",
+      "path": ".ai/skills/task-bootstrap/SKILL.md",
+      "purpose": "initialize bounded task state",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "task-start",
+      "version": 1
+    },
+    {
+      "id": "executive-function",
+      "path": ".ai/skills/executive-function/SKILL.md",
+      "purpose": "control execution",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "always",
+      "version": 1
+    },
+    {
+      "id": "goal-lock",
+      "path": ".ai/skills/goal-lock/SKILL.md",
+      "purpose": "preserve objective",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "task-start",
+      "version": 1
+    },
+    {
+      "id": "scope-guard",
+      "path": ".ai/skills/scope-guard/SKILL.md",
+      "purpose": "prevent scope drift",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-drift",
+      "version": 1
+    },
+    {
+      "id": "bounded-investigation",
+      "path": ".ai/skills/bounded-investigation/SKILL.md",
+      "purpose": "bound research",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-debug",
+      "version": 1
+    },
+    {
+      "id": "attention-reset",
+      "path": ".ai/skills/attention-reset/SKILL.md",
+      "purpose": "return to objective",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-loop",
+      "version": 1
+    },
+    {
+      "id": "loop-detector",
+      "path": ".ai/skills/loop-detector/SKILL.md",
+      "purpose": "detect semantic repetition",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-loop",
+      "version": 1
+    },
+    {
+      "id": "strategy-reset",
+      "path": ".ai/skills/strategy-reset/SKILL.md",
+      "purpose": "change exhausted approach",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-retry-limit",
+      "version": 1
+    },
+    {
+      "id": "deadlock-recovery",
+      "path": ".ai/skills/deadlock-recovery/SKILL.md",
+      "purpose": "recover deadlock",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "on-deadlock",
+      "version": 1
+    },
+    {
+      "id": "livelock-recovery",
+      "path": ".ai/skills/livelock-recovery/SKILL.md",
+      "purpose": "recover livelock",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "on-livelock",
+      "version": 1
+    },
+    {
+      "id": "progress-audit",
+      "path": ".ai/skills/progress-audit/SKILL.md",
+      "purpose": "measure outcomes",
+      "priority": "high",
+      "scope": "task",
+      "loadCondition": "on-stall",
+      "version": 1
+    },
+    {
+      "id": "evidence-gate",
+      "path": ".ai/skills/evidence-gate/SKILL.md",
+      "purpose": "prove repository claims",
+      "priority": "critical",
+      "scope": "repository",
+      "loadCondition": "on-uncertainty",
+      "version": 1
+    },
+    {
+      "id": "context-router",
+      "path": ".ai/skills/context-router/SKILL.md",
+      "purpose": "progressive context",
+      "priority": "high",
+      "scope": "repository",
+      "loadCondition": "task-start",
+      "version": 1
+    },
+    {
+      "id": "context-compression",
+      "path": ".ai/skills/context-compression/SKILL.md",
+      "purpose": "compress sessions",
+      "priority": "medium",
+      "scope": "task",
+      "loadCondition": "on-context-pressure",
+      "version": 1
+    },
+    {
+      "id": "memory-curator",
+      "path": ".ai/skills/memory-curator/SKILL.md",
+      "purpose": "promote durable facts",
+      "priority": "medium",
+      "scope": "repository",
+      "loadCondition": "on-memory-update",
+      "version": 1
+    },
+    {
+      "id": "communicate-briefly",
+      "path": ".ai/skills/communicate-briefly/SKILL.md",
+      "purpose": "concise status",
+      "priority": "critical",
+      "scope": "communication",
+      "loadCondition": "always",
+      "version": 1
+    },
+    {
+      "id": "targeted-testing",
+      "path": ".ai/skills/targeted-testing/SKILL.md",
+      "purpose": "efficient proof",
+      "priority": "high",
+      "scope": "verification",
+      "loadCondition": "on-verification",
+      "version": 1
+    },
+    {
+      "id": "verification-controller",
+      "path": ".ai/skills/verification-controller/SKILL.md",
+      "purpose": "sufficient verification",
+      "priority": "critical",
+      "scope": "verification",
+      "loadCondition": "on-finalization",
+      "version": 1
+    },
+    {
+      "id": "critic-controller",
+      "path": ".ai/skills/critic-controller/SKILL.md",
+      "purpose": "bound critics",
+      "priority": "high",
+      "scope": "review",
+      "loadCondition": "on-review",
+      "version": 1
+    },
+    {
+      "id": "completion-gate",
+      "path": ".ai/skills/completion-gate/SKILL.md",
+      "purpose": "stop when proven",
+      "priority": "critical",
+      "scope": "task",
+      "loadCondition": "on-finalization",
+      "version": 1
+    },
+    {
+      "id": "failure-learning",
+      "path": ".ai/skills/failure-learning/SKILL.md",
+      "purpose": "retain reusable recovery",
+      "priority": "medium",
+      "scope": "memory",
+      "loadCondition": "on-recovery",
+      "version": 1
+    },
+    {
+      "id": "knowledge-maintainer",
+      "path": ".ai/skills/knowledge-maintainer/SKILL.md",
+      "purpose": "maintain canonical sources",
+      "priority": "high",
+      "scope": ".ai",
+      "loadCondition": "on-ai-framework-change",
+      "version": 1
+    },
+    {
+      "id": "multi-agent-coordinator",
+      "path": ".ai/skills/multi-agent-coordinator/SKILL.md",
+      "purpose": "coordinate delegation",
+      "priority": "high",
+      "scope": "delegated",
+      "loadCondition": "on-multi-agent",
+      "version": 1
+    },
+    {
+      "id": "resume-task",
+      "path": ".ai/skills/resume-task/SKILL.md",
+      "purpose": "resume efficiently",
+      "priority": "medium",
+      "scope": "task",
+      "loadCondition": "on-resume",
+      "version": 1
+    },
+    {
+      "id": "handoff-task",
+      "path": ".ai/skills/handoff-task/SKILL.md",
+      "purpose": "handoff evidence",
+      "priority": "medium",
+      "scope": "task",
+      "loadCondition": "on-handoff",
+      "version": 1
+    }
+  ]
+}

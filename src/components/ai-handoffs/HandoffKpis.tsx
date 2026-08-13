@@ -2,13 +2,7 @@ import { ArrowRightLeft, Clock, Target } from 'lucide-react'
 import { KpiCard } from '@/components/common'
 import type { AiHandoffStats, TranslationFn } from '@/types'
 
-export function HandoffKpis({
-  t,
-  stats,
-}: {
-  t: TranslationFn
-  stats: AiHandoffStats | null
-}) {
+export function HandoffKpis({ t, stats }: { t: TranslationFn; stats: AiHandoffStats | null }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
       <KpiCard

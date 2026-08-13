@@ -9,12 +9,7 @@ import {
   MispEventFeed,
   WazuhCorrelationPanel,
 } from '@/components/intel'
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import { useIntelPage } from '@/hooks'
 
 export default function IntelPage() {

@@ -79,9 +79,7 @@ export default function JobsPage() {
       label: t('columns.createdAt'),
       sortable: true,
       render: value => (
-        <span className="text-muted-foreground text-xs">
-          {formatTimestamp(String(value))}
-        </span>
+        <span className="text-muted-foreground text-xs">{formatTimestamp(String(value))}</span>
       ),
     },
     {

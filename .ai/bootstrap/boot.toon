@@ -1,0 +1,12 @@
+version:1
+before:plan|audit|edit|debug|test|review|delegate|expensive-tool
+load:CLAUDE.md>.ai/rules/00-master-rules.md>.ai/context/context-index.json>task-context
+lock:objective,success,dod,scope,out
+limits:wip=1,nest=3,retry=3,critic=2
+discover:BLOCKER|required;REQUIRED|required;OPTIONAL|park;UNRELATED|park
+evidence:repo-source|required
+progress:requirement|blocker|deliverable|new-proof
+recover:freeze>goal>evidence>shrink>new-strategy
+verify:smallest-sufficient>mandatory-gates-once
+communicate:1-5-lines,short,direct,concrete,visible
+stop:dod-and-proof

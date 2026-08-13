@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "preferences",
+      "path": ".ai/memory/preferences.md",
+      "loadCondition": "task-start",
+      "sourceAuthority": "current user overrides"
+    },
+    {
+      "id": "architecture",
+      "path": ".ai/memory/architecture.md",
+      "loadCondition": "architecture-task",
+      "sourceAuthority": "source code wins"
+    },
+    {
+      "id": "decisions",
+      "path": ".ai/memory/decisions.md",
+      "loadCondition": "related decision",
+      "sourceAuthority": "newer evidence wins"
+    },
+    {
+      "id": "failure-patterns",
+      "path": ".ai/memory/failure-patterns.md",
+      "loadCondition": "matching failure",
+      "sourceAuthority": "fresh reproduction wins"
+    }
+  ]
+}

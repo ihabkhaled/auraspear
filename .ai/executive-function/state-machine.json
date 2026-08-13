@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "initial": "BOOT",
+  "terminal": ["BLOCKED", "COMPLETE"],
+  "transitions": {
+    "BOOT": ["GOAL_LOCK"],
+    "GOAL_LOCK": ["CONTEXT_ROUTE"],
+    "CONTEXT_ROUTE": ["PLAN_BOUNDED"],
+    "PLAN_BOUNDED": ["EXECUTE"],
+    "EXECUTE": ["VERIFY", "ATTENTION_RESET", "STRATEGY_RESET", "RECOVERY", "BLOCKED"],
+    "VERIFY": ["CHECK_PROGRESS", "EXECUTE"],
+    "CHECK_PROGRESS": [
+      "EXECUTE",
+      "ATTENTION_RESET",
+      "STRATEGY_RESET",
+      "RECOVERY",
+      "BLOCKED",
+      "COMPLETE"
+    ],
+    "ATTENTION_RESET": ["EXECUTE", "BLOCKED"],
+    "STRATEGY_RESET": ["EXECUTE", "RECOVERY", "BLOCKED"],
+    "RECOVERY": ["EXECUTE", "BLOCKED"]
+  }
+}

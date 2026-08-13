@@ -1,11 +1,6 @@
 'use client'
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui'
 import { useCaseOwnerFilter } from '@/hooks'
 import { getAvatarColor, getInitials } from '@/lib/case.utils'
 import { cn } from '@/lib/utils'

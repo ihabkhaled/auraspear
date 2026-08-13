@@ -207,9 +207,7 @@ export const agentConfigService = {
       .then(r => r.data),
 
   exportFindings: (params?: { status?: string; agentId?: string; sourceModule?: string }) =>
-    api
-      .get<ApiResponse<AiExecutionFinding[]>>('/ai/findings/export', { params })
-      .then(r => r.data),
+    api.get<ApiResponse<AiExecutionFinding[]>>('/ai/findings/export', { params }).then(r => r.data),
 
   bulkUpdateFindingStatus: (ids: string[], status: string) =>
     api

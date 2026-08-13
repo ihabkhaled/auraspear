@@ -16,7 +16,12 @@ export function TranscriptPolicyPanel({
 }: {
   t: TranslationFn
   policy: AiTranscriptPolicy | null
-  onSave: (data: { chatRetentionDays: number; auditRetentionDays: number; autoRedactPii: boolean; requireLegalHold: boolean }) => void
+  onSave: (data: {
+    chatRetentionDays: number
+    auditRetentionDays: number
+    autoRedactPii: boolean
+    requireLegalHold: boolean
+  }) => void
   isSaving: boolean
   onRunCleanup: () => void
   isCleaningUp: boolean
@@ -40,12 +45,22 @@ export function TranscriptPolicyPanel({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="space-y-1.5">
           <label className="text-muted-foreground text-sm">{t('policy.chatRetention')}</label>
-          <Input type="number" min="0" value={chatDays} onChange={e => setChatDays(e.currentTarget.value)} />
+          <Input
+            type="number"
+            min="0"
+            value={chatDays}
+            onChange={e => setChatDays(e.currentTarget.value)}
+          />
           <p className="text-muted-foreground text-xs">{t('policy.daysHint')}</p>
         </div>
         <div className="space-y-1.5">
           <label className="text-muted-foreground text-sm">{t('policy.auditRetention')}</label>
-          <Input type="number" min="0" value={auditDays} onChange={e => setAuditDays(e.currentTarget.value)} />
+          <Input
+            type="number"
+            min="0"
+            value={auditDays}
+            onChange={e => setAuditDays(e.currentTarget.value)}
+          />
           <p className="text-muted-foreground text-xs">{t('policy.daysHint')}</p>
         </div>
         <div className="space-y-3 pt-6">
@@ -71,7 +86,8 @@ export function TranscriptPolicyPanel({
       </div>
       {policy?.lastCleanupAt && (
         <p className="text-muted-foreground text-xs">
-          {t('policy.lastCleanup')}: {formatTimestamp(policy.lastCleanupAt)} ({String(policy.lastCleanupCount)} {t('policy.itemsCleaned')})
+          {t('policy.lastCleanup')}: {formatTimestamp(policy.lastCleanupAt)} (
+          {String(policy.lastCleanupCount)} {t('policy.itemsCleaned')})
         </p>
       )}
     </div>

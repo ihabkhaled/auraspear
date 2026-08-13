@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react'
 import { Trash2 } from 'lucide-react'
 import { DataTable } from '@/components/common'
 import { Badge } from '@/components/ui'
@@ -25,16 +26,12 @@ export function SimulationsTable({
     {
       key: 'status',
       label: t('table.status'),
-      render: (value) => {
+      render: value => {
         const status = value as string
-        const variant =
-          status === 'completed'
-            ? 'success'
-            : status === 'running'
-              ? 'info'
-              : status === 'failed'
-                ? 'destructive'
-                : 'secondary'
+        let variant: ComponentProps<typeof Badge>['variant'] = 'secondary'
+        if (status === 'completed') variant = 'success'
+        if (status === 'running') variant = 'info'
+        if (status === 'failed') variant = 'destructive'
         return <Badge variant={variant}>{status}</Badge>
       },
     },
@@ -46,17 +43,18 @@ export function SimulationsTable({
     {
       key: 'avgScore',
       label: t('table.avgScore'),
-      render: (value) => (value !== null && value !== undefined ? `${((value as number) * 100).toFixed(1)}%` : '-'),
+      render: value =>
+        value !== null && value !== undefined ? `${((value as number) * 100).toFixed(1)}%` : '-',
     },
     {
       key: 'totalTokens',
       label: t('table.tokens'),
-      render: (value) => String(value ?? 0),
+      render: value => String(value ?? 0),
     },
     {
       key: 'createdAt',
       label: t('table.createdAt'),
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
     },
     ...(canManage
       ? [
@@ -78,6 +76,11 @@ export function SimulationsTable({
   ]
 
   return (
-    <DataTable columns={columns} data={safeData} loading={loading} emptyMessage={t('table.empty')} />
+    <DataTable
+      columns={columns}
+      data={safeData}
+      loading={loading}
+      emptyMessage={t('table.empty')}
+    />
   )
 }

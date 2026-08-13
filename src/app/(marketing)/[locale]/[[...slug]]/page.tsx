@@ -5,13 +5,12 @@ import { PublicShell } from '@/components/marketing/public-shell.component'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants/locales'
 import { MARKETING_PAGES } from '@/lib/constants/marketing'
 import {
-  buildLanguageAlternates,
-  buildPublicPath,
   isRtlLocale,
   localizeMarketingPage,
   resolveLocalizedMarketingPage,
   type SupportedLocale,
 } from '@/lib/marketing.utils'
+import { buildPublicMetadata } from '@/lib/seo'
 import type { Metadata } from 'next'
 
 export function generateStaticParams() {
@@ -31,19 +30,7 @@ export async function generateMetadata({
   const resolved = resolveLocalizedMarketingPage(values.locale, values.slug)
   if (!resolved.page || !resolved.locale) return {}
   const localizedPage = localizeMarketingPage(resolved.page, resolved.locale)
-  return {
-    title: localizedPage.title,
-    description: localizedPage.description,
-    alternates: {
-      canonical: buildPublicPath(resolved.locale, resolved.path),
-      languages: buildLanguageAlternates(resolved.path),
-    },
-    openGraph: {
-      title: localizedPage.title,
-      description: localizedPage.description,
-      locale: resolved.locale,
-    },
-  }
+  return buildPublicMetadata(localizedPage, resolved.locale)
 }
 export default async function LocalizedPage({
   params,

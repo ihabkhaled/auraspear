@@ -1,14 +1,7 @@
 'use client'
 
 import { X } from 'lucide-react'
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui'
+import { Badge, Button, Card, CardContent, CardHeader, CardTitle } from '@/components/ui'
 import { formatDate } from '@/lib/utils'
 import type { RunbookDetailPanelProps } from '@/types'
 
@@ -27,7 +20,9 @@ export function RunbookDetailPanel({ runbook, onClose, t }: RunbookDetailPanelPr
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <p className="text-muted-foreground text-xs font-medium uppercase">{t('fieldCategory')}</p>
+          <p className="text-muted-foreground text-xs font-medium uppercase">
+            {t('fieldCategory')}
+          </p>
           <Badge variant="secondary">{runbook.category}</Badge>
         </div>
 
@@ -62,7 +57,7 @@ export function RunbookDetailPanel({ runbook, onClose, t }: RunbookDetailPanelPr
 
         <div>
           <p className="text-muted-foreground text-xs font-medium uppercase">{t('fieldContent')}</p>
-          <pre className="bg-muted mt-1 max-h-[400px] overflow-auto whitespace-pre-wrap rounded-md p-3 text-xs">
+          <pre className="bg-muted mt-1 max-h-[400px] overflow-auto rounded-md p-3 text-xs whitespace-pre-wrap">
             {runbook.content}
           </pre>
         </div>

@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "load": "before-planning",
+  "canonicalRules": ".ai/rules/00-master-rules.md",
+  "contextRouter": ".ai/context/context-index.json",
+  "repositoryRules": "CLAUDE.md",
+  "limits": { "workItems": 1, "nesting": 3, "sameStrategyAttempts": 3, "criticRounds": 2 },
+  "sequence": ["goal_lock", "context_route", "bounded_plan", "execute", "verify", "complete"],
+  "communication": { "defaultLines": "1-5", "style": ["short", "direct", "concrete", "visible"] }
+}

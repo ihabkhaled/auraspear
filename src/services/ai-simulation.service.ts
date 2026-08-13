@@ -1,25 +1,17 @@
 import api from '@/lib/api'
+import { extractApiData } from '@/lib/utils'
 import type { AiSimulation, AiSimulationStats } from '@/types'
 
-function extractData<T>(response: { data: unknown }): T {
-  const body = response.data as Record<string, unknown>
-  if (body !== null && typeof body === 'object' && 'data' in body) {
-    return body['data'] as T
-  }
-  return body as T
-}
-
 export const aiSimulationService = {
-  list: () => api.get('/ai-simulations').then(r => extractData<AiSimulation[]>(r)),
+  list: () => api.get('/ai-simulations').then(r => extractApiData<AiSimulation[]>(r)),
 
   create: (data: { name: string; description?: string; agentId: string; datasetJson: unknown }) =>
-    api.post('/ai-simulations', data).then(r => extractData<AiSimulation>(r)),
+    api.post('/ai-simulations', data).then(r => extractApiData<AiSimulation>(r)),
 
-  get: (id: string) =>
-    api.get(`/ai-simulations/${id}`).then(r => extractData<AiSimulation>(r)),
+  get: (id: string) => api.get(`/ai-simulations/${id}`).then(r => extractApiData<AiSimulation>(r)),
 
   delete: (id: string) =>
-    api.delete(`/ai-simulations/${id}`).then(r => extractData<{ success: boolean }>(r)),
+    api.delete(`/ai-simulations/${id}`).then(r => extractApiData<{ success: boolean }>(r)),
 
-  getStats: () => api.get('/ai-simulations/stats').then(r => extractData<AiSimulationStats>(r)),
+  getStats: () => api.get('/ai-simulations/stats').then(r => extractApiData<AiSimulationStats>(r)),
 }

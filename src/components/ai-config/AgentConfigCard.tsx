@@ -2,16 +2,13 @@
 
 import { memo } from 'react'
 import { Bot, Settings } from 'lucide-react'
+import { Badge, Button, Card, CardContent, CardHeader, Switch } from '@/components/ui'
+import { type AiAgentId } from '@/enums'
 import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Switch,
-} from '@/components/ui'
-import { AGENT_EXECUTION_MAP, AI_AGENT_LABEL_KEYS, AI_TRIGGER_MODE_LABEL_KEYS } from '@/lib/constants/ai-config'
-import { AiAgentId } from '@/enums'
+  AGENT_EXECUTION_MAP,
+  AI_AGENT_LABEL_KEYS,
+  AI_TRIGGER_MODE_LABEL_KEYS,
+} from '@/lib/constants/ai-config'
 import { lookup } from '@/lib/utils'
 import type { AgentCardProps } from '@/types'
 
@@ -41,7 +38,9 @@ export const AgentConfigCard = memo(
       availableConnectors.find(c => c.key === config.providerMode)?.label ?? config.providerMode
     const triggerKey = lookup(AI_TRIGGER_MODE_LABEL_KEYS, config.triggerMode)
     const agentIdKey = config.agentId as AiAgentId
-    const executionAgent = AGENT_EXECUTION_MAP[agentIdKey]
+    const executionAgent = Object.entries(AGENT_EXECUTION_MAP).find(
+      ([mappedAgentId]) => mappedAgentId === agentIdKey
+    )?.[1]
     const executionAgentLabel = executionAgent ? lookup(AI_AGENT_LABEL_KEYS, executionAgent) : null
 
     return (

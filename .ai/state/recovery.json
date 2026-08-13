@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "level": 0,
+  "trigger": null,
+  "frozenStrategy": null,
+  "knownEvidence": [],
+  "actualBlocker": null,
+  "nextStrategy": null
+}

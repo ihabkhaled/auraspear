@@ -16,19 +16,17 @@ export function HandoffHistoryTable({
     {
       key: 'findingTitle',
       label: t('table.finding'),
-      render: (value) => (
-        <span className="line-clamp-1 max-w-xs text-sm">{value as string}</span>
-      ),
+      render: value => <span className="line-clamp-1 max-w-xs text-sm">{value as string}</span>,
     },
     {
       key: 'findingType',
       label: t('table.type'),
-      render: (value) => <Badge variant="secondary">{value as string}</Badge>,
+      render: value => <Badge variant="secondary">{value as string}</Badge>,
     },
     {
       key: 'severity',
       label: t('table.severity'),
-      render: (value) => {
+      render: value => {
         const sev = value as string | null
         if (!sev) {
           return '-'
@@ -43,24 +41,22 @@ export function HandoffHistoryTable({
     {
       key: 'linkedModule',
       label: t('table.promotedTo'),
-      render: (value) => <Badge variant="success">{value as string}</Badge>,
+      render: value => <Badge variant="success">{value as string}</Badge>,
     },
     {
       key: 'linkedEntityId',
       label: t('table.entityId'),
-      render: (value) => (
-        <span className="font-mono text-xs">{(value as string).slice(0, 8)}</span>
-      ),
+      render: value => <span className="font-mono text-xs">{(value as string).slice(0, 8)}</span>,
     },
     {
       key: 'agentId',
       label: t('table.agent'),
-      render: (value) => (value as string | null) ?? '-',
+      render: value => (value as string | null) ?? '-',
     },
     {
       key: 'createdAt',
       label: t('table.promotedAt'),
-      render: (value) => formatTimestamp(value as string),
+      render: value => formatTimestamp(value as string),
     },
   ]
 
