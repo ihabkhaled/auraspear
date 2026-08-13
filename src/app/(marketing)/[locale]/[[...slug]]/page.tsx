@@ -1,4 +1,5 @@
 import { notFound, permanentRedirect } from 'next/navigation'
+import { ContactPublicPage } from '@/components/marketing/contact-public-page.component'
 import { PublicPage } from '@/components/marketing/public-page.component'
 import { PublicShell } from '@/components/marketing/public-shell.component'
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants/locales'
@@ -58,7 +59,11 @@ export default async function LocalizedPage({
   return (
     <div lang={locale} dir={isRtlLocale(locale) ? 'rtl' : 'ltr'}>
       <PublicShell locale={locale} currentPath={resolved.path}>
-        <PublicPage page={localizedPage} locale={locale} />
+        {resolved.path === '/contact' ? (
+          <ContactPublicPage locale={locale} />
+        ) : (
+          <PublicPage page={localizedPage} locale={locale} />
+        )}
       </PublicShell>
     </div>
   )

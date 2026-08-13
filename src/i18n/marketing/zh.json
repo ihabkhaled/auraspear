@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "平台",
+    "navFeatures": "特征",
+    "navIntegrations": "整合",
+    "navAbout": "关于",
+    "requestDemo": "请求演示",
+    "requestYourDemo": "请求演示",
+    "goToApp": "去应用",
+    "goToAppAria": "去AuraSpear应用程序",
+    "languageMenu": "选择语言",
+    "fromSignalToDecision": "从信号到决定",
+    "contextTitle": "用于不能失去背景的安全工作",
+    "contextBody": "AuraSpear将遥测、发现、分析推理、批准和反应历史联系起来。 各小组在减少延缓调查的交割的同时,也取得了合理的业务记录。",
+    "capabilityBody": "为可重复操作、明确所有权和在整个安全周期内仍然相连的证据而设计。",
+    "connectTitle": "连接您的堆栈",
+    "connectBody": "将现有的探测,可观察性,智能,自动化,以及AI提供商引入一个受支配的工作空间.",
+    "tenantTitle": "保留租户边界",
+    "tenantBody": "了解角色和租户范围的行动使敏感的安全情况相互分离。",
+    "accountableTitle": "追究人类的责任",
+    "accountableBody": "核准闸门、归属、信任和审计线索可以解释自动化。",
+    "seeTitle": "见AuraSpear 在你的环境下",
+    "seeBody": "告诉我们你的遥测、团队、租户和反应工作流程 我们将围绕你的实际行动 形成一个集中的通道",
+    "footerTagline": "统一、多租户的安全行动,有相关证据并管理大赦国际。",
+    "footerRights": "2026 Auraspeartoken0 Auraspeartoken1 (英语). 安全行动,连接。",
+    "emailAria": "电子邮件 AURASPEARKEN0",
+    "githubAria": "乌拉巴斯蒂恩0号",
+    "contactEyebrow": "联系人/ 请求演示",
+    "contactTitle": "给您带来安全操作挑战",
+    "contactBody": "分享你的团队结构,租户模式,遥测来源,以及反应目标. 我们将安排一个集中的AuraSpear 通过。",
+    "contactPrivacy": "我们使用这些细节只是为了回应你的要求.",
+    "linkedinLabel": "在链接中查找 Ihab Khaled",
+    "emailPlaceholder": "气喘吁吁的声响",
+    "subjectPlaceholder": "议题",
+    "messagePlaceholder": "您的消息"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "AI授权的安保行动",
+      "description": "在一个多租户的SOC平台上统一检测、调查、情报和反应。",
+      "category": "概览",
+      "capabilities": [
+        "由AI驱动的中央安保业务工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "关于AURASPEARKEN0",
+      "description": "满足AuraSpear SOC背后的任务和工程原理.",
+      "category": "企业",
+      "capabilities": [
+        "集中关于uraspear工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "请求演示",
+      "description": "与AuraSpear小组讨论部署、整合和安全行动。",
+      "category": "企业",
+      "capabilities": [
+        "集中请求演示工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "统一SOC平台",
+      "description": "用于信号、证据、决定和反应的单一操作层。",
+      "category": "平台",
+      "capabilities": [
+        "集中统一Soc平台工作流程.",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "安保业务结构",
+      "description": "了解AuraSpear的模块数据、自动化、AI和治理层。",
+      "category": "平台",
+      "capabilities": [
+        "集中安保业务架构工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "多租户SOC业务",
+      "description": "从一个孤立的,受控的控制平面上操作多个安全程序.",
+      "category": "平台",
+      "capabilities": [
+        "集中式多租户Soc操作工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "平台安全",
+      "description": "对身份、权限、数据和AI协助行动进行深入的防卫控制。",
+      "category": "平台",
+      "capabilities": [
+        "集中式平台安全工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "租户隔离",
+      "description": "将租户身份、遥测、病例、配置和出入边界分开。",
+      "category": "平台",
+      "capabilities": [
+        "集中的租户隔离工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "气喘吁吁的仪表板",
+      "description": "探索AuraSpear如何提供有规范工作流程和关联证据的Soc仪表板.",
+      "category": "特征",
+      "capabilities": [
+        "集中的Soc仪表板工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "警报管理",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供警报管理.",
+      "category": "特征",
+      "capabilities": [
+        "集中警报管理流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "事件管理",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据进行事件管理.",
+      "category": "特征",
+      "capabilities": [
+        "事件管理流程集中化",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "案件管理",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供案件管理.",
+      "category": "特征",
+      "capabilities": [
+        "集中案件管理工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "案件生命周期协调",
+      "description": "探索AuraSpear如何以规范的工作流程和相关证据提供案件生命周期协调。",
+      "category": "特征",
+      "capabilities": [
+        "集中处理案件周期安排工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "安全报告",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供安全报告.",
+      "category": "特征",
+      "capabilities": [
+        "集中安全报告工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "业务通知",
+      "description": "探索AuraSpear如何提供附有规范工作流程和关联证据的业务通知.",
+      "category": "特征",
+      "capabilities": [
+        "集中业务通知工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "背景任务",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供背景工作.",
+      "category": "特征",
+      "capabilities": [
+        "集中背景工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "系统保健",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供系统健康.",
+      "category": "特征",
+      "capabilities": [
+        "集中式系统保健工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "探测工程",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供检测工程.",
+      "category": "特征",
+      "capabilities": [
+        "集中式探测工程工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "关联引擎",
+      "description": "探索AuraSpear如何与所规范的工作流程和关联证据提供关联引擎.",
+      "category": "特征",
+      "capabilities": [
+        "集中关联引擎工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "威胁性狩猎",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据进行威胁捕猎.",
+      "category": "特征",
+      "capabilities": [
+        "集中式威胁狩猎工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "威胁情报",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供威胁情报.",
+      "category": "特征",
+      "capabilities": [
+        "集中威胁情报工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "实体风险",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据来交付实体风险.",
+      "category": "特征",
+      "capabilities": [
+        "中央实体风险工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "脆弱性管理",
+      "description": "探讨AuraSpear如何利用规范的工作流程和相关的证据进行脆弱性管理。",
+      "category": "特征",
+      "capabilities": [
+        "集中的脆弱性管理工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "用户和实体行为分析",
+      "description": "探索AuraSpear如何提供用户和实体行为分析,并配有规范的工作流程和连接的证据.",
+      "category": "特征",
+      "capabilities": [
+        "集中用户和实体行为分析工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "云层安全",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供云安全.",
+      "category": "特征",
+      "capabilities": [
+        "集中式云安全工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "合规业务",
+      "description": "探索AuraSpear如何按照规范的工作流程和关联证据交付合规操作.",
+      "category": "特征",
+      "capabilities": [
+        "集中合规业务工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "攻击路径分析",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据进行攻击路径分析.",
+      "category": "特征",
+      "capabilities": [
+        "集中攻击路径分析工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOAR 自动化",
+      "description": "探索AuraSpear如何用规范的工作流程和连接的证据提供迅猛自动化.",
+      "category": "特征",
+      "capabilities": [
+        "集中式飞天自动化工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "大赦国际联合分析员",
+      "description": "探索AuraSpear如何与规范的工作流程和关联证据提供ai协同分析.",
+      "category": "特征",
+      "capabilities": [
+        "集中分析工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "人工智能特工",
+      "description": "探索AuraSpear如何提供有规范的工作流程和关联证据的AI代理.",
+      "category": "特征",
+      "capabilities": [
+        "中央助理人员工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI 调查聊天",
+      "description": "探索AuraSpear如何提供AI调查聊天,与规范的工作流程和关联证据.",
+      "category": "特征",
+      "capabilities": [
+        "调查聊天流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "AI 搜索",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供ai搜索.",
+      "category": "特征",
+      "capabilities": [
+        "集中式AI搜索工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "大赦国际的调查结果",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供AI结论.",
+      "category": "特征",
+      "capabilities": [
+        "集中的AI调查结论工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AI 内存和RAG",
+      "description": "探索AuraSpear如何提供有规范的工作流程和关联证据的AI内存和破布.",
+      "category": "特征",
+      "capabilities": [
+        "集中式AI内存和破碎工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "AI评价",
+      "description": "探索AuraSpear如何提供有规范的工作流程和关联证据的AI评价.",
+      "category": "特征",
+      "capabilities": [
+        "中央助理评价工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "AI模拟",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供ai模拟.",
+      "category": "特征",
+      "capabilities": [
+        "集中式AI模拟工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AI 治理",
+      "description": "探索AuraSpear如何以管理的工作流程和相关的证据提供ai治理.",
+      "category": "特征",
+      "capabilities": [
+        "管理工作流程集中化",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "大赦国际",
+      "description": "探索AuraSpear如何提供有规范工作流程和关联证据的ai finops.",
+      "category": "特征",
+      "capabilities": [
+        "集中化的ai finops工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "安全数据探测器",
+      "description": "探索AuraSpear如何以规范的工作流程和关联证据提供安全数据探索器.",
+      "category": "特征",
+      "capabilities": [
+        "集中式安全数据勘探工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "正常化管道",
+      "description": "探索AuraSpear如何以规范的工作流程和相关证据提供正常化管道.",
+      "category": "特征",
+      "capabilities": [
+        "集中化正常化管道工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "安保一体化",
+      "description": "将安保一体化与AuraSpear连接,以便统一安保背景和行动。",
+      "category": "整合",
+      "capabilities": [
+        "集中化安保一体化整合工作流程.",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "AURASPEARKEN0 整合",
+      "description": "连接Wazuh到AuraSpear,用于统一的安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中式wazuh一体化工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "AURASPEARKEN0 整合",
+      "description": "连接Logstash到AuraSpear,用于统一的安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中式对数集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Graylog 整合",
+      "description": "连接Graylog至AuraSpear,用于统一安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中式灰色log集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "AURASPEARKEN0 整合",
+      "description": "连接Grafana到AuraSpear,用于统一的安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中的谷物整合工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISP 整合",
+      "description": "连接MISP至AuraSpear,用于统一安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中化的错误集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "流动一体化",
+      "description": "把Shuffle连接到AuraSpear,用于统一的安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中式洗牌集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "变速器集成",
+      "description": "连接Velociraptor至AuraSpear,用于统一安全背景和业务.",
+      "category": "整合",
+      "capabilities": [
+        "集中式蒸汽机集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "内流数据库集成",
+      "description": "连接InfluxDB到AuraSpear,用于统一安全背景和操作.",
+      "category": "整合",
+      "capabilities": [
+        "集中流入b 一体化工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLM 供应商集成",
+      "description": "连接 LLM 供应商到 AuraSpear ,用于统一安全背景和操作.",
+      "category": "整合",
+      "capabilities": [
+        "集中式的lm供应商集成工作流程",
+        "租户意识出入控制和可审计性",
+        "在一个工作空间中的自动化、证据和分析背景",
+        "打开现有安全操作堆栈的集成路径"
+      ]
+    }
+  }
+}

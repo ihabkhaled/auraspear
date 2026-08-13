@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "회사연혁",
+    "navFeatures": "주요 특징",
+    "navIntegrations": "통합",
+    "navAbout": "제품정보",
+    "requestDemo": "데모 요청",
+    "requestYourDemo": "데모 요청",
+    "goToApp": "앱 바로가기",
+    "goToAppAria": "AuraSpear 신청",
+    "languageMenu": "한국어",
+    "fromSignalToDecision": "신호에서 결정",
+    "contextTitle": "상황에 잃을 수없는 보안 작업을 위해 내장",
+    "contextBody": "AuraSpear는 원격 측정, 발견, 분석적인 이유, 승인 및 응답 역사를 연결합니다. Teams는 조사를 느리게하는 handoffs를 감소시키는 동안 방어적인 운영 기록을 얻습니다.",
+    "capabilityBody": "반복 가능한 가동, 명확한 소유권 및 보안 수명주기를 통해 연결되는 증거를 위해 디자인하는.",
+    "connectTitle": "연락처",
+    "connectBody": "기존 탐지, 관찰성, 인텔리전스, 자동화 및 AI 제공 업체를 하나의 관리 작업 공간에 가져옵니다.",
+    "tenantTitle": "보존 10자 경계",
+    "tenantBody": "역할 인식 액세스 및 tenant-scoped 작업은 민감한 보안 상황에 분리.",
+    "accountableTitle": "인간의 책임",
+    "accountableBody": "승인 게이트, attribution, 신뢰 및 감사 트레일은 자동화를 설명합니다.",
+    "seeTitle": "당신의 환경에서 AuraSpear 참조",
+    "seeBody": "원격 측정, 팀, 임계인 및 응답 워크플로우에 대해 알려주십시오. 우리는 당신의 가동 현실의 주위에 집중된 연습을 형성할 것입니다.",
+    "footerTagline": "연결된 증거와 지배적 인 AI를 가진 다 엄격한 안전 가동.",
+    "footerRights": "© 2026 AuraSpear SOC니다. 보안 운영, 연결.",
+    "emailAria": "이메일 AuraSpear",
+    "githubAria": "AuraSpear 에 GitHub",
+    "contactEyebrow": "연락처 / 데모 요청",
+    "contactTitle": "보안 작업 도전",
+    "contactBody": "팀 구조, 테넌트 모델, 원격 측정 소스 및 응답 목표를 공유하십시오. AuraSpear 산책로를 준비합니다.",
+    "contactPrivacy": "우리는 귀하의 요청에 응답하기 만이 세부 사항을 사용합니다.",
+    "linkedinLabel": "LinkedIn에서 Ihab Khaled 찾기",
+    "emailPlaceholder": "카테고리",
+    "subjectPlaceholder": "이름 *",
+    "messagePlaceholder": "당신의 메시지"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "AI-powered 보안 운영",
+      "description": "탐지, 조사, 인텔리전스 및 한 멀티텐트 SOC 플랫폼의 응답을 취소합니다.",
+      "category": "제품정보",
+      "capabilities": [
+        "Centralized ai-powered 보안 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "AuraSpear 소개",
+      "description": "AuraSpear SOC 뒤에 임무와 기술설계 원리를 만나십시오.",
+      "category": "제품정보",
+      "capabilities": [
+        "auraspear 워크플로우에 대한 집중",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "데모 요청",
+      "description": "AuraSpear 팀과 함께 배포, 통합 및 보안 작업에 대해 이야기합니다.",
+      "category": "제품정보",
+      "capabilities": [
+        "Centralized 요청 데모 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "통합 SOC 플랫폼",
+      "description": "신호, 증거, 결정 및 응답을 위한 단일 조작 층.",
+      "category": "회사연혁",
+      "capabilities": [
+        "통합된 soc 플랫폼 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "보안 운영 아키텍처",
+      "description": "AuraSpear의 모듈식 데이터, 자동화, AI 및 관리 레이어를 견딜 수 있습니다.",
+      "category": "회사연혁",
+      "capabilities": [
+        "Centralized 보안 운영 아키텍처 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "Multi-tenant SOC 운영",
+      "description": "고립된 통제 비행기에서 다수 안전 프로그램을 운영하십시오.",
+      "category": "회사연혁",
+      "capabilities": [
+        "자동화된 멀티텐트 soc 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "플랫폼 보안",
+      "description": "정체성, 허가, 데이터 및 AI 보조 작업에 대한 방어적인 제어.",
+      "category": "회사연혁",
+      "capabilities": [
+        "Centralized 플랫폼 보안 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "Tenant 고립",
+      "description": "10개의 식별, 원격 측정, 케이스, 구성 및 접근 경계를 분리하십시오.",
+      "category": "회사연혁",
+      "capabilities": [
+        "Centralized tenant 고립 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "SOC 대시보드",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 soc 대시보드를 어떻게 전달하는지 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized soc 대시보드 작업",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "Alert 관리",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 경고 관리를 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized alert 관리 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "회사소개",
+      "description": "AuraSpear가 지배적 워크플로우와 연결된 증거로 사고 관리를 전달하는 방법을 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 사고 관리 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "사례 관리",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 사례 관리 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized Case 관리 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "케이스 수명주기 Orchestration",
+      "description": "AuraSpear가 사례 라이프사이클 오케스트라를 어떻게 관리할 수 있는지 살펴보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized case lifecycle Orchestration 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "보안 보고",
+      "description": "AuraSpear는 관리된 워크플로우와 연결된 증거로 보안 보고를 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "통합 보안 보고 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "운영 알림",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 작동 알림을 전달하는 방법을 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "자동화된 작업 알림 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "배경 작업",
+      "description": "AuraSpear이 지배된 워크플로우와 연결된 증거로 백그라운드 작업을 수행하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized background 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "시스템 건강",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 시스템의 건강을 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "중앙 시스템의 건강 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "검출 공학",
+      "description": "AuraSpear는 관리된 워크플로우와 연결된 증거로 탐지 엔지니어링을 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized detection 엔지니어링 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "관련 기관",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 상관관계 엔진을 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 상관관계 엔진 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "위협 사냥",
+      "description": "AuraSpear가 지배적 워크플로우와 연결된 증거로 위협을 위협하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "중앙 위협 사냥 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "위협 정보",
+      "description": "AuraSpear가 지배적 워크플로우와 연결된 증거로 위협 인텔리전스를 제공하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 위협 인텔리전스 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "기업 위험",
+      "description": "AuraSpear가 지배된 워크플로우와 연결된 증거로 엔티티티 위험을 어떻게 전달하는지 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "조직 위험 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "Vulnerability 관리",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 취약점 관리를 제공하는 방법을 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "중앙화된 취약점 관리 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "사용자 및 단체 행동 분석",
+      "description": "AuraSpear는 사용자 및 단체 행동 분석과 관리된 워크플로우와 연결된 증거를 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized user and entity 행동 분석 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "클라우드 보안",
+      "description": "AuraSpear가 클라우드 보안을 관리한 워크플로우와 연결된 증거로 탐색합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 클라우드 보안 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "규정 준수",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 규정된 작업을 수행하는 방법을 살펴보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized Compliance 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "공격 경로 분석",
+      "description": "AuraSpear가 지배된 워크플로우와 연결된 증거로 공격 경로 분석을 제공하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 공격 경로 분석 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOAR 자동화",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 soar 오토메이션을 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "자동화 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "AI 공동 분석",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai co-analyst를 어떻게 전달하는지 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "중앙화된 ai co-analyst 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "AI 에이전트",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai 에이전트를 전달하는 방법을 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 에이전트 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI 조사 채팅",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 ai 조사 채팅을 전달하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 조사 작업 흐름",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "AI 검색",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai 검색을 제공하는 방법을 살펴보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 검색 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "AI 발견",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai를 제공하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai는 워크플로우를 찾는다.",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AI 메모리 및 RAG",
+      "description": "AuraSpear가 할당된 워크플로우와 연결된 증거로 ai Memory와 rag를 어떻게 전달하는지 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 메모리 및 rag 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "AI 평가",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai 평가를 전달하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 평가 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "AI 시뮬레이션",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai 시뮬레이션을 전달하는 방법을 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 시뮬레이션 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AI 관리",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai 거버넌스를 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai 관리 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI 핀",
+      "description": "AuraSpear가 준공된 워크플로우와 연결된 증거로 ai finops를 어떻게 전달하는지 알아보세요.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized ai finops 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "보안 데이터 탐색기",
+      "description": "AuraSpear가 관리된 워크플로우와 연결된 증거로 보안 데이터 탐색기를 제공합니다.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized 보안 데이터 탐색기 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "정상화 파이프라인",
+      "description": "AuraSpear가 정상적인 조직 파이프라인을 관리 워크플로우와 연결된 증거로 전달하는 방법을 알아보십시오.",
+      "category": "주요 특징",
+      "capabilities": [
+        "Centralized Normalization 파이프라인 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "보안 통합 통합",
+      "description": "AuraSpear에 보안 통합을 연결하여 보안 컨텍스트 및 작업을 통합합니다.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized 보안 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Wazuh 통합",
+      "description": "Wazuh을 AuraSpear에 연결하여 보안 컨텍스트 및 운영을 위해",
+      "category": "통합",
+      "capabilities": [
+        "Centralized wazuh 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Logstash 통합",
+      "description": "Logstash을 AuraSpear에 연결하여 보안 컨텍스트 및 운영을 위해",
+      "category": "통합",
+      "capabilities": [
+        "Centralized logstash 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Graylog 통합",
+      "description": "Graylog를 AuraSpear에 연결하여 보안 컨텍스트 및 작업을 통합합니다.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized Greylog 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Grafana 통합",
+      "description": "Grafana을 AuraSpear에 연결하여 보안 컨텍스트 및 운영을 위해",
+      "category": "통합",
+      "capabilities": [
+        "Centralized grafana 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISP 통합",
+      "description": "MISP를 AuraSpear에 연결하여 통합된 보안 컨텍스트 및 운영을 지원합니다.",
+      "category": "통합",
+      "capabilities": [
+        "중앙화된 misp 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Shuffle 통합",
+      "description": "AuraSpear에 연결하여 통합된 보안 컨텍스트 및 운영을 지원합니다.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized shuffle 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Velociraptor 통합",
+      "description": "Velociraptor를 AuraSpear에 연결하여 보안 컨텍스트 및 운영을 위해.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized velociraptor 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "InfluxDB 통합",
+      "description": "InfluxDB를 AuraSpear에 연결하여 통합된 보안 컨텍스트 및 운영을 지원합니다.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized influxdb 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLM 공급자 통합",
+      "description": "LLM 공급자를 AuraSpear에 통합된 보안 컨텍스트 및 운영을 연결합니다.",
+      "category": "통합",
+      "capabilities": [
+        "Centralized llm 제공 업체 통합 워크플로우",
+        "Tenant-aware 액세스 제어 및 감사",
+        "자동화, 증거 및 분석적인 컨텍스트",
+        "기존 보안 작업 스택의 통합 경로 열기"
+      ]
+    }
+  }
+}

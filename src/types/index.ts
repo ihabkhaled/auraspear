@@ -862,6 +862,7 @@ export type {
 } from './memory.types'
 export type {
   ContactFormProps,
+  ContactFormPlaceholders,
   ContactFormValues,
   ContactResponse,
   ContactStatusDisplay,

@@ -9,27 +9,35 @@ import {
 } from '@/lib/constants/contact'
 import type { ContactFormProps } from '@/types'
 
-export function ContactForm({ status, submitLabel, statusLabel, onSubmit }: ContactFormProps) {
+export function ContactForm({
+  status,
+  submitLabel,
+  statusLabel,
+  onSubmit,
+  emailPlaceholder = 'you@company.com',
+  subjectPlaceholder = 'Subject',
+  messagePlaceholder = 'Your message',
+}: ContactFormProps) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input
         type="email"
         name="email"
-        placeholder="you@company.com"
+        placeholder={emailPlaceholder}
         required
         maxLength={CONTACT_EMAIL_MAX_LENGTH}
       />
       <Input
         type="text"
         name="subject"
-        placeholder="Subject"
+        placeholder={subjectPlaceholder}
         required
         minLength={CONTACT_SUBJECT_MIN_LENGTH}
         maxLength={CONTACT_SUBJECT_MAX_LENGTH}
       />
       <Textarea
         name="message"
-        placeholder="Your message"
+        placeholder={messagePlaceholder}
         required
         minLength={CONTACT_MESSAGE_MIN_LENGTH}
         maxLength={CONTACT_MESSAGE_MAX_LENGTH}

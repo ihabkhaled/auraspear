@@ -21,7 +21,16 @@ export interface ContactFormProps {
   status: ContactStatus
   submitLabel: string
   statusLabel: string
+  emailPlaceholder?: string | undefined
+  subjectPlaceholder?: string | undefined
+  messagePlaceholder?: string | undefined
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+}
+
+export interface ContactFormPlaceholders {
+  emailPlaceholder?: string | undefined
+  subjectPlaceholder?: string | undefined
+  messagePlaceholder?: string | undefined
 }
 
 export interface MarketingNavProps {

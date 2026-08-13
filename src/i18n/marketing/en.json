@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "Platform",
+    "navFeatures": "Features",
+    "navIntegrations": "Integrations",
+    "navAbout": "About",
+    "requestDemo": "Request a demo",
+    "requestYourDemo": "Request your demo",
+    "goToApp": "Go to app",
+    "goToAppAria": "Go to the AuraSpear application",
+    "languageMenu": "Choose language",
+    "fromSignalToDecision": "From signal to decision",
+    "contextTitle": "Built for security work that cannot lose context",
+    "contextBody": "AuraSpear connects telemetry, findings, analyst reasoning, approvals, and response history. Teams gain a defensible operational record while reducing the handoffs that slow investigations.",
+    "capabilityBody": "Designed for repeatable operations, clear ownership, and evidence that remains connected throughout the security lifecycle.",
+    "connectTitle": "Connect your stack",
+    "connectBody": "Bring existing detection, observability, intelligence, automation, and AI providers into one governed workspace.",
+    "tenantTitle": "Preserve tenant boundaries",
+    "tenantBody": "Role-aware access and tenant-scoped operations keep sensitive security contexts separated.",
+    "accountableTitle": "Keep humans accountable",
+    "accountableBody": "Approval gates, attribution, confidence, and audit trails keep automation explainable.",
+    "seeTitle": "See AuraSpear in your environment",
+    "seeBody": "Tell us about your telemetry, teams, tenants, and response workflows. We will shape a focused walkthrough around your operational reality.",
+    "footerTagline": "Unified, multi-tenant security operations with connected evidence and governed AI.",
+    "footerRights": "© 2026 AuraSpear SOC. Security operations, connected.",
+    "emailAria": "Email AuraSpear",
+    "githubAria": "AuraSpear on GitHub",
+    "contactEyebrow": "Contact / Request a demo",
+    "contactTitle": "Bring your security operations challenge",
+    "contactBody": "Share your team structure, tenant model, telemetry sources, and response goals. We will arrange a focused AuraSpear walkthrough.",
+    "contactPrivacy": "We use these details only to respond to your request.",
+    "linkedinLabel": "Find Ihab Khaled on LinkedIn",
+    "emailPlaceholder": "you@company.com",
+    "subjectPlaceholder": "Subject",
+    "messagePlaceholder": "Your message"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "AI-powered security operations",
+      "description": "Unify detection, investigation, intelligence, and response in one multi-tenant SOC platform.",
+      "category": "Overview",
+      "capabilities": [
+        "Centralized ai-powered security operations workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "About AuraSpear",
+      "description": "Meet the mission and engineering principles behind AuraSpear SOC.",
+      "category": "Company",
+      "capabilities": [
+        "Centralized about auraspear workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "Request a demo",
+      "description": "Talk with the AuraSpear team about deployment, integrations, and security operations.",
+      "category": "Company",
+      "capabilities": [
+        "Centralized request a demo workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "Unified SOC platform",
+      "description": "A single operational layer for signals, evidence, decisions, and response.",
+      "category": "Platform",
+      "capabilities": [
+        "Centralized unified soc platform workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "Security operations architecture",
+      "description": "Understand AuraSpear’s modular data, automation, AI, and governance layers.",
+      "category": "Platform",
+      "capabilities": [
+        "Centralized security operations architecture workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "Multi-tenant SOC operations",
+      "description": "Operate multiple security programs from an isolated, governed control plane.",
+      "category": "Platform",
+      "capabilities": [
+        "Centralized multi-tenant soc operations workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "Platform security",
+      "description": "Defense-in-depth controls for identity, permissions, data, and AI-assisted actions.",
+      "category": "Platform",
+      "capabilities": [
+        "Centralized platform security workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "Tenant isolation",
+      "description": "Keep tenant identities, telemetry, cases, configurations, and access boundaries separated.",
+      "category": "Platform",
+      "capabilities": [
+        "Centralized tenant isolation workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "SOC dashboards",
+      "description": "Explore how AuraSpear delivers soc dashboards with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized soc dashboards workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "Alert management",
+      "description": "Explore how AuraSpear delivers alert management with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized alert management workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "Incident management",
+      "description": "Explore how AuraSpear delivers incident management with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized incident management workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "Case management",
+      "description": "Explore how AuraSpear delivers case management with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized case management workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "Case lifecycle orchestration",
+      "description": "Explore how AuraSpear delivers case lifecycle orchestration with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized case lifecycle orchestration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "Security reporting",
+      "description": "Explore how AuraSpear delivers security reporting with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized security reporting workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "Operational notifications",
+      "description": "Explore how AuraSpear delivers operational notifications with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized operational notifications workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "Background jobs",
+      "description": "Explore how AuraSpear delivers background jobs with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized background jobs workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "System health",
+      "description": "Explore how AuraSpear delivers system health with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized system health workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "Detection engineering",
+      "description": "Explore how AuraSpear delivers detection engineering with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized detection engineering workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "Correlation engine",
+      "description": "Explore how AuraSpear delivers correlation engine with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized correlation engine workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "Threat hunting",
+      "description": "Explore how AuraSpear delivers threat hunting with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized threat hunting workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "Threat intelligence",
+      "description": "Explore how AuraSpear delivers threat intelligence with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized threat intelligence workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "Entity risk",
+      "description": "Explore how AuraSpear delivers entity risk with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized entity risk workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "Vulnerability management",
+      "description": "Explore how AuraSpear delivers vulnerability management with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized vulnerability management workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "User and entity behavior analytics",
+      "description": "Explore how AuraSpear delivers user and entity behavior analytics with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized user and entity behavior analytics workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "Cloud security",
+      "description": "Explore how AuraSpear delivers cloud security with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized cloud security workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "Compliance operations",
+      "description": "Explore how AuraSpear delivers compliance operations with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized compliance operations workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "Attack path analysis",
+      "description": "Explore how AuraSpear delivers attack path analysis with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized attack path analysis workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOAR automation",
+      "description": "Explore how AuraSpear delivers soar automation with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized soar automation workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "AI co-analyst",
+      "description": "Explore how AuraSpear delivers ai co-analyst with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai co-analyst workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "AI agents",
+      "description": "Explore how AuraSpear delivers ai agents with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai agents workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI investigation chat",
+      "description": "Explore how AuraSpear delivers ai investigation chat with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai investigation chat workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "AI search",
+      "description": "Explore how AuraSpear delivers ai search with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai search workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "AI findings",
+      "description": "Explore how AuraSpear delivers ai findings with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai findings workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AI memory and RAG",
+      "description": "Explore how AuraSpear delivers ai memory and rag with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai memory and rag workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "AI evaluation",
+      "description": "Explore how AuraSpear delivers ai evaluation with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai evaluation workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "AI simulations",
+      "description": "Explore how AuraSpear delivers ai simulations with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai simulations workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AI governance",
+      "description": "Explore how AuraSpear delivers ai governance with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai governance workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI FinOps",
+      "description": "Explore how AuraSpear delivers ai finops with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized ai finops workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "Security data explorer",
+      "description": "Explore how AuraSpear delivers security data explorer with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized security data explorer workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "Normalization pipelines",
+      "description": "Explore how AuraSpear delivers normalization pipelines with governed workflows and connected evidence.",
+      "category": "Features",
+      "capabilities": [
+        "Centralized normalization pipelines workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "Security integrations integration",
+      "description": "Connect Security integrations to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized security integrations integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Wazuh integration",
+      "description": "Connect Wazuh to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized wazuh integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Logstash integration",
+      "description": "Connect Logstash to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized logstash integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Graylog integration",
+      "description": "Connect Graylog to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized graylog integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Grafana integration",
+      "description": "Connect Grafana to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized grafana integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISP integration",
+      "description": "Connect MISP to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized misp integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Shuffle integration",
+      "description": "Connect Shuffle to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized shuffle integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Velociraptor integration",
+      "description": "Connect Velociraptor to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized velociraptor integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "InfluxDB integration",
+      "description": "Connect InfluxDB to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized influxdb integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLM providers integration",
+      "description": "Connect LLM providers to AuraSpear for unified security context and operations.",
+      "category": "Integrations",
+      "capabilities": [
+        "Centralized llm providers integration workflows",
+        "Tenant-aware access controls and auditability",
+        "Automation, evidence, and analyst context in one workspace",
+        "Open integration paths for existing security operations stacks"
+      ]
+    }
+  }
+}

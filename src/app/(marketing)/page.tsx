@@ -12,7 +12,7 @@ export default function LandingPage() {
   const page = MARKETING_PAGES[0]
   if (!page) return null
   return (
-    <PublicShell locale="en">
+    <PublicShell locale="en" currentPath={page.path}>
       <PublicPage page={page} locale="en" />
     </PublicShell>
   )

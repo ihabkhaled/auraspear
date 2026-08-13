@@ -114,9 +114,9 @@ export function AiScheduleEditDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="sequential">Sequential</SelectItem>
-                <SelectItem value="parallel">Parallel</SelectItem>
-                <SelectItem value="fan_out">Fan Out</SelectItem>
+                <SelectItem value="sequential">{t('schedules.modeSequential')}</SelectItem>
+                <SelectItem value="parallel">{t('schedules.modeParallel')}</SelectItem>
+                <SelectItem value="fan_out">{t('schedules.modeFanOut')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -128,9 +128,9 @@ export function AiScheduleEditDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="normal">Normal</SelectItem>
-                <SelectItem value="conservative">Conservative</SelectItem>
-                <SelectItem value="aggressive">Aggressive</SelectItem>
+                <SelectItem value="normal">{t('schedules.riskNormal')}</SelectItem>
+                <SelectItem value="conservative">{t('schedules.riskConservative')}</SelectItem>
+                <SelectItem value="aggressive">{t('schedules.riskAggressive')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -142,9 +142,9 @@ export function AiScheduleEditDialog({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="auto">Auto</SelectItem>
-                <SelectItem value="manual">Manual</SelectItem>
-                <SelectItem value="approval_required">Approval Required</SelectItem>
+                <SelectItem value="auto">{t('schedules.approvalAuto')}</SelectItem>
+                <SelectItem value="manual">{t('schedules.approvalManual')}</SelectItem>
+                <SelectItem value="approval_required">{t('schedules.approvalRequired')}</SelectItem>
               </SelectContent>
             </Select>
           </div>

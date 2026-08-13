@@ -7,8 +7,12 @@ export function useLanguageSwitcher() {
 
   function handleChange(locale: string) {
     setCookie('locale', locale)
-    updatePreferences.mutate({ language: locale })
-    window.location.reload()
+    updatePreferences.mutate(
+      { language: locale },
+      {
+        onSettled: () => window.location.reload(),
+      }
+    )
   }
 
   return { current, handleChange }

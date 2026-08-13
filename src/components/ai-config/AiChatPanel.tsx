@@ -1,35 +1,23 @@
 'use client'
 
-import {
-  Bot,
-  ChevronDown,
-  Loader2,
-  MessageSquare,
-  Plus,
-  Send,
-  Trash2,
-  User,
-} from 'lucide-react'
+import { Bot, ChevronDown, Loader2, MessageSquare, Plus, Send, Trash2, User } from 'lucide-react'
 import { AiConnectorSelect, VirtualizedList } from '@/components/common'
-import {
-  Badge,
-  Button,
-  Separator,
-  Textarea,
-} from '@/components/ui'
+import { Badge, Button, Separator, Textarea } from '@/components/ui'
 import { useAiChat } from '@/hooks'
-import { useAiConnectorStore } from '@/stores'
 import { formatTimestamp, cn } from '@/lib/utils'
-import type { AiChatMessage, AiChatThread, EmbeddedUser } from '@/types'
+import { useAiConnectorStore } from '@/stores'
+import type { AiChatMessage, AiChatThread, EmbeddedUser, TranslationFn } from '@/types'
 
 function ThreadItem({
   thread,
   isSelected,
   onSelect,
+  t,
 }: {
   thread: AiChatThread
   isSelected: boolean
   onSelect: () => void
+  t: TranslationFn
 }) {
   return (
     <button
@@ -42,13 +30,15 @@ function ThreadItem({
       )}
       onClick={onSelect}
     >
-      <p className="truncate text-sm font-medium">{thread.title ?? 'Untitled Chat'}</p>
+      <p className="truncate text-sm font-medium">{thread.title ?? t('newChat')}</p>
       <div className="mt-1 flex items-center gap-2">
         {thread.user && (
           <span className="text-muted-foreground truncate text-xs">{thread.user.name}</span>
         )}
         <span className="text-muted-foreground text-xs">{thread.provider ?? 'default'}</span>
-        <span className="text-muted-foreground text-xs">{String(thread.messageCount)} msgs</span>
+        <span className="text-muted-foreground text-xs">
+          {String(thread.messageCount)} {t('chatMessages')}
+        </span>
       </div>
       <p className="text-muted-foreground mt-0.5 text-xs">
         {formatTimestamp(thread.lastActivityAt)}
@@ -91,7 +81,9 @@ function ChatMessage({
             isUser ? 'bg-primary text-primary-foreground' : 'bg-muted'
           )}
         >
-          <p className="break-words text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+          <p className="text-sm leading-relaxed break-words whitespace-pre-wrap">
+            {message.content}
+          </p>
           {!isUser && (
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
               {message.model && (
@@ -182,11 +174,11 @@ export function AiChatPanel() {
   const connectorValue = connectorSelection === 'default' ? undefined : connectorSelection
 
   return (
-    <div className="border-border relative flex h-[calc(100vh-12rem)] min-h-[400px] max-h-[600px] overflow-hidden rounded-lg border sm:flex-row">
+    <div className="border-border relative flex h-[calc(100vh-12rem)] max-h-[600px] min-h-[400px] overflow-hidden rounded-lg border sm:flex-row">
       {/* Thread sidebar — overlay on mobile, static on sm+ */}
       <div
         className={cn(
-          'border-border absolute inset-0 z-20 flex flex-col bg-background transition-transform duration-200 sm:relative sm:inset-auto sm:z-auto sm:w-72 sm:shrink-0 sm:translate-x-0 sm:border-e',
+          'border-border bg-background absolute inset-0 z-20 flex flex-col transition-transform duration-200 sm:relative sm:inset-auto sm:z-auto sm:w-72 sm:shrink-0 sm:translate-x-0 sm:border-e',
           mobileThreadsOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
         )}
       >
@@ -256,6 +248,7 @@ export function AiChatPanel() {
                     thread={threadItem}
                     isSelected={threadItem.id === selectedThreadId}
                     onSelect={() => handleSelectThread(threadItem.id)}
+                    t={t}
                   />
                 </div>
               )}
@@ -302,7 +295,12 @@ export function AiChatPanel() {
                 className="h-7 w-28 sm:h-8 sm:w-44"
                 showDisabledState
               />
-              <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => archiveThread(selectedThreadId)}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 shrink-0"
+                onClick={() => archiveThread(selectedThreadId)}
+              >
                 <Trash2 className="text-destructive h-3.5 w-3.5" />
               </Button>
             </div>
@@ -314,7 +312,7 @@ export function AiChatPanel() {
                 <div className="bg-background/40 absolute inset-0 z-10 flex items-end justify-center pb-4">
                   <div className="bg-card flex items-center gap-2 rounded-lg border px-4 py-2 shadow-lg">
                     <Loader2 className="text-primary h-4 w-4 animate-spin" />
-                    <span className="text-muted-foreground text-sm">AI is thinking...</span>
+                    <span className="text-muted-foreground text-sm">{t('aiThinking')}</span>
                   </div>
                 </div>
               )}

@@ -15,6 +15,7 @@ export const SUPPORTED_LOCALES = [
   'pt',
   'fa',
   'ja',
+  'hi',
 ] as const
 
 export const LOCALES = [
@@ -31,4 +32,5 @@ export const LOCALES = [
   { code: 'pt', label: 'Português' },
   { code: 'fa', label: 'فارسی' },
   { code: 'ja', label: '日本語' },
+  { code: 'hi', label: 'हिन्दी' },
 ] as const

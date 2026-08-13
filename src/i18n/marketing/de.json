@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "Plattform",
+    "navFeatures": "Merkmale",
+    "navIntegrations": "Integrationen",
+    "navAbout": "Über",
+    "requestDemo": "Fordern Sie eine Demo an",
+    "requestYourDemo": "Fordern Sie Ihre Demo an",
+    "goToApp": "Gehen Sie zur App",
+    "goToAppAria": "Gehen Sie zur AuraSpear-Anwendung",
+    "languageMenu": "Wählen Sie die Sprache",
+    "fromSignalToDecision": "Vom Signal zur Entscheidung",
+    "contextTitle": "Gebaut für Sicherheitsarbeit, die den Kontext nicht verlieren kann",
+    "contextBody": "AuraSpear verbindet Telemetrie, Ergebnisse, Analystenschlussfolgerung, Genehmigungen und Antworthistorie. Teams erhalten einen vertretbaren Betriebsrekord und reduzieren gleichzeitig die Übergaben, die die Untersuchungen verlangsamen.",
+    "capabilityBody": "Entwickelt für wiederholbare Operationen, klares Eigentum und Beweise, die während des gesamten Sicherheitslebenszyklus verbunden bleiben.",
+    "connectTitle": "Verbinden Sie Ihren Stack",
+    "connectBody": "Bringen Sie vorhandene Anbieter für Erkennung, Beobachtbarkeit, Intelligenz, Automatisierung und KI in einen geregelten Arbeitsbereich.",
+    "tenantTitle": "Mietergrenzen bewahren",
+    "tenantBody": "Rollenbewusster Zugriff und Mandanten-scoped Operationen halten sensible Sicherheitskontexte getrennt.",
+    "accountableTitle": "Menschen zur Rechenschaft ziehen",
+    "accountableBody": "Genehmigungsgates, Attribution, Vertrauen und Audit-Trails halten die Automatisierung erklärbar.",
+    "seeTitle": "Sehen Sie AuraSpear in Ihrer Umgebung",
+    "seeBody": "Erzählen Sie uns von Ihren Telemetrie-, Team-, Mandanten- und Response-Workflows. Wir werden einen fokussierten Walkthrough rund um eure operative Realität gestalten.",
+    "footerTagline": "Einheitliche, multi-tenant-sicherheitsoperationen mit verbundenen beweisen und regulierter ki.",
+    "footerRights": "© 2026 AuraSpear SOC. Sicherheitsoperationen, verbunden.",
+    "emailAria": "E-Mail AuraSpear",
+    "githubAria": "AuraSpear auf GitHub",
+    "contactEyebrow": "Kontakt / Anfrage einer Demo",
+    "contactTitle": "Bringen Sie Ihre Security Operations Challenge",
+    "contactBody": "Teilen Sie Ihre Teamstruktur, Ihr Mandantenmodell, Telemetriequellen und Reaktionsziele. Wir werden einen fokussierten AuraSpear Walkthrough arrangieren.",
+    "contactPrivacy": "Wir verwenden diese Daten nur, um auf Ihre Anfrage zu antworten.",
+    "linkedinLabel": "Finden Sie Ihab Khaled auf LinkedIn",
+    "emailPlaceholder": "you@company.com",
+    "subjectPlaceholder": "Thema",
+    "messagePlaceholder": "Ihre Botschaft"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "KI-gestützte Sicherheitsmaßnahmen",
+      "description": "Vereinheitlichen Sie Erkennung, Untersuchung, Intelligenz und Reaktion in einer Multi-Tenant-SOC-Plattform.",
+      "category": "Übersicht",
+      "capabilities": [
+        "Zentralisierte ai-powered Security Operations Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "Über AuraSpear",
+      "description": "Erfüllen Sie die Mission und die technischen Prinzipien hinter AuraSpear SOC.",
+      "category": "Unternehmen",
+      "capabilities": [
+        "Zentralisiert über Auraspear Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "Fordern Sie eine Demo an",
+      "description": "Sprechen Sie mit dem AuraSpear-Team über Bereitstellung, Integrationen und Sicherheitsoperationen.",
+      "category": "Unternehmen",
+      "capabilities": [
+        "Zentralisierte Anforderung von Demo-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "Einheitliche SOC Plattform",
+      "description": "Eine einzige operative Schicht für Signale, Beweise, Entscheidungen und Reaktionen.",
+      "category": "Plattform",
+      "capabilities": [
+        "Zentralisierte Unified Soc Plattform Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "Architektur des Sicherheitsbetriebs",
+      "description": "Verstehen Sie die modularen Daten-, Automatisierungs-, KI- und Governance-Ebenen von AuraSpear.",
+      "category": "Plattform",
+      "capabilities": [
+        "Zentralisierte Security Operations Architektur Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "Mehrmieter-SOC-Betrieb",
+      "description": "Betreiben Sie mehrere Sicherheitsprogramme von einer isolierten, geregelten Kontrollebene aus.",
+      "category": "Plattform",
+      "capabilities": [
+        "Zentralisierte Multi-Tenant Soc Operations Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "Plattformsicherheit",
+      "description": "Verteidigende Kontrollen für Identität, Berechtigungen, Daten und KI-unterstützte Aktionen.",
+      "category": "Plattform",
+      "capabilities": [
+        "Zentralisierte Platform Security Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "Mieterisolation",
+      "description": "Halten Sie Mieteridentitäten, Telemetrie, Fälle, Konfigurationen und Zugriffsgrenzen getrennt.",
+      "category": "Plattform",
+      "capabilities": [
+        "Zentralisierte Mandant Isolation Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "SOC Dashboards",
+      "description": "Erfahren Sie, wie AuraSpear Soc-Dashboards mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Soc Dashboards Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "Alarmmanagement",
+      "description": "Erfahren Sie, wie AuraSpear Alarmmanagement mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Alarmmanagement-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "Störfallmanagement",
+      "description": "Erfahren Sie, wie AuraSpear Incident Management mit geregelten Workflows und verbundenen Beweisen bietet.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Incident Management Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "Case Management",
+      "description": "Erfahren Sie, wie AuraSpear Fallmanagement mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Case Management Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "Case Lifecycle Orchestrierung",
+      "description": "Erfahren Sie, wie AuraSpear die Orchestrierung von Falllebenszyklen mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Case Lifecycle Orchestrierung Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "Sicherheitsmeldungen",
+      "description": "Erfahren Sie, wie AuraSpear Sicherheitsberichte mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Security Reporting Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "Betriebsmeldungen",
+      "description": "Erfahren Sie, wie AuraSpear Betriebsbenachrichtigungen mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte operative Benachrichtigungen Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "Hintergrundjobs",
+      "description": "Erfahren Sie, wie AuraSpear Hintergrundjobs mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Hintergrundjobs Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "Systemgesundheit",
+      "description": "Entdecken Sie, wie AuraSpear Systemgesundheit mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Systemgesundheit Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "Detektionstechnik",
+      "description": "Entdecken Sie, wie AuraSpear Detection Engineering mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Detection Engineering Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "Korrelationsmotor",
+      "description": "Entdecken Sie, wie AuraSpear Korrelations-Engine mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Workflows zentralisierter Korrelationsmotoren",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "Bedrohungsjagd",
+      "description": "Erfahren Sie, wie AuraSpear Bedrohungsjagd mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Threat Hunting Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "Threat Intelligence",
+      "description": "Erfahren Sie, wie AuraSpear Threat Intelligence mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Threat Intelligence Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "Unternehmenswert",
+      "description": "Erfahren Sie, wie AuraSpear Entity-Risiken mit regulierten Workflows und verbundenen Beweisen bietet.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Entity Risk Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "Vulnerability Management",
+      "description": "Erfahren Sie, wie AuraSpear Schwachstellenmanagement mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Vulnerability Management Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "Analyse des Nutzer- und Entitätsverhaltens",
+      "description": "Erfahren Sie, wie AuraSpear Analysen zum Verhalten von Benutzern und Entitäten mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Analyse-Workflows für Benutzer- und Entity-Verhalten",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "Cloud-Sicherheit",
+      "description": "Erfahren Sie, wie AuraSpear Cloud-Sicherheit mit geregelten Workflows und verbundenen Beweisen bietet.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Cloud Security Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "Einhaltung der Vorschriften",
+      "description": "Erfahren Sie, wie AuraSpear Compliance-Operationen mit regulierten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Compliance Operations Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "Analyse des Angriffspfads",
+      "description": "Entdecken Sie, wie AuraSpear Angriffspfadanalysen mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Angriffspfadanalyse-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOAR-Automatisierung",
+      "description": "Erfahren Sie, wie AuraSpear die Automatisierung von Hochgeschwindigkeitsbetrieben mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Soar Automation Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "AI Co-Analyst",
+      "description": "Erfahren Sie, wie AuraSpear Co-Analyst mit regulierten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai Co-Analysten-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "KI-Agenten",
+      "description": "Erfahren Sie, wie AuraSpear ai Agenten mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai agent Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI Untersuchung Chat",
+      "description": "Erfahren Sie, wie AuraSpear einen Untersuchungschat mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai Investigation Chat Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "KI-Suche",
+      "description": "Erfahren Sie, wie AuraSpear die ai-Suche mit geregelten Workflows und verbundenen Beweisen ermöglicht.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai-Such-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "AI-Ergebnisse",
+      "description": "Erfahren Sie, wie AuraSpear ai-Ergebnisse mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai findings Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AI Memory und RAG",
+      "description": "Entdecken Sie, wie AuraSpear ai Speicher und Lappen mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierter AI-Speicher und Rag-Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "KI-Bewertung",
+      "description": "Erfahren Sie, wie AuraSpear eine ai-Bewertung mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai Evaluation Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "KI-Simulationen",
+      "description": "Entdecken Sie, wie AuraSpear ai-Simulationen mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai Simulationen Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AI Governance",
+      "description": "Erfahren Sie, wie AuraSpear ai governance mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai Governance Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI FinOps",
+      "description": "Erfahren Sie, wie AuraSpear ai finops mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte ai finops Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "Sicherheitsdatensucher",
+      "description": "Erfahren Sie, wie AuraSpear Sicherheitsdaten-Explorer mit geregelten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Security Data Explorer Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "Normalisierungspipelines",
+      "description": "Erfahren Sie, wie AuraSpear Normalisierungspipelines mit regulierten Workflows und verbundenen Beweisen liefert.",
+      "category": "Merkmale",
+      "capabilities": [
+        "Zentralisierte Normalisierungspipelines Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "Integration von Sicherheitsintegrationen",
+      "description": "Verbinden Sie Sicherheitsintegrationen mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Sicherheitsintegration Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Wazuh Integration",
+      "description": "Verbinden Sie Wazuh mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Wzuh Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Logstash Integration",
+      "description": "Verbinden Sie Logstash mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Logstash Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Graylog-Integration",
+      "description": "Verbinden Sie Graylog mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Graylog Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Grafana Integration",
+      "description": "Verbinden Sie Grafana mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Graphana Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISP-Integration",
+      "description": "Verbinden Sie MISP mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Misp Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Shuffle Integration",
+      "description": "Verbinden Sie Shuffle mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Shuffle Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Velociraptor-Integration",
+      "description": "Verbinden Sie Velociraptor mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte Velociraptor Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "InfluxDB Integration",
+      "description": "Verbinden Sie InfluxDB mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte ImmigrationB Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLM-Anbieter Integration",
+      "description": "Verbinden Sie LLM-Anbieter mit AuraSpear für einen einheitlichen Sicherheitskontext und -betrieb.",
+      "category": "Integrationen",
+      "capabilities": [
+        "Zentralisierte llm-Anbieter Integration Workflows",
+        "Tenant-Aware Zugangskontrollen und Auditierbarkeit",
+        "Automatisierung, Evidenz und Analystenkontext in einem Arbeitsbereich",
+        "Offene Integrationspfade für bestehende Security Operations Stacks"
+      ]
+    }
+  }
+}

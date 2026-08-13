@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "プラットフォーム",
+    "navFeatures": "特徴:",
+    "navIntegrations": "ソリューション",
+    "navAbout": "お問い合わせ",
+    "requestDemo": "デモをリクエスト",
+    "requestYourDemo": "デモをリクエスト",
+    "goToApp": "アプリに行く",
+    "goToAppAria": "AuraSpear アプリケーションに移動",
+    "languageMenu": "言語を選択",
+    "fromSignalToDecision": "信号から決定まで",
+    "contextTitle": "コンテキストを失うことができないセキュリティ作業のために構築",
+    "contextBody": "AuraSpearは、テレメトリー、発見、アナリストの推論、承認、応答履歴を接続します。 チームは、調査を遅くするハンドオフを削減しながら、防御可能な運用記録を獲得します。",
+    "capabilityBody": "反復可能な操作、明確な所有権および保証ライフサイクル全体で接続されている証拠のために設計されている。",
+    "connectTitle": "スタックを接続",
+    "connectBody": "既存の検出、観察性、インテリジェンス、自動化、AIプロバイダを1つの管理されたワークスペースに持ち込む。",
+    "tenantTitle": "テナントの境界線を保存",
+    "tenantBody": "ロールアウェアアクセスとテナントスコープの操作は、機密性の高いセキュリティコンテキストを分離します。",
+    "accountableTitle": "人間を責任をもって管理",
+    "accountableBody": "承認ゲート、アトリビューション、自信、監査証跡は、自動化を説明可能とします。",
+    "seeTitle": "あなたの環境でAuraSpearを参照してください",
+    "seeBody": "テレメトリー、チーム、テナント、応答ワークフローについて教えてください。 私たちは、あなたの運用現実の周りの集中的なウォークスルーを形作ります。",
+    "footerTagline": "接続された証拠および管理されたAIと統一された多テナントのセキュリティ操作。",
+    "footerRights": "AuraSpear SOC   AuraSpear アルサルミアトケン1 接続されているセキュリティ操作。",
+    "emailAria": "電子メール AuraSpear",
+    "githubAria": "GitHub の AuraSpear に関する記事",
+    "contactEyebrow": "お問い合わせ・デモ依頼",
+    "contactTitle": "セキュリティ業務の課題を解決",
+    "contactBody": "チーム構造、テナントモデル、テレメトリーソース、応答目標を共有します。 AuraSpearウォークスルーをメインにアレンジいたします。",
+    "contactPrivacy": "ご要望にお応えするためのみ、これらの内容を使用しています。",
+    "linkedinLabel": "LinkedInでIhab Khaledを見つける",
+    "emailPlaceholder": "AURASPEARトークン0",
+    "subjectPlaceholder": "コンテンツ",
+    "messagePlaceholder": "あなたのメッセージ"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "AIを活用したセキュリティ運用",
+      "description": "1つのマルチテナントSOCプラットフォームで検出、調査、知性、応答を統一します。",
+      "category": "プロフィール",
+      "capabilities": [
+        "集中化された ai-powered セキュリティ操作ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "AuraSpearについて",
+      "description": "AuraSpear SOCの背後にあるミッションとエンジニアリングの原則を満たします。",
+      "category": "会社案内",
+      "capabilities": [
+        "Auraspearワークフローの集中化",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "デモをリクエスト",
+      "description": "AuraSpear チームで展開、統合、セキュリティ操作について話します。",
+      "category": "会社案内",
+      "capabilities": [
+        "リクエストのデモワークフローを一元化",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "統合SOCプラットフォーム",
+      "description": "信号、証拠、決定、応答のための単一の操作層。",
+      "category": "プラットフォーム",
+      "capabilities": [
+        "統合型統合型プラットフォームワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "セキュリティオペレーションアーキテクチャ",
+      "description": "AuraSpearのモジュラーデータ、自動化、AI、およびガバナンスのレイヤーを理解する。",
+      "category": "プラットフォーム",
+      "capabilities": [
+        "集中セキュリティオペレーションアーキテクチャワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "マルチテナントSOCオペレーション",
+      "description": "独立した管理面から複数のセキュリティプログラムを操作します。",
+      "category": "プラットフォーム",
+      "capabilities": [
+        "集中型マルチテナント soc オペレーションワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "プラットフォームセキュリティ",
+      "description": "アイデンティティ、パーミッション、データ、およびAIによる行動に対する防御的徹底的なコントロール",
+      "category": "プラットフォーム",
+      "capabilities": [
+        "プラットフォームのセキュリティワークフローを一元化",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "テナントの分離",
+      "description": "テナントのアイデンティティ、テレメトリー、ケース、構成、アクセス境界を分離します。",
+      "category": "プラットフォーム",
+      "capabilities": [
+        "集中的なテナント分離ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "SOC ダッシュボード",
+      "description": "AuraSpear は、管理されたワークフローと接続されたエビデンスで soc ダッシュボードをどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 soc ダッシュボードワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "アラート管理",
+      "description": "AuraSpear が、ワークフローと接続された証拠を管理し、アラート管理を配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型アラート管理ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "インシデントマネジメント",
+      "description": "AuraSpearが、ワークフローと接続されたエビデンスを管理し、インシデント管理を実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型インシデント管理ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "ケース管理",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスでケース管理を実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "ケース管理ワークフローの集中化",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "ケース ライフサイクル オーケストラ",
+      "description": "AuraSpear が、ケースのライフサイクルのオーケストレーションを、管理されたワークフローと接続されたエビデンスで実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型ケースのライフサイクルオーケストレーションワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "セキュリティレポート",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスでセキュリティレポートを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中セキュリティレポートワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "運用通知",
+      "description": "AuraSpear は、管理されたワークフローと接続された証拠を使用して、運用通知を配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中運用通知ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "背景ジョブ",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスでバックグラウンドジョブを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "背景ジョブの集中ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "システムヘルス",
+      "description": "AuraSpearが、ワークフローと接続されたエビデンスでシステムヘルスを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型システムヘルスワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "検出工学",
+      "description": "AuraSpearが、ワークフローと接続されたエビデンスで検出エンジニアリングを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中的な検出工学ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "相関エンジン",
+      "description": "AuraSpear が相関エンジンを統治したワークフローと接続されたエビデンスでどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型相関エンジンワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "脅威狩猟",
+      "description": "AuraSpear がどのようにして、管理されたワークフローと接続されたエビデンスで脅威の狩猟を配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中的な脅威の狩猟ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "脅威インテリジェンス",
+      "description": "AuraSpear が、ワークフローと接続された証拠を管理し、脅威インテリジェンスを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型の脅威インテリジェンスワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "継続リスク",
+      "description": "AuraSpearが、ワークフローと接続されたエビデンスを管理し、組織のリスクを発揮する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型企業リスクワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "脆弱性管理",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスの脆弱性管理をどのように実現するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中的な脆弱性管理ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "ユーザーの行動分析",
+      "description": "AuraSpear がどのようにして、管理されたワークフローと接続されたエビデンスを使用してユーザーとエンティティティティの行動分析を配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中化されたユーザーとエンティティティティティ 行動 分析ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "クラウドセキュリティ",
+      "description": "AuraSpear がクラウドセキュリティを管理されたワークフローと接続されたエビデンスで実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型のクラウドセキュリティワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "コンプライアンス業務",
+      "description": "AuraSpear は、準拠業務を準拠したワークフローと接続されたエビデンスでどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "コンプライアンス業務の集中ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "攻撃経路解析",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスで攻撃パス解析を配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中攻撃パス解析ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "SOARの自動化",
+      "description": "AuraSpearが、ワークフローと接続されたエビデンスで、より一層の自動化を実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 soar 自動化ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "AI共同アナリスト",
+      "description": "AuraSpear は、管理されたワークフローと接続されたエビデンスで ai の共同アナリストを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai 共同分析ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "AIエージェント",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスで ai エージェントを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型AIエージェントワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "AI調査のチャット",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスで ai の調査チャットをどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型AI調査チャットワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "AI検索",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスで ai の検索を実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai 検索ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "AIの知見",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスで ai の検索結果をどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai ワークフローの検索",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "AIメモリとRAG",
+      "description": "AuraSpear が、Ai メモリを配信し、管理されたワークフローと接続された証拠をドラッグする方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai メモリとワークフローをドラッグ",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "AI評価",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスで ai の評価を実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型AI評価ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "AIシミュレーション",
+      "description": "AuraSpear が管理されたワークフローと接続されたエビデンスで ai シミュレーションをどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai シミュレーションワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "AIガバナンス",
+      "description": "AuraSpear が、ワークフローと接続されたエビデンスで ai ガバナンスを実現する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中化された ai ガバナンスワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI の FinOps",
+      "description": "AuraSpear は、管理されたワークフローと接続されたエビデンスで ai フィンロップを配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中型 ai finops ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "セキュリティデータエクスプローラ",
+      "description": "AuraSpear がセキュリティデータエクスプローラーを管理ワークフローと接続されたエビデンスで配信する方法をご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中セキュリティデータエクスプローラワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "正規化パイプライン",
+      "description": "AuraSpear が正規化パイプラインを管理されたワークフローと接続されたエビデンスでどのように配信するかをご覧ください。",
+      "category": "特徴:",
+      "capabilities": [
+        "集中正規化パイプラインワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "セキュリティ統合統合",
+      "description": "セキュリティインテグレーションを AuraSpear に接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中セキュリティ統合統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Wazuhの統合",
+      "description": "Wazuh を AuraSpear に接続し、セキュリティのコンテキストと操作を統一します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中wazuh統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Logstashの統合",
+      "description": "Logstash を AuraSpear に接続し、セキュリティのコンテキストと操作を統一します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型のlogstash統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Gralogの統合",
+      "description": "Gralog を AuraSpear に接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中グレーログ統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Grafanaの統合",
+      "description": "Grafana を AuraSpear に接続し、セキュリティのコンテキストと操作を統一します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型グラファナ統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "MISPの統合",
+      "description": "MISP を AuraSpear に接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型ミス統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Shuffleの統合",
+      "description": "ShuffleをAuraSpearに接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型のシャッフル統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Velociraptorの統合",
+      "description": "Velociraptor を AuraSpear に接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中化されたvelociraptorの統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "InfluxDBの統合",
+      "description": "InfluxDB を AuraSpear に接続して、統一されたセキュリティコンテキストと操作を行います。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型influxdb統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "LLMプロバイダの統合",
+      "description": "LLM プロバイダを AuraSpear に接続し、統一されたセキュリティコンテキストと操作を実現します。",
+      "category": "ソリューション",
+      "capabilities": [
+        "集中型 llm プロバイダーの統合ワークフロー",
+        "テナントアウェアアクセス制御と監査性",
+        "1つのワークスペースで自動化、証拠、およびアナリストのコンテキスト",
+        "既存のセキュリティ操作スタック用の統合パスを開く"
+      ]
+    }
+  }
+}

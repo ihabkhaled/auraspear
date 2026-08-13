@@ -22,7 +22,7 @@ export default async function PlatformPage({ params }: { params: Promise<{ slug:
   const page = MARKETING_PAGES.find(item => item.path === `/platform/${slug}`)
   if (!page) notFound()
   return (
-    <PublicShell locale="en">
+    <PublicShell locale="en" currentPath={page.path}>
       <PublicPage page={page} locale="en" />
     </PublicShell>
   )

@@ -29,7 +29,7 @@ export default async function FeaturePage({ params }: { params: Promise<{ slug: 
   const page = MARKETING_PAGES.find(item => item.path === `/features/${slug}`)
   if (!page) notFound()
   return (
-    <PublicShell locale="en">
+    <PublicShell locale="en" currentPath={page.path}>
       <PublicPage page={page} locale="en" />
     </PublicShell>
   )

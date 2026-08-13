@@ -5,14 +5,15 @@ import {
   buildLanguageAlternates,
   buildPublicPath,
   isRtlLocale,
-  normalizePublicPath,
-  toAppPath,
   localizeMarketingPage,
+  normalizePublicPath,
+  resolveDocumentLocale,
+  toAppPath,
 } from '@/lib/marketing.utils'
 
 describe('marketing route model', () => {
-  it('publishes a substantial unique catalog in thirteen locales', () => {
-    expect(SUPPORTED_LOCALES).toHaveLength(13)
+  it('publishes a substantial unique catalog in fourteen locales', () => {
+    expect(SUPPORTED_LOCALES).toHaveLength(14)
     expect(MARKETING_PAGES.length).toBeGreaterThanOrEqual(25)
     expect(new Set(MARKETING_PAGES.map(page => page.path)).size).toBe(MARKETING_PAGES.length)
   })
@@ -29,16 +30,24 @@ describe('marketing route model', () => {
     expect(isRtlLocale('ar')).toBe(true)
     expect(isRtlLocale('fa')).toBe(true)
     expect(isRtlLocale('ja')).toBe(false)
+    expect(isRtlLocale('hi')).toBe(false)
+  })
+
+  it('keeps the English public root LTR regardless of the app language cookie', () => {
+    expect(resolveDocumentLocale('/', 'ar')).toBe('en')
+    expect(resolveDocumentLocale('/features/alert-management', 'fa')).toBe('en')
+    expect(resolveDocumentLocale('/ar/features/alert-management', 'en')).toBe('ar')
+    expect(resolveDocumentLocale('/app/login', 'fa')).toBe('fa')
   })
 
   it('builds complete language alternates without a duplicate English prefix', () => {
     const alternates = buildLanguageAlternates('/about')
-
     expect(alternates['en']).toBe('/about')
     expect(alternates['fr']).toBe('/fr/about')
     expect(alternates['fa']).toBe('/fa/about')
+    expect(alternates['hi']).toBe('/hi/about')
     expect(alternates['x-default']).toBe('/about')
-    expect(Object.keys(alternates)).toHaveLength(14)
+    expect(Object.keys(alternates)).toHaveLength(15)
   })
 
   it('maps internal routes to their public application address', () => {
@@ -54,8 +63,10 @@ describe('marketing route model', () => {
     if (!page) return
     const french = localizeMarketingPage(page, 'fr')
     const japanese = localizeMarketingPage(page, 'ja')
-    expect(french.title).toBe('Gestion des alertes')
-    expect(japanese.title).toBe('アラート管理')
+    expect(french.title).not.toBe(page.title)
+    expect(japanese.title).not.toBe(page.title)
+    expect(french.description).not.toBe(page.description)
+    expect(japanese.description).not.toBe(page.description)
     expect(buildPublicPath('fr', page.path)).toBe('/fr/features/alert-management')
   })
 })

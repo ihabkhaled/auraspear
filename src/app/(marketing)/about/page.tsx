@@ -12,7 +12,7 @@ export default function AboutPage() {
   const page = MARKETING_PAGES.find(item => item.path === '/about')
   if (!page) return null
   return (
-    <PublicShell locale="en">
+    <PublicShell locale="en" currentPath={page.path}>
       <PublicPage page={page} locale="en" />
     </PublicShell>
   )

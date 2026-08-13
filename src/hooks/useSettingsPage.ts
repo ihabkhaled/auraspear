@@ -1,5 +1,4 @@
 import { useSyncExternalStore } from 'react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { useTheme } from 'next-themes'
 import { Toast } from '@/components/common'
@@ -20,7 +19,6 @@ export function useSettingsPage() {
   const permissions = useAuthStore(s => s.permissions)
 
   const canEditSettings = hasPermission(permissions, Permission.SETTINGS_UPDATE)
-  const router = useRouter()
   const { theme, setTheme } = useTheme()
   const { data: preferences } = usePreferences()
   const updatePreferences = useUpdatePreferences()
@@ -44,8 +42,12 @@ export function useSettingsPage() {
 
   function handleLanguageChange(locale: string) {
     setCookie('locale', locale)
-    updatePreferences.mutate({ language: locale })
-    router.refresh()
+    updatePreferences.mutate(
+      { language: locale },
+      {
+        onSettled: () => window.location.reload(),
+      }
+    )
   }
 
   function handleNotificationToggle(key: string, checked: boolean) {

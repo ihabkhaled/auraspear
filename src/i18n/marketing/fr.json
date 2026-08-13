@@ -1,0 +1,639 @@
+{
+  "shared": {
+    "navPlatform": "Plateforme",
+    "navFeatures": "Caractéristiques",
+    "navIntegrations": "Intégrations",
+    "navAbout": "À propos",
+    "requestDemo": "Demander une démo",
+    "requestYourDemo": "Demandez votre démo",
+    "goToApp": "Aller à l'application",
+    "goToAppAria": "Aller à l'application AuraSpear",
+    "languageMenu": "Choisir la langue",
+    "fromSignalToDecision": "Du signal à la décision",
+    "contextTitle": "Construit pour des travaux de sécurité qui ne peuvent pas perdre le contexte",
+    "contextBody": "AuraSpear relie télémétrie, constatations, raisonnement d'analyste, approbations et historique de réponse. Les équipes obtiennent un dossier opérationnel défendable tout en réduisant les remises qui ralentissent les enquêtes.",
+    "capabilityBody": "Conçu pour des opérations répétables, une propriété claire et des preuves qui restent connectées tout au long du cycle de vie de la sécurité.",
+    "connectTitle": "Connectez votre pile",
+    "connectBody": "Faire en sorte que les fournisseurs de détection, d'observation, d'intelligence, d'automatisation et d'IA existants dans un seul espace de travail régi.",
+    "tenantTitle": "Préserver les limites des locataires",
+    "tenantBody": "L'accès aux données sur les rôles et les opérations des locataires permettent de séparer les contextes de sécurité sensibles.",
+    "accountableTitle": "Tenir les humains responsables",
+    "accountableBody": "Les barrières d'approbation, l'attribution, la confiance et les pistes de vérification permettent d'expliquer l'automatisation.",
+    "seeTitle": "Voir AuraspeARTOKEN0 dans votre environnement",
+    "seeBody": "Parlez-nous de votre télémétrie, vos équipes, vos locataires et vos workflows de réponse. Nous allons façonner une promenade ciblée autour de votre réalité opérationnelle.",
+    "footerTagline": "Opérations de sécurité unifiées et multi-tenues avec des éléments de preuve connexes et une AI régie.",
+    "footerRights": "© 2026 AuraSpear SOC. Opérations de sécurité, reliées.",
+    "emailAria": "Courriel AuraSpear",
+    "githubAria": "AuraSpear sur GitHub",
+    "contactEyebrow": "Contacter / Demander une démo",
+    "contactTitle": "Rendre vos opérations de sécurité difficile",
+    "contactBody": "Partagez votre structure d'équipe, modèle de locataire, sources de télémétrie et objectifs de réponse. Nous organiserons une visite ciblée d'AuraSpear.",
+    "contactPrivacy": "Nous utilisons ces détails uniquement pour répondre à votre demande.",
+    "linkedinLabel": "Trouvez Ihab Khaled sur LinkedIn",
+    "emailPlaceholder": "you@company.com",
+    "subjectPlaceholder": "Sujet",
+    "messagePlaceholder": "Votre message"
+  },
+  "pages": {
+    "/": {
+      "path": "/",
+      "title": "Opérations de sécurité alimentées par l'IA",
+      "description": "Unifier la détection, l'enquête, l'intelligence et la réponse dans une plate-forme multi-tenus SOC.",
+      "category": "Aperçu général",
+      "capabilities": [
+        "Opérations centralisées de sécurité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/about": {
+      "path": "/about",
+      "title": "À propos d'AuraSpear",
+      "description": "Rencontrer les principes de mission et d'ingénierie derrière AuraSpear SOC.",
+      "category": "Société",
+      "capabilities": [
+        "Centralisée sur les flux de travail auraspear",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/contact": {
+      "path": "/contact",
+      "title": "Demander une démo",
+      "description": "Parlez avec l'équipe d'AuraSpear au sujet du déploiement, des intégrations et des opérations de sécurité.",
+      "category": "Société",
+      "capabilities": [
+        "Demande centralisée un workflow de démonstration",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/platform/overview": {
+      "path": "/platform/overview",
+      "title": "Plateforme unifiée SOC",
+      "description": "Une seule couche opérationnelle pour les signaux, les preuves, les décisions et la réponse.",
+      "category": "Plateforme",
+      "capabilities": [
+        "Flux de travail de la plate-forme de soc unifiée centralisée",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/platform/architecture": {
+      "path": "/platform/architecture",
+      "title": "Architecture des opérations de sécurité",
+      "description": "Comprendre les données modulaires, l'automatisation, l'IA et les couches de gouvernance.",
+      "category": "Plateforme",
+      "capabilities": [
+        "Travaux centralisés d'architecture des opérations de sécurité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/platform/multi-tenant-soc": {
+      "path": "/platform/multi-tenant-soc",
+      "title": "Opérations multi-locataires d'SOC",
+      "description": "Utiliser plusieurs programmes de sécurité à partir d'un plan de contrôle isolé et régi.",
+      "category": "Plateforme",
+      "capabilities": [
+        "Processus centralisés d'opérations multilocataires",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/platform/security": {
+      "path": "/platform/security",
+      "title": "Sécurité des plates-formes",
+      "description": "Contrôles approfondis de la défense de l'identité, des autorisations, des données et des actions assistées par l'IA.",
+      "category": "Plateforme",
+      "capabilities": [
+        "Déroulements centralisés de la sécurité des plates-formes",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/platform/tenant-isolation": {
+      "path": "/platform/tenant-isolation",
+      "title": "Isolement des locataires",
+      "description": "Conservez l'identité des locataires, la télémétrie, les cas, les configurations et les limites d'accès séparées.",
+      "category": "Plateforme",
+      "capabilities": [
+        "Travaux centralisés d'isolement des locataires",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/dashboards": {
+      "path": "/features/dashboards",
+      "title": "Tableau de bord SOC",
+      "description": "Découvrez comment AuraSpear livre des tableaux de bord soc avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Les flux de travail centralisés des tableaux de bord soc",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/alert-management": {
+      "path": "/features/alert-management",
+      "title": "Gestion des alertes",
+      "description": "Découvrez comment AuraSpear fournit la gestion des alertes avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux centralisés de gestion des alertes",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/incident-management": {
+      "path": "/features/incident-management",
+      "title": "Gestion des incidents",
+      "description": "Découvrez comment AuraSpear fournit la gestion des incidents avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Gestion centralisée des incidents",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/case-management": {
+      "path": "/features/case-management",
+      "title": "Gestion des cas",
+      "description": "Découvrez comment AuraSpear fournit la gestion de cas avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Gestion centralisée des dossiers",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/case-cycles": {
+      "path": "/features/case-cycles",
+      "title": "Cas cycle de vie orchestration",
+      "description": "Découvrez comment AuraSpear offre une orchestration du cycle de vie avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Workflows centralisés d'orchestration du cycle de vie des cas",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/reporting": {
+      "path": "/features/reporting",
+      "title": "Rapports de sécurité",
+      "description": "Découvrez comment AuraSpear fournit des rapports de sécurité avec des workflows régis et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail centralisés des rapports de sécurité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/notifications": {
+      "path": "/features/notifications",
+      "title": "Notifications opérationnelles",
+      "description": "Découvrez comment AuraSpear fournit des notifications opérationnelles avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail des notifications opérationnelles centralisées",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/jobs": {
+      "path": "/features/jobs",
+      "title": "Emplois de base",
+      "description": "Découvrez comment AuraSpear fournit des tâches de fond avec des workflows régis et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux de fond centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/system-health": {
+      "path": "/features/system-health",
+      "title": "Santé du système",
+      "description": "Découvrez comment AuraSpear fournit la santé du système avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail centralisés des systèmes de santé",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/detection-rules": {
+      "path": "/features/detection-rules",
+      "title": "Ingénierie de détection",
+      "description": "Découvrez comment AuraSpear fournit l'ingénierie de détection avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Workflows d'ingénierie de détection centralisée",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/correlation-engine": {
+      "path": "/features/correlation-engine",
+      "title": "Moteur de corrélation",
+      "description": "Découvrez comment AuraSpear fournit un moteur de corrélation avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail centralisés des moteurs de corrélation",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/threat-hunting": {
+      "path": "/features/threat-hunting",
+      "title": "Chasse aux menaces",
+      "description": "Découvrez comment AuraSpear offre la chasse aux menaces avec des flux de travail gouvernés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail centralisés de la chasse aux menaces",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/threat-intelligence": {
+      "path": "/features/threat-intelligence",
+      "title": "Renseignements relatifs aux menaces",
+      "description": "Découvrez comment AuraSpear fournit des renseignements sur les menaces avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux centralisés de renseignement sur les menaces",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/entities-risk": {
+      "path": "/features/entities-risk",
+      "title": "Risque d'entité",
+      "description": "Découvrez comment AuraSpear fournit le risque d'entité avec des workflows régis et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Processus centralisés de gestion des risques des entités",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/vulnerabilities": {
+      "path": "/features/vulnerabilities",
+      "title": "Gestion de la vulnérabilité",
+      "description": "Découvrez comment AuraSpear fournit la gestion de la vulnérabilité avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Gestion centralisée de la vulnérabilité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ueba": {
+      "path": "/features/ueba",
+      "title": "Analyse du comportement des utilisateurs et des entités",
+      "description": "Découvrez comment AuraSpear fournit l'analyse du comportement de l'utilisateur et de l'entité avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Flux de travail d'analyse centralisés du comportement des utilisateurs et des entités",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/cloud-security": {
+      "path": "/features/cloud-security",
+      "title": "Sécurité Cloud",
+      "description": "Découvrez comment AuraSpear fournit la sécurité du cloud avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Workflows de sécurité en nuage centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/compliance": {
+      "path": "/features/compliance",
+      "title": "Opérations de conformité",
+      "description": "Découvrez comment AuraSpear fournit des opérations de conformité avec des workflows réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Opérations centralisées de conformité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/attack-paths": {
+      "path": "/features/attack-paths",
+      "title": "Analyse du chemin d'attaque",
+      "description": "Découvrez comment AuraSpear fournit l'analyse du chemin d'attaque avec des workflows gouvernés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "flux de travail centralisés d'analyse des trajectoires d'attaque",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/soar": {
+      "path": "/features/soar",
+      "title": "Automatisation SOAR",
+      "description": "Découvrez comment AuraSpear offre une automatisation en montée avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Déroulement centralisé de l'automatisation",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-co-analyst": {
+      "path": "/features/ai-co-analyst",
+      "title": "Co-analyseur AI",
+      "description": "Découvrez comment AuraSpear fournit ai co-analyse avec les flux de travail réglementés et les preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Les flux de travail des co-analyses centralisées",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-agents": {
+      "path": "/features/ai-agents",
+      "title": "Agents de l'IA",
+      "description": "Découvrez comment AuraSpear fournit des agents d'Ai avec des workflows régis et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Les flux de travail des agents d'aide centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-chat": {
+      "path": "/features/ai-chat",
+      "title": "Chat d'enquête AI",
+      "description": "Découvrez comment AuraSpear livre une discussion d'investigation avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Les flux de discussion d'investigation centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-search": {
+      "path": "/features/ai-search",
+      "title": "Recherche AI",
+      "description": "Découvrez comment AuraSpear fournit la recherche Ai avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux de recherche centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-findings": {
+      "path": "/features/ai-findings",
+      "title": "Conclusions d'IA",
+      "description": "Découvrez comment AuraSpear fournit les résultats d'ai avec des workflows régis et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux de recherche centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-memory-rag": {
+      "path": "/features/ai-memory-rag",
+      "title": "Mémoire AI et RAG",
+      "description": "Découvrez comment AuraSpear fournit la mémoire et le chiffon Ai avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Fonctions centralisées de la mémoire ai et du chiffon",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-evaluation": {
+      "path": "/features/ai-evaluation",
+      "title": "Évaluation de l'IA",
+      "description": "Découvrez comment AuraSpear fournit l'évaluation Ai avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux d'évaluation centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-simulations": {
+      "path": "/features/ai-simulations",
+      "title": "Simulations d'IA",
+      "description": "Découvrez comment AuraSpear fournit des simulations d'ai avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Simulations centralisées des flux de travail",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-governance": {
+      "path": "/features/ai-governance",
+      "title": "Gouvernance de l'IA",
+      "description": "Découvrez comment AuraSpear fournit la gouvernance d'ai avec des flux de travail gouvernés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Déroulements centralisés de la gouvernance",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/ai-finops": {
+      "path": "/features/ai-finops",
+      "title": "AI FinOps",
+      "description": "Découvrez comment AuraSpear livre des outils avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Les flux de travail centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/data-explorer": {
+      "path": "/features/data-explorer",
+      "title": "Explorateur de données de sécurité",
+      "description": "Découvrez comment AuraSpear fournit l'explorateur de données de sécurité avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Travaux centralisés d'explorateur de données de sécurité",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/features/normalization": {
+      "path": "/features/normalization",
+      "title": "Canalisations de normalisation",
+      "description": "Découvrez comment AuraSpear fournit des pipelines de normalisation avec des flux de travail réglementés et des preuves connectées.",
+      "category": "Caractéristiques",
+      "capabilities": [
+        "Processus de normalisation centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/overview": {
+      "path": "/integrations/overview",
+      "title": "Intégration des intégrations de sécurité",
+      "description": "Connectez les intégrations de sécurité à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail d'intégration des intégrations de sécurité centralisées",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/wazuh": {
+      "path": "/integrations/wazuh",
+      "title": "Intégration d'Wazuh",
+      "description": "Connectez Wazuh à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Processeurs d'intégration centralisés wazuh",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/logstash": {
+      "path": "/integrations/logstash",
+      "title": "Intégration d'Logstash",
+      "description": "Connectez Logstash à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Processus centralisés d'intégration de logstash",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/graylog": {
+      "path": "/integrations/graylog",
+      "title": "Intégration Graylog",
+      "description": "Connectez Graylog à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Workflows d'intégration de greylog centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/grafana": {
+      "path": "/integrations/grafana",
+      "title": "Intégration d'Grafana",
+      "description": "Connectez Grafana à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail centralisés d'intégration de grafana",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/misp": {
+      "path": "/integrations/misp",
+      "title": "Intégration MISP",
+      "description": "Connectez le MISP à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail centralisés d'intégration des erreurs",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/shuffle": {
+      "path": "/integrations/shuffle",
+      "title": "Intégration des chocs",
+      "description": "Connectez Shuffle à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail centralisés d'intégration des shuffles",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/velociraptor": {
+      "path": "/integrations/velociraptor",
+      "title": "Intégration du vélociraptor",
+      "description": "Connectez Velociraptor à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail centralisés d'intégration de velocilraptor",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/influxdb": {
+      "path": "/integrations/influxdb",
+      "title": "Intégration de l'InfluxDB",
+      "description": "Connectez InfluxDB à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Flux de travail centralisés d'intégration d'affluxdb",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    },
+    "/integrations/llm-providers": {
+      "path": "/integrations/llm-providers",
+      "title": "Intégration des fournisseurs de LLM",
+      "description": "Connectez les fournisseurs LLM à AuraSpear pour un contexte et des opérations de sécurité unifiés.",
+      "category": "Intégrations",
+      "capabilities": [
+        "Les flux de travail d'intégration des prestataires de services centralisés",
+        "Contrôles d'accès et auditabilité des locataires",
+        "Automatisation, preuve et contexte d'analyste dans un espace de travail",
+        "Ouvrir les chemins d'intégration pour les piles d'opérations de sécurité existantes"
+      ]
+    }
+  }
+}

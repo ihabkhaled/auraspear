@@ -1,7 +1,7 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import Script from 'next/script'
 import { Toaster } from 'sonner'
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@/lib/constants/locales'
+import { isRtlLocale, resolveDocumentLocale } from '@/lib/marketing.utils'
 import { Providers } from './providers'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
@@ -80,11 +80,11 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const cookieStore = await cookies()
+  const headerStore = await headers()
   const cookieLocale = cookieStore.get('locale')?.value ?? ''
-  const locale = (SUPPORTED_LOCALES as readonly string[]).includes(cookieLocale)
-    ? cookieLocale
-    : DEFAULT_LOCALE
-  const dir = locale === 'ar' ? 'rtl' : 'ltr'
+  const pathname = headerStore.get('x-auraspear-pathname') ?? '/'
+  const locale = resolveDocumentLocale(pathname, cookieLocale)
+  const dir = isRtlLocale(locale) ? 'rtl' : 'ltr'
   const messages = (await import(`@/i18n/${locale}.json`)).default as Record<string, unknown>
 
   return (
