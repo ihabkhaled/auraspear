@@ -68,7 +68,7 @@ export function Topbar() {
       {/* Right cluster */}
       <div className="ms-auto flex items-center gap-1">
         <Button asChild variant="ghost" size="icon-sm">
-          <Link href="/" aria-label="AuraSpear public home">
+          <Link href="/" aria-label={t('home')}>
             <Home className="h-4 w-4" />
           </Link>
         </Button>

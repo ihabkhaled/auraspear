@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { AppWindow, Github, Mail } from 'lucide-react'
+import { AppWindow, Github, Home, Mail } from 'lucide-react'
 import { ThemeSwitcher } from '@/components/layout'
 import { LOCALES } from '@/lib/constants/locales'
 import { MARKETING_GROUPS, MARKETING_PAGES } from '@/lib/constants/marketing'
@@ -31,6 +31,13 @@ export function PublicShell({
             className="mr-auto text-lg font-extrabold tracking-tight"
           >
             AuraSpear<span className="text-primary"> / SOC</span>
+          </Link>
+          <Link
+            href={buildPublicPath(locale, '/')}
+            aria-label={copy.homeAria}
+            className="hover:bg-accent inline-flex size-9 items-center justify-center rounded-md"
+          >
+            <Home className="size-4" />
           </Link>
           <nav className="hidden gap-5 text-sm font-semibold lg:flex">
             <Link href={buildPublicPath(locale, '/platform/overview')}>{copy.navPlatform}</Link>

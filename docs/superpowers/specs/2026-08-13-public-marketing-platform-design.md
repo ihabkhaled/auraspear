@@ -56,7 +56,7 @@ No implementation can guarantee a literal “10/10” SEO score or rankings; the
 
 ## Contact and trust
 
-The contact page provides the form plus direct email, telephone, GitHub, and LinkedIn surfaces. The configured email is `ihab.khaled94@gmail.com`, inferred by correcting the supplied `mgail.com` typo. Telephone is `+20 100 156 8256`. GitHub resolves to the repository owner and project repository. If no verified LinkedIn URL exists in repository data, the link uses LinkedIn's public profile search for Ihab Khaled rather than inventing a profile URL.
+The contact page provides the form plus direct email, telephone, GitHub, and LinkedIn surfaces. The configured email is `ihab.khaled94@gmail.com`, inferred by correcting the supplied `mgail.com` typo. Telephone is `+20 100 156 8256`. GitHub resolves to the repository owner and project repository. LinkedIn links directly to the verified profile at `https://www.linkedin.com/in/ihabkhaled94/`.
 
 ## Internal/public isolation
 

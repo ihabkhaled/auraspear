@@ -9,6 +9,7 @@
     "goToApp": "アプリに行く",
     "goToAppAria": "AuraSpear アプリケーションに移動",
     "languageMenu": "言語を選択",
+    "homeAria": "AuraSpearのホームページへ移動",
     "fromSignalToDecision": "信号から決定まで",
     "contextTitle": "コンテキストを失うことができないセキュリティ作業のために構築",
     "contextBody": "AuraSpearは、テレメトリー、発見、アナリストの推論、承認、応答履歴を接続します。 チームは、調査を遅くするハンドオフを削減しながら、防御可能な運用記録を獲得します。",

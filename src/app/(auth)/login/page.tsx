@@ -1,6 +1,7 @@
 'use client'
 
-import { Shield, Eye, EyeOff, Sun, Moon, Languages } from 'lucide-react'
+import Link from 'next/link'
+import { Shield, Eye, EyeOff, Home, Sun, Moon, Languages } from 'lucide-react'
 import {
   Button,
   Card,
@@ -42,6 +43,12 @@ export default function LoginPage() {
   return (
     <div className="bg-background flex min-h-screen flex-col items-center justify-center p-4">
       <div className="absolute end-3 top-3 flex items-center gap-1 sm:end-4 sm:top-4 sm:gap-2">
+        <Button asChild variant="ghost" size="icon">
+          <Link href="/" aria-label={tCommon('home')}>
+            <Home className="text-muted-foreground h-4 w-4" />
+          </Link>
+        </Button>
+
         <Select value={currentLocale} onValueChange={handleLocaleChange}>
           <SelectTrigger size="sm" className="w-[110px] gap-1 sm:w-[130px]">
             <Languages className="text-muted-foreground h-3.5 w-3.5" />

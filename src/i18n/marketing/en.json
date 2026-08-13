@@ -9,6 +9,7 @@
     "goToApp": "Go to app",
     "goToAppAria": "Go to the AuraSpear application",
     "languageMenu": "Choose language",
+    "homeAria": "Go to the AuraSpear home page",
     "fromSignalToDecision": "From signal to decision",
     "contextTitle": "Built for security work that cannot lose context",
     "contextBody": "AuraSpear connects telemetry, findings, analyst reasoning, approvals, and response history. Teams gain a defensible operational record while reducing the handoffs that slow investigations.",

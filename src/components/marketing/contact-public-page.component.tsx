@@ -36,7 +36,7 @@ export function ContactPublicPage({ locale }: { locale: SupportedLocale }) {
           </a>
           <a
             className="flex items-center gap-3 font-semibold"
-            href="https://www.linkedin.com/search/results/people/?keywords=Ihab%20Khaled"
+            href="https://www.linkedin.com/in/ihabkhaled94/"
           >
             <Linkedin className="text-primary size-5" />
             {copy.linkedinLabel}
