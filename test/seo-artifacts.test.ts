@@ -13,8 +13,8 @@ const EXPECTED_PUBLIC_URLS = SUPPORTED_LOCALES.flatMap(locale =>
 
 function countTags(xml: string, tagName: string): { opening: number; closing: number } {
   return {
-    opening: xml.match(new RegExp(`<${tagName}(?:\\s[^>]*)?>`, 'gu'))?.length ?? 0,
-    closing: xml.match(new RegExp(`</${tagName}>`, 'gu'))?.length ?? 0,
+    opening: xml.split(`<${tagName}>`).length - 1,
+    closing: xml.split(`</${tagName}>`).length - 1,
   }
 }
 
@@ -67,7 +67,7 @@ describe('public discovery artifacts', () => {
     expect(guids).toEqual(EXPECTED_PUBLIC_URLS)
 
     for (const locale of SUPPORTED_LOCALES) {
-      expect(xml.match(new RegExp(`<dc:language>${locale}</dc:language>`, 'gu'))?.length).toBe(
+      expect(xml.split(`<dc:language>${locale}</dc:language>`).length - 1).toBe(
         MARKETING_PAGES.length
       )
     }
